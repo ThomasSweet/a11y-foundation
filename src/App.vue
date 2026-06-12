@@ -94,7 +94,7 @@
             :supports="item.supports"
             :links="item.links"
           >
-            <component :is="item.component" />
+            <component :is="item.component" v-bind="item.props" />
           </ShowcaseFrame>
         </div>
       </template>

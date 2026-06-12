@@ -23,7 +23,7 @@
         <article class="card">
           <div class="card-swatch" aria-hidden="true"></div>
           <div class="card-body">
-            <h4 class="card-title">{{ card.title }}</h4>
+            <h5 class="card-title">{{ card.title }}</h5>
             <p class="card-text">{{ card.text }}</p>
           </div>
         </article>
