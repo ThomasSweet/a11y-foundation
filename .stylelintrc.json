@@ -10,6 +10,8 @@
       "declarations",
       { "type": "at-rule", "name": "include", "parameter": "from" },
       { "type": "at-rule", "name": "include", "parameter": "between" },
+      { "type": "at-rule", "name": "include", "parameter": "cq-from" },
+      { "type": "at-rule", "name": "include", "parameter": "cq-between" },
       { "type": "at-rule", "name": "include", "parameter": "can-hover" },
       { "type": "at-rule", "name": "include", "parameter": "touch-primary" },
       { "type": "at-rule", "name": "include", "parameter": "reduced-motion" },

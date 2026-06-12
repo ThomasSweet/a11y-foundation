@@ -1,0 +1,96 @@
+// =============================================================================
+// _containers.scss
+//
+// Container query mixins — the component-level counterpart to _breakpoints.
+//
+// Prefer these over from()/between() whenever a component should respond to
+// the space it actually gets, not the viewport. Combined with intrinsic
+// sizing patterns (auto-fit/minmax grids, flex-wrap), most layouts need no
+// viewport media queries at all; reserve from()/between() for true
+// page-level composition (shells, navigation).
+//
+// Sizes are em-based, like the breakpoints: in a container query, em
+// resolves against the container's font size, so component layouts adapt
+// when users raise their base font size — same a11y rationale as the
+// viewport breakpoints, applied per-component.
+//
+// The element being queried must establish a container first:
+//   .sidebar { container-type: inline-size; }          // anonymous
+//   .sidebar { container: sidebar / inline-size; }     // named
+//
+// Usage:
+//   @include cq-from('sm') { ... }                 // nearest container
+//   @include cq-from('md', 'sidebar') { ... }      // named container
+//   @include cq-between('xs', 'md') { ... }
+// =============================================================================
+
+@use 'sass:map';
+
+// Container size token map.
+// Deliberately separate from $breakpoints — containers are component-scale,
+// so the steps start smaller and stop earlier than viewport breakpoints.
+$container-sizes: (
+  'xs': 16em,   // 256px — icon-and-label territory
+  'sm': 24em,   // 384px — single column card
+  'md': 36em,   // 576px — room for side-by-side content
+  'lg': 48em,   // 768px — multi-column component layouts
+) !default;
+
+
+// cq-from($key, $name: null)
+// Applies styles when the (optionally named) container is at least $key wide.
+//
+// @param {String} $key  - A key from $container-sizes
+// @param {String} $name - Optional container-name to query
+
+@mixin cq-from($key, $name: null) {
+  $value: map.get($container-sizes, $key);
+
+  @if not $value {
+    @error "Unknown container size '#{$key}'. Available: #{map.keys($container-sizes)}";
+  }
+
+  @if $name {
+    /* stylelint-disable-next-line container-name-pattern -- Sass interpolation */
+    @container #{$name} (width >= #{$value}) {
+      @content;
+    }
+  } @else {
+    @container (width >= #{$value}) {
+      @content;
+    }
+  }
+}
+
+
+// cq-between($lower, $upper, $name: null)
+// Applies styles between two container sizes (inclusive lower, exclusive
+// upper) — same range semantics as between().
+//
+// @param {String} $lower - Lower bound key from $container-sizes
+// @param {String} $upper - Upper bound key from $container-sizes
+// @param {String} $name  - Optional container-name to query
+
+@mixin cq-between($lower, $upper, $name: null) {
+  $min: map.get($container-sizes, $lower);
+  $max: map.get($container-sizes, $upper);
+
+  @if not $min {
+    @error "Unknown container size '#{$lower}'. Available: #{map.keys($container-sizes)}";
+  }
+
+  @if not $max {
+    @error "Unknown container size '#{$upper}'. Available: #{map.keys($container-sizes)}";
+  }
+
+  @if $name {
+    /* stylelint-disable-next-line container-name-pattern -- Sass interpolation */
+    @container #{$name} (#{$min} <= width < #{$max}) {
+      @content;
+    }
+  } @else {
+    @container (#{$min} <= width < #{$max}) {
+      @content;
+    }
+  }
+}

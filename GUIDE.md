@@ -20,12 +20,17 @@ src/
 │   ├── index.css           — entry point importing all of the above
 │   └── scss/
 │       ├── _breakpoints.scss   — from(), between()
+│       ├── _containers.scss    — cq-from(), cq-between()
 │       ├── _interaction.scss   — can-hover(), touch-primary()
 │       ├── _preferences.scss   — reduced-motion(), reduced-transparency(),
 │       │                         high-contrast(), forced-colors(),
 │       │                         dark-mode(), light-mode()
 │       └── _mixins.scss        — barrel file
-└── components/             — Vue demo components using all of the above
+├── components/             — Vue demo components using all of the above
+└── showcases/              — cutting-edge CSS demos (see "CSS showcases")
+    ├── registry.js         — metadata for every showcase, drives App.vue
+    ├── ShowcaseFrame.vue   — wrapper: status badge, support detection, links
+    └── demos/              — one small component per CSS feature
 ```
 
 ---
@@ -114,6 +119,12 @@ This is the most important authoring rule in this guide.
   // 3. Between — only when a style applies to a specific range
   @include between('sm', 'lg') {
     border: 1px solid var(--color-border);
+  }
+
+  // 3b. Container queries — same position as breakpoints, same ordering;
+  //     a component should use cq-* OR from()/between(), rarely both
+  @include cq-from('sm') {
+    grid-template-columns: auto 1fr;
   }
 
   // 4. Interaction — hover and touch enhancements
@@ -206,6 +217,74 @@ approach.
 
 To change values, edit `$breakpoints` in `_breakpoints.scss` and mirror the
 change in the `--bp-*` tokens in `tokens.css`.
+
+---
+
+## Container query mixins
+
+**Default to container queries for components; reserve media queries for
+page-level composition** (app shell, navigation, the things that genuinely
+depend on the viewport). A well-written component layout usually needs no
+media query at all:
+
+1. **Intrinsic first** — let flex/grid do the work:
+   `repeat(auto-fit, minmax(min(100%, 18rem), 1fr))`, `flex-wrap`,
+   `min()/max()/clamp()`. No query of any kind.
+2. **Container queries second** — when the component must *restructure*
+   (stack → side-by-side), query its own container with `cq-from()`.
+3. **Media queries last** — only for viewport-level concerns.
+
+### Establishing a container
+
+The element you query must declare itself a container — and note that a
+container query can only affect the container's **descendants**, never the
+container itself (an element can't query its own size):
+
+```scss
+.card-cell {
+  container-type: inline-size;        // anonymous
+}
+
+.sidebar {
+  container: sidebar / inline-size;   // named — query from deep children
+}
+```
+
+### `cq-from($key, $name: null)` / `cq-between($lower, $upper, $name: null)`
+
+Same semantics as `from()`/`between()`, but against the nearest (or named)
+container:
+
+```scss
+.card {
+  display: grid;
+  gap: var(--space-3);
+
+  @include cq-from('sm') {
+    grid-template-columns: auto 1fr;
+  }
+
+  @include cq-from('md', 'sidebar') {
+    gap: var(--space-6);
+  }
+}
+```
+
+### Available container sizes
+
+Deliberately a separate scale from the viewport breakpoints — containers
+are component-scale, so the steps start smaller and stop earlier.
+
+| Key  | Value | px @ 16px default |
+|------|-------|-------------------|
+| `xs` | 16em  | 256px             |
+| `sm` | 24em  | 384px             |
+| `md` | 36em  | 576px             |
+| `lg` | 48em  | 768px             |
+
+Sizes are em-based for the same reason as the breakpoints: in a container
+query, `em` resolves against the container's font size, so layouts adapt
+when users raise their base font size.
 
 ---
 
@@ -419,6 +498,45 @@ skip links. Place the skip link as the first focusable element in `<body>`:
 …
 <main id="main" tabindex="-1">…</main>
 ```
+
+---
+
+## CSS showcases
+
+`src/showcases/` demonstrates new CSS alongside the toolkit. Two rules keep
+it from drifting into a random demo dump:
+
+1. **Every showcase earns its place** by being relevant to accessible,
+   resilient UI — not just visually novel.
+2. **Every showcase is a progressive enhancement.** New syntax goes behind
+   `@supports`, and the fallback must stay usable.
+
+### Browser support policy
+
+Current versions of Chrome, Firefox, and Safari — roughly the last two
+years. No fallbacks for anything older. Two status tiers, based on the
+[Interop dashboard](https://wpt.fyi/interop-2026) and
+[Baseline](https://web-platform-dx.github.io/web-features-explorer/):
+
+| Status     | Meaning                                            | Allowed where?       |
+|------------|----------------------------------------------------|----------------------|
+| `stable`   | Interoperable in all three engines                 | Foundation + demos   |
+| `emerging` | Active Interop focus area / partial support        | Demos only, behind `@supports` |
+
+When an `emerging` feature ships everywhere, promote its registry entry to
+`stable` — and only then consider using it in the foundation itself.
+
+### Adding a showcase
+
+1. Create a small component in `src/showcases/demos/` — one feature per
+   demo, real-UI context preferred (a card, a form, a popover — not an
+   abstract box).
+2. Register it in `src/showcases/registry.js` with a `supports` condition
+   (`CSS.supports()` syntax). `ShowcaseFrame` uses it to tell visitors
+   whether they're seeing the feature or the fallback.
+
+`registry.js` ends with a commented backlog of candidate features and
+their `supports` strings.
 
 ---
 

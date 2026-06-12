@@ -72,6 +72,34 @@
       </div>
     </section>
 
+    <section class="demo" aria-labelledby="demo-css">
+      <h2 id="demo-css">CSS showcases</h2>
+      <p>
+        Modern CSS worth knowing, grouped by where it stands across the
+        current versions of Chrome, Firefox, and Safari — based on
+        <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
+        Everything is written as a progressive enhancement, so unsupported
+        demos degrade instead of breaking.
+      </p>
+
+      <template v-for="group in groups" :key="group.status">
+        <h3 v-if="group.items.length">{{ group.label }}</h3>
+        <div class="showcase-list">
+          <ShowcaseFrame
+            v-for="item in group.items"
+            :key="item.id"
+            :title="item.title"
+            :summary="item.summary"
+            :status="item.status"
+            :supports="item.supports"
+            :links="item.links"
+          >
+            <component :is="item.component" />
+          </ShowcaseFrame>
+        </div>
+      </template>
+    </section>
+
     <section class="demo" aria-labelledby="demo-motion">
       <h2 id="demo-motion">Motion</h2>
       <p>
@@ -84,16 +112,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import AppButton from './components/AppButton.vue'
 import AppDialog from './components/AppDialog.vue'
 import TextField from './components/TextField.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
+import ShowcaseFrame from './showcases/ShowcaseFrame.vue'
+import { showcases } from './showcases/registry.js'
 
 const dialog = ref(null)
 const name = ref('')
 const email = ref('not-an-email')
+
+const groups = computed(() => [
+  {
+    status: 'stable',
+    label: 'Widely supported',
+    items: showcases.filter((s) => s.status === 'stable'),
+  },
+  {
+    status: 'emerging',
+    label: 'Emerging — Interop focus areas',
+    items: showcases.filter((s) => s.status === 'emerging'),
+  },
+])
 </script>
 
 <style scoped lang="scss">
@@ -139,6 +182,11 @@ const email = ref('not-an-email')
   }
 
   .demo-stack {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .showcase-list {
     display: grid;
     gap: var(--space-6);
   }

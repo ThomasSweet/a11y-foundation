@@ -4,12 +4,13 @@
 // Barrel file — import this single file in your stylesheets.
 //
 // Import order here mirrors the intended cascade order:
-//   breakpoints → interaction → preferences
+//   breakpoints → containers → interaction → preferences
 //
 // Usage in your stylesheet:
 //   @use 'path/to/mixins' as *;
 // =============================================================================
 
 @forward 'breakpoints';
+@forward 'containers';
 @forward 'interaction';
 @forward 'preferences';
