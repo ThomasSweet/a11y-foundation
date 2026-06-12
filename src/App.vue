@@ -17,7 +17,7 @@ const email = ref('not-an-email')
   </a>
 
   <header class="site-header">
-    <h1 class="site-title">Mixin library</h1>
+    <h1 class="site-title">a11y-foundation</h1>
     <ThemeToggle />
   </header>
 

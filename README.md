@@ -1,4 +1,4 @@
-# Mixin Library
+# a11y-foundation
 
 An accessibility-first styling foundation — SCSS mixins, design tokens, and
 a cascade-layer architecture — demonstrated in a small Vue 3 playground.

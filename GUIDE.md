@@ -1,4 +1,4 @@
-# Mixin Library — Coding Guide
+# a11y-foundation — Coding Guide
 
 A reference for using and extending this styling foundation consistently.
 Following these conventions keeps the cascade predictable, avoids specificity
