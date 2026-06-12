@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue/scss"
+  ],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "order/order": [
+      "custom-properties",
+      "declarations",
+      { "type": "at-rule", "name": "include", "parameter": "from" },
+      { "type": "at-rule", "name": "include", "parameter": "between" },
+      { "type": "at-rule", "name": "include", "parameter": "can-hover" },
+      { "type": "at-rule", "name": "include", "parameter": "touch-primary" },
+      { "type": "at-rule", "name": "include", "parameter": "reduced-motion" },
+      { "type": "at-rule", "name": "include", "parameter": "reduced-transparency" },
+      { "type": "at-rule", "name": "include", "parameter": "high-contrast" },
+      { "type": "at-rule", "name": "include", "parameter": "forced-colors" },
+      { "type": "at-rule", "name": "include", "parameter": "dark-mode" },
+      { "type": "at-rule", "name": "include", "parameter": "light-mode" }
+    ],
+    "no-descending-specificity": null,
+    "scss/comment-no-empty": null,
+    "declaration-empty-line-before": null,
+    "custom-property-empty-line-before": null,
+    "comment-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "at-rule-empty-line-before": null
+  }
+}

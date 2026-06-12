@@ -1,0 +1,71 @@
+/* =============================================================================
+   base.css
+
+   Bare-element defaults: typography, document colors, link styling,
+   and minimum interactive target sizes.
+============================================================================= */
+
+@layer base {
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: var(--leading-tight);
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl); }
+
+  a {
+    color: var(--color-primary);
+    /* Keep the underline — color alone is not a sufficient affordance
+       (WCAG 1.4.1 Use of Color). */
+    text-underline-offset: 0.15em;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Minimum target sizes — applied as BASE styles, not gated behind
+     pointer detection. Small targets hurt mouse users with motor
+     impairments too, not just touch users.
+     WCAG 2.5.8 (AA) requires 24×24px; the touch-primary() mixin can
+     raise this toward the 44px best practice on coarse pointers.
+  --------------------------------------------------------------------------- */
+  button,
+  [role="button"],
+  select,
+  textarea,
+  input:where(:not([type="checkbox"], [type="radio"])) {
+    min-block-size: 24px;
+  }
+
+  /* ---------------------------------------------------------------------------
+     Fragment navigation — keep targets clear of sticky headers, and only
+     scroll smoothly for users who haven't asked for reduced motion.
+  --------------------------------------------------------------------------- */
+  :target {
+    scroll-margin-block-start: var(--space-16);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}

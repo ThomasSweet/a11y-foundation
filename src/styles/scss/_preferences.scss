@@ -1,0 +1,155 @@
+// =============================================================================
+// _preferences.scss
+//
+// Mixins for user preference and accessibility media queries.
+//
+// These always sit at the end of a selector block and must never be
+// overridden by breakpoint or interaction mixins. User preferences win.
+//
+// Usage:
+//   @include reduced-motion { ... }
+//   @include reduced-transparency { ... }
+//   @include high-contrast { ... }
+//   @include forced-colors { ... }
+//   @include dark-mode { ... }
+//   @include light-mode { ... }
+//
+// Mixin order within a selector block:
+//   1. Base styles (no mixin)
+//   2. from() / between()
+//   3. can-hover() / touch-primary()
+//   4. reduced-motion()    ← preferences begin here
+//   5. reduced-transparency()
+//   6. high-contrast()
+//   7. forced-colors()
+//   8. dark-mode() / light-mode()
+// =============================================================================
+
+
+// reduced-motion()
+// Applies styles when the user has requested reduced motion in their OS settings.
+//
+// Use for: disabling or simplifying animations and transitions.
+// WCAG 2.1 SC 2.3.3 (AAA) — strongly recommended to support at AA level too.
+//
+// Example:
+//   .spinner {
+//     animation: spin 1s linear infinite;
+//
+//     @include reduced-motion {
+//       animation: none;
+//     }
+//   }
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+
+// reduced-transparency()
+// Applies styles when the user has requested reduced transparency in their
+// OS settings (e.g. "Reduce transparency" on macOS/iOS).
+//
+// Use for: replacing translucent/blurred surfaces (glassmorphism, frosted
+// headers) with opaque backgrounds. Translucency can make text hard to
+// read for low-vision users depending on what scrolls underneath.
+// Progressive enhancement — unsupported browsers simply keep the base style.
+//
+// Example:
+//   .header {
+//     background-color: rgb(255 255 255 / 0.7);
+//     backdrop-filter: blur(8px);
+//
+//     @include reduced-transparency {
+//       background-color: var(--color-surface);
+//       backdrop-filter: none;
+//     }
+//   }
+
+@mixin reduced-transparency {
+  @media (prefers-reduced-transparency: reduce) {
+    @content;
+  }
+}
+
+
+// high-contrast()
+// Applies styles when the user has requested more contrast in their OS settings.
+//
+// Use for: increasing border visibility, removing low-contrast decorative elements,
+// ensuring text meets elevated contrast ratios.
+//
+// Example:
+//   .card {
+//     border: 1px solid transparent;
+//
+//     @include high-contrast {
+//       border-color: currentColor;
+//     }
+//   }
+
+@mixin high-contrast {
+  @media (prefers-contrast: more) {
+    @content;
+  }
+}
+
+
+// forced-colors()
+// Applies styles in Windows High Contrast Mode (now called Forced Colors Mode).
+// The browser replaces most colors with system palette values.
+//
+// Use for: restoring meaning lost when colors are replaced — e.g. adding borders
+// to elements that rely solely on background color for differentiation.
+// Overlooked but important for WCAG compliance on Windows.
+//
+// Example:
+//   .badge {
+//     background-color: var(--color-success);
+//
+//     @include forced-colors {
+//       outline: 2px solid ButtonText; // restore visible boundary
+//     }
+//   }
+
+@mixin forced-colors {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
+
+
+// dark-mode()
+// Applies styles when the user prefers a dark color scheme.
+//
+// Note: if your theming is handled entirely via CSS custom properties
+// and a [data-theme] attribute, you may not need this mixin at the
+// component level. Use it for cases the token system doesn't cover.
+//
+// Example:
+//   .logo {
+//     filter: none;
+//
+//     @include dark-mode {
+//       filter: invert(1);
+//     }
+//   }
+
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+
+// light-mode()
+// Applies styles when the user prefers a light color scheme.
+// Less commonly needed but included for symmetry.
+
+@mixin light-mode {
+  @media (prefers-color-scheme: light) {
+    @content;
+  }
+}

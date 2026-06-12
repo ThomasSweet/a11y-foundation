@@ -1,0 +1,67 @@
+/* =============================================================================
+   reset.css
+
+   Minimal modern reset — lives in the lowest-priority `reset` layer,
+   so anything anywhere else overrides it without specificity games.
+============================================================================= */
+
+@layer reset {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  html {
+    /* Prevent iOS Safari inflating text in landscape.
+       Safari only supports the prefixed form. */
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100svh;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    letter-spacing: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    overflow-wrap: break-word;
+  }
+
+  /* Strip list styling only where list semantics are explicitly preserved.
+     Safari removes list semantics from screen readers when list-style is
+     none — adding role="list" restores them, so we key off the attribute. */
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+  }
+}

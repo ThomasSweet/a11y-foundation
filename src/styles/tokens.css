@@ -1,0 +1,146 @@
+/* =============================================================================
+   tokens.css
+
+   Design tokens as CSS custom properties.
+   Scoped to :root for global availability.
+
+   Theming uses `color-scheme` + `light-dark()`:
+   - `color-scheme: light dark` follows the OS preference by default AND
+     switches native UI (form controls, scrollbars, canvas) with the theme.
+   - Every color token is declared ONCE with light-dark(light, dark).
+   - Manual theme switching just flips color-scheme via [data-theme] —
+     no token duplication needed.
+============================================================================= */
+
+@layer tokens {
+
+  :root {
+
+    /* -------------------------------------------------------------------------
+       Breakpoints
+       Mirror of the $breakpoints map in _breakpoints.scss.
+       Useful for JS that needs to read breakpoint values.
+       Em-based so layouts respond to the user's default font size,
+       not just viewport width. 1em = 16px at default settings.
+    ------------------------------------------------------------------------- */
+    --bp-sm:  30em;   /* 480px */
+    --bp-md:  48em;   /* 768px */
+    --bp-lg:  64em;   /* 1024px */
+    --bp-xl:  80em;   /* 1280px */
+    --bp-xxl: 96em;   /* 1536px */
+
+
+    /* -------------------------------------------------------------------------
+       Spacing scale
+    ------------------------------------------------------------------------- */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+
+    /* -------------------------------------------------------------------------
+       Typography
+    ------------------------------------------------------------------------- */
+    --font-sans: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.25rem;
+    --text-2xl:  1.5rem;
+    --text-3xl:  1.875rem;
+    --text-4xl:  2.25rem;
+
+    --leading-tight:  1.25;
+    --leading-normal: 1.5;
+    --leading-loose:  1.75;
+
+
+    /* -------------------------------------------------------------------------
+       Color tokens — light-dark(light value, dark value)
+    ------------------------------------------------------------------------- */
+    --color-bg:           light-dark(#fff, #0f0f0f);
+    --color-bg-subtle:    light-dark(#f5f5f5, #1a1a1a);
+    --color-surface:      light-dark(#fff, #1e1e1e);
+    --color-border:       light-dark(#e0e0e0, #2e2e2e);
+
+    --color-text:         light-dark(#111, #f0f0f0);
+    --color-text-subtle:  light-dark(#555, #a0a0a0);
+    --color-text-inverse: light-dark(#fff, #111);
+
+    --color-primary:      light-dark(#2563eb, #3b82f6);
+    --color-primary-hover:light-dark(#1d4ed8, #60a5fa);
+    --color-primary-text: #fff;
+
+    --color-success:      light-dark(#16a34a, #4ade80);
+    --color-warning:      light-dark(#d97706, #fbbf24);
+    --color-error:        light-dark(#dc2626, #f87171);
+    --color-info:         light-dark(#0284c7, #38bdf8);
+
+
+    /* -------------------------------------------------------------------------
+       Focus ring
+       Used globally — keep consistent and never remove outlines entirely.
+    ------------------------------------------------------------------------- */
+    --focus-ring-width:  3px;
+    --focus-ring-offset: 2px;
+    --focus-ring-color:  light-dark(#2563eb, #60a5fa);
+
+
+    /* -------------------------------------------------------------------------
+       Motion tokens
+       Reference these in transitions/animations so reduced-motion overrides
+       in preferences.css work from a single source of truth.
+    ------------------------------------------------------------------------- */
+    --duration-fast:    150ms;
+    --duration-normal:  250ms;
+    --duration-slow:    400ms;
+    --easing-standard:  cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-enter:     cubic-bezier(0, 0, 0.2, 1);
+    --easing-exit:      cubic-bezier(0.4, 0, 1, 1);
+
+
+    /* -------------------------------------------------------------------------
+       Border radius
+    ------------------------------------------------------------------------- */
+    --radius-sm:   0.25rem;
+    --radius-md:   0.5rem;
+    --radius-lg:   0.75rem;
+    --radius-xl:   1rem;
+    --radius-full: 9999px;
+
+
+    /* -------------------------------------------------------------------------
+       Shadow
+    ------------------------------------------------------------------------- */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+
+    /* -------------------------------------------------------------------------
+       Color scheme — the switch the light-dark() tokens above resolve
+       against. Follows the OS preference unless [data-theme] overrides it.
+    ------------------------------------------------------------------------- */
+    color-scheme: light dark;
+  }
+
+
+  /* ---------------------------------------------------------------------------
+     Manual theme override — set data-theme="light" | "dark" on <html>.
+     Flipping color-scheme is all that's needed: every light-dark() token
+     resolves against it automatically.
+  --------------------------------------------------------------------------- */
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+}

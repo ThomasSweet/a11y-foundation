@@ -1,0 +1,26 @@
+{
+  "name": "mixin-library",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Accessible SCSS mixins, design tokens, and cascade-layer architecture, demonstrated in a Vue 3 playground.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint:css": "stylelint \"src/**/*.{css,scss,vue}\""
+  },
+  "dependencies": {
+    "vue": "^3.5.38"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "postcss-html": "^1.8.1",
+    "sass": "^1.101.0",
+    "stylelint": "^17.13.0",
+    "stylelint-config-recommended-vue": "^1.6.1",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-order": "^8.1.1",
+    "vite": "^8.0.16"
+  }
+}

@@ -1,0 +1,95 @@
+// =============================================================================
+// _breakpoints.scss
+//
+// Mobile-first breakpoint mixins.
+//
+// Breakpoints are em-based: em media queries respond to the user's default
+// font size setting (not just zoom), so layouts adapt for users who raise
+// their browser's base font size — px media queries don't.
+// 1em = 16px at default settings.
+//
+// Usage:
+//   @include from('md') { ... }
+//   @include between('sm', 'lg') { ... }
+//
+// Mixin order within a selector block:
+//   1. Base styles (no mixin)
+//   2. from() / between()   — layout and size changes, smallest to largest
+// =============================================================================
+
+@use 'sass:map';
+
+// Breakpoint token map.
+// Add or adjust values here — do not hardcode values at call sites.
+// Mirror any change in the --bp-* tokens in tokens.css.
+$breakpoints: (
+  'sm':  30em,   // 480px
+  'md':  48em,   // 768px
+  'lg':  64em,   // 1024px
+  'xl':  80em,   // 1280px
+  'xxl': 96em,   // 1536px
+) !default;
+
+
+// from($key)
+// Applies styles from the given breakpoint upward.
+//
+// @param {String} $key - A key from $breakpoints
+//
+// Example:
+//   .card {
+//     padding: var(--space-4);
+//
+//     @include from('md') {
+//       padding: var(--space-8);
+//     }
+//   }
+
+@mixin from($key) {
+  $value: map.get($breakpoints, $key);
+
+  @if not $value {
+    @error "Unknown breakpoint '#{$key}'. Available: #{map.keys($breakpoints)}";
+  }
+
+  @media (width >= #{$value}) {
+    @content;
+  }
+}
+
+
+// between($lower, $upper)
+// Applies styles between two breakpoints (inclusive lower, exclusive upper).
+//
+// Uses media query range syntax — `width < $max` is genuinely exclusive,
+// avoiding the dead zone at fractional viewport widths that the old
+// `max-width: $max - 1px` approach left at certain zoom levels.
+//
+// @param {String} $lower - Lower bound key from $breakpoints
+// @param {String} $upper - Upper bound key from $breakpoints
+//
+// Example:
+//   .sidebar {
+//     display: none;
+//
+//     @include between('md', 'lg') {
+//       display: block;
+//     }
+//   }
+
+@mixin between($lower, $upper) {
+  $min: map.get($breakpoints, $lower);
+  $max: map.get($breakpoints, $upper);
+
+  @if not $min {
+    @error "Unknown breakpoint '#{$lower}'. Available: #{map.keys($breakpoints)}";
+  }
+
+  @if not $max {
+    @error "Unknown breakpoint '#{$upper}'. Available: #{map.keys($breakpoints)}";
+  }
+
+  @media (#{$min} <= width < #{$max}) {
+    @content;
+  }
+}

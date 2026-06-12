@@ -1,0 +1,25 @@
+/* =============================================================================
+   layers.css
+
+   Declares the @layer stack for the entire project.
+   Import this file FIRST — before any other CSS.
+
+   Layer order = cascade priority (last declared = highest priority).
+
+   ⚠ THE ONE RULE THAT MAKES THIS WORK:
+   Unlayered CSS beats ALL layered CSS. The guarantee that "preferences
+   always win" only holds if every stylesheet in the project is assigned
+   to a layer — including component styles. In Vue SFCs, wrap styles in
+   `@layer components { ... }` (see GUIDE.md).
+
+   The layers:
+     reset       — element default normalization        (reset.css)
+     tokens      — design token custom properties       (tokens.css)
+     base        — bare-element styles, typography      (base.css)
+     layout      — page-level composition, containers
+     components  — all component-scoped styles (Vue SFC styles go here)
+     utilities   — single-purpose helpers, beat components (utilities.css)
+     preferences — user preference overrides, always win   (preferences.css)
+============================================================================= */
+
+@layer reset, tokens, base, layout, components, utilities, preferences;
