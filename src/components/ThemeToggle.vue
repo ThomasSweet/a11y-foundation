@@ -1,3 +1,13 @@
+<template>
+  <fieldset class="theme-toggle">
+    <legend class="theme-legend">Theme</legend>
+    <label v-for="option in options" :key="option" class="theme-option">
+      <input v-model="theme" type="radio" name="theme" :value="option" />
+      {{ option }}
+    </label>
+  </fieldset>
+</template>
+
 <script setup>
 import { ref, watchEffect } from 'vue'
 
@@ -14,16 +24,6 @@ watchEffect(() => {
   }
 })
 </script>
-
-<template>
-  <fieldset class="theme-toggle">
-    <legend class="theme-legend">Theme</legend>
-    <label v-for="option in options" :key="option" class="theme-option">
-      <input v-model="theme" type="radio" name="theme" :value="option" />
-      {{ option }}
-    </label>
-  </fieldset>
-</template>
 
 <style scoped lang="scss">
 @layer components {

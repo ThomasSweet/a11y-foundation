@@ -1,3 +1,9 @@
+<template>
+  <button type="button" class="button" :class="`button--${variant}`">
+    <slot />
+  </button>
+</template>
+
 <script setup>
 defineProps({
   variant: {
@@ -7,12 +13,6 @@ defineProps({
   },
 })
 </script>
-
-<template>
-  <button type="button" class="button" :class="`button--${variant}`">
-    <slot />
-  </button>
-</template>
 
 <style scoped lang="scss">
 /* All SFC styles live in the components layer so the utilities and

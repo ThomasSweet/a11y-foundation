@@ -1,16 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-
-import AppButton from './components/AppButton.vue'
-import AppDialog from './components/AppDialog.vue'
-import TextField from './components/TextField.vue'
-import ThemeToggle from './components/ThemeToggle.vue'
-
-const dialog = ref(null)
-const name = ref('')
-const email = ref('not-an-email')
-</script>
-
 <template>
   <a class="skip-link visually-hidden-focusable" href="#main">
     Skip to main content
@@ -95,6 +82,19 @@ const email = ref('not-an-email')
     </section>
   </main>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+import AppButton from './components/AppButton.vue'
+import AppDialog from './components/AppDialog.vue'
+import TextField from './components/TextField.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
+
+const dialog = ref(null)
+const name = ref('')
+const email = ref('not-an-email')
+</script>
 
 <style scoped lang="scss">
 /* Page-level composition belongs in the layout layer. */

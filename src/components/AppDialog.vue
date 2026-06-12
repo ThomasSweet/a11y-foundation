@@ -1,17 +1,3 @@
-<script setup>
-import { ref, useId } from 'vue'
-
-const dialog = ref(null)
-const titleId = useId()
-
-// Native <dialog> + showModal() gives focus trapping, Esc-to-close,
-// inert background, and top-layer rendering for free.
-defineExpose({
-  open: () => dialog.value?.showModal(),
-  close: () => dialog.value?.close(),
-})
-</script>
-
 <template>
   <dialog ref="dialog" class="dialog" :aria-labelledby="titleId">
     <header class="dialog-header">
@@ -32,6 +18,20 @@ defineExpose({
     </div>
   </dialog>
 </template>
+
+<script setup>
+import { ref, useId } from 'vue'
+
+const dialog = ref(null)
+const titleId = useId()
+
+// Native <dialog> + showModal() gives focus trapping, Esc-to-close,
+// inert background, and top-layer rendering for free.
+defineExpose({
+  open: () => dialog.value?.showModal(),
+  close: () => dialog.value?.close(),
+})
+</script>
 
 <style scoped lang="scss">
 @layer components {

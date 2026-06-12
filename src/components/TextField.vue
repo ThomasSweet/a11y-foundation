@@ -1,3 +1,19 @@
+<template>
+  <div class="field">
+    <label class="field-label" :for="inputId">{{ label }}</label>
+    <p v-if="hint" :id="hintId" class="field-hint">{{ hint }}</p>
+    <input
+      :id="inputId"
+      v-model="model"
+      class="field-input"
+      :type="type"
+      :aria-describedby="describedBy"
+      :aria-invalid="error ? true : undefined"
+    />
+    <p v-if="error" :id="errorId" class="field-error">{{ error }}</p>
+  </div>
+</template>
+
 <script setup>
 import { computed, useId } from 'vue'
 
@@ -23,22 +39,6 @@ const describedBy = computed(() => {
   return ids.join(' ') || undefined
 })
 </script>
-
-<template>
-  <div class="field">
-    <label class="field-label" :for="inputId">{{ label }}</label>
-    <p v-if="hint" :id="hintId" class="field-hint">{{ hint }}</p>
-    <input
-      :id="inputId"
-      v-model="model"
-      class="field-input"
-      :type="type"
-      :aria-describedby="describedBy"
-      :aria-invalid="error ? true : undefined"
-    />
-    <p v-if="error" :id="errorId" class="field-error">{{ error }}</p>
-  </div>
-</template>
 
 <style scoped lang="scss">
 @layer components {
