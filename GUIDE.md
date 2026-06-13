@@ -14,6 +14,7 @@ src/
 │   ├── layers.css          — @layer stack declaration (imported FIRST)
 │   ├── reset.css           — element normalization            (layer: reset)
 │   ├── tokens.css          — design tokens, light-dark theming (layer: tokens)
+│   ├── theming.css         — seed-driven palette derivation     (layer: themes)
 │   ├── base.css            — bare-element styles, target sizes (layer: base)
 │   ├── utilities.css       — .visually-hidden, .skip-link   (layer: utilities)
 │   ├── preferences.css     — global preference overrides  (layer: preferences)
@@ -26,11 +27,15 @@ src/
 │       │                         high-contrast(), forced-colors(),
 │       │                         dark-mode(), light-mode()
 │       └── _mixins.scss        — barrel file
-├── components/             — Vue demo components using all of the above
-└── showcases/              — cutting-edge CSS demos (see "CSS showcases")
-    ├── registry.js         — metadata for every showcase, drives App.vue
-    ├── ShowcaseFrame.vue   — wrapper: status badge, support detection, links
-    └── demos/              — one small component per CSS feature
+├── components/             — reusable components, one folder each:
+│   └── AppButton/
+│       ├── AppButton.vue       — template + <script setup lang="ts">
+│       └── AppButton.scss      — styles, via <style scoped src>
+├── showcases/              — cutting-edge CSS demos (see "CSS showcases")
+│   ├── registry.ts         — typed metadata for every showcase, drives App.vue
+│   ├── ShowcaseFrame/      — wrapper: status badge, support detection, links
+│   └── demos/              — one small component per CSS feature
+└── criteria/              — "Guidelines, alive" WCAG demos (CriterionFrame)
 ```
 
 ---
@@ -40,7 +45,7 @@ src/
 `layers.css` declares the stack:
 
 ```css
-@layer reset, tokens, base, layout, components, utilities, preferences;
+@layer reset, tokens, themes, base, layout, components, utilities, preferences;
 ```
 
 Later layers beat earlier layers regardless of specificity or source order.
@@ -77,6 +82,40 @@ Wrap the whole style block:
 
 `scoped` handles name collisions (so no BEM ceremony is needed);
 `@layer components` keeps the cascade guarantees intact. Both, always.
+
+---
+
+## Component folders & TypeScript
+
+Each reusable component lives in **its own folder**, with the styles in a
+sibling `.scss` file referenced by `src` — which keeps Vue's `scoped` +
+`@layer` guarantees while moving CSS out of the SFC:
+
+```
+components/AppButton/
+  AppButton.vue     ← template + <script setup lang="ts">
+  AppButton.scss    ← @layer components { … }   (future: AppButton.test.ts)
+```
+
+```vue
+<!-- AppButton.vue -->
+<style scoped lang="scss" src="./AppButton.scss"></style>
+```
+
+The library mixins are still injected by Vite's `additionalData`, so the
+external `.scss` files use `@include can-hover { … }` etc. with **no `@use`**,
+exactly like inline blocks did.
+
+**TypeScript** is adopted where there's real logic:
+
+- `<script setup lang="ts">` in components (transpiled by esbuild — no extra
+  dependency for dev/build). Prefer type-based props:
+  `withDefaults(defineProps<{ variant?: 'primary' | 'secondary' }>(), { … })`.
+- Registries are `.ts` and export a typed shape (`Showcase[]`, `Criterion[]`),
+  so the data and the components that consume it stay in sync.
+- `npm run typecheck` runs `vue-tsc --noEmit`. Run it alongside
+  `npm run lint:css` before committing — a clean build does **not** imply a
+  clean type-check (esbuild strips types without checking them).
 
 ---
 

@@ -9,7 +9,7 @@
 
    From those, the ENTIRE working palette (the same --color-* tokens that
    every component already consumes) is DERIVED once, below. So:
-     - Adding a theme is data, not code — see the .theme--* presets at the
+     - Adding a theme is data, not code — see the .theme-* presets at the
        bottom: two values each.
      - Any subtree with `.surface` re-themes automatically; components
        inside need zero changes because they read the same token names.
@@ -36,15 +36,15 @@
 @layer themes {
 
   .surface {
-    /* Default seeds — overridden by a .theme--* preset class. */
-    --seed-surface: oklch(0.99 0.004 255);
-    --seed-accent:  oklch(0.52 0.16 260);
+    /* Default seeds — overridden by a .theme-* preset class. */
+    --seed-surface: oklch(99% 0.004 255deg);
+    --seed-accent:  oklch(52% 0.16 260deg);
 
     /* Text: black on light surfaces, white on dark ones. The clamp(…,
        (threshold - l) * infinity, …) trick resolves the lightness to 0 or
        1 with no JS and no media query. */
     --color-text:
-      oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0);
+      oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
 
     /* Surfaces and borders: mix the seed toward the text colour, so they
        pick up contrast in the right direction for any theme. */
@@ -58,7 +58,7 @@
     --color-primary:       var(--seed-accent);
     --color-primary-hover: color-mix(in oklab, var(--seed-accent), var(--color-text) 16%);
     --color-primary-text:
-      oklch(from var(--seed-accent) clamp(0, (0.62 - l) * infinity, 1) 0 0);
+      oklch(from var(--seed-accent) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
 
     /* The focus ring tracks the theme accent. */
     --focus-ring-color: var(--seed-accent);
@@ -82,18 +82,18 @@
   /* ---------------------------------------------------------------------------
      Theme presets — two seeds each. This is the whole cost of a new theme.
   --------------------------------------------------------------------------- */
-  .theme--ocean {
-    --seed-surface: oklch(0.97 0.025 220);
-    --seed-accent:  oklch(0.50 0.12 230);
+  .theme-ocean {
+    --seed-surface: oklch(97% 0.025 220deg);
+    --seed-accent:  oklch(50% 0.12 230deg);
   }
 
-  .theme--midnight {
-    --seed-surface: oklch(0.21 0.02 265);
-    --seed-accent:  oklch(0.72 0.15 250);
+  .theme-midnight {
+    --seed-surface: oklch(21% 0.02 265deg);
+    --seed-accent:  oklch(72% 0.15 250deg);
   }
 
-  .theme--sunset {
-    --seed-surface: oklch(0.96 0.035 70);
-    --seed-accent:  oklch(0.52 0.17 25);
+  .theme-sunset {
+    --seed-surface: oklch(96% 0.035 70deg);
+    --seed-accent:  oklch(52% 0.17 25deg);
   }
 }

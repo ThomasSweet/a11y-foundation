@@ -27,8 +27,24 @@ import FocusObscuredDemo from './demos/FocusObscuredDemo.vue'
 import FocusAppearanceDemo from './demos/FocusAppearanceDemo.vue'
 import AnimationDemo from './demos/AnimationDemo.vue'
 import OrientationDemo from './demos/OrientationDemo.vue'
+import type { Component } from 'vue'
 
-export const criteria = [
+export interface Criterion {
+  id: string
+  name: string
+  level: 'A' | 'AA' | 'AAA'
+  version: string
+  principle: 'Perceivable' | 'Operable' | 'Understandable' | 'Robust'
+  requirement: string
+  breakLabel?: string
+  restoreLabel?: string
+  passText: string
+  failText: string
+  links?: { label: string; href: string }[]
+  component: Component
+}
+
+export const criteria: Criterion[] = [
   {
     id: '2.5.8',
     name: 'Target Size (Minimum)',

@@ -179,7 +179,12 @@ Decision needed: write the chosen convention into GUIDE.md so it's not
 "random naming" but a documented, intentional one. Note: less relevant in a
 small project, more valuable as components grow many-elemented.
 
-### 4. `@use` vs `@import`, and per-component folders
+### 4. `@use` vs `@import`, and per-component folders — folders ✅ Done (June 2026)
+
+Per-component folders done: reusable components moved to `Component/Component.vue`
++ `Component.scss` (via `<style scoped src>`), mixin injection intact, verified
+clean. The `@use`/`@import` notes below stand (no change needed). Original
+notes kept for posterity.
 
 **Sass `@use` vs `@import`:** not really a tradeoff anymore — Sass
 `@import` is **deprecated and being removed** from Dart Sass. `@use` is the
@@ -218,7 +223,12 @@ while moving CSS into its own file. Worth a small spike on one component
 first to confirm the layer wrapping and the Vite mixin injection still
 behave through `src`.
 
-### 8. TypeScript
+### 8. TypeScript ✅ Done (June 2026)
+
+Adopted incrementally: `lang="ts"` on components/frames/App.vue, type-based
+props (`withDefaults(defineProps<…>(), …)`), registries converted to typed
+`.ts` (`Showcase[]` / `Criterion[]`), `typecheck` script via `vue-tsc`.
+Demos stay simple. Kept here for posterity; original notes below.
 
 Low risk here, and unlikely to "make our lives harder" — Vue + Vite support
 TS with essentially zero extra setup:
@@ -292,7 +302,7 @@ exciting *and* accessible, proven in one artifact. Likely lives in
 (`--seed-surface` + `--seed-accent`); the entire working palette (the same
 `--color-*` tokens components already consume) is derived once in
 `src/styles/theming.css` (new `themes` @layer). Adding a theme = a
-`.theme--*` preset with two values — data, not code. Any `.surface` subtree
+`.theme-*` preset with two values — data, not code. Any `.surface` subtree
 re-themes automatically; components need zero changes.
 
 How it stays contrast-safe by construction:
@@ -329,6 +339,17 @@ inheritance can't.
 
 ## Done log
 
+- **Per-component folders + extracted SCSS** (#4) — each reusable component
+  in its own folder with styles in a sibling `.scss` via `<style scoped src>`;
+  mixin injection still works. June 2026.
+- **TypeScript adoption** (#8) — `lang="ts"` on components/frames/App,
+  type-based props, registries → typed `.ts` (`Showcase[]`/`Criterion[]`),
+  `typecheck` script (`vue-tsc`). Build + typecheck both clean. June 2026.
+- **Anchor positioning fix** — cleared the UA popover centering
+  (`inset: auto`) that was overriding `position-area`; panel now anchors to
+  the trigger — June 2026.
+- **Dialog light-dismiss** — coordinate-based backdrop-click close on
+  `AppDialog`; Esc + focus-trap stay native — June 2026.
 - **Contrast-safe theming engine** — seed→palette derivation, 4 themes, all
   WCAG AA (#11) — June 2026.
 - **1.3.4 Orientation** criterion (break-it demo) — completes the planned

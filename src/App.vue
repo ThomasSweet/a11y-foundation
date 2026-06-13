@@ -157,19 +157,19 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue'
 
-import AppButton from './components/AppButton.vue'
-import AppDialog from './components/AppDialog.vue'
-import TextField from './components/TextField.vue'
-import ThemeToggle from './components/ThemeToggle.vue'
-import ShowcaseFrame from './showcases/ShowcaseFrame.vue'
-import { showcases } from './showcases/registry.js'
-import CriterionFrame from './criteria/CriterionFrame.vue'
-import { criteria } from './criteria/registry.js'
+import AppButton from './components/AppButton/AppButton.vue'
+import AppDialog from './components/AppDialog/AppDialog.vue'
+import TextField from './components/TextField/TextField.vue'
+import ThemeToggle from './components/ThemeToggle/ThemeToggle.vue'
+import ShowcaseFrame from './showcases/ShowcaseFrame/ShowcaseFrame.vue'
+import { showcases } from './showcases/registry'
+import CriterionFrame from './criteria/CriterionFrame/CriterionFrame.vue'
+import { criteria } from './criteria/registry'
 
-const dialog = ref(null)
+const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
 const email = ref('')
 

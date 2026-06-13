@@ -26,7 +26,7 @@
 <script setup>
 import { useId } from 'vue'
 
-import AppButton from '../../components/AppButton.vue'
+import AppButton from '../../components/AppButton/AppButton.vue'
 
 const popoverId = useId()
 </script>
@@ -53,11 +53,15 @@ const popoverId = useId()
       position: absolute;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;
+      /* Clear the UA popover centering (inset: 0; margin: auto) — left in
+         place it fights position-area and the panel renders centered
+         instead of anchored. */
+      inset: auto;
       /* Try in order until one fits: flip below↔above, flip the inline
          side, then flip both for the corner case. The browser keeps the
          panel on-screen with no JS and no scroll listeners. */
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-      margin-block-start: var(--space-2);
+      margin: var(--space-2) 0 0;
     }
 
     @include high-contrast {

@@ -1,22 +1,6 @@
-<template>
-  <button type="button" class="button" :class="`button--${variant}`">
-    <slot />
-  </button>
-</template>
-
-<script setup>
-defineProps({
-  variant: {
-    type: String,
-    default: 'primary',
-    validator: (value) => ['primary', 'secondary'].includes(value),
-  },
-})
-</script>
-
-<style scoped lang="scss">
 /* All SFC styles live in the components layer so the utilities and
-   preferences layers can override them — see layers.css. */
+   preferences layers can override them — see layers.css.
+   Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .button {
     display: inline-flex;
@@ -70,4 +54,3 @@ defineProps({
     }
   }
 }
-</style>

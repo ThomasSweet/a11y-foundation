@@ -1,0 +1,80 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .showcase {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .showcase-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .showcase-title {
+    font-size: var(--text-xl);
+  }
+
+  .badge {
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+
+    /* Status is also conveyed by the label text, never by color alone. */
+    &--stable {
+      background-color: var(--color-bg-subtle);
+      color: var(--color-text);
+    }
+
+    &--emerging {
+      background-color: transparent;
+      border-color: var(--color-warning);
+      color: var(--color-text);
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+
+    @include forced-colors {
+      border-color: ButtonText;
+    }
+  }
+
+  .showcase-summary {
+    color: var(--color-text-subtle);
+  }
+
+  .showcase-unsupported {
+    padding: var(--space-2) var(--space-3);
+    border-inline-start: 3px solid var(--color-info);
+    background-color: var(--color-bg-subtle);
+    font-size: var(--text-sm);
+  }
+
+  .showcase-demo {
+    padding: var(--space-4);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .showcase-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    font-size: var(--text-sm);
+  }
+}

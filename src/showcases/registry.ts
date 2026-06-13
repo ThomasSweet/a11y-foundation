@@ -38,8 +38,21 @@ import ScrollProgressDemo from './demos/ScrollProgressDemo.vue'
 import TextWrapDemo from './demos/TextWrapDemo.vue'
 import ThemeShowcaseDemo from './demos/ThemeShowcaseDemo.vue'
 import PlaceholderDemo from './demos/PlaceholderDemo.vue'
+import type { Component } from 'vue'
 
-export const showcases = [
+export interface Showcase {
+  id: string
+  title: string
+  status: 'stable' | 'emerging'
+  supports: string
+  summary: string
+  links?: { label: string; href: string }[]
+  component: Component
+  /** Extra props forwarded to the demo component (e.g. PlaceholderDemo). */
+  props?: Record<string, unknown>
+}
+
+export const showcases: Showcase[] = [
   /* ---------------------------------------------------------------------
      Stable — interoperable everywhere, fair game for the foundation
   --------------------------------------------------------------------- */

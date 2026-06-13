@@ -1,39 +1,4 @@
-<template>
-  <dialog ref="dialog" class="dialog" :aria-labelledby="titleId">
-    <header class="dialog-header">
-      <h2 :id="titleId" class="dialog-title">
-        <slot name="title" />
-      </h2>
-      <button
-        type="button"
-        class="dialog-close"
-        @click="dialog?.close()"
-      >
-        <span aria-hidden="true">&times;</span>
-        <span class="visually-hidden">Close dialog</span>
-      </button>
-    </header>
-    <div class="dialog-body">
-      <slot />
-    </div>
-  </dialog>
-</template>
-
-<script setup>
-import { ref, useId } from 'vue'
-
-const dialog = ref(null)
-const titleId = useId()
-
-// Native <dialog> + showModal() gives focus trapping, Esc-to-close,
-// inert background, and top-layer rendering for free.
-defineExpose({
-  open: () => dialog.value?.showModal(),
-  close: () => dialog.value?.close(),
-})
-</script>
-
-<style scoped lang="scss">
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .dialog {
     max-inline-size: min(60ch, calc(100% - var(--space-8)));
@@ -104,4 +69,3 @@ defineExpose({
     }
   }
 }
-</style>

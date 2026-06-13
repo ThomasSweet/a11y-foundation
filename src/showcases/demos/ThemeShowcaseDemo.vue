@@ -27,13 +27,13 @@
 </template>
 
 <script setup>
-import AppButton from '../../components/AppButton.vue'
+import AppButton from '../../components/AppButton/AppButton.vue'
 
 const themes = [
   { name: 'Default', class: '' },
-  { name: 'Ocean', class: 'theme--ocean' },
-  { name: 'Midnight', class: 'theme--midnight' },
-  { name: 'Sunset', class: 'theme--sunset' },
+  { name: 'Ocean', class: 'theme-ocean' },
+  { name: 'Midnight', class: 'theme-midnight' },
+  { name: 'Sunset', class: 'theme-sunset' },
 ]
 </script>
 
