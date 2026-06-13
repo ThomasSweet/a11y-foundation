@@ -15,6 +15,7 @@
    The layers:
      reset       — element default normalization        (reset.css)
      tokens      — design token custom properties       (tokens.css)
+     themes      — seed-driven palette derivation        (theming.css)
      base        — bare-element styles, typography      (base.css)
      layout      — page-level composition, containers
      components  — all component-scoped styles (Vue SFC styles go here)
@@ -22,4 +23,4 @@
      preferences — user preference overrides, always win   (preferences.css)
 ============================================================================= */
 
-@layer reset, tokens, base, layout, components, utilities, preferences;
+@layer reset, tokens, themes, base, layout, components, utilities, preferences;

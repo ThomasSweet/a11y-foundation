@@ -17,6 +17,21 @@ The guiding constraints for everything here (from the project's character):
 
 ## 1. Minimal native form validation
 
+**Partially done (June 2026):** the CSS slice landed — `TextField.vue` now
+styles `:user-valid` / `:user-invalid` (only after interaction, thicker
+border as a non-color cue), gained a `required` prop, and gates the success
+state to non-empty fields via `:placeholder-shown` (so an empty *optional*
+field stays neutral, never green or invalid). The demo shows both paths: a
+required display name and an optional `type="email"` field — the latter
+also uses a `pattern` (HTML attribute, no JS) to require a dotted domain,
+since `type="email"` alone accepts `a@b`. Required fields get a visual `*`
+in the label (`aria-hidden`, since `required` already conveys it to AT).
+**Still to do:**
+surfacing the browser's native validation message into `aria-describedby`
+and gating submit (the JS part) — and note that native validity is not yet
+reflected to assistive tech via `aria-invalid` (only the explicit `error`
+prop sets it); that wiring belongs with the JS part.
+
 Build the smallest functional validation that leans on the platform:
 
 - Native constraint validation (`required`, `type="email"`, `pattern`,
@@ -32,17 +47,13 @@ Touches `TextField.vue`. Good candidate to also become a showcase entry
 (`:user-valid` is in the stable tier). The registry backlog comment
 already notes `:user-valid/:user-invalid`.
 
-## 2. Anchor positioning — automatic repositioning
+## 2. Anchor positioning — automatic repositioning ✅ Done (June 2026)
 
-The anchor showcase currently uses a single `position-try-fallbacks:
-flip-block`. Make it genuinely viewport-aware:
-
-- Add inline flipping and corner fallbacks
-  (`flip-block, flip-inline, flip-start`), or define explicit
-  `@position-try` fallback blocks for finer control.
-- Test against all four viewport edges and confirm the panel never clips.
-
-Scope: `AnchorPopoverDemo.vue`. Pure CSS — no JS positioning.
+`AnchorPopoverDemo.vue` now uses `position-try-fallbacks: flip-block,
+flip-inline, flip-block flip-inline`, so the panel flips across any
+viewport edge (including the corner case) with no JS. Kept here for
+posterity. Possible later refinement: explicit `@position-try` blocks if
+finer control than the flip keywords is ever needed.
 
 ## 6. "Moving indicator" interaction pattern (new section)
 
@@ -83,6 +94,65 @@ The current preview is intentionally plain — it reads as docs. Long-term,
 reimagine it as something more engaging that still demonstrates the
 features in real context. **Open design question — Thomas has ideas to
 bring; to be discussed together** before any building starts.
+
+## 9. "Guidelines, alive" — accessibility as a living standard
+
+**Started (June 2026, criterion-first).** A section that treats WCAG not as
+a static checklist but as an evolving standard, made tactile. The thesis:
+the POUR *principles* are stable, but the *criteria* keep being added as
+tech and understanding change (2.1 mobile/low-vision/cognitive; 2.2 focus,
+dragging, target size; 3.0 draft = a shift from binary pass/fail to graded
+outcomes). The POV: accessibility isn't a feature added on top — it's the
+baseline these guidelines keep formalizing, and this foundation already
+runs it.
+
+The novel core (the bit not seen 10K times) is the **"break this rule"
+toggle**: each demo is compliant by default and can switch its compliance
+OFF so you *feel* the failure. Built so far:
+
+- `src/criteria/` mirrors `src/showcases/`: `CriterionFrame.vue` (chrome +
+  break-it toggle + `role="status"` pass/fail announcement), `registry.js`,
+  `demos/`.
+- **2.5.8 Target Size (Minimum)** — a toolbar that collapses to ~16px
+  crowded targets when broken. Maps to the 24px base rule + `touch-primary()`.
+- **1.4.10 Reflow** — a ~340px "phone" viewport whose content reflows to one
+  column by default (intrinsic auto-fit/min() layout) and is forced past the
+  viewport into 2D scrolling when broken. Maps to the project's
+  media-query-free layout approach.
+- **1.4.11 Non-text Contrast** — controls outlined only by borders; the
+  shared border color drops from ~3.5:1 to ~1.2:1 when broken, so the
+  controls melt into the background. Verified by computing the actual WCAG
+  contrast ratio (compliant ≥3:1, broken <3:1). Maps to the token system;
+  sets up the contrast work in #11.
+- **2.4.11 Focus Not Obscured (Minimum)** — a scrolling panel with a sticky
+  bar; `scroll-margin` keeps focused links clear of it (48px > 41px bar),
+  broken drops the offset to 0 so the focus ring hides under the bar.
+- **2.4.13 Focus Appearance** — buttons whose focus ring is the project's
+  thick high-contrast token ring (3px + offset), broken shrinks it to a
+  faint 1px hairline at zero offset. (Verified by reading the authored
+  `:focus-visible` rules — script focus can't trigger `:focus-visible`.)
+- **2.3.3 Animation from Interactions** — a panel with an entry slide on
+  reload. Solved the "only felt with reduced-motion on" caveat with an
+  in-demo "simulate reduced-motion" toggle; a single `--rm` custom-property
+  switch governs all motion (compliant flips it to 1 on simulated OR real
+  preference; broken forces it back to 0). Verified the duration matrix:
+  compliant+pref = 0s, broken+pref = 0.45s.
+- **1.3.4 Orientation** — a rotatable device frame; compliant adapts to both
+  orientations, broken locks to landscape and shows the classic "rotate your
+  device" wall in portrait. Verified the show/hide matrix and the
+  portrait↔landscape dimension swap.
+
+Each demo regresses ONLY the criterion in question (semantics stay intact),
+via a `broken` slot prop → its own `.is-broken` styles.
+
+**The planned criteria set is complete** — 7 living criteria spanning all
+four POUR principles and WCAG 2.1 + 2.2: 2.5.8, 1.4.10, 1.4.11, 2.4.11,
+2.4.13, 2.3.3, 1.3.4. Further criteria can be added the same way.
+
+The narrative wrappers that turn these 7 cards into the "living standard"
+story are now folded into **#10** (they converge with the modern-UI pass —
+see there). Planned sequence: **#11 theming first** (it builds the color
+machinery #10 needs), then the combined #10 experience.
 
 ---
 
@@ -170,4 +240,107 @@ Vue."
 - More TODOs to come — add them here as they surface.
 - Showcase backlog (separate, in `src/showcases/registry.js`): style
   queries, `shape()`, advanced `attr()`, popover standalone demo,
-  `text-wrap: balance/pretty`, `@starting-style`.
+  `@starting-style`.
+
+## 10. Modern UI + "living standard" narrative (one combined effort)
+
+**Decided (June 2026): the narrative wrappers and the modern-UI pass are the
+same effort, not two.** A timeline / scroll-told experience is inherently a
+visual-and-motion artifact, so building the narrative *is* the occasion to
+apply the modern aesthetic. They ship together.
+
+The two halves:
+
+- **Narrative (information architecture):** turn the 7 flat criterion cards
+  into the "a11y is a living, evolving standard" story —
+  (a) a **version timeline** (2.0→2.1→2.2→3.0-draft) where each version
+  reveals the criteria it added and our existing cards slot into their
+  version; (b) the **conformance-model shift** (binary A/AA/AAA → WCAG 3.0
+  draft outcome/scoring) as the "progress" beat; (c) a **legal/geographic
+  map** (WCAG core wrapped by EN 301 549 / EAA in force since mid-2025,
+  Section 508, ADA…). Always backed by live demos, never pure prose.
+- **Modern UI (visual language):** move away from the flat/"Bootstrap-ish"
+  look — depth, bolder type scale, spacing rhythm, color vibrancy, glassy
+  rounded surfaces, scroll-choreographed motion.
+
+**The key principle that unifies them and fits our goals:** the medium is the
+message. The mechanisms that make a modern scroll experience feel alive —
+scroll-driven animations, view transitions, container queries,
+`contrast-color`, `color-mix` — are the *exact cutting-edge CSS features we
+already showcase*, and they're reduced-motion-aware. So the experience is
+built FROM our accessible-CSS features, and **the live demos are the visual
+interest — no hero imagery needed** (resolves Thomas's "modern UI = big
+images" worry).
+
+Reference aesthetic: the Framer design genre (dark canvas, gradient accents,
+big type, generous spacing, soft depth/glass, spring/scroll motion). Adopt
+the *language*, swap hero images for our demos. **Thomas to share a
+screenshot or 2–3 specific likes** for pixel-level calibration; a fetched
+link only yields text, not visual design.
+
+**Dependency:** #11 theming produces the color/contrast machinery
+(`color-mix`, `contrast-color`, palettes, guaranteed ratios) that a vibrant
+UI needs — so do #11 first; it feeds this. Non-negotiable guardrail: survives
+dark mode (already), forced-colors, reduced-motion, high-contrast — the
+existing preference mixins enforce it. That constraint IS the thesis:
+exciting *and* accessible, proven in one artifact. Likely lives in
+`tokens.css` + component styles so the foundation absorbs it.
+
+## 11. Contrast-safe theming — seed-driven derivation engine
+
+**Engine built (June 2026).** A theme is just **two seed colors**
+(`--seed-surface` + `--seed-accent`); the entire working palette (the same
+`--color-*` tokens components already consume) is derived once in
+`src/styles/theming.css` (new `themes` @layer). Adding a theme = a
+`.theme--*` preset with two values — data, not code. Any `.surface` subtree
+re-themes automatically; components need zero changes.
+
+How it stays contrast-safe by construction:
+- Text colors flip to black/white against their background via the OKLCH
+  lightness of the seed (`oklch(from … clamp(0,(0.62 - l)*infinity,1) 0 0)`),
+  so text is always on the high-contrast side; `contrast-color()` refines it
+  where supported (`@supports`).
+- Greys (surface steps, borders, muted text) are **mixed toward the text
+  color** with `color-mix(in oklab, …)`, so they gain contrast in the same
+  direction — light and dark themes both work from one rule set.
+
+Verified: 4 starter themes (Default, Ocean, Midnight, Sunset), every pairing
+passes WCAG AA — text/bg 17–20:1, muted 6.6–9.9:1, border ≥3.78:1, button
+label 5.7–8.5:1 (measured via canvas sRGB sampling). Demo:
+`ThemeShowcaseDemo.vue`, registered as the `theming` showcase (emerging).
+
+**Decision on container style queries:** for the core *switch*, plain
+custom-property inheritance was cleaner than style queries (no bloat, works
+everywhere) — so the engine doesn't use them. They're **reserved for the
+colour-vision themes**, where they earn their place by adding NON-colour cues
+(underlines, patterns, icons) to descendants that style queries can do and
+inheritance can't.
+
+**Next (not started):**
+- **Colour-vision-deficiency themes** — palettes tuned for protanopia /
+  deuteranopia / tritanopia, *plus* style-query-driven non-colour cues. This
+  is the next theming step and the genuine home for container style queries.
+- **Contrast clamp + user picker** (stretch) — currently the guarantee
+  assumes seeds in safe lightness ranges (a mid-lightness accent can't reach
+  4.5:1 with black or white text). A picker would clamp arbitrary seeds into
+  safe ranges so you *can't* choose an inaccessible theme.
+- Could grow `theming.css` into a `src/theming/` dir as it expands.
+- Also feeds #10 (modern UI) — this is the color/contrast machinery it needs.
+
+## Done log
+
+- **Contrast-safe theming engine** — seed→palette derivation, 4 themes, all
+  WCAG AA (#11) — June 2026.
+- **1.3.4 Orientation** criterion (break-it demo) — completes the planned
+  7-criterion set (#9) — June 2026.
+- **2.3.3 Animation from Interactions** criterion (break-it demo, with
+  simulated-preference toggle) (#9) — June 2026.
+- **2.4.11 Focus Not Obscured + 2.4.13 Focus Appearance** criteria
+  (break-it demos) (#9) — June 2026.
+- **1.4.11 Non-text Contrast** criterion (break-it demo) (#9) — June 2026.
+- **1.4.10 Reflow** criterion (break-it demo) (#9) — June 2026.
+- **"Guidelines, alive" section + first criterion (2.5.8) with break-it
+  toggle** (#9) — June 2026.
+- **`text-wrap: balance / pretty`** showcase (stable tier) — June 2026.
+- **Anchor auto-repositioning** (#2) — June 2026.
+- **`:user-valid` / `:user-invalid` styling** (CSS slice of #1) — June 2026.

@@ -53,22 +53,68 @@
     <section class="demo" aria-labelledby="demo-form">
       <h2 id="demo-form">Form fields</h2>
       <p>
-        Hints and errors are linked with <code>aria-describedby</code> so
-        screen readers announce them; the error state doesn't rely on color
-        alone.
+        Validation leans on the platform: native constraints
+        (<code>required</code>, <code>type="email"</code>) drive the styling
+        through <code>:user-invalid</code> / <code>:user-valid</code>, which
+        only match <em>after</em> the user has interacted — so a pristine
+        field never flags. The display name is required; the email is
+        optional, so leaving it empty stays neutral. The email also uses a
+        <code>pattern</code> to require a dotted domain
+        (<code>type="email"</code> alone accepts <code>a@b</code>) — still
+        pure HTML, still in the native pipeline. Hints and errors are linked
+        via <code>aria-describedby</code> and never rely on color alone (the
+        invalid border also thickens).
       </p>
       <div class="demo-stack">
         <TextField
           v-model="name"
           label="Display name"
-          hint="Shown publicly next to your comments."
+          required
+          hint="Required. Shown publicly next to your comments."
         />
         <TextField
           v-model="email"
           label="Email"
           type="email"
-          error="Enter a valid email address."
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          title="Enter an address with a domain, e.g. name@example.com"
+          hint="Optional — include a domain, e.g. name@example.com."
         />
+      </div>
+    </section>
+
+    <section class="demo" aria-labelledby="demo-criteria">
+      <h2 id="demo-criteria">Guidelines, alive</h2>
+      <p>
+        These aren't definitions of accessibility — they're the standard,
+        running. Each card is a real working piece of this foundation,
+        tagged with the WCAG success criterion that requires it, the version
+        it arrived in, and its <abbr title="Perceivable, Operable, Understandable, Robust">POUR</abbr>
+        principle. Flip <strong>break this rule</strong> to switch the
+        compliant behavior off and feel what the criterion actually
+        prevents. Accessibility isn't a feature added on top; it's the
+        baseline these guidelines keep formalizing.
+      </p>
+
+      <div class="criterion-list">
+        <CriterionFrame
+          v-for="c in criteria"
+          :key="c.id"
+          :id="c.id"
+          :name="c.name"
+          :level="c.level"
+          :version="c.version"
+          :principle="c.principle"
+          :requirement="c.requirement"
+          :break-label="c.breakLabel"
+          :restore-label="c.restoreLabel"
+          :pass-text="c.passText"
+          :fail-text="c.failText"
+          :links="c.links"
+          v-slot="{ broken }"
+        >
+          <component :is="c.component" :broken="broken" />
+        </CriterionFrame>
       </div>
     </section>
 
@@ -120,10 +166,12 @@ import TextField from './components/TextField.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import ShowcaseFrame from './showcases/ShowcaseFrame.vue'
 import { showcases } from './showcases/registry.js'
+import CriterionFrame from './criteria/CriterionFrame.vue'
+import { criteria } from './criteria/registry.js'
 
 const dialog = ref(null)
 const name = ref('')
-const email = ref('not-an-email')
+const email = ref('')
 
 const groups = computed(() => [
   {
@@ -187,6 +235,11 @@ const groups = computed(() => [
   }
 
   .showcase-list {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .criterion-list {
     display: grid;
     gap: var(--space-6);
   }

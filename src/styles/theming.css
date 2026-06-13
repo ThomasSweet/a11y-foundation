@@ -1,0 +1,99 @@
+/* =============================================================================
+   theming.css
+
+   Seed-driven, contrast-safe theming engine.
+
+   A theme is just TWO seed colors:
+     --seed-surface   the base background
+     --seed-accent    the brand / primary color
+
+   From those, the ENTIRE working palette (the same --color-* tokens that
+   every component already consumes) is DERIVED once, below. So:
+     - Adding a theme is data, not code — see the .theme--* presets at the
+       bottom: two values each.
+     - Any subtree with `.surface` re-themes automatically; components
+       inside need zero changes because they read the same token names.
+
+   Why this is contrast-safe by construction:
+     - Text colors are flipped to black/white against their background using
+       the OKLCH lightness of the seed (relative color syntax), so text is
+       always on the high-contrast side. contrast-color() refines this where
+       supported.
+     - Greys (surface steps, borders, muted text) are MIXED toward the text
+       color, so they gain contrast in the same direction the text does —
+       light themes and dark themes both work from one set of rules.
+
+   Modern CSS used: relative color syntax (oklch(from …)), color-mix(),
+   contrast-color() (progressive enhancement), cascade @layer.
+
+   NOTE: the guarantee currently assumes seeds in sensible lightness ranges
+   (a mid-lightness accent can't reach 4.5:1 with either black or white
+   text). A future user-facing picker (#11 stretch) would clamp seeds into
+   safe ranges. Container style queries are reserved for the colour-vision
+   themes, which add NON-colour cues (underlines, patterns) to descendants.
+============================================================================= */
+
+@layer themes {
+
+  .surface {
+    /* Default seeds — overridden by a .theme--* preset class. */
+    --seed-surface: oklch(0.99 0.004 255);
+    --seed-accent:  oklch(0.52 0.16 260);
+
+    /* Text: black on light surfaces, white on dark ones. The clamp(…,
+       (threshold - l) * infinity, …) trick resolves the lightness to 0 or
+       1 with no JS and no media query. */
+    --color-text:
+      oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0);
+
+    /* Surfaces and borders: mix the seed toward the text colour, so they
+       pick up contrast in the right direction for any theme. */
+    --color-bg:          var(--seed-surface);
+    --color-surface:     color-mix(in oklab, var(--seed-surface), var(--color-text) 5%);
+    --color-bg-subtle:   color-mix(in oklab, var(--seed-surface), var(--color-text) 9%);
+    --color-border:      color-mix(in oklab, var(--seed-surface), var(--color-text) 44%);
+    --color-text-subtle: color-mix(in oklab, var(--seed-surface), var(--color-text) 62%);
+
+    /* Accent + a derived hover and guaranteed-readable label colour. */
+    --color-primary:       var(--seed-accent);
+    --color-primary-hover: color-mix(in oklab, var(--seed-accent), var(--color-text) 16%);
+    --color-primary-text:
+      oklch(from var(--seed-accent) clamp(0, (0.62 - l) * infinity, 1) 0 0);
+
+    /* The focus ring tracks the theme accent. */
+    --focus-ring-color: var(--seed-accent);
+
+    /* The surface paints itself with the derived palette. */
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+
+    /* Enhancement: let the browser pick the optimal contrasting label,
+       superseding the black/white flip above where supported. */
+    @supports (color: contrast-color(red)) {
+      --color-text:         contrast-color(var(--seed-surface));
+      --color-primary-text: contrast-color(var(--seed-accent));
+    }
+  }
+
+
+  /* ---------------------------------------------------------------------------
+     Theme presets — two seeds each. This is the whole cost of a new theme.
+  --------------------------------------------------------------------------- */
+  .theme--ocean {
+    --seed-surface: oklch(0.97 0.025 220);
+    --seed-accent:  oklch(0.50 0.12 230);
+  }
+
+  .theme--midnight {
+    --seed-surface: oklch(0.21 0.02 265);
+    --seed-accent:  oklch(0.72 0.15 250);
+  }
+
+  .theme--sunset {
+    --seed-surface: oklch(0.96 0.035 70);
+    --seed-accent:  oklch(0.52 0.17 25);
+  }
+}

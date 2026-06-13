@@ -35,6 +35,8 @@ import HasSelectorDemo from './demos/HasSelectorDemo.vue'
 import SubgridDemo from './demos/SubgridDemo.vue'
 import ContrastColorDemo from './demos/ContrastColorDemo.vue'
 import ScrollProgressDemo from './demos/ScrollProgressDemo.vue'
+import TextWrapDemo from './demos/TextWrapDemo.vue'
+import ThemeShowcaseDemo from './demos/ThemeShowcaseDemo.vue'
 import PlaceholderDemo from './demos/PlaceholderDemo.vue'
 
 export const showcases = [
@@ -92,6 +94,23 @@ export const showcases = [
       },
     ],
     component: SubgridDemo,
+  },
+  {
+    id: 'text-wrap',
+    title: 'text-wrap: balance / pretty',
+    status: 'stable',
+    supports: 'text-wrap: balance',
+    summary:
+      'Let the browser decide line breaks. balance evens out short blocks ' +
+      'like headings; pretty stops body copy from ending on an orphaned ' +
+      'word. Better readability for zero markup and no JS.',
+    links: [
+      {
+        label: 'MDN: text-wrap',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap',
+      },
+    ],
+    component: TextWrapDemo,
   },
   {
     id: 'popover',
@@ -161,6 +180,28 @@ export const showcases = [
       },
     ],
     component: ContrastColorDemo,
+  },
+  {
+    id: 'theming',
+    title: 'Contrast-safe theming',
+    status: 'emerging',
+    supports: 'color: oklch(from red l c h)',
+    summary:
+      'One engine, many themes. Each theme is just two seed colors; the full ' +
+      'accessible palette — surfaces, borders, text, focus ring — is derived ' +
+      'with color-mix(), relative color syntax, and contrast-color(). Adding ' +
+      'a theme is data, not code, and contrast stays safe by construction.',
+    links: [
+      {
+        label: 'MDN: relative colors',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors',
+      },
+      {
+        label: 'MDN: contrast-color()',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/contrast-color',
+      },
+    ],
+    component: ThemeShowcaseDemo,
   },
   {
     id: 'scroll-driven-animations',
@@ -256,6 +297,6 @@ export const showcases = [
     },
   },
 
-  // Further stable candidates: text-wrap: balance/pretty, @starting-style,
-  // :user-valid/:user-invalid, dialog (already in the components section).
+  // Further stable candidates: @starting-style, :user-valid/:user-invalid,
+  // dialog (already in the components section).
 ]

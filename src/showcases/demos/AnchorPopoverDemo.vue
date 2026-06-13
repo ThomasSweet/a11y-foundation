@@ -14,8 +14,9 @@
     <div :id="popoverId" popover class="anchor-panel">
       <p>
         With anchor positioning, this panel is tethered to the button —
-        and <code>position-try-fallbacks</code> flips it when there's no
-        room. Without support, it falls back to the popover default
+        and <code>position-try-fallbacks</code> flips it across any
+        viewport edge it would otherwise overflow (try scrolling it to a
+        corner). Without support, it falls back to the popover default
         (centered), still fully functional.
       </p>
     </div>
@@ -52,7 +53,10 @@ const popoverId = useId()
       position: absolute;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;
-      position-try-fallbacks: flip-block;
+      /* Try in order until one fits: flip below↔above, flip the inline
+         side, then flip both for the corner case. The browser keeps the
+         panel on-screen with no JS and no scroll listeners. */
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
       margin-block-start: var(--space-2);
     }
 
