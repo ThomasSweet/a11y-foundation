@@ -238,3 +238,62 @@ export const criteria: Criterion[] = [
     component: OrientationDemo,
   },
 ]
+
+
+/* ===========================================================================
+   WCAG timeline — the narrative spine. Each era groups the criteria above by
+   their `version`; eras with no demos (the 2.0 foundation, the 3.0 draft)
+   carry a `note` instead. This is what turns the flat list into the "watch
+   the standard grow" story.
+=========================================================================== */
+
+export interface WcagEra {
+  id: string
+  label: string
+  year: string
+  summary: string
+  /** Matches Criterion.version for grouping; null for eras with no demos. */
+  version: string | null
+  /** Shown when the era has no demo criteria of its own. */
+  note?: string
+}
+
+export const wcagTimeline: WcagEra[] = [
+  {
+    id: 'wcag20',
+    label: 'WCAG 2.0',
+    year: '2008',
+    version: null,
+    summary:
+      'The bedrock — the four POUR principles everything since still rests on.',
+    note: 'No demo here: 2.0 is the foundation the criteria below extend.',
+  },
+  {
+    id: 'wcag21',
+    label: 'WCAG 2.1',
+    year: '2018',
+    version: 'WCAG 2.1',
+    summary:
+      'The mobile and low-vision era — smartphones and magnification forced ' +
+      'the standard to grow.',
+  },
+  {
+    id: 'wcag22',
+    label: 'WCAG 2.2',
+    year: '2023',
+    version: 'WCAG 2.2',
+    summary:
+      'Focus visibility, dragging alternatives, target size, and cognitive / ' +
+      'authentication needs.',
+  },
+  {
+    id: 'wcag30',
+    label: 'WCAG 3.0',
+    year: 'draft',
+    version: null,
+    summary:
+      'The next chapter — from binary A/AA/AAA pass-fail toward graded, ' +
+      'outcome-based scoring.',
+    note: 'Still a working draft: a different model, not just more criteria.',
+  },
+]

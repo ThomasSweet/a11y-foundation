@@ -1,0 +1,113 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: var(--space-12);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* The continuous spine, centred in the markers' column. Fades toward the
+     bottom — the standard runs on into the (draft) future. */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--space-2);
+    inset-inline-start: calc(var(--space-6) / 2);
+    inline-size: 2px;
+    margin-inline-start: -1px;
+    background: linear-gradient(
+      to bottom,
+      var(--color-border) 78%,
+      transparent
+    );
+
+    @include high-contrast {
+      background: currentcolor;
+    }
+  }
+
+  .era {
+    display: grid;
+    grid-template-columns: var(--space-6) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    align-items: start;
+  }
+
+  .era-marker {
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+    inline-size: var(--space-4);
+    block-size: var(--space-4);
+    margin-block-start: var(--space-1);
+    border: 2px solid var(--color-bg);
+    border-radius: var(--radius-full);
+    /* Filled = an era with live demos; the accent dot draws the eye. */
+    background: var(--gradient-accent);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+
+    @include forced-colors {
+      background: CanvasText;
+      border-color: Canvas;
+    }
+  }
+
+  /* Foundation (2.0) and future (3.0) eras have no demos — hollow marker. */
+  .era.is-open .era-marker {
+    background: var(--color-bg);
+    border-color: var(--color-primary);
+  }
+
+  .era-body {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .era-header {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .era-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  .era-year {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .era-summary {
+    max-inline-size: 60ch;
+    color: var(--color-text-subtle);
+  }
+
+  .era-criteria {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .era-note {
+    max-inline-size: 60ch;
+    padding: var(--space-3) var(--space-4);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+}

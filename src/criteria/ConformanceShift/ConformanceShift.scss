@@ -1,0 +1,119 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .cshift {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .cshift-control {
+    display: grid;
+    gap: var(--space-2);
+    max-inline-size: 32rem;
+    font-weight: 600;
+
+    input {
+      inline-size: 100%;
+    }
+  }
+
+  .cshift-count {
+    font-family: var(--font-mono);
+    color: var(--color-text-subtle);
+  }
+
+  .cshift-panels {
+    /* Two panels side by side when there's room, stacked when tight. */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-4);
+  }
+
+  .cshift-panel {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .cshift-panel-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  /* Binary verdict: the tone color is backed by the word itself (pass/fail),
+     never color alone. */
+  .cshift-verdict {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+
+    &.is-pass {
+      color: var(--color-success);
+    }
+
+    &.is-fail {
+      color: var(--color-error);
+    }
+  }
+
+  .cshift-score {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+  }
+
+  .cshift-pct {
+    font-size: var(--text-lg);
+    color: var(--color-text-subtle);
+  }
+
+  .cshift-rating {
+    margin-inline-start: auto;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  .cshift-meter {
+    block-size: var(--space-2);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-subtle);
+    overflow: hidden;
+
+    @include high-contrast {
+      border: 1px solid currentcolor;
+    }
+  }
+
+  .cshift-meter-fill {
+    display: block;
+    block-size: 100%;
+    border-radius: inherit;
+    background: var(--gradient-accent);
+    /* Width is data-driven; animate via a motion token (auto reduced-motion). */
+    transition: inline-size var(--duration-normal) var(--easing-standard);
+
+    @include forced-colors {
+      background: Highlight;
+    }
+  }
+
+  .cshift-caption {
+    max-inline-size: 65ch;
+    color: var(--color-text-subtle);
+  }
+
+  .cshift-disclaimer {
+    font-style: italic;
+  }
+}

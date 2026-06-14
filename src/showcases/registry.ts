@@ -37,6 +37,7 @@ import ContrastColorDemo from './demos/ContrastColorDemo.vue'
 import ScrollProgressDemo from './demos/ScrollProgressDemo.vue'
 import TextWrapDemo from './demos/TextWrapDemo.vue'
 import ThemeShowcaseDemo from './demos/ThemeShowcaseDemo.vue'
+import SlidingIndicatorDemo from './demos/SlidingIndicatorDemo.vue'
 import PlaceholderDemo from './demos/PlaceholderDemo.vue'
 import type { Component } from 'vue'
 
@@ -107,6 +108,24 @@ export const showcases: Showcase[] = [
       },
     ],
     component: SubgridDemo,
+  },
+  {
+    id: 'sliding-indicator',
+    title: 'Sliding selection indicator',
+    status: 'stable',
+    supports: 'selector(:has(*))',
+    summary:
+      'A modern way to visualize selection: one pill that travels between ' +
+      'options instead of fading per-item. Pure CSS — :has() reads the ' +
+      'checked radio, the motion tokens drive the slide (instant under ' +
+      'reduced motion) — over real, keyboard-navigable radios.',
+    links: [
+      {
+        label: 'MDN: :has()',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:has',
+      },
+    ],
+    component: SlidingIndicatorDemo,
   },
   {
     id: 'text-wrap',

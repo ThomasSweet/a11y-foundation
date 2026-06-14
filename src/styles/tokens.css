@@ -57,9 +57,18 @@
     --text-3xl:  1.875rem;
     --text-4xl:  2.25rem;
 
+    /* Fluid display sizes for the hero and section headings. clamp() scales
+       between a mobile floor and a desktop ceiling against viewport width,
+       so headings feel composed at every size with no breakpoints. The
+       rem-based bounds still honor the user's font-size preference. */
+    --text-display:    clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
+    --text-display-sm: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+
     --leading-tight:  1.25;
     --leading-normal: 1.5;
     --leading-loose:  1.75;
+
+    --tracking-tight: -0.02em;
 
 
     /* -------------------------------------------------------------------------
@@ -82,6 +91,32 @@
     --color-warning:      light-dark(#d97706, #fbbf24);
     --color-error:        light-dark(#dc2626, #f87171);
     --color-info:         light-dark(#0284c7, #38bdf8);
+
+    /* A second accent, so gradients/highlights have somewhere to travel. */
+    --color-accent:       light-dark(#7c3aed, #a78bfa);
+
+
+    /* -------------------------------------------------------------------------
+       Decorative surfaces — for the modern shell (hero, glassy header).
+       The page-glow tints are translucent; preferences.css swaps the glass
+       to an opaque surface under prefers-reduced-transparency.
+    ------------------------------------------------------------------------- */
+    --gradient-accent: linear-gradient(
+      100deg,
+      var(--color-primary),
+      var(--color-accent)
+    );
+    --color-surface-glass: light-dark(rgb(255 255 255 / 72%), rgb(20 20 22 / 64%));
+    --page-glow: radial-gradient(
+        60rem 40rem at 15% -10%,
+        color-mix(in oklab, var(--color-primary) 22%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        50rem 36rem at 100% 0%,
+        color-mix(in oklab, var(--color-accent) 18%, transparent),
+        transparent 55%
+      );
 
 
     /* -------------------------------------------------------------------------
@@ -117,11 +152,18 @@
 
 
     /* -------------------------------------------------------------------------
-       Shadow
+       Shadow — layered, soft elevation. Slightly deeper in dark mode so
+       cards still read against a dark canvas.
     ------------------------------------------------------------------------- */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+    /* light-dark() only wraps the <color> of each layer (it's a color
+       function), never the whole shadow value. */
+    --shadow-sm: 0 1px 2px light-dark(rgb(15 23 42 / 8%), rgb(0 0 0 / 40%));
+    --shadow-md:
+      0 2px 4px light-dark(rgb(15 23 42 / 6%), rgb(0 0 0 / 30%)),
+      0 8px 16px -4px light-dark(rgb(15 23 42 / 12%), rgb(0 0 0 / 45%));
+    --shadow-lg:
+      0 4px 8px light-dark(rgb(15 23 42 / 8%), rgb(0 0 0 / 35%)),
+      0 20px 40px -8px light-dark(rgb(15 23 42 / 18%), rgb(0 0 0 / 55%));
 
     /* -------------------------------------------------------------------------
        Color scheme — the switch the light-dark() tokens above resolve
