@@ -55,7 +55,14 @@ viewport edge (including the corner case) with no JS. Kept here for
 posterity. Possible later refinement: explicit `@position-try` blocks if
 finer control than the flip keywords is ever needed.
 
-## 6. "Moving indicator" interaction pattern (new section)
+## 6. "Moving indicator" interaction pattern ✅ Done (June 2026)
+
+Shipped as the `sliding-indicator` showcase: a view-switcher pill that
+travels between options as one continuous object. Pure CSS — `:has()` reads
+the checked radio to set `--i`, and the slide uses a motion token (so it's
+an instant jump under reduced motion). Built over real, arrow-key-navigable
+radios; the selected label also firms up (state isn't carried by position
+alone). Original notes kept below; possible extension: a hover variant.
 
 Explore selection/focus/hover indicators that *travel* between elements as
 one continuous object, instead of fading in/out per element. Goal: more
@@ -254,6 +261,17 @@ Vue."
 
 ## 10. Modern UI + "living standard" narrative (one combined effort)
 
+**In progress (June 2026).** Done so far: the design-language pass (modern
+shell/hero/type/depth/glow), the **version timeline** (`CriteriaTimeline`),
+the **conformance-model shift** beat (`ConformanceShift` — interactive
+binary-vs-graded), the **legal/geographic map** (`LegalMap` — WCAG core +
+converging laws), and the **moving-indicator** interaction (the
+`sliding-indicator` showcase; see #6), **scroll-driven motion** (section
+reveals + page progress bar), and the **tabbed restructure with View
+Transitions** (#12 — gives the page its through-line). **#10 is essentially
+complete.** Remaining is optional polish: card hover states, the full-width
+"Open dialog" button, a sticky glassy tab bar, deep-linking the active pillar.
+
 **Decided (June 2026): the narrative wrappers and the modern-UI pass are the
 same effort, not two.** A timeline / scroll-told experience is inherently a
 visual-and-motion artifact, so building the narrative *is* the occasion to
@@ -337,8 +355,70 @@ inheritance can't.
 - Could grow `theming.css` into a `src/theming/` dir as it expands.
 - Also feeds #10 (modern UI) — this is the color/contrast machinery it needs.
 
+## 12. Content restructure — give the page a through-line ✅ Done (June 2026)
+
+Shipped the **tabbed-views** option: the page is now three pillars
+(Foundation / Guidelines / CSS showcases) behind an accessible tablist
+(`role=tablist/tab/tabpanel`, roving `tabindex`, arrow/Home/End keys,
+`aria-selected`/`aria-controls`). The tab nav reuses our own sliding-pill
+indicator, and panel swaps animate with **View Transitions** (Vue `nextTick`
+pattern) — guarded by reduced-motion, `@supports`, AND document visibility
+(a hidden tab can't run the transition's render-loop callback). Panels use
+`v-show` so component state (toggles, sliders) persists across switches.
+Possible follow-ups: deep-link the active pillar via URL hash; a sticky
+glassy tab bar. Original options/notes kept below.
+
+
+
+The page has grown into one long scroll with no narrative spine across the
+top level. The content falls into **three natural pillars**:
+
+1. **Foundation** — the toolkit components (Buttons, Dialog, Form fields,
+   Motion): tokens, layers, preferences in action.
+2. **Guidelines, alive** — the WCAG narrative (timeline → conformance shift →
+   legal map).
+3. **CSS showcases** — cutting-edge CSS, stable vs emerging.
+
+Two structural options (Thomas to choose):
+- **Tabbed views (single page, recommended):** a top-level switcher between
+  the three pillars, animated with **View Transitions**, using our own
+  `sliding-indicator` as the nav. No routing dependency; "the medium is the
+  message" (the site navigates with the components it showcases). Deep-link
+  via URL hash optional. This is also the natural home for View Transitions
+  (deferred from the motion layer).
+- **Multi-page routing:** real routes per pillar with vue-router + cross-
+  document/SPA View Transitions. Proper URLs/deep links, at the cost of a
+  dependency and more structure.
+
+Either way, add a persistent nav/header showing the structure, and an
+on-page table of contents per pillar. Recommendation: start with tabbed
+views (no new deps, reuses our components); promote to routing later only if
+deep-linking/SEO demands it.
+
 ## Done log
 
+- **#12 content restructure** — three pillars behind an accessible tablist
+  with View-Transition panel swaps; reuses the sliding-pill nav. Includes a
+  visibility guard so the transition is skipped on hidden tabs. June 2026.
+- **#10 scroll-driven motion** — sections ease in on scroll (`view()`
+  timeline) and a page reading-progress bar (`scroll()` timeline). Reveal is
+  progressive enhancement: off by default, added only under
+  prefers-reduced-motion:no-preference + @supports. June 2026.
+- **#6 moving indicator** — `sliding-indicator` showcase: a selection pill
+  that travels between options, pure CSS (`:has()` + motion tokens). June 2026.
+- **#10 conformance-model shift** — `ConformanceShift`: drag failing-checks
+  to watch binary AA flip to Fail while the WCAG 3.0 graded score degrades
+  gradually (verified: 2/5 → Fail vs 60% Bronze). June 2026.
+- **#10 legal map** — `LegalMap`: WCAG core with EU/EAA, US 508, ADA Title II,
+  Canada converging on it (with an "evolving snapshot" disclaimer). June 2026.
+- **#10 design-language pass** — modern shell: hero with gradient-text title,
+  fluid display type scale (clamp), layered light/dark shadows, accent page
+  glow, card elevation. All preference-aware (forced-colors fallback for the
+  gradient text, glow drops under reduced-transparency). June 2026.
+- **#10 version timeline** — "Guidelines, alive" reframed as a WCAG timeline
+  (`CriteriaTimeline`): eras 2.0→2.1→2.2→3.0 on a spine, the 7 criteria
+  grouped under their version, foundation/draft eras as hollow-marker notes.
+  June 2026.
 - **Per-component folders + extracted SCSS** (#4) — each reusable component
   in its own folder with styles in a sibling `.scss` via `<style scoped src>`;
   mixin injection still works. June 2026.
