@@ -11,215 +11,226 @@
       </div>
       <h1 class="hero-title">a11y&#8209;foundation</h1>
       <p class="hero-lede">
-        An accessibility-first styling foundation — design tokens, cascade
-        layers, and modern CSS — where every component adapts to dark mode,
-        contrast, and motion preferences with little to no JavaScript.
+        An accessibility-first styling foundation, told as one argument in two
+        halves: what the standard <em>asks for</em>, and how the web platform
+        already <em>answers it</em> — natively, with little to no JavaScript.
       </p>
     </header>
 
+    <!-- Spine: an in-page table of contents, not a switcher. The active link
+         is driven purely by scroll position (view-timeline) — no JS. -->
+    <nav class="spy-nav" aria-label="On this page">
+      <ul class="spy-list" role="list">
+        <li>
+          <a class="spy-link" data-spy="standard" href="#standard">
+            The standard
+          </a>
+        </li>
+        <li>
+          <a class="spy-link" data-spy="craft" href="#craft">The craft</a>
+        </li>
+        <li>
+          <a class="spy-link" data-spy="showcase" href="#showcase">
+            CSS showcase
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <main id="main" tabindex="-1" class="site-main">
-      <div
-        class="pillar-tabs"
-        role="tablist"
-        aria-label="Sections"
-        :style="{ '--n': pillars.length }"
-      >
-        <span class="pillar-indicator" aria-hidden="true"></span>
-        <button
-          v-for="(p, i) in pillars"
-          :id="`tab-${p.id}`"
-          :key="p.id"
-          type="button"
-          role="tab"
-          class="pillar-tab"
-          :aria-selected="active === p.id ? 'true' : 'false'"
-          :aria-controls="`panel-${p.id}`"
-          :tabindex="active === p.id ? 0 : -1"
-          @click="select(p.id)"
-          @keydown="onTabKey($event, i)"
-        >
-          {{ p.label }}
-        </button>
+      <!-- ===================================================================
+           Pillar 1 — The requirement: accessibility as a living standard
+      ==================================================================== -->
+      <div id="standard" class="pillar spy-region">
+        <p class="pillar-eyebrow">01 · The requirement</p>
+
+        <section class="demo" aria-labelledby="demo-criteria">
+          <h2 id="demo-criteria">Guidelines, alive</h2>
+          <p>
+            These aren't definitions of accessibility — they're the standard,
+            running. The criteria are arranged along WCAG's timeline, so you can
+            watch the standard grow as the web changed. Each card is a real
+            working piece of this foundation; flip <strong>break this rule</strong>
+            to switch the compliant behavior off and feel what the criterion
+            actually prevents. Accessibility isn't a feature added on top; it's
+            the baseline these guidelines keep formalizing — and they keep
+            <abbr title="Perceivable, Operable, Understandable, Robust">POUR</abbr>
+            at the core.
+          </p>
+
+          <CriteriaTimeline />
+        </section>
+
+        <section class="demo" aria-labelledby="demo-conformance">
+          <h2 id="demo-conformance">From pass / fail to outcomes</h2>
+          <p>
+            The timeline's next stop is the biggest change of all — not new
+            criteria, but a new <em>way of measuring</em>. Drag the slider to see
+            how the same result reads under today's binary model versus WCAG 3.0's
+            draft graded scoring.
+          </p>
+          <ConformanceShift />
+        </section>
+
+        <section class="demo" aria-labelledby="demo-legal">
+          <h2 id="demo-legal">One standard, many laws</h2>
+          <p>
+            WCAG isn't just guidance — it's the technical core that accessibility
+            law around the world points to. The map below shows how different
+            jurisdictions wrap legal force around the same standard.
+          </p>
+          <LegalMap />
+        </section>
       </div>
 
-      <div
-        v-show="active === 'foundation'"
-        id="panel-foundation"
-        class="pillar-panel"
-        role="tabpanel"
-        aria-labelledby="tab-foundation"
-        tabindex="0"
-      >
-      <section class="demo" aria-labelledby="demo-buttons">
-      <h2 id="demo-buttons">Buttons</h2>
-      <p>
-        Hover styles only apply on devices that can hover; touch devices get
-        larger targets via <code>touch-primary()</code>. In forced-colors
-        mode the border keeps the button visible.
-      </p>
-      <div class="demo-row">
-        <AppButton variant="primary">Primary action</AppButton>
-        <AppButton variant="secondary">Secondary action</AppButton>
-      </div>
-    </section>
-
-    <section class="demo" aria-labelledby="demo-dialog">
-      <h2 id="demo-dialog">Dialog</h2>
-      <p>
-        Native <code>&lt;dialog&gt;</code> with <code>showModal()</code> —
-        focus trapping, Esc-to-close, and an inert background come free from
-        the platform. The entry animation uses motion tokens, so it
-        disappears automatically under reduced motion.
-      </p>
-      <div class="demo-row">
-        <AppButton variant="secondary" @click="dialog?.open()">
-          Open dialog
-        </AppButton>
-      </div>
-      <AppDialog ref="dialog">
-        <template #title>An accessible dialog</template>
-        <p>
-          Press <kbd>Esc</kbd> or use the close button. Tab around — focus
-          stays inside while the dialog is open.
+      <!-- ===================================================================
+           Pillar 2 — The platform's answer (a) shipping today: the craft
+      ==================================================================== -->
+      <div id="craft" class="pillar spy-region">
+        <p class="pillar-eyebrow">02 · The platform's answer · shipping today</p>
+        <p class="pillar-lead">
+          The standard sets the bar; modern CSS and HTML clear most of it with no
+          JavaScript at all. Not a component catalog — the deliberate,
+          low-drama <em>craft decisions</em> this foundation is built on, and why
+          each one is the accessible default.
         </p>
-      </AppDialog>
-    </section>
 
-    <section class="demo" aria-labelledby="demo-form">
-      <h2 id="demo-form">Form fields</h2>
-      <p>
-        Validation leans on the platform: native constraints
-        (<code>required</code>, <code>type="email"</code>) drive the styling
-        through <code>:user-invalid</code> / <code>:user-valid</code>, which
-        only match <em>after</em> the user has interacted — so a pristine
-        field never flags. The display name is required; the email is
-        optional, so leaving it empty stays neutral. The email also uses a
-        <code>pattern</code> to require a dotted domain
-        (<code>type="email"</code> alone accepts <code>a@b</code>) — still
-        pure HTML, still in the native pipeline. Hints and errors are linked
-        via <code>aria-describedby</code> and never rely on color alone (the
-        invalid border also thickens).
-      </p>
-      <div class="demo-stack">
-        <TextField
-          v-model="name"
-          label="Display name"
-          required
-          hint="Required. Shown publicly next to your comments."
-        />
-        <TextField
-          v-model="email"
-          label="Email"
-          type="email"
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-          title="Enter an address with a domain, e.g. name@example.com"
-          hint="Optional — include a domain, e.g. name@example.com."
-        />
+        <section class="demo" aria-labelledby="craft-validation">
+          <h2 id="craft-validation">Validation that waits its turn</h2>
+          <p>
+            Validation leans on the platform: native constraints
+            (<code>required</code>, <code>type="email"</code>) drive the styling
+            through <code>:user-invalid</code> / <code>:user-valid</code> — the
+            craft detail is the <em>user-</em> prefix, which only matches
+            <em>after</em> someone has interacted, so a pristine field never
+            flags. The display name is required; the email is optional, so leaving
+            it empty stays neutral. The email also uses a <code>pattern</code> to
+            require a dotted domain (<code>type="email"</code> alone accepts
+            <code>a@b</code>) — still pure HTML, still in the native pipeline.
+            Hints and errors are linked via <code>aria-describedby</code> and
+            never rely on color alone (the invalid border also thickens).
+          </p>
+          <div class="demo-stack">
+            <TextField
+              v-model="name"
+              label="Display name"
+              required
+              hint="Required. Shown publicly next to your comments."
+            />
+            <TextField
+              v-model="email"
+              label="Email"
+              type="email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+              title="Enter an address with a domain, e.g. name@example.com"
+              hint="Optional — include a domain, e.g. name@example.com."
+            />
+          </div>
+        </section>
+
+        <section class="demo" aria-labelledby="craft-light-dark">
+          <h2 id="craft-light-dark">Dark mode from one source of truth</h2>
+          <p>
+            Theming is a place craft pays off quietly. Declaring each colour once
+            with <code>light-dark()</code> keeps the light and dark values
+            together so they can't drift apart — the alternative scatters them
+            across <code>@media (prefers-color-scheme)</code> blocks that someone
+            eventually edits half of. Same result, half the surface area for bugs.
+          </p>
+          <LightDarkDemo />
+        </section>
+
+        <section class="demo" aria-labelledby="craft-dialog">
+          <h2 id="craft-dialog">Native dialog, zero trapping code</h2>
+          <p>
+            A native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
+            gives you focus trapping, Esc-to-close, and an inert background from
+            the platform — the things hand-rolled modals get wrong. The entry
+            animation uses motion tokens, so it disappears automatically under
+            reduced motion.
+          </p>
+          <div class="demo-row">
+            <AppButton variant="secondary" @click="dialog?.open()">
+              Open dialog
+            </AppButton>
+          </div>
+          <AppDialog ref="dialog">
+            <template #title>An accessible dialog</template>
+            <p>
+              Press <kbd>Esc</kbd> or use the close button. Tab around — focus
+              stays inside while the dialog is open.
+            </p>
+          </AppDialog>
+        </section>
+
+        <section class="demo" aria-labelledby="craft-motion">
+          <h2 id="craft-motion">Motion that bows out on request</h2>
+          <p>
+            This spinner stops when the OS asks for reduced motion — handled
+            globally in <code>preferences.css</code> from a single source of
+            truth, so no component has to remember to opt in. The craft move is
+            making the accessible behaviour automatic rather than per-component.
+          </p>
+          <div class="spinner" aria-hidden="true"></div>
+        </section>
+
+        <section class="demo" aria-labelledby="craft-targets">
+          <h2 id="craft-targets">Targets that survive touch and forced colors</h2>
+          <p>
+            Hover styles only apply on devices that can actually hover; touch
+            devices get larger targets via <code>touch-primary()</code>. In
+            forced-colors mode the border keeps the button visible when the
+            background is replaced — a failure mode most buttons never account
+            for.
+          </p>
+          <div class="demo-row">
+            <AppButton variant="primary">Primary action</AppButton>
+            <AppButton variant="secondary">Secondary action</AppButton>
+          </div>
+        </section>
       </div>
-    </section>
 
-    <section class="demo" aria-labelledby="demo-motion">
-      <h2 id="demo-motion">Motion</h2>
-      <p>
-        This spinner stops when the OS asks for reduced motion — handled
-        globally in <code>preferences.css</code>, no component code needed.
-      </p>
-      <div class="spinner" aria-hidden="true"></div>
-    </section>
-      </div>
+      <!-- ===================================================================
+           Pillar 2 — The platform's answer (b) arriving next: the showcase
+      ==================================================================== -->
+      <div id="showcase" class="pillar spy-region">
+        <p class="pillar-eyebrow">03 · The platform's answer · arriving next</p>
 
-      <div
-        v-show="active === 'guidelines'"
-        id="panel-guidelines"
-        class="pillar-panel"
-        role="tabpanel"
-        aria-labelledby="tab-guidelines"
-        tabindex="0"
-      >
+        <section class="demo" aria-labelledby="demo-css">
+          <h2 id="demo-css">CSS showcases</h2>
+          <p>
+            The same idea, looking forward: modern CSS worth knowing, grouped by
+            where it stands across the current versions of Chrome, Firefox, and
+            Safari — based on
+            <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
+            Everything is written as a progressive enhancement, so unsupported
+            demos degrade instead of breaking.
+          </p>
 
-    <section class="demo" aria-labelledby="demo-criteria">
-      <h2 id="demo-criteria">Guidelines, alive</h2>
-      <p>
-        These aren't definitions of accessibility — they're the standard,
-        running. The criteria are arranged along WCAG's timeline, so you can
-        watch the standard grow as the web changed. Each card is a real
-        working piece of this foundation; flip <strong>break this rule</strong>
-        to switch the compliant behavior off and feel what the criterion
-        actually prevents. Accessibility isn't a feature added on top; it's
-        the baseline these guidelines keep formalizing — and they keep
-        <abbr title="Perceivable, Operable, Understandable, Robust">POUR</abbr>
-        at the core.
-      </p>
-
-      <CriteriaTimeline />
-    </section>
-
-    <section class="demo" aria-labelledby="demo-conformance">
-      <h2 id="demo-conformance">From pass / fail to outcomes</h2>
-      <p>
-        The timeline's next stop is the biggest change of all — not new
-        criteria, but a new <em>way of measuring</em>. Drag the slider to see
-        how the same result reads under today's binary model versus WCAG 3.0's
-        draft graded scoring.
-      </p>
-      <ConformanceShift />
-    </section>
-
-    <section class="demo" aria-labelledby="demo-legal">
-      <h2 id="demo-legal">One standard, many laws</h2>
-      <p>
-        WCAG isn't just guidance — it's the technical core that accessibility
-        law around the world points to. The map below shows how different
-        jurisdictions wrap legal force around the same standard.
-      </p>
-      <LegalMap />
-    </section>
-      </div>
-
-      <div
-        v-show="active === 'showcases'"
-        id="panel-showcases"
-        class="pillar-panel"
-        role="tabpanel"
-        aria-labelledby="tab-showcases"
-        tabindex="0"
-      >
-
-    <section class="demo" aria-labelledby="demo-css">
-      <h2 id="demo-css">CSS showcases</h2>
-      <p>
-        Modern CSS worth knowing, grouped by where it stands across the
-        current versions of Chrome, Firefox, and Safari — based on
-        <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
-        Everything is written as a progressive enhancement, so unsupported
-        demos degrade instead of breaking.
-      </p>
-
-      <template v-for="group in groups" :key="group.status">
-        <h3 v-if="group.items.length">{{ group.label }}</h3>
-        <div class="showcase-list">
-          <ShowcaseFrame
-            v-for="item in group.items"
-            :key="item.id"
-            :title="item.title"
-            :summary="item.summary"
-            :status="item.status"
-            :supports="item.supports"
-            :links="item.links"
-          >
-            <component :is="item.component" v-bind="item.props" />
-          </ShowcaseFrame>
-        </div>
-      </template>
-    </section>
-
+          <template v-for="group in groups" :key="group.status">
+            <h3 v-if="group.items.length">{{ group.label }}</h3>
+            <div class="showcase-list">
+              <ShowcaseFrame
+                v-for="item in group.items"
+                :key="item.id"
+                :title="item.title"
+                :summary="item.summary"
+                :status="item.status"
+                :supports="item.supports"
+                :links="item.links"
+              >
+                <component :is="item.component" v-bind="item.props" />
+              </ShowcaseFrame>
+            </div>
+          </template>
+        </section>
       </div>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import AppButton from './components/AppButton/AppButton.vue'
 import AppDialog from './components/AppDialog/AppDialog.vue'
@@ -230,97 +241,11 @@ import { showcases } from './showcases/registry'
 import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
+import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
 const email = ref('')
-
-// --- Pillar tabs ------------------------------------------------------------
-type PillarId = 'foundation' | 'guidelines' | 'showcases'
-const pillars: { id: PillarId; label: string }[] = [
-  { id: 'foundation', label: 'Foundation' },
-  { id: 'guidelines', label: 'Guidelines' },
-  { id: 'showcases', label: 'CSS showcases' },
-]
-const active = ref<PillarId>('foundation')
-
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
-function pillarFromHash(): PillarId | null {
-  const h = decodeURIComponent(location.hash.slice(1))
-  return pillars.some((p) => p.id === h) ? (h as PillarId) : null
-}
-
-// Switch the active pillar, optionally animating with a View Transition.
-function setActive(id: PillarId, animate: boolean) {
-  if (id === active.value) return
-  const apply = () => {
-    active.value = id
-  }
-  // View Transitions animate the panel swap — but only with motion allowed
-  // and where the API exists; otherwise the switch is instant. The callback
-  // awaits Vue's DOM update so the transition snapshots the new panel.
-  const doc = document as Document & {
-    startViewTransition?: (cb: () => unknown) => unknown
-  }
-  // Skip the transition under reduced motion, and on a hidden tab — its
-  // DOM-update callback is tied to the rendering loop, which a backgrounded
-  // document doesn't run.
-  if (
-    animate &&
-    !prefersReducedMotion() &&
-    document.visibilityState === 'visible' &&
-    doc.startViewTransition
-  ) {
-    doc.startViewTransition(async () => {
-      apply()
-      await nextTick()
-    })
-  } else {
-    apply()
-  }
-}
-
-// User-initiated switch: animate, and reflect it in the URL hash so the
-// pillar is shareable and back/forward-navigable.
-function select(id: PillarId) {
-  if (id === active.value) return
-  setActive(id, true)
-  if (location.hash.slice(1) !== id) {
-    history.pushState(null, '', `#${id}`)
-  }
-}
-
-// Back/forward → follow the hash.
-function onPopState() {
-  const id = pillarFromHash()
-  if (id) setActive(id, true)
-}
-
-onMounted(() => {
-  const id = pillarFromHash()
-  if (id) setActive(id, false) // honor a deep link on load, without animation
-  window.addEventListener('popstate', onPopState)
-})
-
-onBeforeUnmount(() => window.removeEventListener('popstate', onPopState))
-
-// Roving tab navigation: arrow keys move and activate; Home/End jump to ends.
-function onTabKey(e: KeyboardEvent, i: number) {
-  const last = pillars.length - 1
-  let next: number | null = null
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = i === last ? 0 : i + 1
-  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = i === 0 ? last : i - 1
-  else if (e.key === 'Home') next = 0
-  else if (e.key === 'End') next = last
-  if (next === null) return
-  e.preventDefault()
-  const id = pillars[next].id
-  select(id)
-  document.getElementById(`tab-${id}`)?.focus()
-}
 
 const groups = computed(() => [
   {
@@ -343,7 +268,6 @@ const groups = computed(() => [
     position: relative;
     min-block-size: 100dvh;
   }
-
 
   /* A soft accent glow behind everything — the modern "canvas" feel.
      Decorative and translucent, so it's dropped under reduced transparency. */
@@ -382,17 +306,19 @@ const groups = computed(() => [
 
   .site-main {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-24);
     max-inline-size: 72rem;
     margin-inline: auto;
     padding: var(--space-4);
     padding-block-end: var(--space-16);
   }
 
-  /* Each tab's panel stacks its sections; only the active one is shown. */
-  .pillar-panel {
+  /* A pillar groups several sections under one narrative beat. */
+  .pillar {
     display: grid;
-    gap: var(--space-20);
+    gap: var(--space-12);
+    /* Keep the heading clear of the sticky spine after a fragment jump. */
+    scroll-margin-block-start: var(--space-16);
   }
 
   .demo {
@@ -418,24 +344,22 @@ const groups = computed(() => [
 }
 
 @layer components {
-  /* Pillar nav — the same sliding-pill pattern as the showcase, used as the
-     site's primary navigation. The pill rides on a motion token, so it's an
-     instant jump under reduced motion. */
-  .pillar-tabs {
+  /* --- Spine navigation ----------------------------------------------------
+     A sticky in-page table of contents. It floats over scrolling content with
+     the same glassy treatment as the rest of the shell. */
+  .spy-nav {
     position: sticky;
     inset-block-start: var(--space-2);
     z-index: 5;
-    display: grid;
-    grid-template-columns: repeat(var(--n), 1fr);
+    justify-self: center;
     inline-size: min(100%, 32rem);
+    margin-block-end: var(--space-4);
     padding: var(--space-1);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
-    /* Glassy bar that floats over scrolling content. */
     background-color: var(--color-surface-glass);
     backdrop-filter: blur(12px);
 
-    /* Translucency can hurt legibility — fall back to an opaque bar. */
     @include reduced-transparency {
       background-color: var(--color-bg-subtle);
       backdrop-filter: none;
@@ -447,55 +371,115 @@ const groups = computed(() => [
     }
   }
 
-  .pillar-indicator {
-    position: absolute;
-    z-index: 0;
-    inset-block: var(--space-1);
-    inset-inline-start: var(--space-1);
-    inline-size: calc((100% - var(--space-2)) / var(--n));
-    border-radius: var(--radius-full);
-    background-color: var(--color-surface);
-    box-shadow: var(--shadow-sm);
-    transform: translateX(calc(var(--i, 0) * 100%));
-    transition: transform var(--duration-normal) var(--easing-standard);
-
-    @include forced-colors {
-      border: 1px solid ButtonText;
-    }
+  .spy-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
   }
 
-  .pillar-tabs:has(.pillar-tab:nth-of-type(1)[aria-selected='true']) { --i: 0; }
-  .pillar-tabs:has(.pillar-tab:nth-of-type(2)[aria-selected='true']) { --i: 1; }
-  .pillar-tabs:has(.pillar-tab:nth-of-type(3)[aria-selected='true']) { --i: 2; }
-
-  .pillar-tab {
-    position: relative;
-    z-index: 1;
+  .spy-link {
+    display: grid;
+    place-items: center;
     min-block-size: 44px;
     padding-inline: var(--space-3);
-    border: 0;
     border-radius: var(--radius-full);
-    background-color: transparent;
     color: var(--color-text-subtle);
-    font: inherit;
     font-weight: 500;
-    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
 
-    &[aria-selected='true'] {
-      color: var(--color-text);
-      font-weight: 600;
+    @include can-hover {
+      &:hover {
+        color: var(--color-text);
+      }
     }
 
     &:focus-visible {
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
       outline-offset: 2px;
     }
+  }
 
-    @include forced-colors {
-      &[aria-selected='true'] {
-        color: Highlight;
+  /* Pure-CSS scroll spy: each region owns a named view-timeline, hoisted to a
+     common ancestor so the (sibling) nav links can read it. Each link runs a
+     crossfade keyed to its region's timeline — the highlight peaks while the
+     region holds the viewport and hands off softly to the next. Scroll-linked
+     motion mirrors the user's own gesture, so it needs no reduced-motion
+     override; it's gated only on support, with the plain link as the fallback. */
+  @supports (animation-timeline: view()) {
+    .app-shell {
+      timeline-scope: --vt-standard, --vt-craft, --vt-showcase;
+    }
+
+    #standard { view-timeline-name: --vt-standard; }
+    #craft { view-timeline-name: --vt-craft; }
+    #showcase { view-timeline-name: --vt-showcase; }
+
+    .spy-link {
+      animation: spy-active linear both;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .spy-link[data-spy='standard'] { animation-timeline: --vt-standard; }
+    .spy-link[data-spy='craft'] { animation-timeline: --vt-craft; }
+    .spy-link[data-spy='showcase'] { animation-timeline: --vt-showcase; }
+
+    /* A plateau, not a single peak: the link reaches full strength early and
+       holds it across the bulk of the region (12%–88% of its cover range),
+       fading only at the hand-off edges. That keeps the active link clearly
+       lit even at the top of a very tall region, while neighbours stay dark. */
+    @keyframes spy-active {
+      0%,
+      100% {
+        background-color: transparent;
+        color: var(--color-text-subtle);
+        box-shadow: none;
+      }
+
+      12%,
+      88% {
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        box-shadow: var(--shadow-sm);
       }
     }
+
+    /* In forced-colors the crossfade colors collapse to system values; give the
+       active link a clear, non-color boundary instead. */
+    @include forced-colors {
+      .spy-link {
+        animation: spy-active-hc linear both;
+        animation-range: cover 0% cover 100%;
+      }
+
+      @keyframes spy-active-hc {
+        0%,
+        100% {
+          border: 1px solid transparent;
+        }
+
+        12%,
+        88% {
+          border: 1px solid Highlight;
+        }
+      }
+    }
+  }
+
+  /* Narrative framing for each pillar — decorative labels, not headings, so
+     the document outline stays a clean h1 → h2 → h3. */
+  .pillar-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+  }
+
+  .pillar-lead {
+    max-inline-size: 65ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: var(--color-text-subtle);
   }
 
   .hero-eyebrow {

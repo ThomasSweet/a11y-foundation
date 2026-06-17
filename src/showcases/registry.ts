@@ -7,9 +7,6 @@
  *   2. Add an entry here. App.vue renders everything from this list,
  *      grouped by status.
  *
- * Entries without a demo yet use PlaceholderDemo with a `todo` (and
- * optional `hint` CSS) via `props` — swap in a real component when built.
- *
  * status:
  *   'stable'   — interoperable in current Chrome, Firefox, and Safari
  *                (Baseline / completed Interop focus areas). May be used
@@ -49,6 +46,7 @@ import PopoverMenuDemo from './demos/PopoverMenuDemo.vue'
 import ScrollStateDemo from './demos/ScrollStateDemo.vue'
 import HighlightApiDemo from './demos/HighlightApiDemo.vue'
 import DialogPolishDemo from './demos/DialogPolishDemo.vue'
+import ViewTransitionDemo from './demos/ViewTransitionDemo.vue'
 import type { Component } from 'vue'
 
 export interface Showcase {
@@ -59,7 +57,7 @@ export interface Showcase {
   summary: string
   links?: { label: string; href: string }[]
   component: Component
-  /** Extra props forwarded to the demo component (e.g. PlaceholderDemo). */
+  /** Extra props forwarded to the demo component, if any. */
   props?: Record<string, unknown>
 }
 
@@ -456,6 +454,26 @@ export const showcases: Showcase[] = [
       },
     ],
     component: DialogPolishDemo,
+  },
+
+  {
+    id: 'view-transitions',
+    title: 'View Transitions',
+    status: 'emerging',
+    supports: '',
+    summary:
+      'Animate between two DOM states by giving shared elements a ' +
+      'view-transition-name and wrapping the change in startViewTransition() — ' +
+      'the browser tweens position, size, and cross-fade with no FLIP math or ' +
+      'animation library. Switch the layout to see the cards morph; it’s ' +
+      'skipped under reduced motion, so the swap stays instant and correct.',
+    links: [
+      {
+        label: 'MDN: View Transition API',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API',
+      },
+    ],
+    component: ViewTransitionDemo,
   },
 
   // Further candidates: media state pseudo-classes (custom player),

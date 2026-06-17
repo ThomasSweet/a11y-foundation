@@ -17,20 +17,21 @@ The guiding constraints for everything here (from the project's character):
 
 ## 1. Minimal native form validation
 
-**Partially done (June 2026):** the CSS slice landed — `TextField.vue` now
-styles `:user-valid` / `:user-invalid` (only after interaction, thicker
-border as a non-color cue), gained a `required` prop, and gates the success
-state to non-empty fields via `:placeholder-shown` (so an empty *optional*
-field stays neutral, never green or invalid). The demo shows both paths: a
-required display name and an optional `type="email"` field — the latter
-also uses a `pattern` (HTML attribute, no JS) to require a dotted domain,
-since `type="email"` alone accepts `a@b`. Required fields get a visual `*`
-in the label (`aria-hidden`, since `required` already conveys it to AT).
-**Still to do:**
-surfacing the browser's native validation message into `aria-describedby`
-and gating submit (the JS part) — and note that native validity is not yet
-reflected to assistive tech via `aria-invalid` (only the explicit `error`
-prop sets it); that wiring belongs with the JS part.
+**Done as far as it's going (June 2026).** The CSS slice landed —
+`TextField.vue` now styles `:user-valid` / `:user-invalid` (only after
+interaction, thicker border as a non-color cue), gained a `required` prop, and
+gates the success state to non-empty fields via `:placeholder-shown` (so an
+empty *optional* field stays neutral, never green or invalid). The demo shows
+both paths: a required display name and an optional `type="email"` field — the
+latter also uses a `pattern` (HTML attribute, no JS) to require a dotted domain,
+since `type="email"` alone accepts `a@b`. Required fields get a visual `*` in
+the label (`aria-hidden`, since `required` already conveys it to AT).
+
+**Decided (June 2026): the JS layer is intentionally NOT pursued.** This is a
+demonstration of what CSS/native HTML can do for validation, not a full form
+implementation — so surfacing the native validation message into
+`aria-describedby`, gating submit, and reflecting native validity to
+`aria-invalid` are deliberately out of scope. Leave the demo as-is.
 
 Build the smallest functional validation that leans on the platform:
 
@@ -372,6 +373,12 @@ inheritance can't.
 
 ## 12. Content restructure — give the page a through-line ✅ Done (June 2026)
 
+**Superseded (June 2026): tabs → single narrative scroll.** The three-tab
+switcher was replaced by one continuous two-pillar scroll with a pure-CSS
+scroll-spy spine (see the top Done-log entry). The tabbed version's history is
+kept below for posterity; the View Transitions it demonstrated now live in a
+standalone showcase rather than the panel swap.
+
 Shipped the **tabbed-views** option: the page is now three pillars
 (Foundation / Guidelines / CSS showcases) behind an accessible tablist
 (`role=tablist/tab/tabpanel`, roving `tabindex`, arrow/Home/End keys,
@@ -413,6 +420,47 @@ views (no new deps, reuses our components); promote to routing later only if
 deep-linking/SEO demands it.
 
 ## Done log
+
+- **Restructure: tabs → single narrative scroll, two pillars** (June 2026).
+  Replaced the three-tab switcher with one continuous scroll built as a single
+  argument in two halves: **01 The requirement** (the WCAG "living standard" —
+  timeline, conformance shift, legal map) and **02 The platform's answer**,
+  split into *shipping today* (the craft) and *arriving next* (the CSS
+  showcase). Rationale (decided with Thomas): the craft decisions and the
+  showcase catalog are the same thesis — native, little-to-no-JS solutions to
+  accessibility — at different maturities, so they're one pillar, not two peers;
+  and a single coherent argument shouldn't be fragmented behind drawer tabs.
+  - **Foundation tab reframed as "the craft"** — not a component catalog but the
+    opinionated, applied decisions this foundation makes. The four old component
+    demos were rewritten as craft points (validation that waits for `:user-`
+    interaction; native `<dialog>`; motion that bows out; touch/forced-colors
+    targets) and a NEW demo added: **`light-dark()` vs `@media`**
+    (`src/craft/demos/LightDarkDemo.vue`). Its punchline came out of live
+    testing: the `@media (prefers-color-scheme)` swatch ignores the in-app theme
+    toggle (it only hears the OS), while `light-dark()` follows it because it
+    resolves against `color-scheme` — a concrete, on-screen reason to prefer it.
+  - **Pure-CSS scroll-spy spine** — the sticky pill bar is now a `<nav>` of
+    in-page anchor links, not a tablist. The active link is driven entirely by
+    scroll position: each pillar region owns a `view-timeline-name`, hoisted via
+    `timeline-scope` on `.app-shell` so the sibling nav links can read it; each
+    link runs a crossfade keyed to its region. Tuned the keyframes to a 12–88%
+    *plateau* (not a single 50% peak) so the active link stays clearly lit
+    across tall, unequal-height regions instead of fading at their tops.
+    Verified the mapping lights only the correct link at every reading position.
+    Gated on `@supports (animation-timeline: view())`; the plain links are the
+    fallback. Scroll-linked, so no reduced-motion override (gesture-mirroring),
+    with a `forced-colors` border variant.
+  - **View Transitions preserved** — dropping the tab-panel swaps removed the
+    only VT usage, so added a standalone `view-transitions` showcase
+    (`ViewTransitionDemo.vue`: a grid↔list layout morph, reduced-motion- and
+    support-gated).
+  - **Dead code removed** — deleted the orphaned `PlaceholderDemo.vue` (no longer
+    referenced) and cleaned its stale mentions from the registry doc comment.
+  - Removed all the tab JS from `App.vue` (roving tabindex, View-Transition
+    panel swaps, hash push/pop, `onMounted`/`onBeforeUnmount`) — fragment
+    navigation is now native. typecheck / lint / build green; no console errors.
+  - **Open follow-up:** the craft pillar is designed to grow — more applied
+    "craft decisions" can be added over time as `src/craft/demos/*`.
 
 - **Two showcase fixes** (June 2026): (1) **Dialogs centered** — the reset's
   `* { margin: 0 }` (author layer) was overriding the UA `dialog { margin:
