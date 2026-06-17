@@ -96,4 +96,36 @@
     --seed-surface: oklch(96% 0.035 70deg);
     --seed-accent:  oklch(52% 0.17 25deg);
   }
+
+
+  /* ---------------------------------------------------------------------------
+     CVD-robust presets.
+
+     For colour-vision deficiency, what matters is that the accent stays a
+     recognisable colour and that its label keeps a strong LIGHTNESS contrast —
+     because lightness perception is largely intact across protanopia,
+     deuteranopia, and tritanopia, while hue discrimination is not. So these
+     presets do two things:
+       - sit on hues that don't collapse into the neutrals under the common
+         red–green deficiencies, and
+       - keep the accent's lightness well clear of its label's (the engine
+         already guarantees the label is the high-contrast black/white).
+     Hue is never the only signal — pair these with the non-colour cues
+     showcase (status shapes/underlines) for meaning that survives any CVD.
+     Names describe the hue, not a person; anyone can pick them.
+  --------------------------------------------------------------------------- */
+  .theme-cobalt {
+    --seed-surface: oklch(98% 0.01 255deg);
+    --seed-accent:  oklch(48% 0.14 255deg);  /* dark blue → white label */
+  }
+
+  .theme-teal {
+    --seed-surface: oklch(98% 0.012 195deg);
+    --seed-accent:  oklch(45% 0.1 195deg);   /* dark teal → white label */
+  }
+
+  .theme-amber {
+    --seed-surface: oklch(98% 0.012 80deg);
+    --seed-accent:  oklch(82% 0.15 80deg);   /* light amber → black label */
+  }
 }

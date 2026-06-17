@@ -4,8 +4,6 @@
   </a>
 
   <div class="app-shell">
-    <div class="scroll-progress" aria-hidden="true"></div>
-
     <header class="hero">
       <div class="hero-top">
         <p class="hero-eyebrow">Cutting-edge CSS · WCAG · little-to-no JS</p>
@@ -73,9 +71,11 @@
         the platform. The entry animation uses motion tokens, so it
         disappears automatically under reduced motion.
       </p>
-      <AppButton variant="secondary" @click="dialog?.open()">
-        Open dialog
-      </AppButton>
+      <div class="demo-row">
+        <AppButton variant="secondary" @click="dialog?.open()">
+          Open dialog
+        </AppButton>
+      </div>
       <AppDialog ref="dialog">
         <template #title>An accessible dialog</template>
         <p>
@@ -219,7 +219,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
 import AppButton from './components/AppButton/AppButton.vue'
 import AppDialog from './components/AppDialog/AppDialog.vue'
@@ -248,7 +248,13 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-function select(id: PillarId) {
+function pillarFromHash(): PillarId | null {
+  const h = decodeURIComponent(location.hash.slice(1))
+  return pillars.some((p) => p.id === h) ? (h as PillarId) : null
+}
+
+// Switch the active pillar, optionally animating with a View Transition.
+function setActive(id: PillarId, animate: boolean) {
   if (id === active.value) return
   const apply = () => {
     active.value = id
@@ -263,6 +269,7 @@ function select(id: PillarId) {
   // DOM-update callback is tied to the rendering loop, which a backgrounded
   // document doesn't run.
   if (
+    animate &&
     !prefersReducedMotion() &&
     document.visibilityState === 'visible' &&
     doc.startViewTransition
@@ -275,6 +282,30 @@ function select(id: PillarId) {
     apply()
   }
 }
+
+// User-initiated switch: animate, and reflect it in the URL hash so the
+// pillar is shareable and back/forward-navigable.
+function select(id: PillarId) {
+  if (id === active.value) return
+  setActive(id, true)
+  if (location.hash.slice(1) !== id) {
+    history.pushState(null, '', `#${id}`)
+  }
+}
+
+// Back/forward → follow the hash.
+function onPopState() {
+  const id = pillarFromHash()
+  if (id) setActive(id, true)
+}
+
+onMounted(() => {
+  const id = pillarFromHash()
+  if (id) setActive(id, false) // honor a deep link on load, without animation
+  window.addEventListener('popstate', onPopState)
+})
+
+onBeforeUnmount(() => window.removeEventListener('popstate', onPopState))
 
 // Roving tab navigation: arrow keys move and activate; Home/End jump to ends.
 function onTabKey(e: KeyboardEvent, i: number) {
@@ -313,34 +344,6 @@ const groups = computed(() => [
     min-block-size: 100dvh;
   }
 
-  /* Page reading-progress bar — driven by the document's scroll position, so
-     it mirrors the user's own gesture (no autonomous motion). Hidden (zero
-     width) where scroll timelines aren't supported. */
-  .scroll-progress {
-    position: fixed;
-    inset-block-start: 0;
-    inset-inline: 0;
-    z-index: 10;
-    block-size: 3px;
-    background: var(--gradient-accent);
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-
-    @supports (animation-timeline: scroll()) {
-      animation: scroll-progress linear both;
-      animation-timeline: scroll(root block);
-    }
-
-    @include forced-colors {
-      background: Highlight;
-    }
-  }
-
-  @keyframes scroll-progress {
-    to {
-      transform: scaleX(1);
-    }
-  }
 
   /* A soft accent glow behind everything — the modern "canvas" feel.
      Decorative and translucent, so it's dropped under reduced transparency. */
@@ -359,13 +362,13 @@ const groups = computed(() => [
 
   .hero {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-6);
     max-inline-size: 72rem;
     margin-inline: auto;
-    padding: var(--space-8) var(--space-4) var(--space-12);
+    padding: var(--space-12) var(--space-4) var(--space-16);
 
     @include from('md') {
-      padding-block: var(--space-16);
+      padding-block: var(--space-24);
     }
   }
 
@@ -389,12 +392,12 @@ const groups = computed(() => [
   /* Each tab's panel stacks its sections; only the active one is shown. */
   .pillar-panel {
     display: grid;
-    gap: var(--space-16);
+    gap: var(--space-20);
   }
 
   .demo {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-6);
   }
 
   .demo-row {
@@ -419,14 +422,29 @@ const groups = computed(() => [
      site's primary navigation. The pill rides on a motion token, so it's an
      instant jump under reduced motion. */
   .pillar-tabs {
-    position: relative;
+    position: sticky;
+    inset-block-start: var(--space-2);
+    z-index: 5;
     display: grid;
     grid-template-columns: repeat(var(--n), 1fr);
     inline-size: min(100%, 32rem);
     padding: var(--space-1);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
-    background-color: var(--color-bg-subtle);
+    /* Glassy bar that floats over scrolling content. */
+    background-color: var(--color-surface-glass);
+    backdrop-filter: blur(12px);
+
+    /* Translucency can hurt legibility — fall back to an opaque bar. */
+    @include reduced-transparency {
+      background-color: var(--color-bg-subtle);
+      backdrop-filter: none;
+    }
+
+    @include forced-colors {
+      background-color: Canvas;
+      backdrop-filter: none;
+    }
   }
 
   .pillar-indicator {
@@ -490,6 +508,7 @@ const groups = computed(() => [
   .hero-title {
     inline-size: fit-content;
     font-size: var(--text-display);
+    font-weight: 800;
     line-height: 1.05;
     letter-spacing: var(--tracking-tight);
     /* Gradient text. Safari still needs the prefixed background-clip. */
@@ -519,6 +538,7 @@ const groups = computed(() => [
      readable at prose width even though the cards below run wider. */
   .demo > h2 {
     font-size: var(--text-display-sm);
+    font-weight: 800;
     line-height: var(--leading-tight);
     letter-spacing: var(--tracking-tight);
   }
@@ -537,13 +557,13 @@ const groups = computed(() => [
       .demo {
         animation: section-reveal linear both;
         animation-timeline: view();
-        animation-range: entry 0% entry 55%;
+        animation-range: entry 0% entry 50%;
       }
 
       @keyframes section-reveal {
         from {
           opacity: 0;
-          transform: translateY(1.5rem);
+          transform: translateY(3rem) scale(0.97);
         }
       }
     }

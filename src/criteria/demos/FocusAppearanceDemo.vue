@@ -50,12 +50,9 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     font-weight: 600;
     cursor: pointer;
 
-    /* The fix: a thick, offset, high-contrast ring — the project's focus
-       tokens. Easily meets 2.4.13's size and contrast expectations. */
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
+    /* Compliant: nothing here. The foundation's global *:focus-visible ring
+       (preferences layer — the thick, offset, high-contrast token ring)
+       already applies and easily meets 2.4.13. */
 
     @include high-contrast {
       border-color: currentcolor;
@@ -66,13 +63,17 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     }
   }
 
-  /* The regression: a hairline, low-contrast, zero-offset outline that
-     barely reads against the button. Focus still moves; it's just hard to
-     locate — the failure 2.4.13 (and, at worst, 2.4.7) is meant to prevent. */
+  /* The regression: a hairline, low-contrast, zero-offset outline. Because
+     the foundation's ring lives in the preferences layer (which wins over
+     components), the only way to defeat it is the classic anti-pattern —
+     overriding with !important. That this takes !important IS the lesson:
+     the foundation protects the ring; you have to actively fight it to fail. */
   .is-broken {
     .fa-btn:focus-visible {
-      outline: 1px solid var(--color-border);
-      outline-offset: 0;
+      /* stylelint-disable declaration-no-important -- deliberately simulating the anti-pattern */
+      outline: 1px solid var(--color-border) !important;
+      outline-offset: 0 !important;
+      /* stylelint-enable declaration-no-important */
     }
   }
 }

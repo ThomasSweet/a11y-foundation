@@ -268,9 +268,10 @@ binary-vs-graded), the **legal/geographic map** (`LegalMap` — WCAG core +
 converging laws), and the **moving-indicator** interaction (the
 `sliding-indicator` showcase; see #6), **scroll-driven motion** (section
 reveals + page progress bar), and the **tabbed restructure with View
-Transitions** (#12 — gives the page its through-line). **#10 is essentially
-complete.** Remaining is optional polish: card hover states, the full-width
-"Open dialog" button, a sticky glassy tab bar, deep-linking the active pillar.
+Transitions** (#12 — gives the page its through-line). **#10 is
+complete**, including the polish pass (card hover, dialog-button fix, sticky
+glassy tab bar, punchier reveal, scroll-morphing timeline spine) and
+deep-linking the active pillar to the URL hash.
 
 **Decided (June 2026): the narrative wrappers and the modern-UI pass are the
 same effort, not two.** A timeline / scroll-told experience is inherently a
@@ -344,14 +345,28 @@ colour-vision themes**, where they earn their place by adding NON-colour cues
 (underlines, patterns, icons) to descendants that style queries can do and
 inheritance can't.
 
-**Next (not started):**
-- **Colour-vision-deficiency themes** — palettes tuned for protanopia /
-  deuteranopia / tritanopia, *plus* style-query-driven non-colour cues. This
-  is the next theming step and the genuine home for container style queries.
-- **Contrast clamp + user picker** (stretch) — currently the guarantee
-  assumes seeds in safe lightness ranges (a mid-lightness accent can't reach
-  4.5:1 with black or white text). A picker would clamp arbitrary seeds into
-  safe ranges so you *can't* choose an inaccessible theme.
+**Next:**
+- **Non-colour cues via container style queries** ✅ Done (June 2026) — the
+  `style-queries` showcase (`StyleQueryCuesDemo`): a single `--cues` toggle on
+  a container makes `@container style(--cues: on)` add a distinct *shape* to
+  every status inside, so meaning never rests on colour alone (WCAG 1.4.1).
+  Status also carries an `aria-label` for screen readers. This is the genuine
+  home for container style queries.
+- **CVD-tuned palette presets** ✅ Done (June 2026) — three `.theme-*` presets
+  (`cobalt` / `teal` / `amber`) on hues that survive red–green deficiencies,
+  each with strong label lightness-contrast; surfaced in `ThemeShowcaseDemo`
+  and as quick-apply chips in the picker. Named for the hue, not the person.
+- **Contrast clamp + user picker** ✅ Done (June 2026) — `ThemePickerDemo`: an
+  accent hue + lightness picker where a **pure-CSS clamp** (relative color +
+  `min()`/`max()` + a step built from `(0.62 − L)*100000` clamped to 0–1)
+  snaps lightness out of the "muddy middle" (dead zone 0.45–0.78) so the
+  black/white label always clears AA. Verified hue-robust: 156-sample
+  hue×lightness sweep, 0 failures, min 6.27:1 (analytic worst case 6.24:1 at
+  cyan ~190°); a *bypass* toggle reveals the failures the clamp prevents. The
+  numeric read-out uses an OKLab→sRGB→WCAG contrast calc in JS (the only JS;
+  the theming itself is all cascade). Gotcha logged: don't verify oklch
+  contrast via `canvas` fillStyle sampling — it mishandled the color space and
+  gave wrong ratios; the analytic OKLab math is the source of truth.
 - Could grow `theming.css` into a `src/theming/` dir as it expands.
 - Also feeds #10 (modern UI) — this is the color/contrast machinery it needs.
 
@@ -365,8 +380,10 @@ indicator, and panel swaps animate with **View Transitions** (Vue `nextTick`
 pattern) — guarded by reduced-motion, `@supports`, AND document visibility
 (a hidden tab can't run the transition's render-loop callback). Panels use
 `v-show` so component state (toggles, sliders) persists across switches.
-Possible follow-ups: deep-link the active pillar via URL hash; a sticky
-glassy tab bar. Original options/notes kept below.
+Follow-ups: **deep-linking ✅ Done (June 2026)** — the active pillar syncs to
+the URL hash (`#foundation`/`#guidelines`/`#showcases`): honored on load,
+`pushState` on tab change, and `popstate` makes back/forward work. Still
+open: a sticky glassy tab bar. Original options/notes kept below.
 
 
 
@@ -397,6 +414,95 @@ deep-linking/SEO demands it.
 
 ## Done log
 
+- **Two showcase fixes** (June 2026): (1) **Dialogs centered** — the reset's
+  `* { margin: 0 }` (author layer) was overriding the UA `dialog { margin:
+  auto }` that centers modal dialogs, dropping them to the top-left. Restored
+  `dialog { margin: auto }` in the reset layer so every dialog centers. (2)
+  **Anchored popovers now flip at the viewport edge** — root cause: we'd
+  overridden the popover UA default `position: fixed` with `position:
+  absolute`, so the containing block became `.app-shell` (`position: relative`,
+  full page height) instead of the viewport; the panel never "overflowed" so
+  `position-try-fallbacks` never fired. Switched both anchored demos back to
+  `position: fixed`. Verified: flips above near the bottom edge, stays below
+  when there's room, no spurious flips. (Gotcha logged: a transformed ancestor
+  — even the section-reveal's identity matrix — was a red herring here; the
+  real trap was `position: absolute` + a `position: relative` ancestor.)
+- **Three Interop-2026 showcases from the Syntax video** (June 2026), chosen by
+  gap analysis against the episode's feature list: (1) **Scroll-state queries**
+  (`ScrollStateDemo`) — `@container scroll-state(snapped: inline)` makes the
+  centered card highlight itself + show a "snapped" badge; `scroll-state(stuck:
+  top)` restyles a sticky header once pinned. Pure CSS, no scroll listeners —
+  the legit version of the active-indicator/"highlight current item" idea the
+  hosts flagged as a JS pain point. (2) **Custom Highlight API**
+  (`HighlightApiDemo`) — live search-match highlighting via `::highlight()` +
+  `CSS.highlights` + `Range`, no wrapper spans, a11y tree untouched; caption
+  notes it's presentation-only. The `::highlight()` rule lives in a 2nd
+  *unscoped* style block (it's a global named pseudo Vue scoping would break).
+  (3) **Dialog/popover niceties** (`DialogPolishDemo`) — `popover="hint"`
+  toggletip + `<dialog closedby="none">` takeover, styled via `:open`. Verified
+  live: snapped highlights exactly 1 card, stuck badge+shadow on pin, highlight
+  count updates/clears, dialog opens via `:open`.
+- **Contrast-clamped theme picker + CVD presets** (June 2026): interactive
+  `ThemePickerDemo` proving the engine can't be dragged into an inaccessible
+  state (pure-CSS lightness clamp; bypass toggle to show the failures it
+  prevents), plus three CVD-robust `.theme-*` presets in the gallery. Full
+  detail under #11 "Next". 156-sample sweep: 0 AA failures, min 6.27:1.
+- **Top reading-progress bar removed** (June 2026): the fixed `.scroll-progress`
+  bar in the app shell just duplicated the native scrollbar, so it was dropped
+  with no replacement. (The standalone `ScrollProgressDemo` in the showcases —
+  which demonstrates the technique in isolation — stays.)
+- **Scroll-driven app chrome — tried & reverted** (June 2026): prototyped three
+  combined scroll-driven effects in the shell — a CSS-only scrollspy rail
+  (named `view-timeline`s read via `timeline-scope`, no JS), pinning/shrinking
+  section headers, and an ambient `@property`-driven accent-hue travel. All
+  three removed per user feedback: the sticky headers made scanning content
+  more confusing, the rail didn't look good, and the hue travel was effectively
+  invisible (it only tinted the rail). Lesson kept for next attempt: find a
+  scroll-driven idea that's genuinely integrated/visible, ideally from a
+  reference the user supplies. Pre-existing `.demo` section-reveal is untouched.
+- **Popover menu anchoring** (June 2026): the standalone popover menu was
+  rendering via the UA default (centered/cornered) — added anchor positioning
+  (`anchor-name` on the trigger, `position-anchor`/`position-area`/
+  `position-try-fallbacks` on the menu, clearing the UA `inset/margin`) so it
+  tethers under its button, with the UA placement as the no-support fallback.
+- **Three more showcases** (June 2026): `ScrollSnapDemo` (stable — horizontal
+  `scroll-snap-type: x mandatory` strip, cards `scroll-snap-align: center`, a
+  focusable `role="region"` so the keyboard scrolls it, rides the foundation's
+  reduced-motion `scroll-behavior`); `FieldSizingDemo` (emerging — textarea
+  `field-sizing: content` behind `@supports`, min/max in `lh`, `resize:
+  vertical` + `rows` fallback); `PopoverMenuDemo` (stable — real actions menu
+  on the `popover` attribute: Esc/light-dismiss/top-layer/`aria-expanded` for
+  free, items close declaratively via `popovertargetaction="hide"`, entry
+  transition via `@starting-style`). Replaced the popover placeholder with the
+  real demo. Verified live: snap 5 cards x-mandatory, field 50→170px grow +
+  shrink, popover open/declarative-close/status. Lint/typecheck/build green.
+- **Fixes round** (June 2026): (1) Focus Appearance demo now actually differs
+  — the foundation's `*:focus-visible` (preferences layer) was overriding the
+  broken state, so the broken rule now uses `!important` (the anti-pattern is
+  the lesson). (2) text-wrap example columns capped at 18rem so headings wrap
+  on wide screens. (3) More whitespace + bolder type (space-20/24 tokens,
+  bigger gaps/padding, 800-weight display). (4) Card hover replaced with a
+  subtle smooth shadow lift, also on `:focus-within`. (5) `:has()` demo
+  reworked to a selectable list — `:has(:checked)` styles the row (persists,
+  upward), `:focus-within` handles focus (the right tool). Also: `attr()`
+  showcase wired (`AttrDemo`, with CSS-var fallback).
+- **shape() + @starting-style showcases** — `ShapeDemo` (curved decorative
+  band via `clip-path: shape()`, text kept clear) and `StartingStyleDemo`
+  (animate in from display:none, exit via `allow-discrete`, motion-token
+  gated). Fixed a real bug: the `@supports`/`supports` test `shape(from 0 0)`
+  is invalid without a command, so it always read false — now uses a valid
+  test. Also slowed the timeline spine fill (`cover 12% 96%`). June 2026.
+- **#10 polish pass** — card hover lift (showcase + criterion, can-hover,
+  motion-token transitions), fixed the full-width "Open dialog" button
+  (wrapped in `.demo-row`), sticky glassy pillar tab bar (reduced-transparency
+  + forced-colors fallbacks), punchier section reveal, and a scroll-morphing
+  timeline spine (accent line "draws" + markers pop via `view()` timelines,
+  reduced-motion/@supports gated). June 2026.
+- **#11 non-color cues (container style queries)** — `StyleQueryCuesDemo`:
+  `@container style(--cues: on)` adds shapes to color-only statuses; realizes
+  the `style-queries` showcase. June 2026.
+- **#12 deep-linking** — active pillar ↔ URL hash, with back/forward via
+  popstate. June 2026.
 - **#12 content restructure** — three pillars behind an accessible tablist
   with View-Transition panel swaps; reuses the sliding-pill nav. Includes a
   visibility guard so the transition is skipped on hidden tabs. June 2026.

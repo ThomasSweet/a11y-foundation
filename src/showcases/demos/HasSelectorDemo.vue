@@ -1,61 +1,97 @@
 <template>
-  <fieldset class="has-demo">
-    <legend>Notification channel</legend>
-    <label v-for="option in options" :key="option" class="choice">
-      <input v-model="picked" type="radio" :name="groupName" :value="option" />
-      <span>{{ option }}</span>
-    </label>
-  </fieldset>
+  <div class="sel">
+    <p class="sel-caption">
+      Tick a row: <code>.row:has(:checked)</code> styles the row from its
+      checkbox's <em>checked</em> state — something no upward selector can do,
+      and unlike <code>:focus-within</code> the highlight <em>persists</em>
+      after focus leaves. Focus itself is handled by <code>:focus-within</code>
+      — the lighter, right tool for that job. Two states, two selectors.
+    </p>
+
+    <ul class="sel-list">
+      <li v-for="task in tasks" :key="task" class="sel-row">
+        <label class="sel-label">
+          <input v-model="selected" type="checkbox" :value="task" />
+          <span>{{ task }}</span>
+        </label>
+      </li>
+    </ul>
+
+    <p class="sel-count" role="status">{{ selected.length }} selected</p>
+  </div>
 </template>
 
-<script setup>
-import { ref, useId } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-const groupName = useId()
-const options = ['Email', 'SMS', 'None']
-const picked = ref('Email')
+const tasks = [
+  'Review pull request',
+  'Update the changelog',
+  'Deploy to staging',
+  'Notify the team',
+]
+const selected = ref<string[]>([])
 </script>
 
 <style scoped lang="scss">
 @layer components {
-  .has-demo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    border: 0;
-    padding: 0;
-
-    legend {
-      margin-block-end: var(--space-2);
-      font-weight: 600;
-    }
+  .sel {
+    display: grid;
+    gap: var(--space-4);
   }
 
-  /* The card highlights when the radio INSIDE it is checked or focused —
-     parent styling from child state, no JS, and the native radio keeps
-     all of its semantics and keyboard behavior. */
-  .choice {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-md);
-    cursor: pointer;
+  .sel-caption {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
 
+  .sel-list {
+    display: grid;
+    gap: var(--space-2);
+    max-inline-size: 30rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sel-row {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard);
+
+    /* Transient: the row is being interacted with. The checkbox keeps its
+       own native focus ring — this is just a soft backdrop, the job
+       :focus-within is actually meant for. */
+    &:focus-within {
+      background-color: var(--color-bg-subtle);
+    }
+
+    /* Persistent: the row is selected — :has() reaching its descendant's
+       checked state. This is the part :focus-within can't replicate. */
     &:has(:checked) {
       border-color: var(--color-primary);
       background-color: var(--color-bg-subtle);
     }
 
-    &:has(:focus-visible) {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
-
     @include high-contrast {
       border-color: currentcolor;
     }
+  }
+
+  .sel-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    cursor: pointer;
+  }
+
+  .sel-count {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
   }
 }
 </style>

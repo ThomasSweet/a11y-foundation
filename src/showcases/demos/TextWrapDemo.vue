@@ -5,7 +5,7 @@
          ragged line breaks. -->
     <figure class="tw-col">
       <figcaption class="tw-label">Default wrapping</figcaption>
-      <h4 class="tw-heading">A balanced headline avoids lonely last words</h4>
+      <h4 class="tw-heading">{{ heading }}</h4>
       <p class="tw-body">{{ body }}</p>
     </figure>
 
@@ -13,15 +13,14 @@
       <figcaption class="tw-label">
         <code>balance</code> + <code>pretty</code>
       </figcaption>
-      <h4 class="tw-heading tw-heading--balance">
-        A balanced headline avoids lonely last words
-      </h4>
+      <h4 class="tw-heading tw-heading--balance">{{ heading }}</h4>
       <p class="tw-body tw-body--pretty">{{ body }}</p>
     </figure>
   </div>
 </template>
 
 <script setup>
+const heading = 'A well-balanced headline never leaves its last word stranded'
 const body =
   'Typography reads better when the browser, not the viewport, decides ' +
   'where lines break. pretty keeps the last line from becoming a single ' +
@@ -31,10 +30,12 @@ const body =
 <style scoped lang="scss">
 @layer components {
   .tw-demo {
-    /* Container queries territory: two columns when there's room, stacked
-       when there isn't — no media query. */
+    /* Two columns when there's room, stacked when not — no media query.
+       The columns are capped (not 1fr) so the headings stay narrow enough to
+       wrap on wide screens, where the balance/pretty difference is visible. */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 18rem));
+    justify-content: start;
     gap: var(--space-4);
   }
 

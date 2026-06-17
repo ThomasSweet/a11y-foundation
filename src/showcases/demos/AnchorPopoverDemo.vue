@@ -50,7 +50,12 @@ const popoverId = useId()
 
     /* The enhancement, only where the feature exists. */
     @supports (anchor-name: --a) {
-      position: absolute;
+      /* Keep the UA popover's `position: fixed`, NOT absolute. With absolute,
+         the containing block becomes the nearest positioned ancestor
+         (.app-shell is `position: relative` and full-page-tall), so the panel
+         never "overflows" at the viewport edge and the flip fallbacks never
+         fire. Fixed resolves against the viewport, so flipping works. */
+      position: fixed;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;
       /* Clear the UA popover centering (inset: 0; margin: auto) — left in

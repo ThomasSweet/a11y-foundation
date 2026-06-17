@@ -110,4 +110,50 @@
       border-color: currentcolor;
     }
   }
+
+  /* Scroll-morphing spine: an accent line "draws" down the timeline as you
+     scroll through it, and each marker pops in as its era arrives. Both are
+     scroll-driven (off the main thread) and progressive enhancement — added
+     only with motion allowed and view() timelines supported. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .timeline::after {
+        content: '';
+        position: absolute;
+        inset-block: var(--space-2);
+        inset-inline-start: calc(var(--space-6) / 2);
+        inline-size: 2px;
+        margin-inline-start: -1px;
+        background: var(--gradient-accent);
+        transform: scaleY(0);
+        transform-origin: top;
+        animation: timeline-fill linear both;
+        animation-timeline: view();
+        /* Spread the fill across (almost) the whole pass so it keeps drawing
+           down to the last era instead of completing early and scrolling its
+           leading edge off-screen. The end %% is the knob: higher = slower /
+           finishes later. */
+        animation-range: cover 12% cover 96%;
+      }
+
+      .era-marker {
+        animation: marker-pop linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 12%;
+      }
+
+      @keyframes timeline-fill {
+        to {
+          transform: scaleY(1);
+        }
+      }
+
+      @keyframes marker-pop {
+        from {
+          transform: scale(0.4);
+          opacity: 0.3;
+        }
+      }
+    }
+  }
 }

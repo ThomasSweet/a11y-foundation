@@ -1,11 +1,13 @@
 <template>
   <div class="theme-demo">
     <p class="theme-demo-caption">
-      One engine, four themes. Each card sets just two seed colors; the full
+      One engine, many themes. Each card sets just two seed colors; the full
       accessible palette — surfaces, borders, text, the focus ring — is
       derived with <code>color-mix()</code>, relative color syntax, and
       <code>contrast-color()</code>. Identical components, re-themed with zero
-      component changes.
+      component changes. The last three are tuned to stay legible under
+      color-vision deficiency — recognizable hues with strong lightness
+      contrast (hue is never the only signal).
     </p>
 
     <div class="theme-grid">
@@ -34,6 +36,9 @@ const themes = [
   { name: 'Ocean', class: 'theme-ocean' },
   { name: 'Midnight', class: 'theme-midnight' },
   { name: 'Sunset', class: 'theme-sunset' },
+  { name: 'Cobalt', class: 'theme-cobalt' },
+  { name: 'Teal', class: 'theme-teal' },
+  { name: 'Amber', class: 'theme-amber' },
 ]
 </script>
 
