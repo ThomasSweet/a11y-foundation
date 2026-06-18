@@ -3,8 +3,33 @@
     "stylelint-config-standard-scss",
     "stylelint-config-recommended-vue/scss"
   ],
-  "plugins": ["stylelint-order"],
+  "plugins": [
+    "stylelint-order",
+    "stylelint-value-no-unknown-custom-properties"
+  ],
   "rules": {
+    "csstools/value-no-unknown-custom-properties": [
+      true,
+      {
+        "comment": "Catches references to custom properties (tokens) that aren't defined anywhere — e.g. a typo'd `var(--space-5)` that would silently collapse to the initial value. Global tokens are read from the files below; component-local props defined in the same <style> block are recognized automatically. The listed props are injected via :style bindings in templates, so they have no CSS definition to find.",
+        "importFrom": [
+          "src/styles/tokens.css",
+          "src/styles/theming.css",
+          "src/styles/preferences.css",
+          {
+            "customProperties": {
+              "--swatch-bg": "",
+              "--v": "",
+              "--n": "",
+              "--cues": "",
+              "--pick-h": "",
+              "--pick-l": "",
+              "--bypass": ""
+            }
+          }
+        ]
+      }
+    ],
     "order/order": [
       "custom-properties",
       "declarations",

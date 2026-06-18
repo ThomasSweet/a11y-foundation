@@ -88,6 +88,7 @@ const dlg = ref<HTMLDialogElement | null>(null)
     font: inherit;
     font-weight: 700;
     cursor: pointer;
+    anchor-name: --dp-tip-anchor;
 
     @include can-hover {
       &:hover {
@@ -102,13 +103,23 @@ const dlg = ref<HTMLDialogElement | null>(null)
 
   .dp-tip {
     max-inline-size: 30ch;
-    margin: 0;
     padding: var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
     box-shadow: var(--shadow-md);
     font-size: var(--text-sm);
+
+    /* Tether the toggletip to the "?" button. Without support it falls back
+       to the UA-centered popover (margin: auto, restored in the reset). */
+    @supports (anchor-name: --a) {
+      position: fixed;
+      position-anchor: --dp-tip-anchor;
+      position-area: block-end span-inline-end;
+      inset: auto;
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+      margin: var(--space-2) 0 0;
+    }
 
     @include high-contrast {
       border-color: currentcolor;
@@ -117,7 +128,7 @@ const dlg = ref<HTMLDialogElement | null>(null)
 
   .dp-dialog {
     max-inline-size: 38ch;
-    padding: var(--space-5);
+    padding: var(--space-6);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-surface);
