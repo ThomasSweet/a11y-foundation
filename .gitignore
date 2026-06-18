@@ -2,3 +2,6 @@ node_modules/
 dist/
 *.local
 .DS_Store
+
+# Local Claude Code config (launch configs, settings, etc.) — machine-local.
+.claude/

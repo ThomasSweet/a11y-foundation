@@ -2,8 +2,8 @@
   <dialog
     ref="dialog"
     class="dialog"
+    closedby="any"
     :aria-labelledby="titleId"
-    @click="onDialogClick"
   >
     <header class="dialog-header">
       <h2 :id="titleId" class="dialog-title">
@@ -31,24 +31,14 @@ const dialog = ref<HTMLDialogElement | null>(null)
 const titleId = useId()
 
 // Native <dialog> + showModal() gives focus trapping, Esc-to-close,
-// inert background, and top-layer rendering for free.
+// inert background, and top-layer rendering for free. The closedby="any"
+// attribute adds light-dismiss (outside-click) natively too — no JS handler.
+// On browsers without closedby support the dialog still closes via Esc and
+// the close button; only outside-click degrades, which is harmless.
 defineExpose({
   open: () => dialog.value?.showModal(),
   close: () => dialog.value?.close(),
 })
-
-// Light dismiss: the ::backdrop registers clicks on the <dialog> element
-// itself, so a click whose coordinates fall outside the dialog's box is a
-// backdrop click. Clicks on the content (and padding) land inside the box
-// and are ignored. Esc and focus trapping stay fully native.
-function onDialogClick(e: MouseEvent) {
-  if (!dialog.value) return
-  const r = dialog.value.getBoundingClientRect()
-  const inside =
-    e.clientX >= r.left && e.clientX <= r.right &&
-    e.clientY >= r.top && e.clientY <= r.bottom
-  if (!inside) dialog.value.close()
-}
 </script>
 
 <style scoped lang="scss" src="./AppDialog.scss"></style>

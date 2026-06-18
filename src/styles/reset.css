@@ -18,9 +18,12 @@
   }
 
   /* The universal margin reset above also clobbers the UA `margin: auto`
-     that centers a modal <dialog> in the viewport, dropping it to the
-     top-left. Restore it so every dialog centers by default. */
-  dialog {
+     that centers a modal <dialog> — and an open [popover] — in the viewport,
+     dropping them to the top-left. Restore it so both center by default.
+     (Anchored popovers override this with their own margin in a higher
+     layer, so this only affects the unanchored fallback.) */
+  dialog,
+  [popover] {
     margin: auto;
   }
 
