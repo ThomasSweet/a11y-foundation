@@ -1,0 +1,124 @@
+@layer components {
+  .coverage-matrix {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  /* Focusable scroll region: lets the table overflow horizontally on narrow
+     screens while staying reachable and operable by keyboard. */
+  .coverage-matrix-scroll {
+    overflow-x: auto;
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .coverage-matrix-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    /* Keep columns from crushing; the wrapper scrolls instead. */
+    min-inline-size: max-content;
+  }
+
+  .coverage-matrix-caption {
+    margin-block-end: var(--space-4);
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    text-align: start;
+  }
+
+  th,
+  td {
+    padding: var(--space-3);
+    border-block-end: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: baseline;
+  }
+
+  thead th {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-text);
+    border-block-end: 2px solid var(--color-border);
+  }
+
+  .coverage-matrix-method {
+    inline-size: 8rem;
+    text-align: center;
+  }
+
+  .coverage-matrix-method-sub {
+    display: block;
+    font-weight: 400;
+    color: var(--color-text-subtle);
+  }
+
+  .coverage-matrix-issue {
+    font-weight: 600;
+  }
+
+  .coverage-matrix-issue-name {
+    display: block;
+  }
+
+  .coverage-matrix-sc {
+    display: block;
+    margin-block-start: 2px;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--color-text-subtle);
+  }
+
+  .coverage-matrix-cell {
+    text-align: center;
+  }
+
+  /* The glyph carries the verdict together with colour and the visually-hidden
+     label — so it survives greyscale, low vision, and forced-colors. */
+  .coverage-matrix-glyph {
+    font-size: var(--text-lg);
+    line-height: 1;
+  }
+
+  .is-caught .coverage-matrix-glyph {
+    color: var(--color-success);
+  }
+
+  .is-partial .coverage-matrix-glyph {
+    color: var(--color-warning);
+  }
+
+  .is-missed .coverage-matrix-glyph {
+    color: var(--color-text-subtle);
+  }
+
+  .coverage-matrix-takeaway {
+    max-inline-size: 65ch;
+    padding: var(--space-4);
+    border-inline-start: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-subtle);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+
+    strong {
+      color: var(--color-text);
+    }
+  }
+
+  /* Zebra striping aids row tracking across a wide table; decorative only, so
+     it carries no meaning and drops cleanly under forced-colors. */
+  tbody tr:nth-child(even) {
+    background-color: color-mix(in oklch, var(--color-bg-subtle) 50%, transparent);
+
+    @include forced-colors {
+      background-color: transparent;
+    }
+  }
+}

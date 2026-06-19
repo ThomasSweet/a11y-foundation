@@ -1,0 +1,104 @@
+@layer components {
+  .testing-layers {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    /* Two-up once there's room; the order still reads base → top down each
+       column, which the numbered labels reinforce. */
+    @include from('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .testing-layers-card {
+    display: grid;
+    gap: var(--space-2);
+    block-size: 100%;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .testing-layers-kind {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+  }
+
+  .testing-layers-name {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    line-height: var(--leading-tight);
+  }
+
+  .testing-layers-detail {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-1) 0 0;
+  }
+
+  .testing-layers-catches,
+  .testing-layers-blind {
+    margin: 0;
+    color: var(--color-text-subtle);
+  }
+
+  /* A small inline label so the catches/blind-spot split reads at a glance —
+     never colour alone, the word itself carries it. */
+  .testing-layers-tag {
+    display: inline-block;
+    margin-inline-end: var(--space-1);
+    padding: 1px var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    vertical-align: baseline;
+  }
+
+  .testing-layers-tag-catches {
+    background-color: color-mix(in oklch, var(--color-success) 18%, transparent);
+    color: var(--color-text);
+  }
+
+  .testing-layers-tag-blind {
+    background-color: color-mix(in oklch, var(--color-warning) 22%, transparent);
+    color: var(--color-text);
+  }
+
+  @include forced-colors {
+    .testing-layers-tag {
+      border: 1px solid currentcolor;
+    }
+  }
+
+  .testing-layers-tool {
+    margin-block-start: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .testing-layers-here {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    code {
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-sm);
+      background-color: var(--color-bg-subtle);
+      font-size: var(--text-sm);
+    }
+  }
+}

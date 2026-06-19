@@ -85,6 +85,33 @@ Wrap the whole style block:
 
 ---
 
+## CSS class naming
+
+Because every SFC uses `<style scoped>`, class names are already isolated per
+component — there's no collision to defend against, so there's no reason for
+short, cryptic prefixes. **Name classes for the role they play, spelled out in
+full, in kebab-case.**
+
+- **Readable, spelled-out prefix**, derived from the component or feature:
+  `.theme-picker-preview`, `.scroll-state-track`, `.reflow-viewport` —
+  not `.tp-preview`, `.sst-track`, `.rf-viewport`. The next reader should know
+  what they're looking at without decoding an abbreviation.
+- **One prefix per component block**, with the part as a suffix:
+  `.theme-picker-controls`, `.theme-picker-report`, `.theme-picker-note`.
+- **State is a second class** using the `is-` / `has-` convention, toggled with
+  a binding — never folded into the structural name:
+  `class="theme-picker-report is-fail"` ← `:class="{ 'is-fail': … }"`.
+- **Match custom-property names to the block** too: `--dialog-…`, not `--dp-…`.
+- **Shared / global classes stay unprefixed and stable** — they're the
+  exception, because they're *meant* to be reused across components:
+  `.surface`, `.surface-title`, `.skip-link`, `.visually-hidden`.
+
+Spelling it out costs a few characters; it buys a stylesheet (and a DOM
+inspector) that reads like prose. The hash `scoped` appends keeps everything
+collision-free regardless of how plain the names are.
+
+---
+
 ## Component folders & TypeScript
 
 Each reusable component lives in **its own folder**, with the styles in a

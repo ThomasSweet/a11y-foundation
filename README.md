@@ -62,6 +62,11 @@ It's a **demo/playground**, not a production dependency — built to be explored
 learned from. The full statement lives in the site footer. Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
 
+The site itself includes a **"The proof"** section that walks through how
+accessibility testing actually layers — static checks, unit logic, an automated
+`axe` sweep, then keyboard and screen-reader passes — and, crucially, what a
+scanner like `axe` can and can't catch. The suite below is that model, runnable:
+
 ```sh
 npm run test:unit  # contrast-clamp guarantee + Baseline fallback watch (Vitest)
 npm run test:e2e   # axe sweep + keyboard/focus behaviour, across Chromium/Firefox/WebKit

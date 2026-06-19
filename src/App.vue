@@ -34,6 +34,11 @@
             CSS showcase
           </a>
         </li>
+        <li>
+          <a class="scrollspy-link" data-spy="testing" href="#testing">
+            The proof
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -225,6 +230,44 @@
           </template>
         </section>
       </div>
+
+      <!-- ===================================================================
+           Pillar 3 — The proof: how you know any of it actually works
+      ==================================================================== -->
+      <div id="testing" class="pillar scrollspy-region">
+        <p class="pillar-eyebrow">04 · The proof</p>
+        <p class="pillar-lead">
+          A standard and a clever platform answer are only claims until something
+          checks them. Accessibility testing is where many teams get lost — they
+          run an automated scanner, see green, and call it accessible. The honest
+          picture is layered, and most of it isn't a scanner's job. (Writing these
+          very tests turned up two real barriers on this site — proof the layers
+          earn their place.)
+        </p>
+
+        <section class="demo" aria-labelledby="testing-layers">
+          <h2 id="testing-layers">A layered job, not a button</h2>
+          <p>
+            Each layer is cheaper and broader than the one above it, so it clears
+            the easy ground and frees the slow, human layer for what only a person
+            can judge. None replaces the next. Every layer below points at the
+            real artifact in this repo — the suite you can open and run.
+          </p>
+          <TestingLayers />
+        </section>
+
+        <section class="demo" aria-labelledby="testing-coverage">
+          <h2 id="testing-coverage">What automation can and can't see</h2>
+          <p>
+            This is the part that's rarely spelled out. An automated pass like
+            <code>axe</code> is excellent at a specific slice of WCAG and blind to
+            the rest. Here's a sample of real defects against the methods that
+            catch them — read the <code>axe</code> column top to bottom and watch
+            it run out.
+          </p>
+          <CoverageMatrix />
+        </section>
+      </div>
     </main>
 
     <footer class="site-footer" aria-labelledby="a11y-statement">
@@ -291,6 +334,8 @@ import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
+import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
+import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
@@ -467,12 +512,13 @@ const groups = computed(() => [
      override; it's gated only on support, with the plain link as the fallback. */
   @supports (animation-timeline: view()) {
     .app-shell {
-      timeline-scope: --vt-standard, --vt-craft, --vt-showcase;
+      timeline-scope: --vt-standard, --vt-craft, --vt-showcase, --vt-testing;
     }
 
     #standard { view-timeline-name: --vt-standard; }
     #craft { view-timeline-name: --vt-craft; }
     #showcase { view-timeline-name: --vt-showcase; }
+    #testing { view-timeline-name: --vt-testing; }
 
     .scrollspy-link {
       animation: scrollspy-active linear both;
@@ -482,6 +528,7 @@ const groups = computed(() => [
     .scrollspy-link[data-spy='standard'] { animation-timeline: --vt-standard; }
     .scrollspy-link[data-spy='craft'] { animation-timeline: --vt-craft; }
     .scrollspy-link[data-spy='showcase'] { animation-timeline: --vt-showcase; }
+    .scrollspy-link[data-spy='testing'] { animation-timeline: --vt-testing; }
 
     /* A plateau, not a single peak: the link reaches full strength early and
        holds it across the bulk of the region (12%–88% of its cover range),
