@@ -40,19 +40,17 @@ const cards = [
 
   .sg-card {
     display: grid;
+    /* Each card spans three of the parent grid's rows and adopts them, so
+       title/text/meta line up ACROSS cards regardless of content length.
+       (Subgrid reached Baseline — widely available — in March 2026, so this
+       no longer needs an @supports fallback; baseline-watch confirmed it.) */
+    grid-row: span 3;
+    grid-template-rows: subgrid;
     gap: var(--space-2);
     padding: var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: var(--color-bg-subtle);
-
-    /* The enhancement: each card spans three of the parent's rows and
-       adopts them, so title/text/meta align ACROSS cards regardless of
-       content length. Fallback: cards lay out their own rows — fine. */
-    @supports (grid-template-rows: subgrid) {
-      grid-row: span 3;
-      grid-template-rows: subgrid;
-    }
 
     @include high-contrast {
       border-color: currentcolor;

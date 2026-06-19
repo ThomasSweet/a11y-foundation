@@ -226,6 +226,55 @@
         </section>
       </div>
     </main>
+
+    <footer class="site-footer" aria-labelledby="a11y-statement">
+      <h2 id="a11y-statement" class="footer-title">Accessibility</h2>
+      <p class="footer-lede">
+        This site practises what it shows. It targets
+        <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2 AA</a>, works with a
+        keyboard and a screen reader, and honours your motion, contrast, and
+        colour-scheme preferences — and it never leans on colour alone to carry
+        meaning.
+      </p>
+      <p class="footer-lede">
+        It also leans on genuinely new platform features — anchor positioning,
+        scroll-driven animation, container queries, <code>contrast-color()</code>.
+        Each is a progressive enhancement: where your browser supports it you get
+        the richer version; where it doesn't you get an accessible fallback, not a
+        broken page. New features extend the baseline here — they never replace it.
+      </p>
+
+      <!-- The statement demonstrates the thesis while making it: progressive
+           disclosure with a native <details>, no JavaScript. -->
+      <details class="footer-details">
+        <summary class="footer-summary">What that means in practice</summary>
+        <div class="footer-details-body">
+          <p>
+            <strong>It's a demo, not a dependency.</strong> a11y-foundation is a
+            playground for showing how the modern web platform answers
+            accessibility natively, with little to no JavaScript — made to be
+            explored and learned from, not installed into a production app.
+          </p>
+          <p>
+            <strong>Some showcases want a recent browser.</strong> The
+            “arriving next” demos use features still landing across engines. On an
+            older browser they quietly fall back to a simpler, still-usable form —
+            that degradation is the design, not a defect.
+          </p>
+          <p>
+            <strong>Tested where it counts.</strong> Verified against current
+            Chrome, Firefox, and Safari, with a keyboard, forced-colours mode, and
+            the reduced-motion and reduced-transparency preferences.
+          </p>
+          <p>
+            <strong>Found a barrier?</strong> Accessibility work is never
+            finished. If something gets in your way,
+            <a href="https://github.com/ThomasSweet/a11y-foundation/issues">open an
+            issue</a> — that feedback is welcome and acted on.
+          </p>
+        </div>
+      </details>
+    </footer>
   </div>
 </template>
 
@@ -340,6 +389,16 @@ const groups = computed(() => [
   .showcase-list {
     display: grid;
     gap: var(--space-6);
+  }
+
+  /* A closing coda, set off from the argument above by a hairline rule. */
+  .site-footer {
+    display: grid;
+    gap: var(--space-4);
+    max-inline-size: 72rem;
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-16);
+    border-block-start: 1px solid var(--color-border);
   }
 }
 
@@ -551,6 +610,49 @@ const groups = computed(() => [
         }
       }
     }
+  }
+
+  .footer-title {
+    font-size: var(--text-display-sm);
+    font-weight: 800;
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .footer-lede {
+    max-inline-size: 65ch;
+    color: var(--color-text-subtle);
+  }
+
+  .footer-details {
+    max-inline-size: 65ch;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .footer-summary {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .footer-details-body {
+    display: grid;
+    gap: var(--space-3);
+    padding: 0 var(--space-4) var(--space-4);
+    max-inline-size: 65ch;
+    color: var(--color-text-subtle);
   }
 
   .spinner {

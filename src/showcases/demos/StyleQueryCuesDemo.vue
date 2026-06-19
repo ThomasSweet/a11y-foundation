@@ -11,13 +11,14 @@
     </p>
 
     <label class="cues-toggle">
-      <input v-model="cues" type="checkbox" />
+      <input type="checkbox" />
       <span>Add non-color cues</span>
     </label>
 
-    <!-- --cues lives on the container; the style query reads it and adds
-         shapes to descendant statuses that don't know about it. -->
-    <ul class="srv-list" :style="{ '--cues': cues ? 'on' : 'off' }">
+    <!-- No JS: --cues is set on the demo root in CSS, where :has() reads this
+         checkbox. It inherits down to each status, where the style query reads
+         it and adds shapes to statuses that don't know about it. -->
+    <ul class="srv-list">
       <li v-for="s in services" :key="s.name" class="srv">
         <span class="srv-name">{{ s.name }}</span>
         <span
@@ -32,11 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 type State = 'ok' | 'degraded' | 'down'
-
-const cues = ref(false)
 
 const stateLabel: Record<State, string> = {
   ok: 'Operational',
@@ -55,8 +52,17 @@ const services: { name: string; state: State }[] = [
 <style scoped lang="scss">
 @layer components {
   .cues-demo {
+    /* The toggle's state lives here, set purely in CSS: :has() reads the
+       checkbox and flips --cues, which inherits down to every status where
+       the style query below reads it. No JS drives this. */
+    --cues: off;
+
     display: grid;
     gap: var(--space-4);
+
+    &:has(.cues-toggle input:checked) {
+      --cues: on;
+    }
   }
 
   .cues-caption {
@@ -121,7 +127,7 @@ const services: { name: string; state: State }[] = [
     }
   }
 
-  /* The container style query: when --cues is on (set on .srv-list above),
+  /* The container style query: when --cues is on (inherited from .cues-demo),
      swap the colored dot for a colored SHAPE on the neutral row — a cue that
      survives any color-vision deficiency. No status element references
      --cues; the query reaches them from their ancestor. */

@@ -47,6 +47,26 @@ The playground responds live to OS settings — no reload needed:
 - **Forced colors (Windows)** → buttons and dialogs keep visible boundaries
 - **Keyboard only** → skip link appears on first Tab, consistent focus rings
 
+## Accessibility
+
+This project practises what it shows. It targets **WCAG 2.2 AA**, works with a
+keyboard and a screen reader, and honours reduced-motion, contrast, forced-colors,
+and colour-scheme preferences — never relying on colour alone to carry meaning.
+
+Newer platform features (anchor positioning, scroll-driven animation, container
+queries, `contrast-color()`) are layered as **progressive enhancements** behind
+`@supports`: where a browser supports them you get the richer version; where it
+doesn't you get an accessible fallback, not a broken page.
+
+It's a **demo/playground**, not a production dependency — built to be explored and
+learned from. The full statement lives in the site footer. Found a barrier?
+[Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
+
+```sh
+npm run test:unit  # contrast-clamp guarantee + Baseline fallback watch (Vitest)
+npm run test:e2e   # axe sweep + keyboard/focus behaviour, across Chromium/Firefox/WebKit
+```
+
 ## Conventions
 
 See [GUIDE.md](./GUIDE.md) for the full coding guide: the layer rules, the

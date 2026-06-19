@@ -11,20 +11,24 @@
     <!-- snapped: the centered card highlights itself -->
     <section class="sst-block">
       <h4 class="sst-h">Snapped</h4>
-      <ul
+      <!-- Region wraps the list so the cards keep list semantics (a
+           role="region" directly on the <ul> would strip them). -->
+      <div
         class="sst-track"
         tabindex="0"
         role="region"
         aria-label="Steps, scrollable — the centered card is highlighted"
       >
-        <li v-for="step in steps" :key="step.n" class="sst-card">
-          <div class="sst-card-inner">
-            <span class="sst-n">{{ step.n }}</span>
-            <span class="sst-label">{{ step.label }}</span>
-            <span class="sst-snapped" aria-hidden="true">snapped</span>
-          </div>
-        </li>
-      </ul>
+        <ul class="sst-cards" role="list">
+          <li v-for="step in steps" :key="step.n" class="sst-card">
+            <div class="sst-card-inner">
+              <span class="sst-n">{{ step.n }}</span>
+              <span class="sst-label">{{ step.label }}</span>
+              <span class="sst-snapped" aria-hidden="true">snapped</span>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <!-- stuck: the sticky header restyles once it pins -->
@@ -86,11 +90,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
 
   /* ---- Snapped carousel ---- */
   .sst-track {
-    display: flex;
-    gap: var(--space-3);
-    margin: 0;
     padding: var(--space-2);
-    list-style: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     border-radius: var(--radius-md);
@@ -99,6 +99,14 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
       outline-offset: var(--focus-ring-offset);
     }
+  }
+
+  .sst-cards {
+    display: flex;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .sst-card {

@@ -7,8 +7,14 @@
 
     <!-- A simulated narrow viewport. overflow:auto contains any scrolling
          to this box (not the page), so a horizontal scrollbar appearing
-         here IS the failure you can see and feel. -->
-    <div class="rf-viewport">
+         here IS the failure you can see and feel. It's keyboard-focusable so
+         the scrollable area is reachable without a pointer. -->
+    <div
+      class="rf-viewport"
+      tabindex="0"
+      role="group"
+      aria-label="Account overview panel, scrollable"
+    >
       <div class="rf-content">
         <p class="rf-title">Account overview</p>
         <p class="rf-text">
@@ -57,6 +63,11 @@ const stats = [
     overflow: auto;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
 
     @include high-contrast {
       border-color: currentcolor;

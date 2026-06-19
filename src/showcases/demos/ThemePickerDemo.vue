@@ -1,11 +1,13 @@
 <template>
   <div class="tp-demo">
     <p class="tp-caption">
-      Pick an accent and drag its lightness. The engine derives the whole
-      palette from that one seed — and a <strong>pure-CSS clamp</strong> snaps
-      the lightness out of the “muddy middle” into a range where the button
-      label is guaranteed to hit WCAG AA. You can’t drag it into an
-      inaccessible state; flip <em>bypass</em> to see what that would look like.
+      Pick an accent and drag its lightness. The whole palette is derived from
+      that one seed, and the button label is protected <strong>two ways</strong>:
+      a <strong>pure-CSS clamp</strong> keeps even the plain black/white
+      <em>fallback</em> at WCAG AA, and <code>contrast-color()</code> (where
+      supported) picks the best label on top. Flip <em>bypass</em> to drop the
+      clamp and watch the fallback fail — while <code>contrast-color()</code>
+      quietly rescues the rendered label.
     </p>
 
     <div class="tp-grid">
@@ -75,21 +77,21 @@
       </article>
     </div>
 
-    <dl class="tp-report" :class="{ 'is-fail': report.fails }">
-      <div class="tp-stat">
-        <dt>Picked</dt>
-        <dd>{{ pickL }}% L</dd>
-      </div>
+    <dl class="tp-report" :class="{ 'is-fail': !report.fallback.passes }">
       <div class="tp-stat">
         <dt>Applied</dt>
         <dd>{{ report.appliedPct }}% L</dd>
       </div>
       <div class="tp-stat">
-        <dt>Label contrast</dt>
-        <dd>{{ report.ratio }}:1 · {{ report.verdict }}</dd>
+        <dt>Fallback label</dt>
+        <dd>{{ report.fallback.ratio }}:1 · {{ report.fallback.passes ? 'AA ✓' : 'fails AA' }}</dd>
+      </div>
+      <div v-if="supportsContrastColor" class="tp-stat">
+        <dt>Rendered (<code>contrast-color</code>)</dt>
+        <dd>{{ report.rendered.ratio }}:1 · {{ report.rendered.passes ? 'AA ✓' : 'fails AA' }}</dd>
       </div>
     </dl>
-    <p class="tp-note" role="status">{{ report.message }}</p>
+    <p class="tp-note" role="status">{{ note }}</p>
   </div>
 </template>
 
@@ -97,15 +99,9 @@
 import { computed, ref } from 'vue'
 
 import AppButton from '../../components/AppButton/AppButton.vue'
-
-// Fixed chroma keeps the demo focused on the lightness↔contrast relationship
-// (and stays mostly in sRGB gamut). Mirrors the value used in the stylesheet.
-const CHROMA = 0.15
-// Lightness threshold the engine uses to flip the label black/white, and the
-// safe bounds the clamp snaps to. Mirrors .tp-preview in the stylesheet.
-const FLIP = 0.62
-const DARK_MAX = 0.45 // darkest-safe ceiling for a white label
-const LIGHT_MIN = 0.78 // lightest-safe floor for a black label
+// The contrast maths lives in a sibling module so it can be unit-tested; this
+// component just feeds it the picked values (see themePickerMath.test.ts).
+import { assessPick } from './themePickerMath'
 
 const pickH = ref(265)
 const pickL = ref(60) // starts inside the dead zone, so the clamp visibly acts
@@ -124,56 +120,27 @@ function apply(p: { h: number; l: number }) {
   bypass.value = false
 }
 
-// OKLCH → linear sRGB (the standard OKLab matrices), for an honest contrast
-// read-out. Out-of-gamut channels are clipped to [0,1], which approximates
-// the browser's gamut mapping closely enough for a teaching figure.
-function oklchToLinear(L: number, C: number, hDeg: number): number[] {
-  const h = (hDeg * Math.PI) / 180
-  const a = C * Math.cos(h)
-  const b = C * Math.sin(h)
-  const l_ = L + 0.3963377774 * a + 0.2158037573 * b
-  const m_ = L - 0.1055613458 * a - 0.0638541728 * b
-  const s_ = L - 0.0894841775 * a - 1.291485548 * b
-  const l = l_ ** 3
-  const m = m_ ** 3
-  const s = s_ ** 3
-  return [
-    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
-    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
-    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
-  ]
-}
-function relLuminance(L: number, C: number, h: number): number {
-  const [r, g, b] = oklchToLinear(L, C, h).map((v) => Math.min(1, Math.max(0, v)))
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b
-}
-function contrast(a: number, b: number): number {
-  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-}
+const report = computed(() =>
+  assessPick({ h: pickH.value, l: pickL.value, bypass: bypass.value }),
+)
 
-const report = computed(() => {
-  const raw = pickL.value / 100
-  const safe = raw < FLIP ? Math.min(raw, DARK_MAX) : Math.max(raw, LIGHT_MIN)
-  const applied = bypass.value ? raw : safe
+// Detect the second safety net so the read-out can be honest about what THIS
+// browser paints: with contrast-color() the rendered label is best-of-black/
+// white; without it, the plain fallback flip is all there is.
+const supportsContrastColor =
+  typeof CSS !== 'undefined' && CSS.supports('color', 'contrast-color(red)')
 
-  const bgLum = relLuminance(applied, CHROMA, pickH.value)
-  // The label flips to white below the threshold, black above — same rule the
-  // engine applies to --color-primary-text.
-  const textLum = applied < FLIP ? 1 : 0
-  const ratio = contrast(textLum, bgLum)
-  const pass = ratio >= 4.5
-
-  return {
-    appliedPct: Math.round(applied * 100),
-    ratio: ratio.toFixed(2),
-    verdict: pass ? 'AA ✓' : 'fails AA',
-    fails: !pass,
-    message: bypass.value
-      ? pass
-        ? 'Unclamped — and this particular pick happens to pass.'
-        : 'Unclamped: a mid-lightness accent can’t make a readable label against black or white. Turn the clamp back on.'
-      : 'Clamped into the safe range — the label meets WCAG AA at every hue.',
+const note = computed(() => {
+  const r = report.value
+  if (!r.bypassed) {
+    return 'Clamped into the safe range — even the black/white fallback meets WCAG AA at every hue, with no help from contrast-color().'
   }
+  if (r.fallback.passes) {
+    return 'Unclamped — this particular pick’s fallback happens to pass too.'
+  }
+  return supportsContrastColor
+    ? 'Unclamped: the black/white fallback can’t reach AA here, so contrast-color() is rescuing the rendered label in this browser — but the clamp is what guarantees it everywhere, support or not. Turn the clamp back on.'
+    : 'Unclamped: the black/white fallback can’t reach AA here, and this browser has no contrast-color() to fall back on, so the label really is failing. Turn the clamp back on.'
 })
 </script>
 

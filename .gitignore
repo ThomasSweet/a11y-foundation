@@ -3,5 +3,9 @@ dist/
 *.local
 .DS_Store
 
+# Playwright e2e output
+test-results/
+playwright-report/
+
 # Local Claude Code config (launch configs, settings, etc.) — machine-local.
 .claude/

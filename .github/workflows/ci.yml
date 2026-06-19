@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Baseline status is time-driven, not change-driven: a tracked feature can
+  # reach Baseline without anyone touching the repo. The weekly run surfaces
+  # that (a failing unit test) before the next commit would.
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
 
 # Cancel superseded runs on the same branch/PR.
 concurrency:
@@ -32,5 +37,55 @@ jobs:
       - name: Lint styles
         run: npm run lint:css
 
+      # Informational: prints which tracked features are newly available (so we
+      # notice), without failing — the gate is the baseline unit test below.
+      - name: Baseline report
+        run: npm run baseline:check || true
+
+      # Pure-logic suite: the ThemePicker contrast-clamp guarantee and the
+      # Baseline fallback gate (fails when a fallback is now removable).
+      - name: Unit tests
+        run: npm run test:unit
+
       - name: Build
         run: npm run build
+
+  e2e:
+    # The e2e suite gates real changes; it adds nothing on the weekly Baseline
+    # cron, so skip it there.
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Cache the browser binaries across runs (keyed on the Playwright version
+      # pinned in the lockfile).
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # axe sweep + keyboard/focus behaviour across Chromium, Firefox, WebKit.
+      # Playwright builds and serves the app itself (see playwright.config.ts).
+      - name: e2e tests
+        run: npm run test:e2e
+
+      - name: Upload Playwright report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

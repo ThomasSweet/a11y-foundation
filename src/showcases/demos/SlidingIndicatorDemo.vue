@@ -101,7 +101,7 @@ const view = ref(options[0])
     display: grid;
     place-items: center;
     min-block-size: 40px;
-    padding-inline: var(--space-5, var(--space-4));
+    padding-inline: var(--space-4);
     border-radius: var(--radius-full);
     cursor: pointer;
 

@@ -9,17 +9,22 @@
       forces <code>scroll-behavior: auto</code> there).
     </p>
 
-    <ul
+    <!-- The scroller is the focusable region; the cards stay a real list
+         inside it, so screen readers still announce "list, 5 items" (a
+         role="region" on the <ul> itself would strip that list semantics). -->
+    <div
       class="snap-track"
       tabindex="0"
       role="region"
       aria-label="Featured cards, scrollable"
     >
-      <li v-for="card in cards" :key="card.n" class="snap-card">
-        <span class="snap-card-n">{{ card.n }}</span>
-        <span class="snap-card-label">{{ card.label }}</span>
-      </li>
-    </ul>
+      <ul class="snap-list" role="list">
+        <li v-for="card in cards" :key="card.n" class="snap-card">
+          <span class="snap-card-n">{{ card.n }}</span>
+          <span class="snap-card-label">{{ card.label }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -46,11 +51,7 @@ const cards = [
   }
 
   .snap-track {
-    display: flex;
-    gap: var(--space-4);
-    margin: 0;
     padding: var(--space-2);
-    list-style: none;
     overflow-x: auto;
     /* The whole point: each card lands on a snap position, never mid-scroll. */
     scroll-snap-type: x mandatory;
@@ -68,6 +69,14 @@ const cards = [
     @include high-contrast {
       outline: 1px solid currentcolor;
     }
+  }
+
+  .snap-list {
+    display: flex;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .snap-card {
