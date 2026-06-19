@@ -1,15 +1,15 @@
 <template>
-  <div class="ts-demo" :class="{ 'is-broken': broken }">
-    <p class="ts-caption">
+  <div class="target-size-demo" :class="{ 'is-broken': broken }">
+    <p class="target-size-caption">
       A formatting toolbar — toggle each control. With the rule off, the
       same buttons shrink and crowd together: try hitting them now.
     </p>
-    <div class="ts-toolbar" role="group" aria-label="Text formatting">
+    <div class="target-size-toolbar" role="group" aria-label="Text formatting">
       <button
         v-for="tool in tools"
         :key="tool.id"
         type="button"
-        class="ts-btn"
+        class="target-size-btn"
         :class="{ 'is-active': active[tool.id] }"
         :aria-pressed="active[tool.id] ? 'true' : 'false'"
         :aria-label="tool.label"
@@ -41,23 +41,23 @@ const active = reactive({})
 
 <style scoped lang="scss">
 @layer components {
-  .ts-demo {
+  .target-size-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .ts-caption {
+  .target-size-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .ts-toolbar {
+  .target-size-toolbar {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
   }
 
-  .ts-btn {
+  .target-size-btn {
     /* Compliant: 44px here (the 2.5.5 AAA / platform best practice; the
        2.5.8 AA floor is 24px), with real spacing between targets. */
     display: inline-flex;
@@ -97,11 +97,11 @@ const active = reactive({})
      targets become cramped and easy to mis-tap. Nothing else changes —
      the buttons keep their labels and semantics; only 2.5.8 is violated. */
   .is-broken {
-    .ts-toolbar {
+    .target-size-toolbar {
       gap: 0;
     }
 
-    .ts-btn {
+    .target-size-btn {
       min-inline-size: 16px;
       min-block-size: 16px;
       padding: 0;

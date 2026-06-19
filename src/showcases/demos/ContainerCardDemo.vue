@@ -1,6 +1,6 @@
 <template>
-  <div class="cq-demo">
-    <label class="cq-demo-control">
+  <div class="container-query">
+    <label class="container-query-control">
       Container width
       <input
         v-model="width"
@@ -16,7 +16,7 @@
          (keyboard-accessible, unlike a CSS resize handle), so you can
          watch the cards respond to their container — the viewport never
          changes. -->
-    <div class="cq-demo-stage" :style="{ inlineSize: `${width}%` }">
+    <div class="container-query-stage" :style="{ inlineSize: `${width}%` }">
       <!-- The wrapper is the container, the card inside responds to it.
            A container can't query itself — only its descendants can. -->
       <div v-for="card in cards" :key="card.title" class="card-cell">
@@ -55,12 +55,12 @@ const cards = [
 
 <style scoped lang="scss">
 @layer components {
-  .cq-demo {
+  .container-query {
     display: grid;
     gap: var(--space-4);
   }
 
-  .cq-demo-control {
+  .container-query-control {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -73,7 +73,7 @@ const cards = [
     }
   }
 
-  .cq-demo-stage {
+  .container-query-stage {
     /* The intrinsic half of the pattern: columns appear and disappear
        based on available space — no breakpoints involved. */
     display: grid;

@@ -1,24 +1,24 @@
 <template>
-  <div class="lmap">
-    <div class="lmap-core">
-      <p class="lmap-core-label">WCAG</p>
-      <p class="lmap-core-sub">the technical core every law below points to</p>
+  <div class="legal-map">
+    <div class="legal-map-core">
+      <p class="legal-map-core-label">WCAG</p>
+      <p class="legal-map-core-sub">the technical core every law below points to</p>
     </div>
 
-    <ul class="lmap-laws">
-      <li v-for="law in laws" :key="law.region" class="lmap-law">
-        <p class="lmap-region">{{ law.region }}</p>
-        <p class="lmap-name">{{ law.name }}</p>
-        <p class="lmap-ref">→ {{ law.references }}</p>
-        <p class="lmap-status">{{ law.status }}</p>
+    <ul class="legal-map-laws">
+      <li v-for="law in laws" :key="law.region" class="legal-map-law">
+        <p class="legal-map-region">{{ law.region }}</p>
+        <p class="legal-map-name">{{ law.name }}</p>
+        <p class="legal-map-ref">→ {{ law.references }}</p>
+        <p class="legal-map-status">{{ law.status }}</p>
       </li>
     </ul>
 
-    <p class="lmap-caption">
+    <p class="legal-map-caption">
       Accessibility law is global and converging: different jurisdictions wrap
       their own legal force around the <em>same</em> technical standard. Get
       WCAG right and you're most of the way to compliance everywhere.
-      <span class="lmap-disclaimer">(A simplified snapshot — exact versions,
+      <span class="legal-map-disclaimer">(A simplified snapshot — exact versions,
       levels, and dates vary and keep evolving; check the current text for
       your jurisdiction.)</span>
     </p>

@@ -1,11 +1,11 @@
 <template>
-  <div class="cc-demo">
-    <label class="cc-control">
+  <div class="contrast-color-demo">
+    <label class="contrast-color-control">
       Pick a background
       <input v-model="bg" type="color" />
     </label>
 
-    <p class="cc-swatch" :style="{ '--swatch-bg': bg }">
+    <p class="contrast-color-swatch" :style="{ '--swatch-bg': bg }">
       The browser picks this text color for contrast.
     </p>
   </div>
@@ -19,13 +19,13 @@ const bg = ref('#2563eb')
 
 <style scoped lang="scss">
 @layer components {
-  .cc-demo {
+  .contrast-color-demo {
     display: grid;
     gap: var(--space-3);
     justify-items: start;
   }
 
-  .cc-control {
+  .contrast-color-control {
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -41,7 +41,7 @@ const bg = ref('#2563eb')
     }
   }
 
-  .cc-swatch {
+  .contrast-color-swatch {
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-md);
     background-color: var(--swatch-bg);

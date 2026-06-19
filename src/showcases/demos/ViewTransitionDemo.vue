@@ -1,6 +1,6 @@
 <template>
-  <div class="vt-demo">
-    <p class="vt-caption">
+  <div class="view-transition-demo">
+    <p class="view-transition-caption">
       Switch the layout and the cards <em>morph</em> between arrangements
       instead of snapping — the browser tweens each shared element across the
       DOM change. One <code>startViewTransition()</code> call and a
@@ -9,11 +9,11 @@
       instant and correct) and where the API isn’t supported.
     </p>
 
-    <div class="vt-bar">
-      <div class="vt-toggle" role="group" aria-label="Layout">
+    <div class="view-transition-bar">
+      <div class="view-transition-toggle" role="group" aria-label="Layout">
         <button
           type="button"
-          class="vt-btn"
+          class="view-transition-btn"
           :aria-pressed="view === 'grid'"
           @click="setView('grid')"
         >
@@ -21,7 +21,7 @@
         </button>
         <button
           type="button"
-          class="vt-btn"
+          class="view-transition-btn"
           :aria-pressed="view === 'list'"
           @click="setView('list')"
         >
@@ -30,15 +30,15 @@
       </div>
     </div>
 
-    <ul class="vt-items" :class="`vt-items-${view}`" role="list">
+    <ul class="view-transition-items" :class="`view-transition-items-${view}`" role="list">
       <li
         v-for="item in items"
         :key="item.id"
-        class="vt-item"
-        :style="{ viewTransitionName: `vt-${item.id}` }"
+        class="view-transition-item"
+        :style="{ viewTransitionName: `view-transition-${item.id}` }"
       >
-        <span class="vt-item-icon" aria-hidden="true">{{ item.icon }}</span>
-        <span class="vt-item-label">{{ item.label }}</span>
+        <span class="view-transition-item-icon" aria-hidden="true">{{ item.icon }}</span>
+        <span class="view-transition-item-label">{{ item.label }}</span>
       </li>
     </ul>
   </div>
@@ -85,17 +85,17 @@ function setView(next: View) {
 
 <style scoped lang="scss">
 @layer components {
-  .vt-demo {
+  .view-transition-demo {
     display: grid;
     gap: var(--space-4);
   }
 
-  .vt-caption {
+  .view-transition-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .vt-toggle {
+  .view-transition-toggle {
     display: inline-flex;
     gap: var(--space-1);
     padding: var(--space-1);
@@ -104,7 +104,7 @@ function setView(next: View) {
     background-color: var(--color-bg-subtle);
   }
 
-  .vt-btn {
+  .view-transition-btn {
     padding: var(--space-2) var(--space-4);
     border: 0;
     border-radius: var(--radius-full);
@@ -133,7 +133,7 @@ function setView(next: View) {
     }
   }
 
-  .vt-items {
+  .view-transition-items {
     display: grid;
     gap: var(--space-3);
     margin: 0;
@@ -141,15 +141,15 @@ function setView(next: View) {
     list-style: none;
   }
 
-  .vt-items-grid {
+  .view-transition-items-grid {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
   }
 
-  .vt-items-list {
+  .view-transition-items-list {
     grid-template-columns: 1fr;
   }
 
-  .vt-item {
+  .view-transition-item {
     display: flex;
     gap: var(--space-2);
     align-items: center;
@@ -163,17 +163,17 @@ function setView(next: View) {
     }
   }
 
-  .vt-items-grid .vt-item {
+  .view-transition-items-grid .view-transition-item {
     flex-direction: column;
     text-align: center;
   }
 
-  .vt-item-icon {
+  .view-transition-item-icon {
     font-size: var(--text-2xl);
     color: var(--color-primary);
   }
 
-  .vt-item-label {
+  .view-transition-item-label {
     font-size: var(--text-sm);
     font-weight: 500;
   }

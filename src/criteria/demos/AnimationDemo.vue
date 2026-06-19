@@ -1,26 +1,26 @@
 <template>
-  <div class="am-demo" :class="{ 'is-broken': broken, 'is-rm': simulateRm }">
-    <p class="am-caption">
+  <div class="animation-demo" :class="{ 'is-broken': broken, 'is-rm': simulateRm }">
+    <p class="animation-caption">
       Reload the panel to replay its entry motion. Then turn on the
       simulated preference and reload again: compliant goes still, broken
       keeps sliding. (Your real OS reduced-motion setting works too.)
     </p>
 
-    <label class="am-sim">
+    <label class="animation-sim">
       <input v-model="simulateRm" type="checkbox" />
       <span>Simulate: I prefer reduced motion</span>
     </label>
 
-    <div class="am-stage">
+    <div class="animation-stage">
       <!-- :key remounts the panel on each click, replaying the CSS entry
            animation — a clean interaction-triggered motion. -->
-      <article :key="playId" class="am-panel">
-        <p class="am-panel-title">Message sent</p>
-        <p class="am-panel-text">Your changes are saved.</p>
+      <article :key="playId" class="animation-panel">
+        <p class="animation-panel-title">Message sent</p>
+        <p class="animation-panel-text">Your changes are saved.</p>
       </article>
     </div>
 
-    <button class="am-replay" type="button" @click="playId++">
+    <button class="animation-replay" type="button" @click="playId++">
       Reload panel
     </button>
   </div>
@@ -39,7 +39,7 @@ const playId = ref(0)
 
 <style scoped lang="scss">
 @layer components {
-  .am-demo {
+  .animation-demo {
     /* One switch governs all motion: 0 = motion allowed, 1 = suppressed.
        The compliant cascade flips it to 1 when the preference is set
        (simulated OR real); the broken state forces it back to 0. */
@@ -54,22 +54,22 @@ const playId = ref(0)
   }
 
   /* Compliant respects a simulated preference… */
-  .am-demo.is-rm {
+  .animation-demo.is-rm {
     --rm: 1;
   }
 
   /* …but broken ignores the preference entirely — declared last so it wins
      over both the simulated and the real (media-query) overrides above. */
-  .am-demo.is-broken {
+  .animation-demo.is-broken {
     --rm: 0;
   }
 
-  .am-caption {
+  .animation-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .am-sim {
+  .animation-sim {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -77,13 +77,13 @@ const playId = ref(0)
     cursor: pointer;
   }
 
-  .am-stage {
+  .animation-stage {
     /* Clip the slide so it can't introduce horizontal scrolling. */
     overflow: hidden;
     padding: var(--space-1);
   }
 
-  .am-panel {
+  .animation-panel {
     display: grid;
     gap: var(--space-1);
     padding: var(--space-3);
@@ -93,23 +93,23 @@ const playId = ref(0)
 
     /* Duration collapses to 0 when --rm is 1, so the panel simply appears
        with no motion. No per-state duplication — the switch does it. */
-    animation: am-slide calc(450ms * (1 - var(--rm))) var(--easing-enter) both;
+    animation: animation-slide calc(450ms * (1 - var(--rm))) var(--easing-enter) both;
 
     @include high-contrast {
       border-color: currentcolor;
     }
   }
 
-  .am-panel-title {
+  .animation-panel-title {
     font-weight: 600;
   }
 
-  .am-panel-text {
+  .animation-panel-text {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .am-replay {
+  .animation-replay {
     justify-self: start;
     min-block-size: 44px;
     padding: var(--space-2) var(--space-4);
@@ -135,7 +135,7 @@ const playId = ref(0)
     }
   }
 
-  @keyframes am-slide {
+  @keyframes animation-slide {
     from {
       opacity: 0;
       transform: translateX(-1.5rem);

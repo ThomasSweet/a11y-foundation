@@ -22,14 +22,14 @@ test.describe('ThemePicker — the clamp guarantee, verified in a real browser',
     page,
   }) => {
     await page.goto('/')
-    await page.locator('.tp-preview').scrollIntoViewIfNeeded()
-    const readout = page.locator('.tp-note')
+    await page.locator('.theme-picker-preview').scrollIntoViewIfNeeded()
+    const readout = page.locator('.theme-picker-note')
 
     // Clamp ON (default lightness sits in the dead zone): read-out reports AA,
     // and an external auditor finds no contrast violation in the live preview.
     await expect(readout).toContainText(/meets WCAG AA|safe range/i)
     const clamped = await new AxeBuilder({ page })
-      .include('.tp-preview')
+      .include('.theme-picker-preview')
       .withRules(['color-contrast'])
       .analyze()
     expect(clamped.violations).toEqual([])

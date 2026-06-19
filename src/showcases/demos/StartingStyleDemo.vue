@@ -1,6 +1,6 @@
 <template>
-  <div class="ss-demo">
-    <p class="ss-caption">
+  <div class="starting-style-demo">
+    <p class="starting-style-caption">
       <code>@starting-style</code> animates an element <em>in</em> from
       <code>display: none</code> — entry transitions that used to need JS.
       Exit is handled by <code>transition-behavior: allow-discrete</code>.
@@ -11,15 +11,15 @@
     <AppButton
       variant="secondary"
       :aria-expanded="open"
-      aria-controls="ss-card"
+      aria-controls="starting-style-card"
       @click="open = !open"
     >
       {{ open ? 'Hide' : 'Show' }} card
     </AppButton>
 
-    <div id="ss-card" class="ss-card" :class="{ 'is-open': open }">
-      <p class="ss-card-title">Hello there 👋</p>
-      <p class="ss-card-text">
+    <div id="starting-style-card" class="starting-style-card" :class="{ 'is-open': open }">
+      <p class="starting-style-card-title">Hello there 👋</p>
+      <p class="starting-style-card-text">
         I faded and slid in from <code>display: none</code> — no JS animation,
         just <code>@starting-style</code> plus a transition.
       </p>
@@ -37,18 +37,18 @@ const open = ref(false)
 
 <style scoped lang="scss">
 @layer components {
-  .ss-demo {
+  .starting-style-demo {
     display: grid;
     gap: var(--space-3);
     justify-items: start;
   }
 
-  .ss-caption {
+  .starting-style-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .ss-card {
+  .starting-style-card {
     /* Closed state: removed from layout and the a11y tree. */
     display: none;
     max-inline-size: 40ch;
@@ -83,11 +83,11 @@ const open = ref(false)
     }
   }
 
-  .ss-card-title {
+  .starting-style-card-title {
     font-weight: 600;
   }
 
-  .ss-card-text {
+  .starting-style-card-text {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }

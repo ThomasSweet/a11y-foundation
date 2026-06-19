@@ -1,6 +1,6 @@
 <template>
-  <div class="pop-demo">
-    <p class="pop-caption">
+  <div class="popover-demo">
+    <p class="popover-caption">
       A real actions menu built on the <code>popover</code> attribute. The
       trigger and panel are wired by id alone — and the platform hands you
       <strong>Esc-to-close</strong>, <strong>click-outside (light)
@@ -11,34 +11,34 @@
       <code>popovertargetaction="hide"</code>.
     </p>
 
-    <div class="pop-bar">
+    <div class="popover-bar">
       <button
         type="button"
-        class="pop-trigger"
+        class="popover-trigger"
         :popovertarget="menuId"
       >
         Actions
-        <span class="pop-chevron" aria-hidden="true">▾</span>
+        <span class="popover-chevron" aria-hidden="true">▾</span>
       </button>
 
-      <div :id="menuId" popover class="pop-menu" role="menu">
+      <div :id="menuId" popover class="popover-menu" role="menu">
         <button
           v-for="item in items"
           :key="item.label"
           type="button"
-          class="pop-item"
+          class="popover-item"
           role="menuitem"
           :popovertarget="menuId"
           popovertargetaction="hide"
           @click="chosen = item.label"
         >
-          <span class="pop-item-icon" aria-hidden="true">{{ item.icon }}</span>
+          <span class="popover-item-icon" aria-hidden="true">{{ item.icon }}</span>
           {{ item.label }}
         </button>
       </div>
     </div>
 
-    <p class="pop-status" role="status">
+    <p class="popover-status" role="status">
       {{ chosen ? `You chose: ${chosen}` : 'No action chosen yet.' }}
     </p>
   </div>
@@ -60,17 +60,17 @@ const items = [
 
 <style scoped lang="scss">
 @layer components {
-  .pop-demo {
+  .popover-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .pop-caption {
+  .popover-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .pop-trigger {
+  .popover-trigger {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -82,8 +82,8 @@ const items = [
     font: inherit;
     font-weight: 600;
     cursor: pointer;
-    /* The element the menu tethers to (see .pop-menu). */
-    anchor-name: --pop-menu-anchor;
+    /* The element the menu tethers to (see .popover-menu). */
+    anchor-name: --popover-menu-anchor;
 
     @include can-hover {
       &:hover {
@@ -96,11 +96,11 @@ const items = [
     }
   }
 
-  .pop-chevron {
+  .popover-chevron {
     font-size: var(--text-sm);
   }
 
-  .pop-menu {
+  .popover-menu {
     min-inline-size: 12rem;
     padding: var(--space-1);
     border: 1px solid var(--color-border);
@@ -116,7 +116,7 @@ const items = [
          relative), so the menu never overflows the viewport edge and the
          flip fallbacks never fire. Fixed resolves against the viewport. */
       position: fixed;
-      position-anchor: --pop-menu-anchor;
+      position-anchor: --popover-menu-anchor;
       /* Drop below the trigger, aligned to its inline-start edge. */
       position-area: block-end span-inline-end;
       /* Clear the UA centering (inset: 0; margin: auto) so the anchor wins. */
@@ -153,7 +153,7 @@ const items = [
     }
   }
 
-  .pop-item {
+  .popover-item {
     display: flex;
     align-items: center;
     gap: var(--space-2);
@@ -174,12 +174,12 @@ const items = [
     }
   }
 
-  .pop-item-icon {
+  .popover-item-icon {
     inline-size: 1.25rem;
     text-align: center;
   }
 
-  .pop-status {
+  .popover-status {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }

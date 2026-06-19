@@ -1,6 +1,6 @@
 <template>
-  <div class="hl-demo">
-    <p class="hl-caption">
+  <div class="highlight-demo">
+    <p class="highlight-caption">
       The <strong>CSS Custom Highlight API</strong> paints ranges of text from
       JavaScript — <code>::highlight()</code> styled in CSS, no wrapper
       <code>&lt;span&gt;</code>s injected. Type below to highlight live matches:
@@ -8,18 +8,18 @@
       only — never the sole way meaning is conveyed).
     </p>
 
-    <label class="hl-field">
-      <span class="hl-label">Find in text</span>
+    <label class="highlight-field">
+      <span class="highlight-label">Find in text</span>
       <input
         v-model="query"
-        class="hl-input"
+        class="highlight-input"
         type="search"
         placeholder="Try “access”…"
         :disabled="!supported"
       />
     </label>
 
-    <p ref="prose" class="hl-prose">
+    <p ref="prose" class="highlight-prose">
       Accessibility is the practice of making content usable by the widest
       possible range of people. An accessible interface does not depend on one
       sense or one input device: it stays operable by keyboard, readable by
@@ -28,7 +28,7 @@
       robust, and simply more accessible than bolting it on at the end.
     </p>
 
-    <p class="hl-status" role="status">
+    <p class="highlight-status" role="status">
       <template v-if="!supported">
         Your browser doesn’t support the Custom Highlight API yet — the text
         above is unchanged and fully readable.
@@ -84,27 +84,27 @@ watch(query, update)
 
 <style scoped lang="scss">
 @layer components {
-  .hl-demo {
+  .highlight-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .hl-caption {
+  .highlight-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .hl-field {
+  .highlight-field {
     display: grid;
     gap: var(--space-2);
   }
 
-  .hl-label {
+  .highlight-label {
     font-size: var(--text-sm);
     font-weight: 600;
   }
 
-  .hl-input {
+  .highlight-input {
     inline-size: 100%;
     max-inline-size: 22rem;
     padding: var(--space-2) var(--space-3);
@@ -119,12 +119,12 @@ watch(query, update)
     }
   }
 
-  .hl-prose {
+  .highlight-prose {
     max-inline-size: 65ch;
     line-height: var(--leading-normal);
   }
 
-  .hl-status {
+  .highlight-status {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }

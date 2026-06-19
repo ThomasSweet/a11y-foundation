@@ -1,6 +1,6 @@
 <template>
-  <div class="sel">
-    <p class="sel-caption">
+  <div class="selector">
+    <p class="selector-caption">
       Tick a row: <code>.row:has(:checked)</code> styles the row from its
       checkbox's <em>checked</em> state — something no upward selector can do,
       and unlike <code>:focus-within</code> the highlight <em>persists</em>
@@ -8,16 +8,16 @@
       — the lighter, right tool for that job. Two states, two selectors.
     </p>
 
-    <ul class="sel-list">
-      <li v-for="task in tasks" :key="task" class="sel-row">
-        <label class="sel-label">
+    <ul class="selector-list">
+      <li v-for="task in tasks" :key="task" class="selector-row">
+        <label class="selector-label">
           <input v-model="selected" type="checkbox" :value="task" />
           <span>{{ task }}</span>
         </label>
       </li>
     </ul>
 
-    <p class="sel-count" role="status">{{ selected.length }} selected</p>
+    <p class="selector-count" role="status">{{ selected.length }} selected</p>
   </div>
 </template>
 
@@ -35,17 +35,17 @@ const selected = ref<string[]>([])
 
 <style scoped lang="scss">
 @layer components {
-  .sel {
+  .selector {
     display: grid;
     gap: var(--space-4);
   }
 
-  .sel-caption {
+  .selector-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .sel-list {
+  .selector-list {
     display: grid;
     gap: var(--space-2);
     max-inline-size: 30rem;
@@ -54,7 +54,7 @@ const selected = ref<string[]>([])
     list-style: none;
   }
 
-  .sel-row {
+  .selector-row {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     transition:
@@ -80,7 +80,7 @@ const selected = ref<string[]>([])
     }
   }
 
-  .sel-label {
+  .selector-label {
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -88,7 +88,7 @@ const selected = ref<string[]>([])
     cursor: pointer;
   }
 
-  .sel-count {
+  .selector-count {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-subtle);

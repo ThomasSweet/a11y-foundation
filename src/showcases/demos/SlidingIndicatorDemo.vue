@@ -8,11 +8,11 @@
       arrow-key navigable and announced as a radio group.
     </p>
 
-    <fieldset class="seg">
+    <fieldset class="segmented">
       <legend class="visually-hidden">Choose a view</legend>
-      <div class="seg-track" :style="{ '--n': options.length }">
-        <span class="seg-indicator" aria-hidden="true"></span>
-        <label v-for="opt in options" :key="opt" class="seg-opt">
+      <div class="segmented-track" :style="{ '--n': options.length }">
+        <span class="segmented-indicator" aria-hidden="true"></span>
+        <label v-for="opt in options" :key="opt" class="segmented-opt">
           <input
             v-model="view"
             type="radio"
@@ -20,7 +20,7 @@
             :value="opt"
             class="visually-hidden"
           />
-          <span class="seg-label">{{ opt }}</span>
+          <span class="segmented-label">{{ opt }}</span>
         </label>
       </div>
     </fieldset>
@@ -47,13 +47,13 @@ const view = ref(options[0])
     color: var(--color-text-subtle);
   }
 
-  .seg {
+  .segmented {
     margin: 0;
     padding: 0;
     border: 0;
   }
 
-  .seg-track {
+  .segmented-track {
     position: relative;
     display: grid;
     grid-template-columns: repeat(var(--n), 1fr);
@@ -72,7 +72,7 @@ const view = ref(options[0])
      i × 100% steps it from option to option. The transition uses a motion
      token, which preferences.css zeroes under reduced motion — so the slide
      becomes an instant jump with no per-component override. */
-  .seg-indicator {
+  .segmented-indicator {
     position: absolute;
     z-index: 0;
     inset-block: var(--space-1);
@@ -90,12 +90,12 @@ const view = ref(options[0])
   }
 
   /* :has() maps the checked radio to the indicator's slot index. */
-  .seg-track:has(.seg-opt:nth-of-type(1) input:checked) { --i: 0; }
-  .seg-track:has(.seg-opt:nth-of-type(2) input:checked) { --i: 1; }
-  .seg-track:has(.seg-opt:nth-of-type(3) input:checked) { --i: 2; }
-  .seg-track:has(.seg-opt:nth-of-type(4) input:checked) { --i: 3; }
+  .segmented-track:has(.segmented-opt:nth-of-type(1) input:checked) { --i: 0; }
+  .segmented-track:has(.segmented-opt:nth-of-type(2) input:checked) { --i: 1; }
+  .segmented-track:has(.segmented-opt:nth-of-type(3) input:checked) { --i: 2; }
+  .segmented-track:has(.segmented-opt:nth-of-type(4) input:checked) { --i: 3; }
 
-  .seg-opt {
+  .segmented-opt {
     position: relative;
     z-index: 1;
     display: grid;
@@ -112,7 +112,7 @@ const view = ref(options[0])
     }
   }
 
-  .seg-label {
+  .segmented-label {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-subtle);
@@ -120,7 +120,7 @@ const view = ref(options[0])
 
   /* The selected option's label firms up — state isn't carried by the pill
      position alone. */
-  .seg-opt:has(input:checked) .seg-label {
+  .segmented-opt:has(input:checked) .segmented-label {
     font-weight: 600;
     color: var(--color-text);
   }

@@ -1,8 +1,8 @@
 <template>
-  <div class="cshift">
-    <div class="cshift-control">
+  <div class="conformance-shift">
+    <div class="conformance-shift-control">
       <label :for="sliderId">
-        Failing checks <span class="cshift-count">{{ failing }} / {{ total }}</span>
+        Failing checks <span class="conformance-shift-count">{{ failing }} / {{ total }}</span>
       </label>
       <input
         :id="sliderId"
@@ -14,50 +14,50 @@
       />
     </div>
 
-    <div class="cshift-panels">
-      <article class="cshift-panel" aria-labelledby="cshift-binary">
-        <h4 id="cshift-binary" class="cshift-panel-title">
+    <div class="conformance-shift-panels">
+      <article class="conformance-shift-panel" aria-labelledby="conformance-shift-binary">
+        <h4 id="conformance-shift-binary" class="conformance-shift-panel-title">
           WCAG 2.x — pass / fail
         </h4>
-        <p class="cshift-verdict" :class="`is-${binary.tone}`">
+        <p class="conformance-shift-verdict" :class="`is-${binary.tone}`">
           {{ binary.label }}
         </p>
-        <p class="cshift-note">
+        <p class="conformance-shift-note">
           A single failure fails the whole level. All-or-nothing, however
           close you got.
         </p>
       </article>
 
-      <article class="cshift-panel" aria-labelledby="cshift-graded">
-        <h4 id="cshift-graded" class="cshift-panel-title">
+      <article class="conformance-shift-panel" aria-labelledby="conformance-shift-graded">
+        <h4 id="conformance-shift-graded" class="conformance-shift-panel-title">
           WCAG 3.0 (draft) — scored
         </h4>
-        <p class="cshift-score">
-          {{ score }}<span class="cshift-pct">%</span>
-          <span class="cshift-rating">{{ rating }}</span>
+        <p class="conformance-shift-score">
+          {{ score }}<span class="conformance-shift-pct">%</span>
+          <span class="conformance-shift-rating">{{ rating }}</span>
         </p>
         <div
-          class="cshift-meter"
+          class="conformance-shift-meter"
           role="meter"
           :aria-valuenow="score"
           aria-valuemin="0"
           aria-valuemax="100"
           :aria-label="`Outcome score ${score} percent`"
         >
-          <span class="cshift-meter-fill" :style="{ inlineSize: score + '%' }"></span>
+          <span class="conformance-shift-meter-fill" :style="{ inlineSize: score + '%' }"></span>
         </div>
-        <p class="cshift-note">
+        <p class="conformance-shift-note">
           Partial credit; the score degrades gradually toward a rating
           instead of flipping to a hard fail.
         </p>
       </article>
     </div>
 
-    <p class="cshift-caption">
+    <p class="conformance-shift-caption">
       The biggest change coming in <strong>WCAG 3.0</strong> isn't more
       criteria — it's the <em>model</em>: away from binary A / AA / AAA toward
       graded, outcome-based scoring that rewards how well you actually serve
-      people. <span class="cshift-disclaimer">(Illustrative — 3.0's exact
+      people. <span class="conformance-shift-disclaimer">(Illustrative — 3.0's exact
       scoring is still a working draft.)</span>
     </p>
   </div>

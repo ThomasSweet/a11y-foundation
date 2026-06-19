@@ -1,21 +1,21 @@
 <template>
-  <div class="ntc-demo" :class="{ 'is-broken': broken }">
-    <p class="ntc-caption">
+  <div class="non-text-contrast-demo" :class="{ 'is-broken': broken }">
+    <p class="non-text-contrast-caption">
       These controls are outlined only by their borders. Below 3:1 those
       boundaries melt into the background — the inputs are still there, but
       can you see where they are?
     </p>
 
-    <div class="ntc-fields">
+    <div class="non-text-contrast-fields">
       <input
-        class="ntc-input"
+        class="non-text-contrast-input"
         type="text"
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="ntc-btn" type="button">Filter</button>
-      <ul class="ntc-chips" aria-label="Quick filters">
-        <li v-for="chip in chips" :key="chip" class="ntc-chip">{{ chip }}</li>
+      <button class="non-text-contrast-btn" type="button">Filter</button>
+      <ul class="non-text-contrast-chips" aria-label="Quick filters">
+        <li v-for="chip in chips" :key="chip" class="non-text-contrast-chip">{{ chip }}</li>
       </ul>
     </div>
   </div>
@@ -31,7 +31,7 @@ const chips = ['Unread', 'Starred']
 
 <style scoped lang="scss">
 @layer components {
-  .ntc-demo {
+  .non-text-contrast-demo {
     /* The single border color the controls share. Compliant value sits at
        ~3.5:1 against the surface in both themes; the broken override drops
        it to ~1.2:1. Hardcoded here because the contrast ratio IS the
@@ -42,19 +42,19 @@ const chips = ['Unread', 'Starred']
     gap: var(--space-3);
   }
 
-  .ntc-caption {
+  .non-text-contrast-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .ntc-fields {
+  .non-text-contrast-fields {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-3);
   }
 
-  .ntc-input {
+  .non-text-contrast-input {
     min-block-size: 44px;
     padding: var(--space-2) var(--space-3);
     border: 1px solid var(--demo-border);
@@ -69,7 +69,7 @@ const chips = ['Unread', 'Starred']
     }
   }
 
-  .ntc-btn {
+  .non-text-contrast-btn {
     min-block-size: 44px;
     padding: var(--space-2) var(--space-4);
     border: 1px solid var(--demo-border);
@@ -84,7 +84,7 @@ const chips = ['Unread', 'Starred']
     }
   }
 
-  .ntc-chips {
+  .non-text-contrast-chips {
     display: flex;
     gap: var(--space-2);
     margin: 0;
@@ -92,7 +92,7 @@ const chips = ['Unread', 'Starred']
     list-style: none;
   }
 
-  .ntc-chip {
+  .non-text-contrast-chip {
     padding: var(--space-1) var(--space-3);
     border: 1px solid var(--demo-border);
     border-radius: var(--radius-full);

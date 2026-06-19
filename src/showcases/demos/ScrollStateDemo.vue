@@ -1,6 +1,6 @@
 <template>
-  <div class="sst-demo">
-    <p class="sst-caption">
+  <div class="scroll-state-demo">
+    <p class="scroll-state-caption">
       <code>scroll-state()</code> container queries let an element restyle
       itself based on <em>how it sits in a scroller</em> — no scroll listeners,
       no JS. Here a card knows when it’s the <strong>snapped</strong> one, and a
@@ -9,22 +9,22 @@
     </p>
 
     <!-- snapped: the centered card highlights itself -->
-    <section class="sst-block">
-      <h4 class="sst-h">Snapped</h4>
+    <section class="scroll-state-block">
+      <h4 class="scroll-state-h">Snapped</h4>
       <!-- Region wraps the list so the cards keep list semantics (a
            role="region" directly on the <ul> would strip them). -->
       <div
-        class="sst-track"
+        class="scroll-state-track"
         tabindex="0"
         role="region"
         aria-label="Steps, scrollable — the centered card is highlighted"
       >
-        <ul class="sst-cards" role="list">
-          <li v-for="step in steps" :key="step.n" class="sst-card">
-            <div class="sst-card-inner">
-              <span class="sst-n">{{ step.n }}</span>
-              <span class="sst-label">{{ step.label }}</span>
-              <span class="sst-snapped" aria-hidden="true">snapped</span>
+        <ul class="scroll-state-cards" role="list">
+          <li v-for="step in steps" :key="step.n" class="scroll-state-card">
+            <div class="scroll-state-card-inner">
+              <span class="scroll-state-n">{{ step.n }}</span>
+              <span class="scroll-state-label">{{ step.label }}</span>
+              <span class="scroll-state-snapped" aria-hidden="true">snapped</span>
             </div>
           </li>
         </ul>
@@ -32,21 +32,21 @@
     </section>
 
     <!-- stuck: the sticky header restyles once it pins -->
-    <section class="sst-block">
-      <h4 class="sst-h">Stuck</h4>
+    <section class="scroll-state-block">
+      <h4 class="scroll-state-h">Stuck</h4>
       <div
-        class="sst-scroll"
+        class="scroll-state-scroll"
         tabindex="0"
         role="region"
         aria-label="List with a sticky header — scroll to pin it"
       >
-        <div class="sst-stick">
-          <div class="sst-stick-inner">
+        <div class="scroll-state-stick">
+          <div class="scroll-state-stick-inner">
             <span>Pinned header</span>
-            <span class="sst-stuck-badge" aria-hidden="true">stuck</span>
+            <span class="scroll-state-stuck-badge" aria-hidden="true">stuck</span>
           </div>
         </div>
-        <ul class="sst-list">
+        <ul class="scroll-state-list">
           <li v-for="row in rows" :key="row">Row {{ row }}</li>
         </ul>
       </div>
@@ -67,29 +67,29 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
 
 <style scoped lang="scss">
 @layer components {
-  .sst-demo {
+  .scroll-state-demo {
     display: grid;
     gap: var(--space-4);
   }
 
-  .sst-caption {
+  .scroll-state-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .sst-block {
+  .scroll-state-block {
     display: grid;
     gap: var(--space-2);
   }
 
-  .sst-h {
+  .scroll-state-h {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-subtle);
   }
 
   /* ---- Snapped carousel ---- */
-  .sst-track {
+  .scroll-state-track {
     padding: var(--space-2);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -101,7 +101,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     }
   }
 
-  .sst-cards {
+  .scroll-state-cards {
     display: flex;
     gap: var(--space-3);
     margin: 0;
@@ -109,7 +109,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     list-style: none;
   }
 
-  .sst-card {
+  .scroll-state-card {
     flex: 0 0 min(60%, 13rem);
     scroll-snap-align: center;
     /* The card becomes a scroll-state query container; its inner content
@@ -117,7 +117,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     container-type: scroll-state;
   }
 
-  .sst-card-inner {
+  .scroll-state-card-inner {
     display: grid;
     gap: var(--space-1);
     block-size: 100%;
@@ -135,18 +135,18 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     }
   }
 
-  .sst-n {
+  .scroll-state-n {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .sst-label {
+  .scroll-state-label {
     font-weight: 600;
   }
 
   /* Badge hidden until the card is snapped (revealed in the query below). */
-  .sst-snapped {
+  .scroll-state-snapped {
     inline-size: fit-content;
     margin-block-start: var(--space-1);
     padding: 0 var(--space-2);
@@ -160,20 +160,20 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
 
   @supports (container-type: scroll-state) {
     @container scroll-state(snapped: inline) {
-      .sst-card-inner {
+      .scroll-state-card-inner {
         border-color: var(--color-primary);
         box-shadow: var(--shadow-md);
         scale: 1.03;
       }
 
-      .sst-snapped {
+      .scroll-state-snapped {
         opacity: 1;
       }
     }
   }
 
   /* ---- Stuck sticky header ---- */
-  .sst-scroll {
+  .scroll-state-scroll {
     block-size: 12rem;
     overflow-y: auto;
     border: 1px solid var(--color-border);
@@ -185,7 +185,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     }
   }
 
-  .sst-stick {
+  .scroll-state-stick {
     position: sticky;
     inset-block-start: 0;
     /* The sticky element is the scroll-state container; its inner header
@@ -193,7 +193,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     container-type: scroll-state;
   }
 
-  .sst-stick-inner {
+  .scroll-state-stick-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -206,7 +206,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
       background-color var(--duration-normal) var(--easing-standard);
   }
 
-  .sst-stuck-badge {
+  .scroll-state-stuck-badge {
     padding: 0 var(--space-2);
     border-radius: var(--radius-full);
     background-color: var(--color-bg-subtle);
@@ -217,7 +217,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
 
   @supports (container-type: scroll-state) {
     @container scroll-state(stuck: top) {
-      .sst-stick-inner {
+      .scroll-state-stick-inner {
         background-color: var(--color-surface-glass);
         backdrop-filter: blur(8px);
         box-shadow: var(--shadow-md);
@@ -228,13 +228,13 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
         }
       }
 
-      .sst-stuck-badge {
+      .scroll-state-stuck-badge {
         opacity: 1;
       }
     }
   }
 
-  .sst-list {
+  .scroll-state-list {
     display: grid;
     gap: 1px;
     margin: 0;
@@ -242,7 +242,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     list-style: none;
   }
 
-  .sst-list li {
+  .scroll-state-list li {
     padding: var(--space-2) var(--space-3);
     font-size: var(--text-sm);
   }

@@ -1,20 +1,20 @@
 <template>
-  <div class="tw-demo">
+  <div class="text-wrap-demo">
     <!-- Two columns of the SAME text so the wrapping difference is
          visible side by side. The width is deliberately narrow to force
          ragged line breaks. -->
-    <figure class="tw-col">
-      <figcaption class="tw-label">Default wrapping</figcaption>
-      <h4 class="tw-heading">{{ heading }}</h4>
-      <p class="tw-body">{{ body }}</p>
+    <figure class="text-wrap-col">
+      <figcaption class="text-wrap-label">Default wrapping</figcaption>
+      <h4 class="text-wrap-heading">{{ heading }}</h4>
+      <p class="text-wrap-body">{{ body }}</p>
     </figure>
 
-    <figure class="tw-col">
-      <figcaption class="tw-label">
+    <figure class="text-wrap-col">
+      <figcaption class="text-wrap-label">
         <code>balance</code> + <code>pretty</code>
       </figcaption>
-      <h4 class="tw-heading tw-heading--balance">{{ heading }}</h4>
-      <p class="tw-body tw-body--pretty">{{ body }}</p>
+      <h4 class="text-wrap-heading text-wrap-heading--balance">{{ heading }}</h4>
+      <p class="text-wrap-body text-wrap-body--pretty">{{ body }}</p>
     </figure>
   </div>
 </template>
@@ -29,7 +29,7 @@ const body =
 
 <style scoped lang="scss">
 @layer components {
-  .tw-demo {
+  .text-wrap-demo {
     /* Two columns when there's room, stacked when not — no media query.
        The columns are capped (not 1fr) so the headings stay narrow enough to
        wrap on wide screens, where the balance/pretty difference is visible. */
@@ -39,7 +39,7 @@ const body =
     gap: var(--space-4);
   }
 
-  .tw-col {
+  .text-wrap-col {
     display: grid;
     gap: var(--space-2);
     margin: 0;
@@ -53,13 +53,13 @@ const body =
     }
   }
 
-  .tw-label {
+  .text-wrap-label {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-subtle);
   }
 
-  .tw-heading {
+  .text-wrap-heading {
     font-size: var(--text-lg);
     line-height: var(--leading-tight);
 
@@ -70,7 +70,7 @@ const body =
     }
   }
 
-  .tw-body {
+  .text-wrap-body {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
 

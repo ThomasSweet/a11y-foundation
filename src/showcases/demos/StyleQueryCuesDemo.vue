@@ -18,12 +18,12 @@
     <!-- No JS: --cues is set on the demo root in CSS, where :has() reads this
          checkbox. It inherits down to each status, where the style query reads
          it and adds shapes to statuses that don't know about it. -->
-    <ul class="srv-list">
-      <li v-for="s in services" :key="s.name" class="srv">
-        <span class="srv-name">{{ s.name }}</span>
+    <ul class="service-list">
+      <li v-for="s in services" :key="s.name" class="service">
+        <span class="service-name">{{ s.name }}</span>
         <span
-          class="srv-status"
-          :class="`srv-status--${s.state}`"
+          class="service-status"
+          :class="`service-status--${s.state}`"
           role="img"
           :aria-label="stateLabel[s.state]"
         ></span>
@@ -79,7 +79,7 @@ const services: { name: string; state: State }[] = [
     cursor: pointer;
   }
 
-  .srv-list {
+  .service-list {
     display: grid;
     gap: var(--space-2);
     margin: 0;
@@ -87,7 +87,7 @@ const services: { name: string; state: State }[] = [
     list-style: none;
   }
 
-  .srv {
+  .service {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,7 +102,7 @@ const services: { name: string; state: State }[] = [
     }
   }
 
-  .srv-status {
+  .service-status {
     display: grid;
     place-items: center;
     inline-size: 1.25rem;
@@ -132,7 +132,7 @@ const services: { name: string; state: State }[] = [
      survives any color-vision deficiency. No status element references
      --cues; the query reaches them from their ancestor. */
   @container style(--cues: on) {
-    .srv-status {
+    .service-status {
       background-color: transparent;
       color: var(--state-color);
 

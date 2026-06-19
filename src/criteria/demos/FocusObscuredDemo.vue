@@ -1,15 +1,15 @@
 <template>
-  <div class="fo-demo" :class="{ 'is-broken': broken }">
-    <p class="fo-caption">
+  <div class="focus-obscured-demo" :class="{ 'is-broken': broken }">
+    <p class="focus-obscured-caption">
       Tab through the links below. A sticky bar sits at the top of this
       scrolling panel — when the rule is broken it overlaps whatever you
       tab to near the top, so keyboard users lose sight of their own focus.
     </p>
 
-    <div class="fo-viewport">
-      <div class="fo-bar">Sticky toolbar</div>
-      <nav class="fo-list" aria-label="Settings">
-        <a v-for="item in items" :key="item" class="fo-link" href="#fo-noop">
+    <div class="focus-obscured-viewport">
+      <div class="focus-obscured-bar">Sticky toolbar</div>
+      <nav class="focus-obscured-list" aria-label="Settings">
+        <a v-for="item in items" :key="item" class="focus-obscured-link" href="#focus-obscured-noop">
           {{ item }}
         </a>
       </nav>
@@ -36,17 +36,17 @@ const items = [
 
 <style scoped lang="scss">
 @layer components {
-  .fo-demo {
+  .focus-obscured-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .fo-caption {
+  .focus-obscured-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .fo-viewport {
+  .focus-obscured-viewport {
     position: relative;
     max-block-size: 12rem;
     overflow-y: auto;
@@ -58,7 +58,7 @@ const items = [
     }
   }
 
-  .fo-bar {
+  .focus-obscured-bar {
     position: sticky;
     inset-block-start: 0;
     z-index: 1;
@@ -68,11 +68,11 @@ const items = [
     font-weight: 600;
   }
 
-  .fo-list {
+  .focus-obscured-list {
     display: grid;
   }
 
-  .fo-link {
+  .focus-obscured-link {
     /* The fix: scroll-margin keeps a focused link clear of the sticky bar
        when it's scrolled into view, so the focus ring is never obscured. */
     scroll-margin-block-start: var(--space-12);
@@ -97,7 +97,7 @@ const items = [
      behind it. Nothing else changes; focus still moves correctly, you just
      can't see where it is. */
   .is-broken {
-    .fo-link {
+    .focus-obscured-link {
       scroll-margin-block-start: 0;
     }
   }
