@@ -1,6 +1,6 @@
 <template>
-  <div class="rf-demo" :class="{ 'is-broken': broken }">
-    <p class="rf-caption">
+  <div class="reflow-demo" :class="{ 'is-broken': broken }">
+    <p class="reflow-caption">
       This panel is ~340px wide — like a phone, or a 1280px desktop zoomed
       to 400%, which is the width 1.4.10 targets. Scroll it.
     </p>
@@ -10,21 +10,21 @@
          here IS the failure you can see and feel. It's keyboard-focusable so
          the scrollable area is reachable without a pointer. -->
     <div
-      class="rf-viewport"
+      class="reflow-viewport"
       tabindex="0"
       role="group"
       aria-label="Account overview panel, scrollable"
     >
-      <div class="rf-content">
-        <p class="rf-title">Account overview</p>
-        <p class="rf-text">
+      <div class="reflow-content">
+        <p class="reflow-title">Account overview</p>
+        <p class="reflow-text">
           Your subscription renews next month. Everything below should stay
           readable in one column, with only vertical scrolling.
         </p>
-        <ul class="rf-stats">
-          <li v-for="stat in stats" :key="stat.label" class="rf-stat">
-            <span class="rf-stat-value">{{ stat.value }}</span>
-            <span class="rf-stat-label">{{ stat.label }}</span>
+        <ul class="reflow-stats">
+          <li v-for="stat in stats" :key="stat.label" class="reflow-stat">
+            <span class="reflow-stat-value">{{ stat.value }}</span>
+            <span class="reflow-stat-label">{{ stat.label }}</span>
           </li>
         </ul>
       </div>
@@ -46,17 +46,17 @@ const stats = [
 
 <style scoped lang="scss">
 @layer components {
-  .rf-demo {
+  .reflow-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .rf-caption {
+  .reflow-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .rf-viewport {
+  .reflow-viewport {
     /* Fixed, phone-narrow stage. overflow:auto keeps any overflow local. */
     inline-size: min(100%, 21rem);
     max-block-size: 15rem;
@@ -74,7 +74,7 @@ const stats = [
     }
   }
 
-  .rf-content {
+  .reflow-content {
     /* Compliant: the content is fluid and never forced wider than the
        viewport — the same intrinsic approach used across this project. */
     display: grid;
@@ -82,17 +82,17 @@ const stats = [
     padding: var(--space-3);
   }
 
-  .rf-title {
+  .reflow-title {
     font-size: var(--text-lg);
     font-weight: 600;
   }
 
-  .rf-text {
+  .reflow-text {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .rf-stats {
+  .reflow-stats {
     /* auto-fit + min() reflows from a row to a single column as space
        tightens — no media query, no fixed track widths. */
     display: grid;
@@ -103,7 +103,7 @@ const stats = [
     list-style: none;
   }
 
-  .rf-stat {
+  .reflow-stat {
     display: grid;
     gap: var(--space-1);
     padding: var(--space-2);
@@ -116,12 +116,12 @@ const stats = [
     }
   }
 
-  .rf-stat-value {
+  .reflow-stat-value {
     font-size: var(--text-lg);
     font-weight: 600;
   }
 
-  .rf-stat-label {
+  .reflow-stat-label {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
@@ -131,15 +131,15 @@ const stats = [
      in two dimensions — exactly what 1.4.10 forbids. Only the sizing
      changes; the content and structure are identical. */
   .is-broken {
-    .rf-content {
+    .reflow-content {
       inline-size: 34rem;
     }
 
-    .rf-text {
+    .reflow-text {
       white-space: nowrap;
     }
 
-    .rf-stats {
+    .reflow-stats {
       grid-template-columns: repeat(3, 11rem);
     }
   }

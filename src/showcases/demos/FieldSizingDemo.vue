@@ -1,6 +1,6 @@
 <template>
-  <div class="fs-demo">
-    <p class="fs-caption">
+  <div class="field-sizing-demo">
+    <p class="field-sizing-caption">
       <code>field-sizing: content</code> lets a textarea grow and shrink with
       what you type — no <code>scrollHeight</code> measuring, no resize
       listeners, no JS at all. Type a few lines: it tracks the content between
@@ -8,17 +8,17 @@
       <code>rows</code> box you can drag to resize.
     </p>
 
-    <label class="fs-field">
-      <span class="fs-label">Your note</span>
+    <label class="field-sizing-field">
+      <span class="field-sizing-label">Your note</span>
       <textarea
         v-model="text"
-        class="fs-input"
+        class="field-sizing-input"
         rows="2"
         placeholder="Start typing — the box follows along…"
       ></textarea>
     </label>
 
-    <p class="fs-hint">
+    <p class="field-sizing-hint">
       {{ text.length }} characters · grows to a max of about 8 lines, then
       scrolls.
     </p>
@@ -33,27 +33,27 @@ const text = ref('')
 
 <style scoped lang="scss">
 @layer components {
-  .fs-demo {
+  .field-sizing-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .fs-caption {
+  .field-sizing-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .fs-field {
+  .field-sizing-field {
     display: grid;
     gap: var(--space-2);
   }
 
-  .fs-label {
+  .field-sizing-label {
     font-size: var(--text-sm);
     font-weight: 600;
   }
 
-  .fs-input {
+  .field-sizing-input {
     inline-size: 100%;
     padding: var(--space-3);
     border: 1px solid var(--color-border);
@@ -78,7 +78,7 @@ const text = ref('')
     }
   }
 
-  .fs-hint {
+  .field-sizing-hint {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }

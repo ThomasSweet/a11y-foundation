@@ -5,7 +5,7 @@
  * the demo's core promise — that the lightness clamp keeps the button label at
  * WCAG AA for any hue — and that guarantee deserves a test, not just a comment.
  *
- * The clamp itself runs in CSS (see .tp-preview); this mirrors the same maths in
+ * The clamp itself runs in CSS (see .theme-picker-preview); this mirrors the same maths in
  * JS purely to compute an honest contrast read-out for the figure.
  */
 
@@ -13,7 +13,7 @@
 // (and stays mostly in sRGB gamut). Mirrors the value used in the stylesheet.
 export const CHROMA = 0.15
 // Lightness threshold the engine uses to flip the label black/white, and the
-// safe bounds the clamp snaps to. Mirrors .tp-preview in the stylesheet.
+// safe bounds the clamp snaps to. Mirrors .theme-picker-preview in the stylesheet.
 export const FLIP = 0.62
 export const DARK_MAX = 0.45 // darkest-safe ceiling for a white label
 export const LIGHT_MIN = 0.78 // lightest-safe floor for a black label

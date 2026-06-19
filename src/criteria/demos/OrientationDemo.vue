@@ -1,31 +1,31 @@
 <template>
-  <div class="or-demo" :class="{ 'is-broken': broken, 'is-landscape': landscape }">
-    <p class="or-caption">
+  <div class="orientation-demo" :class="{ 'is-broken': broken, 'is-landscape': landscape }">
+    <p class="orientation-caption">
       A little app inside a device frame. Rotate it. Compliant works either
       way; broken demands landscape and walls off portrait — locking out
       anyone whose device is fixed in one orientation (a tablet mounted to
       a wheelchair, say).
     </p>
 
-    <div class="or-stage">
-      <div class="or-device">
+    <div class="orientation-stage">
+      <div class="orientation-device">
         <!-- Both states are always in the DOM; CSS shows the right one for
              the current orientation + rule state, so only orientation
              handling changes between compliant and broken. -->
-        <div class="or-screen">
-          <p class="or-screen-title">Today</p>
-          <p class="or-screen-row">7,204 steps</p>
-          <p class="or-screen-row">3 reminders</p>
-          <p class="or-screen-row">2 messages</p>
+        <div class="orientation-screen">
+          <p class="orientation-screen-title">Today</p>
+          <p class="orientation-screen-row">7,204 steps</p>
+          <p class="orientation-screen-row">3 reminders</p>
+          <p class="orientation-screen-row">2 messages</p>
         </div>
-        <div class="or-rotate-notice" role="alert">
-          <span class="or-rotate-icon" aria-hidden="true">⟳</span>
+        <div class="orientation-rotate-notice" role="alert">
+          <span class="orientation-rotate-icon" aria-hidden="true">⟳</span>
           <p>Please rotate your device to landscape to continue.</p>
         </div>
       </div>
     </div>
 
-    <button class="or-rotate-btn" type="button" @click="landscape = !landscape">
+    <button class="orientation-rotate-btn" type="button" @click="landscape = !landscape">
       Rotate device ({{ landscape ? 'landscape' : 'portrait' }})
     </button>
   </div>
@@ -43,23 +43,23 @@ const landscape = ref(false)
 
 <style scoped lang="scss">
 @layer components {
-  .or-demo {
+  .orientation-demo {
     display: grid;
     gap: var(--space-3);
   }
 
-  .or-caption {
+  .orientation-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .or-stage {
+  .orientation-stage {
     display: flex;
     justify-content: center;
     padding: var(--space-2);
   }
 
-  .or-device {
+  .orientation-device {
     position: relative;
     display: grid;
     inline-size: 11rem;
@@ -76,12 +76,12 @@ const landscape = ref(false)
 
   /* Rotating swaps the device's dimensions. The .is-landscape class lives
      on the demo root, so the device is targeted as a descendant. */
-  .is-landscape .or-device {
+  .is-landscape .orientation-device {
     inline-size: 17rem;
     block-size: 11rem;
   }
 
-  .or-screen {
+  .orientation-screen {
     display: grid;
     gap: var(--space-2);
     align-content: start;
@@ -90,17 +90,17 @@ const landscape = ref(false)
     background-color: var(--color-surface);
   }
 
-  .or-screen-title {
+  .orientation-screen-title {
     font-size: var(--text-lg);
     font-weight: 600;
   }
 
-  .or-screen-row {
+  .orientation-screen-row {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .or-rotate-notice {
+  .orientation-rotate-notice {
     /* Hidden by default — the app works in every orientation. */
     display: none;
     place-content: center;
@@ -111,23 +111,23 @@ const landscape = ref(false)
     font-size: var(--text-sm);
   }
 
-  .or-rotate-icon {
+  .orientation-rotate-icon {
     font-size: var(--text-3xl);
   }
 
   /* The regression: the app only supports landscape, so in portrait it
      blocks the content behind a "rotate your device" wall. */
   .is-broken:not(.is-landscape) {
-    .or-screen {
+    .orientation-screen {
       display: none;
     }
 
-    .or-rotate-notice {
+    .orientation-rotate-notice {
       display: grid;
     }
   }
 
-  .or-rotate-btn {
+  .orientation-rotate-btn {
     justify-self: start;
     min-block-size: 44px;
     padding: var(--space-2) var(--space-4);

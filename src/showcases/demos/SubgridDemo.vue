@@ -1,9 +1,9 @@
 <template>
-  <div class="sg-grid">
-    <article v-for="card in cards" :key="card.title" class="sg-card">
-      <h5 class="sg-title">{{ card.title }}</h5>
-      <p class="sg-text">{{ card.text }}</p>
-      <p class="sg-meta">{{ card.meta }}</p>
+  <div class="subgrid-grid">
+    <article v-for="card in cards" :key="card.title" class="subgrid-card">
+      <h5 class="subgrid-title">{{ card.title }}</h5>
+      <p class="subgrid-text">{{ card.text }}</p>
+      <p class="subgrid-meta">{{ card.meta }}</p>
     </article>
   </div>
 </template>
@@ -32,13 +32,13 @@ const cards = [
 
 <style scoped lang="scss">
 @layer components {
-  .sg-grid {
+  .subgrid-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
     gap: var(--space-3);
   }
 
-  .sg-card {
+  .subgrid-card {
     display: grid;
     /* Each card spans three of the parent grid's rows and adopts them, so
        title/text/meta line up ACROSS cards regardless of content length.
@@ -57,16 +57,16 @@ const cards = [
     }
   }
 
-  .sg-title {
+  .subgrid-title {
     font-size: var(--text-base);
   }
 
-  .sg-text {
+  .subgrid-text {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .sg-meta {
+  .subgrid-meta {
     align-self: end;
     font-size: var(--text-sm);
     font-weight: 600;

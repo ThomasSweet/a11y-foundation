@@ -5,19 +5,19 @@
     <li
       v-for="era in eras"
       :key="era.id"
-      class="era"
+      class="timeline-era"
       :class="{ 'is-open': !era.items.length }"
     >
-      <span class="era-marker" aria-hidden="true"></span>
-      <div class="era-body">
-        <header class="era-header">
-          <h3 class="era-title">
-            {{ era.label }} <span class="era-year">{{ era.year }}</span>
+      <span class="timeline-era-marker" aria-hidden="true"></span>
+      <div class="timeline-era-body">
+        <header class="timeline-era-header">
+          <h3 class="timeline-era-title">
+            {{ era.label }} <span class="timeline-era-year">{{ era.year }}</span>
           </h3>
-          <p class="era-summary">{{ era.summary }}</p>
+          <p class="timeline-era-summary">{{ era.summary }}</p>
         </header>
 
-        <div v-if="era.items.length" class="era-criteria">
+        <div v-if="era.items.length" class="timeline-era-criteria">
           <CriterionFrame
             v-for="c in era.items"
             :key="c.id"
@@ -38,7 +38,7 @@
             <component :is="c.component" :broken="broken" />
           </CriterionFrame>
         </div>
-        <p v-else class="era-note">{{ era.note }}</p>
+        <p v-else class="timeline-era-note">{{ era.note }}</p>
       </div>
     </li>
   </ol>

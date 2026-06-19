@@ -1,13 +1,13 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
-  .lmap {
+  .legal-map {
     display: grid;
     gap: var(--space-6);
   }
 
   /* The core sits above the laws; the accent gradient marks it as the thing
      everything else references. */
-  .lmap-core {
+  .legal-map-core {
     display: grid;
     gap: var(--space-1);
     justify-items: center;
@@ -26,18 +26,18 @@
     }
   }
 
-  .lmap-core-label {
+  .legal-map-core-label {
     font-size: var(--text-2xl);
     font-weight: 700;
     letter-spacing: var(--tracking-tight);
   }
 
-  .lmap-core-sub {
+  .legal-map-core-sub {
     font-size: var(--text-sm);
     opacity: 0.9;
   }
 
-  .lmap-laws {
+  .legal-map-laws {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-4);
@@ -46,7 +46,7 @@
     list-style: none;
   }
 
-  .lmap-law {
+  .legal-map-law {
     display: grid;
     gap: var(--space-1);
     align-content: start;
@@ -61,33 +61,33 @@
     }
   }
 
-  .lmap-region {
+  .legal-map-region {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-subtle);
   }
 
-  .lmap-name {
+  .legal-map-name {
     font-weight: 600;
   }
 
-  .lmap-ref {
+  .legal-map-ref {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
     color: var(--color-primary);
   }
 
-  .lmap-status {
+  .legal-map-status {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .lmap-caption {
+  .legal-map-caption {
     max-inline-size: 65ch;
     color: var(--color-text-subtle);
   }
 
-  .lmap-disclaimer {
+  .legal-map-disclaimer {
     font-style: italic;
   }
 }

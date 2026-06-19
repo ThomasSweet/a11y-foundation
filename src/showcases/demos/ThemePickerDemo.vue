@@ -1,6 +1,6 @@
 <template>
-  <div class="tp-demo">
-    <p class="tp-caption">
+  <div class="theme-picker-demo">
+    <p class="theme-picker-caption">
       Pick an accent and drag its lightness. The whole palette is derived from
       that one seed, and the button label is protected <strong>two ways</strong>:
       a <strong>pure-CSS clamp</strong> keeps even the plain black/white
@@ -10,15 +10,15 @@
       quietly rescues the rendered label.
     </p>
 
-    <div class="tp-grid">
-      <div class="tp-controls">
-        <label class="tp-field">
-          <span class="tp-label">
-            Accent hue <output class="tp-out">{{ pickH }}°</output>
+    <div class="theme-picker-grid">
+      <div class="theme-picker-controls">
+        <label class="theme-picker-field">
+          <span class="theme-picker-label">
+            Accent hue <output class="theme-picker-out">{{ pickH }}°</output>
           </span>
           <input
             v-model.number="pickH"
-            class="tp-range tp-hue"
+            class="theme-picker-range theme-picker-hue"
             type="range"
             min="0"
             max="360"
@@ -26,13 +26,13 @@
           />
         </label>
 
-        <label class="tp-field">
-          <span class="tp-label">
-            Accent lightness <output class="tp-out">{{ pickL }}%</output>
+        <label class="theme-picker-field">
+          <span class="theme-picker-label">
+            Accent lightness <output class="theme-picker-out">{{ pickL }}%</output>
           </span>
           <input
             v-model.number="pickL"
-            class="tp-range"
+            class="theme-picker-range"
             type="range"
             min="0"
             max="100"
@@ -40,19 +40,19 @@
           />
         </label>
 
-        <label class="tp-check">
+        <label class="theme-picker-check">
           <input v-model="bypass" type="checkbox" />
           Bypass the safety clamp
         </label>
 
-        <div class="tp-presets">
-          <span class="tp-presets-label">CVD-robust presets</span>
-          <div class="tp-chips">
+        <div class="theme-picker-presets">
+          <span class="theme-picker-presets-label">CVD-robust presets</span>
+          <div class="theme-picker-chips">
             <button
               v-for="p in presets"
               :key="p.name"
               type="button"
-              class="tp-chip"
+              class="theme-picker-chip"
               @click="apply(p)"
             >
               {{ p.name }}
@@ -65,33 +65,33 @@
            math and --seed-accent live in CSS, so the theme really is derived
            in the cascade, not in JS. -->
       <article
-        class="surface tp-preview"
+        class="surface theme-picker-preview"
         :style="{ '--pick-h': pickH, '--pick-l': pickL, '--bypass': bypass ? 1 : 0 }"
       >
         <p class="surface-title">Live preview</p>
         <p class="surface-text">Body copy and a primary action, themed from one seed.</p>
-        <div class="tp-actions">
+        <div class="theme-picker-actions">
           <AppButton variant="primary">Primary</AppButton>
           <AppButton variant="secondary">Secondary</AppButton>
         </div>
       </article>
     </div>
 
-    <dl class="tp-report" :class="{ 'is-fail': !report.fallback.passes }">
-      <div class="tp-stat">
+    <dl class="theme-picker-report" :class="{ 'is-fail': !report.fallback.passes }">
+      <div class="theme-picker-stat">
         <dt>Applied</dt>
         <dd>{{ report.appliedPct }}% L</dd>
       </div>
-      <div class="tp-stat">
+      <div class="theme-picker-stat">
         <dt>Fallback label</dt>
         <dd>{{ report.fallback.ratio }}:1 · {{ report.fallback.passes ? 'AA ✓' : 'fails AA' }}</dd>
       </div>
-      <div v-if="supportsContrastColor" class="tp-stat">
+      <div v-if="supportsContrastColor" class="theme-picker-stat">
         <dt>Rendered (<code>contrast-color</code>)</dt>
         <dd>{{ report.rendered.ratio }}:1 · {{ report.rendered.passes ? 'AA ✓' : 'fails AA' }}</dd>
       </div>
     </dl>
-    <p class="tp-note" role="status">{{ note }}</p>
+    <p class="theme-picker-note" role="status">{{ note }}</p>
   </div>
 </template>
 
@@ -146,35 +146,35 @@ const note = computed(() => {
 
 <style scoped lang="scss">
 @layer components {
-  .tp-demo {
+  .theme-picker-demo {
     display: grid;
     gap: var(--space-4);
   }
 
-  .tp-caption {
+  .theme-picker-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 
-  .tp-grid {
+  .theme-picker-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-4);
     align-items: start;
   }
 
-  .tp-controls {
+  .theme-picker-controls {
     display: grid;
     gap: var(--space-4);
     align-content: start;
   }
 
-  .tp-field {
+  .theme-picker-field {
     display: grid;
     gap: var(--space-2);
   }
 
-  .tp-label {
+  .theme-picker-label {
     display: flex;
     justify-content: space-between;
     gap: var(--space-2);
@@ -182,19 +182,19 @@ const note = computed(() => {
     font-weight: 600;
   }
 
-  .tp-out {
+  .theme-picker-out {
     font-family: var(--font-mono);
     font-weight: 400;
     color: var(--color-text-subtle);
   }
 
-  .tp-range {
+  .theme-picker-range {
     inline-size: 100%;
     accent-color: var(--color-primary);
   }
 
   /* A hue wheel as the track — communicates what the slider controls. */
-  .tp-hue {
+  .theme-picker-hue {
     block-size: 0.5rem;
     border-radius: var(--radius-full);
     appearance: none;
@@ -214,30 +214,30 @@ const note = computed(() => {
     }
   }
 
-  .tp-check {
+  .theme-picker-check {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     font-size: var(--text-sm);
   }
 
-  .tp-presets {
+  .theme-picker-presets {
     display: grid;
     gap: var(--space-2);
   }
 
-  .tp-presets-label {
+  .theme-picker-presets-label {
     font-size: var(--text-sm);
     font-weight: 600;
   }
 
-  .tp-chips {
+  .theme-picker-chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
   }
 
-  .tp-chip {
+  .theme-picker-chip {
     padding: var(--space-1) var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
@@ -268,7 +268,7 @@ const note = computed(() => {
        4. bypass blends back to the raw value to expose the unsafe pick.
      Overriding --seed-accent here (components layer) beats theming.css's
      default (themes layer), and the engine's derivations pick it up. */
-  .tp-preview {
+  .theme-picker-preview {
     --raw-l: calc(var(--pick-l) / 100);
     /* A big multiplier turns the sign of (0.62 − L) into a 0/1 step. */
     --is-dark: clamp(0, (0.62 - var(--raw-l)) * 100000, 1);
@@ -283,14 +283,14 @@ const note = computed(() => {
     align-content: start;
   }
 
-  .tp-actions {
+  .theme-picker-actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
     margin-block-start: var(--space-1);
   }
 
-  .tp-report {
+  .theme-picker-report {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2) var(--space-6);
@@ -305,7 +305,7 @@ const note = computed(() => {
     }
   }
 
-  .tp-stat {
+  .theme-picker-stat {
     display: grid;
     gap: 2px;
 
@@ -321,7 +321,7 @@ const note = computed(() => {
     }
   }
 
-  .tp-note {
+  .theme-picker-note {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }

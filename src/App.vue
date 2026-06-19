@@ -19,18 +19,18 @@
 
     <!-- Spine: an in-page table of contents, not a switcher. The active link
          is driven purely by scroll position (view-timeline) — no JS. -->
-    <nav class="spy-nav" aria-label="On this page">
-      <ul class="spy-list" role="list">
+    <nav class="scrollspy-nav" aria-label="On this page">
+      <ul class="scrollspy-list" role="list">
         <li>
-          <a class="spy-link" data-spy="standard" href="#standard">
+          <a class="scrollspy-link" data-spy="standard" href="#standard">
             The standard
           </a>
         </li>
         <li>
-          <a class="spy-link" data-spy="craft" href="#craft">The craft</a>
+          <a class="scrollspy-link" data-spy="craft" href="#craft">The craft</a>
         </li>
         <li>
-          <a class="spy-link" data-spy="showcase" href="#showcase">
+          <a class="scrollspy-link" data-spy="showcase" href="#showcase">
             CSS showcase
           </a>
         </li>
@@ -41,7 +41,7 @@
       <!-- ===================================================================
            Pillar 1 — The requirement: accessibility as a living standard
       ==================================================================== -->
-      <div id="standard" class="pillar spy-region">
+      <div id="standard" class="pillar scrollspy-region">
         <p class="pillar-eyebrow">01 · The requirement</p>
 
         <section class="demo" aria-labelledby="demo-criteria">
@@ -86,7 +86,7 @@
       <!-- ===================================================================
            Pillar 2 — The platform's answer (a) shipping today: the craft
       ==================================================================== -->
-      <div id="craft" class="pillar spy-region">
+      <div id="craft" class="pillar scrollspy-region">
         <p class="pillar-eyebrow">02 · The platform's answer · shipping today</p>
         <p class="pillar-lead">
           The standard sets the bar; modern CSS and HTML clear most of it with no
@@ -193,7 +193,7 @@
       <!-- ===================================================================
            Pillar 2 — The platform's answer (b) arriving next: the showcase
       ==================================================================== -->
-      <div id="showcase" class="pillar spy-region">
+      <div id="showcase" class="pillar scrollspy-region">
         <p class="pillar-eyebrow">03 · The platform's answer · arriving next</p>
 
         <section class="demo" aria-labelledby="demo-css">
@@ -406,7 +406,7 @@ const groups = computed(() => [
   /* --- Spine navigation ----------------------------------------------------
      A sticky in-page table of contents. It floats over scrolling content with
      the same glassy treatment as the rest of the shell. */
-  .spy-nav {
+  .scrollspy-nav {
     position: sticky;
     inset-block-start: var(--space-2);
     z-index: 5;
@@ -430,13 +430,13 @@ const groups = computed(() => [
     }
   }
 
-  .spy-list {
+  .scrollspy-list {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
   }
 
-  .spy-link {
+  .scrollspy-link {
     display: grid;
     place-items: center;
     min-block-size: 44px;
@@ -474,20 +474,20 @@ const groups = computed(() => [
     #craft { view-timeline-name: --vt-craft; }
     #showcase { view-timeline-name: --vt-showcase; }
 
-    .spy-link {
-      animation: spy-active linear both;
+    .scrollspy-link {
+      animation: scrollspy-active linear both;
       animation-range: cover 0% cover 100%;
     }
 
-    .spy-link[data-spy='standard'] { animation-timeline: --vt-standard; }
-    .spy-link[data-spy='craft'] { animation-timeline: --vt-craft; }
-    .spy-link[data-spy='showcase'] { animation-timeline: --vt-showcase; }
+    .scrollspy-link[data-spy='standard'] { animation-timeline: --vt-standard; }
+    .scrollspy-link[data-spy='craft'] { animation-timeline: --vt-craft; }
+    .scrollspy-link[data-spy='showcase'] { animation-timeline: --vt-showcase; }
 
     /* A plateau, not a single peak: the link reaches full strength early and
        holds it across the bulk of the region (12%–88% of its cover range),
        fading only at the hand-off edges. That keeps the active link clearly
        lit even at the top of a very tall region, while neighbours stay dark. */
-    @keyframes spy-active {
+    @keyframes scrollspy-active {
       0%,
       100% {
         background-color: transparent;
@@ -506,12 +506,12 @@ const groups = computed(() => [
     /* In forced-colors the crossfade colors collapse to system values; give the
        active link a clear, non-color boundary instead. */
     @include forced-colors {
-      .spy-link {
-        animation: spy-active-hc linear both;
+      .scrollspy-link {
+        animation: scrollspy-active-hc linear both;
         animation-range: cover 0% cover 100%;
       }
 
-      @keyframes spy-active-hc {
+      @keyframes scrollspy-active-hc {
         0%,
         100% {
           border: 1px solid transparent;
