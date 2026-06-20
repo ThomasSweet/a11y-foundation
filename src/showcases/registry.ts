@@ -43,6 +43,7 @@ import AttrDemo from './demos/AttrDemo.vue'
 import ScrollSnapDemo from './demos/ScrollSnapDemo.vue'
 import FieldSizingDemo from './demos/FieldSizingDemo.vue'
 import CustomSelectDemo from './demos/CustomSelectDemo.vue'
+import AnchorTooltipDemo from './demos/AnchorTooltipDemo.vue'
 import PopoverMenuDemo from './demos/PopoverMenuDemo.vue'
 import ScrollStateDemo from './demos/ScrollStateDemo.vue'
 import HighlightApiDemo from './demos/HighlightApiDemo.vue'
@@ -217,6 +218,30 @@ export const showcases: Showcase[] = [
       },
     ],
     component: AnchorPopoverDemo,
+  },
+  {
+    id: 'anchor-tooltip',
+    title: 'Anchor-positioned tooltip',
+    status: 'emerging',
+    supports: 'anchor-name: --a',
+    summary:
+      'A hover/focus hint tethered to its trigger with anchor positioning, ' +
+      'flipping sides via position-try-fallbacks when it would hit an edge — ' +
+      'no positioning JS. It also nails the parts of WCAG 1.4.13 most tooltips ' +
+      'miss: keyboard-focus reveal, hoverable, and persistent. The one leg CSS ' +
+      'can’t reach (Esc-to-dismiss) is called out honestly. Without anchor ' +
+      'support it falls back to a fixed above-the-trigger placement.',
+    links: [
+      {
+        label: 'MDN: anchor positioning',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning',
+      },
+      {
+        label: 'WCAG: Understanding 1.4.13',
+        href: 'https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html',
+      },
+    ],
+    component: AnchorTooltipDemo,
   },
   {
     id: 'contrast-color',
