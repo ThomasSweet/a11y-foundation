@@ -42,6 +42,7 @@ import StartingStyleDemo from './demos/StartingStyleDemo.vue'
 import AttrDemo from './demos/AttrDemo.vue'
 import ScrollSnapDemo from './demos/ScrollSnapDemo.vue'
 import FieldSizingDemo from './demos/FieldSizingDemo.vue'
+import CustomSelectDemo from './demos/CustomSelectDemo.vue'
 import PopoverMenuDemo from './demos/PopoverMenuDemo.vue'
 import ScrollStateDemo from './demos/ScrollStateDemo.vue'
 import HighlightApiDemo from './demos/HighlightApiDemo.vue'
@@ -391,6 +392,26 @@ export const showcases: Showcase[] = [
       },
     ],
     component: FieldSizingDemo,
+  },
+  {
+    id: 'customizable-select',
+    title: 'Customizable <select>',
+    status: 'emerging',
+    supports: 'appearance: base-select',
+    summary:
+      'A native <select> opted into full CSS styling with appearance: ' +
+      'base-select — the control, the dropdown, and rich option content ' +
+      '(here, a status dot + description), all without leaving the platform. ' +
+      'Keyboard, type-ahead, the screen-reader combobox, and form submission ' +
+      'stay native, so it replaces the hand-rolled ARIA combobox. Without ' +
+      'support it falls back to a plain native select. Interop 2026 focus area.',
+    links: [
+      {
+        label: 'MDN: Customizable select',
+        href: 'https://developer.mozilla.org/en-US/docs/Learn/Forms/Customizable_select',
+      },
+    ],
+    component: CustomSelectDemo,
   },
   {
     id: 'scroll-state',
