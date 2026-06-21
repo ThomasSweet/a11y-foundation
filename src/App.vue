@@ -6,7 +6,11 @@
   <div class="app-shell">
     <header class="hero">
       <div class="hero-top">
-        <p class="hero-eyebrow">Cutting-edge CSS · WCAG · little-to-no JS</p>
+        <p class="hero-eyebrow">
+          <span class="hero-wordmark">a11y&#8209;foundation</span>
+          <span class="hero-eyebrow-sep" aria-hidden="true">·</span>
+          an exploration of accessibility&#8209;first frontend development
+        </p>
         <ThemeToggle />
       </div>
 
@@ -27,11 +31,14 @@
           </span>
         </div>
 
-        <h1 class="hero-title">a11y&#8209;foundation</h1>
+        <h1 class="hero-title">Accessible by default</h1>
         <p class="hero-lede">
-          An accessibility-first styling foundation, told as one argument in two
-          halves: what the standard <em>asks for</em>, and how the web platform
-          already <em>answers it</em> — natively, with little to no JavaScript.
+          A hands-on look at how much of accessibility the modern web platform
+          handles <em>natively</em> — with little to no JavaScript. It runs as
+          one argument in four parts: what <strong>the standard</strong> (WCAG)
+          asks for, <strong>the craft</strong> of meeting it, what cutting-edge
+          <strong>CSS</strong> now makes possible, and <strong>the proof</strong>
+          that it holds up.
         </p>
       </div>
 
@@ -771,6 +778,16 @@ const toc = [
     font-size: var(--text-sm);
     letter-spacing: 0.02em;
     color: var(--color-text-subtle);
+  }
+
+  /* The project name reads as a small wordmark above the poster title. */
+  .hero-wordmark {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .hero-eyebrow-sep {
+    margin-inline: var(--space-1);
   }
 
   .hero-title {
