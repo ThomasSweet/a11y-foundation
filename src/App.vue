@@ -9,40 +9,69 @@
         <p class="hero-eyebrow">Cutting-edge CSS · WCAG · little-to-no JS</p>
         <ThemeToggle />
       </div>
-      <h1 class="hero-title">a11y&#8209;foundation</h1>
-      <p class="hero-lede">
-        An accessibility-first styling foundation, told as one argument in two
-        halves: what the standard <em>asks for</em>, and how the web platform
-        already <em>answers it</em> — natively, with little to no JavaScript.
-      </p>
+
+      <div class="hero-body">
+        <!-- A bold band of signage pictograms + this site's own accessibility
+             concepts — the "find your way" metaphor, full size. Purely
+             decorative, so the whole grid is aria-hidden. -->
+        <div class="hero-icons" aria-hidden="true">
+          <span
+            v-for="icon in heroIcons"
+            :key="icon.name"
+            class="hero-icon"
+            :data-kind="icon.kind"
+          >
+            <svg class="hero-icon-svg" viewBox="0 -960 960 960">
+              <path :d="icon.d" />
+            </svg>
+          </span>
+        </div>
+
+        <h1 class="hero-title">a11y&#8209;foundation</h1>
+        <p class="hero-lede">
+          An accessibility-first styling foundation, told as one argument in two
+          halves: what the standard <em>asks for</em>, and how the web platform
+          already <em>answers it</em> — natively, with little to no JavaScript.
+        </p>
+      </div>
+
+      <a class="hero-scroll" href="#standard">
+        <span class="hero-scroll-label">Start reading</span>
+        <svg class="hero-scroll-icon" viewBox="0 -960 960 960" aria-hidden="true">
+          <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+        </svg>
+      </a>
     </header>
 
-    <!-- Spine: an in-page table of contents, not a switcher. The active link
-         is driven purely by scroll position (view-timeline) — no JS. -->
-    <nav class="scrollspy-nav" aria-label="On this page">
-      <ul class="scrollspy-list" role="list">
-        <li>
-          <a class="scrollspy-link" data-spy="standard" href="#standard">
-            The standard
-          </a>
-        </li>
-        <li>
-          <a class="scrollspy-link" data-spy="craft" href="#craft">The craft</a>
-        </li>
-        <li>
-          <a class="scrollspy-link" data-spy="showcase" href="#showcase">
-            CSS showcase
-          </a>
-        </li>
-        <li>
-          <a class="scrollspy-link" data-spy="testing" href="#testing">
-            The proof
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div class="app-body">
+      <!-- Wayfinding nav. On desktop it's a sticky sidebar: the four pillars,
+           each expanded to its sections. Below `lg` it becomes a sticky top bar
+           of just the four pillar tabs, so it never buries the content. Active
+           state is driven purely by scroll position (view-timeline), no JS. -->
+      <nav class="toc" aria-label="Sections">
+        <p class="toc-heading">On this page</p>
+        <ol class="toc-groups" role="list">
+          <li v-for="group in toc" :key="group.id" class="toc-group">
+            <a
+              class="toc-group-link"
+              :href="`#${group.id}`"
+              :style="{ animationTimeline: `--vt-${group.id}` }"
+            >
+              <span class="toc-group-n">{{ group.n }}</span>
+              {{ group.label }}
+            </a>
+            <ul class="toc-sections" role="list">
+              <li v-for="s in group.sections" :key="s.id">
+                <a class="toc-section-link" :href="`#${s.id}`">
+                  {{ s.label }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </nav>
 
-    <main id="main" tabindex="-1" class="site-main">
+      <main id="main" tabindex="-1" class="site-main">
       <!-- ===================================================================
            Pillar 1 — The requirement: accessibility as a living standard
       ==================================================================== -->
@@ -269,6 +298,7 @@
         </section>
       </div>
     </main>
+    </div>
 
     <footer class="site-footer" aria-labelledby="a11y-statement">
       <h2 id="a11y-statement" class="footer-title">Accessibility</h2>
@@ -336,6 +366,7 @@ import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
+import { heroIcons } from './icons/heroIcons'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
@@ -353,6 +384,48 @@ const groups = computed(() => [
     items: showcases.filter((s) => s.status === 'emerging'),
   },
 ])
+
+// The table of contents: the four pillars, each with its real <h2> sections.
+// Drives the sidebar nav; ids match the headings in the template above.
+const toc = [
+  {
+    id: 'standard',
+    n: '01',
+    label: 'The standard',
+    sections: [
+      { id: 'demo-criteria', label: 'Guidelines, alive' },
+      { id: 'demo-conformance', label: 'From pass / fail to outcomes' },
+      { id: 'demo-legal', label: 'One standard, many laws' },
+    ],
+  },
+  {
+    id: 'craft',
+    n: '02',
+    label: 'The craft',
+    sections: [
+      { id: 'craft-validation', label: 'Validation that waits its turn' },
+      { id: 'craft-light-dark', label: 'Dark mode from one source' },
+      { id: 'craft-dialog', label: 'Native dialog, zero trapping code' },
+      { id: 'craft-motion', label: 'Motion that bows out on request' },
+      { id: 'craft-targets', label: 'Targets for touch & forced colors' },
+    ],
+  },
+  {
+    id: 'showcase',
+    n: '03',
+    label: 'CSS showcase',
+    sections: [{ id: 'demo-css', label: 'CSS showcases' }],
+  },
+  {
+    id: 'testing',
+    n: '04',
+    label: 'The proof',
+    sections: [
+      { id: 'testing-layers', label: 'A layered job, not a button' },
+      { id: 'testing-coverage', label: 'What automation can’t see' },
+    ],
+  },
+]
 </script>
 
 <style scoped lang="scss">
@@ -378,16 +451,16 @@ const groups = computed(() => [
     }
   }
 
+  /* A full-screen, poster-style opener: the top bar, then the icon band + title
+     centred in the remaining height, then a scroll cue at the foot. */
   .hero {
     display: grid;
-    gap: var(--space-6);
-    max-inline-size: 72rem;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-8);
+    min-block-size: 100dvh;
+    max-inline-size: 80rem;
     margin-inline: auto;
-    padding: var(--space-12) var(--space-4) var(--space-16);
-
-    @include from('md') {
-      padding-block: var(--space-24);
-    }
+    padding: var(--space-6) var(--space-4) var(--space-8);
   }
 
   .hero-top {
@@ -398,12 +471,36 @@ const groups = computed(() => [
     gap: var(--space-4);
   }
 
+  .hero-body {
+    display: grid;
+    align-content: center;
+    gap: var(--space-8);
+
+    @include from('md') {
+      gap: var(--space-12);
+    }
+  }
+
+  /* The hero spans full width; below it a two-column body pairs the sticky
+     wayfinding sidebar with the content column. Block flow on mobile (so the
+     sticky tab bar can travel); two-column grid from `lg`. */
+  .app-body {
+    max-inline-size: 72rem;
+    margin-inline: auto;
+    padding-inline: var(--space-4);
+
+    @include from('lg') {
+      display: grid;
+      grid-template-columns: 14rem minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
+    }
+  }
+
   .site-main {
     display: grid;
     gap: var(--space-24);
-    max-inline-size: 72rem;
-    margin-inline: auto;
-    padding: var(--space-4);
+    min-inline-size: 0; /* let the content column shrink, not overflow */
     padding-block-end: var(--space-16);
   }
 
@@ -448,21 +545,34 @@ const groups = computed(() => [
 }
 
 @layer components {
-  /* --- Spine navigation ----------------------------------------------------
-     A sticky in-page table of contents. It floats over scrolling content with
-     the same glassy treatment as the rest of the shell. */
-  .scrollspy-nav {
+  /* --- Wayfinding nav ------------------------------------------------------
+     Below `lg`: a sticky glassy top bar of the four pillar tabs (sections
+     hidden) — compact, so it never buries the content. From `lg`: a sticky left
+     sidebar with every section listed. */
+  .toc {
     position: sticky;
-    inset-block-start: var(--space-2);
+    inset-block-start: 0;
     z-index: 5;
-    justify-self: center;
-    inline-size: min(100%, 32rem);
-    margin-block-end: var(--space-4);
-    padding: var(--space-1);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
+    margin-block-end: var(--space-6);
+    /* Bleed past the body's inline padding so the bar spans edge to edge. */
+    margin-inline: calc(var(--space-4) * -1);
+    padding: var(--space-2) var(--space-4);
+    border-block-end: 1px solid var(--color-border);
     background-color: var(--color-surface-glass);
     backdrop-filter: blur(12px);
+
+    @include from('lg') {
+      /* Desktop: a sticky rail; drop the bar chrome. */
+      inset-block-start: var(--space-6);
+      align-self: start;
+      max-block-size: calc(100dvh - var(--space-12));
+      overflow-y: auto;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: none;
+      backdrop-filter: none;
+    }
 
     @include reduced-transparency {
       background-color: var(--color-bg-subtle);
@@ -475,21 +585,100 @@ const groups = computed(() => [
     }
   }
 
-  .scrollspy-list {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+  /* "On this page": a quiet heading on the desktop rail; hidden in the bar. */
+  .toc-heading {
+    display: none;
+
+    @include from('lg') {
+      display: block;
+      margin-block-end: var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-text-subtle);
+    }
   }
 
-  .scrollspy-link {
-    display: grid;
-    place-items: center;
+  .toc-groups {
+    /* Mobile: pillar tabs that wrap onto multiple rows (no horizontal scroll). */
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include from('lg') {
+      display: grid;
+      gap: var(--space-4);
+    }
+  }
+
+  .toc-group-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     min-block-size: 44px;
     padding-inline: var(--space-3);
     border-radius: var(--radius-full);
+    font-weight: 600;
     color: var(--color-text-subtle);
-    font-weight: 500;
-    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+
+    @include from('lg') {
+      align-items: baseline;
+      min-block-size: 0;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+    }
+
+    @include can-hover {
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  /* The pillar number is a desktop-rail flourish; the mobile tabs stay compact. */
+  .toc-group-n {
+    display: none;
+
+    @include from('lg') {
+      display: inline;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      color: var(--color-primary);
+    }
+  }
+
+  /* Sub-sections only appear in the desktop sidebar. */
+  .toc-sections {
+    display: none;
+
+    @include from('lg') {
+      display: grid;
+      gap: 1px;
+      margin: var(--space-1) 0 0;
+      padding-inline-start: var(--space-3);
+      border-inline-start: 1px solid var(--color-border);
+      list-style: none;
+    }
+  }
+
+  .toc-section-link {
+    display: block;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
     text-decoration: none;
 
     @include can-hover {
@@ -504,12 +693,11 @@ const groups = computed(() => [
     }
   }
 
-  /* Pure-CSS scroll spy: each region owns a named view-timeline, hoisted to a
-     common ancestor so the (sibling) nav links can read it. Each link runs a
-     crossfade keyed to its region's timeline — the highlight peaks while the
-     region holds the viewport and hands off softly to the next. Scroll-linked
-     motion mirrors the user's own gesture, so it needs no reduced-motion
-     override; it's gated only on support, with the plain link as the fallback. */
+  /* Pure-CSS scroll spy. Each pillar and each section owns a named
+     view-timeline, hoisted to a common ancestor; the matching nav link reads it
+     (timeline assigned inline from the toc data) and brightens while its target
+     holds the viewport. Scroll-linked, so no reduced-motion override is needed —
+     gated only on support, with the plain links as the fallback. */
   @supports (animation-timeline: view()) {
     .app-shell {
       timeline-scope: --vt-standard, --vt-craft, --vt-showcase, --vt-testing;
@@ -520,45 +708,35 @@ const groups = computed(() => [
     #showcase { view-timeline-name: --vt-showcase; }
     #testing { view-timeline-name: --vt-testing; }
 
-    .scrollspy-link {
-      animation: scrollspy-active linear both;
+    /* The group link tracks its pillar (timeline set inline from the toc data).
+       Section-level single-active isn't reliably expressible in pure CSS — short
+       adjacent sections all satisfy a "cover" range at once — so we highlight the
+       current pillar and leave sections to hover / focus. */
+    .toc-group-link {
+      animation: toc-group-active linear both;
       animation-range: cover 0% cover 100%;
     }
 
-    .scrollspy-link[data-spy='standard'] { animation-timeline: --vt-standard; }
-    .scrollspy-link[data-spy='craft'] { animation-timeline: --vt-craft; }
-    .scrollspy-link[data-spy='showcase'] { animation-timeline: --vt-showcase; }
-    .scrollspy-link[data-spy='testing'] { animation-timeline: --vt-testing; }
-
-    /* A plateau, not a single peak: the link reaches full strength early and
-       holds it across the bulk of the region (12%–88% of its cover range),
-       fading only at the hand-off edges. That keeps the active link clearly
-       lit even at the top of a very tall region, while neighbours stay dark. */
-    @keyframes scrollspy-active {
+    /* A plateau, not a peak: full strength across 12%–88% of the cover range so
+       the active pillar stays lit even at the top of a tall region. */
+    @keyframes toc-group-active {
       0%,
       100% {
         background-color: transparent;
         color: var(--color-text-subtle);
-        box-shadow: none;
       }
 
       12%,
       88% {
-        background-color: var(--color-surface);
+        background-color: var(--color-bg-subtle);
         color: var(--color-text);
-        box-shadow: var(--shadow-sm);
       }
     }
 
-    /* In forced-colors the crossfade colors collapse to system values; give the
-       active link a clear, non-color boundary instead. */
+    /* Forced colors flattens the background tint; mark the active tab with a
+       border instead so it stays distinguishable. */
     @include forced-colors {
-      .scrollspy-link {
-        animation: scrollspy-active-hc linear both;
-        animation-range: cover 0% cover 100%;
-      }
-
-      @keyframes scrollspy-active-hc {
+      @keyframes toc-group-active {
         0%,
         100% {
           border: 1px solid transparent;
@@ -597,9 +775,10 @@ const groups = computed(() => [
 
   .hero-title {
     inline-size: fit-content;
-    font-size: var(--text-display);
+    /* Poster-scale: fluid from a strong mobile size up to a huge desktop one. */
+    font-size: clamp(3rem, 12vw, 9rem);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1;
     letter-spacing: var(--tracking-tight);
     /* Gradient text. Safari still needs the prefixed background-clip. */
     background: var(--gradient-accent);
@@ -622,6 +801,88 @@ const groups = computed(() => [
     font-size: var(--text-lg);
     line-height: var(--leading-normal);
     color: var(--color-text-subtle);
+  }
+
+  /* The decorative wayfinding band — large, boxless pictograms that read as a
+     poster. The page's own topics carry the brand accent; the signage glyphs
+     stay in the bold ink colour, so the "mix" still reads. */
+  .hero-icons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    justify-items: center;
+
+    @include from('md') {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .hero-icon {
+    display: grid;
+    place-items: center;
+    color: var(--color-text);
+
+    &[data-kind='concept'] {
+      color: var(--color-primary);
+    }
+  }
+
+  .hero-icon-svg {
+    inline-size: clamp(2.75rem, 7vw, 5rem);
+    block-size: clamp(2.75rem, 7vw, 5rem);
+    fill: currentcolor;
+
+    @include forced-colors {
+      fill: CanvasText;
+    }
+  }
+
+  /* Scroll affordance at the foot of the full-screen hero. */
+  .hero-scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-self: center;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .hero-scroll-icon {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    fill: currentcolor;
+    /* A hardcoded duration (not a motion token), so silence it explicitly. */
+    animation: hero-bob 1.8s ease-in-out infinite;
+
+    @include reduced-motion {
+      animation: none;
+    }
+  }
+
+  @keyframes hero-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(3px);
+    }
   }
 
   /* Section headings get the fluid display scale; intro paragraphs stay

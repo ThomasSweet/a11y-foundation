@@ -77,3 +77,9 @@ npm run test:e2e   # axe sweep + keyboard/focus behaviour, across Chromium/Firef
 See [GUIDE.md](./GUIDE.md) for the full coding guide: the layer rules, the
 mixin ordering convention, theming, and how to write component styles in
 Vue SFCs (`<style scoped>` wrapped in `@layer components`).
+
+## Credits
+
+The decorative hero pictograms are
+[Material Symbols](https://github.com/google/material-design-icons) by Google,
+used under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).

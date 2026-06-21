@@ -44,6 +44,7 @@ import ScrollSnapDemo from './demos/ScrollSnapDemo.vue'
 import FieldSizingDemo from './demos/FieldSizingDemo.vue'
 import CustomSelectDemo from './demos/CustomSelectDemo.vue'
 import AnchorTooltipDemo from './demos/AnchorTooltipDemo.vue'
+import ZoomCompareDemo from './demos/ZoomCompareDemo.vue'
 import PopoverMenuDemo from './demos/PopoverMenuDemo.vue'
 import ScrollStateDemo from './demos/ScrollStateDemo.vue'
 import HighlightApiDemo from './demos/HighlightApiDemo.vue'
@@ -417,6 +418,25 @@ export const showcases: Showcase[] = [
       },
     ],
     component: FieldSizingDemo,
+  },
+  {
+    id: 'css-zoom',
+    title: 'CSS zoom',
+    status: 'emerging',
+    supports: 'zoom: 2',
+    summary:
+      'The newly-interoperable zoom property magnifies an element AND reflows ' +
+      'the layout around it — like the browser’s own zoom — where transform: ' +
+      'scale() only repaints bigger and overlaps its neighbours. That reflow is ' +
+      'the accessible behaviour (WCAG 1.4.10), so zoom is the right tool for a ' +
+      'per-component “make this bigger” control. Pure-CSS radio control via :has().',
+    links: [
+      {
+        label: 'MDN: zoom',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/zoom',
+      },
+    ],
+    component: ZoomCompareDemo,
   },
   {
     id: 'customizable-select',

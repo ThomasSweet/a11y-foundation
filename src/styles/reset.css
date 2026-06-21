@@ -33,6 +33,10 @@
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* Never let the page scroll sideways from an over-wide child. `clip` (not
+       `hidden`) so it doesn't become a scroll container — position: sticky
+       descendants keep working relative to the viewport. */
+    overflow-x: clip;
   }
 
   body {
