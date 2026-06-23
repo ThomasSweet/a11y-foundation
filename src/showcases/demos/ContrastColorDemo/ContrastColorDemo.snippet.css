@@ -1,0 +1,15 @@
+.swatch {
+  background: var(--bg);
+  /* Fallback: a fixed light label with a shadow — readable on most colours
+     but not guaranteed. That's the gap contrast-color() closes. */
+  color: #fff;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
+}
+
+@supports (color: contrast-color(red)) {
+  .swatch {
+    /* The browser guarantees a contrasting label for ANY background. */
+    color: contrast-color(var(--bg));
+    text-shadow: none;
+  }
+}

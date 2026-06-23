@@ -1,0 +1,19 @@
+.card {
+  /* Closed: out of layout and the accessibility tree. */
+  display: none;
+  opacity: 0;
+  /* allow-discrete lets `display` participate, so the EXIT animates too. */
+  transition:
+    opacity 250ms,
+    display 250ms allow-discrete;
+}
+
+.card.is-open {
+  display: block;
+  opacity: 1;
+
+  /* The from-state for the ENTRY transition (display: none → shown). */
+  @starting-style {
+    opacity: 0;
+  }
+}

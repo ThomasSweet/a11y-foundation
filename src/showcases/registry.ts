@@ -2,10 +2,12 @@
  * Showcase registry — single source of truth for the CSS showcases section.
  *
  * To add a showcase:
- *   1. Build the demo component in ./demos/ (keep it small and focused on
- *      ONE feature; wrap new syntax in @supports with a usable fallback).
- *   2. Add an entry here. App.vue renders everything from this list,
- *      grouped by status.
+ *   1. Build the demo in its own folder under ./demos/ — XDemo/XDemo.vue,
+ *      keeping it small and focused on ONE feature (wrap new syntax in
+ *      @supports with a usable fallback). Add at least one portable excerpt
+ *      beside it (XDemo/XDemo.snippet.html / .css / .js) for "Show the code".
+ *   2. Add an entry here, importing the component and snippet(s). App.vue
+ *      renders everything from this list, grouped by status.
  *
  * status:
  *   'stable'   — interoperable in current Chrome, Firefox, and Safari
@@ -26,31 +28,70 @@
  *   - https://web-platform-dx.github.io/web-features-explorer/ (Baseline)
  */
 
-import ContainerCardDemo from './demos/ContainerCardDemo.vue'
-import AnchorPopoverDemo from './demos/AnchorPopoverDemo.vue'
-import HasSelectorDemo from './demos/HasSelectorDemo.vue'
-import SubgridDemo from './demos/SubgridDemo.vue'
-import ContrastColorDemo from './demos/ContrastColorDemo.vue'
-import ScrollProgressDemo from './demos/ScrollProgressDemo.vue'
-import TextWrapDemo from './demos/TextWrapDemo.vue'
-import ThemeShowcaseDemo from './demos/ThemeShowcaseDemo.vue'
-import ThemePickerDemo from './demos/ThemePickerDemo.vue'
-import SlidingIndicatorDemo from './demos/SlidingIndicatorDemo.vue'
-import StyleQueryCuesDemo from './demos/StyleQueryCuesDemo.vue'
-import ShapeDemo from './demos/ShapeDemo.vue'
-import StartingStyleDemo from './demos/StartingStyleDemo.vue'
-import AttrDemo from './demos/AttrDemo.vue'
-import ScrollSnapDemo from './demos/ScrollSnapDemo.vue'
-import FieldSizingDemo from './demos/FieldSizingDemo.vue'
-import CustomSelectDemo from './demos/CustomSelectDemo.vue'
-import AnchorTooltipDemo from './demos/AnchorTooltipDemo.vue'
-import ZoomCompareDemo from './demos/ZoomCompareDemo.vue'
-import PopoverMenuDemo from './demos/PopoverMenuDemo.vue'
-import ScrollStateDemo from './demos/ScrollStateDemo.vue'
-import HighlightApiDemo from './demos/HighlightApiDemo.vue'
-import DialogPolishDemo from './demos/DialogPolishDemo.vue'
-import ViewTransitionDemo from './demos/ViewTransitionDemo.vue'
+import ContainerCardDemo from './demos/ContainerCardDemo/ContainerCardDemo.vue'
+import AnchorPopoverDemo from './demos/AnchorPopoverDemo/AnchorPopoverDemo.vue'
+import HasSelectorDemo from './demos/HasSelectorDemo/HasSelectorDemo.vue'
+import SubgridDemo from './demos/SubgridDemo/SubgridDemo.vue'
+import ContrastColorDemo from './demos/ContrastColorDemo/ContrastColorDemo.vue'
+import ScrollProgressDemo from './demos/ScrollProgressDemo/ScrollProgressDemo.vue'
+import TextWrapDemo from './demos/TextWrapDemo/TextWrapDemo.vue'
+import ThemeShowcaseDemo from './demos/ThemeShowcaseDemo/ThemeShowcaseDemo.vue'
+import ThemePickerDemo from './demos/ThemePickerDemo/ThemePickerDemo.vue'
+import SlidingIndicatorDemo from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.vue'
+import StyleQueryCuesDemo from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.vue'
+import ShapeDemo from './demos/ShapeDemo/ShapeDemo.vue'
+import StartingStyleDemo from './demos/StartingStyleDemo/StartingStyleDemo.vue'
+import AttrDemo from './demos/AttrDemo/AttrDemo.vue'
+import ScrollSnapDemo from './demos/ScrollSnapDemo/ScrollSnapDemo.vue'
+import FieldSizingDemo from './demos/FieldSizingDemo/FieldSizingDemo.vue'
+import CustomSelectDemo from './demos/CustomSelectDemo/CustomSelectDemo.vue'
+import AnchorTooltipDemo from './demos/AnchorTooltipDemo/AnchorTooltipDemo.vue'
+import ZoomCompareDemo from './demos/ZoomCompareDemo/ZoomCompareDemo.vue'
+import PopoverMenuDemo from './demos/PopoverMenuDemo/PopoverMenuDemo.vue'
+import ScrollStateDemo from './demos/ScrollStateDemo/ScrollStateDemo.vue'
+import HighlightApiDemo from './demos/HighlightApiDemo/HighlightApiDemo.vue'
+import DialogPolishDemo from './demos/DialogPolishDemo/DialogPolishDemo.vue'
+import ViewTransitionDemo from './demos/ViewTransitionDemo/ViewTransitionDemo.vue'
 import type { Component } from 'vue'
+
+// Portable code excerpts for the "Show the code" panels, authored as sibling
+// files next to each demo and imported raw (see the snippet fields below).
+import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.snippet.html?raw'
+import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
+import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
+import hasSnippetCss from './demos/HasSelectorDemo/HasSelectorDemo.snippet.css?raw'
+import subgridSnippetCss from './demos/SubgridDemo/SubgridDemo.snippet.css?raw'
+import slidingSnippetHtml from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.snippet.html?raw'
+import slidingSnippetCss from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.snippet.css?raw'
+import textWrapSnippetCss from './demos/TextWrapDemo/TextWrapDemo.snippet.css?raw'
+import scrollSnapSnippetHtml from './demos/ScrollSnapDemo/ScrollSnapDemo.snippet.html?raw'
+import scrollSnapSnippetCss from './demos/ScrollSnapDemo/ScrollSnapDemo.snippet.css?raw'
+import popoverSnippetHtml from './demos/PopoverMenuDemo/PopoverMenuDemo.snippet.html?raw'
+import anchorPopoverSnippetHtml from './demos/AnchorPopoverDemo/AnchorPopoverDemo.snippet.html?raw'
+import anchorPopoverSnippetCss from './demos/AnchorPopoverDemo/AnchorPopoverDemo.snippet.css?raw'
+import anchorTooltipSnippetHtml from './demos/AnchorTooltipDemo/AnchorTooltipDemo.snippet.html?raw'
+import anchorTooltipSnippetCss from './demos/AnchorTooltipDemo/AnchorTooltipDemo.snippet.css?raw'
+import contrastColorSnippetCss from './demos/ContrastColorDemo/ContrastColorDemo.snippet.css?raw'
+import themingSnippetCss from './demos/ThemeShowcaseDemo/ThemeShowcaseDemo.snippet.css?raw'
+import themePickerSnippetCss from './demos/ThemePickerDemo/ThemePickerDemo.snippet.css?raw'
+import scrollProgressSnippetCss from './demos/ScrollProgressDemo/ScrollProgressDemo.snippet.css?raw'
+import styleQuerySnippetCss from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.snippet.css?raw'
+import shapeSnippetCss from './demos/ShapeDemo/ShapeDemo.snippet.css?raw'
+import startingStyleSnippetCss from './demos/StartingStyleDemo/StartingStyleDemo.snippet.css?raw'
+import attrSnippetHtml from './demos/AttrDemo/AttrDemo.snippet.html?raw'
+import attrSnippetCss from './demos/AttrDemo/AttrDemo.snippet.css?raw'
+import fieldSizingSnippetHtml from './demos/FieldSizingDemo/FieldSizingDemo.snippet.html?raw'
+import fieldSizingSnippetCss from './demos/FieldSizingDemo/FieldSizingDemo.snippet.css?raw'
+import zoomSnippetCss from './demos/ZoomCompareDemo/ZoomCompareDemo.snippet.css?raw'
+import customSelectSnippetHtml from './demos/CustomSelectDemo/CustomSelectDemo.snippet.html?raw'
+import customSelectSnippetCss from './demos/CustomSelectDemo/CustomSelectDemo.snippet.css?raw'
+import scrollStateSnippetCss from './demos/ScrollStateDemo/ScrollStateDemo.snippet.css?raw'
+import highlightSnippetCss from './demos/HighlightApiDemo/HighlightApiDemo.snippet.css?raw'
+import highlightSnippetJs from './demos/HighlightApiDemo/HighlightApiDemo.snippet.js?raw'
+import dialogPolishSnippetHtml from './demos/DialogPolishDemo/DialogPolishDemo.snippet.html?raw'
+import dialogPolishSnippetCss from './demos/DialogPolishDemo/DialogPolishDemo.snippet.css?raw'
+import viewTransitionSnippetCss from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.css?raw'
+import viewTransitionSnippetJs from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.js?raw'
 
 export interface Showcase {
   id: string
@@ -62,6 +103,16 @@ export interface Showcase {
   component: Component
   /** Extra props forwarded to the demo component, if any. */
   props?: Record<string, unknown>
+  /**
+   * Portable, hand-distilled code excerpts for the "Show the code" panel.
+   * Authored as sibling `*.snippet.html` / `*.snippet.css` files next to the
+   * demo and imported raw, so they live beside the source they teach but stay
+   * free of this repo's tokens, mixins, and @layer plumbing — copy-paste ready.
+   */
+  snippetHtml?: string
+  snippetCss?: string
+  /** Only for genuine JS-API features (Custom Highlight API, View Transitions). */
+  snippetJs?: string
 }
 
 export const showcases: Showcase[] = [
@@ -85,6 +136,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ContainerCardDemo,
+    snippetHtml: containerSnippetHtml,
+    snippetCss: containerSnippetCss,
   },
   {
     id: 'has-selector',
@@ -103,6 +156,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: HasSelectorDemo,
+    snippetHtml: hasSnippetHtml,
+    snippetCss: hasSnippetCss,
   },
   {
     id: 'subgrid',
@@ -120,6 +175,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: SubgridDemo,
+    snippetCss: subgridSnippetCss,
   },
   {
     id: 'sliding-indicator',
@@ -138,6 +194,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: SlidingIndicatorDemo,
+    snippetHtml: slidingSnippetHtml,
+    snippetCss: slidingSnippetCss,
   },
   {
     id: 'text-wrap',
@@ -155,6 +213,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: TextWrapDemo,
+    snippetCss: textWrapSnippetCss,
   },
   {
     id: 'scroll-snap',
@@ -174,6 +233,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ScrollSnapDemo,
+    snippetHtml: scrollSnapSnippetHtml,
+    snippetCss: scrollSnapSnippetCss,
   },
   {
     id: 'popover',
@@ -193,6 +254,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: PopoverMenuDemo,
+    snippetHtml: popoverSnippetHtml,
   },
 
   /* ---------------------------------------------------------------------
@@ -219,6 +281,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: AnchorPopoverDemo,
+    snippetHtml: anchorPopoverSnippetHtml,
+    snippetCss: anchorPopoverSnippetCss,
   },
   {
     id: 'anchor-tooltip',
@@ -243,6 +307,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: AnchorTooltipDemo,
+    snippetHtml: anchorTooltipSnippetHtml,
+    snippetCss: anchorTooltipSnippetCss,
   },
   {
     id: 'contrast-color',
@@ -261,6 +327,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ContrastColorDemo,
+    snippetCss: contrastColorSnippetCss,
   },
   {
     id: 'theming',
@@ -283,6 +350,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ThemeShowcaseDemo,
+    snippetCss: themingSnippetCss,
   },
   {
     id: 'theme-picker',
@@ -306,6 +374,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ThemePickerDemo,
+    snippetCss: themePickerSnippetCss,
   },
   {
     id: 'scroll-driven-animations',
@@ -324,6 +393,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ScrollProgressDemo,
+    snippetCss: scrollProgressSnippetCss,
   },
   {
     id: 'style-queries',
@@ -346,6 +416,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: StyleQueryCuesDemo,
+    snippetCss: styleQuerySnippetCss,
   },
   {
     id: 'shape-function',
@@ -364,6 +435,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ShapeDemo,
+    snippetCss: shapeSnippetCss,
   },
   {
     id: 'starting-style',
@@ -382,6 +454,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: StartingStyleDemo,
+    snippetCss: startingStyleSnippetCss,
   },
   {
     id: 'advanced-attr',
@@ -400,6 +473,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: AttrDemo,
+    snippetHtml: attrSnippetHtml,
+    snippetCss: attrSnippetCss,
   },
   {
     id: 'field-sizing',
@@ -418,6 +493,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: FieldSizingDemo,
+    snippetHtml: fieldSizingSnippetHtml,
+    snippetCss: fieldSizingSnippetCss,
   },
   {
     id: 'css-zoom',
@@ -437,6 +514,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ZoomCompareDemo,
+    snippetCss: zoomSnippetCss,
   },
   {
     id: 'customizable-select',
@@ -457,6 +535,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: CustomSelectDemo,
+    snippetHtml: customSelectSnippetHtml,
+    snippetCss: customSelectSnippetCss,
   },
   {
     id: 'scroll-state',
@@ -480,6 +560,7 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ScrollStateDemo,
+    snippetCss: scrollStateSnippetCss,
   },
   {
     id: 'custom-highlight',
@@ -498,6 +579,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: HighlightApiDemo,
+    snippetCss: highlightSnippetCss,
+    snippetJs: highlightSnippetJs,
   },
   {
     id: 'dialog-polish',
@@ -520,6 +603,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: DialogPolishDemo,
+    snippetHtml: dialogPolishSnippetHtml,
+    snippetCss: dialogPolishSnippetCss,
   },
 
   {
@@ -540,6 +625,8 @@ export const showcases: Showcase[] = [
       },
     ],
     component: ViewTransitionDemo,
+    snippetCss: viewTransitionSnippetCss,
+    snippetJs: viewTransitionSnippetJs,
   },
 
   // Further candidates: media state pseudo-classes (custom player),

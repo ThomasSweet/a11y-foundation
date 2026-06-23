@@ -1,0 +1,15 @@
+/* Style the dialog only while open, via the new :open pseudo-class. */
+dialog:open {
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 250ms,
+    scale 250ms;
+
+  /* Entry from display: none. Motion tokens would zero this under
+     reduced motion; here it's a literal duration for portability. */
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}

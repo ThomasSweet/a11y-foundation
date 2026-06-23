@@ -21,6 +21,43 @@
       <slot />
     </div>
 
+    <details v-if="snippetHtml || snippetCss || snippetJs" class="showcase-code">
+      <summary class="showcase-code-summary">
+        <svg
+          class="showcase-code-glyph"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="9 8 5 12 9 16" />
+          <polyline points="15 8 19 12 15 16" />
+        </svg>
+        <span class="showcase-code-label showcase-code-label-show">Show the code</span>
+        <span class="showcase-code-label showcase-code-label-hide">Hide the code</span>
+        <svg
+          class="showcase-code-chevron"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </summary>
+      <div class="showcase-code-body">
+        <CodeBlock v-if="snippetHtml" label="HTML" :code="snippetHtml" />
+        <CodeBlock v-if="snippetCss" label="CSS" :code="snippetCss" />
+        <CodeBlock v-if="snippetJs" label="JS" :code="snippetJs" />
+      </div>
+    </details>
+
     <ul v-if="links.length" class="showcase-links">
       <li v-for="link in links" :key="link.href">
         <a :href="link.href" target="_blank" rel="noreferrer">
@@ -34,6 +71,7 @@
 
 <script setup lang="ts">
 import { computed, useId } from 'vue'
+import CodeBlock from '../CodeBlock/CodeBlock.vue'
 
 interface ShowcaseLink {
   label: string
@@ -60,12 +98,21 @@ const props = withDefaults(
     links?: ShowcaseLink[]
     /** Match the surrounding document outline (4 = under an h3 group). */
     headingLevel?: number
+    /** Portable markup excerpt (raw string) for the "Show the code" panel. */
+    snippetHtml?: string
+    /** Portable CSS excerpt (raw string) for the "Show the code" panel. */
+    snippetCss?: string
+    /** Portable JS excerpt (raw string) — only for genuine JS-API features. */
+    snippetJs?: string
   }>(),
   {
     status: 'stable',
     supports: '',
     links: () => [],
     headingLevel: 4,
+    snippetHtml: '',
+    snippetCss: '',
+    snippetJs: '',
   },
 )
 

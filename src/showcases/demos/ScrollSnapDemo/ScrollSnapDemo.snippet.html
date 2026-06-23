@@ -1,0 +1,8 @@
+<!-- A focusable region, so arrow keys / Page / Home-End scroll it too. The
+     list stays a real <ul> inside, so "list, 5 items" is still announced
+     (putting role="region" on the <ul> would strip that list semantics). -->
+<div class="track" tabindex="0" role="region" aria-label="Featured cards">
+  <ul role="list">
+    <li class="card">…</li>
+  </ul>
+</div>

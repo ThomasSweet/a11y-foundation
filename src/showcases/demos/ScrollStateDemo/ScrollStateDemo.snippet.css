@@ -1,0 +1,17 @@
+/* The card becomes a scroll-state query container… */
+.card {
+  container-type: scroll-state;
+  scroll-snap-align: center;
+}
+
+/* …so its contents restyle when the card is the snapped one — no scroll
+   listeners, no JS. scroll-state(stuck: top) works the same for a pinned
+   sticky header. */
+@supports (container-type: scroll-state) {
+  @container scroll-state(snapped: inline) {
+    .card-inner {
+      border-color: royalblue;
+      scale: 1.03;
+    }
+  }
+}

@@ -259,6 +259,9 @@
                 :status="item.status"
                 :supports="item.supports"
                 :links="item.links"
+                :snippet-html="item.snippetHtml"
+                :snippet-css="item.snippetCss"
+                :snippet-js="item.snippetJs"
               >
                 <component :is="item.component" v-bind="item.props" />
               </ShowcaseFrame>

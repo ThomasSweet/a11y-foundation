@@ -1,0 +1,12 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+/* Each card adopts THREE of the parent grid's rows, so title / body / footer
+   line up across cards no matter how long each card's content runs. */
+.card {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}

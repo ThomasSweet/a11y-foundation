@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import AppButton from '../../components/AppButton/AppButton.vue'
+import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const themes = [
   { name: 'Default', class: '' },

@@ -1,0 +1,7 @@
+/* Magnify a component AND reflow the layout around it — the accessible
+   kind of zoom (WCAG 1.4.10), unlike transform: scale(). */
+@supports (zoom: 2) {
+  .magnify {
+    zoom: 2;
+  }
+}

@@ -4,7 +4,7 @@ import {
   assessPick,
   contrast,
   relLuminance,
-} from '../../src/showcases/demos/themePickerMath'
+} from '../../src/showcases/demos/ThemePickerDemo/themePickerMath'
 
 describe('contrast primitives', () => {
   it('rates black-on-white at the canonical 21:1', () => {

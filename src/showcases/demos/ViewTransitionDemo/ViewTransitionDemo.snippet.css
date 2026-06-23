@@ -1,0 +1,4 @@
+/* Each shared element gets a unique, stable name, so the browser can match it
+   across the DOM change and tween its position + size. */
+.item-tokens { view-transition-name: vt-tokens; }
+.item-layers { view-transition-name: vt-layers; }

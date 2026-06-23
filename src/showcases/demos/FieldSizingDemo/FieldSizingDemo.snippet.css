@@ -1,0 +1,15 @@
+.note {
+  /* Fallback: a fixed box you can drag to resize (rows sets the start). */
+  resize: vertical;
+}
+
+@supports (field-sizing: content) {
+  .note {
+    /* Grow and shrink with the content — no scrollHeight measuring, no resize
+       listeners, no JS — bounded so it can't run away. */
+    field-sizing: content;
+    min-block-size: 2lh;
+    max-block-size: 8lh;
+    resize: none;
+  }
+}

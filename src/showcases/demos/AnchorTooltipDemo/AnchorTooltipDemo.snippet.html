@@ -1,0 +1,10 @@
+<!-- aria-describedby ties the hint to its trigger; role="tooltip" makes
+     assistive tech announce it as one. The "?" glyph is decorative. -->
+<span class="hint">
+  <button type="button" aria-describedby="hint-name" aria-label="About display name">
+    <span aria-hidden="true">?</span>
+  </button>
+  <span id="hint-name" role="tooltip" class="hint-bubble">
+    Shown publicly beside your comments.
+  </span>
+</span>

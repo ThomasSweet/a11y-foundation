@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { ref, useId } from 'vue'
 
-import AppButton from '../../components/AppButton/AppButton.vue'
+import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const tipId = useId()
 const dlg = ref<HTMLDialogElement | null>(null)

@@ -1,0 +1,15 @@
+/* The toggle's state lives on the ancestor, set purely in CSS via :has(). */
+.panel {
+  --cues: off;
+}
+.panel:has(input:checked) {
+  --cues: on;
+}
+
+/* A style query reads the inherited value and adds a non-colour SHAPE to each
+   status — so meaning never rests on colour alone. The status elements never
+   reference --cues; the query reaches them from their ancestor. */
+@container style(--cues: on) {
+  .status--ok::before { content: '✓'; }
+  .status--down::before { content: '✕'; }
+}

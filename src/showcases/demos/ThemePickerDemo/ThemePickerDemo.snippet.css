@@ -1,0 +1,15 @@
+/* A pure-CSS contrast clamp: snap a picked lightness OUT of the "muddy
+   middle", where neither a black nor a white label can reach WCAG AA. No JS —
+   just min()/max() and a step built from clamp(). */
+.preview {
+  --raw-l: calc(var(--pick-l) / 100);
+  /* 1 when the accent sits on the dark side of the threshold, else 0. */
+  --is-dark: clamp(0, (0.62 - var(--raw-l)) * 100000, 1);
+  /* Dark accents cap low (white label safe); light accents floor high (black
+     label safe); the unsafe middle is squeezed out. */
+  --safe-l: calc(
+    var(--is-dark) * min(var(--raw-l), 0.45) +
+    (1 - var(--is-dark)) * max(var(--raw-l), 0.78)
+  );
+  --seed-accent: oklch(var(--safe-l) 0.15 var(--pick-h));
+}

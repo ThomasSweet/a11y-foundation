@@ -1,0 +1,14 @@
+/* A curved bottom edge from keyword commands in %/units, so it scales fluidly
+   — unlike path()'s frozen SVG coordinates. The band is decorative, so the
+   plain rectangular fallback loses no information where shape() is missing. */
+@supports (clip-path: shape(from 0 0, line to 100% 0)) {
+  .banner {
+    clip-path: shape(
+      from 0 0,
+      line to 100% 0,
+      line to 100% 72%,
+      curve to 0% 72% with 50% 100%,
+      close
+    );
+  }
+}

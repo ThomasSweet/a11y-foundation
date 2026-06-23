@@ -1,0 +1,10 @@
+<!-- Wired by id alone. The platform gives Esc-to-close, click-outside
+     dismiss, top-layer rendering, and aria-expanded on the button — no JS. -->
+<button type="button" popovertarget="menu">Actions ▾</button>
+
+<div id="menu" popover role="menu">
+  <!-- Each item closes the menu declaratively. -->
+  <button type="button" role="menuitem" popovertarget="menu" popovertargetaction="hide">
+    Rename
+  </button>
+</div>

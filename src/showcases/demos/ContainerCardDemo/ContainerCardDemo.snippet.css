@@ -1,0 +1,16 @@
+.card-cell {
+  container-type: inline-size;
+}
+
+/* The card reflows based on its container's width, not the viewport. */
+@container (min-width: 20rem) {
+  .card {
+    grid-template-columns: 3rem 1fr;
+  }
+}
+
+/* Paired with an intrinsic grid, this replaces most media queries. */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}

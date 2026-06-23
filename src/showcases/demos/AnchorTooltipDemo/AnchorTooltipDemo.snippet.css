@@ -1,0 +1,31 @@
+/* Hidden until hover or keyboard focus. */
+.hint-bubble {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 150ms, visibility 150ms;
+}
+
+/* Reveal on hover, on keyboard focus, and while the bubble itself is hovered
+   — so it stays put when you move onto it (the hoverable half of 1.4.13). */
+.hint button:hover ~ .hint-bubble,
+.hint button:focus-visible ~ .hint-bubble,
+.hint-bubble:hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* The enhancement: anchor the bubble to its trigger and let it flip to stay
+   on-screen. fixed means it follows on scroll and isn't clipped by overflow. */
+@supports (anchor-name: --a) {
+  .hint button {
+    anchor-name: --hint;
+  }
+
+  .hint-bubble {
+    position: fixed;
+    position-anchor: --hint;
+    position-area: top center;
+    margin-block-end: 8px;
+    position-try-fallbacks: flip-block, flip-inline;
+  }
+}

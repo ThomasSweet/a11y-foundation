@@ -1,0 +1,16 @@
+.trigger {
+  anchor-name: --panel-anchor;
+}
+
+/* Tether the panel to its trigger and flip it across any edge it would
+   overflow — no positioning JS. Stays position: fixed (the popover default)
+   so it resolves against the viewport and the flips actually fire. */
+@supports (anchor-name: --a) {
+  .panel {
+    position: fixed;
+    position-anchor: --panel-anchor;
+    position-area: block-end span-inline-end;
+    inset: auto;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+}

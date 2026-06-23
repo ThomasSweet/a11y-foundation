@@ -98,7 +98,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-import AppButton from '../../components/AppButton/AppButton.vue'
+import AppButton from '../../../components/AppButton/AppButton.vue'
 // The contrast maths lives in a sibling module so it can be unit-tested; this
 // component just feeds it the picked values (see themePickerMath.test.ts).
 import { assessPick } from './themePickerMath'

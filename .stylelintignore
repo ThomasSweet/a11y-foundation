@@ -1,0 +1,4 @@
+# Portable code excerpts shown in the "Show the code" panels. These are
+# deliberately plain, copy-paste-ready CSS — no @layer wrapper, no design
+# tokens — so they don't (and shouldn't) follow this repo's stylelint rules.
+src/**/*.snippet.css

@@ -1,0 +1,11 @@
+/* Persistent: style the row from its checkbox's checked state — something no
+   upward selector can do, and which :focus-within can't keep after blur. */
+.row:has(:checked) {
+  border-color: royalblue;
+  background: #eef2ff;
+}
+
+/* Transient focus is the lighter job :focus-within is actually for. */
+.row:focus-within {
+  background: #f3f4f6;
+}

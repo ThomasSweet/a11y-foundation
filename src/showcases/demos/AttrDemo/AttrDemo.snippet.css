@@ -1,0 +1,12 @@
+.bar {
+  /* Fallback: a custom property mirrors the value until typed attr() ships. */
+  inline-size: calc(var(--v, 0) * 1%);
+}
+
+/* The feature: read the attribute as a typed number, straight into the
+   property — no inline style, no JS. */
+@supports (width: calc(attr(data-value type(<number>), 0) * 1%)) {
+  .bar {
+    inline-size: calc(attr(data-value type(<number>), 0) * 1%);
+  }
+}

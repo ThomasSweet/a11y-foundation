@@ -1,0 +1,9 @@
+<!-- Toggletip: showing, dismissing, and top-layer rendering all come free. -->
+<button type="button" popovertarget="tip" aria-label="What does closedby do?">?</button>
+<div id="tip" popover="hint" role="status">
+  closedby sets how a dialog can be dismissed.
+</div>
+
+<!-- Takeover: Esc and outside-clicks can't close it. Use sparingly —
+     trapping people is normally a trap to avoid. -->
+<dialog closedby="none">…</dialog>

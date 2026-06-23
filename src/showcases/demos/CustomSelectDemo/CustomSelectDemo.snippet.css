@@ -1,0 +1,28 @@
+/* Opt the control and its dropdown into full styling. Where unsupported,
+   the markup stays an ordinary, fully-usable native <select>. */
+@supports (appearance: base-select) {
+  .status-select,
+  .status-select::picker(select) {
+    appearance: base-select;
+  }
+
+  .status-select::picker(select) {
+    padding: 4px;
+    border: 1px solid #d4d4d8;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .status-select option {
+    padding: 8px 12px;
+  }
+
+  /* The built-in ✓ marks the current value too, so this isn't colour alone. */
+  .status-select option:checked {
+    background: color-mix(in oklch, royalblue 14%, transparent);
+  }
+
+  .status-select option::checkmark {
+    color: royalblue;
+  }
+}

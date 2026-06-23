@@ -1,0 +1,11 @@
+.track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.card {
+  flex: 0 0 16rem;
+  scroll-snap-align: center;
+}

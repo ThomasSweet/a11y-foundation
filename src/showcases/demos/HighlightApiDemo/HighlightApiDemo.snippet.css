@@ -1,0 +1,7 @@
+/* Style the named highlight — no wrapper <span>s injected, the accessibility
+   tree stays untouched. ::highlight() is a global pseudo-element, so it isn't
+   tied to any one element. */
+::highlight(search) {
+  background: royalblue;
+  color: #fff;
+}

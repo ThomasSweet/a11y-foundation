@@ -84,6 +84,81 @@
     border-radius: var(--radius-md);
   }
 
+  /* "Show the code" disclosure — a native <details>, so keyboard and
+     screen-reader behaviour (and the expanded state) come for free, no JS.
+     Styled as a clear button-like affordance so it reads as a feature. */
+  .showcase-code-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    inline-size: fit-content;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-subtle);
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none; // strip Firefox's default disclosure marker
+
+    &::-webkit-details-marker {
+      display: none; // and the WebKit/Chrome one
+    }
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--color-text-subtle);
+        background-color: var(--color-surface);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .showcase-code-glyph {
+    inline-size: 1.15em;
+    block-size: 1.15em;
+    color: var(--color-primary); // accent the code mark
+  }
+
+  .showcase-code-chevron {
+    inline-size: 1em;
+    block-size: 1em;
+    color: var(--color-text-subtle);
+    transition: rotate var(--duration-fast) var(--easing-standard);
+  }
+
+  .showcase-code[open] .showcase-code-chevron {
+    rotate: 180deg;
+  }
+
+  /* Swap the label with the open state — pure CSS, and display:none keeps the
+     hidden one out of the accessible name too. */
+  .showcase-code-label-hide {
+    display: none;
+  }
+
+  .showcase-code[open] .showcase-code-label-show {
+    display: none;
+  }
+
+  .showcase-code[open] .showcase-code-label-hide {
+    display: inline;
+  }
+
+  .showcase-code-body {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-start: var(--space-3);
+  }
+
   .showcase-links {
     display: flex;
     flex-wrap: wrap;

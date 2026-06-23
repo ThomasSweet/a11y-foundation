@@ -1,0 +1,20 @@
+/* Two seeds per theme… */
+.theme {
+  --seed-surface: oklch(99% 0.004 255deg);
+  --seed-accent: oklch(52% 0.16 260deg);
+}
+
+/* …and the whole accessible palette is DERIVED from them — no hand-picked
+   greys. color-mix() blends each token toward the text colour. */
+.theme {
+  --color-surface: color-mix(in oklab, var(--seed-surface), var(--color-text) 5%);
+  --color-border: color-mix(in oklab, var(--seed-surface), var(--color-text) 44%);
+}
+
+/* contrast-color() picks a guaranteed-readable text colour for each seed. */
+@supports (color: contrast-color(red)) {
+  .theme {
+    --color-text: contrast-color(var(--seed-surface));
+    --color-primary-text: contrast-color(var(--seed-accent));
+  }
+}

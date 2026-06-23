@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import AppButton from '../../components/AppButton/AppButton.vue'
+import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const open = ref(false)
 </script>

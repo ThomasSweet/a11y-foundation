@@ -1,0 +1,10 @@
+/* Evens out line lengths across a short block — ideal for headings. */
+.headline {
+  text-wrap: balance;
+}
+
+/* Targets just the last line to prevent a single orphaned word — cheap
+   enough for body copy, where balance would be too costly. */
+.body-copy {
+  text-wrap: pretty;
+}

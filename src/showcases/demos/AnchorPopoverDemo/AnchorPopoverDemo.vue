@@ -26,7 +26,7 @@
 <script setup>
 import { useId } from 'vue'
 
-import AppButton from '../../components/AppButton/AppButton.vue'
+import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const popoverId = useId()
 </script>

@@ -1,0 +1,21 @@
+.progress {
+  /* Frozen, this would read as "0% progress" — worse than nothing — so it's
+     hidden unless the browser can actually drive it from scroll position. */
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progress {
+    display: block;
+    transform-origin: 0 50%;
+    animation: grow linear both;
+    /* Driven by the nearest scroll container, not by time. Runs off the main
+       thread, and mirrors the user's gesture — so no reduced-motion override. */
+    animation-timeline: scroll(nearest);
+  }
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
