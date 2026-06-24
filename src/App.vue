@@ -97,11 +97,20 @@
       <!-- ===================================================================
            Pillar 1 — The requirement: accessibility as a living standard
       ==================================================================== -->
-      <div id="standard" class="pillar scrollspy-region">
-        <p class="pillar-eyebrow">01 · The requirement</p>
+      <section id="standard" class="pillar scrollspy-region" aria-labelledby="standard-title">
+        <PillarHeader
+          icon="standard"
+          eyebrow="01 · The requirement"
+          title="The standard"
+          title-id="standard-title"
+        >
+          Accessibility begins as a requirement, not a feature. WCAG is the
+          standard the rest of the web is measured against — and it has grown
+          right alongside the platform.
+        </PillarHeader>
 
         <section class="demo" aria-labelledby="demo-criteria">
-          <h2 id="demo-criteria">Guidelines, alive</h2>
+          <h3 id="demo-criteria">Guidelines, alive</h3>
           <p>
             These aren't definitions of accessibility — they're the standard,
             running. The criteria are arranged along WCAG's timeline, so you can
@@ -118,7 +127,7 @@
         </section>
 
         <section class="demo" aria-labelledby="demo-conformance">
-          <h2 id="demo-conformance">From pass / fail to outcomes</h2>
+          <h3 id="demo-conformance">From pass / fail to outcomes</h3>
           <p>
             The timeline's next stop is the biggest change of all — not new
             criteria, but a new <em>way of measuring</em>. Drag the slider to see
@@ -129,7 +138,7 @@
         </section>
 
         <section class="demo" aria-labelledby="demo-legal">
-          <h2 id="demo-legal">One standard, many laws</h2>
+          <h3 id="demo-legal">One standard, many laws</h3>
           <p>
             WCAG isn't just guidance — it's the technical core that accessibility
             law around the world points to. The map below shows how different
@@ -137,22 +146,26 @@
           </p>
           <LegalMap />
         </section>
-      </div>
+      </section>
 
       <!-- ===================================================================
            Pillar 2 — The platform's answer (a) shipping today: the craft
       ==================================================================== -->
-      <div id="craft" class="pillar scrollspy-region">
-        <p class="pillar-eyebrow">02 · The platform's answer · shipping today</p>
-        <p class="pillar-lead">
+      <section id="craft" class="pillar scrollspy-region" aria-labelledby="craft-title">
+        <PillarHeader
+          icon="craft"
+          eyebrow="02 · The platform's answer · shipping today"
+          title="The craft"
+          title-id="craft-title"
+        >
           The standard sets the bar; modern CSS and HTML clear most of it with no
           JavaScript at all. Not a component catalog — the deliberate,
           low-drama <em>craft decisions</em> this foundation is built on, and why
           each one is the accessible default.
-        </p>
+        </PillarHeader>
 
         <section class="demo" aria-labelledby="craft-validation">
-          <h2 id="craft-validation">Validation that waits its turn</h2>
+          <h3 id="craft-validation">Validation that waits its turn</h3>
           <p>
             Validation leans on the platform: native constraints
             (<code>required</code>, <code>type="email"</code>) drive the styling
@@ -185,7 +198,7 @@
         </section>
 
         <section class="demo" aria-labelledby="craft-light-dark">
-          <h2 id="craft-light-dark">Dark mode from one source of truth</h2>
+          <h3 id="craft-light-dark">Dark mode from one source of truth</h3>
           <p>
             Theming is a place craft pays off quietly. Declaring each colour once
             with <code>light-dark()</code> keeps the light and dark values
@@ -197,7 +210,7 @@
         </section>
 
         <section class="demo" aria-labelledby="craft-dialog">
-          <h2 id="craft-dialog">Native dialog, zero trapping code</h2>
+          <h3 id="craft-dialog">Native dialog, zero trapping code</h3>
           <p>
             A native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
             gives you focus trapping, Esc-to-close, and an inert background from
@@ -220,7 +233,7 @@
         </section>
 
         <section class="demo" aria-labelledby="craft-motion">
-          <h2 id="craft-motion">Motion that bows out on request</h2>
+          <h3 id="craft-motion">Motion that bows out on request</h3>
           <p>
             This spinner stops when the OS asks for reduced motion — handled
             globally in <code>preferences.css</code> from a single source of
@@ -231,7 +244,7 @@
         </section>
 
         <section class="demo" aria-labelledby="craft-targets">
-          <h2 id="craft-targets">Targets that survive touch and forced colors</h2>
+          <h3 id="craft-targets">Targets that survive touch and forced colors</h3>
           <p>
             Hover styles only apply on devices that can actually hover; touch
             devices get larger targets via <code>touch-primary()</code>. In
@@ -244,25 +257,27 @@
             <AppButton variant="secondary">Secondary action</AppButton>
           </div>
         </section>
-      </div>
+      </section>
 
       <!-- ===================================================================
-           Pillar 2 — The platform's answer (b) arriving next: the showcase
+           Pillar 3 — The platform's answer (b) arriving next: the showcase
       ==================================================================== -->
-      <div id="showcase" class="pillar scrollspy-region">
-        <p class="pillar-eyebrow">03 · The platform's answer · arriving next</p>
+      <section id="showcase" class="pillar scrollspy-region" aria-labelledby="showcase-title">
+        <PillarHeader
+          icon="next"
+          eyebrow="03 · The platform's answer · arriving next"
+          title="CSS showcase"
+          title-id="showcase-title"
+        >
+          The same idea, looking forward: modern CSS worth knowing, grouped by
+          where it stands across the current versions of Chrome, Firefox, and
+          Safari — based on
+          <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
+          Everything is written as a progressive enhancement, so unsupported
+          demos degrade instead of breaking.
+        </PillarHeader>
 
-        <section class="demo" aria-labelledby="demo-css">
-          <h2 id="demo-css">CSS showcases</h2>
-          <p>
-            The same idea, looking forward: modern CSS worth knowing, grouped by
-            where it stands across the current versions of Chrome, Firefox, and
-            Safari — based on
-            <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
-            Everything is written as a progressive enhancement, so unsupported
-            demos degrade instead of breaking.
-          </p>
-
+        <div class="demo">
           <template v-for="group in groups" :key="group.status">
             <h3 v-if="group.items.length">{{ group.label }}</h3>
             <div class="showcase-list">
@@ -282,25 +297,29 @@
               </ShowcaseFrame>
             </div>
           </template>
-        </section>
-      </div>
+        </div>
+      </section>
 
       <!-- ===================================================================
-           Pillar 3 — The proof: how you know any of it actually works
+           Pillar 4 — The proof: how you know any of it actually works
       ==================================================================== -->
-      <div id="testing" class="pillar scrollspy-region">
-        <p class="pillar-eyebrow">04 · The proof</p>
-        <p class="pillar-lead">
+      <section id="testing" class="pillar scrollspy-region" aria-labelledby="testing-title">
+        <PillarHeader
+          icon="proof"
+          eyebrow="04 · The proof"
+          title="The proof"
+          title-id="testing-title"
+        >
           A standard and a clever platform answer are only claims until something
           checks them. Accessibility testing is where many teams get lost — they
           run an automated scanner, see green, and call it accessible. The honest
           picture is layered, and most of it isn't a scanner's job. (Writing these
           very tests turned up two real barriers on this site — proof the layers
           earn their place.)
-        </p>
+        </PillarHeader>
 
         <section class="demo" aria-labelledby="testing-layers">
-          <h2 id="testing-layers">A layered job, not a button</h2>
+          <h3 id="testing-layers">A layered job, not a button</h3>
           <p>
             Each layer is cheaper and broader than the one above it, so it clears
             the easy ground and frees the slow, human layer for what only a person
@@ -311,7 +330,7 @@
         </section>
 
         <section class="demo" aria-labelledby="testing-coverage">
-          <h2 id="testing-coverage">What automation can and can't see</h2>
+          <h3 id="testing-coverage">What automation can and can't see</h3>
           <p>
             This is the part that's rarely spelled out. An automated pass like
             <code>axe</code> is excellent at a specific slice of WCAG and blind to
@@ -321,7 +340,7 @@
           </p>
           <CoverageMatrix />
         </section>
-      </div>
+      </section>
     </main>
     </div>
 
@@ -390,6 +409,7 @@ import AppButton from './components/AppButton/AppButton.vue'
 import AppDialog from './components/AppDialog/AppDialog.vue'
 import TextField from './components/TextField/TextField.vue'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.vue'
+import PillarHeader from './components/PillarHeader/PillarHeader.vue'
 import ShowcaseFrame from './showcases/ShowcaseFrame/ShowcaseFrame.vue'
 import { showcases } from './showcases/registry'
 import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
@@ -466,6 +486,11 @@ const toc = [
   .app-shell {
     position: relative;
     min-block-size: 100dvh;
+    /* Cards in the timeline slide in from off the right edge; clip at the page
+       root so they enter from off-screen without spawning a horizontal
+       scrollbar. `clip` (not `hidden`) keeps the sticky sidebar working — it
+       doesn't establish a scroll container. */
+    overflow-x: clip;
   }
 
   /* A soft accent glow behind everything — the modern "canvas" feel.
@@ -554,7 +579,7 @@ const toc = [
     @include from('lg') {
       display: grid;
       grid-template-columns: 14rem minmax(0, 1fr);
-      gap: var(--space-8);
+      gap: var(--space-12);
       align-items: start;
     }
   }
@@ -564,6 +589,12 @@ const toc = [
     gap: var(--space-24);
     min-inline-size: 0; /* let the content column shrink, not overflow */
     padding-block-end: var(--space-16);
+
+    /* Pull the pillars far apart on wider screens so each reads as its own
+       beat rather than one continuous scroll. */
+    @include from('md') {
+      gap: var(--space-40);
+    }
   }
 
   /* A pillar groups several sections under one narrative beat. */
@@ -812,22 +843,6 @@ const toc = [
     }
   }
 
-  /* Narrative framing for each pillar — decorative labels, not headings, so
-     the document outline stays a clean h1 → h2 → h3. */
-  .pillar-eyebrow {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    letter-spacing: 0.02em;
-    color: var(--color-primary);
-  }
-
-  .pillar-lead {
-    max-inline-size: 65ch;
-    font-size: var(--text-lg);
-    line-height: var(--leading-normal);
-    color: var(--color-text-subtle);
-  }
-
   /* The brand lockup: mark + wordmark, flex-aligned so the mark centres on the
      text (same treatment as the legal pages). The poster <h1> is a separate
      hook, so it doesn't repeat the name. */
@@ -984,13 +999,17 @@ const toc = [
       .demo {
         animation: section-reveal linear both;
         animation-timeline: view();
-        animation-range: entry 0% entry 50%;
+        /* A fixed-length reveal (px, not %) so tall sections — the timeline,
+           the showcase grid — don't stretch the motion over their whole
+           height. Runs over the first ~420px after the section starts to
+           enter, the same distance for every section regardless of height. */
+        animation-range: entry 0% entry 420px;
       }
 
       @keyframes section-reveal {
         from {
           opacity: 0;
-          transform: translateY(3rem) scale(0.97);
+          transform: translateY(4rem) scale(0.94);
         }
       }
     }
