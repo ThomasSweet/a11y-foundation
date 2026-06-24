@@ -1,7 +1,8 @@
-# a11y-foundation
+# Accessible by default
 
 An accessibility-first styling foundation — SCSS mixins, design tokens, and
 a cascade-layer architecture — demonstrated in a small Vue 3 playground.
+(Repository and package id: `a11y-foundation`.)
 
 The goal: components that adapt to **user preferences** (reduced motion,
 high contrast, forced colors, dark mode, reduced transparency) and **input

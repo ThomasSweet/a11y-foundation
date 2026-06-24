@@ -6,12 +6,27 @@
   <div class="app-shell">
     <header class="hero">
       <div class="hero-top">
-        <p class="hero-eyebrow">
-          <span class="hero-wordmark">a11y&#8209;foundation</span>
-          <span class="hero-eyebrow-sep" aria-hidden="true">·</span>
-          an exploration of accessibility&#8209;first frontend development
+        <p class="hero-brand">
+          <img class="hero-brand-mark" src="/favicon.svg" alt="" />
+          <span>Accessible <span class="hero-brand-dim">by default</span></span>
         </p>
-        <ThemeToggle />
+        <div class="hero-actions">
+          <a
+            class="hero-github"
+            href="https://github.com/ThomasSweet/a11y-foundation"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <svg class="hero-github-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            GitHub
+          </a>
+          <ThemeToggle />
+        </div>
       </div>
 
       <div class="hero-body">
@@ -31,7 +46,7 @@
           </span>
         </div>
 
-        <h1 class="hero-title">Accessible by default</h1>
+        <h1 class="hero-title">Built in, not bolted on</h1>
         <p class="hero-lede">
           A hands-on look at how much of accessibility the modern web platform
           handles <em>natively</em> — with little to no JavaScript. It runs as
@@ -333,7 +348,7 @@
         <summary class="footer-summary">What that means in practice</summary>
         <div class="footer-details-body">
           <p>
-            <strong>It's a demo, not a dependency.</strong> a11y-foundation is a
+            <strong>It's a demo, not a dependency.</strong> This is a
             playground for showing how the modern web platform answers
             accessibility natively, with little to no JavaScript — made to be
             explored and learned from, not installed into a production app.
@@ -357,6 +372,13 @@
           </p>
         </div>
       </details>
+
+      <nav class="footer-meta" aria-label="Site information">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="https://github.com/ThomasSweet/a11y-foundation">GitHub</a>
+        <span class="footer-copy">© 2026 Accessible by default</span>
+      </nav>
     </footer>
   </div>
 </template>
@@ -479,6 +501,36 @@ const toc = [
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero-github {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: 44px;
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-md);
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  .hero-github-icon {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
   }
 
   .hero-body {
@@ -776,21 +828,25 @@ const toc = [
     color: var(--color-text-subtle);
   }
 
-  .hero-eyebrow {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    letter-spacing: 0.02em;
-    color: var(--color-text-subtle);
-  }
-
-  /* The project name reads as a small wordmark above the poster title. */
-  .hero-wordmark {
-    color: var(--color-text);
+  /* The brand lockup: mark + wordmark, flex-aligned so the mark centres on the
+     text (same treatment as the legal pages). The poster <h1> is a separate
+     hook, so it doesn't repeat the name. */
+  .hero-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
     font-weight: 600;
+    color: var(--color-text);
   }
 
-  .hero-eyebrow-sep {
-    margin-inline: var(--space-1);
+  .hero-brand-mark {
+    inline-size: 1.9rem;
+    block-size: 1.9rem;
+  }
+
+  .hero-brand-dim {
+    color: var(--color-text-subtle);
   }
 
   .hero-title {
@@ -980,6 +1036,26 @@ const toc = [
     gap: var(--space-3);
     padding: 0 var(--space-4) var(--space-4);
     max-inline-size: 65ch;
+    color: var(--color-text-subtle);
+  }
+
+  .footer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin-block-start: var(--space-8);
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .footer-copy {
+    margin-inline-start: auto;
     color: var(--color-text-subtle);
   }
 

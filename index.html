@@ -3,7 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>a11y-foundation — accessible styling playground</title>
+
+    <title>Accessible by default — an accessibility-first styling playground</title>
+    <meta
+      name="description"
+      content="An accessibility-first styling foundation — a playground showing how modern CSS and the web platform handle accessibility natively, with little to no JavaScript."
+    />
+
+    <!-- Icons: SVG for modern browsers (sharp at any size), PNG fallbacks. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Browser chrome colour follows the site's light/dark surfaces. -->
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+
+    <!-- Open Graph / Twitter for link sharing. Set og:url to the absolute
+         site URL once the domain is known; og:image is best as an absolute
+         URL too (some scrapers don't resolve relative paths). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Accessible by default" />
+    <meta
+      property="og:description"
+      content="Modern CSS handles accessibility natively — with little to no JavaScript. A playground of progressive enhancements, tested to WCAG 2.2 AA."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Accessible by default" />
+    <meta
+      name="twitter:description"
+      content="Modern CSS handles accessibility natively — with little to no JavaScript."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
   </head>
   <body>
     <div id="app"></div>

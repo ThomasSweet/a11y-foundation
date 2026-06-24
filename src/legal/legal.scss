@@ -1,0 +1,99 @@
+/* Layout for the standalone legal pages (Impressum, Privacy). Wrapped in the
+   components layer so it follows the project's "no unlayered CSS" rule and
+   loses to user-preference layers like everything else. */
+@layer components {
+  .legal {
+    max-inline-size: 70ch;
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-4) var(--space-12);
+  }
+
+  .legal-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-block-end: var(--space-8);
+  }
+
+  .legal-home {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .legal-home img {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+  }
+
+  .legal-wordmark-dim {
+    color: var(--color-text-subtle);
+  }
+
+  .legal-back {
+    font-size: var(--text-sm);
+  }
+
+  .legal-main h1 {
+    margin-block-end: var(--space-2);
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+  }
+
+  .legal-lede {
+    margin-block-end: var(--space-6);
+    color: var(--color-text-subtle);
+  }
+
+  .legal-main h2 {
+    margin-block: var(--space-8) var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  .legal-main p,
+  .legal-main li {
+    line-height: var(--leading-normal);
+  }
+
+  .legal-main address {
+    font-style: normal;
+    line-height: var(--leading-normal);
+  }
+
+  .legal-main ul {
+    padding-inline-start: var(--space-6);
+  }
+
+  .legal-placeholder {
+    padding: 0 var(--space-1);
+    border-radius: var(--radius-sm);
+    background-color: color-mix(in oklch, var(--color-warning) 22%, transparent);
+    color: var(--color-text);
+    font-style: italic;
+  }
+
+  .legal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin-block-start: var(--space-12);
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .legal-footer-copy {
+    margin-inline-start: auto;
+  }
+}

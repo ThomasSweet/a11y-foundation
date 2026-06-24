@@ -11,6 +11,7 @@
     "typecheck": "vue-tsc --noEmit",
     "lint:css": "stylelint \"src/**/*.{css,scss,vue}\"",
     "baseline:check": "node scripts/baseline-watch.js",
+    "icons:gen": "node scripts/gen-icons.mjs",
     "test:unit": "vitest run",
     "test:e2e": "playwright test"
   },
