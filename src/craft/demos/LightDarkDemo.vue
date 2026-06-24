@@ -13,9 +13,9 @@
 
     <div class="light-dark-grid">
       <article class="light-dark-card">
-        <h3 class="light-dark-card-title">
+        <h4 class="light-dark-card-title">
           <code>light-dark()</code> — follows the toggle
-        </h3>
+        </h4>
         <div class="light-dark-swatch light-dark-swatch-modern" aria-hidden="true"></div>
         <pre class="light-dark-code"><code>color: light-dark(#1a1a2e, #e6e6fa);</code></pre>
         <p class="light-dark-note">
@@ -27,9 +27,9 @@
       </article>
 
       <article class="light-dark-card">
-        <h3 class="light-dark-card-title">
+        <h4 class="light-dark-card-title">
           <code>@media</code> — only hears the OS
-        </h3>
+        </h4>
         <div class="light-dark-swatch light-dark-swatch-legacy" aria-hidden="true"></div>
         <pre class="light-dark-code"><code>color: #1a1a2e;
 

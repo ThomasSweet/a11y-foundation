@@ -11,9 +11,9 @@
       <span class="timeline-era-marker" aria-hidden="true"></span>
       <div class="timeline-era-body">
         <header class="timeline-era-header">
-          <h3 class="timeline-era-title">
+          <h4 class="timeline-era-title">
             {{ era.label }} <span class="timeline-era-year">{{ era.year }}</span>
-          </h3>
+          </h4>
           <p class="timeline-era-summary">{{ era.summary }}</p>
         </header>
 
@@ -32,7 +32,7 @@
             :pass-text="c.passText"
             :fail-text="c.failText"
             :links="c.links"
-            :heading-level="4"
+            :heading-level="5"
             v-slot="{ broken }"
           >
             <component :is="c.component" :broken="broken" />

@@ -142,6 +142,16 @@
         animation-range: entry 0% cover 12%;
       }
 
+      /* Each criterion card glides in from the right as it enters the
+         viewport. The cards live inside the child CriterionFrame component, so
+         reach them with :deep(). */
+      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+      :deep(.criterion) {
+        animation: era-slide-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 65%;
+      }
+
       @keyframes timeline-fill {
         to {
           transform: scaleY(1);
@@ -152,6 +162,13 @@
         from {
           transform: scale(0.4);
           opacity: 0.3;
+        }
+      }
+
+      @keyframes era-slide-in {
+        from {
+          opacity: 0;
+          transform: translateX(5rem);
         }
       }
     }
