@@ -14,13 +14,25 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
-    <script type="module" src="/src/legal/legal.js"></script>
+    <!-- Critical inline styles: set the surface colour up front so the first
+         paint is correct (no white flash in dark mode) even before the
+         stylesheets parse. Matches --color-bg. -->
+    <style>
+      :root {
+        color-scheme: light dark;
+        background-color: light-dark(#fff, #0f0f0f);
+      }
+    </style>
+    <!-- Render-blocking stylesheets (not JS-injected) so the page paints fully
+         styled in one go — no flash of unstyled content. Zero runtime JS. -->
+    <link rel="stylesheet" href="/src/styles/index.css" />
+    <link rel="stylesheet" href="/src/legal/legal.scss" />
   </head>
   <body>
     <div class="legal">
       <header class="legal-header">
         <a class="legal-home" href="/">
-          <img src="/favicon.svg" alt="" />
+          <img src="/favicon.svg" alt="" width="28" height="28" />
           <span>Accessible <span class="legal-wordmark-dim">by default</span></span>
         </a>
         <a class="legal-back" href="/">← Back to the site</a>

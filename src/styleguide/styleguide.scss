@@ -1,0 +1,339 @@
+/* Layout for the living style-guide page. In the components layer so it follows
+   the project's "no unlayered CSS" rule and still loses to user-preference
+   layers. Library mixins are injected via Vite's additionalData. */
+@layer components {
+  .guide {
+    max-inline-size: 60rem;
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-4) var(--space-16);
+  }
+
+  .guide-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-block-end: var(--space-8);
+  }
+
+  .guide-home {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .guide-home-dim {
+    color: var(--color-text-subtle);
+  }
+
+  .guide-back {
+    font-size: var(--text-sm);
+  }
+
+  .guide-main h1 {
+    margin-block-end: var(--space-2);
+    font-size: var(--text-display-sm);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .guide-lede {
+    max-inline-size: 60ch;
+    margin-block-end: var(--space-4);
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: var(--color-text-subtle);
+  }
+
+  /* Each foundation is its own "chapter", set well apart. */
+  .guide-section {
+    margin-block-start: var(--space-16);
+  }
+
+  .guide-section h2 {
+    margin-block-end: var(--space-4);
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid var(--color-border);
+    font-size: var(--text-2xl);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .guide-section h3 {
+    margin-block: var(--space-6) var(--space-3);
+    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+
+  .guide-note {
+    max-inline-size: 65ch;
+    margin-block-end: var(--space-4);
+    line-height: var(--leading-normal);
+    color: var(--color-text-subtle);
+  }
+
+  /* ---- Color swatches -------------------------------------------------- */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .swatch {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-3);
+    align-items: center;
+  }
+
+  .swatch-chip {
+    grid-row: 1 / 3;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* Light surfaces need an edge to be visible against the page. */
+  .swatch-chip-bordered {
+    box-shadow: inset 0 0 0 1px var(--color-border);
+  }
+
+  .swatch-name {
+    align-self: end;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  .swatch-hex {
+    align-self: start;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .gradient-bar {
+    block-size: 3rem;
+    margin-block: var(--space-4) var(--space-2);
+    border-radius: var(--radius-md);
+    background: var(--gradient-accent);
+  }
+
+  /* ---- Typography ------------------------------------------------------ */
+  .type-families {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-end: var(--space-6);
+  }
+
+  .type-families div {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+
+  .type-families dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .type-families dd {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .type-scale {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .type-scale li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .type-spec {
+    color: var(--color-text);
+  }
+
+  .type-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  /* ---- Spacing --------------------------------------------------------- */
+  .space-scale {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .space-scale li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .space-bar {
+    block-size: 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--gradient-accent);
+  }
+
+  .space-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  /* ---- Radius & shadow ------------------------------------------------- */
+  .radius-grid,
+  .shadow-grid,
+  .motion-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .radius-grid li,
+  .shadow-grid li,
+  .motion-grid li {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: center;
+  }
+
+  .radius-chip {
+    inline-size: 4rem;
+    block-size: 4rem;
+    background: var(--gradient-accent);
+  }
+
+  .shadow-grid {
+    margin-block-start: var(--space-8);
+  }
+
+  .shadow-card {
+    inline-size: 5rem;
+    block-size: 5rem;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .guide-chip-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  /* ---- Motion ---------------------------------------------------------- */
+  .motion-swatch {
+    /* Defaults; each item overrides --d / --e inline to show its own curve. */
+    --d: var(--duration-normal);
+    --e: var(--easing-standard);
+    inline-size: 4rem;
+    block-size: 4rem;
+    border-radius: var(--radius-md);
+    background: var(--gradient-accent);
+    transition: transform var(--d) var(--e);
+  }
+
+  @include can-hover {
+    .motion-swatch:hover {
+      transform: translateY(-0.5rem) scale(1.05);
+    }
+  }
+
+  /* Honour the user's request to reduce motion. */
+  @include reduced-motion {
+    .motion-swatch {
+      transition: none;
+    }
+  }
+
+  /* ---- Elements -------------------------------------------------------- */
+  .element-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .element-field {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  /* ---- Principles ------------------------------------------------------ */
+  .principles {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 70ch;
+    margin: 0;
+    padding-inline-start: var(--space-6);
+  }
+
+  .principles li {
+    line-height: var(--leading-normal);
+  }
+
+  /* ---- Logo (deferred) ------------------------------------------------- */
+  .guide-tbd {
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-full);
+    background-color: color-mix(in oklch, var(--color-accent) 22%, transparent);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  /* ---- Footer ---------------------------------------------------------- */
+  .guide-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin-block-start: var(--space-16);
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .guide-footer-copy {
+    margin-inline-start: auto;
+  }
+}
