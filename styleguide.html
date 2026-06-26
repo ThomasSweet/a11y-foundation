@@ -1,0 +1,282 @@
+<!doctype html>
+<!--
+  Living style guide — renders the real design tokens straight from the shared
+  stylesheet, so it can never drift from the system it documents. Zero runtime
+  JS; colours follow the OS light/dark preference (and any [data-theme]).
+  Logo + naming section is intentionally deferred until the brand name lands.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Style guide — Accessible by default</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+    <!-- Critical inline styles: correct surface colour on first paint (no white
+         flash in dark mode) before the stylesheets parse. Matches --color-bg. -->
+    <style>
+      :root {
+        color-scheme: light dark;
+        background-color: light-dark(#fff, #0f0f0f);
+      }
+    </style>
+    <!-- Render-blocking stylesheets (not JS-injected) so the page paints fully
+         styled in one go — no flash of unstyled content. Zero runtime JS. -->
+    <link rel="stylesheet" href="/src/styles/index.css" />
+    <link rel="stylesheet" href="/src/styleguide/styleguide.scss" />
+  </head>
+  <body>
+    <div class="guide">
+      <header class="guide-header">
+        <a class="guide-home" href="/">
+          <img src="/favicon.svg" alt="" width="28" height="28" />
+          <span>Accessible <span class="guide-home-dim">by default</span></span>
+        </a>
+        <a class="guide-back" href="/">← Back to the site</a>
+      </header>
+
+      <main class="guide-main">
+        <h1>Style guide</h1>
+        <p class="guide-lede">
+          The visual language of this project, rendered live from the same
+          tokens the site uses — so what you see here is exactly what ships.
+          Colours follow your system's light/dark preference.
+        </p>
+
+        <!-- ===================================================== Color -->
+        <section class="guide-section" aria-labelledby="sg-color">
+          <h2 id="sg-color">Color</h2>
+          <p class="guide-note">
+            Every colour is a semantic token declared once with
+            <code>light-dark(light, dark)</code>, so themes flip with no
+            duplication. Hex pairs below read <em>light · dark</em>.
+          </p>
+
+          <h3>Brand</h3>
+          <ul class="swatches" role="list">
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-primary)"></span>
+              <span class="swatch-name">--color-primary</span>
+              <span class="swatch-hex">#2563eb · #3b82f6</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-primary-hover)"></span>
+              <span class="swatch-name">--color-primary-hover</span>
+              <span class="swatch-hex">#1d4ed8 · #60a5fa</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-accent)"></span>
+              <span class="swatch-name">--color-accent</span>
+              <span class="swatch-hex">#7c3aed · #a78bfa</span>
+            </li>
+          </ul>
+          <div class="gradient-bar" aria-hidden="true"></div>
+          <p class="guide-note">
+            <code>--gradient-accent</code> — primary → accent, the signature
+            blue→violet used in the mark, headings, and accents.
+          </p>
+
+          <h3>Surfaces</h3>
+          <ul class="swatches" role="list">
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--color-bg)"></span>
+              <span class="swatch-name">--color-bg</span>
+              <span class="swatch-hex">#ffffff · #0f0f0f</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--color-bg-subtle)"></span>
+              <span class="swatch-name">--color-bg-subtle</span>
+              <span class="swatch-hex">#f5f5f5 · #1a1a1a</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--color-surface)"></span>
+              <span class="swatch-name">--color-surface</span>
+              <span class="swatch-hex">#ffffff · #1e1e1e</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-border)"></span>
+              <span class="swatch-name">--color-border</span>
+              <span class="swatch-hex">#e0e0e0 · #2e2e2e</span>
+            </li>
+          </ul>
+
+          <h3>Text</h3>
+          <ul class="swatches" role="list">
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-text)"></span>
+              <span class="swatch-name">--color-text</span>
+              <span class="swatch-hex">#111111 · #f0f0f0</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-text-subtle)"></span>
+              <span class="swatch-name">--color-text-subtle</span>
+              <span class="swatch-hex">#555555 · #a0a0a0</span>
+            </li>
+          </ul>
+
+          <h3>Status</h3>
+          <ul class="swatches" role="list">
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-success)"></span>
+              <span class="swatch-name">--color-success</span>
+              <span class="swatch-hex">#16a34a · #4ade80</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-warning)"></span>
+              <span class="swatch-name">--color-warning</span>
+              <span class="swatch-hex">#d97706 · #fbbf24</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-error)"></span>
+              <span class="swatch-name">--color-error</span>
+              <span class="swatch-hex">#dc2626 · #f87171</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--color-info)"></span>
+              <span class="swatch-name">--color-info</span>
+              <span class="swatch-hex">#0284c7 · #38bdf8</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- ================================================ Typography -->
+        <section class="guide-section" aria-labelledby="sg-type">
+          <h2 id="sg-type">Typography</h2>
+          <p class="guide-note">
+            System sans for prose, JetBrains Mono for code and labels. Display
+            sizes are fluid (<code>clamp()</code>) so headings scale with the
+            viewport — no breakpoints.
+          </p>
+
+          <dl class="type-families">
+            <div>
+              <dt>Sans</dt>
+              <dd style="font-family: var(--font-sans)">
+                system-ui — the platform's own UI typeface
+              </dd>
+            </div>
+            <div>
+              <dt>Mono</dt>
+              <dd style="font-family: var(--font-mono)">
+                JetBrains&nbsp;Mono — code, tokens, eyebrows
+              </dd>
+            </div>
+          </dl>
+
+          <ul class="type-scale" role="list">
+            <li><span class="type-spec" style="font-size: var(--text-display); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: 800">Display</span><span class="type-label">--text-display · 800</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-4xl); line-height: var(--leading-tight); font-weight: 700">Heading 4xl</span><span class="type-label">--text-4xl · 2.25rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-3xl); font-weight: 700">Heading 3xl</span><span class="type-label">--text-3xl · 1.875rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-2xl); font-weight: 600">Heading 2xl</span><span class="type-label">--text-2xl · 1.5rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-xl); font-weight: 600">Heading xl</span><span class="type-label">--text-xl · 1.25rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-lg)">Large body</span><span class="type-label">--text-lg · 1.125rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-base)">Base body</span><span class="type-label">--text-base · 1rem</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-sm); color: var(--color-text-subtle)">Small / captions</span><span class="type-label">--text-sm · 0.875rem</span></li>
+          </ul>
+        </section>
+
+        <!-- =================================================== Spacing -->
+        <section class="guide-section" aria-labelledby="sg-space">
+          <h2 id="sg-space">Spacing</h2>
+          <p class="guide-note">
+            A rem-based scale (token = rem ×&nbsp;4). The same rhythm drives gaps,
+            padding, and the generous section breaks.
+          </p>
+          <ul class="space-scale" role="list">
+            <li><span class="space-bar" style="inline-size: var(--space-1)"></span><span class="space-label">--space-1 · 0.25rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-2)"></span><span class="space-label">--space-2 · 0.5rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-3)"></span><span class="space-label">--space-3 · 0.75rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-4)"></span><span class="space-label">--space-4 · 1rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-6)"></span><span class="space-label">--space-6 · 1.5rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-8)"></span><span class="space-label">--space-8 · 2rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-12)"></span><span class="space-label">--space-12 · 3rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-16)"></span><span class="space-label">--space-16 · 4rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-24)"></span><span class="space-label">--space-24 · 6rem</span></li>
+          </ul>
+        </section>
+
+        <!-- ============================================ Radius & shadow -->
+        <section class="guide-section" aria-labelledby="sg-shape">
+          <h2 id="sg-shape">Radius &amp; elevation</h2>
+          <ul class="radius-grid" role="list">
+            <li><span class="radius-chip" style="border-radius: var(--radius-sm)"></span><span class="guide-chip-label">sm · 0.25rem</span></li>
+            <li><span class="radius-chip" style="border-radius: var(--radius-md)"></span><span class="guide-chip-label">md · 0.5rem</span></li>
+            <li><span class="radius-chip" style="border-radius: var(--radius-lg)"></span><span class="guide-chip-label">lg · 0.75rem</span></li>
+            <li><span class="radius-chip" style="border-radius: var(--radius-xl)"></span><span class="guide-chip-label">xl · 1rem</span></li>
+            <li><span class="radius-chip" style="border-radius: var(--radius-full)"></span><span class="guide-chip-label">full</span></li>
+          </ul>
+          <ul class="shadow-grid" role="list">
+            <li><span class="shadow-card" style="box-shadow: var(--shadow-sm)"></span><span class="guide-chip-label">--shadow-sm</span></li>
+            <li><span class="shadow-card" style="box-shadow: var(--shadow-md)"></span><span class="guide-chip-label">--shadow-md</span></li>
+            <li><span class="shadow-card" style="box-shadow: var(--shadow-lg)"></span><span class="guide-chip-label">--shadow-lg</span></li>
+          </ul>
+        </section>
+
+        <!-- ==================================================== Motion -->
+        <section class="guide-section" aria-labelledby="sg-motion">
+          <h2 id="sg-motion">Motion</h2>
+          <p class="guide-note">
+            Durations and easings are tokens so reduced-motion overrides work
+            from one source. Hover the swatch to feel each curve; it holds
+            still if you've asked your system to reduce motion.
+          </p>
+          <ul class="motion-grid" role="list">
+            <li><span class="motion-swatch" style="--d: var(--duration-fast); --e: var(--easing-standard)"></span><span class="guide-chip-label">fast · 150ms</span></li>
+            <li><span class="motion-swatch" style="--d: var(--duration-normal); --e: var(--easing-standard)"></span><span class="guide-chip-label">normal · 250ms</span></li>
+            <li><span class="motion-swatch" style="--d: var(--duration-slow); --e: var(--easing-standard)"></span><span class="guide-chip-label">slow · 400ms</span></li>
+          </ul>
+        </section>
+
+        <!-- ============================================ Focus & states -->
+        <section class="guide-section" aria-labelledby="sg-focus">
+          <h2 id="sg-focus">Focus &amp; elements</h2>
+          <p class="guide-note">
+            Bare elements, styled only by the foundation. Tab through them — the
+            focus ring (<code>--focus-ring-*</code>) is consistent and never
+            removed.
+          </p>
+          <div class="element-row">
+            <button type="button">Button</button>
+            <a href="#sg-focus">A text link</a>
+            <label class="element-field">
+              Field
+              <input type="text" placeholder="Type here" />
+            </label>
+            <code>inline code</code>
+          </div>
+        </section>
+
+        <!-- ================================================ Principles -->
+        <section class="guide-section" aria-labelledby="sg-principles">
+          <h2 id="sg-principles">Principles</h2>
+          <ul class="principles" role="list">
+            <li><strong>Accessibility wins the cascade.</strong> User-preference layers (reduced motion, high contrast, forced colours) sit last in the <code>@layer</code> order, so they always override aesthetics.</li>
+            <li><strong>Built in, not bolted on.</strong> Reach for the platform first; add JavaScript only when CSS and semantic HTML genuinely can't.</li>
+            <li><strong>One source of truth.</strong> Colours, spacing, type, and motion are tokens — never hard-coded values.</li>
+            <li><strong>Progressive enhancement.</strong> Modern features are wrapped in <code>@supports</code> so unsupported browsers degrade, never break.</li>
+            <li><strong>Never remove focus.</strong> The focus ring is part of the brand, not an eyesore to suppress.</li>
+          </ul>
+        </section>
+
+        <!-- ============================================== Logo (later) -->
+        <section class="guide-section" aria-labelledby="sg-logo">
+          <h2 id="sg-logo">Logo &amp; naming</h2>
+          <p class="guide-note">
+            <span class="guide-tbd">Coming soon</span> — the mark (ring + dot,
+            app-icon tile in the brand gradient) is settled, but the wordmark
+            and naming guidance wait until the project name is finalised.
+          </p>
+        </section>
+      </main>
+
+      <footer class="guide-footer">
+        <a href="/">Home</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/privacy.html">Privacy</a>
+        <span class="guide-footer-copy">© 2026 Accessible by default</span>
+      </footer>
+    </div>
+  </body>
+</html>
