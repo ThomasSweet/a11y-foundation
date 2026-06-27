@@ -35,10 +35,11 @@
              decorative, so the whole grid is aria-hidden. -->
         <div class="hero-icons" aria-hidden="true">
           <span
-            v-for="icon in heroIcons"
+            v-for="(icon, i) in heroIcons"
             :key="icon.name"
             class="hero-icon"
             :data-kind="icon.kind"
+            :style="{ '--i': i }"
           >
             <svg class="hero-icon-svg" viewBox="0 -960 960 960">
               <path :d="icon.d" />
@@ -603,6 +604,11 @@ const toc = [
     gap: var(--space-12);
     /* Keep the heading clear of the sticky spine after a fragment jump. */
     scroll-margin-block-start: var(--space-16);
+    /* Anchor + own stacking context for the giant pillar watermark
+       (PillarHeader paints a faint oversized mark at z-index -1). `isolate`
+       keeps that negative layer trapped here, above the page background. */
+    position: relative;
+    isolation: isolate;
   }
 
   .demo {
@@ -900,8 +906,9 @@ const toc = [
   .hero-icons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-    justify-items: center;
+    /* No grid gap: the cells tile edge-to-edge so the Dock hover target is
+       continuous — moving across the band never drops into a dead gap between
+       glyphs. The visual spacing comes from padding inside each cell instead. */
 
     @include from('md') {
       grid-template-columns: repeat(6, 1fr);
@@ -911,10 +918,126 @@ const toc = [
   .hero-icon {
     display: grid;
     place-items: center;
+    /* Padding (not gap) spaces the glyphs, so each cell is a seamless hit area
+       that fills its track. */
+    padding: var(--space-3);
     color: var(--color-text);
 
     &[data-kind='concept'] {
       color: var(--color-primary);
+    }
+
+    /* One-time staggered entrance — the band assembles itself on load. The
+       whole thing lives inside no-preference so reduced-motion users never see
+       the opacity:0 start (no flash), just the icons already in place. The
+       per-icon delay comes from the inline --i (its index). */
+    @media (prefers-reduced-motion: no-preference) {
+      animation: hero-icon-in 0.5s var(--easing-enter) both;
+      animation-delay: calc(var(--i, 0) * 45ms);
+    }
+
+    /* Only the colour transitions on the cell; the magnification lives on the
+       glyph (.hero-icon-svg) so the cell stays a fixed-size hover target.
+       Cosmetic only — the whole band is aria-hidden. */
+    @include can-hover {
+      transition: color var(--duration-fast) var(--easing-standard);
+    }
+  }
+
+  @keyframes hero-icon-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.7rem);
+    }
+  }
+
+  /* One magnified glyph: the cell $offset siblings away in DOM order, walked
+     either forward ($dir: 'after', via `+`) or backward ('before', via :has()).
+     $edge suppresses the row-boundary wrap — '' for vertical neighbours (a
+     column never wraps), 'right' to skip when the hovered glyph is last in its
+     row, 'left' when it's first. So an edge glyph only reaches the siblings it
+     visually touches, not the ones that are merely adjacent in source order.
+     The scale lands on the glyph (.hero-icon-svg), never the cell. */
+  @mixin dock-cell($offset, $dir, $edge, $scale, $cols) {
+    $guard: '';
+    @if $edge == 'right' {
+      $guard: ':not(:nth-child(#{$cols}n))';
+    } @else if $edge == 'left' {
+      $guard: ':not(:nth-child(#{$cols}n + 1))';
+    }
+
+    $sel: '';
+    @if $dir == 'after' {
+      $sel: '.hero-icon:hover#{$guard}';
+      @for $i from 1 through $offset {
+        $sel: '#{$sel} + .hero-icon';
+      }
+    } @else {
+      // `1 to $offset` counts UP exactly $offset - 1 times (empty at offset 1);
+      // `through $offset - 1` would be `1 through 0`, which Sass counts DOWN.
+      $inner: '+ .hero-icon:hover#{$guard}';
+      @for $i from 1 to $offset {
+        $inner: '+ .hero-icon #{$inner}';
+      }
+
+      $sel: '.hero-icon:has(#{$inner})';
+    }
+
+    #{$sel} .hero-icon-svg {
+      scale: $scale;
+    }
+  }
+
+  /* The 2D bulge for a grid of $cols columns. Grid geometry maps onto DOM
+     order: ±1 is left/right, ±$cols is the row directly above/below, and
+     ±($cols ∓ 1) are the diagonals. Each call carries the edge guard for the
+     boundary it would otherwise wrap across — so a glyph at a row's edge never
+     magnifies the far side of an adjacent row. */
+  @mixin dock-falloff($cols) {
+    $near: 1.34;
+    $diag: 1.16;
+
+    @include dock-cell(1, 'after', 'right', $near, $cols); // right
+    @include dock-cell(1, 'before', 'left', $near, $cols); // left
+    @include dock-cell($cols, 'after', '', $near, $cols); // down
+    @include dock-cell($cols, 'before', '', $near, $cols); // up
+
+    @include dock-cell($cols + 1, 'after', 'right', $diag, $cols); // down-right
+    @include dock-cell($cols - 1, 'after', 'left', $diag, $cols); // down-left
+    @include dock-cell($cols - 1, 'before', 'right', $diag, $cols); // up-right
+    @include dock-cell($cols + 1, 'before', 'left', $diag, $cols); // up-left
+  }
+
+  /* Mac-Dock magnification: the hovered glyph swells to the accent colour and
+     the surrounding glyphs scale down with distance, so the band bows toward
+     the cursor in 2D. Pure CSS — the `scale` property is composited, so it only
+     costs on hover, never on scroll. Where :has() is unsupported the hovered
+     glyph still scales (graceful fallback); movement is gated to motion-allowed.
+     The cell count differs per breakpoint, so the falloff is too. */
+  @include can-hover {
+    .hero-icon:hover {
+      color: var(--color-primary);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Raise the hovered cell so its overspilling glyph paints over the
+         neighbours — but never scale the CELL itself (a scaled cell would
+         overlap the next one and keep stealing the hover). Only the glyph grows. */
+      .hero-icon:hover {
+        z-index: 1;
+      }
+
+      .hero-icon:hover .hero-icon-svg {
+        scale: 1.5;
+      }
+
+      @media (width < 48em) {
+        @include dock-falloff(4);
+      }
+
+      @include from('md') {
+        @include dock-falloff(6);
+      }
     }
   }
 
@@ -922,6 +1045,14 @@ const toc = [
     inline-size: clamp(2.75rem, 7vw, 5rem);
     block-size: clamp(2.75rem, 7vw, 5rem);
     fill: currentcolor;
+    /* The glyph alone magnifies; the cell stays a fixed, seamless hover target.
+       pointer-events:none means the overspilling glyph never intercepts the
+       cursor, so moving toward a neighbour hands hover cleanly to that cell. */
+    pointer-events: none;
+
+    @include can-hover {
+      transition: scale var(--duration-normal) var(--easing-standard);
+    }
 
     @include forced-colors {
       fill: CanvasText;
