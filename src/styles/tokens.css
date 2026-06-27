@@ -89,7 +89,11 @@
 
     --color-primary:      light-dark(#2563eb, #3b82f6);
     --color-primary-hover:light-dark(#1d4ed8, #60a5fa);
-    --color-primary-text: #fff;
+    /* The label sits ON --color-primary, so it must contrast the primary itself,
+       not the page. Light-mode primary is a deep blue (white label ≈ 5.2:1); the
+       dark-mode primary is brighter, where white only reaches ~3.7:1 — below AA —
+       so the label flips dark there (≈ 5.1:1). */
+    --color-primary-text: light-dark(#fff, #111);
 
     --color-success:      light-dark(#16a34a, #4ade80);
     --color-warning:      light-dark(#d97706, #fbbf24);

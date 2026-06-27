@@ -24,9 +24,9 @@
 
     <div class="zoom-compare-panels">
       <section class="zoom-compare-panel" aria-labelledby="zoom-via-zoom">
-        <h4 id="zoom-via-zoom" class="zoom-compare-title">
+        <h5 id="zoom-via-zoom" class="zoom-compare-title">
           <code>zoom</code> — reflows
-        </h4>
+        </h5>
         <div class="zoom-compare-stage">
           <p class="zoom-compare-context">Heading above</p>
           <article class="zoom-compare-card zoom-compare-card-zoom">Magnified card</article>
@@ -35,9 +35,9 @@
       </section>
 
       <section class="zoom-compare-panel" aria-labelledby="zoom-via-scale">
-        <h4 id="zoom-via-scale" class="zoom-compare-title">
+        <h5 id="zoom-via-scale" class="zoom-compare-title">
           <code>transform: scale()</code> — overlaps
-        </h4>
+        </h5>
         <div class="zoom-compare-stage">
           <p class="zoom-compare-context">Heading above</p>
           <article class="zoom-compare-card zoom-compare-card-scale">Magnified card</article>

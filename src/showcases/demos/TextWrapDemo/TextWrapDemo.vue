@@ -5,7 +5,7 @@
          ragged line breaks. -->
     <figure class="text-wrap-col">
       <figcaption class="text-wrap-label">Default wrapping</figcaption>
-      <h4 class="text-wrap-heading">{{ heading }}</h4>
+      <h5 class="text-wrap-heading">{{ heading }}</h5>
       <p class="text-wrap-body">{{ body }}</p>
     </figure>
 
@@ -13,7 +13,7 @@
       <figcaption class="text-wrap-label">
         <code>balance</code> + <code>pretty</code>
       </figcaption>
-      <h4 class="text-wrap-heading text-wrap-heading--balance">{{ heading }}</h4>
+      <h5 class="text-wrap-heading text-wrap-heading--balance">{{ heading }}</h5>
       <p class="text-wrap-body text-wrap-body--pretty">{{ body }}</p>
     </figure>
   </div>
