@@ -3,6 +3,14 @@
        the pillar title (the real <h2> for this region), and an optional lead.
        The icon is decorative; the heading carries the accessible name. -->
   <header class="pillar-header">
+    <!-- Oversized echo of this pillar's mark, bleeding off the right edge as a
+         faint watermark. Purely decorative; static (no animation), so it costs
+         nothing at runtime. -->
+    <span
+      class="pillar-header-watermark"
+      aria-hidden="true"
+      v-html="icons[icon]"
+    ></span>
     <p class="pillar-header-eyebrow">{{ eyebrow }}</p>
     <div class="pillar-header-top">
       <span class="pillar-header-icon" aria-hidden="true" v-html="icons[icon]"></span>
@@ -91,6 +99,72 @@ const icons: Record<string, string> = {
   .pillar-header-icon :deep(svg) {
     inline-size: 2rem;
     block-size: 2rem;
+  }
+
+  /* The giant watermark: positioned against the .pillar (App.vue gives it
+     position: relative + isolation), bleeding off the right edge where
+     overflow-x: clip on the app shell hides the overspill — no scrollbar. Sits
+     at z-index -1, behind the chapter's content. Faint, so it never competes
+     with text; opaque demo cards paint over it entirely. */
+  .pillar-header-watermark {
+    position: absolute;
+    z-index: -1;
+    inset-block-start: -2rem;
+    inset-inline-end: 0;
+    /* Mobile-first: smaller and pushed further off the edge. The narrow layout
+       has no side gutter, so a big mark would sit right under the text — this
+       keeps it a corner sliver and protects the contrast ratio. */
+    inline-size: 16rem;
+    block-size: 16rem;
+    color: var(--color-primary);
+    opacity: 0.09;
+    transform: translateX(52%) rotate(-12deg);
+    pointer-events: none;
+
+    /* Desktop: much larger, and bled further past the edge (the app shell's
+       overflow-x: clip hides the overspill, so there's still no scrollbar). */
+    @include from('md') {
+      inline-size: 36rem;
+      block-size: 36rem;
+      transform: translateX(46%) rotate(-12deg);
+    }
+
+    /* Parallax: the mark drifts slower than the content for a sense of depth.
+       It animates the `translate` property only (composited, off the main
+       thread via the element's own view-timeline), so it adds no paint cost
+       while scrolling — unlike colour/gradient animation. Support + motion
+       gated; without either, the mark is simply static. */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        animation: pillar-watermark-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+
+    /* Decorative flourish — drop it where the OS flattens the palette. */
+    @include forced-colors {
+      display: none;
+    }
+  }
+
+  .pillar-header-watermark :deep(svg) {
+    inline-size: 100%;
+    block-size: 100%;
+    /* Thinner stroke reads better blown up to poster scale. */
+    stroke-width: 1;
+  }
+
+  /* Lag the mark behind the scroll — the `translate` runs opposite the travel,
+     so the watermark appears to move slower than the foreground. */
+  @keyframes pillar-watermark-parallax {
+    from {
+      translate: 0 -30%;
+    }
+
+    to {
+      translate: 0 30%;
+    }
   }
 
   .pillar-header-eyebrow {
