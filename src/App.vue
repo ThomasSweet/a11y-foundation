@@ -5,6 +5,21 @@
 
   <div class="app-shell">
     <header class="hero">
+      <!-- Oversized, faint echoes of the pillar marks, bleeding off the hero's
+           outer edges — the same watermark motif that opens each pillar below,
+           so the cover and the chapters read as one continuous set. Purely
+           decorative (aria-hidden), behind the content at z-index -1. -->
+      <span
+        class="hero-watermark hero-watermark-lead"
+        aria-hidden="true"
+        v-html="pillarIcons.craft"
+      ></span>
+      <span
+        class="hero-watermark hero-watermark-trail"
+        aria-hidden="true"
+        v-html="pillarIcons.next"
+      ></span>
+
       <div class="hero-top">
         <p class="hero-brand">
           <img class="hero-brand-mark" src="/favicon.svg" alt="" />
@@ -420,6 +435,7 @@ import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
+import { pillarIcons } from './icons/pillarIcons'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
@@ -519,6 +535,11 @@ const toc = [
     max-inline-size: 80rem;
     margin-inline: auto;
     padding: var(--space-6) var(--space-4) var(--space-8);
+    /* Anchor + own stacking context for the hero watermarks (faint oversized
+       marks painted at z-index -1, the same treatment PillarHeader uses).
+       `isolate` keeps that negative layer trapped above the page glow. */
+    position: relative;
+    isolation: isolate;
   }
 
   .hero-top {
@@ -900,6 +921,80 @@ const toc = [
     color: var(--color-text-subtle);
   }
 
+  /* The hero's edge watermarks: oversized, faint echoes of the pillar marks
+     that frame the cover the way each pillar's mark opens its chapter — so the
+     hero reads as the first of the set, not a separate thing. Positioned
+     against the hero (which supplies position + isolation) and bled off its
+     outer edges, where the app shell's overflow-x: clip hides the overspill —
+     no horizontal scrollbar. z-index -1 keeps them behind the title; faint
+     enough that they never touch the contrast of the text in front. */
+  .hero-watermark {
+    position: absolute;
+    z-index: -1;
+    inline-size: 14rem;
+    block-size: 14rem;
+    color: var(--color-primary);
+    opacity: 0.08;
+    pointer-events: none;
+
+    @include from('md') {
+      inline-size: 30rem;
+      block-size: 30rem;
+    }
+
+    /* Parallax: each mark drifts slower than the content as the hero scrolls
+       away, for a sense of depth. Animates the `translate` property only
+       (composited, off the main thread via the element's own view-timeline),
+       so it adds no paint cost while scrolling — unlike colour animation.
+       Support + motion gated; without either, the mark is simply static. */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        animation: hero-watermark-parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+    }
+
+    /* Decorative flourish — drop it where the OS flattens the palette. */
+    @include forced-colors {
+      display: none;
+    }
+  }
+
+  .hero-watermark :deep(svg) {
+    inline-size: 100%;
+    block-size: 100%;
+    /* Thinner stroke reads better blown up to poster scale. */
+    stroke-width: 1;
+  }
+
+  /* Upper-left, bleeding off the left edge. */
+  .hero-watermark-lead {
+    inset-block-start: 12%;
+    inset-inline-start: 0;
+    transform: translateX(-46%) rotate(-12deg);
+  }
+
+  /* Lower-right, bleeding off the right edge — handing off into the first
+     pillar's own right-edge watermark just below the fold. */
+  .hero-watermark-trail {
+    inset-block-end: 9%;
+    inset-inline-end: 0;
+    transform: translateX(46%) rotate(10deg);
+  }
+
+  /* Lag the marks behind the scroll — the `translate` runs opposite the travel,
+     so each watermark appears to drift slower than the foreground. */
+  @keyframes hero-watermark-parallax {
+    from {
+      translate: 0 -22%;
+    }
+
+    to {
+      translate: 0 22%;
+    }
+  }
+
   /* The decorative wayfinding band — large, boxless pictograms that read as a
      poster. The page's own topics carry the brand accent; the signage glyphs
      stay in the bold ink colour, so the "mix" still reads. */
@@ -940,7 +1035,7 @@ const toc = [
        glyph (.hero-icon-svg) so the cell stays a fixed-size hover target.
        Cosmetic only — the whole band is aria-hidden. */
     @include can-hover {
-      transition: color var(--duration-fast) var(--easing-standard);
+      transition: color var(--duration-normal) var(--easing-standard);
     }
   }
 
@@ -1028,7 +1123,7 @@ const toc = [
       }
 
       .hero-icon:hover .hero-icon-svg {
-        scale: 1.5;
+        scale: 1.65;
       }
 
       @media (width < 48em) {
@@ -1051,7 +1146,7 @@ const toc = [
     pointer-events: none;
 
     @include can-hover {
-      transition: scale var(--duration-normal) var(--easing-standard);
+      transition: scale var(--duration-slow) var(--easing-standard);
     }
 
     @include forced-colors {
