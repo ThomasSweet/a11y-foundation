@@ -1,8 +1,6 @@
 /* =============================================================================
-   reset.css
-
-   Minimal modern reset — lives in the lowest-priority `reset` layer,
-   so anything anywhere else overrides it without specificity games.
+   reset.css — minimal modern reset in the lowest-priority `reset` layer, so
+   anything elsewhere overrides it without specificity games.
 ============================================================================= */
 
 @layer reset {
@@ -17,25 +15,21 @@
     margin: 0;
   }
 
-  /* The universal margin reset above also clobbers the UA `margin: auto`
-     that centers a modal <dialog> — and an open [popover] — in the viewport,
-     dropping them to the top-left. Restore it so both center by default.
-     (Anchored popovers override this with their own margin in a higher
-     layer, so this only affects the unanchored fallback.) */
+  /* The `* { margin: 0 }` above also kills the UA `margin: auto` that centres a
+     modal <dialog> / open [popover], dropping them top-left. Restore it.
+     (Anchored popovers set their own margin in a higher layer.) */
   dialog,
   [popover] {
     margin: auto;
   }
 
   html {
-    /* Prevent iOS Safari inflating text in landscape.
-       Safari only supports the prefixed form. */
+    /* Prevent iOS Safari inflating text in landscape (prefixed form only). */
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Never let the page scroll sideways from an over-wide child. `clip` (not
-       `hidden`) so it doesn't become a scroll container — position: sticky
-       descendants keep working relative to the viewport. */
+    /* `clip` (not `hidden`) so an over-wide child can't scroll the page
+       sideways, without becoming a scroll container (sticky keeps working). */
     overflow-x: clip;
   }
 
@@ -70,9 +64,8 @@
     overflow-wrap: break-word;
   }
 
-  /* Strip list styling only where list semantics are explicitly preserved.
-     Safari removes list semantics from screen readers when list-style is
-     none — adding role="list" restores them, so we key off the attribute. */
+  /* Safari drops list semantics from AT when list-style is none; keying off
+     role="list" restores them, so only strip styling where it's present. */
   ul[role="list"],
   ol[role="list"] {
     list-style: none;

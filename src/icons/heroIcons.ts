@@ -1,10 +1,9 @@
 /**
- * Hero glyphs — decorative wayfinding pictograms + accessibility concepts.
+ * Hero glyphs — decorative wayfinding pictograms + accessibility concepts,
+ * shared viewBox "0 -960 960 960", rendered aria-hidden (decorative only).
  *
  * Source: Material Symbols (outlined, weight 400) by Google.
  * License: Apache License 2.0 — https://github.com/google/material-design-icons
- * All icons share the viewBox "0 -960 960 960". They are decorative only
- * (rendered aria-hidden); the <h1> carries the page's meaning.
  */
 
 export interface HeroIcon {

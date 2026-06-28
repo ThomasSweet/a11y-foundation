@@ -61,9 +61,8 @@
         </div>
       </div>
 
-      <!-- Live preview. Only --pick-* and --bypass are set inline; the clamp
-           math and --seed-accent live in CSS, so the theme really is derived
-           in the cascade, not in JS. -->
+      <!-- Live preview: only --pick-* / --bypass are set inline; the clamp math
+           and --seed-accent live in CSS, so the theme is derived in the cascade. -->
       <article
         class="surface theme-picker-preview"
         :style="{ '--pick-h': pickH, '--pick-l': pickL, '--bypass': bypass ? 1 : 0 }"
@@ -99,16 +98,14 @@
 import { computed, ref } from 'vue'
 
 import AppButton from '../../../components/AppButton/AppButton.vue'
-// The contrast maths lives in a sibling module so it can be unit-tested; this
-// component just feeds it the picked values (see themePickerMath.test.ts).
+// Contrast maths lives in a sibling module so it's unit-testable (themePickerMath.test.ts).
 import { assessPick } from './themePickerMath'
 
 const pickH = ref(265)
 const pickL = ref(60) // starts inside the dead zone, so the clamp visibly acts
 const bypass = ref(false)
 
-// Accents mirror the .theme-* CVD presets in theming.css (the picker varies
-// only the accent, so the surface stays the default here).
+// Accents mirror the .theme-* CVD presets in theming.css.
 const presets = [
   { name: 'Cobalt', h: 255, l: 48 },
   { name: 'Teal', h: 195, l: 45 },
@@ -124,9 +121,8 @@ const report = computed(() =>
   assessPick({ h: pickH.value, l: pickL.value, bypass: bypass.value }),
 )
 
-// Detect the second safety net so the read-out can be honest about what THIS
-// browser paints: with contrast-color() the rendered label is best-of-black/
-// white; without it, the plain fallback flip is all there is.
+// Detect the second safety net so the read-out is honest about what THIS
+// browser paints (with contrast-color() vs the plain fallback flip).
 const supportsContrastColor =
   typeof CSS !== 'undefined' && CSS.supports('color', 'contrast-color(red)')
 
@@ -258,16 +254,12 @@ const note = computed(() => {
     }
   }
 
-  /* The live preview surface. We set ONLY the picked inputs inline; everything
-     below is the cascade doing the work:
-       1. raw lightness from the slider (0–1),
-       2. a step (no JS) that's 1 when the accent is on the dark side,
-       3. snap a mid-range pick to the nearest safe extreme — dark accents cap
-          at DARK_MAX (white label safe), light accents floor at LIGHT_MIN
-          (black label safe); the muddy middle is squeezed out,
-       4. bypass blends back to the raw value to expose the unsafe pick.
-     Overriding --seed-accent here (components layer) beats theming.css's
-     default (themes layer), and the engine's derivations pick it up. */
+  /* Live preview surface. Only the picked inputs are inline; the cascade does
+     the rest: raw L from the slider → a no-JS step (1 when the accent is dark)
+     → snap a mid pick to the nearest safe extreme (dark caps at DARK_MAX, light
+     floors at LIGHT_MIN; the muddy middle is squeezed out) → bypass blends back
+     to raw to expose the unsafe pick. Overriding --seed-accent here (components
+     layer) beats theming.css (themes layer). */
   .theme-picker-preview {
     --raw-l: calc(var(--pick-l) / 100);
     /* A big multiplier turns the sign of (0.62 − L) into a 0/1 step. */

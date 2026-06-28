@@ -1,11 +1,5 @@
 <template>
-  <!-- Opens a pillar like a chapter: a per-pillar mark, the numbered eyebrow,
-       the pillar title (the real <h2> for this region), and an optional lead.
-       The icon is decorative; the heading carries the accessible name. -->
   <header class="pillar-header">
-    <!-- Oversized echo of this pillar's mark, bleeding off the right edge as a
-         faint watermark. Purely decorative; static (no animation), so it costs
-         nothing at runtime. -->
     <span
       class="pillar-header-watermark"
       aria-hidden="true"
@@ -40,22 +34,16 @@ defineProps<{
     max-inline-size: 60ch;
   }
 
-  /* Icon and title ride on one line, centred on each other, so the mark
-     anchors the heading instead of floating above it. The eyebrow sits on its
-     own line above. */
   .pillar-header-top {
     display: flex;
     align-items: center;
     gap: var(--space-4);
   }
 
-  /* Pull the eyebrow close to the icon/title row it labels. */
   .pillar-header-eyebrow + .pillar-header-top {
     margin-block-start: calc(var(--space-4) * -1 + var(--space-2));
   }
 
-  /* App-icon style tile, echoing the favicon: the mark sits in a soft rounded
-     square so each pillar opens with a clear visual anchor. */
   .pillar-header-icon {
     display: inline-flex;
     flex-shrink: 0;
@@ -78,19 +66,16 @@ defineProps<{
     block-size: 2rem;
   }
 
-  /* The giant watermark: positioned against the .pillar (App.vue gives it
-     position: relative + isolation), bleeding off the right edge where
-     overflow-x: clip on the app shell hides the overspill — no scrollbar. Sits
-     at z-index -1, behind the chapter's content. Faint, so it never competes
-     with text; opaque demo cards paint over it entirely. */
+  /* Bleeds off the right edge of the .pillar (App.vue gives it position +
+     isolation); overflow-x: clip on the shell hides the overspill. z-index -1,
+     behind the chapter's content. */
   .pillar-header-watermark {
     position: absolute;
     z-index: -1;
     inset-block-start: -2rem;
     inset-inline-end: 0;
-    /* Mobile-first: smaller and pushed further off the edge. The narrow layout
-       has no side gutter, so a big mark would sit right under the text — this
-       keeps it a corner sliver and protects the contrast ratio. */
+    /* Mobile: smaller and pushed further off — the narrow layout has no gutter,
+       so a big mark would sit under the text. */
     inline-size: 16rem;
     block-size: 16rem;
     color: var(--color-primary);
@@ -98,19 +83,14 @@ defineProps<{
     transform: translateX(52%) rotate(-12deg);
     pointer-events: none;
 
-    /* Desktop: much larger, and bled further past the edge (the app shell's
-       overflow-x: clip hides the overspill, so there's still no scrollbar). */
     @include from('md') {
       inline-size: 36rem;
       block-size: 36rem;
       transform: translateX(46%) rotate(-12deg);
     }
 
-    /* Parallax: the mark drifts slower than the content for a sense of depth.
-       It animates the `translate` property only (composited, off the main
-       thread via the element's own view-timeline), so it adds no paint cost
-       while scrolling — unlike colour/gradient animation. Support + motion
-       gated; without either, the mark is simply static. */
+    /* Animates `translate` only, so the parallax stays composited — no paint
+       cost on scroll. Static where motion or view-timelines aren't available. */
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) {
         animation: pillar-watermark-parallax linear both;
@@ -119,7 +99,6 @@ defineProps<{
       }
     }
 
-    /* Decorative flourish — drop it where the OS flattens the palette. */
     @include forced-colors {
       display: none;
     }
@@ -128,12 +107,9 @@ defineProps<{
   .pillar-header-watermark :deep(svg) {
     inline-size: 100%;
     block-size: 100%;
-    /* Thinner stroke reads better blown up to poster scale. */
     stroke-width: 1;
   }
 
-  /* Lag the mark behind the scroll — the `translate` runs opposite the travel,
-     so the watermark appears to move slower than the foreground. */
   @keyframes pillar-watermark-parallax {
     from {
       translate: 0 -30%;
@@ -152,7 +128,6 @@ defineProps<{
   }
 
   .pillar-header-title {
-    /* A mini-poster scale — smaller than the hero, larger than a section. */
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;
     line-height: var(--leading-tight);

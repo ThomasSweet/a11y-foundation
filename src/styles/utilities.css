@@ -1,22 +1,12 @@
 /* =============================================================================
-   utilities.css
-
-   Single-purpose helper classes. The `utilities` layer sits above
-   `components`, so a utility applied to an element reliably wins over
-   that component's own styles — no !important needed.
+   utilities.css — single-purpose helpers. The `utilities` layer sits above
+   `components`, so a utility reliably wins over component styles, no !important.
 ============================================================================= */
 
 @layer utilities {
 
-  /* ---------------------------------------------------------------------------
-     Visually hidden ("sr-only")
-     Hides content visually while keeping it available to screen readers.
-     Use for: labels on icon-only buttons, table captions, live-region text,
-     headings that structure a page for AT but aren't shown.
-
-     The -focusable variant becomes visible when focused — the building
-     block for skip links.
-  --------------------------------------------------------------------------- */
+  /* Visually hidden ("sr-only") — hidden visually, available to screen readers.
+     The -focusable variant becomes visible on focus (skip-link building block). */
   .visually-hidden,
   .visually-hidden-focusable:not(:focus, :focus-within) {
     position: absolute;
@@ -31,15 +21,8 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     Skip link
-     Usage:
-       <a class="skip-link visually-hidden-focusable" href="#main">
-         Skip to main content
-       </a>
-     Place as the first focusable element in <body>; give <main> the
-     matching id and tabindex="-1".
-  --------------------------------------------------------------------------- */
+  /* Skip link — first focusable element in <body>, pointing at <main> (which
+     needs the matching id and tabindex="-1"). Pairs with -focusable above. */
   .skip-link {
     position: absolute;
     inset-block-start: var(--space-2);

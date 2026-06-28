@@ -12,8 +12,7 @@
     </label>
 
     <div class="animation-stage">
-      <!-- :key remounts the panel on each click, replaying the CSS entry
-           animation — a clean interaction-triggered motion. -->
+      <!-- :key remounts the panel on each click, replaying the entry animation. -->
       <article :key="playId" class="animation-panel">
         <p class="animation-panel-title">Message sent</p>
         <p class="animation-panel-text">Your changes are saved.</p>
@@ -40,9 +39,8 @@ const playId = ref(0)
 <style scoped lang="scss">
 @layer components {
   .animation-demo {
-    /* One switch governs all motion: 0 = motion allowed, 1 = suppressed.
-       The compliant cascade flips it to 1 when the preference is set
-       (simulated OR real); the broken state forces it back to 0. */
+    /* One switch for all motion: 0 = allowed, 1 = suppressed. Compliant flips
+       it to 1 on the preference (simulated or real); broken forces it to 0. */
     --rm: 0;
 
     display: grid;

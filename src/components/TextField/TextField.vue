@@ -2,9 +2,7 @@
   <div class="field">
     <label class="field-label" :for="inputId">
       {{ label }}
-      <!-- Visual convention only; aria-hidden so screen readers don't read
-           "star". The required state is already conveyed natively by the
-           input's required attribute. -->
+      <!-- aria-hidden: decorative; the input's `required` already conveys the state to AT. -->
       <span v-if="required" class="field-required" aria-hidden="true">*</span>
     </label>
     <p v-if="hint" :id="hintId" class="field-hint">{{ hint }}</p>
@@ -34,12 +32,10 @@ const props = withDefaults(
     error?: string
     type?: string
     required?: boolean
-    // A regex (HTML pattern syntax) to tighten native validation beyond what
-    // the type alone checks. Stays in the native constraint pipeline, so
-    // :user-invalid styling and the browser's validation message just work.
+    // Regex (HTML pattern) tightening native validation beyond the type; stays
+    // in the constraint pipeline, so :user-invalid styling just works.
     pattern?: string
-    // Describes the expected format; shown in the browser's native validation
-    // popup when a pattern fails.
+    // Shown in the browser's native validation popup when the pattern fails.
     title?: string
     // Defaults to a single space so :placeholder-shown can act as an
     // "is empty" detector in CSS (see the .field-input styles).

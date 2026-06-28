@@ -4,8 +4,7 @@
     gap: var(--space-6);
   }
 
-  /* Focusable scroll region: lets the table overflow horizontally on narrow
-     screens while staying reachable and operable by keyboard. */
+  /* Focusable scroll region so the table can overflow horizontally, still keyboard-operable. */
   .coverage-matrix-scroll {
     overflow-x: auto;
 
@@ -76,8 +75,7 @@
     text-align: center;
   }
 
-  /* The glyph carries the verdict together with colour and the visually-hidden
-     label — so it survives greyscale, low vision, and forced-colors. */
+  /* Glyph + visually-hidden label carry the verdict, not colour alone. */
   .coverage-matrix-glyph {
     font-size: var(--text-lg);
     line-height: 1;
@@ -112,8 +110,7 @@
     }
   }
 
-  /* Zebra striping aids row tracking across a wide table; decorative only, so
-     it carries no meaning and drops cleanly under forced-colors. */
+  /* Decorative zebra striping — drops cleanly under forced-colors. */
   tbody tr:nth-child(even) {
     background-color: color-mix(in oklch, var(--color-bg-subtle) 50%, transparent);
 

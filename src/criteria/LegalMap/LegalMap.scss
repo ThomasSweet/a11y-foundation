@@ -5,8 +5,6 @@
     gap: var(--space-6);
   }
 
-  /* The core sits above the laws; the accent gradient marks it as the thing
-     everything else references. */
   .legal-map-core {
     display: grid;
     gap: var(--space-1);

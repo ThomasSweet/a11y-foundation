@@ -1,8 +1,7 @@
 <template>
   <div class="anchor-demo">
-    <!-- popover + popovertarget: open/close, Esc-to-dismiss, light
-         dismiss, and aria-expanded all come from the platform — zero JS.
-         Attributes fall through to AppButton's <button>. -->
+    <!-- popover + popovertarget: open/close, Esc, light-dismiss, aria-expanded
+         all from the platform — zero JS. Attrs fall through to AppButton's <button>. -->
     <AppButton
       variant="secondary"
       class="anchor-trigger"
@@ -50,21 +49,15 @@ const popoverId = useId()
 
     /* The enhancement, only where the feature exists. */
     @supports (anchor-name: --a) {
-      /* Keep the UA popover's `position: fixed`, NOT absolute. With absolute,
-         the containing block becomes the nearest positioned ancestor
-         (.app-shell is `position: relative` and full-page-tall), so the panel
-         never "overflows" at the viewport edge and the flip fallbacks never
-         fire. Fixed resolves against the viewport, so flipping works. */
+      /* Keep `position: fixed`, NOT absolute. Absolute would resolve against
+         .app-shell (positioned, full-page-tall), so the panel never overflows
+         the viewport edge and the flip fallbacks never fire. */
       position: fixed;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;
-      /* Clear the UA popover centering (inset: 0; margin: auto) — left in
-         place it fights position-area and the panel renders centered
-         instead of anchored. */
+      /* Clear the UA centering (inset:0; margin:auto) or it fights position-area. */
       inset: auto;
-      /* Try in order until one fits: flip below↔above, flip the inline
-         side, then flip both for the corner case. The browser keeps the
-         panel on-screen with no JS and no scroll listeners. */
+      /* Try until one fits: flip block, flip inline, then both for the corner. */
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
       margin: var(--space-2) 0 0;
     }

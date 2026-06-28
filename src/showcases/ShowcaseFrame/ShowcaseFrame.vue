@@ -82,18 +82,9 @@ const props = withDefaults(
   defineProps<{
     title: string
     summary: string
-    /**
-     * 'stable'   — interoperable across current browsers (Baseline / past
-     *              Interop rounds). Safe to rely on.
-     * 'emerging' — current Interop focus area or partial support. Always
-     *              ship behind @supports with a usable fallback.
-     */
+    /** 'stable' = interoperable now; 'emerging' = Interop area / partial support. */
     status?: 'stable' | 'emerging'
-    /**
-     * A CSS.supports() condition for the feature being demonstrated, e.g.
-     * "container-type: inline-size". Tells the visitor whether they're
-     * seeing the feature or its fallback.
-     */
+    /** CSS.supports() condition for the feature, e.g. "container-type: inline-size". */
     supports?: string
     links?: ShowcaseLink[]
     /** Match the surrounding document outline (4 = under an h3 group). */

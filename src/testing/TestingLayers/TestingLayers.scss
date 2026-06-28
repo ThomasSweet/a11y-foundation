@@ -6,8 +6,7 @@
     padding: 0;
     list-style: none;
 
-    /* Two-up once there's room; the order still reads base → top down each
-       column, which the numbered labels reinforce. */
+    /* Two-up once there's room; numbered labels keep the base→top order clear. */
     @include from('md') {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -52,8 +51,7 @@
     color: var(--color-text-subtle);
   }
 
-  /* A small inline label so the catches/blind-spot split reads at a glance —
-     never colour alone, the word itself carries it. */
+  /* Inline label so the catches/blind-spot split reads without colour alone. */
   .testing-layers-tag {
     display: inline-block;
     margin-inline-end: var(--space-1);

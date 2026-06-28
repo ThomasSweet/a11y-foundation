@@ -1,9 +1,5 @@
 /* =============================================================================
-   layers.css
-
-   Declares the @layer stack for the entire project.
-   Import this file FIRST — before any other CSS.
-
+   layers.css — the @layer stack. Import FIRST, before any other CSS.
    Layer order = cascade priority (last declared = highest priority).
 
    ⚠ THE ONE RULE THAT MAKES THIS WORK:

@@ -236,8 +236,7 @@
 
     .anchor-tooltip-bubble {
       /* Fixed + anchor positions against the trigger in the viewport, so the
-         hint follows on scroll AND can't be clipped by the card's overflow —
-         which absolute-in-a-relative-wrapper can't guarantee. */
+         hint follows on scroll and can't be clipped by the card's overflow. */
       position: fixed;
       inset: auto;
       translate: none;

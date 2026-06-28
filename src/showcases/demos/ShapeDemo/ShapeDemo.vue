@@ -1,8 +1,7 @@
 <template>
   <div class="shape-demo">
     <article class="shape-card">
-      <!-- Purely decorative: the curved band carries no text, so if its
-           background vanishes in forced-colors mode no information is lost. -->
+      <!-- Decorative: the band carries no text, so losing it in forced-colors loses nothing. -->
       <div class="shape-banner" aria-hidden="true">
         <span class="shape-banner-glyph">◗</span>
       </div>
@@ -50,10 +49,8 @@
     background: var(--gradient-accent);
     color: #fff;
 
-    /* The enhancement: a curved bottom edge. Falls back to a plain
-       rectangular band where shape() isn't supported. (The test needs a
-       command — `shape(from 0 0)` alone is invalid, so it would always
-       report false.) */
+    /* Curved bottom edge; falls back to a plain band without shape(). The
+       @supports test needs a command — `shape(from 0 0)` alone is invalid. */
     @supports (clip-path: shape(from 0 0, line to 100% 0)) {
       clip-path: shape(
         from 0 0,

@@ -92,10 +92,8 @@ const items = [
     }
   }
 
-  /* The regression: drop the scroll offset so a link tabbed to near the
-     top scrolls flush under the sticky bar — the focus ring ends up hidden
-     behind it. Nothing else changes; focus still moves correctly, you just
-     can't see where it is. */
+  /* The regression: drop the scroll offset, so a link tabbed near the top
+     scrolls flush under the sticky bar and its focus ring is hidden. */
   .is-broken {
     .focus-obscured-link {
       scroll-margin-block-start: 0;

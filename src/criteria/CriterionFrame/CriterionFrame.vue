@@ -14,9 +14,8 @@
 
     <p class="criterion-requirement">{{ requirement }}</p>
 
-    <!-- The demo is compliant by default. `broken` is handed to the demo
-         via the slot prop so it can regress its OWN styles; the wrapper
-         class is just for the frame's danger outline. -->
+    <!-- `broken` passes to the demo via the slot prop so it regresses its own
+         styles; the wrapper class is just the frame's danger outline. -->
     <div class="criterion-demo" :class="{ 'is-broken': broken }">
       <slot :broken="broken" />
     </div>
@@ -60,11 +59,9 @@ const props = withDefaults(
     version: string // e.g. "WCAG 2.2"
     principle: string // Perceivable | Operable | …
     requirement: string
-    // What the toggle does, and what it says once broken.
     breakLabel?: string
     restoreLabel?: string
-    // Each criterion explains its own pass / fail state — the failure text
-    // is the teaching moment.
+    // Pass/fail copy per criterion — the failure text is the teaching moment.
     passText: string
     failText: string
     links?: CriterionLink[]

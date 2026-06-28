@@ -32,10 +32,9 @@ const chips = ['Unread', 'Starred']
 <style scoped lang="scss">
 @layer components {
   .non-text-contrast-demo {
-    /* The single border color the controls share. Compliant value sits at
-       ~3.5:1 against the surface in both themes; the broken override drops
-       it to ~1.2:1. Hardcoded here because the contrast ratio IS the
-       subject of the demo — not part of the design-token system. */
+    /* Shared control border. Compliant ~3.5:1 vs the surface in both themes;
+       broken drops it to ~1.2:1. Hardcoded because the ratio IS the demo's
+       subject, not a design token. */
     --demo-border: light-dark(#8a8a8a, #8f8f8f);
 
     display: grid;
@@ -63,8 +62,7 @@ const chips = ['Unread', 'Starred']
     color: var(--color-text);
 
     @include forced-colors {
-      /* Forced-colors is the OS-level safety net: it overrides author
-         colors entirely, so these controls stay visible no matter what. */
+      /* Forced-colors safety net: overrides author colours, so controls stay visible. */
       border-color: ButtonText;
     }
   }
@@ -104,9 +102,8 @@ const chips = ['Unread', 'Starred']
     }
   }
 
-  /* The regression: wash the shared border color down to ~1.2:1 against
-     the surface. Nothing else changes — the controls keep their size,
-     labels, and behaviour; only the contrast of their boundary fails. */
+  /* The regression: wash the shared border down to ~1.2:1. Nothing else
+     changes — only the boundary's contrast fails. */
   .is-broken {
     --demo-border: light-dark(#ededed, #292929);
   }

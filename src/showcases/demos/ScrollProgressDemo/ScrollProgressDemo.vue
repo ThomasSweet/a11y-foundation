@@ -1,6 +1,5 @@
 <template>
-  <!-- tabindex + role + label make the scroll region keyboard-operable
-       and announced — a scrollable div without these is mouse-only. -->
+  <!-- tabindex + role + label make the scroll region keyboard-operable and announced. -->
   <div
     class="scroll-demo"
     tabindex="0"
@@ -43,10 +42,8 @@
     background-color: var(--color-primary);
     transform-origin: 0 50%;
 
-    /* Hidden unless the browser can drive it from scroll position —
-       a frozen bar would read as "0% progress", which is worse than
-       no bar. Scroll-driven motion mirrors the user's own gesture,
-       so it needs no reduced-motion override. */
+    /* Hidden unless the browser can drive it from scroll — a frozen bar would
+       read as "0%". Scroll-linked motion mirrors the gesture, so no RM override. */
     display: none;
 
     @supports (animation-timeline: scroll()) {

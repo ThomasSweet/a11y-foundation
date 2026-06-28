@@ -1,8 +1,6 @@
 <template>
   <div class="text-wrap-demo">
-    <!-- Two columns of the SAME text so the wrapping difference is
-         visible side by side. The width is deliberately narrow to force
-         ragged line breaks. -->
+    <!-- The SAME text twice so the wrapping difference shows side by side; narrow on purpose. -->
     <figure class="text-wrap-col">
       <figcaption class="text-wrap-label">Default wrapping</figcaption>
       <h5 class="text-wrap-heading">{{ heading }}</h5>
@@ -30,9 +28,8 @@ const body =
 <style scoped lang="scss">
 @layer components {
   .text-wrap-demo {
-    /* Two columns when there's room, stacked when not — no media query.
-       The columns are capped (not 1fr) so the headings stay narrow enough to
-       wrap on wide screens, where the balance/pretty difference is visible. */
+    /* Capped columns (not 1fr) so headings stay narrow enough to wrap on wide
+       screens, where the balance/pretty difference shows. No media query. */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 18rem));
     justify-content: start;
@@ -63,8 +60,7 @@ const body =
     font-size: var(--text-lg);
     line-height: var(--leading-tight);
 
-    /* balance evens out line lengths across a short block (headings,
-       captions) — best kept to a few lines, which is its sweet spot. */
+    /* balance evens line lengths across a short block (headings) — its sweet spot. */
     &--balance {
       text-wrap: balance;
     }
@@ -74,8 +70,7 @@ const body =
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
 
-    /* pretty targets the LAST line, preventing orphans — cheap enough to
-       use on body copy where balance would be too costly. */
+    /* pretty targets the last line (orphans) — cheap enough for body copy. */
     &--pretty {
       text-wrap: pretty;
     }

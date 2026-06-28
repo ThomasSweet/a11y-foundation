@@ -1,6 +1,5 @@
-/* All SFC styles live in the components layer so the utilities and
-   preferences layers can override them — see layers.css.
-   Library mixins are injected via Vite's additionalData, so no @use here. */
+/* SFC styles go in the components layer so utilities/preferences can override
+   them (see layers.css). Mixins come from Vite's additionalData, so no @use. */
 @layer components {
   .button {
     display: inline-flex;

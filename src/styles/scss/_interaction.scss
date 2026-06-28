@@ -1,43 +1,15 @@
 // =============================================================================
-// _interaction.scss
+// _interaction.scss — pointer / hover capability mixins.
 //
-// Mixins for pointer and hover capability detection.
-//
-// These mixins should enhance experiences — never use them to gate features.
-// A user may switch between input modes mid-session (e.g. plugging in a mouse).
-//
-// Target sizes: do NOT rely on touch-primary() to make targets big enough.
-// Small targets also hurt mouse users with motor impairments. base.css
-// applies the WCAG 2.5.8 (AA) 24px minimum to all interactive elements;
-// use touch-primary() only to raise that toward the 44px best practice
-// (WCAG 2.5.5, AAA) on coarse pointers.
-//
-// Usage:
-//   @include can-hover { ... }
-//   @include touch-primary { ... }
-//
-// Mixin order within a selector block:
-//   1. Base styles (no mixin)
-//   2. from() / between()
-//   3. can-hover()       — hover and fine-pointer enhancements
-//   4. touch-primary()   — coarse-pointer / touch target adjustments
+// Enhance, never gate: a user may switch input modes mid-session. And don't
+// rely on touch-primary() for target size — base.css already applies the WCAG
+// 2.5.8 (AA) 24px minimum to all interactive elements; touch-primary() only
+// raises that toward the 44px best practice (WCAG 2.5.5, AAA) on coarse pointers.
+// Order in a block: base → from()/between() → can-hover() → touch-primary().
 // =============================================================================
 
 
-// can-hover()
-// Applies styles only when the primary input device supports hover
-// and has fine pointer precision (e.g. mouse, trackpad).
-//
-// Use for: hover effects, tooltip triggers, reduced padding on interactive elements.
-//
-// Example:
-//   .button {
-//     @include can-hover {
-//       &:hover {
-//         background-color: var(--color-primary-hover);
-//       }
-//     }
-//   }
+// can-hover() — primary input supports hover with fine pointer (mouse/trackpad).
 
 @mixin can-hover {
   @media (hover: hover) and (pointer: fine) {
@@ -46,21 +18,8 @@
 }
 
 
-// touch-primary()
-// Applies styles when the primary input is a coarse pointer (e.g. finger on touchscreen).
-//
-// Use for: enlarging touch targets beyond the 24px base minimum,
-// removing hover-only affordances, increasing spacing between
-// interactive elements.
-//
-// Example:
-//   .nav-item {
-//     padding: var(--space-2) var(--space-4);
-//
-//     @include touch-primary {
-//       padding: var(--space-3) var(--space-4); // toward the 44px best practice
-//     }
-//   }
+// touch-primary() — primary input is a coarse pointer (touch). Enlarge targets
+// beyond the 24px base, drop hover-only affordances, add spacing.
 
 @mixin touch-primary {
   @media (pointer: coarse) {

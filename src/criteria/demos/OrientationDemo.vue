@@ -9,9 +9,7 @@
 
     <div class="orientation-stage">
       <div class="orientation-device">
-        <!-- Both states are always in the DOM; CSS shows the right one for
-             the current orientation + rule state, so only orientation
-             handling changes between compliant and broken. -->
+        <!-- Both states stay in the DOM; CSS shows the right one per orientation + rule state. -->
         <div class="orientation-screen">
           <p class="orientation-screen-title">Today</p>
           <p class="orientation-screen-row">7,204 steps</p>
@@ -74,8 +72,7 @@ const landscape = ref(false)
     }
   }
 
-  /* Rotating swaps the device's dimensions. The .is-landscape class lives
-     on the demo root, so the device is targeted as a descendant. */
+  /* Rotating swaps the device's dimensions (.is-landscape sits on the root). */
   .is-landscape .orientation-device {
     inline-size: 17rem;
     block-size: 11rem;

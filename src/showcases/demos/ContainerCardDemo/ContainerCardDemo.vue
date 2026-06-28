@@ -12,13 +12,10 @@
       <span aria-hidden="true">{{ width }}%</span>
     </label>
 
-    <!-- The container under test. Width is driven by the slider above
-         (keyboard-accessible, unlike a CSS resize handle), so you can
-         watch the cards respond to their container — the viewport never
-         changes. -->
+    <!-- Width driven by the slider (keyboard-accessible, unlike a resize handle),
+         so the cards respond to their container, not the viewport. -->
     <div class="container-query-stage" :style="{ inlineSize: `${width}%` }">
-      <!-- The wrapper is the container, the card inside responds to it.
-           A container can't query itself — only its descendants can. -->
+      <!-- The wrapper is the container; a container can't query itself, only descendants. -->
       <div v-for="card in cards" :key="card.title" class="card-cell">
         <article class="card">
           <div class="card-swatch" aria-hidden="true"></div>

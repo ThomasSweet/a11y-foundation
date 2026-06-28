@@ -42,9 +42,8 @@ interface Layer {
   here: string[]
 }
 
-// Bottom of the pyramid first: cheap and broad, narrowing to slow-but-
-// irreplaceable. Each layer's `here` points at the real artifact in THIS repo,
-// so the model isn't abstract — it's the test suite you can open and run.
+// Bottom of the pyramid first (cheap and broad → slow but irreplaceable). Each
+// layer's `here` points at the real artifact in this repo.
 const layers: Layer[] = [
   {
     n: '01',

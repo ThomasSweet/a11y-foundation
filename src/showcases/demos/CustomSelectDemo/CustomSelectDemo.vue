@@ -14,9 +14,8 @@
     <label class="custom-select-field">
       <span class="custom-select-label">Task status</span>
 
-      <!-- A button + <selectedcontent> is the styleable display face in
-           base-select mode; legacy browsers ignore them and render the plain
-           native control instead. -->
+      <!-- The button + <selectedcontent> is the styleable face in base-select
+           mode; legacy browsers ignore them and render the plain control. -->
       <select id="custom-select-status" name="status" class="custom-select">
         <button type="button" class="custom-select-trigger">
           <selectedcontent class="custom-select-value"></selectedcontent>
@@ -84,8 +83,7 @@
     font-weight: 600;
   }
 
-  /* Baseline styling that applies in BOTH modes — even the native fallback
-     gets a tidy border, padding, and the theme's colours. */
+  /* Baseline styling for both modes — even the native fallback gets a tidy border. */
   .custom-select {
     padding: var(--space-2) var(--space-3);
     border: 1px solid var(--color-border);
@@ -99,9 +97,8 @@
     }
   }
 
-  /* The enhancement: opt the control AND its picker popup into full styling.
-     Everything below only takes effect where base-select is supported; the
-     markup degrades to a normal native select otherwise. */
+  /* The enhancement: opt the control and its picker popup into full styling,
+     only where base-select is supported (degrades to a native select). */
   @supports (appearance: base-select) {
     /* stylelint-disable property-no-unknown -- emerging customizable-select syntax */
     .custom-select,
@@ -118,9 +115,8 @@
       cursor: pointer;
     }
 
-    /* The trigger fully coincides with the <select> box (same width, ≥44px
-       tall) so the control reads as ONE target — not a sliver of select
-       peeking past a smaller button, which trips target-size checks. */
+    /* Trigger fully covers the <select> box (full width, ≥44px) so it's ONE
+       target — no select sliver peeking past a smaller button (target size). */
     .custom-select-trigger {
       display: flex;
       align-items: center;
@@ -148,8 +144,8 @@
       }
     }
 
-    /* The selected option's content is mirrored into <selectedcontent>; hide
-       the long description there so the closed control stays compact. */
+    /* Selected content is mirrored into <selectedcontent>; hide the long
+       description so the closed control stays compact. */
     .custom-select-value {
       flex: 1;
 
@@ -158,8 +154,7 @@
       }
     }
 
-    /* The UA renders its own ::picker-icon (outside our button, on its own
-       line) — hide it and use one custom arrow inside the trigger instead. */
+    /* Hide the UA's ::picker-icon; use our own arrow inside the trigger. */
     .custom-select::picker-icon {
       display: none;
     }
@@ -177,12 +172,10 @@
       rotate: 225deg;
     }
 
-    /* The dropdown popup. base-select auto-anchors it to the control, so no
-       manual anchor wiring — just style it like any surface. */
+    /* The popup — base-select auto-anchors it, so no manual anchor wiring. */
     .custom-select::picker(select) {
       margin-block-start: var(--space-1);
-      /* Keep a generous floor before the popup shrinks-and-scrolls or flips to
-         the other side — it only gives way when there's genuinely no room. */
+      /* Generous floor before the popup shrinks/flips — gives way only when there's no room. */
       min-block-size: 12rem;
       padding: var(--space-1);
       border: 1px solid var(--color-border);
@@ -209,8 +202,7 @@
       }
     }
 
-    /* The active option already shows a checkmark; tint it so the current
-       value reads at a glance (never colour alone — the ✓ carries it too). */
+    /* Tint the active option so it reads at a glance (never colour alone — the ✓ carries it). */
     .custom-select option:checked {
       background-color: color-mix(in oklch, var(--color-primary) 14%, transparent);
 
@@ -231,8 +223,7 @@
       }
     }
 
-    /* A soft open/close fade on the popup. It rides the motion tokens, which
-       are zeroed under reduced-motion globally — so no override needed here. */
+    /* Open/close fade on the popup — rides the motion tokens (zeroed under reduced motion). */
     .custom-select::picker(select) {
       opacity: 0;
       transition:

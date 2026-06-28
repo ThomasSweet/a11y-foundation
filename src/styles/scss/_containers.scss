@@ -1,34 +1,20 @@
 // =============================================================================
-// _containers.scss
+// _containers.scss — container-query mixins, the component-level counterpart
+// to _breakpoints.
 //
-// Container query mixins — the component-level counterpart to _breakpoints.
+// Prefer these over from()/between() whenever a component should respond to the
+// space it gets, not the viewport. Em-based like the breakpoints (em resolves
+// against the container's font size — same a11y rationale, per-component).
 //
-// Prefer these over from()/between() whenever a component should respond to
-// the space it actually gets, not the viewport. Combined with intrinsic
-// sizing patterns (auto-fit/minmax grids, flex-wrap), most layouts need no
-// viewport media queries at all; reserve from()/between() for true
-// page-level composition (shells, navigation).
-//
-// Sizes are em-based, like the breakpoints: in a container query, em
-// resolves against the container's font size, so component layouts adapt
-// when users raise their base font size — same a11y rationale as the
-// viewport breakpoints, applied per-component.
-//
-// The element being queried must establish a container first:
-//   .sidebar { container-type: inline-size; }          // anonymous
-//   .sidebar { container: sidebar / inline-size; }     // named
-//
-// Usage:
-//   @include cq-from('sm') { ... }                 // nearest container
-//   @include cq-from('md', 'sidebar') { ... }      // named container
-//   @include cq-between('xs', 'md') { ... }
+// The queried element must establish a container first:
+//   .sidebar { container-type: inline-size; }        // anonymous
+//   .sidebar { container: sidebar / inline-size; }   // named
 // =============================================================================
 
 @use 'sass:map';
 
-// Container size token map.
-// Deliberately separate from $breakpoints — containers are component-scale,
-// so the steps start smaller and stop earlier than viewport breakpoints.
+// Container size token map — deliberately separate from $breakpoints;
+// component-scale, so steps start smaller and stop earlier.
 $container-sizes: (
   'xs': 16em,   // 256px — icon-and-label territory
   'sm': 24em,   // 384px — single column card
@@ -37,11 +23,7 @@ $container-sizes: (
 ) !default;
 
 
-// cq-from($key, $name: null)
-// Applies styles when the (optionally named) container is at least $key wide.
-//
-// @param {String} $key  - A key from $container-sizes
-// @param {String} $name - Optional container-name to query
+// cq-from($key, $name: null) — when the (optionally named) container is at least $key wide.
 
 @mixin cq-from($key, $name: null) {
   $value: map.get($container-sizes, $key);
@@ -63,13 +45,8 @@ $container-sizes: (
 }
 
 
-// cq-between($lower, $upper, $name: null)
-// Applies styles between two container sizes (inclusive lower, exclusive
-// upper) — same range semantics as between().
-//
-// @param {String} $lower - Lower bound key from $container-sizes
-// @param {String} $upper - Upper bound key from $container-sizes
-// @param {String} $name  - Optional container-name to query
+// cq-between($lower, $upper, $name: null) — between two container sizes
+// (inclusive lower, exclusive upper); same range semantics as between().
 
 @mixin cq-between($lower, $upper, $name: null) {
   $min: map.get($container-sizes, $lower);

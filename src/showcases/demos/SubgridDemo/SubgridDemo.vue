@@ -9,8 +9,7 @@
 </template>
 
 <script setup>
-// Deliberately uneven content lengths — that's what makes the row
-// alignment visible. Without subgrid, each card sizes its own rows.
+// Deliberately uneven lengths — that's what makes the row alignment visible.
 const cards = [
   {
     title: 'Short',
@@ -40,10 +39,9 @@ const cards = [
 
   .subgrid-card {
     display: grid;
-    /* Each card spans three of the parent grid's rows and adopts them, so
-       title/text/meta line up ACROSS cards regardless of content length.
-       (Subgrid reached Baseline — widely available — in March 2026, so this
-       no longer needs an @supports fallback; baseline-watch confirmed it.) */
+    /* Each card spans and adopts three parent rows, so title/text/meta line up
+       across cards regardless of content length. (Subgrid hit Baseline Mar 2026
+       — no @supports fallback needed.) */
     grid-row: span 3;
     grid-template-rows: subgrid;
     gap: var(--space-2);

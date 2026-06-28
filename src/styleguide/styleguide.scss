@@ -1,6 +1,5 @@
-/* Layout for the living style-guide page. In the components layer so it follows
-   the project's "no unlayered CSS" rule and still loses to user-preference
-   layers. Library mixins are injected via Vite's additionalData. */
+/* Layout for the living style-guide page. In the components layer (the project's
+   "no unlayered CSS" rule); mixins come from Vite's additionalData. */
 @layer components {
   .guide {
     max-inline-size: 60rem;
@@ -270,7 +269,6 @@
     }
   }
 
-  /* Honour the user's request to reduce motion. */
   @include reduced-motion {
     .motion-swatch {
       transition: none;

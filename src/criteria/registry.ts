@@ -1,21 +1,13 @@
 /**
- * Criteria registry — the "guidelines, alive" section.
+ * Criteria registry — the "guidelines, alive" section. Each entry is a WCAG
+ * criterion this foundation satisfies, paired with a demo whose compliance can
+ * be toggled OFF (CriterionFrame's "break it" switch) so visitors feel what it
+ * prevents. App.vue renders the list.
  *
- * Each entry is a WCAG success criterion that this foundation already
- * satisfies, paired with a live demo whose compliance can be toggled OFF
- * (the "break it" switch in CriterionFrame) so the visitor *feels* what the
- * criterion prevents — not just reads its definition.
- *
- * To add a criterion:
- *   1. Build a demo in ./demos/ that is compliant by default and accepts a
- *      `broken` prop; in its scoped styles, an `.is-broken` block regresses
- *      ONLY the behaviour this criterion governs (keep semantics intact).
- *   2. Add an entry here. App.vue renders the list.
- *
- * Scope discipline: prefer criteria that (a) the foundation already
- * implements and (b) are recent additions (WCAG 2.1 / 2.2) — the "new"
- * material that design-system docs rarely cover. Don't try to cover all
- * ~80 criteria.
+ * To add one: build a demo in ./demos/ that's compliant by default and takes a
+ * `broken` prop whose `.is-broken` block regresses ONLY this criterion's
+ * behaviour (semantics intact), then add an entry. Prefer recent criteria
+ * (WCAG 2.1 / 2.2) the foundation already implements; don't cover all ~80.
  *
  * Sources: https://www.w3.org/WAI/WCAG22/Understanding/
  */
@@ -240,12 +232,8 @@ export const criteria: Criterion[] = [
 ]
 
 
-/* ===========================================================================
-   WCAG timeline — the narrative spine. Each era groups the criteria above by
-   their `version`; eras with no demos (the 2.0 foundation, the 3.0 draft)
-   carry a `note` instead. This is what turns the flat list into the "watch
-   the standard grow" story.
-=========================================================================== */
+/* WCAG timeline — groups the criteria above by `version`; eras with no demos
+   (2.0 foundation, 3.0 draft) carry a `note` instead. */
 
 export interface WcagEra {
   id: string

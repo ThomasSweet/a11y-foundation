@@ -1,31 +1,18 @@
 /**
- * Showcase registry — single source of truth for the CSS showcases section.
+ * Showcase registry — single source of truth for the CSS showcases section;
+ * App.vue renders this list grouped by status.
  *
- * To add a showcase:
- *   1. Build the demo in its own folder under ./demos/ — XDemo/XDemo.vue,
- *      keeping it small and focused on ONE feature (wrap new syntax in
- *      @supports with a usable fallback). Add at least one portable excerpt
- *      beside it (XDemo/XDemo.snippet.html / .css / .js) for "Show the code".
- *   2. Add an entry here, importing the component and snippet(s). App.vue
- *      renders everything from this list, grouped by status.
+ * To add one: build a small demo under ./demos/ (one feature, new syntax behind
+ * @supports with a fallback) plus a portable *.snippet.* excerpt, then add an
+ * entry here.
  *
- * status:
- *   'stable'   — interoperable in current Chrome, Firefox, and Safari
- *                (Baseline / completed Interop focus areas). May be used
- *                in the foundation itself.
- *   'emerging' — an active Interop focus area or feature with partial
- *                support. Demo only; always progressive enhancement.
+ * status: 'stable' = interoperable now (Baseline / done Interop areas), may be
+ * used in the foundation itself; 'emerging' = active Interop area / partial
+ * support, demo only, always progressive enhancement.
+ * supports = a CSS.supports() condition so ShowcaseFrame can tell visitors
+ * whether they see the feature or the fallback ('' when none applies).
  *
- * supports — a CSS.supports() condition so ShowcaseFrame can tell
- *   visitors whether they see the feature or the fallback. Leave '' when
- *   there is no demo yet or no clean supports check.
- *
- * Support policy for this repo: current browser versions only (roughly
- * the last two years). No fallbacks for anything older.
- *
- * Sources for status decisions:
- *   - https://wpt.fyi/interop-2026 (Interop dashboard)
- *   - https://web-platform-dx.github.io/web-features-explorer/ (Baseline)
+ * Sources: https://wpt.fyi/interop-2026, https://web-platform-dx.github.io/web-features-explorer/
  */
 
 import ContainerCardDemo from './demos/ContainerCardDemo/ContainerCardDemo.vue'
@@ -54,8 +41,7 @@ import DialogPolishDemo from './demos/DialogPolishDemo/DialogPolishDemo.vue'
 import ViewTransitionDemo from './demos/ViewTransitionDemo/ViewTransitionDemo.vue'
 import type { Component } from 'vue'
 
-// Portable code excerpts for the "Show the code" panels, authored as sibling
-// files next to each demo and imported raw (see the snippet fields below).
+// Portable "Show the code" excerpts, imported raw from each demo's sibling files.
 import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.snippet.html?raw'
 import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
 import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
@@ -101,14 +87,9 @@ export interface Showcase {
   summary: string
   links?: { label: string; href: string }[]
   component: Component
-  /** Extra props forwarded to the demo component, if any. */
   props?: Record<string, unknown>
-  /**
-   * Portable, hand-distilled code excerpts for the "Show the code" panel.
-   * Authored as sibling `*.snippet.html` / `*.snippet.css` files next to the
-   * demo and imported raw, so they live beside the source they teach but stay
-   * free of this repo's tokens, mixins, and @layer plumbing — copy-paste ready.
-   */
+  /** Portable excerpts for the "Show the code" panel — free of this repo's
+      tokens/mixins/@layer plumbing, so they stay copy-paste ready. */
   snippetHtml?: string
   snippetCss?: string
   /** Only for genuine JS-API features (Custom Highlight API, View Transitions). */
@@ -116,9 +97,7 @@ export interface Showcase {
 }
 
 export const showcases: Showcase[] = [
-  /* ---------------------------------------------------------------------
-     Stable — interoperable everywhere, fair game for the foundation
-  --------------------------------------------------------------------- */
+  /* Stable — interoperable everywhere, fair game for the foundation. */
   {
     id: 'container-queries',
     title: 'Container queries',
@@ -257,9 +236,7 @@ export const showcases: Showcase[] = [
     snippetHtml: popoverSnippetHtml,
   },
 
-  /* ---------------------------------------------------------------------
-     Emerging — Interop 2026 focus areas, demos only, behind @supports
-  --------------------------------------------------------------------- */
+  /* Emerging — Interop 2026 focus areas; demos only, behind @supports. */
   {
     id: 'anchor-positioning',
     title: 'Anchor positioning',
