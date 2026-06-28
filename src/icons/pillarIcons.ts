@@ -1,11 +1,6 @@
 /**
- * Pillar marks — the four decorative line icons, one per pillar.
- *
- * Stroke-based so they echo the brand's focus-ring motif, on a shared 24×24
- * geometry so the set reads as one family. Used twice: as each pillar's small
- * header tile, and — blown up, faint, and rotated — as the oversized
- * watermarks behind the hero and each pillar. Decorative only (always
- * rendered aria-hidden); the headings carry the accessible names.
+ * The four pillar marks — shared by PillarHeader (small header tile) and the
+ * hero (oversized watermark). Decorative; always rendered aria-hidden.
  */
 const svg = (paths: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`

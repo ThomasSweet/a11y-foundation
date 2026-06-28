@@ -9,9 +9,8 @@
       forces <code>scroll-behavior: auto</code> there).
     </p>
 
-    <!-- The scroller is the focusable region; the cards stay a real list
-         inside it, so screen readers still announce "list, 5 items" (a
-         role="region" on the <ul> itself would strip that list semantics). -->
+    <!-- Scroller is the focusable region; the cards stay a list inside it (role
+         on the <ul> would strip "list, 5 items"). -->
     <div
       class="snap-track"
       tabindex="0"
@@ -57,8 +56,7 @@ const cards = [
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
 
-    /* It's a focusable scroll container, so give it the same ring as
-       everything else — the foundation only auto-rings :focus-visible. */
+    /* Focusable scroll container — give it the standard focus ring. */
     border-radius: var(--radius-md);
 
     &:focus-visible {

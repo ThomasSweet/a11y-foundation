@@ -83,9 +83,8 @@ const metrics = [
     /* Fallback today: a custom property mirrors the data value. */
     inline-size: calc(var(--v, 0) * 1%);
 
-    /* The point of the feature: read it straight from the attribute, with
-       no inline style or JS at all. (Sass reads the <number> type as
-       comparison operators, so its operator rule is silenced here.) */
+    /* The feature: read straight from the attribute, no inline style or JS.
+       (Sass reads the <number> type as operators, so that rule is silenced.) */
     /* stylelint-disable scss/operator-no-unspaced */
     @supports (width: calc(attr(data-value type(<number>), 0) * 1%)) {
       inline-size: calc(attr(data-value type(<number>), 0) * 1%);

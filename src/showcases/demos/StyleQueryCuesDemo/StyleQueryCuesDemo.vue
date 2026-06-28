@@ -15,9 +15,8 @@
       <span>Add non-color cues</span>
     </label>
 
-    <!-- No JS: --cues is set on the demo root in CSS, where :has() reads this
-         checkbox. It inherits down to each status, where the style query reads
-         it and adds shapes to statuses that don't know about it. -->
+    <!-- No JS: :has() flips --cues on the root; it inherits down to each status,
+         where the style query reads it and adds shapes. -->
     <ul class="service-list">
       <li v-for="s in services" :key="s.name" class="service">
         <span class="service-name">{{ s.name }}</span>
@@ -52,9 +51,7 @@ const services: { name: string; state: State }[] = [
 <style scoped lang="scss">
 @layer components {
   .cues-demo {
-    /* The toggle's state lives here, set purely in CSS: :has() reads the
-       checkbox and flips --cues, which inherits down to every status where
-       the style query below reads it. No JS drives this. */
+    /* :has() reads the checkbox and flips --cues (inherits to every status). */
     --cues: off;
 
     display: grid;
@@ -127,10 +124,8 @@ const services: { name: string; state: State }[] = [
     }
   }
 
-  /* The container style query: when --cues is on (inherited from .cues-demo),
-     swap the colored dot for a colored SHAPE on the neutral row — a cue that
-     survives any color-vision deficiency. No status element references
-     --cues; the query reaches them from their ancestor. */
+  /* Style query: when --cues is on (inherited), swap the dot for a SHAPE that
+     survives any colour-vision deficiency — no status element references --cues. */
   @container style(--cues: on) {
     .service-status {
       background-color: transparent;

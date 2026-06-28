@@ -61,15 +61,13 @@ const selected = ref<string[]>([])
       border-color var(--duration-fast) var(--easing-standard),
       background-color var(--duration-fast) var(--easing-standard);
 
-    /* Transient: the row is being interacted with. The checkbox keeps its
-       own native focus ring — this is just a soft backdrop, the job
-       :focus-within is actually meant for. */
+    /* Transient: a soft backdrop while focused — the job :focus-within is for.
+       The checkbox keeps its own native focus ring. */
     &:focus-within {
       background-color: var(--color-bg-subtle);
     }
 
-    /* Persistent: the row is selected — :has() reaching its descendant's
-       checked state. This is the part :focus-within can't replicate. */
+    /* Persistent: selected via :has(:checked) — what :focus-within can't do. */
     &:has(:checked) {
       border-color: var(--color-primary);
       background-color: var(--color-bg-subtle);

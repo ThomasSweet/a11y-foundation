@@ -93,9 +93,8 @@ const active = reactive({})
     }
   }
 
-  /* The regression: drop well under 24px and remove the spacing, so the
-     targets become cramped and easy to mis-tap. Nothing else changes —
-     the buttons keep their labels and semantics; only 2.5.8 is violated. */
+  /* The regression: drop well under 24px and remove spacing, so targets are
+     cramped and easy to mis-tap; only 2.5.8 is violated. */
   .is-broken {
     .target-size-toolbar {
       gap: 0;

@@ -1,6 +1,5 @@
-/* Layout for the standalone legal pages (Impressum, Privacy). Wrapped in the
-   components layer so it follows the project's "no unlayered CSS" rule and
-   loses to user-preference layers like everything else. */
+/* Layout for the standalone legal pages (Impressum, Privacy). In the components
+   layer (the project's "no unlayered CSS" rule). */
 @layer components {
   .legal {
     max-inline-size: 70ch;

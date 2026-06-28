@@ -50,9 +50,8 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     font-weight: 600;
     cursor: pointer;
 
-    /* Compliant: nothing here. The foundation's global *:focus-visible ring
-       (preferences layer — the thick, offset, high-contrast token ring)
-       already applies and easily meets 2.4.13. */
+    /* Compliant: nothing here — the foundation's global *:focus-visible ring
+       (preferences layer) already applies and meets 2.4.13. */
 
     @include high-contrast {
       border-color: currentcolor;
@@ -63,11 +62,9 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     }
   }
 
-  /* The regression: a hairline, low-contrast, zero-offset outline. Because
-     the foundation's ring lives in the preferences layer (which wins over
-     components), the only way to defeat it is the classic anti-pattern —
-     overriding with !important. That this takes !important IS the lesson:
-     the foundation protects the ring; you have to actively fight it to fail. */
+  /* The regression: a hairline, zero-offset outline. The foundation's ring
+     lives in the preferences layer (which wins over components), so defeating
+     it takes !important — that it does IS the lesson: you must fight to fail. */
   .is-broken {
     .focus-appearance-btn:focus-visible {
       /* stylelint-disable declaration-no-important -- deliberately simulating the anti-pattern */

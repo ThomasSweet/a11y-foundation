@@ -99,8 +99,7 @@
     background-color: light-dark(#1a1a2e, #e6e6fa);
   }
 
-  /* The legacy swatch: base value + a media-query override. Identical result,
-     authored as two separate declarations that have to be kept in sync. */
+  /* The legacy swatch: base value + media-query override — two declarations to keep in sync. */
   .light-dark-swatch-legacy {
     background-color: #1a1a2e;
 

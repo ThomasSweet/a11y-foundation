@@ -1,10 +1,8 @@
 <template>
   <div class="coverage-matrix">
-    <!-- A real data table: row headers name the defect, column headers name the
-         test method. It's the honest semantic for a matrix — and a screen
-         reader can read any cell as "<issue>, <method>: <verdict>".
-         The wrapper is a focusable scroll region so the table can overflow
-         horizontally on a narrow viewport without trapping keyboard users. -->
+    <!-- A real data table (row/col headers), so a screen reader reads any cell
+         as "<issue>, <method>: <verdict>". The wrapper is a focusable scroll
+         region so it can overflow on narrow viewports without trapping keys. -->
     <div
       class="coverage-matrix-scroll"
       tabindex="0"
@@ -70,8 +68,7 @@ interface Issue {
   human: Verdict
 }
 
-// Ordered so the axe column reads top-to-bottom as a slope: the machine-
-// checkable defects first, the human-only ones last.
+// Ordered so the axe column reads top-to-bottom as a slope (machine-checkable first).
 const issues: Issue[] = [
   { issue: 'Text contrast below 4.5:1', sc: '1.4.3', axe: 'caught', kb: 'missed', human: 'caught' },
   { issue: 'Control has no accessible name', sc: '4.1.2', axe: 'caught', kb: 'missed', human: 'caught' },
@@ -85,8 +82,7 @@ const issues: Issue[] = [
   { issue: 'Status change not announced', sc: '4.1.3', axe: 'missed', kb: 'missed', human: 'caught' },
 ]
 
-// Verdict is never colour alone: a distinct glyph and a screen-reader label
-// carry it too (the same rule the table is teaching).
+// Verdict is never colour alone — a glyph and an SR label carry it too.
 const GLYPHS: Record<Verdict, string> = { caught: '●', partial: '◐', missed: '○' }
 const LABELS: Record<Verdict, string> = { caught: 'Caught', partial: 'Partial', missed: 'Missed' }
 

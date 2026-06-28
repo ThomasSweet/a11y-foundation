@@ -7,8 +7,7 @@
       Pick a magnification and watch the block <em>below</em> each card.
     </p>
 
-    <!-- Pure-CSS control: the checked radio drives a custom property via :has(),
-         no JavaScript. -->
+    <!-- Pure-CSS: the checked radio drives a custom property via :has(). -->
     <fieldset class="zoom-compare-controls">
       <legend class="zoom-compare-legend">Magnify the card</legend>
       <label class="zoom-compare-opt">

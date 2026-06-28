@@ -1,13 +1,6 @@
 // =============================================================================
-// _mixins.scss
-//
-// Barrel file — import this single file in your stylesheets.
-//
-// Import order here mirrors the intended cascade order:
-//   breakpoints → containers → interaction → preferences
-//
-// Usage in your stylesheet:
-//   @use 'path/to/mixins' as *;
+// _mixins.scss — barrel file; @use this one file (`@use '…/mixins' as *`).
+// Forward order mirrors the cascade: breakpoints → containers → interaction → preferences.
 // =============================================================================
 
 @forward 'breakpoints';

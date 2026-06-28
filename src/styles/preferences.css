@@ -1,25 +1,16 @@
 /* =============================================================================
-   preferences.css
+   preferences.css — global user-preference overrides.
 
-   Global user preference overrides.
-   Lives in the `preferences` layer — the highest priority layer.
-   These rules cannot be overridden by component or layout styles,
-   PROVIDED all other CSS is layered too (see layers.css).
-
-   This file handles global defaults. Component-level preference
-   overrides belong in the component's own file using the SCSS mixins.
+   Lives in the highest-priority `preferences` layer (see layers.css), so these
+   defaults can't be overridden by component or layout styles. Component-level
+   preference overrides belong in the component's own file via the SCSS mixins.
 ============================================================================= */
 
 @layer preferences {
 
-  /* ---------------------------------------------------------------------------
-     Reduced motion
-     Provides a global safety net. The 0.01ms duration (rather than `none`)
-     keeps animationend/transitionend events firing, so JS that waits on
-     them doesn't break. Individual components should still handle their
-     own animations via the reduced-motion() SCSS mixin when a simplified
-     alternative (rather than removal) is the better experience.
-  --------------------------------------------------------------------------- */
+  /* Reduced motion — global safety net. 0.01ms (not `none`) keeps
+     animationend/transitionend firing, so JS waiting on them doesn't break.
+     Components needing a simplified (not removed) animation use the mixin. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -39,15 +30,9 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     High contrast
-     Strengthen borders and remove decorative shadows that lose meaning
-     when contrast is elevated.
-
-     Border color uses CanvasText (the system text color) rather than a
-     hardcoded value, so it stays visible in BOTH light and dark schemes —
-     a hardcoded #000 would vanish against a dark background.
-  --------------------------------------------------------------------------- */
+  /* High contrast — strengthen borders, drop decorative shadows. Border uses
+     CanvasText (system text colour) so it stays visible in light AND dark; a
+     hardcoded #000 would vanish on a dark background. */
   @media (prefers-contrast: more) {
     :root {
       --color-border:      CanvasText;
@@ -63,19 +48,15 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     Forced colors (Windows High Contrast Mode)
-     Restore meaning that is lost when the browser overrides colors.
-     Use CSS system color keywords — never hardcode values here.
-  --------------------------------------------------------------------------- */
+  /* Forced colors (Windows High Contrast) — the browser overrides colours, so
+     restore meaning with system colour keywords; never hardcode values here. */
   @media (forced-colors: active) {
-    /* Ensure focus rings are always visible */
     *:focus-visible {
       outline: 3px solid ButtonText;
       outline-offset: var(--focus-ring-offset);
     }
 
-    /* Restore borders on elements that use background-only differentiation */
+    /* Restore borders where differentiation was background-only. */
     button,
     [role="button"],
     input,
@@ -86,18 +67,12 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     Focus visible — global base
-     Never remove outlines. Style them here consistently.
-     WCAG 2.2 SC 2.4.11/2.4.13 require focus indicators to meet minimum
-     size and contrast — a 3px solid ring with offset comfortably passes.
-
-     Note: no border-radius here. Outlines follow the element's own
-     border-radius in modern browsers; setting it on :focus-visible would
-     visibly change the element's shape while focused.
-  --------------------------------------------------------------------------- */
+  /* Focus visible — global base. WCAG 2.2 SC 2.4.11/2.4.13 need focus
+     indicators of adequate size + contrast; a 3px ring with offset passes.
+     No border-radius here: outlines already follow the element's own radius,
+     and setting it would change the element's shape while focused. */
   *:focus {
-    outline: none; /* Remove default — replaced by :focus-visible below */
+    outline: none; /* replaced by :focus-visible below */
   }
 
   *:focus-visible {

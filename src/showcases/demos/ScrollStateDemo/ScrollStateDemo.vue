@@ -11,8 +11,7 @@
     <!-- snapped: the centered card highlights itself -->
     <section class="scroll-state-block">
       <h5 class="scroll-state-h">Snapped</h5>
-      <!-- Region wraps the list so the cards keep list semantics (a
-           role="region" directly on the <ul> would strip them). -->
+      <!-- Region wraps the list so the cards keep list semantics (role on the <ul> would strip them). -->
       <div
         class="scroll-state-track"
         tabindex="0"

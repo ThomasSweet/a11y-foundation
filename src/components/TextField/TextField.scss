@@ -28,16 +28,12 @@
     background-color: var(--color-surface);
     color: var(--color-text);
 
-    /* Native validity from constraints (required, type="email", …).
-       :user-* (not :valid/:invalid) only match AFTER the user has
-       interacted, so pristine fields never flag. The thicker border on
-       the invalid state is a non-color cue, so it survives forced-colors.
-
-       Success only shows when the field has content: an empty optional
-       field is technically valid, but a green "all good" border there is
-       just noise. :placeholder-shown detects emptiness (hence the " "
-       default placeholder); :where() keeps the selector's specificity flat
-       so the explicit-error rule below still wins purely on source order. */
+    /* :user-* (not :valid/:invalid) only match after interaction, so pristine
+       fields never flag; the thicker invalid border is a non-colour cue that
+       survives forced-colors. Success shows only with content (an empty
+       optional field is valid but a green border there is noise) —
+       :placeholder-shown detects emptiness, :where() keeps specificity flat so
+       the explicit-error rule below still wins on source order. */
     &:user-valid:not(:where(:placeholder-shown)) {
       border-color: var(--color-success);
     }

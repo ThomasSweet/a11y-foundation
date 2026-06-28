@@ -30,11 +30,9 @@ import { ref, useId } from 'vue'
 const dialog = ref<HTMLDialogElement | null>(null)
 const titleId = useId()
 
-// Native <dialog> + showModal() gives focus trapping, Esc-to-close,
-// inert background, and top-layer rendering for free. The closedby="any"
-// attribute adds light-dismiss (outside-click) natively too — no JS handler.
-// On browsers without closedby support the dialog still closes via Esc and
-// the close button; only outside-click degrades, which is harmless.
+// Native <dialog> + showModal() gives focus trapping, Esc-to-close, an inert
+// background, and top-layer rendering for free; closedby="any" adds native
+// outside-click dismiss. Without closedby support only outside-click degrades.
 defineExpose({
   open: () => dialog.value?.showModal(),
   close: () => dialog.value?.close(),

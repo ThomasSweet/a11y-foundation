@@ -1,8 +1,5 @@
 /* =============================================================================
-   base.css
-
-   Bare-element defaults: typography, document colors, link styling,
-   and minimum interactive target sizes.
+   base.css — bare-element defaults: typography, colours, links, target sizes.
 ============================================================================= */
 
 @layer base {
@@ -40,13 +37,9 @@
     font-size: 0.9em;
   }
 
-  /* ---------------------------------------------------------------------------
-     Minimum target sizes — applied as BASE styles, not gated behind
-     pointer detection. Small targets hurt mouse users with motor
-     impairments too, not just touch users.
-     WCAG 2.5.8 (AA) requires 24×24px; the touch-primary() mixin can
-     raise this toward the 44px best practice on coarse pointers.
-  --------------------------------------------------------------------------- */
+  /* Minimum target sizes — base styles, not gated on pointer type: small
+     targets hurt motor-impaired mouse users too. WCAG 2.5.8 (AA) wants 24×24px;
+     the touch-primary() mixin raises this toward 44px on coarse pointers. */
   button,
   [role="button"],
   select,
@@ -55,10 +48,8 @@
     min-block-size: 24px;
   }
 
-  /* ---------------------------------------------------------------------------
-     Fragment navigation — keep targets clear of sticky headers, and only
-     scroll smoothly for users who haven't asked for reduced motion.
-  --------------------------------------------------------------------------- */
+  /* Fragment navigation — keep targets clear of sticky headers; smooth scroll
+     only when motion is allowed. */
   :target {
     scroll-margin-block-start: var(--space-16);
   }

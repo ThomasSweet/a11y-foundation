@@ -131,9 +131,8 @@ watch(query, update)
 }
 </style>
 
-<!-- ::highlight() is a global, named pseudo-element — it isn't tied to a
-     scoped element, so this rule lives in a plain (unscoped) block. The
-     highlight name is unique to this demo to avoid colliding with others. -->
+<!-- ::highlight() is a global pseudo-element (not scoped), so this rule lives
+     in an unscoped block; the name is unique to avoid collisions. -->
 <style lang="scss">
 @layer components {
   ::highlight(a11y-search) {

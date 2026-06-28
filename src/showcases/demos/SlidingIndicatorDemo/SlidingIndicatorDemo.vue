@@ -68,10 +68,8 @@ const view = ref(options[0])
     }
   }
 
-  /* The one continuous object. Its width is a single cell; translating by
-     i × 100% steps it from option to option. The transition uses a motion
-     token, which preferences.css zeroes under reduced motion — so the slide
-     becomes an instant jump with no per-component override. */
+  /* The one continuous pill: one cell wide, translated by i × 100% per option.
+     The motion token is zeroed under reduced motion, so the slide jumps instantly. */
   .segmented-indicator {
     position: absolute;
     z-index: 0;
@@ -118,8 +116,7 @@ const view = ref(options[0])
     color: var(--color-text-subtle);
   }
 
-  /* The selected option's label firms up — state isn't carried by the pill
-     position alone. */
+  /* Selected label firms up — state isn't carried by pill position alone. */
   .segmented-opt:has(input:checked) .segmented-label {
     font-weight: 600;
     color: var(--color-text);

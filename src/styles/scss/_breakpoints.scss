@@ -1,27 +1,15 @@
 // =============================================================================
-// _breakpoints.scss
+// _breakpoints.scss — mobile-first breakpoint mixins.
 //
-// Mobile-first breakpoint mixins.
-//
-// Breakpoints are em-based: em media queries respond to the user's default
-// font size setting (not just zoom), so layouts adapt for users who raise
-// their browser's base font size — px media queries don't.
-// 1em = 16px at default settings.
-//
-// Usage:
-//   @include from('md') { ... }
-//   @include between('sm', 'lg') { ... }
-//
-// Mixin order within a selector block:
-//   1. Base styles (no mixin)
-//   2. from() / between()   — layout and size changes, smallest to largest
+// Em-based: em media queries respond to the user's default font size (not just
+// zoom), so layouts adapt when users raise their base size — px queries don't.
+// Use from()/between() smallest to largest, after base styles.
 // =============================================================================
 
 @use 'sass:map';
 
-// Breakpoint token map.
-// Add or adjust values here — do not hardcode values at call sites.
-// Mirror any change in the --bp-* tokens in tokens.css.
+// Breakpoint token map — edit here, never hardcode at call sites; mirror
+// changes in the --bp-* tokens in tokens.css.
 $breakpoints: (
   'sm':  30em,   // 480px
   'md':  48em,   // 768px
@@ -31,19 +19,7 @@ $breakpoints: (
 ) !default;
 
 
-// from($key)
-// Applies styles from the given breakpoint upward.
-//
-// @param {String} $key - A key from $breakpoints
-//
-// Example:
-//   .card {
-//     padding: var(--space-4);
-//
-//     @include from('md') {
-//       padding: var(--space-8);
-//     }
-//   }
+// from($key) — styles from the given breakpoint upward.
 
 @mixin from($key) {
   $value: map.get($breakpoints, $key);
@@ -58,24 +34,9 @@ $breakpoints: (
 }
 
 
-// between($lower, $upper)
-// Applies styles between two breakpoints (inclusive lower, exclusive upper).
-//
-// Uses media query range syntax — `width < $max` is genuinely exclusive,
-// avoiding the dead zone at fractional viewport widths that the old
-// `max-width: $max - 1px` approach left at certain zoom levels.
-//
-// @param {String} $lower - Lower bound key from $breakpoints
-// @param {String} $upper - Upper bound key from $breakpoints
-//
-// Example:
-//   .sidebar {
-//     display: none;
-//
-//     @include between('md', 'lg') {
-//       display: block;
-//     }
-//   }
+// between($lower, $upper) — inclusive lower, exclusive upper. Range syntax
+// (`width < $max`) is genuinely exclusive, avoiding the fractional-width dead
+// zone the old `max-width: $max - 1px` left at some zoom levels.
 
 @mixin between($lower, $upper) {
   $min: map.get($breakpoints, $lower);

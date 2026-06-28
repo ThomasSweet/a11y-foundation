@@ -111,10 +111,8 @@ const items = [
     /* Tether the menu to its trigger. Without anchor support it falls back
        to the UA popover placement (top-layer, centered) — still usable. */
     @supports (anchor-name: --a) {
-      /* Stay `position: fixed` (the UA popover default). With absolute, the
-         containing block would be the full-height .app-shell (position:
-         relative), so the menu never overflows the viewport edge and the
-         flip fallbacks never fire. Fixed resolves against the viewport. */
+      /* Stay `position: fixed`. Absolute would resolve against the full-height
+         .app-shell, so the menu never overflows the edge and flips never fire. */
       position: fixed;
       position-anchor: --popover-menu-anchor;
       /* Drop below the trigger, aligned to its inline-start edge. */

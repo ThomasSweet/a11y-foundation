@@ -8,8 +8,7 @@
     border-radius: var(--radius-lg);
     background-color: var(--color-surface);
     box-shadow: var(--shadow-md);
-    /* A soft elevation lift only — no transform or border flash. Motion
-       tokens are zeroed under reduced motion, so it settles instantly there. */
+    /* Elevation lift only. Motion tokens are zeroed under reduced motion. */
     transition: box-shadow var(--duration-normal) var(--easing-standard);
 
     @include can-hover {
@@ -18,7 +17,7 @@
       }
     }
 
-    /* Same affordance when focus moves into the card (keyboard, any device). */
+    /* Same lift when focus enters the card. */
     &:focus-within {
       box-shadow: var(--shadow-lg);
     }
@@ -84,9 +83,8 @@
     border-radius: var(--radius-md);
   }
 
-  /* "Show the code" disclosure — a native <details>, so keyboard and
-     screen-reader behaviour (and the expanded state) come for free, no JS.
-     Styled as a clear button-like affordance so it reads as a feature. */
+  /* "Show the code" — a native <details>, so keyboard/SR behaviour and the
+     expanded state come for free; styled as a button-like affordance. */
   .showcase-code-summary {
     display: inline-flex;
     align-items: center;
@@ -125,7 +123,7 @@
   .showcase-code-glyph {
     inline-size: 1.15em;
     block-size: 1.15em;
-    color: var(--color-primary); // accent the code mark
+    color: var(--color-primary);
   }
 
   .showcase-code-chevron {
@@ -139,8 +137,7 @@
     rotate: 180deg;
   }
 
-  /* Swap the label with the open state — pure CSS, and display:none keeps the
-     hidden one out of the accessible name too. */
+  /* Swap the label on open — display:none keeps the hidden one out of the a11y name. */
   .showcase-code-label-hide {
     display: none;
   }

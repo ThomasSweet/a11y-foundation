@@ -1,36 +1,16 @@
 /* =============================================================================
-   theming.css
+   theming.css — seed-driven, contrast-safe theming.
 
-   Seed-driven, contrast-safe theming engine.
+   A theme is two seeds (--seed-surface, --seed-accent); the whole --color-*
+   palette every component reads is derived from them below, so adding a theme
+   is data (the .theme-* presets), not code.
 
-   A theme is just TWO seed colors:
-     --seed-surface   the base background
-     --seed-accent    the brand / primary color
+   Contrast-safe by construction: text flips to black/white against its
+   background via the seed's OKLCH lightness; greys mix toward the text colour,
+   so they gain contrast in the same direction for light and dark themes alike.
 
-   From those, the ENTIRE working palette (the same --color-* tokens that
-   every component already consumes) is DERIVED once, below. So:
-     - Adding a theme is data, not code — see the .theme-* presets at the
-       bottom: two values each.
-     - Any subtree with `.surface` re-themes automatically; components
-       inside need zero changes because they read the same token names.
-
-   Why this is contrast-safe by construction:
-     - Text colors are flipped to black/white against their background using
-       the OKLCH lightness of the seed (relative color syntax), so text is
-       always on the high-contrast side. contrast-color() refines this where
-       supported.
-     - Greys (surface steps, borders, muted text) are MIXED toward the text
-       color, so they gain contrast in the same direction the text does —
-       light themes and dark themes both work from one set of rules.
-
-   Modern CSS used: relative color syntax (oklch(from …)), color-mix(),
-   contrast-color() (progressive enhancement), cascade @layer.
-
-   NOTE: the guarantee currently assumes seeds in sensible lightness ranges
-   (a mid-lightness accent can't reach 4.5:1 with either black or white
-   text). A future user-facing picker (#11 stretch) would clamp seeds into
-   safe ranges. Container style queries are reserved for the colour-vision
-   themes, which add NON-colour cues (underlines, patterns) to descendants.
+   Caveat: assumes seeds in sensible lightness ranges — a mid-lightness accent
+   can't reach 4.5:1 with either black or white text.
 ============================================================================= */
 
 @layer themes {
@@ -40,9 +20,8 @@
     --seed-surface: oklch(99% 0.004 255deg);
     --seed-accent:  oklch(52% 0.16 260deg);
 
-    /* Text: black on light surfaces, white on dark ones. The clamp(…,
-       (threshold - l) * infinity, …) trick resolves the lightness to 0 or
-       1 with no JS and no media query. */
+    /* Text: black on light surfaces, white on dark. clamp(0, (0.62 - l) *
+       infinity, 1) resolves the seed's lightness to 0 or 1 — no JS, no query. */
     --color-text:
       oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
 
@@ -60,18 +39,15 @@
     --color-primary-text:
       oklch(from var(--seed-accent) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
 
-    /* The focus ring tracks the theme accent. */
     --focus-ring-color: var(--seed-accent);
 
-    /* The surface paints itself with the derived palette. */
     background-color: var(--color-bg);
     color: var(--color-text);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
 
-    /* Enhancement: let the browser pick the optimal contrasting label,
-       superseding the black/white flip above where supported. */
+    /* Where supported, let the browser pick the optimal label (supersedes the flip above). */
     @supports (color: contrast-color(red)) {
       --color-text:         contrast-color(var(--seed-surface));
       --color-primary-text: contrast-color(var(--seed-accent));
@@ -79,9 +55,7 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     Theme presets — two seeds each. This is the whole cost of a new theme.
-  --------------------------------------------------------------------------- */
+  /* Theme presets — two seeds each. */
   .theme-ocean {
     --seed-surface: oklch(97% 0.025 220deg);
     --seed-accent:  oklch(50% 0.12 230deg);
@@ -98,22 +72,10 @@
   }
 
 
-  /* ---------------------------------------------------------------------------
-     CVD-robust presets.
-
-     For colour-vision deficiency, what matters is that the accent stays a
-     recognisable colour and that its label keeps a strong LIGHTNESS contrast —
-     because lightness perception is largely intact across protanopia,
-     deuteranopia, and tritanopia, while hue discrimination is not. So these
-     presets do two things:
-       - sit on hues that don't collapse into the neutrals under the common
-         red–green deficiencies, and
-       - keep the accent's lightness well clear of its label's (the engine
-         already guarantees the label is the high-contrast black/white).
-     Hue is never the only signal — pair these with the non-colour cues
-     showcase (status shapes/underlines) for meaning that survives any CVD.
-     Names describe the hue, not a person; anyone can pick them.
-  --------------------------------------------------------------------------- */
+  /* CVD-robust presets: lightness perception survives colour-vision deficiency
+     where hue discrimination doesn't, so these sit on hues that don't collapse
+     into the neutrals and keep the accent's lightness well clear of its label's.
+     Hue is never the only signal (see the non-colour cues showcase). */
   .theme-cobalt {
     --seed-surface: oklch(98% 0.01 255deg);
     --seed-accent:  oklch(48% 0.14 255deg);  /* dark blue → white label */

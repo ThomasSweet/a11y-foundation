@@ -1,6 +1,5 @@
 <template>
-  <!-- Ordered list: the eras are chronological, and that sequence is the
-       point. The spine and markers are decorative (CSS only). -->
+  <!-- <ol>: the era order is chronological and meaningful. Spine/markers are decorative. -->
   <ol class="timeline">
     <li
       v-for="era in eras"
@@ -48,8 +47,7 @@
 import CriterionFrame from '../CriterionFrame/CriterionFrame.vue'
 import { criteria, wcagTimeline } from '../registry'
 
-// Group the criteria under their WCAG version; eras with no version stay
-// empty and render their note instead.
+// Group criteria by WCAG version; version-less eras stay empty and show their note.
 const eras = wcagTimeline.map((era) => ({
   ...era,
   items: era.version ? criteria.filter((c) => c.version === era.version) : [],

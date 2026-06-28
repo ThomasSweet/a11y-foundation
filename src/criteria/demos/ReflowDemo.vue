@@ -5,10 +5,9 @@
       to 400%, which is the width 1.4.10 targets. Scroll it.
     </p>
 
-    <!-- A simulated narrow viewport. overflow:auto contains any scrolling
-         to this box (not the page), so a horizontal scrollbar appearing
-         here IS the failure you can see and feel. It's keyboard-focusable so
-         the scrollable area is reachable without a pointer. -->
+    <!-- Simulated narrow viewport: overflow:auto keeps scrolling local, so a
+         horizontal scrollbar here IS the visible failure. Focusable so the
+         scroll area is keyboard-reachable. -->
     <div
       class="reflow-viewport"
       tabindex="0"
@@ -126,10 +125,9 @@ const stats = [
     color: var(--color-text-subtle);
   }
 
-  /* The regression: fixed widths that ignore the viewport. The content
-     becomes wider than its container, so reading now requires scrolling
-     in two dimensions — exactly what 1.4.10 forbids. Only the sizing
-     changes; the content and structure are identical. */
+  /* The regression: fixed widths force the content wider than its container, so
+     reading needs two-dimensional scrolling — what 1.4.10 forbids. Sizing only;
+     content and structure are unchanged. */
   .is-broken {
     .reflow-content {
       inline-size: 34rem;

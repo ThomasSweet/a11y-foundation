@@ -5,10 +5,6 @@
 
   <div class="app-shell">
     <header class="hero">
-      <!-- Oversized, faint echoes of the pillar marks, bleeding off the hero's
-           outer edges — the same watermark motif that opens each pillar below,
-           so the cover and the chapters read as one continuous set. Purely
-           decorative (aria-hidden), behind the content at z-index -1. -->
       <span
         class="hero-watermark hero-watermark-lead"
         aria-hidden="true"
@@ -45,9 +41,6 @@
       </div>
 
       <div class="hero-body">
-        <!-- A bold band of signage pictograms + this site's own accessibility
-             concepts — the "find your way" metaphor, full size. Purely
-             decorative, so the whole grid is aria-hidden. -->
         <div class="hero-icons" aria-hidden="true">
           <span
             v-for="(icon, i) in heroIcons"
@@ -82,10 +75,6 @@
     </header>
 
     <div class="app-body">
-      <!-- Wayfinding nav. On desktop it's a sticky sidebar: the four pillars,
-           each expanded to its sections. Below `lg` it becomes a sticky top bar
-           of just the four pillar tabs, so it never buries the content. Active
-           state is driven purely by scroll position (view-timeline), no JS. -->
       <nav class="toc" aria-label="Sections">
         <p class="toc-heading">On this page</p>
         <ol class="toc-groups" role="list">
@@ -110,9 +99,6 @@
       </nav>
 
       <main id="main" tabindex="-1" class="site-main">
-      <!-- ===================================================================
-           Pillar 1 — The requirement: accessibility as a living standard
-      ==================================================================== -->
       <section id="standard" class="pillar scrollspy-region" aria-labelledby="standard-title">
         <PillarHeader
           icon="standard"
@@ -164,9 +150,6 @@
         </section>
       </section>
 
-      <!-- ===================================================================
-           Pillar 2 — The platform's answer (a) shipping today: the craft
-      ==================================================================== -->
       <section id="craft" class="pillar scrollspy-region" aria-labelledby="craft-title">
         <PillarHeader
           icon="craft"
@@ -275,9 +258,6 @@
         </section>
       </section>
 
-      <!-- ===================================================================
-           Pillar 3 — The platform's answer (b) arriving next: the showcase
-      ==================================================================== -->
       <section id="showcase" class="pillar scrollspy-region" aria-labelledby="showcase-title">
         <PillarHeader
           icon="next"
@@ -316,9 +296,6 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-           Pillar 4 — The proof: how you know any of it actually works
-      ==================================================================== -->
       <section id="testing" class="pillar scrollspy-region" aria-labelledby="testing-title">
         <PillarHeader
           icon="proof"
@@ -377,8 +354,6 @@
         broken page. New features extend the baseline here — they never replace it.
       </p>
 
-      <!-- The statement demonstrates the thesis while making it: progressive
-           disclosure with a native <details>, no JavaScript. -->
       <details class="footer-details">
         <summary class="footer-summary">What that means in practice</summary>
         <div class="footer-details-body">
@@ -454,8 +429,7 @@ const groups = computed(() => [
   },
 ])
 
-// The table of contents: the four pillars, each with its real <h2> sections.
-// Drives the sidebar nav; ids match the headings in the template above.
+// ids must match the in-template section ids — anchor + scroll-spy targets.
 const toc = [
   {
     id: 'standard',
@@ -498,20 +472,15 @@ const toc = [
 </script>
 
 <style scoped lang="scss">
-/* Page-level composition belongs in the layout layer. */
 @layer layout {
   .app-shell {
     position: relative;
     min-block-size: 100dvh;
-    /* Cards in the timeline slide in from off the right edge; clip at the page
-       root so they enter from off-screen without spawning a horizontal
-       scrollbar. `clip` (not `hidden`) keeps the sticky sidebar working — it
-       doesn't establish a scroll container. */
+    /* `clip` (not `hidden`) hides the timeline cards' off-screen entry without
+       a scrollbar, and doesn't establish a scroll container (sticky sidebar). */
     overflow-x: clip;
   }
 
-  /* A soft accent glow behind everything — the modern "canvas" feel.
-     Decorative and translucent, so it's dropped under reduced transparency. */
   .app-shell::before {
     content: '';
     position: fixed;
@@ -525,8 +494,6 @@ const toc = [
     }
   }
 
-  /* A full-screen, poster-style opener: the top bar, then the icon band + title
-     centred in the remaining height, then a scroll cue at the foot. */
   .hero {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -535,9 +502,7 @@ const toc = [
     max-inline-size: 80rem;
     margin-inline: auto;
     padding: var(--space-6) var(--space-4) var(--space-8);
-    /* Anchor + own stacking context for the hero watermarks (faint oversized
-       marks painted at z-index -1, the same treatment PillarHeader uses).
-       `isolate` keeps that negative layer trapped above the page glow. */
+    /* Own stacking context so the z-index:-1 watermarks sit above the page glow. */
     position: relative;
     isolation: isolate;
   }
@@ -590,9 +555,6 @@ const toc = [
     }
   }
 
-  /* The hero spans full width; below it a two-column body pairs the sticky
-     wayfinding sidebar with the content column. Block flow on mobile (so the
-     sticky tab bar can travel); two-column grid from `lg`. */
   .app-body {
     max-inline-size: 72rem;
     margin-inline: auto;
@@ -612,22 +574,17 @@ const toc = [
     min-inline-size: 0; /* let the content column shrink, not overflow */
     padding-block-end: var(--space-16);
 
-    /* Pull the pillars far apart on wider screens so each reads as its own
-       beat rather than one continuous scroll. */
     @include from('md') {
       gap: var(--space-40);
     }
   }
 
-  /* A pillar groups several sections under one narrative beat. */
   .pillar {
     display: grid;
     gap: var(--space-12);
-    /* Keep the heading clear of the sticky spine after a fragment jump. */
+    /* Clear the sticky nav after a fragment jump. */
     scroll-margin-block-start: var(--space-16);
-    /* Anchor + own stacking context for the giant pillar watermark
-       (PillarHeader paints a faint oversized mark at z-index -1). `isolate`
-       keeps that negative layer trapped here, above the page background. */
+    /* Own stacking context so the PillarHeader's z-index:-1 watermark sits above the page background. */
     position: relative;
     isolation: isolate;
   }
@@ -653,7 +610,6 @@ const toc = [
     gap: var(--space-6);
   }
 
-  /* A closing coda, set off from the argument above by a hairline rule. */
   .site-footer {
     display: grid;
     gap: var(--space-4);
@@ -665,16 +621,11 @@ const toc = [
 }
 
 @layer components {
-  /* --- Wayfinding nav ------------------------------------------------------
-     Below `lg`: a sticky glassy top bar of the four pillar tabs (sections
-     hidden) — compact, so it never buries the content. From `lg`: a sticky left
-     sidebar with every section listed. */
   .toc {
     position: sticky;
     inset-block-start: 0;
     z-index: 5;
     margin-block-end: var(--space-6);
-    /* Bleed past the body's inline padding so the bar spans edge to edge. */
     margin-inline: calc(var(--space-4) * -1);
     padding: var(--space-2) var(--space-4);
     border-block-end: 1px solid var(--color-border);
@@ -682,7 +633,6 @@ const toc = [
     backdrop-filter: blur(12px);
 
     @include from('lg') {
-      /* Desktop: a sticky rail; drop the bar chrome. */
       inset-block-start: var(--space-6);
       align-self: start;
       max-block-size: calc(100dvh - var(--space-12));
@@ -705,7 +655,6 @@ const toc = [
     }
   }
 
-  /* "On this page": a quiet heading on the desktop rail; hidden in the bar. */
   .toc-heading {
     display: none;
 
@@ -721,7 +670,6 @@ const toc = [
   }
 
   .toc-groups {
-    /* Mobile: pillar tabs that wrap onto multiple rows (no horizontal scroll). */
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
@@ -767,7 +715,6 @@ const toc = [
     }
   }
 
-  /* The pillar number is a desktop-rail flourish; the mobile tabs stay compact. */
   .toc-group-n {
     display: none;
 
@@ -779,7 +726,6 @@ const toc = [
     }
   }
 
-  /* Sub-sections only appear in the desktop sidebar. */
   .toc-sections {
     display: none;
 
@@ -813,11 +759,9 @@ const toc = [
     }
   }
 
-  /* Pure-CSS scroll spy. Each pillar and each section owns a named
-     view-timeline, hoisted to a common ancestor; the matching nav link reads it
-     (timeline assigned inline from the toc data) and brightens while its target
-     holds the viewport. Scroll-linked, so no reduced-motion override is needed —
-     gated only on support, with the plain links as the fallback. */
+  /* Pure-CSS scroll spy: each pillar owns a named view-timeline; the matching
+     nav link reads it (set inline from the toc data) and brightens while its
+     pillar holds the viewport. Scroll-linked, so support-gated only. */
   @supports (animation-timeline: view()) {
     .app-shell {
       timeline-scope: --vt-standard, --vt-craft, --vt-showcase, --vt-testing;
@@ -828,17 +772,14 @@ const toc = [
     #showcase { view-timeline-name: --vt-showcase; }
     #testing { view-timeline-name: --vt-testing; }
 
-    /* The group link tracks its pillar (timeline set inline from the toc data).
-       Section-level single-active isn't reliably expressible in pure CSS — short
-       adjacent sections all satisfy a "cover" range at once — so we highlight the
-       current pillar and leave sections to hover / focus. */
+    /* Pillar-level only: short adjacent sections all satisfy a "cover" range at
+       once, so per-section single-active isn't reliable in pure CSS. */
     .toc-group-link {
       animation: toc-group-active linear both;
       animation-range: cover 0% cover 100%;
     }
 
-    /* A plateau, not a peak: full strength across 12%–88% of the cover range so
-       the active pillar stays lit even at the top of a tall region. */
+    /* Plateau across 12%–88% so the active pillar stays lit even on tall regions. */
     @keyframes toc-group-active {
       0%,
       100% {
@@ -853,8 +794,7 @@ const toc = [
       }
     }
 
-    /* Forced colors flattens the background tint; mark the active tab with a
-       border instead so it stays distinguishable. */
+    /* Forced colors flattens the tint — mark the active tab with a border instead. */
     @include forced-colors {
       @keyframes toc-group-active {
         0%,
@@ -870,9 +810,6 @@ const toc = [
     }
   }
 
-  /* The brand lockup: mark + wordmark, flex-aligned so the mark centres on the
-     text (same treatment as the legal pages). The poster <h1> is a separate
-     hook, so it doesn't repeat the name. */
   .hero-brand {
     display: inline-flex;
     align-items: center;
@@ -893,12 +830,11 @@ const toc = [
 
   .hero-title {
     inline-size: fit-content;
-    /* Poster-scale: fluid from a strong mobile size up to a huge desktop one. */
     font-size: clamp(3rem, 12vw, 9rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: var(--tracking-tight);
-    /* Gradient text. Safari still needs the prefixed background-clip. */
+    /* Safari still needs the prefixed background-clip for gradient text. */
     background: var(--gradient-accent);
     /* stylelint-disable-next-line property-no-vendor-prefix -- Safari */
     -webkit-background-clip: text;
@@ -921,13 +857,6 @@ const toc = [
     color: var(--color-text-subtle);
   }
 
-  /* The hero's edge watermarks: oversized, faint echoes of the pillar marks
-     that frame the cover the way each pillar's mark opens its chapter — so the
-     hero reads as the first of the set, not a separate thing. Positioned
-     against the hero (which supplies position + isolation) and bled off its
-     outer edges, where the app shell's overflow-x: clip hides the overspill —
-     no horizontal scrollbar. z-index -1 keeps them behind the title; faint
-     enough that they never touch the contrast of the text in front. */
   .hero-watermark {
     position: absolute;
     z-index: -1;
@@ -942,11 +871,8 @@ const toc = [
       block-size: 30rem;
     }
 
-    /* Parallax: each mark drifts slower than the content as the hero scrolls
-       away, for a sense of depth. Animates the `translate` property only
-       (composited, off the main thread via the element's own view-timeline),
-       so it adds no paint cost while scrolling — unlike colour animation.
-       Support + motion gated; without either, the mark is simply static. */
+    /* Animates `translate` only, so the parallax stays composited — no paint
+       cost on scroll. Static where motion or view-timelines aren't available. */
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) {
         animation: hero-watermark-parallax linear both;
@@ -955,7 +881,6 @@ const toc = [
       }
     }
 
-    /* Decorative flourish — drop it where the OS flattens the palette. */
     @include forced-colors {
       display: none;
     }
@@ -964,27 +889,21 @@ const toc = [
   .hero-watermark :deep(svg) {
     inline-size: 100%;
     block-size: 100%;
-    /* Thinner stroke reads better blown up to poster scale. */
     stroke-width: 1;
   }
 
-  /* Upper-left, bleeding off the left edge. */
   .hero-watermark-lead {
     inset-block-start: 12%;
     inset-inline-start: 0;
     transform: translateX(-46%) rotate(-12deg);
   }
 
-  /* Lower-right, bleeding off the right edge — handing off into the first
-     pillar's own right-edge watermark just below the fold. */
   .hero-watermark-trail {
     inset-block-end: 9%;
     inset-inline-end: 0;
     transform: translateX(46%) rotate(10deg);
   }
 
-  /* Lag the marks behind the scroll — the `translate` runs opposite the travel,
-     so each watermark appears to drift slower than the foreground. */
   @keyframes hero-watermark-parallax {
     from {
       translate: 0 -22%;
@@ -995,15 +914,11 @@ const toc = [
     }
   }
 
-  /* The decorative wayfinding band — large, boxless pictograms that read as a
-     poster. The page's own topics carry the brand accent; the signage glyphs
-     stay in the bold ink colour, so the "mix" still reads. */
   .hero-icons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* No grid gap: the cells tile edge-to-edge so the Dock hover target is
-       continuous — moving across the band never drops into a dead gap between
-       glyphs. The visual spacing comes from padding inside each cell instead. */
+    /* No gap: cells tile edge-to-edge so the Dock hover target is continuous
+       (spacing comes from padding inside each cell). */
 
     @include from('md') {
       grid-template-columns: repeat(6, 1fr);
@@ -1013,8 +928,6 @@ const toc = [
   .hero-icon {
     display: grid;
     place-items: center;
-    /* Padding (not gap) spaces the glyphs, so each cell is a seamless hit area
-       that fills its track. */
     padding: var(--space-3);
     color: var(--color-text);
 
@@ -1022,18 +935,14 @@ const toc = [
       color: var(--color-primary);
     }
 
-    /* One-time staggered entrance — the band assembles itself on load. The
-       whole thing lives inside no-preference so reduced-motion users never see
-       the opacity:0 start (no flash), just the icons already in place. The
-       per-icon delay comes from the inline --i (its index). */
+    /* Staggered entrance (delay from the inline --i). Inside no-preference so
+       reduced-motion users never see the opacity:0 start. */
     @media (prefers-reduced-motion: no-preference) {
       animation: hero-icon-in 0.5s var(--easing-enter) both;
       animation-delay: calc(var(--i, 0) * 45ms);
     }
 
-    /* Only the colour transitions on the cell; the magnification lives on the
-       glyph (.hero-icon-svg) so the cell stays a fixed-size hover target.
-       Cosmetic only — the whole band is aria-hidden. */
+    /* Cell transitions colour only; magnification is on the glyph (below). */
     @include can-hover {
       transition: color var(--duration-normal) var(--easing-standard);
     }
@@ -1046,13 +955,10 @@ const toc = [
     }
   }
 
-  /* One magnified glyph: the cell $offset siblings away in DOM order, walked
-     either forward ($dir: 'after', via `+`) or backward ('before', via :has()).
-     $edge suppresses the row-boundary wrap — '' for vertical neighbours (a
-     column never wraps), 'right' to skip when the hovered glyph is last in its
-     row, 'left' when it's first. So an edge glyph only reaches the siblings it
-     visually touches, not the ones that are merely adjacent in source order.
-     The scale lands on the glyph (.hero-icon-svg), never the cell. */
+  /* Magnifies the glyph $offset siblings away — forward ($dir 'after', via `+`)
+     or backward ('before', via :has()). $edge guards the row-boundary wrap:
+     'right'/'left' skip when the hovered glyph is last/first in its row, ''
+     for vertical neighbours (a column never wraps). Scale lands on the glyph. */
   @mixin dock-cell($offset, $dir, $edge, $scale, $cols) {
     $guard: '';
     @if $edge == 'right' {
@@ -1083,11 +989,9 @@ const toc = [
     }
   }
 
-  /* The 2D bulge for a grid of $cols columns. Grid geometry maps onto DOM
-     order: ±1 is left/right, ±$cols is the row directly above/below, and
-     ±($cols ∓ 1) are the diagonals. Each call carries the edge guard for the
-     boundary it would otherwise wrap across — so a glyph at a row's edge never
-     magnifies the far side of an adjacent row. */
+  /* 2D bulge for $cols columns: in DOM order ±1 is left/right, ±$cols is the
+     row above/below, ±($cols ∓ 1) the diagonals. Each call guards the row edge
+     it would otherwise wrap across. */
   @mixin dock-falloff($cols) {
     $near: 1.34;
     $diag: 1.16;
@@ -1103,21 +1007,18 @@ const toc = [
     @include dock-cell($cols + 1, 'before', 'left', $diag, $cols); // up-left
   }
 
-  /* Mac-Dock magnification: the hovered glyph swells to the accent colour and
-     the surrounding glyphs scale down with distance, so the band bows toward
-     the cursor in 2D. Pure CSS — the `scale` property is composited, so it only
-     costs on hover, never on scroll. Where :has() is unsupported the hovered
-     glyph still scales (graceful fallback); movement is gated to motion-allowed.
-     The cell count differs per breakpoint, so the falloff is too. */
+  /* Mac-Dock magnification, pure CSS: the hovered glyph swells and neighbours
+     fall off with distance. `scale` is composited, so it costs only on hover,
+     never on scroll. Without :has() the hovered glyph still scales (fallback).
+     Falloff is per-breakpoint since the column count differs. */
   @include can-hover {
     .hero-icon:hover {
       color: var(--color-primary);
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      /* Raise the hovered cell so its overspilling glyph paints over the
-         neighbours — but never scale the CELL itself (a scaled cell would
-         overlap the next one and keep stealing the hover). Only the glyph grows. */
+      /* Raise the hovered cell so its glyph paints over neighbours. Never scale
+         the CELL — a scaled cell would overlap the next and trap the hover. */
       .hero-icon:hover {
         z-index: 1;
       }
@@ -1140,9 +1041,8 @@ const toc = [
     inline-size: clamp(2.75rem, 7vw, 5rem);
     block-size: clamp(2.75rem, 7vw, 5rem);
     fill: currentcolor;
-    /* The glyph alone magnifies; the cell stays a fixed, seamless hover target.
-       pointer-events:none means the overspilling glyph never intercepts the
-       cursor, so moving toward a neighbour hands hover cleanly to that cell. */
+    /* pointer-events:none so the overspilling glyph never intercepts the cursor
+       — hover hands off cleanly to the neighbouring cell. */
     pointer-events: none;
 
     @include can-hover {
@@ -1154,7 +1054,6 @@ const toc = [
     }
   }
 
-  /* Scroll affordance at the foot of the full-screen hero. */
   .hero-scroll {
     display: inline-flex;
     align-items: center;
@@ -1183,7 +1082,6 @@ const toc = [
     inline-size: 1.25rem;
     block-size: 1.25rem;
     fill: currentcolor;
-    /* A hardcoded duration (not a motion token), so silence it explicitly. */
     animation: hero-bob 1.8s ease-in-out infinite;
 
     @include reduced-motion {
@@ -1202,8 +1100,6 @@ const toc = [
     }
   }
 
-  /* Section headings get the fluid display scale; intro paragraphs stay
-     readable at prose width even though the cards below run wider. */
   .demo > h2 {
     font-size: var(--text-display-sm);
     font-weight: 800;
@@ -1216,19 +1112,15 @@ const toc = [
     color: var(--color-text-subtle);
   }
 
-  /* Sections ease in as they scroll into view — a scroll-driven animation,
-     so it runs off the main thread with no scroll listeners. Added ONLY for
-     users who haven't asked to reduce motion (progressive enhancement: no
-     motion is the default), and only where view() timelines are supported. */
+  /* Sections ease in on scroll — view-timeline driven, so off the main thread
+     with no scroll listeners. Motion- and support-gated. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .demo {
         animation: section-reveal linear both;
         animation-timeline: view();
-        /* A fixed-length reveal (px, not %) so tall sections — the timeline,
-           the showcase grid — don't stretch the motion over their whole
-           height. Runs over the first ~420px after the section starts to
-           enter, the same distance for every section regardless of height. */
+        /* Fixed px length (not %) so tall sections don't stretch the reveal
+           over their whole height — same ~420px distance for every section. */
         animation-range: entry 0% entry 420px;
       }
 

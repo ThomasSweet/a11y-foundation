@@ -1,12 +1,9 @@
 /**
  * themePickerMath — the colour math behind ThemePickerDemo's contrast read-out.
- *
- * Extracted from the component so it can be unit-tested in isolation: it backs
- * the demo's core promise — that the lightness clamp keeps the button label at
- * WCAG AA for any hue — and that guarantee deserves a test, not just a comment.
- *
- * The clamp itself runs in CSS (see .theme-picker-preview); this mirrors the same maths in
- * JS purely to compute an honest contrast read-out for the figure.
+ * Extracted so it can be unit-tested in isolation (it backs the demo's promise
+ * that the lightness clamp keeps the label at WCAG AA for any hue). The clamp
+ * itself runs in CSS (.theme-picker-preview); this mirrors it in JS only to
+ * compute an honest read-out.
  */
 
 // Fixed chroma keeps the demo focused on the lightness↔contrast relationship

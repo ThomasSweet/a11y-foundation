@@ -1,45 +1,16 @@
 // =============================================================================
-// _preferences.scss
+// _preferences.scss — user-preference / accessibility media-query mixins.
 //
-// Mixins for user preference and accessibility media queries.
-//
-// These always sit at the end of a selector block and must never be
-// overridden by breakpoint or interaction mixins. User preferences win.
-//
-// Usage:
-//   @include reduced-motion { ... }
-//   @include reduced-transparency { ... }
-//   @include high-contrast { ... }
-//   @include forced-colors { ... }
-//   @include dark-mode { ... }
-//   @include light-mode { ... }
-//
-// Mixin order within a selector block:
-//   1. Base styles (no mixin)
-//   2. from() / between()
-//   3. can-hover() / touch-primary()
-//   4. reduced-motion()    ← preferences begin here
-//   5. reduced-transparency()
-//   6. high-contrast()
-//   7. forced-colors()
-//   8. dark-mode() / light-mode()
+// These sit at the end of a selector block; user preferences win, so nothing
+// (breakpoint or interaction mixins) should override them. Order in a block:
+// base → from()/between() → can-hover()/touch-primary() → the preference
+// mixins below (reduced-motion, reduced-transparency, high-contrast,
+// forced-colors, dark-mode/light-mode).
 // =============================================================================
 
 
-// reduced-motion()
-// Applies styles when the user has requested reduced motion in their OS settings.
-//
-// Use for: disabling or simplifying animations and transitions.
-// WCAG 2.1 SC 2.3.3 (AAA) — strongly recommended to support at AA level too.
-//
-// Example:
-//   .spinner {
-//     animation: spin 1s linear infinite;
-//
-//     @include reduced-motion {
-//       animation: none;
-//     }
-//   }
+// reduced-motion() — when the user has requested reduced motion.
+// WCAG 2.1 SC 2.3.3 (AAA); worth supporting at AA too.
 
 @mixin reduced-motion {
   @media (prefers-reduced-motion: reduce) {
@@ -48,25 +19,9 @@
 }
 
 
-// reduced-transparency()
-// Applies styles when the user has requested reduced transparency in their
-// OS settings (e.g. "Reduce transparency" on macOS/iOS).
-//
-// Use for: replacing translucent/blurred surfaces (glassmorphism, frosted
-// headers) with opaque backgrounds. Translucency can make text hard to
-// read for low-vision users depending on what scrolls underneath.
-// Progressive enhancement — unsupported browsers simply keep the base style.
-//
-// Example:
-//   .header {
-//     background-color: rgb(255 255 255 / 0.7);
-//     backdrop-filter: blur(8px);
-//
-//     @include reduced-transparency {
-//       background-color: var(--color-surface);
-//       backdrop-filter: none;
-//     }
-//   }
+// reduced-transparency() — swap translucent/blurred surfaces for opaque ones.
+// Translucency can hurt readability for low-vision users. Progressive
+// enhancement: unsupported browsers keep the base style.
 
 @mixin reduced-transparency {
   @media (prefers-reduced-transparency: reduce) {
@@ -75,20 +30,8 @@
 }
 
 
-// high-contrast()
-// Applies styles when the user has requested more contrast in their OS settings.
-//
-// Use for: increasing border visibility, removing low-contrast decorative elements,
-// ensuring text meets elevated contrast ratios.
-//
-// Example:
-//   .card {
-//     border: 1px solid transparent;
-//
-//     @include high-contrast {
-//       border-color: currentColor;
-//     }
-//   }
+// high-contrast() — when the user has requested more contrast (strengthen
+// borders, drop low-contrast decoration).
 
 @mixin high-contrast {
   @media (prefers-contrast: more) {
@@ -97,22 +40,9 @@
 }
 
 
-// forced-colors()
-// Applies styles in Windows High Contrast Mode (now called Forced Colors Mode).
-// The browser replaces most colors with system palette values.
-//
-// Use for: restoring meaning lost when colors are replaced — e.g. adding borders
-// to elements that rely solely on background color for differentiation.
-// Overlooked but important for WCAG compliance on Windows.
-//
-// Example:
-//   .badge {
-//     background-color: var(--color-success);
-//
-//     @include forced-colors {
-//       outline: 2px solid ButtonText; // restore visible boundary
-//     }
-//   }
+// forced-colors() — Windows High Contrast / Forced Colors Mode, where the
+// browser replaces colours with system values. Restore meaning lost when
+// colour alone carried it (e.g. borders on background-only differentiation).
 
 @mixin forced-colors {
   @media (forced-colors: active) {
@@ -121,21 +51,8 @@
 }
 
 
-// dark-mode()
-// Applies styles when the user prefers a dark color scheme.
-//
-// Note: if your theming is handled entirely via CSS custom properties
-// and a [data-theme] attribute, you may not need this mixin at the
-// component level. Use it for cases the token system doesn't cover.
-//
-// Example:
-//   .logo {
-//     filter: none;
-//
-//     @include dark-mode {
-//       filter: invert(1);
-//     }
-//   }
+// dark-mode() — prefers-color-scheme: dark. Often unnecessary at the component
+// level (the token system handles theming); use for cases it doesn't cover.
 
 @mixin dark-mode {
   @media (prefers-color-scheme: dark) {
@@ -144,9 +61,7 @@
 }
 
 
-// light-mode()
-// Applies styles when the user prefers a light color scheme.
-// Less commonly needed but included for symmetry.
+// light-mode() — prefers-color-scheme: light. Included for symmetry.
 
 @mixin light-mode {
   @media (prefers-color-scheme: light) {
