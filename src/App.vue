@@ -502,7 +502,6 @@ const toc = [
     max-inline-size: 80rem;
     margin-inline: auto;
     padding: var(--space-6) var(--space-4) var(--space-8);
-    /* Own stacking context so the z-index:-1 watermarks sit above the page glow. */
     position: relative;
     isolation: isolate;
   }
@@ -571,7 +570,7 @@ const toc = [
   .site-main {
     display: grid;
     gap: var(--space-24);
-    min-inline-size: 0; /* let the content column shrink, not overflow */
+    min-inline-size: 0;
     padding-block-end: var(--space-16);
 
     @include from('md') {
@@ -582,9 +581,7 @@ const toc = [
   .pillar {
     display: grid;
     gap: var(--space-12);
-    /* Clear the sticky nav after a fragment jump. */
     scroll-margin-block-start: var(--space-16);
-    /* Own stacking context so the PillarHeader's z-index:-1 watermark sits above the page background. */
     position: relative;
     isolation: isolate;
   }
@@ -759,9 +756,6 @@ const toc = [
     }
   }
 
-  /* Pure-CSS scroll spy: each pillar owns a named view-timeline; the matching
-     nav link reads it (set inline from the toc data) and brightens while its
-     pillar holds the viewport. Scroll-linked, so support-gated only. */
   @supports (animation-timeline: view()) {
     .app-shell {
       timeline-scope: --vt-standard, --vt-craft, --vt-showcase, --vt-testing;
@@ -772,14 +766,11 @@ const toc = [
     #showcase { view-timeline-name: --vt-showcase; }
     #testing { view-timeline-name: --vt-testing; }
 
-    /* Pillar-level only: short adjacent sections all satisfy a "cover" range at
-       once, so per-section single-active isn't reliable in pure CSS. */
     .toc-group-link {
       animation: toc-group-active linear both;
       animation-range: cover 0% cover 100%;
     }
 
-    /* Plateau across 12%–88% so the active pillar stays lit even on tall regions. */
     @keyframes toc-group-active {
       0%,
       100% {
@@ -794,7 +785,6 @@ const toc = [
       }
     }
 
-    /* Forced colors flattens the tint — mark the active tab with a border instead. */
     @include forced-colors {
       @keyframes toc-group-active {
         0%,
@@ -834,7 +824,6 @@ const toc = [
     font-weight: 800;
     line-height: 1;
     letter-spacing: var(--tracking-tight);
-    /* Safari still needs the prefixed background-clip for gradient text. */
     background: var(--gradient-accent);
     /* stylelint-disable-next-line property-no-vendor-prefix -- Safari */
     -webkit-background-clip: text;
@@ -842,7 +831,6 @@ const toc = [
     -webkit-text-fill-color: transparent;
     color: transparent;
 
-    /* In forced-colors, clipped text would vanish — restore a system color. */
     @include forced-colors {
       background: none;
       -webkit-text-fill-color: CanvasText;
@@ -871,8 +859,6 @@ const toc = [
       block-size: 30rem;
     }
 
-    /* Animates `translate` only, so the parallax stays composited — no paint
-       cost on scroll. Static where motion or view-timelines aren't available. */
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) {
         animation: hero-watermark-parallax linear both;
@@ -915,13 +901,16 @@ const toc = [
   }
 
   .hero-icons {
+    --hero-glyph: clamp(2.75rem, 7vw, 5rem);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* No gap: cells tile edge-to-edge so the Dock hover target is continuous
-       (spacing comes from padding inside each cell). */
+    /* translateX cancels the half-track inset from centring the glyphs, so the
+       first icon is flush-left without moving the tiled hit areas. */
+    transform: translateX(calc((var(--hero-glyph) - 100% / 4) / 2));
 
     @include from('md') {
       grid-template-columns: repeat(6, 1fr);
+      transform: translateX(calc((var(--hero-glyph) - 100% / 6) / 2));
     }
   }
 
@@ -935,14 +924,11 @@ const toc = [
       color: var(--color-primary);
     }
 
-    /* Staggered entrance (delay from the inline --i). Inside no-preference so
-       reduced-motion users never see the opacity:0 start. */
     @media (prefers-reduced-motion: no-preference) {
       animation: hero-icon-in 0.5s var(--easing-enter) both;
       animation-delay: calc(var(--i, 0) * 45ms);
     }
 
-    /* Cell transitions colour only; magnification is on the glyph (below). */
     @include can-hover {
       transition: color var(--duration-normal) var(--easing-standard);
     }
@@ -955,11 +941,9 @@ const toc = [
     }
   }
 
-  /* Magnifies the glyph $offset siblings away — forward ($dir 'after', via `+`)
-     or backward ('before', via :has()). $edge guards the row-boundary wrap:
-     'right'/'left' skip when the hovered glyph is last/first in its row, ''
-     for vertical neighbours (a column never wraps). Scale lands on the glyph. */
-  @mixin dock-cell($offset, $dir, $edge, $scale, $cols) {
+  /* Styles the cell $offset siblings away (forward via `+`, backward via :has);
+     $edge guards the row-boundary wrap. */
+  @mixin dock-cell($offset, $dir, $edge, $scale, $color, $cols) {
     $guard: '';
     @if $edge == 'right' {
       $guard: ':not(:nth-child(#{$cols}n))';
@@ -974,8 +958,7 @@ const toc = [
         $sel: '#{$sel} + .hero-icon';
       }
     } @else {
-      // `1 to $offset` counts UP exactly $offset - 1 times (empty at offset 1);
-      // `through $offset - 1` would be `1 through 0`, which Sass counts DOWN.
+      // `through $offset - 1` would be `1 through 0`, which Sass counts DOWN — use `1 to`.
       $inner: '+ .hero-icon:hover#{$guard}';
       @for $i from 1 to $offset {
         $inner: '+ .hero-icon #{$inner}';
@@ -984,41 +967,40 @@ const toc = [
       $sel: '.hero-icon:has(#{$inner})';
     }
 
+    #{$sel} {
+      color: $color;
+    }
+
     #{$sel} .hero-icon-svg {
       scale: $scale;
     }
   }
 
-  /* 2D bulge for $cols columns: in DOM order ±1 is left/right, ±$cols is the
-     row above/below, ±($cols ∓ 1) the diagonals. Each call guards the row edge
-     it would otherwise wrap across. */
+  /* 2D bulge for $cols columns: ±1 left/right, ±$cols the row above/below,
+     ±($cols ∓ 1) the diagonals. Colour rides the scale: more purple nearer. */
   @mixin dock-falloff($cols) {
     $near: 1.34;
     $diag: 1.16;
+    $near-color: color-mix(in oklab, var(--color-accent) 60%, var(--color-primary));
+    $diag-color: color-mix(in oklab, var(--color-accent) 25%, var(--color-primary));
 
-    @include dock-cell(1, 'after', 'right', $near, $cols); // right
-    @include dock-cell(1, 'before', 'left', $near, $cols); // left
-    @include dock-cell($cols, 'after', '', $near, $cols); // down
-    @include dock-cell($cols, 'before', '', $near, $cols); // up
+    @include dock-cell(1, 'after', 'right', $near, $near-color, $cols); // right
+    @include dock-cell(1, 'before', 'left', $near, $near-color, $cols); // left
+    @include dock-cell($cols, 'after', '', $near, $near-color, $cols); // down
+    @include dock-cell($cols, 'before', '', $near, $near-color, $cols); // up
 
-    @include dock-cell($cols + 1, 'after', 'right', $diag, $cols); // down-right
-    @include dock-cell($cols - 1, 'after', 'left', $diag, $cols); // down-left
-    @include dock-cell($cols - 1, 'before', 'right', $diag, $cols); // up-right
-    @include dock-cell($cols + 1, 'before', 'left', $diag, $cols); // up-left
+    @include dock-cell($cols + 1, 'after', 'right', $diag, $diag-color, $cols); // down-right
+    @include dock-cell($cols - 1, 'after', 'left', $diag, $diag-color, $cols); // down-left
+    @include dock-cell($cols - 1, 'before', 'right', $diag, $diag-color, $cols); // up-right
+    @include dock-cell($cols + 1, 'before', 'left', $diag, $diag-color, $cols); // up-left
   }
 
-  /* Mac-Dock magnification, pure CSS: the hovered glyph swells and neighbours
-     fall off with distance. `scale` is composited, so it costs only on hover,
-     never on scroll. Without :has() the hovered glyph still scales (fallback).
-     Falloff is per-breakpoint since the column count differs. */
   @include can-hover {
     .hero-icon:hover {
-      color: var(--color-primary);
+      color: var(--color-accent);
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      /* Raise the hovered cell so its glyph paints over neighbours. Never scale
-         the CELL — a scaled cell would overlap the next and trap the hover. */
       .hero-icon:hover {
         z-index: 1;
       }
@@ -1038,11 +1020,9 @@ const toc = [
   }
 
   .hero-icon-svg {
-    inline-size: clamp(2.75rem, 7vw, 5rem);
-    block-size: clamp(2.75rem, 7vw, 5rem);
+    inline-size: var(--hero-glyph);
+    block-size: var(--hero-glyph);
     fill: currentcolor;
-    /* pointer-events:none so the overspilling glyph never intercepts the cursor
-       — hover hands off cleanly to the neighbouring cell. */
     pointer-events: none;
 
     @include can-hover {
@@ -1112,15 +1092,11 @@ const toc = [
     color: var(--color-text-subtle);
   }
 
-  /* Sections ease in on scroll — view-timeline driven, so off the main thread
-     with no scroll listeners. Motion- and support-gated. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .demo {
         animation: section-reveal linear both;
         animation-timeline: view();
-        /* Fixed px length (not %) so tall sections don't stretch the reveal
-           over their whole height — same ~420px distance for every section. */
         animation-range: entry 0% entry 420px;
       }
 
