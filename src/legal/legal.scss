@@ -68,14 +68,6 @@
     padding-inline-start: var(--space-6);
   }
 
-  .legal-placeholder {
-    padding: 0 var(--space-1);
-    border-radius: var(--radius-sm);
-    background-color: color-mix(in oklch, var(--color-warning) 22%, transparent);
-    color: var(--color-text);
-    font-style: italic;
-  }
-
   .legal-footer {
     display: flex;
     flex-wrap: wrap;
