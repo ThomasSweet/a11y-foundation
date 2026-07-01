@@ -152,6 +152,7 @@
 
   .showcase-code-body {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     margin-block-start: var(--space-3);
   }
