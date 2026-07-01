@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Lock the @layer order before any bundled CSS parses. In the production
+         build Vite emits component styles in a separate file that can load
+         before the global order declaration, which would otherwise register
+         `components` as the lowest-priority layer and invert the cascade. -->
+    <style>
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+    </style>
+
     <title>Accessible by default — an accessibility-first styling playground</title>
     <meta
       name="description"
