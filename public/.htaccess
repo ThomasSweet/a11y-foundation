@@ -1,0 +1,21 @@
+# Cache policy for the static build (Apache / STRATO).
+#
+# Fail-safe toward freshness: the default is "revalidate", so a new deploy is
+# never hidden behind a stale cache (this was the cause of the mobile fix
+# appearing not to land). Fingerprinted CSS/JS — Vite puts a content hash in
+# every filename, so a change always yields a new name — is then allowed to
+# cache for a year; static media for a day.
+<IfModule mod_headers.c>
+  # Default for everything, including "/" and the .html entry points.
+  Header set Cache-Control "no-cache"
+
+  # Hashed build output — safe to cache immutably; the URL changes on any edit.
+  <FilesMatch "\.(?:css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Icons, og-image, favicon, web manifest — stable paths that change rarely.
+  <FilesMatch "\.(?:png|svg|ico|webmanifest|jpe?g|gif|webp|avif|woff2?)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>

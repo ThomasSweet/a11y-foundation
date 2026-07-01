@@ -84,8 +84,10 @@
               :href="`#${group.id}`"
               :style="{ animationTimeline: `--vt-${group.id}` }"
             >
+              <span class="toc-group-icon" aria-hidden="true" v-html="pillarIcons[group.icon]"></span>
               <span class="toc-group-n">{{ group.n }}</span>
-              {{ group.label }}
+              <span class="toc-group-label">{{ group.label }}</span>
+              <span class="toc-group-short">{{ group.short }}</span>
             </a>
             <ul class="toc-sections" role="list">
               <li v-for="s in group.sections" :key="s.id">
@@ -411,7 +413,7 @@ import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
-import { pillarIcons } from './icons/pillarIcons'
+import { pillarIcons, type PillarIconName } from './icons/pillarIcons'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
@@ -431,11 +433,22 @@ const groups = computed(() => [
 ])
 
 // ids must match the in-template section ids — anchor + scroll-spy targets.
-const toc = [
+interface TocGroup {
+  id: string
+  n: string
+  label: string
+  short: string
+  icon: PillarIconName
+  sections: { id: string; label: string }[]
+}
+
+const toc: TocGroup[] = [
   {
     id: 'standard',
     n: '01',
     label: 'The standard',
+    short: 'Standard',
+    icon: 'standard',
     sections: [
       { id: 'demo-criteria', label: 'Guidelines, alive' },
       { id: 'demo-conformance', label: 'From pass / fail to outcomes' },
@@ -446,6 +459,8 @@ const toc = [
     id: 'craft',
     n: '02',
     label: 'The craft',
+    short: 'Craft',
+    icon: 'craft',
     sections: [
       { id: 'craft-validation', label: 'Validation that waits its turn' },
       { id: 'craft-light-dark', label: 'Dark mode from one source' },
@@ -458,12 +473,16 @@ const toc = [
     id: 'showcase',
     n: '03',
     label: 'CSS showcase',
+    short: 'Showcase',
+    icon: 'next',
     sections: [{ id: 'demo-css', label: 'CSS showcases' }],
   },
   {
     id: 'testing',
     n: '04',
     label: 'The proof',
+    short: 'Proof',
+    icon: 'proof',
     sections: [
       { id: 'testing-layers', label: 'A layered job, not a button' },
       { id: 'testing-coverage', label: 'What automation can’t see' },
@@ -615,32 +634,57 @@ const toc = [
     max-inline-size: 72rem;
     margin-inline: auto;
     padding: var(--space-12) var(--space-4) var(--space-16);
+    /* Extra bottom room on mobile so the fixed nav pill never covers the footer. */
+    padding-block-end: calc(var(--space-20) + env(safe-area-inset-bottom, 0px));
     border-block-start: 1px solid var(--color-border);
+
+    @include from('lg') {
+      padding-block-end: var(--space-16);
+    }
   }
 }
 
 @layer components {
+  /* The page scroller becomes a scroll-state container so the mobile nav can
+     react to scroll position in pure CSS — no scroll listeners (see the reveal
+     rules under .toc). Harmless where unused (desktop) or unsupported. */
+  :global(html) {
+    container-type: scroll-state;
+  }
+
   .toc {
-    position: sticky;
-    inset-block-start: 0;
-    z-index: 5;
-    margin-block-end: var(--space-6);
-    margin-inline: calc(var(--space-4) * -1);
-    padding: var(--space-2) var(--space-4);
-    border-block-end: 1px solid var(--color-border);
+    /* Mobile: a floating glass pill pinned to the bottom, clear of the content. */
+    position: fixed;
+    inset-block-end: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+    inset-inline: var(--space-4);
+    /* Cap and centre so it stays a tidy pill on tablets, not a stretched bar. */
+    max-inline-size: 30rem;
+    margin-inline: auto;
+    z-index: 20;
+    padding: var(--space-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
     background-color: var(--color-surface-glass);
     backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-lg);
 
     @include from('lg') {
-      inset-block-start: var(--space-6);
+      /* Desktop: a static sidebar in normal flow. */
+      position: sticky;
+      inset-block: var(--space-6) auto;
+      inset-inline: auto;
+      max-inline-size: none;
+      margin-inline: 0;
       align-self: start;
+      z-index: 5;
       max-block-size: calc(100dvh - var(--space-12));
       overflow-y: auto;
-      margin: 0;
       padding: 0;
       border: none;
+      border-radius: 0;
       background: none;
       backdrop-filter: none;
+      box-shadow: none;
     }
 
     @include reduced-transparency {
@@ -651,6 +695,31 @@ const toc = [
     @include forced-colors {
       background-color: Canvas;
       backdrop-filter: none;
+    }
+  }
+
+  /* Reveal-on-scroll (mobile only): the pill is tucked below the viewport over
+     the hero, slides up once content has scrolled above it, and tucks away
+     again at the very bottom. Pure CSS via scroll-state — no JS. Where
+     scroll-state is unsupported the @supports guard leaves the pill visible. */
+  @media (width < 64em) {
+    @supports (container-type: scroll-state) {
+      .toc {
+        translate: 0 calc(100% + var(--space-8));
+        transition: translate var(--duration-normal) var(--easing-standard);
+      }
+
+      @container scroll-state(scrollable: top) {
+        .toc {
+          translate: 0 0;
+        }
+      }
+
+      @container (not scroll-state(scrollable: bottom)) {
+        .toc {
+          translate: 0 calc(100% + var(--space-8));
+        }
+      }
     }
   }
 
@@ -670,8 +739,8 @@ const toc = [
 
   .toc-groups {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+    justify-content: space-between;
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -682,20 +751,34 @@ const toc = [
     }
   }
 
+  .toc-group {
+    flex: 1;
+
+    @include from('lg') {
+      flex: initial;
+    }
+  }
+
   .toc-group-link {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--space-2);
+    justify-content: center;
+    gap: var(--space-1);
     min-block-size: 44px;
-    padding-inline: var(--space-3);
-    border-radius: var(--radius-full);
+    padding: var(--space-1);
+    border-radius: var(--radius-md);
     font-weight: 600;
     color: var(--color-text-subtle);
     text-decoration: none;
     white-space: nowrap;
+    text-align: center;
 
     @include from('lg') {
+      flex-direction: row;
       align-items: baseline;
+      justify-content: flex-start;
+      gap: var(--space-2);
       min-block-size: 0;
       padding: var(--space-1) var(--space-2);
       border-radius: var(--radius-sm);
@@ -722,6 +805,40 @@ const toc = [
       font-family: var(--font-mono);
       font-size: var(--text-sm);
       color: var(--color-primary);
+    }
+  }
+
+  /* Pillar icon — the mobile tab mark; the desktop sidebar uses the number. */
+  .toc-group-icon {
+    display: flex;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+
+    :deep(svg) {
+      inline-size: 100%;
+      block-size: 100%;
+    }
+
+    @include from('lg') {
+      display: none;
+    }
+  }
+
+  /* Full label on desktop, short label on the mobile tab. */
+  .toc-group-label {
+    display: none;
+
+    @include from('lg') {
+      display: inline;
+    }
+  }
+
+  .toc-group-short {
+    font-size: var(--text-sm);
+    line-height: 1;
+
+    @include from('lg') {
+      display: none;
     }
   }
 
