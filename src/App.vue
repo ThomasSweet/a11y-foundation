@@ -284,6 +284,7 @@
                 :summary="item.summary"
                 :status="item.status"
                 :supports="item.supports"
+                :detect="item.detect"
                 :links="item.links"
                 :snippet-html="item.snippetHtml"
                 :snippet-css="item.snippetCss"

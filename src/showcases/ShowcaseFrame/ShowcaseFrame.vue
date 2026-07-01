@@ -86,6 +86,9 @@ const props = withDefaults(
     status?: 'stable' | 'emerging'
     /** CSS.supports() condition for the feature, e.g. "container-type: inline-size". */
     supports?: string
+    /** JS feature test for APIs CSS.supports() can't express (View Transitions,
+        Custom Highlight API). Takes precedence over `supports` when present. */
+    detect?: () => boolean
     links?: ShowcaseLink[]
     /** Match the surrounding document outline (4 = under an h3 group). */
     headingLevel?: number
@@ -109,9 +112,10 @@ const props = withDefaults(
 
 const headingId = useId()
 const headingTag = computed(() => `h${props.headingLevel}`)
-const supported = computed(() =>
-  props.supports ? CSS.supports(props.supports) : true,
-)
+const supported = computed(() => {
+  if (props.detect) return props.detect()
+  return props.supports ? CSS.supports(props.supports) : true
+})
 const statusLabel = computed(() =>
   props.status === 'stable' ? 'Widely supported' : 'Emerging',
 )

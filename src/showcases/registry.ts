@@ -10,7 +10,8 @@
  * used in the foundation itself; 'emerging' = active Interop area / partial
  * support, demo only, always progressive enhancement.
  * supports = a CSS.supports() condition so ShowcaseFrame can tell visitors
- * whether they see the feature or the fallback ('' when none applies).
+ * whether they see the feature or the fallback ('' when none applies). For
+ * JS APIs that CSS.supports() can't express, use `detect` instead.
  *
  * Sources: https://wpt.fyi/interop-2026, https://web-platform-dx.github.io/web-features-explorer/
  */
@@ -84,6 +85,9 @@ export interface Showcase {
   title: string
   status: 'stable' | 'emerging'
   supports: string
+  /** JS feature test for APIs CSS.supports() can't express (View Transitions,
+      Custom Highlight API). Takes precedence over `supports`. */
+  detect?: () => boolean
   summary: string
   links?: { label: string; href: string }[]
   component: Component
@@ -544,6 +548,7 @@ export const showcases: Showcase[] = [
     title: 'Custom Highlight API',
     status: 'emerging',
     supports: '',
+    detect: () => 'highlights' in CSS,
     summary:
       'Paint ranges of text from JS via ::highlight() — styled in CSS, with no ' +
       'wrapper elements inserted and the accessibility tree left untouched. ' +
@@ -563,7 +568,7 @@ export const showcases: Showcase[] = [
     id: 'dialog-polish',
     title: 'Dialog & popover niceties',
     status: 'emerging',
-    supports: '',
+    supports: 'selector(:open)',
     summary:
       'Newer overlay ergonomics: a popover="hint" toggletip (show + dismiss ' +
       'for free) and a <dialog closedby="none"> takeover that Esc and ' +
@@ -589,6 +594,7 @@ export const showcases: Showcase[] = [
     title: 'View Transitions',
     status: 'emerging',
     supports: '',
+    detect: () => 'startViewTransition' in document,
     summary:
       'Animate between two DOM states by giving shared elements a ' +
       'view-transition-name and wrapping the change in startViewTransition() — ' +
