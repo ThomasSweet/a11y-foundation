@@ -91,6 +91,7 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
   .scroll-state-track {
     padding: var(--space-2);
     overflow-x: auto;
+    min-inline-size: 0;
     scroll-snap-type: x mandatory;
     border-radius: var(--radius-md);
 

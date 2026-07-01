@@ -607,11 +607,13 @@ const toc: TocGroup[] = [
     position: relative;
     isolation: isolate;
     overflow-x: clip;
+    min-inline-size: 0;
   }
 
   .demo {
     display: grid;
     gap: var(--space-6);
+    min-inline-size: 0;
   }
 
   .demo-row {

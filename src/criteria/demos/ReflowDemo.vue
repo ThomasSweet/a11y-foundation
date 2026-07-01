@@ -58,6 +58,7 @@ const stats = [
   .reflow-viewport {
     /* Fixed, phone-narrow stage. overflow:auto keeps any overflow local. */
     inline-size: min(100%, 21rem);
+    min-inline-size: 0;
     max-block-size: 15rem;
     overflow: auto;
     border: 1px solid var(--color-border);

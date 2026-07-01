@@ -52,6 +52,7 @@ const cards = [
   .snap-track {
     padding: var(--space-2);
     overflow-x: auto;
+    min-inline-size: 0;
     /* The whole point: each card lands on a snap position, never mid-scroll. */
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;

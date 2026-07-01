@@ -3,6 +3,7 @@
   .showcase {
     display: grid;
     gap: var(--space-4);
+    min-inline-size: 0;
     padding: var(--space-6);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -78,6 +79,7 @@
   }
 
   .showcase-demo {
+    min-inline-size: 0;
     padding: var(--space-4);
     border: 1px dashed var(--color-border);
     border-radius: var(--radius-md);
