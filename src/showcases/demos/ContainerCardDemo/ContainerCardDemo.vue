@@ -81,6 +81,18 @@ const cards = [
     border-radius: var(--radius-md);
   }
 
+  /* On phones the stage never gets wide enough for a cell to cross the card's
+     cq-from('xs') threshold, so the demo could only ever show the stacked
+     layout. Zooming the stage down enlarges its *logical* width — container
+     queries measure the pre-zoom size — so at full width the cards reach their
+     side-by-side layout and collapse back as the slider narrows, which is the
+     whole point of the demo. Degrades to the stacked view without zoom support. */
+  @media (width < 30em) {
+    .container-query-stage {
+      zoom: 0.5;
+    }
+  }
+
   .card-cell {
     container-type: inline-size;
   }
