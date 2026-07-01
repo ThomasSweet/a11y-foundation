@@ -110,6 +110,7 @@
 
   .light-dark-code {
     overflow-x: auto;
+    min-inline-size: 0;
     padding: var(--space-3);
     border-radius: var(--radius-sm);
     background-color: var(--color-bg-subtle);

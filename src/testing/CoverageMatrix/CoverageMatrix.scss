@@ -7,6 +7,7 @@
   /* Focusable scroll region so the table can overflow horizontally, still keyboard-operable. */
   .coverage-matrix-scroll {
     overflow-x: auto;
+    min-inline-size: 0;
 
     &:focus-visible {
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
