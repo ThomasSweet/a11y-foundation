@@ -524,7 +524,6 @@ const toc: TocGroup[] = [
     padding: var(--space-6) var(--space-4) var(--space-8);
     position: relative;
     isolation: isolate;
-    overflow-x: clip;
   }
 
   .hero-top {
@@ -606,7 +605,6 @@ const toc: TocGroup[] = [
     scroll-margin-block-start: var(--space-16);
     position: relative;
     isolation: isolate;
-    overflow-x: clip;
     min-inline-size: 0;
   }
 
