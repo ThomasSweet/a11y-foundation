@@ -1,10 +1,11 @@
 @layer components {
   .code-block {
     margin: 0;
+    min-inline-size: 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: var(--color-bg-subtle);
-    overflow: clip; // keep the rounded corners over the scrolling <pre>
+    overflow: clip;
 
     @include high-contrast {
       border-color: currentcolor;
@@ -61,6 +62,7 @@
 
   .code-block-pre {
     margin: 0;
+    min-inline-size: 0;
     padding: var(--space-3);
     overflow-x: auto;
     font-family: var(--font-mono);
