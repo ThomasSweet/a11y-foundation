@@ -413,7 +413,7 @@ import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
-import { pillarIcons } from './icons/pillarIcons'
+import { pillarIcons, type PillarIconName } from './icons/pillarIcons'
 
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
@@ -433,7 +433,16 @@ const groups = computed(() => [
 ])
 
 // ids must match the in-template section ids — anchor + scroll-spy targets.
-const toc = [
+interface TocGroup {
+  id: string
+  n: string
+  label: string
+  short: string
+  icon: PillarIconName
+  sections: { id: string; label: string }[]
+}
+
+const toc: TocGroup[] = [
   {
     id: 'standard',
     n: '01',
