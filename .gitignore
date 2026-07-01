@@ -9,3 +9,4 @@ playwright-report/
 
 # Local Claude Code config (launch configs, settings, etc.) — machine-local.
 .claude/
+deploy.sh
