@@ -17,6 +17,10 @@
     <!-- Critical inline styles: correct surface colour on first paint (no white
          flash in dark mode) before the stylesheets parse. Matches --color-bg. -->
     <style>
+      /* Lock the @layer order before the stylesheets parse — the build can emit
+         the component-styles chunk before the global order declaration. */
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+
       :root {
         color-scheme: light dark;
         background-color: light-dark(#fff, #0f0f0f);
