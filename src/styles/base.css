@@ -60,3 +60,12 @@
     }
   }
 }
+
+/* Cross-document view transitions: same-origin navigations (home ↔ legal
+   pages) get a soft cross-fade where supported — an ordinary navigation
+   everywhere else. Outside @layer: it's an opt-in, not a cascading style. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}

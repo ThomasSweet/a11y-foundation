@@ -35,6 +35,7 @@
               />
             </svg>
             GitHub
+            <span class="visually-hidden">(opens in a new tab)</span>
           </a>
           <ThemeToggle />
         </div>
@@ -123,8 +124,7 @@
             to switch the compliant behavior off and feel what the criterion
             actually prevents. Accessibility isn't a feature added on top; it's
             the baseline these guidelines keep formalizing — and they keep
-            <abbr title="Perceivable, Operable, Understandable, Robust">POUR</abbr>
-            at the core.
+            POUR at the core: Perceivable, Operable, Understandable, Robust.
           </p>
 
           <CriteriaTimeline />
@@ -722,6 +722,30 @@ const toc: TocGroup[] = [
           translate: 0 calc(100% + var(--space-8));
         }
       }
+
+      /* Direction-aware tier (scroll-state(scrolled:), Chrome 144+): the true
+         hidey-bar — tuck while scrolling down, return on the first scroll up.
+         Unknown queries never match, so browsers without `scrolled:` keep the
+         rules above; later rules win where both tiers match. */
+      @container scroll-state(scrolled: bottom) {
+        .toc {
+          translate: 0 calc(100% + var(--space-8));
+        }
+      }
+
+      @container scroll-state(scrolled: top) {
+        .toc {
+          translate: 0 0;
+        }
+      }
+
+      /* At the very top the pill stays tucked over the hero regardless of the
+         last scroll direction. */
+      @container (not scroll-state(scrollable: top)) {
+        .toc {
+          translate: 0 calc(100% + var(--space-8));
+        }
+      }
     }
   }
 
@@ -945,6 +969,7 @@ const toc: TocGroup[] = [
     font-weight: 800;
     line-height: 1;
     letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
     background: var(--gradient-accent);
     /* stylelint-disable-next-line property-no-vendor-prefix -- Safari */
     -webkit-background-clip: text;

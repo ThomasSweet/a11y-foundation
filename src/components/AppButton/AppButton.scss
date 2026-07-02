@@ -16,7 +16,12 @@
        transition needs no reduced-motion override. */
     transition:
       background-color var(--duration-fast) var(--easing-standard),
-      border-color var(--duration-fast) var(--easing-standard);
+      border-color var(--duration-fast) var(--easing-standard),
+      scale var(--duration-fast) var(--easing-standard);
+
+    &:active {
+      scale: 0.97;
+    }
 
     &--primary {
       background-color: var(--color-primary);
