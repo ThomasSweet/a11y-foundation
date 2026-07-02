@@ -419,6 +419,100 @@ on-page table of contents per pillar. Recommendation: start with tabbed
 views (no new deps, reuses our components); promote to routing later only if
 deep-linking/SEO demands it.
 
+## 13. From the CSS talks (July 2026) — features & missing content
+
+Distilled from four talks — Ahmed Shadeed (smart layouts), Bramus Van Damme
+(view transitions), Marcy Sutton Todd (accessibility × performance), Una
+Kravets (modern UI patterns) — mapped against what the site already covers.
+Everything below respects the house rules: no JS for demos, progressive
+enhancement only, performance is a hard constraint.
+
+**Quick wins:**
+
+- **Press feedback on AppButton** (Una) — `:active { scale: 0.97 }` via the
+  motion tokens. One declaration; her "little big things" argument.
+- **Cross-document View Transitions for the legal pages** (Bramus) —
+  `@view-transition { navigation: auto }` on index + impressum/privacy with
+  a reduced-motion guard. Pure CSS, and it makes our only real MPA
+  navigation a live demo. (This realizes the MPA half of #7.)
+- **`scroll-state(scrolled:)` tier for the bottom nav** (Una) — she showed
+  the exact hidey-bar we built. We reveal via `scrollable:` today; per the
+  talk `scrolled:` has now shipped in Chrome — re-verify support, and if
+  real, add it as a second `@supports` tier for true hide-on-scroll-down.
+
+**New showcase candidates (registry):**
+
+- **Interest invokers (`interestfor`)** (Una) — hover/focus/long-press link
+  previews and rich tooltips as an HTML attribute; focus and dismissal
+  semantics from the platform. Emerging, Chrome-only, falls back to a plain
+  link. The most on-brand feature in all four talks — the API exists to get
+  the accessibility of hover content right natively.
+- **Count-aware layouts with `:has()` quantity queries** (Ahmed) — his
+  ":has() is the if-statement of CSS" centerpiece: a grid re-mapping its
+  `grid-template-areas` based on item count (`:has(> :nth-child(3))`). Our
+  current :has() demo covers *state*; this covers *structure*. Pure CSS.
+- **Container query units** (Ahmed) — `cqi` + `clamp()` for ultra-fluid
+  type/spacing *within a container*, fixing his "in-between sizes" problem.
+  Complements the container-queries showcase.
+- **Pure-CSS carousel** (Ahmed/Una) — scroll buttons + `::scroll-marker`.
+  Hot feature with real screen-reader controversies; showing it WITH honest
+  a11y caveats is exactly this site's voice.
+- **`light-dark()` beyond color** (Una) — her style-query trick extending
+  light-dark-style theming to non-color values (font-weight, shadows);
+  works today. Could extend `LightDarkDemo` instead of a new entry.
+
+**New content blocks (missing "chapters"):**
+
+- **"Defensive CSS" craft block** (Ahmed) — `min-inline-size: 0`,
+  `minmax(0, 1fr)`, min-content traps. Grounded in this repo's own iOS
+  WebKit overflow war (PRs #15–#19); ties to WCAG 1.4.10 Reflow: robust
+  layouts *are* accessible layouts.
+- **Loading states & `aria-busy`** (Marcy) — skeleton loaders that stay
+  honest to the accessibility tree: `aria-busy`, role description, when a
+  live region is the wrong tool. A static `:has(:checked)` toggle keeps it
+  JS-free. Possible CoverageMatrix row: "loading state never announced".
+- **"Performance is accessibility" prose block** in The proof (Marcy's
+  thesis) — compositor-only animation → vestibular safety, main-thread
+  health → screen-reader responsiveness, keystroke-level performance as a
+  metric. Connects our existing perf hard-constraint to its a11y payoffs.
+- **Fill the empty WCAG 2.0 timeline era** (Marcy) — 2.4.1 Bypass Blocks or
+  2.1.2 No Keyboard Trap as a break-it demo; her "first test I run is
+  tabbing the page". Editorial decision: the era is empty on purpose today.
+- **Logical properties / RTL craft block** (Ahmed) — flip a section to
+  `dir="rtl"` to surface the logical-properties rigor already everywhere in
+  this codebase.
+
+**Watchlist (too early — revisit):** `sibling-index()` (Canary only),
+`border-shape` (spec in flux; candidate for the anchor-tooltip arrow),
+overscroll areas / built-in gestures (early discussion), scoped view
+transitions (`element.startViewTransition`, Chrome 147+, JS-API).
+
+**Not doing:** scroll-/gesture-driven view-transition scrubbing and FLIP
+key-frame optimization (Bramus) — deep JS, violates the no-JS rule and the
+performance constraint that already killed scroll-driven color.
+
+## 14. Accessibility audit follow-ups (July 2026)
+
+Audit result: axe (WCAG 2.2 A+AA) clean in Chromium, Firefox, and WebKit;
+all 18 e2e tests pass; manual review found only polish items:
+
+- **Hero GitHub link** (`App.vue`): has `target="_blank"` but lacks the
+  `visually-hidden` "(opens in a new tab)" span every other external link
+  carries. One-line fix.
+- **Spell out POUR inline once** instead of relying on `<abbr title>` alone
+  ("Guidelines, alive" intro) — title-only expansions are unreachable on
+  touch and for many AT users. 3.1.4 is AAA, but it's our own bar.
+- **Persist the theme choice** (`ThemeToggle.vue`) — reload resets to
+  System. Needs a few lines of localStorage (component already uses JS; the
+  no-JS rule is for demos). Decide consciously: a no-flash reload would
+  also need an inline head script.
+- **Nice-to-have:** `<meta name="color-scheme" content="light dark">` in
+  `index.html` so pre-CSS paint uses the right scheme (perceived-perf
+  detail straight from Marcy's talk).
+- **Documented trade-off, no fix planned:** every CodeBlock `<pre>` is a
+  permanent tab stop (`tabindex="0"`); conditional tabindex needs JS.
+  Mitigated by the closed-by-default `<details>` around snippets.
+
 ## Done log
 
 - **Restructure: tabs → single narrative scroll, two pillars** (June 2026).

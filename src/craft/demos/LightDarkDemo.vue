@@ -17,7 +17,7 @@
           <code>light-dark()</code> — follows the toggle
         </h4>
         <div class="light-dark-swatch light-dark-swatch-modern" aria-hidden="true"></div>
-        <pre class="light-dark-code"><code>color: light-dark(#1a1a2e, #e6e6fa);</code></pre>
+        <pre class="light-dark-code"><code>background-color: light-dark(#e6e6fa, #1a1a2e);</code></pre>
         <p class="light-dark-note">
           One line, both values together so they can’t drift — and because it
           resolves against <code>color-scheme</code>, it honours the user’s
@@ -31,10 +31,10 @@
           <code>@media</code> — only hears the OS
         </h4>
         <div class="light-dark-swatch light-dark-swatch-legacy" aria-hidden="true"></div>
-        <pre class="light-dark-code"><code>color: #1a1a2e;
+        <pre class="light-dark-code"><code>background-color: #e6e6fa;
 
 @media (prefers-color-scheme: dark) {
-  color: #e6e6fa;
+  background-color: #1a1a2e;
 }</code></pre>
         <p class="light-dark-note">
           The values are split across two declarations (easy to update one and
@@ -96,15 +96,15 @@
 
   /* The modern swatch: one declaration, both modes. */
   .light-dark-swatch-modern {
-    background-color: light-dark(#1a1a2e, #e6e6fa);
+    background-color: light-dark(#e6e6fa, #1a1a2e);
   }
 
   /* The legacy swatch: base value + media-query override — two declarations to keep in sync. */
   .light-dark-swatch-legacy {
-    background-color: #1a1a2e;
+    background-color: #e6e6fa;
 
     @include dark-mode {
-      background-color: #e6e6fa;
+      background-color: #1a1a2e;
     }
   }
 
