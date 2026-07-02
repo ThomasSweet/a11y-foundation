@@ -96,6 +96,23 @@
                   {{ s.label }}
                 </a>
               </li>
+              <!-- Long lists collapse into native <details> clusters — disclosure
+                   semantics and keyboard support come from the platform. -->
+              <li v-for="sub in group.subgroups ?? []" :key="sub.label">
+                <details class="toc-subgroup">
+                  <summary class="toc-subgroup-summary">
+                    {{ sub.label }}
+                    <span class="toc-subgroup-count" aria-hidden="true">· {{ sub.sections.length }}</span>
+                  </summary>
+                  <ul class="toc-subgroup-sections" role="list">
+                    <li v-for="s in sub.sections" :key="s.id">
+                      <a class="toc-section-link" :href="`#${s.id}`">
+                        {{ s.label }}
+                      </a>
+                    </li>
+                  </ul>
+                </details>
+              </li>
             </ul>
           </li>
         </ol>
@@ -282,6 +299,7 @@
               <ShowcaseFrame
                 v-for="item in group.items"
                 :key="item.id"
+                :id="`showcase-${item.id}`"
                 :title="item.title"
                 :summary="item.summary"
                 :status="item.status"
@@ -433,13 +451,20 @@ const groups = computed(() => [
 ])
 
 // ids must match the in-template section ids — anchor + scroll-spy targets.
+interface TocSection {
+  id: string
+  label: string
+}
+
 interface TocGroup {
   id: string
   n: string
   label: string
   short: string
   icon: PillarIconName
-  sections: { id: string; label: string }[]
+  sections: TocSection[]
+  /** Collapsible clusters for long section lists (rendered as <details>). */
+  subgroups?: { label: string; sections: TocSection[] }[]
 }
 
 const toc: TocGroup[] = [
@@ -475,7 +500,23 @@ const toc: TocGroup[] = [
     label: 'CSS showcase',
     short: 'Showcase',
     icon: 'next',
-    sections: [{ id: 'demo-css', label: 'CSS showcases' }],
+    sections: [],
+    // Collapsed clusters mirroring the page's own grouping; ids match the
+    // anchor ids stamped on each ShowcaseFrame above.
+    subgroups: [
+      {
+        label: 'Widely supported',
+        sections: showcases
+          .filter((s) => s.status === 'stable')
+          .map((s) => ({ id: `showcase-${s.id}`, label: s.title })),
+      },
+      {
+        label: 'Emerging',
+        sections: showcases
+          .filter((s) => s.status === 'emerging')
+          .map((s) => ({ id: `showcase-${s.id}`, label: s.title })),
+      },
+    ],
   },
   {
     id: 'testing',
@@ -881,6 +922,41 @@ const toc: TocGroup[] = [
     }
   }
 
+  .toc-subgroup-summary {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+    cursor: pointer;
+
+    @include can-hover {
+      &:hover {
+        color: var(--color-text);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .toc-subgroup-count {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    color: var(--color-primary);
+  }
+
+  .toc-subgroup-sections {
+    display: grid;
+    gap: 1px;
+    margin-block-start: var(--space-1);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 1px solid var(--color-border);
+    list-style: none;
+  }
+
   .toc-section-link {
     display: block;
     padding: var(--space-1) var(--space-2);
@@ -1241,7 +1317,11 @@ const toc: TocGroup[] = [
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .demo {
-        animation: section-reveal linear both;
+        /* fill none, not both: a held pre-entry transform inflates the rects of
+           below-viewport sections, so smooth anchor scrolls overshoot (the
+           showcase block is tall enough to land ~400px off). Off-screen
+           sections don't need the hidden state applied to stay unseen. */
+        animation: section-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 420px;
       }

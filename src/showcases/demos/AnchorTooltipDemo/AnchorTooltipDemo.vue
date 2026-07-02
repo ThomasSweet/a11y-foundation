@@ -69,9 +69,10 @@
     <p class="anchor-tooltip-note">
       <strong>The honest limit:</strong> 1.4.13 also asks that a hint be
       <em>dismissible</em> without moving the pointer (an <kbd>Esc</kbd> press) —
-      the one leg pure CSS can’t reach. The no-JS answer arriving for that is the
-      <code>interestfor</code> attribute; until it lands widely, full compliance
-      wants either that or a few lines of script. CSS gets you the rest.
+      the one leg pure CSS can’t reach. The no-JS answer is the
+      <code>interestfor</code> attribute — now shipping in Chrome and demoed in
+      its own showcase below; until it lands widely, full compliance wants
+      either that or a few lines of script. CSS gets you the rest.
     </p>
   </div>
 </template>

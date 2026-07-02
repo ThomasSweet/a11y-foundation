@@ -1,0 +1,14 @@
+/* Politeness dial: wait a beat before showing, linger before hiding. */
+[interestfor] {
+  interest-delay: 0.4s 0.2s;
+}
+
+/* Once one hint in a toolbar is open, its neighbours open instantly. */
+.toolbar:has(:interest-source) [interestfor] {
+  interest-delay-start: 0s;
+}
+
+/* Style either side of the relationship while interest is shown. */
+a:interest-source {
+  background-color: color-mix(in oklab, currentcolor 12%, transparent);
+}
