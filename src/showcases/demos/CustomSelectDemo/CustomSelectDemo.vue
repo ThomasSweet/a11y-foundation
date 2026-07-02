@@ -144,10 +144,15 @@
       }
     }
 
-    /* Selected content is mirrored into <selectedcontent>; hide the long
-       description so the closed control stays compact. */
+    /* Selected content is mirrored into <selectedcontent>; lay it out like an
+       option row (flex blockifies the dot span — inline-size doesn't apply to
+       inline elements, so without this the cloned dot renders 0×0). Hide the
+       long description so the closed control stays compact. */
     .custom-select-value {
+      display: flex;
       flex: 1;
+      align-items: center;
+      gap: var(--space-3);
 
       .custom-select-desc {
         display: none;
