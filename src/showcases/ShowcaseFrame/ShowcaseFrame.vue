@@ -4,12 +4,11 @@
       <component :is="headingTag" :id="headingId" class="showcase-title">
         {{ title }}
       </component>
-      <span class="badge" :class="`badge--${status}`">
-        {{ statusLabel }}
-      </span>
     </header>
 
     <p class="showcase-summary">{{ summary }}</p>
+
+    <BaselineBadge v-if="baseline" :info="baseline" />
 
     <p v-if="!supported" class="showcase-unsupported" role="note">
       Your browser doesn't support this yet — the demo below shows the
@@ -72,6 +71,8 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue'
 import CodeBlock from '../CodeBlock/CodeBlock.vue'
+import BaselineBadge from '../BaselineBadge/BaselineBadge.vue'
+import type { BaselineInfo } from '../registry'
 
 interface ShowcaseLink {
   label: string
@@ -82,13 +83,13 @@ const props = withDefaults(
   defineProps<{
     title: string
     summary: string
-    /** 'stable' = interoperable now; 'emerging' = Interop area / partial support. */
-    status?: 'stable' | 'emerging'
     /** CSS.supports() condition for the feature, e.g. "container-type: inline-size". */
     supports?: string
     /** JS feature test for APIs CSS.supports() can't express (View Transitions,
         Custom Highlight API). Takes precedence over `supports` when present. */
     detect?: () => boolean
+    /** Baseline status line (from baseline-data.json); omitted = no badge. */
+    baseline?: BaselineInfo
     links?: ShowcaseLink[]
     /** Match the surrounding document outline (4 = under an h3 group). */
     headingLevel?: number
@@ -100,7 +101,6 @@ const props = withDefaults(
     snippetJs?: string
   }>(),
   {
-    status: 'stable',
     supports: '',
     links: () => [],
     headingLevel: 4,
@@ -116,9 +116,6 @@ const supported = computed(() => {
   if (props.detect) return props.detect()
   return props.supports ? CSS.supports(props.supports) : true
 })
-const statusLabel = computed(() =>
-  props.status === 'stable' ? 'Widely supported' : 'Emerging',
-)
 </script>
 
 <style scoped lang="scss" src="./ShowcaseFrame.scss"></style>

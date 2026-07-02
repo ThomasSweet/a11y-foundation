@@ -1,0 +1,327 @@
+{
+  "container-queries": {
+    "feature": "container-queries",
+    "name": "Container queries",
+    "baseline": "high",
+    "lowDate": "2023-02-14",
+    "highDate": "2025-08-14",
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "110",
+      "safari": "16"
+    }
+  },
+  "has-selector": {
+    "feature": "has",
+    "name": ":has()",
+    "baseline": "low",
+    "lowDate": "2023-12-19",
+    "highDate": null,
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "121",
+      "safari": "15.4"
+    }
+  },
+  "subgrid": {
+    "feature": "subgrid",
+    "name": "Subgrid",
+    "baseline": "high",
+    "lowDate": "2023-09-15",
+    "highDate": "2026-03-15",
+    "support": {
+      "chrome": "117",
+      "edge": "117",
+      "firefox": "71",
+      "safari": "16"
+    }
+  },
+  "sliding-indicator": {
+    "feature": "has",
+    "name": ":has()",
+    "baseline": "low",
+    "lowDate": "2023-12-19",
+    "highDate": null,
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "121",
+      "safari": "15.4"
+    }
+  },
+  "text-wrap": {
+    "feature": "text-wrap-balance",
+    "name": "text-wrap: balance",
+    "baseline": "low",
+    "lowDate": "2024-05-13",
+    "highDate": null,
+    "support": {
+      "chrome": "114",
+      "edge": "114",
+      "firefox": "121",
+      "safari": "17.5"
+    }
+  },
+  "scroll-snap": {
+    "feature": "scroll-snap",
+    "name": "Scroll snap",
+    "baseline": "high",
+    "lowDate": "2020-01-15",
+    "highDate": "2022-07-15",
+    "support": {
+      "chrome": "69",
+      "edge": "79",
+      "firefox": "68",
+      "safari": "11"
+    }
+  },
+  "popover": {
+    "feature": "popover",
+    "name": "Popover",
+    "baseline": "low",
+    "lowDate": "2025-01-27",
+    "highDate": null,
+    "support": {
+      "chrome": "116",
+      "edge": "116",
+      "firefox": "125",
+      "safari": "17"
+    }
+  },
+  "anchor-positioning": {
+    "feature": "anchor-positioning",
+    "name": "Anchor positioning",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": null,
+      "edge": null,
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "anchor-tooltip": {
+    "feature": "anchor-positioning",
+    "name": "Anchor positioning",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": null,
+      "edge": null,
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "contrast-color": {
+    "feature": "contrast-color",
+    "name": "contrast-color()",
+    "baseline": "low",
+    "lowDate": "2026-04-10",
+    "highDate": null,
+    "support": {
+      "chrome": "147",
+      "edge": "147",
+      "firefox": "146",
+      "safari": "26"
+    }
+  },
+  "theming": {
+    "feature": "relative-color",
+    "name": "Relative colors",
+    "baseline": "low",
+    "lowDate": "2024-09-16",
+    "highDate": null,
+    "support": {
+      "chrome": "125",
+      "edge": "125",
+      "firefox": "128",
+      "safari": "18"
+    }
+  },
+  "theme-picker": {
+    "feature": "relative-color",
+    "name": "Relative colors",
+    "baseline": "low",
+    "lowDate": "2024-09-16",
+    "highDate": null,
+    "support": {
+      "chrome": "125",
+      "edge": "125",
+      "firefox": "128",
+      "safari": "18"
+    }
+  },
+  "scroll-driven-animations": {
+    "feature": "scroll-driven-animations",
+    "name": "Scroll-driven animations",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "115",
+      "edge": "115",
+      "firefox": null,
+      "safari": "26"
+    }
+  },
+  "style-queries": {
+    "feature": "container-style-queries",
+    "name": "Container style queries",
+    "baseline": "low",
+    "lowDate": "2026-05-19",
+    "highDate": null,
+    "support": {
+      "chrome": "111",
+      "edge": "111",
+      "firefox": "151",
+      "safari": "18"
+    }
+  },
+  "shape-function": {
+    "feature": "shape-function",
+    "name": "shape()",
+    "baseline": "low",
+    "lowDate": "2026-02-24",
+    "highDate": null,
+    "support": {
+      "chrome": "135",
+      "edge": "135",
+      "firefox": "148",
+      "safari": "18.4"
+    }
+  },
+  "starting-style": {
+    "feature": "starting-style",
+    "name": "@starting-style",
+    "baseline": "low",
+    "lowDate": "2024-08-06",
+    "highDate": null,
+    "support": {
+      "chrome": "117",
+      "edge": "117",
+      "firefox": "129",
+      "safari": "17.5"
+    }
+  },
+  "advanced-attr": {
+    "feature": "attr",
+    "name": "attr()",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": null,
+      "edge": null,
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "field-sizing": {
+    "feature": "field-sizing",
+    "name": "field-sizing",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "123",
+      "edge": "123",
+      "firefox": null,
+      "safari": "26.2"
+    }
+  },
+  "css-zoom": {
+    "feature": "zoom",
+    "name": "zoom",
+    "baseline": "low",
+    "lowDate": "2024-05-14",
+    "highDate": null,
+    "support": {
+      "chrome": "1",
+      "edge": "12",
+      "firefox": "126",
+      "safari": "3.1"
+    }
+  },
+  "customizable-select": {
+    "feature": "customizable-select",
+    "name": "Customizable <select>",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "135",
+      "edge": "135",
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "scroll-state": {
+    "feature": "container-scroll-state-queries",
+    "name": "Container scroll-state queries",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "133",
+      "edge": "133",
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "custom-highlight": {
+    "feature": "highlight",
+    "name": "Custom highlights",
+    "baseline": "low",
+    "lowDate": "2026-03-24",
+    "highDate": null,
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "149",
+      "safari": "17.2"
+    }
+  },
+  "dialog-polish": {
+    "feature": "dialog-closedby",
+    "name": "<dialog closedby>",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "134",
+      "edge": "134",
+      "firefox": "141",
+      "safari": null
+    }
+  },
+  "interest-invokers": {
+    "feature": "interest-invokers",
+    "name": "Interest invokers",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "142",
+      "edge": "142",
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "view-transitions": {
+    "feature": "view-transitions",
+    "name": "View transitions",
+    "baseline": "low",
+    "lowDate": "2025-10-14",
+    "highDate": null,
+    "support": {
+      "chrome": "111",
+      "edge": "111",
+      "firefox": "144",
+      "safari": "18"
+    }
+  }
+}

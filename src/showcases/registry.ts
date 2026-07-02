@@ -83,6 +83,18 @@ import interestSnippetCss from './demos/InterestInvokerDemo/InterestInvokerDemo.
 import viewTransitionSnippetCss from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.css?raw'
 import viewTransitionSnippetJs from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.js?raw'
 
+/** Per-showcase Baseline status, generated into baseline-data.json by
+    scripts/gen-baseline.mjs from the web-features package (build-time — the
+    full dataset must never reach the client bundle). */
+export interface BaselineInfo {
+  feature: string
+  name: string
+  baseline: 'high' | 'low' | false
+  lowDate: string | null
+  highDate: string | null
+  support: Record<string, string | null>
+}
+
 export interface Showcase {
   id: string
   title: string
