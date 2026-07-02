@@ -39,6 +39,7 @@ import PopoverMenuDemo from './demos/PopoverMenuDemo/PopoverMenuDemo.vue'
 import ScrollStateDemo from './demos/ScrollStateDemo/ScrollStateDemo.vue'
 import HighlightApiDemo from './demos/HighlightApiDemo/HighlightApiDemo.vue'
 import DialogPolishDemo from './demos/DialogPolishDemo/DialogPolishDemo.vue'
+import InterestInvokerDemo from './demos/InterestInvokerDemo/InterestInvokerDemo.vue'
 import ViewTransitionDemo from './demos/ViewTransitionDemo/ViewTransitionDemo.vue'
 import type { Component } from 'vue'
 
@@ -77,6 +78,8 @@ import highlightSnippetCss from './demos/HighlightApiDemo/HighlightApiDemo.snipp
 import highlightSnippetJs from './demos/HighlightApiDemo/HighlightApiDemo.snippet.js?raw'
 import dialogPolishSnippetHtml from './demos/DialogPolishDemo/DialogPolishDemo.snippet.html?raw'
 import dialogPolishSnippetCss from './demos/DialogPolishDemo/DialogPolishDemo.snippet.css?raw'
+import interestSnippetHtml from './demos/InterestInvokerDemo/InterestInvokerDemo.snippet.html?raw'
+import interestSnippetCss from './demos/InterestInvokerDemo/InterestInvokerDemo.snippet.css?raw'
 import viewTransitionSnippetCss from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.css?raw'
 import viewTransitionSnippetJs from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.js?raw'
 
@@ -587,6 +590,32 @@ export const showcases: Showcase[] = [
     component: DialogPolishDemo,
     snippetHtml: dialogPolishSnippetHtml,
     snippetCss: dialogPolishSnippetCss,
+  },
+  {
+    id: 'interest-invokers',
+    title: 'Interest invokers (interestfor)',
+    status: 'emerging',
+    supports: 'interest-delay: 0s',
+    summary:
+      'Hover, keyboard focus, or touch long-press invokes a popover from one ' +
+      'HTML attribute — link previews and rich tooltips with the delays, Esc ' +
+      'dismissal, and accessibility mapping supplied by the browser, no ' +
+      'tooltip library. This closes the gap the anchor-tooltip demo calls out: ' +
+      'hover content that meets all of WCAG 1.4.13, including dismissible. ' +
+      'Chrome 142+; everywhere else the links are simply links.',
+    links: [
+      {
+        label: 'MDN: interest-delay',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/interest-delay',
+      },
+      {
+        label: 'Chrome Status: Interest Invokers',
+        href: 'https://chromestatus.com/feature/4530756656562176',
+      },
+    ],
+    component: InterestInvokerDemo,
+    snippetHtml: interestSnippetHtml,
+    snippetCss: interestSnippetCss,
   },
 
   {

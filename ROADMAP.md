@@ -427,26 +427,27 @@ Kravets (modern UI patterns) — mapped against what the site already covers.
 Everything below respects the house rules: no JS for demos, progressive
 enhancement only, performance is a hard constraint.
 
-**Quick wins:**
+**Quick wins — ✅ all three done (July 2026):**
 
-- **Press feedback on AppButton** (Una) — `:active { scale: 0.97 }` via the
-  motion tokens. One declaration; her "little big things" argument.
-- **Cross-document View Transitions for the legal pages** (Bramus) —
-  `@view-transition { navigation: auto }` on index + impressum/privacy with
-  a reduced-motion guard. Pure CSS, and it makes our only real MPA
-  navigation a live demo. (This realizes the MPA half of #7.)
-- **`scroll-state(scrolled:)` tier for the bottom nav** (Una) — she showed
-  the exact hidey-bar we built. We reveal via `scrollable:` today; per the
-  talk `scrolled:` has now shipped in Chrome — re-verify support, and if
-  real, add it as a second `@supports` tier for true hide-on-scroll-down.
+- **Press feedback on AppButton** ✅ — `:active { scale: 0.97 }` riding the
+  motion tokens (Una's "little big things").
+- **Cross-document View Transitions for the legal pages** ✅ —
+  `@view-transition { navigation: auto }` in `base.css` (outside `@layer`),
+  reduced-motion-guarded; lands in both the SPA and legal bundles via the
+  shared `index.css` chain. Realizes the MPA half of #7.
+- **`scroll-state(scrolled:)` tier for the bottom nav** ✅ — verified it
+  shipped in Chrome 144; direction-aware hidey-bar rules layered after the
+  `scrollable:` tier (unknown queries never match, so older engines keep
+  the previous behavior; still always-visible where scroll-state is absent).
 
 **New showcase candidates (registry):**
 
-- **Interest invokers (`interestfor`)** (Una) — hover/focus/long-press link
-  previews and rich tooltips as an HTML attribute; focus and dismissal
-  semantics from the platform. Emerging, Chrome-only, falls back to a plain
-  link. The most on-brand feature in all four talks — the API exists to get
-  the accessibility of hover content right natively.
+- **Interest invokers (`interestfor`)** ✅ Done (July 2026) — shipped in
+  Chrome 142; built as the `interest-invokers` showcase
+  (`InterestInvokerDemo`): link previews + delay-tuned toolbar hints on
+  `popover="hint"`, anchor-positioned, detected via
+  `CSS.supports('interest-delay: 0s')`. The anchor-tooltip demo's "honest
+  limit" note now points at it.
 - **Count-aware layouts with `:has()` quantity queries** (Ahmed) — his
   ":has() is the if-statement of CSS" centerpiece: a grid re-mapping its
   `grid-template-areas` based on item count (`:has(> :nth-child(3))`). Our
@@ -496,22 +497,43 @@ performance constraint that already killed scroll-driven color.
 Audit result: axe (WCAG 2.2 A+AA) clean in Chromium, Firefox, and WebKit;
 all 18 e2e tests pass; manual review found only polish items:
 
-- **Hero GitHub link** (`App.vue`): has `target="_blank"` but lacks the
-  `visually-hidden` "(opens in a new tab)" span every other external link
-  carries. One-line fix.
-- **Spell out POUR inline once** instead of relying on `<abbr title>` alone
-  ("Guidelines, alive" intro) — title-only expansions are unreachable on
-  touch and for many AT users. 3.1.4 is AAA, but it's our own bar.
+- **Hero GitHub link** ✅ Done (July 2026) — now carries the same
+  `visually-hidden` "(opens in a new tab)" span as every other external link.
+- **Spell out POUR inline once** ✅ Done (July 2026) — expansion is inline
+  text now; the `<abbr title>` (unreachable on touch/AT) is gone.
 - **Persist the theme choice** (`ThemeToggle.vue`) — reload resets to
   System. Needs a few lines of localStorage (component already uses JS; the
   no-JS rule is for demos). Decide consciously: a no-flash reload would
   also need an inline head script.
-- **Nice-to-have:** `<meta name="color-scheme" content="light dark">` in
-  `index.html` so pre-CSS paint uses the right scheme (perceived-perf
-  detail straight from Marcy's talk).
+- **`<meta name="color-scheme">`** ✅ Done (July 2026) — added to
+  `index.html`; the legal pages already handled it via inline critical CSS.
 - **Documented trade-off, no fix planned:** every CodeBlock `<pre>` is a
   permanent tab stop (`tabindex="0"`); conditional tabindex needs JS.
   Mitigated by the closed-by-default `<details>` around snippets.
+
+## 15. Baseline badges on the showcases
+
+Replace / augment the hand-written "Widely supported" / "Emerging" chips with
+real Baseline badges (the widget MDN and web.dev use).
+
+- **Licensing is a green light:** the Baseline name + logos are Google
+  trademarks explicitly licensed (CC BY-ND 4.0) for third parties to indicate
+  cross-browser support status — exactly our use. Don't modify/distort the
+  logos or imply endorsement. Browser logos ship as part of the official
+  assets for this purpose.
+- **Dynamic without runtime JS:** no RSS, but better — the `web-features`
+  npm package (already a dependency; it powers `baseline-watch`) is the
+  canonical dataset behind the badges. Add a `feature: '<web-features-id>'`
+  field per showcase and render a `BaselineBadge` component at build time:
+  status level + per-browser support versions, zero client JS, always as
+  fresh as the last dependency bump + deploy (the scheduled baseline:check
+  CI already nudges when statuses change).
+- **Alternative (rejected for now):** the official `<baseline-status>` web
+  component fetches live from api.webstatus.dev at runtime — live data, but
+  runtime JS + a network request per card; against the house rules.
+- **Bonus:** the stable/emerging *grouping* could then be derived from
+  Baseline status instead of maintained by hand (status: 'high' → widely
+  available tier), with `baseline-watch` already flagging transitions.
 
 ## Done log
 

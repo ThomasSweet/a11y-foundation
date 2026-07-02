@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Correct-scheme first paint before any CSS parses (no white flash in dark mode). -->
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Lock the @layer order before any bundled CSS parses. In the production
          build Vite emits component styles in a separate file that can load
