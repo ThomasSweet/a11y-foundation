@@ -3,6 +3,10 @@
     Skip to main content
   </a>
 
+  <!-- Baseline icon sprite — official assets defined once; every badge
+       references them with <use> instead of duplicating heavy logos. -->
+  <div class="baseline-sprite" aria-hidden="true" v-html="baselineSprite"></div>
+
   <div class="app-shell">
     <header class="hero">
       <span
@@ -302,9 +306,9 @@
                 :id="`showcase-${item.id}`"
                 :title="item.title"
                 :summary="item.summary"
-                :status="item.status"
                 :supports="item.supports"
                 :detect="item.detect"
+                :baseline="baselineData[item.id]"
                 :links="item.links"
                 :snippet-html="item.snippetHtml"
                 :snippet-css="item.snippetCss"
@@ -423,7 +427,9 @@ import TextField from './components/TextField/TextField.vue'
 import ThemeToggle from './components/ThemeToggle/ThemeToggle.vue'
 import PillarHeader from './components/PillarHeader/PillarHeader.vue'
 import ShowcaseFrame from './showcases/ShowcaseFrame/ShowcaseFrame.vue'
-import { showcases } from './showcases/registry'
+import { showcases, type BaselineInfo } from './showcases/registry'
+import baselineDataJson from './showcases/baseline-data.json'
+import baselineSprite from './showcases/BaselineBadge/baseline-sprite.svg?raw'
 import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
@@ -436,6 +442,9 @@ import { pillarIcons, type PillarIconName } from './icons/pillarIcons'
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 const name = ref('')
 const email = ref('')
+
+// JSON widens `baseline` to string|boolean; the generator guarantees the union.
+const baselineData = baselineDataJson as unknown as Record<string, BaselineInfo>
 
 const groups = computed(() => [
   {
@@ -534,6 +543,15 @@ const toc: TocGroup[] = [
 
 <style scoped lang="scss">
 @layer layout {
+  /* Visually gone but renderable — display:none would break the gradient
+     defs the <use> references resolve against in some engines. */
+  .baseline-sprite {
+    position: absolute;
+    inline-size: 0;
+    block-size: 0;
+    overflow: hidden;
+  }
+
   .app-shell {
     position: relative;
     min-block-size: 100dvh;

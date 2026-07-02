@@ -39,34 +39,6 @@
     font-size: var(--text-xl);
   }
 
-  .badge {
-    padding: var(--space-1) var(--space-2);
-    border: 1px solid transparent;
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-
-    /* Status is also conveyed by the label text, never by color alone. */
-    &--stable {
-      background-color: var(--color-bg-subtle);
-      color: var(--color-text);
-    }
-
-    &--emerging {
-      background-color: transparent;
-      border-color: var(--color-warning);
-      color: var(--color-text);
-    }
-
-    @include high-contrast {
-      border-color: currentcolor;
-    }
-
-    @include forced-colors {
-      border-color: ButtonText;
-    }
-  }
-
   .showcase-summary {
     color: var(--color-text-subtle);
   }

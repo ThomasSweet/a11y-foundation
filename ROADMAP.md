@@ -511,10 +511,23 @@ all 18 e2e tests pass; manual review found only polish items:
   permanent tab stop (`tabindex="0"`); conditional tabindex needs JS.
   Mitigated by the closed-by-default `<details>` around snippets.
 
-## 15. Baseline badges on the showcases
+## 15. Baseline badges on the showcases ✅ Done (July 2026)
 
-Replace / augment the hand-written "Widely supported" / "Emerging" chips with
-real Baseline badges (the widget MDN and web.dev use).
+Shipped the build-time way: `scripts/gen-baseline.mjs` extracts the ~25
+needed entries from `web-features` into `src/showcases/baseline-data.json`
+(committed; regenerated on every build via `prebuild` — never import the
+full multi-MB dataset client-side). `BaselineBadge.vue` renders the status
+line (level word + per-browser versions, text-first, no colour-alone) under
+each showcase summary; showcase id → feature id mapping lives in the
+generator. Now uses the OFFICIAL assets (July 2026): the Baseline status
+icons, browser logos, and check/cross marks extracted from the
+baseline-status widget by `scripts/gen-baseline-icons.mjs` into a committed
+SVG sprite (defined once, referenced per badge via `<use>` — the logos are
+too heavy to inline 25×; internal gradient ids are namespaced, artwork
+untouched per CC BY-ND). The redundant per-card "Widely supported"/
+"Emerging" chip was removed — the badge carries it now; the registry
+`status` field stays (it drives grouping + the sidebar clusters). Still
+open (bonus): derive that grouping from this data. Original notes below.
 
 - **Licensing is a green light:** the Baseline name + logos are Google
   trademarks explicitly licensed (CC BY-ND 4.0) for third parties to indicate
