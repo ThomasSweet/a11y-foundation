@@ -11,9 +11,8 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "allowJs": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client"]
   },
