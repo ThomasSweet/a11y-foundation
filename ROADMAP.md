@@ -535,6 +535,24 @@ real Baseline badges (the widget MDN and web.dev use).
   Baseline status instead of maintained by hand (status: 'high' → widely
   available tier), with `baseline-watch` already flagging transitions.
 
+## 16. Customizable <select> — make the demo earn its slot
+
+Thomas's read: the current demo is a bit boring. Ideas to enrich it (all
+pure CSS, keeping the native-semantics story front and center):
+
+- **Dot in the closed control** ✅ Done (July 2026) — was actually a bug:
+  `<selectedcontent>` stayed `display: inline`, so the cloned dot span's
+  `inline-size` didn't apply and it rendered 0×0. Now laid out like an
+  option row (flex), so the selected status shows its colour in the trigger.
+- **Status-tinted trigger** — tint the trigger border/background from the
+  selected option (the dot's tone), e.g. via `:has(option[value=…]:checked)`
+  on the select; never colour alone (the name carries meaning).
+- **Picker entrance polish** — scale/translate the popup from the trigger
+  (transform-origin top) instead of fade-only; motion tokens as always.
+- **A disabled option + an `<optgroup>`** — shows rich styling surviving
+  the full option model, not just the happy path.
+- **`::checkmark` styling flourish** — animate it in with @starting-style.
+
 ## Done log
 
 - **Restructure: tabs → single narrative scroll, two pillars** (June 2026).
