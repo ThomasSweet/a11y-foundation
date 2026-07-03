@@ -19,6 +19,7 @@
 import ContainerCardDemo from './demos/ContainerCardDemo/ContainerCardDemo.vue'
 import AnchorPopoverDemo from './demos/AnchorPopoverDemo/AnchorPopoverDemo.vue'
 import HasSelectorDemo from './demos/HasSelectorDemo/HasSelectorDemo.vue'
+import QuantityQueriesDemo from './demos/QuantityQueriesDemo/QuantityQueriesDemo.vue'
 import SubgridDemo from './demos/SubgridDemo/SubgridDemo.vue'
 import ContrastColorDemo from './demos/ContrastColorDemo/ContrastColorDemo.vue'
 import ScrollProgressDemo from './demos/ScrollProgressDemo/ScrollProgressDemo.vue'
@@ -48,6 +49,8 @@ import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.sn
 import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
 import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
 import hasSnippetCss from './demos/HasSelectorDemo/HasSelectorDemo.snippet.css?raw'
+import quantitySnippetHtml from './demos/QuantityQueriesDemo/QuantityQueriesDemo.snippet.html?raw'
+import quantitySnippetCss from './demos/QuantityQueriesDemo/QuantityQueriesDemo.snippet.css?raw'
 import subgridSnippetCss from './demos/SubgridDemo/SubgridDemo.snippet.css?raw'
 import slidingSnippetHtml from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.snippet.html?raw'
 import slidingSnippetCss from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.snippet.css?raw'
@@ -156,6 +159,33 @@ export const showcases: Showcase[] = [
     component: HasSelectorDemo,
     snippetHtml: hasSnippetHtml,
     snippetCss: hasSnippetCss,
+  },
+  {
+    id: 'quantity-queries',
+    title: 'Count-aware layouts (quantity queries)',
+    status: 'stable',
+    supports: 'selector(:has(> :nth-child(2)))',
+    summary:
+      'The chat-app photo bundle, in pure CSS: the grid counts its own ' +
+      'children with exact-count quantity queries — ' +
+      ':has(> :nth-child(3):last-child) reads "exactly three" — and ' +
+      're-composes its grid-template-areas per count. One photo renders big, ' +
+      'three make a lead with a stacked pair, five or more fall into a ' +
+      'mosaic. A pattern everyone assumes needs JS; the technique Heydon ' +
+      'Pickering coined pre-:has() now works upward.',
+    links: [
+      {
+        label: 'MDN: :has()',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:has',
+      },
+      {
+        label: 'A List Apart: Quantity Queries for CSS',
+        href: 'https://alistapart.com/article/quantity-queries-for-css/',
+      },
+    ],
+    component: QuantityQueriesDemo,
+    snippetHtml: quantitySnippetHtml,
+    snippetCss: quantitySnippetCss,
   },
   {
     id: 'subgrid',

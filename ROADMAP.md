@@ -448,10 +448,20 @@ enhancement only, performance is a hard constraint.
   `popover="hint"`, anchor-positioned, detected via
   `CSS.supports('interest-delay: 0s')`. The anchor-tooltip demo's "honest
   limit" note now points at it.
-- **Count-aware layouts with `:has()` quantity queries** (Ahmed) — his
-  ":has() is the if-statement of CSS" centerpiece: a grid re-mapping its
-  `grid-template-areas` based on item count (`:has(> :nth-child(3))`). Our
-  current :has() demo covers *state*; this covers *structure*. Pure CSS.
+- **Count-aware layouts with `:has()` quantity queries** ✅ Done (July
+  2026) — the `quantity-queries` showcase (`QuantityQueriesDemo`). Reworked
+  from a generic card grid (too close to Ahmed's own example) into the
+  **chat-app photo bundle**: 1 photo big, 2 split, 3 = lead + stacked pair,
+  4 = quad, 5+ = dense mosaic with a spanning lead — re-composing
+  `grid-template-areas` per EXACT count via `:has(> :nth-child(n):last-child)`.
+  A recognizable pattern everyone assumes needs JS; credits Heydon
+  Pickering's pre-`:has()` quantity-queries technique. Attach/remove buttons
+  stand in for the CMS (the only JS); every composition decision is CSS.
+  Refined per Thomas: the mosaic stays gapless at every count — the lead
+  uses 4 cells so n photos fill n+3; each short tail row gets one wide
+  photo via `:has(> :nth-child(3n + 2):last-child) > :nth-last-child(2)`
+  (and `3n + 1` → also `:nth-last-child(4)`). No span-3; verified 0 holes
+  for counts 5–14.
 - **Container query units** (Ahmed) — `cqi` + `clamp()` for ultra-fluid
   type/spacing *within a container*, fixing his "in-between sizes" problem.
   Complements the container-queries showcase.

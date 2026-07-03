@@ -25,6 +25,19 @@
       "safari": "15.4"
     }
   },
+  "quantity-queries": {
+    "feature": "has",
+    "name": ":has()",
+    "baseline": "low",
+    "lowDate": "2023-12-19",
+    "highDate": null,
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "121",
+      "safari": "15.4"
+    }
+  },
   "subgrid": {
     "feature": "subgrid",
     "name": "Subgrid",
