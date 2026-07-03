@@ -464,10 +464,16 @@ enhancement only, performance is a hard constraint.
 
 **New content blocks (missing "chapters"):**
 
-- **"Defensive CSS" craft block** (Ahmed) — `min-inline-size: 0`,
-  `minmax(0, 1fr)`, min-content traps. Grounded in this repo's own iOS
-  WebKit overflow war (PRs #15–#19); ties to WCAG 1.4.10 Reflow: robust
-  layouts *are* accessible layouts.
+- **"Defensive CSS" craft block** ✅ Done (July 2026) — craft section
+  "Layouts that expect the worst" (`DefensiveCssDemo`), reframed per Thomas
+  as mockup-vs-reality: two frames, identical CSS — tidy placeholder copy
+  vs. a production deploy URL. A pure-CSS `:has()` toggle removes the
+  `min-inline-size: 0` + scroller guards; the mockup keeps looking flawless
+  (why the bug ships) while reality gets sliced at the frame edge. Ties to
+  WCAG 1.4.10; the iOS QA story is a single low-key parenthetical, not the
+  hook. (Footnotes: the first draft's scrolling `<pre>` lacked `tabindex`
+  and the site's own axe e2e failed the build; the demo scaffolding also
+  needed its own guards at two grid hops to contain its broken state.)
 - **Loading states & `aria-busy`** (Marcy) — skeleton loaders that stay
   honest to the accessibility tree: `aria-busy`, role description, when a
   live region is the wrong tool. A static `:has(:checked)` toggle keeps it

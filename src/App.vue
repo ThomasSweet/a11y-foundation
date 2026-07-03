@@ -279,6 +279,26 @@
             <AppButton variant="secondary">Secondary action</AppButton>
           </div>
         </section>
+
+        <section class="demo" aria-labelledby="craft-defensive">
+          <h3 id="craft-defensive">Layouts that expect the worst</h3>
+          <p>
+            Defensive CSS is the habit of assuming real content will be longer,
+            wider, and weirder than the mockup. Designs are composed with tidy
+            placeholder copy; CSS has to survive user names, tokens, and URLs.
+            The classic trap: a grid item's automatic minimum size is its
+            <em>min-content</em> size, not zero — the first unbreakable string
+            forces its column wider than the container and pushes the layout
+            past the viewport, a
+            <a href="https://www.w3.org/WAI/WCAG22/Understanding/reflow.html">WCAG
+            1.4.10 Reflow</a> failure that low-vision users at high zoom hit
+            first. The guard is boring and load-bearing:
+            <code>min-inline-size: 0</code> at every grid hop, plus a scroll or
+            wrap strategy for content that can't break. (This codebase learned
+            it the hard way during QA, courtesy of an iOS WebKit quirk.)
+          </p>
+          <DefensiveCssDemo />
+        </section>
       </section>
 
       <section id="showcase" class="pillar scrollspy-region" aria-labelledby="showcase-title">
@@ -434,6 +454,7 @@ import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
+import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
@@ -501,6 +522,7 @@ const toc: TocGroup[] = [
       { id: 'craft-dialog', label: 'Native dialog, zero trapping code' },
       { id: 'craft-motion', label: 'Motion that bows out on request' },
       { id: 'craft-targets', label: 'Targets for touch & forced colors' },
+      { id: 'craft-defensive', label: 'Layouts that expect the worst' },
     ],
   },
   {
