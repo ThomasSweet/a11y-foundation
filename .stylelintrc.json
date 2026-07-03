@@ -24,7 +24,8 @@
               "--cues": "",
               "--pick-h": "",
               "--pick-l": "",
-              "--bypass": ""
+              "--bypass": "",
+              "--photo-hue": ""
             }
           }
         ]

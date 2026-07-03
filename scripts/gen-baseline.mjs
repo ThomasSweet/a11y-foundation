@@ -19,6 +19,7 @@ import { features } from 'web-features'
 const SHOWCASE_FEATURES = {
   'container-queries': 'container-queries',
   'has-selector': 'has',
+  'quantity-queries': 'has',
   subgrid: 'subgrid',
   'sliding-indicator': 'has',
   'text-wrap': 'text-wrap-balance',
