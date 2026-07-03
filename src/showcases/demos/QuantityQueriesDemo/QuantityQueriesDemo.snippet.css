@@ -34,6 +34,6 @@
    row one wide photo: count ≡ 2 (mod 3) needs one, ≡ 1 (mod 3) needs two. */
 .gallery:has(> :nth-child(5)):has(> :nth-child(3n + 2):last-child) > :nth-last-child(2),
 .gallery:has(> :nth-child(5)):has(> :nth-child(3n + 1):last-child) > :nth-last-child(2),
-.gallery:has(> :nth-child(5)):has(> :nth-child(3n + 1):last-child) > :nth-last-child(4) {
+.gallery:has(> :nth-child(5)):has(> :nth-child(3n + 1):last-child) > :nth-last-child(3) {
   grid-column: span 2;
 }

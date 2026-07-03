@@ -460,8 +460,8 @@ enhancement only, performance is a hard constraint.
   Refined per Thomas: the mosaic stays gapless at every count — the lead
   uses 4 cells so n photos fill n+3; each short tail row gets one wide
   photo via `:has(> :nth-child(3n + 2):last-child) > :nth-last-child(2)`
-  (and `3n + 1` → also `:nth-last-child(4)`). No span-3; verified 0 holes
-  for counts 5–14.
+  (and `3n + 1` → also `:nth-last-child(3)`, Thomas's tweak — the wides
+  alternate diagonally). No span-3; verified 0 holes for counts 5–14.
 - **Container query units** (Ahmed) — `cqi` + `clamp()` for ultra-fluid
   type/spacing *within a container*, fixing his "in-between sizes" problem.
   Complements the container-queries showcase.
