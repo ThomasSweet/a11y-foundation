@@ -573,14 +573,19 @@ pure CSS, keeping the native-semantics story front and center):
   `<selectedcontent>` stayed `display: inline`, so the cloned dot span's
   `inline-size` didn't apply and it rendered 0×0. Now laid out like an
   option row (flex), so the selected status shows its colour in the trigger.
-- **Status-tinted trigger** — tint the trigger border/background from the
-  selected option (the dot's tone), e.g. via `:has(option[value=…]:checked)`
-  on the select; never colour alone (the name carries meaning).
-- **Picker entrance polish** — scale/translate the popup from the trigger
-  (transform-origin top) instead of fade-only; motion tokens as always.
-- **A disabled option + an `<optgroup>`** — shows rich styling surviving
-  the full option model, not just the happy path.
-- **`::checkmark` styling flourish** — animate it in with @starting-style.
+- **Status-tinted trigger** ✅ Done (July 2026) — trigger border tints from
+  the selected tone via `:has(option[value=…]:checked)`; reinforcement only
+  (mirrored dot + name carry meaning); high-contrast override keeps
+  currentcolor.
+- **Picker entrance polish** ✅ Done (July 2026) — small rise + scale from
+  the trigger (transform-origin top), motion tokens, @starting-style.
+- **A disabled option + `<optgroup>`s** ✅ Done (July 2026) — "Open" /
+  "Closed" groups with a divider, plus a disabled "Archived" option at 0.45
+  opacity; the platform keeps it unselectable and announced.
+- **`::checkmark` flourish** ✅ Done (July 2026) — the ✓ pops in
+  (opacity + scale via @starting-style) when the choice changes. All
+  verified with trusted-input clicks in the preview (picker open, option
+  pick, tint follow-through); snippets synced. #16 complete.
 
 ## Done log
 

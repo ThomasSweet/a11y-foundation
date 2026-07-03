@@ -550,7 +550,9 @@ export const showcases: Showcase[] = [
     summary:
       'A native <select> opted into full CSS styling with appearance: ' +
       'base-select — the control, the dropdown, and rich option content ' +
-      '(here, a status dot + description), all without leaving the platform. ' +
+      '(status dots, descriptions, optgroups, a disabled option), plus a ' +
+      'trigger that tints with the selection — all without leaving the ' +
+      'platform. ' +
       'Keyboard, type-ahead, the screen-reader combobox, and form submission ' +
       'stay native, so it replaces the hand-rolled ARIA combobox. Without ' +
       'support it falls back to a plain native select. Interop 2026 focus area.',

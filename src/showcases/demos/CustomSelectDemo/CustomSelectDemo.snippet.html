@@ -5,7 +5,12 @@
     <selectedcontent></selectedcontent>
   </button>
 
-  <option value="backlog">Backlog</option>
-  <option value="in-progress" selected>In progress</option>
-  <option value="done">Done</option>
+  <optgroup label="Open">
+    <option value="backlog">Backlog</option>
+    <option value="in-progress" selected>In progress</option>
+  </optgroup>
+  <optgroup label="Closed">
+    <option value="done">Done</option>
+    <option value="archived" disabled>Archived</option>
+  </optgroup>
 </select>

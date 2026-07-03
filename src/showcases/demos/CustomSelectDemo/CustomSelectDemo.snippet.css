@@ -6,23 +6,52 @@
     appearance: base-select;
   }
 
+  /* The popup enters with a small rise — no JS, just transitions. */
   .status-select::picker(select) {
     padding: 4px;
     border: 1px solid #d4d4d8;
     border-radius: 8px;
     background: #fff;
+    opacity: 0;
+    translate: 0 -4px;
+    transition: opacity 0.15s, translate 0.15s, display 0.15s allow-discrete;
+  }
+
+  .status-select:open::picker(select) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .status-select:open::picker(select) {
+      opacity: 0;
+      translate: 0 -4px;
+    }
+
+    /* The built-in ✓ pops in when the choice changes. */
+    .status-select option:checked::checkmark {
+      opacity: 0;
+      scale: 0.4;
+    }
   }
 
   .status-select option {
     padding: 8px 12px;
   }
 
-  /* The built-in ✓ marks the current value too, so this isn't colour alone. */
+  /* The ✓ marks the current value too, so this isn't colour alone. */
   .status-select option:checked {
     background: color-mix(in oklch, royalblue 14%, transparent);
   }
 
   .status-select option::checkmark {
     color: royalblue;
+    transition: opacity 0.15s, scale 0.15s;
+  }
+
+  /* The closed control reflects the selection — reinforcement only;
+     <selectedcontent> mirrors the option's own text. */
+  .status-select:has(option[value='done']:checked) button {
+    border-color: seagreen;
   }
 }
