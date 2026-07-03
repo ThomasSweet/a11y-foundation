@@ -592,6 +592,29 @@ pure CSS, keeping the native-semantics story front and center):
   verified with trusted-input clicks in the preview (picker open, option
   pick, tint follow-through); snippets synced. #16 complete.
 
+## 17. Dogfooding audit — integrate what we showcase (July 2026)
+
+Grep-verified: the chrome already runs scroll-driven animations, scroll-state,
+light-dark()/color-scheme, relative color + contrast-color(), cross-document
+view transitions, dialog closedby, :user-valid, :has(), the defensive
+min-inline-size guards, and text-wrap: balance (hero only). The gap, ranked:
+
+- [x] **text-wrap: pretty on body copy + balance on headings** ✅ Done
+      (July 2026) — in base.css; unsupported browsers ignore it.
+- [x] **Interest invokers on the sidebar showcase links** ✅ Done (July
+      2026) — each showcase link carries `interestfor` → a hint popover with
+      the registry `summary`, anchored beside the link (per-pair
+      anchor-name/position-anchor wired inline; static CSS can't enumerate
+      25 pairs). Verified with a real trusted hover in Playwright.
+- [ ] **Theme presets in the header ThemeToggle** — promote the engine's
+      presets (Ocean/Midnight/Sunset + CVD trio) from demo to site-wide;
+      realizes the #10/#11 vision and forces the parked theme-persistence
+      decision.
+- [ ] **Subgrid card alignment** — only if criteria/showcase cards ever sit
+      side by side; verify layout first.
+- Deliberate N/A (no natural home in the chrome): popover menus,
+  field-sizing, customizable select, zoom, custom highlight, shape().
+
 ## Done log
 
 - **Restructure: tabs → single narrative scroll, two pillars** (June 2026).
