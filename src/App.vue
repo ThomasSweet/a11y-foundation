@@ -299,6 +299,26 @@
           </p>
           <DefensiveCssDemo />
         </section>
+
+        <section class="demo" aria-labelledby="craft-loading">
+          <h3 id="craft-loading">Loading states the accessibility tree can see</h3>
+          <p>
+            Skeleton screens are a perceived-performance trick for the eyes:
+            grey shapes promise that content is on its way. But placeholders
+            are semantic-free <code>div</code>s — a screen reader finds an
+            empty region with no hint that anything is happening. The craft
+            move costs two attributes: <code>aria-busy="true"</code> marks the
+            region as loading (and asks assistive tech to hold announcements
+            until it settles), and one visually-hidden line says what's
+            coming. A live region is usually the <em>wrong</em> tool here — on
+            a fast connection the "loading" announcement lands after the
+            content it was warning about. And size placeholders to the content
+            they stand in for: a skeleton that shifts the page when real
+            content lands trades one jank for another — that shift is what
+            CLS (Cumulative Layout Shift) measures.
+          </p>
+          <LoadingStateDemo />
+        </section>
       </section>
 
       <section id="showcase" class="pillar scrollspy-region" aria-labelledby="showcase-title">
@@ -455,6 +475,7 @@ import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
+import LoadingStateDemo from './craft/demos/LoadingStateDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
@@ -523,6 +544,7 @@ const toc: TocGroup[] = [
       { id: 'craft-motion', label: 'Motion that bows out on request' },
       { id: 'craft-targets', label: 'Targets for touch & forced colors' },
       { id: 'craft-defensive', label: 'Layouts that expect the worst' },
+      { id: 'craft-loading', label: 'Loading states AT can see' },
     ],
   },
   {

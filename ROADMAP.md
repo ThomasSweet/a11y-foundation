@@ -484,10 +484,15 @@ enhancement only, performance is a hard constraint.
   hook. (Footnotes: the first draft's scrolling `<pre>` lacked `tabindex`
   and the site's own axe e2e failed the build; the demo scaffolding also
   needed its own guards at two grid hops to contain its broken state.)
-- **Loading states & `aria-busy`** (Marcy) — skeleton loaders that stay
-  honest to the accessibility tree: `aria-busy`, role description, when a
-  live region is the wrong tool. A static `:has(:checked)` toggle keeps it
-  JS-free. Possible CoverageMatrix row: "loading state never announced".
+- **Loading states & `aria-busy`** ✅ Done (July 2026) — craft section
+  "Loading states the accessibility tree can see" (`LoadingStateDemo`): two
+  frames side by side — a visual-only skeleton (AT finds an empty region)
+  vs. one with `aria-busy="true"` + a visually-hidden "Loading recent
+  activity…" line; per-frame read-outs say what AT perceives in each state.
+  A Vue toggle simulates the fetch lifecycle (the teaching is HTML/ARIA);
+  shimmer is decorative and static under reduced motion. The prose carries
+  Marcy's live-region caveat (fast loads announce after the fact). Still
+  open: a CoverageMatrix row "loading state never announced".
 - **"Performance is accessibility" prose block** in The proof (Marcy's
   thesis) — compositor-only animation → vestibular safety, main-thread
   health → screen-reader responsiveness, keystroke-level performance as a
