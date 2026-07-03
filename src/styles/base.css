@@ -17,6 +17,12 @@
   h3,
   h4 {
     line-height: var(--leading-tight);
+    /* No lone words on wrapped headings; browsers without support ignore it. */
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   h1 { font-size: var(--text-4xl); }

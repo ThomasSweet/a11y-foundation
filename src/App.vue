@@ -110,9 +110,23 @@
                   </summary>
                   <ul class="toc-subgroup-sections" role="list">
                     <li v-for="s in sub.sections" :key="s.id">
-                      <a class="toc-section-link" :href="`#${s.id}`">
+                      <a
+                        class="toc-section-link"
+                        :href="`#${s.id}`"
+                        :interestfor="s.summary ? `toc-preview-${s.id}` : undefined"
+                        :style="s.summary ? { anchorName: `--toc-${s.id}` } : undefined"
+                      >
                         {{ s.label }}
                       </a>
+                      <div
+                        v-if="s.summary"
+                        :id="`toc-preview-${s.id}`"
+                        popover="hint"
+                        class="toc-preview"
+                        :style="{ positionAnchor: `--toc-${s.id}` }"
+                      >
+                        {{ s.summary }}
+                      </div>
                     </li>
                   </ul>
                 </details>
@@ -505,6 +519,7 @@ const groups = computed(() => [
 interface TocSection {
   id: string
   label: string
+  summary?: string
 }
 
 interface TocGroup {
@@ -561,13 +576,13 @@ const toc: TocGroup[] = [
         label: 'Widely supported',
         sections: showcases
           .filter((s) => s.status === 'stable')
-          .map((s) => ({ id: `showcase-${s.id}`, label: s.title })),
+          .map((s) => ({ id: `showcase-${s.id}`, label: s.title, summary: s.summary })),
       },
       {
         label: 'Emerging',
         sections: showcases
           .filter((s) => s.status === 'emerging')
-          .map((s) => ({ id: `showcase-${s.id}`, label: s.title })),
+          .map((s) => ({ id: `showcase-${s.id}`, label: s.title, summary: s.summary })),
       },
     ],
   },
@@ -1018,6 +1033,51 @@ const toc: TocGroup[] = [
     border-inline-start: 1px solid var(--color-border);
     list-style: none;
   }
+
+  /* stylelint-disable property-no-unknown -- interest invokers + anchor positioning */
+  .toc-section-link[interestfor] {
+    interest-delay: 0.4s 0.15s;
+  }
+
+  .toc-preview {
+    position: fixed;
+    inset: auto;
+    position-area: inline-end;
+    position-try-fallbacks: flip-inline, flip-block;
+    margin: 0 0 0 var(--space-2);
+    max-inline-size: 20rem;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+    opacity: 0;
+    translate: -4px 0;
+    transition:
+      opacity var(--duration-fast) var(--easing-standard),
+      translate var(--duration-fast) var(--easing-standard),
+      display var(--duration-fast) allow-discrete,
+      overlay var(--duration-fast) allow-discrete;
+
+    &:popover-open {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  @starting-style {
+    .toc-preview:popover-open {
+      opacity: 0;
+      translate: -4px 0;
+    }
+  }
+  /* stylelint-enable property-no-unknown */
 
   .toc-section-link {
     display: block;
