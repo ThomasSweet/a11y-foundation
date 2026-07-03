@@ -22,40 +22,55 @@
           <span class="custom-select-arrow" aria-hidden="true"></span>
         </button>
 
-        <option value="backlog">
-          <span class="custom-select-dot" data-tone="neutral" aria-hidden="true"></span>
-          <span class="custom-select-text">
-            <span class="custom-select-name">Backlog</span>
-            <span class="custom-select-desc">Captured, not scheduled</span>
-          </span>
-        </option>
-        <option value="in-progress" selected>
-          <span class="custom-select-dot" data-tone="info" aria-hidden="true"></span>
-          <span class="custom-select-text">
-            <span class="custom-select-name">In progress</span>
-            <span class="custom-select-desc">Someone is on it now</span>
-          </span>
-        </option>
-        <option value="in-review">
-          <span class="custom-select-dot" data-tone="warn" aria-hidden="true"></span>
-          <span class="custom-select-text">
-            <span class="custom-select-name">In review</span>
-            <span class="custom-select-desc">Waiting on a second pair of eyes</span>
-          </span>
-        </option>
-        <option value="done">
-          <span class="custom-select-dot" data-tone="success" aria-hidden="true"></span>
-          <span class="custom-select-text">
-            <span class="custom-select-name">Done</span>
-            <span class="custom-select-desc">Shipped and verified</span>
-          </span>
-        </option>
+        <optgroup label="Open">
+          <option value="backlog">
+            <span class="custom-select-dot" data-tone="neutral" aria-hidden="true"></span>
+            <span class="custom-select-text">
+              <span class="custom-select-name">Backlog</span>
+              <span class="custom-select-desc">Captured, not scheduled</span>
+            </span>
+          </option>
+          <option value="in-progress" selected>
+            <span class="custom-select-dot" data-tone="info" aria-hidden="true"></span>
+            <span class="custom-select-text">
+              <span class="custom-select-name">In progress</span>
+              <span class="custom-select-desc">Someone is on it now</span>
+            </span>
+          </option>
+          <option value="in-review">
+            <span class="custom-select-dot" data-tone="warn" aria-hidden="true"></span>
+            <span class="custom-select-text">
+              <span class="custom-select-name">In review</span>
+              <span class="custom-select-desc">Waiting on a second pair of eyes</span>
+            </span>
+          </option>
+        </optgroup>
+        <optgroup label="Closed">
+          <option value="done">
+            <span class="custom-select-dot" data-tone="success" aria-hidden="true"></span>
+            <span class="custom-select-text">
+              <span class="custom-select-name">Done</span>
+              <span class="custom-select-desc">Shipped and verified</span>
+            </span>
+          </option>
+          <option value="archived" disabled>
+            <span class="custom-select-dot" data-tone="neutral" aria-hidden="true"></span>
+            <span class="custom-select-text">
+              <span class="custom-select-name">Archived</span>
+              <span class="custom-select-desc">Read-only after 90 days</span>
+            </span>
+          </option>
+        </optgroup>
       </select>
     </label>
 
     <p class="custom-select-hint">
       The coloured dot is decorative (<code>aria-hidden</code>); the status name
-      carries the meaning, so nothing depends on colour alone.
+      carries the meaning, so nothing depends on colour alone. One honest
+      detail: keyboard and screen-reader navigation skip
+      <strong>disabled</strong> options, so their text can't be the only home
+      of anything important — which is why the thing “Archived” wants you to
+      know lives out here instead: archived tasks are read-only after 90 days.
     </p>
   </div>
 </template>
@@ -193,18 +208,40 @@
       }
     }
 
+    .custom-select optgroup {
+      display: block;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-text-subtle);
+    }
+
+    .custom-select optgroup + optgroup {
+      margin-block-start: var(--space-1);
+      padding-block-start: var(--space-1);
+      border-block-start: 1px solid var(--color-border);
+    }
+
     .custom-select option {
       display: flex;
       align-items: center;
       gap: var(--space-3);
       padding: var(--space-2) var(--space-3);
       border-radius: var(--radius-sm);
+      /* Undo the group-label typography inherited from <optgroup>. */
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-text);
 
       @include can-hover {
         &:hover {
           background-color: var(--color-bg-subtle);
         }
       }
+    }
+
+    .custom-select option:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
 
     /* Tint the active option so it reads at a glance (never colour alone — the ✓ carries it). */
@@ -222,28 +259,65 @@
       order: 1; // push it to the end, opposite the dot
       margin-inline-start: auto;
       color: var(--color-primary);
+      transition:
+        opacity var(--duration-fast) var(--easing-standard),
+        scale var(--duration-fast) var(--easing-standard);
 
       @include forced-colors {
         color: currentcolor;
       }
     }
 
-    /* Open/close fade on the popup — rides the motion tokens (zeroed under reduced motion). */
+    /* Tint is reinforcement only — the mirrored dot and name carry the
+       meaning (WCAG 1.4.1). */
+    .custom-select:has(option[value='in-progress']:checked) .custom-select-trigger {
+      border-color: color-mix(in oklab, var(--color-info) 55%, var(--color-border));
+    }
+
+    .custom-select:has(option[value='in-review']:checked) .custom-select-trigger {
+      border-color: color-mix(in oklab, var(--color-warning) 55%, var(--color-border));
+    }
+
+    .custom-select:has(option[value='done']:checked) .custom-select-trigger {
+      border-color: color-mix(in oklab, var(--color-success) 55%, var(--color-border));
+    }
+
+    @include high-contrast {
+      .custom-select:has(option:checked) .custom-select-trigger {
+        border-color: currentcolor;
+      }
+    }
+
+    /* Open/close transitions ride the motion tokens (zeroed under reduced motion). */
     .custom-select::picker(select) {
       opacity: 0;
+      translate: 0 -0.25rem;
+      scale: 0.97;
+      transform-origin: top;
       transition:
         opacity var(--duration-fast) var(--easing-standard),
+        translate var(--duration-fast) var(--easing-standard),
+        scale var(--duration-fast) var(--easing-standard),
         display var(--duration-fast) allow-discrete,
         overlay var(--duration-fast) allow-discrete;
     }
 
     .custom-select:open::picker(select) {
       opacity: 1;
+      translate: 0 0;
+      scale: 1;
     }
 
     @starting-style {
       .custom-select:open::picker(select) {
         opacity: 0;
+        translate: 0 -0.25rem;
+        scale: 0.97;
+      }
+
+      .custom-select option:checked::checkmark {
+        opacity: 0;
+        scale: 0.4;
       }
     }
     /* stylelint-enable property-no-unknown */
