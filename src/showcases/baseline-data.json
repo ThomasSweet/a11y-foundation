@@ -12,6 +12,19 @@
       "safari": "16"
     }
   },
+  "cq-units": {
+    "feature": "container-queries",
+    "name": "Container queries",
+    "baseline": "high",
+    "lowDate": "2023-02-14",
+    "highDate": "2025-08-14",
+    "support": {
+      "chrome": "105",
+      "edge": "105",
+      "firefox": "110",
+      "safari": "16"
+    }
+  },
   "has-selector": {
     "feature": "has",
     "name": ":has()",

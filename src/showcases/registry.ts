@@ -49,6 +49,8 @@ import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.sn
 import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
 import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
 import hasSnippetCss from './demos/HasSelectorDemo/HasSelectorDemo.snippet.css?raw'
+import CqUnitsDemo from './demos/CqUnitsDemo/CqUnitsDemo.vue'
+import cqUnitsSnippetCss from './demos/CqUnitsDemo/CqUnitsDemo.snippet.css?raw'
 import UserValidDemo from './demos/UserValidDemo/UserValidDemo.vue'
 import userValidSnippetCss from './demos/UserValidDemo/UserValidDemo.snippet.css?raw'
 import quantitySnippetHtml from './demos/QuantityQueriesDemo/QuantityQueriesDemo.snippet.html?raw'
@@ -141,6 +143,26 @@ export const showcases: Showcase[] = [
     component: ContainerCardDemo,
     snippetHtml: containerSnippetHtml,
     snippetCss: containerSnippetCss,
+  },
+  {
+    id: 'cq-units',
+    title: 'Container query units',
+    status: 'stable',
+    supports: 'width: 1cqi',
+    summary:
+      'The other half of container queries: cqi units inside clamp() scale ' +
+      'type and spacing in proportion to the component’s own space — no ' +
+      'breakpoints, no broken in-between states, and rem bounds keep the ' +
+      'user’s font-size preference in charge. The timeline’s ghost years ' +
+      'run on this.',
+    links: [
+      {
+        label: 'MDN: container query length units',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_size_and_style_queries#container_query_length_units',
+      },
+    ],
+    component: CqUnitsDemo,
+    snippetCss: cqUnitsSnippetCss,
   },
   {
     id: 'has-selector',
