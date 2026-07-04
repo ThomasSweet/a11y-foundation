@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Intentionally empty — the whole demo is CSS.
 </script>
 

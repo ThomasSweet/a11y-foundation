@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useId } from 'vue'
 
 import AppButton from '../../../components/AppButton/AppButton.vue'

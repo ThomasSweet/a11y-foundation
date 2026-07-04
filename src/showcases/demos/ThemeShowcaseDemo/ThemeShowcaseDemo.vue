@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const themes = [

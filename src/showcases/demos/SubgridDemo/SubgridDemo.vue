@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Deliberately uneven lengths — that's what makes the row alignment visible.
 const cards = [
   {

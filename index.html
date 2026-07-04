@@ -14,6 +14,19 @@
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
     </style>
 
+    <!-- Apply the saved theme before first paint so a reload never flashes
+         the default palette. Must stay in sync with ThemeToggle. -->
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('abd-theme')
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme
+        } else if (/^(ocean|midnight|sunset|cobalt|teal|amber)$/.test(savedTheme)) {
+          document.documentElement.dataset.preset = savedTheme
+        }
+      } catch (e) {}
+    </script>
+
     <title>Accessible by default — an accessibility-first styling playground</title>
     <meta
       name="description"
@@ -50,6 +63,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -43,6 +43,25 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(menu).toBeHidden()
   })
 
+  test('theme panel applies a preset and light-dismisses with Escape', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: /theme settings/i }).click()
+
+    const ocean = page.getByRole('radio', { name: 'Ocean' })
+    await expect(ocean).toBeVisible()
+    await ocean.check()
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.dataset.preset))
+      .toBe('ocean')
+
+    await page.keyboard.press('Escape')
+    await expect(ocean).toBeHidden()
+
+    // The preset must survive a reload via the pre-paint head script.
+    await page.reload()
+    expect(await page.evaluate(() => document.documentElement.dataset.preset)).toBe('ocean')
+  })
+
   test('segmented control behaves as a native radio group', async ({ page }) => {
     await page.goto('/')
     const list = page.getByRole('radio', { name: 'List' })
