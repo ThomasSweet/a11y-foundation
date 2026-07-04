@@ -1,0 +1,16 @@
+.stage {
+  container-type: inline-size;
+}
+
+/* 1cqi = 1% of the container's inline size. Everything scales in
+   proportion to the component's own space — no breakpoints, no
+   viewport units, no "in-between" states to break. */
+.card {
+  padding: clamp(0.75rem, 6cqi, 2.5rem);
+}
+
+.card-stat {
+  /* rem floor and ceiling: fluid in the middle, but the user's
+     font-size preference always sets the limits. */
+  font-size: clamp(1.75rem, 14cqi, 4.5rem);
+}

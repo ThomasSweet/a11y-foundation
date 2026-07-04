@@ -18,6 +18,7 @@ import { features } from 'web-features'
     upstream feature are simply absent — no badge is rendered for them. */
 const SHOWCASE_FEATURES = {
   'container-queries': 'container-queries',
+  'cq-units': 'container-queries',
   'has-selector': 'has',
   'quantity-queries': 'has',
   subgrid: 'subgrid',
