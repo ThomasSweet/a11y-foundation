@@ -1,27 +1,125 @@
 @layer components {
   .theme-toggle {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-    align-items: center;
-    padding: var(--space-2) var(--space-4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
     min-inline-size: 0;
   }
 
-  .theme-legend {
-    float: inline-start;
-    padding-inline-end: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-  }
-
-  .theme-option {
+  .theme-toggle-trigger {
     display: inline-flex;
     align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: none;
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--color-text-subtle);
+    }
+  }
+
+  .theme-toggle-swatch {
+    inline-size: var(--space-3);
+    block-size: var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+
+    @include forced-colors {
+      background: CanvasText;
+    }
+  }
+
+  .theme-panel {
+    position: fixed;
+    inset: auto;
+    inset-block-start: calc(var(--space-16) + var(--space-3));
+    inset-inline-end: var(--space-4);
+    inline-size: min(19rem, calc(100vw - 2 * var(--space-4)));
+    margin: 0;
+    padding: var(--space-4);
+    gap: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    translate: 0 calc(-1 * var(--space-2));
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  /* display stays with the UA's popover state — an unconditional display
+     would keep the closed panel painted. */
+  .theme-panel:popover-open {
+    display: grid;
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .theme-panel-group {
+    display: grid;
     gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-inline-size: 0;
+  }
+
+  .theme-panel-legend {
+    padding: 0;
+    margin-block-end: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  .theme-panel-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
     font-size: var(--text-sm);
     text-transform: capitalize;
+
+    &:hover {
+      background: var(--color-bg-subtle);
+    }
+  }
+
+  .theme-panel-swatch {
+    inline-size: var(--space-4);
+    block-size: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--seed-surface) 50%, var(--seed-accent) 50%);
+
+    @include forced-colors {
+      background: CanvasText;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-panel {
+      transition:
+        opacity var(--duration-fast) var(--easing-enter),
+        translate var(--duration-fast) var(--easing-enter),
+        display var(--duration-fast) allow-discrete,
+        overlay var(--duration-fast) allow-discrete;
+    }
+
+    .theme-panel:popover-open {
+      @starting-style {
+        opacity: 0;
+        translate: 0 calc(-1 * var(--space-2));
+      }
+    }
   }
 }

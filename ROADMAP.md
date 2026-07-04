@@ -45,8 +45,20 @@ git history and the PRs, not here.
 - "Performance is accessibility" prose block in The proof — compositor
   animation → vestibular safety, main-thread health → SR responsiveness,
   keystroke-level performance as a metric.
-- RTL / logical-properties craft block — flip a section to `dir="rtl"` to
-  surface the logical-properties rigor already in the codebase.
+- "Break it with content" craft block — stress-test a real component with a
+  content switcher: designer-perfect copy → long titles → German compound
+  words → Arabic with `dir="rtl"`. The RTL leg proves the logical-properties
+  rigor already in the codebase (`:dir()` styling, no left/right anywhere);
+  the long-content legs show the defensive guards absorbing it. Absorbs the
+  old RTL-block idea; content variants via tiny Vue state (simulated CMS —
+  allowed). Inspired by Shadeed's "Breaking a Layout Intentionally"
+  (Debugging CSS, ch. 5) and his RTL Styling 101.
+- Diagnostic stylesheet ("CSS that audits") for The proof — a small debug
+  stylesheet that outlines a11y smells using modern selectors alone:
+  `img:not([alt])`, `a[target="_blank"]:not(:has(.visually-hidden))`,
+  `button:empty`, unlabeled inputs via `:not(:has(+ label))`. Shown against
+  an intentionally broken sample fragment; teaches that the selector
+  engine itself can be an audit tool.
 - CoverageMatrix row: "loading state never announced" (axe can't see it).
 
 ### Infra / nice-to-have

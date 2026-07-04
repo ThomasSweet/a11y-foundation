@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 
 defineProps({
@@ -36,7 +36,7 @@ const tools = [
   { id: 'list', glyph: '☰', label: 'Bulleted list' },
 ]
 
-const active = reactive({})
+const active = reactive<Record<string, boolean>>({})
 </script>
 
 <style scoped lang="scss">

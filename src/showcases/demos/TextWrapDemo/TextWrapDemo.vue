@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const heading = 'A well-balanced headline never leaves its last word stranded'
 const body =
   'Typography reads better when the browser, not the viewport, decides ' +

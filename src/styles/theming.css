@@ -5,6 +5,11 @@
    palette every component reads is derived from them below, so adding a theme
    is data (the .theme-* presets), not code.
 
+   Two scopes share one engine: `.surface` re-themes a demo card in place;
+   `:root[data-preset]` applies the same derivation site-wide (set by the
+   header ThemeToggle, persisted in localStorage, applied pre-paint by the
+   inline script in index.html).
+
    Contrast-safe by construction: text flips to black/white against its
    background via the seed's OKLCH lightness; greys mix toward the text colour,
    so they gain contrast in the same direction for light and dark themes alike.
@@ -15,11 +20,8 @@
 
 @layer themes {
 
+  :root[data-preset],
   .surface {
-    /* Default seeds — overridden by a .theme-* preset class. */
-    --seed-surface: oklch(99% 0.004 255deg);
-    --seed-accent:  oklch(52% 0.16 260deg);
-
     /* Text: black on light surfaces, white on dark. clamp(0, (0.62 - l) *
        infinity, 1) resolves the seed's lightness to 0 or 1 — no JS, no query. */
     --color-text:
@@ -41,12 +43,6 @@
 
     --focus-ring-color: var(--seed-accent);
 
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-
     /* Where supported, let the browser pick the optimal label (supersedes the flip above). */
     @supports (color: contrast-color(red)) {
       --color-text:         contrast-color(var(--seed-surface));
@@ -54,21 +50,50 @@
     }
   }
 
+  /* Site-wide extras the demo cards never need: the secondary accent walks
+     40° around the hue wheel so gradients still travel, glass stays a
+     translucent cut of the surface seed. */
+  :root[data-preset] {
+    --color-text-inverse: var(--color-bg);
+    --color-accent: oklch(from var(--seed-accent) l c calc(h + 40));
+    --color-surface-glass: color-mix(in oklab, var(--seed-surface) 78%, transparent);
+  }
 
-  /* Theme presets — two seeds each. */
+  .surface {
+    /* Default seeds — overridden by a .theme-* preset class. */
+    --seed-surface: oklch(99% 0.004 255deg);
+    --seed-accent:  oklch(52% 0.16 260deg);
+
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+
+
+  /* Theme presets — two seeds each, declared once for both scopes. The
+     light-dark() tokens the engine doesn't derive (status colours, shadows)
+     follow each preset's color-scheme. */
+  :root[data-preset='ocean'],
   .theme-ocean {
     --seed-surface: oklch(97% 0.025 220deg);
     --seed-accent:  oklch(50% 0.12 230deg);
+    color-scheme: light;
   }
 
+  :root[data-preset='midnight'],
   .theme-midnight {
     --seed-surface: oklch(21% 0.02 265deg);
     --seed-accent:  oklch(72% 0.15 250deg);
+    color-scheme: dark;
   }
 
+  :root[data-preset='sunset'],
   .theme-sunset {
     --seed-surface: oklch(96% 0.035 70deg);
     --seed-accent:  oklch(52% 0.17 25deg);
+    color-scheme: light;
   }
 
 
@@ -76,18 +101,24 @@
      where hue discrimination doesn't, so these sit on hues that don't collapse
      into the neutrals and keep the accent's lightness well clear of its label's.
      Hue is never the only signal (see the non-colour cues showcase). */
+  :root[data-preset='cobalt'],
   .theme-cobalt {
     --seed-surface: oklch(98% 0.01 255deg);
     --seed-accent:  oklch(48% 0.14 255deg);  /* dark blue → white label */
+    color-scheme: light;
   }
 
+  :root[data-preset='teal'],
   .theme-teal {
     --seed-surface: oklch(98% 0.012 195deg);
     --seed-accent:  oklch(45% 0.1 195deg);   /* dark teal → white label */
+    color-scheme: light;
   }
 
+  :root[data-preset='amber'],
   .theme-amber {
     --seed-surface: oklch(98% 0.012 80deg);
     --seed-accent:  oklch(82% 0.15 80deg);   /* light amber → black label */
+    color-scheme: light;
   }
 }
