@@ -719,11 +719,15 @@ const toc: TocGroup[] = [
 
   .pillar {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-16);
     scroll-margin-block-start: var(--space-16);
     position: relative;
     isolation: isolate;
     min-inline-size: 0;
+
+    @include from('md') {
+      gap: var(--space-24);
+    }
   }
 
   .demo {
