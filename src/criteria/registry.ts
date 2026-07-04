@@ -12,6 +12,7 @@
  * Sources: https://www.w3.org/WAI/WCAG22/Understanding/
  */
 
+import BypassBlocksDemo from './demos/BypassBlocksDemo.vue'
 import TargetSizeDemo from './demos/TargetSizeDemo.vue'
 import ReflowDemo from './demos/ReflowDemo.vue'
 import NonTextContrastDemo from './demos/NonTextContrastDemo.vue'
@@ -37,6 +38,34 @@ export interface Criterion {
 }
 
 export const criteria: Criterion[] = [
+  {
+    id: '2.4.1',
+    name: 'Bypass Blocks',
+    level: 'A',
+    version: 'WCAG 2.0',
+    principle: 'Operable',
+    requirement:
+      'A mechanism exists to skip blocks of content repeated across pages — ' +
+      'the classic skip link. A WCAG 2.0 (2008) original at level A: without ' +
+      'it, keyboard and switch users pay a tab stop for every navigation ' +
+      'link on every single page.',
+    breakLabel: 'Break this rule',
+    restoreLabel: 'Restore compliance',
+    passText:
+      'Meets 2.4.1 — the first tab stop is a skip link; one keystroke ' +
+      'bypasses the whole navigation block. This site’s own header works ' +
+      'the same way.',
+    failText:
+      '⚠ Failing 2.4.1 — no skip link: reaching the content costs six tab ' +
+      'stops here, and a real site’s navigation is rarely this short.',
+    links: [
+      {
+        label: 'WCAG: Understanding 2.4.1',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html',
+      },
+    ],
+    component: BypassBlocksDemo,
+  },
   {
     id: '2.5.8',
     name: 'Target Size (Minimum)',
@@ -251,10 +280,9 @@ export const wcagTimeline: WcagEra[] = [
     id: 'wcag20',
     label: 'WCAG 2.0',
     year: '2008',
-    version: null,
+    version: 'WCAG 2.0',
     summary:
       'The bedrock — the four POUR principles everything since still rests on.',
-    note: 'No demo here: 2.0 is the foundation the criteria below extend.',
   },
   {
     id: 'wcag21',
@@ -262,8 +290,8 @@ export const wcagTimeline: WcagEra[] = [
     year: '2018',
     version: 'WCAG 2.1',
     summary:
-      'The mobile and low-vision era — smartphones and magnification forced ' +
-      'the standard to grow.',
+      'The mobile and low-vision era — small screens and heavy magnification ' +
+      'forced the standard to grow.',
   },
   {
     id: 'wcag22',
@@ -271,8 +299,8 @@ export const wcagTimeline: WcagEra[] = [
     year: '2023',
     version: 'WCAG 2.2',
     summary:
-      'Focus visibility, dragging alternatives, target size, and cognitive / ' +
-      'authentication needs.',
+      'The fine-motor and cognition era — focus visibility, drag ' +
+      'alternatives, target sizes.',
   },
   {
     id: 'wcag30',
