@@ -1,0 +1,16 @@
+/* :invalid fires immediately — an empty required field is
+   "wrong" before the user has done anything at all. */
+.field-eager:invalid {
+  border-color: var(--color-error);
+}
+
+/* :user-invalid waits for real interaction: it only matches
+   after the user has edited or left the field. Same native
+   validation, judged at a humane moment. */
+.field-patient:user-invalid {
+  border-color: var(--color-error);
+}
+
+.field-patient:user-valid {
+  border-color: var(--color-success);
+}

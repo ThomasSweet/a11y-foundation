@@ -103,6 +103,19 @@
       "safari": "17"
     }
   },
+  "user-valid": {
+    "feature": "user-pseudos",
+    "name": ":user-valid and :user-invalid",
+    "baseline": "high",
+    "lowDate": "2023-11-02",
+    "highDate": "2026-05-02",
+    "support": {
+      "chrome": "119",
+      "edge": "119",
+      "firefox": "88",
+      "safari": "16.5"
+    }
+  },
   "anchor-positioning": {
     "feature": "anchor-positioning",
     "name": "Anchor positioning",

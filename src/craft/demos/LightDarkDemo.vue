@@ -17,7 +17,7 @@
           <code>light-dark()</code> — follows the toggle
         </h4>
         <div class="light-dark-swatch light-dark-swatch-modern" aria-hidden="true"></div>
-        <pre class="light-dark-code"><code>background-color: light-dark(#e6e6fa, #1a1a2e);</code></pre>
+        <pre class="light-dark-code" tabindex="0"><code>background-color: light-dark(#e6e6fa, #1a1a2e);</code></pre>
         <p class="light-dark-note">
           One line, both values together so they can’t drift — and because it
           resolves against <code>color-scheme</code>, it honours the user’s
@@ -31,7 +31,7 @@
           <code>@media</code> — only hears the OS
         </h4>
         <div class="light-dark-swatch light-dark-swatch-legacy" aria-hidden="true"></div>
-        <pre class="light-dark-code"><code>background-color: #e6e6fa;
+        <pre class="light-dark-code" tabindex="0"><code>background-color: #e6e6fa;
 
 @media (prefers-color-scheme: dark) {
   background-color: #1a1a2e;
@@ -43,6 +43,31 @@
           switcher, that’s not just verbose: it’s wrong.
         </p>
       </article>
+
+      <article class="light-dark-card">
+        <h4 class="light-dark-card-title">
+          Beyond color — the style-query trick
+        </h4>
+        <div class="light-dark-swatch light-dark-swatch-probe" aria-hidden="true"></div>
+        <pre class="light-dark-code" tabindex="0"><code>@property --scheme-probe {
+  syntax: '&lt;color&gt;';
+  inherits: true;
+  initial-value: white;
+}
+
+.card { --scheme-probe: light-dark(white, black); }
+
+@container style(--scheme-probe: black) {
+  .swatch { border-style: dashed; /* any property */ }
+}</code></pre>
+        <p class="light-dark-note">
+          <code>light-dark()</code> only returns colors — but a registered
+          custom property resolves it to one, and a style query can read that
+          answer back and switch <em>any</em> property on it: this swatch
+          changes its border style and glyph per scheme, still zero JS. Flip
+          the header toggle to watch it.
+        </p>
+      </article>
     </div>
   </div>
 </template>
@@ -52,6 +77,12 @@
 </script>
 
 <style scoped lang="scss">
+@property --scheme-probe {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: white;
+}
+
 @layer components {
   .light-dark-demo {
     display: grid;
@@ -70,6 +101,8 @@
   }
 
   .light-dark-card {
+    --scheme-probe: light-dark(white, black);
+
     display: grid;
     gap: var(--space-3);
     align-content: start;
@@ -105,6 +138,28 @@
 
     @include dark-mode {
       background-color: #1a1a2e;
+    }
+  }
+
+  .light-dark-swatch-probe {
+    display: grid;
+    place-items: center;
+    background-color: var(--color-bg-subtle);
+    border-width: 2px;
+    font-size: var(--text-xl);
+
+    &::after {
+      content: '☀' / '';
+    }
+  }
+
+  @container style(--scheme-probe: black) {
+    .light-dark-swatch-probe {
+      border-style: dashed;
+
+      &::after {
+        content: '☾' / '';
+      }
     }
   }
 

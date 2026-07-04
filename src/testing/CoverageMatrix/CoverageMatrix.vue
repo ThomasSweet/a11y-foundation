@@ -80,6 +80,7 @@ const issues: Issue[] = [
   { issue: 'Icon / border contrast (non-text)', sc: '1.4.11', axe: 'missed', kb: 'missed', human: 'caught' },
   { issue: 'Meaning carried by colour alone', sc: '1.4.1', axe: 'missed', kb: 'missed', human: 'caught' },
   { issue: 'Status change not announced', sc: '4.1.3', axe: 'missed', kb: 'missed', human: 'caught' },
+  { issue: 'Loading state never announced', sc: '4.1.3', axe: 'missed', kb: 'missed', human: 'caught' },
 ]
 
 // Verdict is never colour alone — a glyph and an SR label carry it too.

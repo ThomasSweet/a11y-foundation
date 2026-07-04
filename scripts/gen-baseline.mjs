@@ -25,6 +25,7 @@ const SHOWCASE_FEATURES = {
   'text-wrap': 'text-wrap-balance',
   'scroll-snap': 'scroll-snap',
   popover: 'popover',
+  'user-valid': 'user-pseudos',
   'anchor-positioning': 'anchor-positioning',
   'anchor-tooltip': 'anchor-positioning',
   'contrast-color': 'contrast-color',
