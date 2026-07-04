@@ -21,12 +21,6 @@ git history and the PRs, not here.
 
 ### Next up
 
-- **Theme presets in the header ThemeToggle** — promote the theming engine's
-  presets (Ocean / Midnight / Sunset + the CVD trio) from demo to site-wide.
-  Realizes the modern-UI/theming vision; forces the persistence decision
-  (below). Own branch.
-- **Timeline content pass** — tighter era summaries; fold in the parked
-  WCAG 2.0 era decision (below). Visual redesign shipped (PR #30).
 - **Subgrid card alignment** — only if criteria/showcase cards ever sit side
   by side; verify the layout before building.
 
@@ -39,6 +33,10 @@ git history and the PRs, not here.
   could extend LightDarkDemo instead of a new entry.
 - `:user-valid` / `:user-invalid` — stable tier; TextField already uses it.
 - Media state pseudo-classes (`:playing` etc.) — custom player demo.
+- High-contrast light/dark presets — needs the engine's grey mix strengths
+  (border 44% / subtle 62%) promoted to per-theme data (a contrast-boost
+  knob): contrast as data, not duplicate palettes. Complements
+  `prefers-contrast: more` for users without the OS setting.
 
 ### Content backlog
 
@@ -70,12 +68,6 @@ git history and the PRs, not here.
 
 ### Decisions parked with Thomas
 
-- **Theme persistence** — localStorage in ThemeToggle (it already uses JS);
-  a no-flash reload additionally needs an inline head script. Decide when
-  building the presets item above.
-- **WCAG 2.0 timeline era** — keep intentionally empty, or fill with a
-  Bypass Blocks / No Keyboard Trap break-it demo? Fold into the timeline
-  redesign.
 - **CSS naming convention** — the informal house style (root class +
   role-named descendants, no BEM ceremony) works; write it into GUIDE.md so
   it's documented intent, not accident.
@@ -115,6 +107,8 @@ git history and the PRs, not here.
 
 One line per item, newest first; details in git history / PRs.
 
+- **2026-07** Timeline content pass — Bypass Blocks (2.4.1) skip-link demo fills the WCAG 2.0 era; era summaries tightened.
+- **2026-07** Theme presets site-wide — seed engine promoted to `:root[data-preset]`, header popover panel (mode + presets + CVD trio), no-flash localStorage persistence; popover display trap fixed and pinned by e2e; `src` now 100% TypeScript.
 - **2026-07** Timeline redesign — ghost-year watermarks (in-flow on narrow columns, sticky rail on wide), cumulative strata era markers, "you are here — 2026" divider; per-era named view timelines fix the scroll mistiming; wider section gaps site-wide.
 - **2026-07** Dogfooding: site-wide `text-wrap` (balance/pretty) + interest-invoker preview popovers on the sidebar showcase links.
 - **2026-07** Loading-states craft block — `aria-busy` + hidden text vs. visual-only skeletons; zero layout shift via `1lh` placeholders.
