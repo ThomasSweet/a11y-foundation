@@ -25,11 +25,8 @@ git history and the PRs, not here.
   presets (Ocean / Midnight / Sunset + the CVD trio) from demo to site-wide.
   Realizes the modern-UI/theming vision; forces the persistence decision
   (below). Own branch.
-- **Timeline redesign — the stitched thread** — replace the straight spine
-  with per-era SVG thread segments (stroke-dashoffset scrub per era fixes the
-  mistimed global tween), knot markers at the year badges, a frayed loose end
-  after the 3.0 draft, a "you are here" marker. Prototype first, judge
-  visually. Content pass alongside: tighter era summaries.
+- **Timeline content pass** — tighter era summaries; fold in the parked
+  WCAG 2.0 era decision (below). Visual redesign shipped (PR #30).
 - **Subgrid card alignment** — only if criteria/showcase cards ever sit side
   by side; verify the layout before building.
 
@@ -106,6 +103,7 @@ git history and the PRs, not here.
 
 One line per item, newest first; details in git history / PRs.
 
+- **2026-07** Timeline redesign — ghost-year watermarks (in-flow on narrow columns, sticky rail on wide), cumulative strata era markers, "you are here — 2026" divider; per-era named view timelines fix the scroll mistiming; wider section gaps site-wide.
 - **2026-07** Dogfooding: site-wide `text-wrap` (balance/pretty) + interest-invoker preview popovers on the sidebar showcase links.
 - **2026-07** Loading-states craft block — `aria-busy` + hidden text vs. visual-only skeletons; zero layout shift via `1lh` placeholders.
 - **2026-07** Customizable `<select>` polish — optgroups, disabled option (+ reachable hint), status-tinted trigger, picker entrance, animated `::checkmark`; earlier: `<selectedcontent>` dot bugfix.

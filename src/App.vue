@@ -405,8 +405,8 @@
           <h3 id="testing-coverage">What automation can and can't see</h3>
           <p>
             This is the part that's rarely spelled out. An automated pass like
-            <code>axe</code> is excellent at a specific slice of WCAG and blind to
-            the rest. Here's a sample of real defects against the methods that
+            <code>axe</code> is excellent at a specific slice of WCAG and misses
+            the rest entirely. Here's a sample of real defects against the methods that
             catch them — read the <code>axe</code> column top to bottom and watch
             it run out.
           </p>

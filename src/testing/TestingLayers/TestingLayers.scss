@@ -46,12 +46,12 @@
   }
 
   .testing-layers-catches,
-  .testing-layers-blind {
+  .testing-layers-misses {
     margin: 0;
     color: var(--color-text-subtle);
   }
 
-  /* Inline label so the catches/blind-spot split reads without colour alone. */
+  /* Inline label so the catches/misses split reads without colour alone. */
   .testing-layers-tag {
     display: inline-block;
     margin-inline-end: var(--space-1);
@@ -67,7 +67,7 @@
     color: var(--color-text);
   }
 
-  .testing-layers-tag-blind {
+  .testing-layers-tag-misses {
     background-color: color-mix(in oklch, var(--color-warning) 22%, transparent);
     color: var(--color-text);
   }
