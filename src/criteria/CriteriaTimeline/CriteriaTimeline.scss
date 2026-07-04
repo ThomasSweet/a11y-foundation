@@ -1,68 +1,73 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .timeline {
-    position: relative;
+    container-type: inline-size;
+    overflow: clip visible;
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-16);
     margin: 0;
     padding: 0;
     list-style: none;
     min-inline-size: 0;
   }
 
-  /* The spine, centred in the marker column; fades out toward the bottom. */
-  .timeline::before {
-    content: '';
-    position: absolute;
-    inset-block: var(--space-2);
-    inset-inline-start: calc(var(--space-6) / 2);
-    inline-size: 2px;
-    margin-inline-start: -1px;
-    background: linear-gradient(
-      to bottom,
-      var(--color-border) 78%,
-      transparent
-    );
-
-    @include high-contrast {
-      background: currentcolor;
-    }
-  }
-
   .timeline-era {
-    display: grid;
-    grid-template-columns: var(--space-6) minmax(0, 1fr);
-    column-gap: var(--space-4);
-    align-items: start;
+    --timeline-ghost-size: clamp(5.5rem, 24cqi, 9rem);
+
+    position: relative;
+    /* Keeps the z-index: -1 ghost above the page background but below era content. */
+    isolation: isolate;
     min-inline-size: 0;
   }
 
-  .timeline-era-marker {
-    position: relative;
-    z-index: 1;
-    justify-self: center;
-    inline-size: var(--space-4);
-    block-size: var(--space-4);
-    margin-block-start: var(--space-1);
-    border: 2px solid var(--color-bg);
-    border-radius: var(--radius-full);
-    /* Filled = an era with live demos; the accent dot draws the eye. */
-    background: var(--gradient-accent);
-
-    @include high-contrast {
-      border-color: currentcolor;
+  @container (inline-size >= 50rem) {
+    .timeline-era {
+      --timeline-ghost-size: min(7rem, 11cqi);
     }
 
-    @include forced-colors {
-      background: CanvasText;
-      border-color: Canvas;
+    .timeline-era-ghost {
+      position: sticky;
+      inset-block-start: var(--space-16);
+      z-index: -1;
+      block-size: 0;
+    }
+
+    .timeline-era-ghost::before {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+    }
+
+    .timeline-era-criteria {
+      margin-inline-end: calc(var(--timeline-ghost-size) * 2.6);
     }
   }
 
-  /* Foundation (2.0) and future (3.0) eras have no demos — hollow marker. */
-  .timeline-era.is-open .timeline-era-marker {
-    background: var(--color-bg);
-    border-color: var(--color-primary);
+  .timeline-era-ghost {
+    display: block;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .timeline-era-ghost::before {
+    content: attr(data-year) / '';
+    display: block;
+    text-align: end;
+    font-family: var(--font-mono);
+    font-size: var(--timeline-ghost-size);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--color-border);
+
+    @include high-contrast {
+      content: none;
+    }
+
+    @include forced-colors {
+      content: none;
+    }
   }
 
   .timeline-era-body {
@@ -72,8 +77,46 @@
   }
 
   .timeline-era-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .timeline-era-strata {
+    display: grid;
+    gap: 3px;
+    flex: none;
+    inline-size: var(--space-6);
+    margin-block-start: var(--space-2);
+  }
+
+  .timeline-strata-layer {
+    block-size: 6px;
+    border-radius: 2px;
+    background: var(--color-primary);
+
+    &:not(:first-child) {
+      background: var(--color-border);
+    }
+
+    @include forced-colors {
+      background: CanvasText;
+    }
+  }
+
+  .timeline-era.is-new-model .timeline-era-strata {
+    margin-inline-start: var(--space-2);
+  }
+
+  .timeline-era.is-new-model .timeline-strata-layer {
+    background: transparent;
+    border: 1.5px dashed var(--color-text-subtle);
+  }
+
+  .timeline-era-heading {
     display: grid;
     gap: var(--space-1);
+    min-inline-size: 0;
   }
 
   .timeline-era-title {
@@ -114,34 +157,75 @@
     }
   }
 
-  /* Scroll-driven (off the main thread) flourishes — the accent spine draws
-     down and markers pop in as their era arrives. Motion- and support-gated. */
+  .timeline-now {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-inline-size: 0;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-block-start: 2px solid var(--color-primary);
+    }
+
+    &::after {
+      border-block-start-style: dashed;
+      border-block-start-color: var(--color-border);
+    }
+  }
+
+  .timeline-now-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .timeline-now-year {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    text-transform: none;
+    color: var(--color-text-subtle);
+  }
+
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .timeline::after {
-        content: '';
-        position: absolute;
-        inset-block: var(--space-2);
-        inset-inline-start: calc(var(--space-6) / 2);
-        inline-size: 2px;
-        margin-inline-start: -1px;
-        background: var(--gradient-accent);
-        transform: scaleY(0);
-        transform-origin: top;
-        animation: timeline-fill linear both;
-        animation-timeline: view();
-        /* Spread the fill across most of the pass so it keeps drawing to the
-           last era; the end % is the knob (higher = finishes later). */
-        animation-range: cover 12% cover 96%;
+      .timeline-era {
+        view-timeline: --timeline-era block;
       }
 
-      .timeline-era-marker {
-        animation: marker-pop linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 12%;
+      .timeline-era-ghost::before {
+        animation: ghost-drift linear both;
+        animation-timeline: --timeline-era;
+        animation-range: cover 0% cover 100%;
       }
 
-      /* Cards glide in on entry; they live in the child component, so :deep(). */
+      .timeline-strata-layer {
+        animation: layer-pour linear both;
+        animation-timeline: view();
+
+        &:nth-child(1) {
+          animation-range: cover 0% cover 25%;
+        }
+
+        &:nth-child(2) {
+          animation-range: cover 10% cover 35%;
+        }
+
+        &:nth-child(3) {
+          animation-range: cover 20% cover 45%;
+        }
+      }
+
+      .timeline-now-label {
+        animation: layer-pour linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 40%;
+      }
+
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :deep(.criterion) {
         animation: era-slide-in linear both;
@@ -149,16 +233,30 @@
         animation-range: entry 0% entry 65%;
       }
 
-      @keyframes timeline-fill {
-        to {
-          transform: scaleY(1);
+      @keyframes ghost-drift {
+        0% {
+          opacity: 0;
+          translate: 0 2rem;
+        }
+
+        18% {
+          opacity: 1;
+        }
+
+        82% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          translate: 0 -2rem;
         }
       }
 
-      @keyframes marker-pop {
+      @keyframes layer-pour {
         from {
-          transform: scale(0.4);
-          opacity: 0.3;
+          opacity: 0;
+          translate: 0 -0.4rem;
         }
       }
 
