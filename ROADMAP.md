@@ -17,65 +17,71 @@ git history and the PRs, not here.
 
 ---
 
-## Open
+## The plan
 
-### Next up
+Ordered waves, one branch each; work top to bottom.
 
-- **Subgrid card alignment** — only if criteria/showcase cards ever sit side
-  by side; verify the layout before building.
+### Wave 1 — quick wins
 
-### Showcase backlog
-
-- Container query units — `cqi` + `clamp()` ultra-fluid components.
-- Pure-CSS carousel — scroll buttons + `::scroll-marker`, presented WITH the
-  current screen-reader caveats (that honesty is the site's voice).
+- `:user-valid` / `:user-invalid` showcase — stable tier; TextField already
+  uses it.
 - `light-dark()` beyond color — style-query trick for non-color values;
-  could extend LightDarkDemo instead of a new entry.
-- `:user-valid` / `:user-invalid` — stable tier; TextField already uses it.
-- Media state pseudo-classes (`:playing` etc.) — custom player demo.
-- High-contrast light/dark presets — needs the engine's grey mix strengths
-  (border 44% / subtle 62%) promoted to per-theme data (a contrast-boost
-  knob): contrast as data, not duplicate palettes. Complements
-  `prefers-contrast: more` for users without the OS setting.
-
-### Content backlog
-
-- "Performance is accessibility" prose block in The proof — compositor
-  animation → vestibular safety, main-thread health → SR responsiveness,
-  keystroke-level performance as a metric.
-- "Break it with content" craft block — stress-test a real component with a
-  content switcher: designer-perfect copy → long titles → German compound
-  words → Arabic with `dir="rtl"`. The RTL leg proves the logical-properties
-  rigor already in the codebase (`:dir()` styling, no left/right anywhere);
-  the long-content legs show the defensive guards absorbing it. Absorbs the
-  old RTL-block idea; content variants via tiny Vue state (simulated CMS —
-  allowed). Inspired by Shadeed's "Breaking a Layout Intentionally"
-  (Debugging CSS, ch. 5) and his RTL Styling 101.
-- Diagnostic stylesheet ("CSS that audits") for The proof — a small debug
-  stylesheet that outlines a11y smells using modern selectors alone:
-  `img:not([alt])`, `a[target="_blank"]:not(:has(.visually-hidden))`,
-  `button:empty`, unlabeled inputs via `:not(:has(+ label))`. Shown against
-  an intentionally broken sample fragment; teaches that the selector
-  engine itself can be an audit tool.
+  extends LightDarkDemo rather than a new entry.
 - CoverageMatrix row: "loading state never announced" (axe can't see it).
 
-### Infra / nice-to-have
+### Wave 2 — container query units showcase
+
+- `cqi` + `clamp()` ultra-fluid components — formalizes what the timeline's
+  ghost numerals already dogfood.
+
+### Wave 3 — high-contrast presets (+ theming split)
+
+- High-contrast light/dark presets — the engine's grey mix strengths
+  (border 44% / subtle 62%) become per-theme data (a contrast-boost knob):
+  contrast as data, not duplicate palettes. Complements
+  `prefers-contrast: more` for users without the OS setting.
+- While in there: grow `theming.css` into `src/theming/`.
+
+### Wave 4 — "Break it with content" craft block
+
+- Stress-test a real component with a content switcher: designer-perfect
+  copy → long titles → German compound words → Arabic with `dir="rtl"`.
+  The RTL leg proves the logical-properties rigor already in the codebase
+  (`:dir()` styling, no left/right anywhere); the long-content legs show
+  the defensive guards absorbing it. Content variants via tiny Vue state
+  (simulated CMS — allowed). Inspired by Shadeed's "Breaking a Layout
+  Intentionally" (Debugging CSS, ch. 5) and his RTL Styling 101.
+
+### Wave 5 — The proof pillar pass
+
+- Diagnostic stylesheet ("CSS that audits") — a small debug stylesheet that
+  outlines a11y smells using modern selectors alone: `img:not([alt])`,
+  `a[target="_blank"]:not(:has(.visually-hidden))`, `button:empty`,
+  unlabeled inputs via `:not(:has(+ label))`. Shown against an intentionally
+  broken sample fragment; the selector engine as an audit tool.
+- "Performance is accessibility" prose block — compositor animation →
+  vestibular safety, main-thread health → SR responsiveness,
+  keystroke-level performance as a metric.
+
+### Wave 6 — pure-CSS carousel
+
+- Scroll buttons + `::scroll-marker`, presented WITH the current
+  screen-reader caveats (that honesty is the site's voice). Biggest build;
+  emerging tier.
+
+### Wave 7 — infra
 
 - Derive the stable/emerging grouping (and sidebar clusters) from the
   Baseline data instead of the hand-maintained `status` field;
   `baseline-watch` already flags transitions.
-- Grow `theming.css` into a `src/theming/` directory when it next expands.
 
-### Decisions parked with Thomas
+### Conditional / Watchlist
 
-- **CSS naming convention** — the informal house style (root class +
-  role-named descendants, no BEM ceremony) works; write it into GUIDE.md so
-  it's documented intent, not accident.
-- **Long-term reimagining** (“less documentation-like”) — open design
-  question; Thomas brings references, discuss before building.
-
-### Watchlist (too early — revisit)
-
+- Subgrid card alignment — only if criteria/showcase cards ever sit side by
+  side; verify the layout before building.
+- Media state pseudo-classes (`:playing` etc.) — checked July 2026: no
+  Chromium support (Firefox 150 + Safari only, Baseline false per
+  web-features); revisit when Chrome ships.
 - `sibling-index()` / `sibling-count()` — Canary only.
 - `border-shape` — spec in flux; candidate for the anchor-tooltip arrow.
 - Overscroll areas / built-in gestures — early spec discussion.

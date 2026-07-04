@@ -49,6 +49,8 @@ import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.sn
 import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
 import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
 import hasSnippetCss from './demos/HasSelectorDemo/HasSelectorDemo.snippet.css?raw'
+import UserValidDemo from './demos/UserValidDemo/UserValidDemo.vue'
+import userValidSnippetCss from './demos/UserValidDemo/UserValidDemo.snippet.css?raw'
 import quantitySnippetHtml from './demos/QuantityQueriesDemo/QuantityQueriesDemo.snippet.html?raw'
 import quantitySnippetCss from './demos/QuantityQueriesDemo/QuantityQueriesDemo.snippet.css?raw'
 import subgridSnippetCss from './demos/SubgridDemo/SubgridDemo.snippet.css?raw'
@@ -283,6 +285,25 @@ export const showcases: Showcase[] = [
     ],
     component: PopoverMenuDemo,
     snippetHtml: popoverSnippetHtml,
+  },
+  {
+    id: 'user-valid',
+    title: ':user-valid / :user-invalid',
+    status: 'stable',
+    supports: 'selector(:user-valid)',
+    summary:
+      'Validation styling with manners — these pseudo-classes match only ' +
+      'after the user has actually interacted with a field, so an empty ' +
+      'required form isn’t flagged red on first paint. Newly Baseline ' +
+      'widely available; the foundation’s own TextField builds on it.',
+    links: [
+      {
+        label: 'MDN: :user-invalid',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid',
+      },
+    ],
+    component: UserValidDemo,
+    snippetCss: userValidSnippetCss,
   },
 
   /* Emerging — Interop 2026 focus areas; demos only, behind @supports. */
