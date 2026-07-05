@@ -11,7 +11,7 @@
    The layers:
      reset       — element default normalization        (reset.css)
      tokens      — design token custom properties       (tokens.css)
-     themes      — seed-driven palette derivation        (theming.css)
+     themes      — seed-driven palette derivation        (theming/)
      base        — bare-element styles, typography      (base.css)
      layout      — page-level composition, containers
      components  — all component-scoped styles (Vue SFC styles go here)

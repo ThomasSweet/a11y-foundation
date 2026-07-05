@@ -105,7 +105,7 @@ const pickH = ref(265)
 const pickL = ref(60) // starts inside the dead zone, so the clamp visibly acts
 const bypass = ref(false)
 
-// Accents mirror the .theme-* CVD presets in theming.css.
+// Accents mirror the .theme-* CVD presets in theming/presets.css.
 const presets = [
   { name: 'Cobalt', h: 255, l: 48 },
   { name: 'Teal', h: 195, l: 45 },
@@ -259,7 +259,7 @@ const note = computed(() => {
      → snap a mid pick to the nearest safe extreme (dark caps at DARK_MAX, light
      floors at LIGHT_MIN; the muddy middle is squeezed out) → bypass blends back
      to raw to expose the unsafe pick. Overriding --seed-accent here (components
-     layer) beats theming.css (themes layer). */
+     layer) beats theming/ (themes layer). */
   .theme-picker-preview {
     --raw-l: calc(var(--pick-l) / 100);
     /* A big multiplier turns the sign of (0.62 − L) into a 0/1 step. */

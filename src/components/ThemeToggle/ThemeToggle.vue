@@ -35,6 +35,15 @@
           {{ preset.label }}
         </label>
       </fieldset>
+
+      <fieldset class="theme-panel-group">
+        <legend class="theme-panel-legend">High contrast</legend>
+        <label v-for="preset in contrastPresets" :key="preset.value" class="theme-panel-option">
+          <input v-model="theme" type="radio" name="site-theme" :value="preset.value" />
+          <span class="theme-panel-swatch" :class="`theme-${preset.value}`" aria-hidden="true"></span>
+          {{ preset.label }}
+        </label>
+      </fieldset>
     </div>
   </div>
 </template>
@@ -53,12 +62,21 @@ const cvdPresets = [
   { value: 'teal', label: 'Teal' },
   { value: 'amber', label: 'Amber' },
 ] as const
+const contrastPresets = [
+  { value: 'contrast-light', label: 'Contrast light' },
+  { value: 'contrast-dark', label: 'Contrast dark' },
+] as const
 
 type Mode = (typeof modes)[number]
-type Preset = (typeof presets)[number]['value'] | (typeof cvdPresets)[number]['value']
+type Preset =
+  | (typeof presets)[number]['value']
+  | (typeof cvdPresets)[number]['value']
+  | (typeof contrastPresets)[number]['value']
 type Theme = Mode | Preset
 
-const PRESET_VALUES: readonly string[] = [...presets, ...cvdPresets].map((p) => p.value)
+const PRESET_VALUES: readonly string[] = [...presets, ...cvdPresets, ...contrastPresets].map(
+  (p) => p.value,
+)
 const STORAGE_KEY = 'abd-theme'
 
 // The inline script in index.html already applied the saved value pre-paint;

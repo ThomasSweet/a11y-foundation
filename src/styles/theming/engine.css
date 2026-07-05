@@ -1,0 +1,78 @@
+/* =============================================================================
+   theming/engine.css — seed-driven, contrast-safe palette derivation.
+
+   A theme is two seeds (--seed-surface, --seed-accent) plus optional
+   --mix-* strengths; the whole --color-* palette every component reads is
+   derived from them here, so adding a theme is data (theming/presets.css),
+   not code.
+
+   Two scopes share the engine: `.surface` re-themes a demo card in place;
+   `:root[data-preset]` applies the same derivation site-wide (set by the
+   header ThemeToggle, persisted in localStorage, applied pre-paint by the
+   inline script in index.html).
+
+   Contrast-safe by construction: text flips to black/white against its
+   background via the seed's OKLCH lightness; greys mix toward the text colour
+   at the --mix-* strengths, so they gain contrast in the same direction for
+   light and dark themes alike — and a preset can raise the strengths to
+   become a high-contrast theme without new palette code.
+
+   Caveat: assumes seeds in sensible lightness ranges — a mid-lightness accent
+   can't reach 4.5:1 with either black or white text.
+============================================================================= */
+
+@layer themes {
+
+  :root[data-preset],
+  .surface {
+    --mix-surface: 5%;
+    --mix-bg-subtle: 9%;
+    --mix-border: 44%;
+    --mix-text-subtle: 62%;
+
+    /* Text: black on light surfaces, white on dark. clamp(0, (0.62 - l) *
+       infinity, 1) resolves the seed's lightness to 0 or 1 — no JS, no query. */
+    --color-text:
+      oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
+
+    --color-bg:          var(--seed-surface);
+    --color-surface:     color-mix(in oklab, var(--seed-surface), var(--color-text) var(--mix-surface));
+    --color-bg-subtle:   color-mix(in oklab, var(--seed-surface), var(--color-text) var(--mix-bg-subtle));
+    --color-border:      color-mix(in oklab, var(--seed-surface), var(--color-text) var(--mix-border));
+    --color-text-subtle: color-mix(in oklab, var(--seed-surface), var(--color-text) var(--mix-text-subtle));
+
+    --color-primary:       var(--seed-accent);
+    --color-primary-hover: color-mix(in oklab, var(--seed-accent), var(--color-text) 16%);
+    --color-primary-text:
+      oklch(from var(--seed-accent) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
+
+    --focus-ring-color: var(--seed-accent);
+
+    /* Where supported, let the browser pick the optimal label (supersedes the flip above). */
+    @supports (color: contrast-color(red)) {
+      --color-text:         contrast-color(var(--seed-surface));
+      --color-primary-text: contrast-color(var(--seed-accent));
+    }
+  }
+
+  /* Site-wide extras the demo cards never need: the secondary accent walks
+     40° around the hue wheel so gradients still travel, glass stays a
+     translucent cut of the surface seed. */
+  :root[data-preset] {
+    --color-text-inverse: var(--color-bg);
+    --color-accent: oklch(from var(--seed-accent) l c calc(h + 40));
+    --color-surface-glass: color-mix(in oklab, var(--seed-surface) 78%, transparent);
+  }
+
+  .surface {
+    /* Default seeds — overridden by a .theme-* preset class. */
+    --seed-surface: oklch(99% 0.004 255deg);
+    --seed-accent:  oklch(52% 0.16 260deg);
+
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+  }
+}
