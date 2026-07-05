@@ -1,0 +1,133 @@
+@layer components {
+  .audit-css {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .audit-css-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-self: start;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .audit-css-frame {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .audit-css-frame-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .audit-css-specimen {
+    display: grid;
+    gap: var(--space-4);
+    align-items: start;
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+
+    @include from('sm') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .audit-css-image {
+    border-radius: var(--radius-sm);
+  }
+
+  .audit-css-field {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .audit-css-field-labeled {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .audit-css-input {
+    min-inline-size: 0;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-size: var(--text-sm);
+  }
+
+  .audit-css-icon-button {
+    inline-size: var(--space-8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+  }
+
+  .audit-css-icon-button::before {
+    content: '🔍' / '';
+  }
+
+  .audit-css-line {
+    font-size: var(--text-sm);
+
+    a {
+      color: var(--color-primary);
+    }
+  }
+
+  .audit-css-button {
+    justify-self: start;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  /* The debug stylesheet itself — the same four selectors the <pre> shows,
+     scoped to the specimen and armed by the toggle. */
+  .audit-css:has(.audit-css-toggle-input:checked) .audit-css-specimen {
+    img:not([alt]),
+    button:empty,
+    input:not(label input, [aria-label], [aria-labelledby]),
+    a[target='_blank']:not(:has(.visually-hidden)) {
+      outline: 3px dashed var(--color-error);
+      outline-offset: 2px;
+    }
+  }
+
+  .audit-css-code {
+    overflow-x: auto;
+    min-inline-size: 0;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+    font-size: var(--text-sm);
+    white-space: pre;
+  }
+
+  .audit-css-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+}

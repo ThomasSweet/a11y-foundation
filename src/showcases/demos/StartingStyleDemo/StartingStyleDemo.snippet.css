@@ -17,3 +17,33 @@
     opacity: 0;
   }
 }
+
+/* The same trick inside a breakpoint: crossing it FADES the panel
+   in instead of popping it. */
+.panel {
+  display: none;
+  opacity: 0;
+  transition:
+    opacity 250ms,
+    display 250ms allow-discrete;
+}
+
+@container (inline-size >= 26rem) {
+  .panel {
+    display: grid;
+    opacity: 1;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+/* Resize and device rotation fire this transition, so gate the
+   MOTION — never the visibility. The panel must still appear for
+   reduced-motion users; it just stops animating. */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+}
