@@ -368,8 +368,9 @@
         </PillarHeader>
 
         <div class="demo">
-          <template v-for="group in groups" :key="group.status">
+          <template v-for="group in groups" :key="group.tier">
             <h3 v-if="group.items.length">{{ group.label }}</h3>
+            <p v-if="group.items.length">{{ group.blurb }}</p>
             <div class="showcase-list">
               <ShowcaseFrame
                 v-for="item in group.items"
@@ -555,16 +556,29 @@ const email = ref('')
 // JSON widens `baseline` to string|boolean; the generator guarantees the union.
 const baselineData = baselineDataJson as unknown as Record<string, BaselineInfo>
 
+// Tiers come straight from Baseline data (see registry.ts) — Baseline's own
+// vocabulary, so promotions happen at build time, not by hand.
 const groups = computed(() => [
   {
-    status: 'stable',
-    label: 'Widely supported',
-    items: showcases.filter((s) => s.status === 'stable'),
+    tier: 'widely-available',
+    label: 'Widely available',
+    blurb:
+      'Baseline widely available — in every engine for 30+ months. The foundation itself leans on these.',
+    items: showcases.filter((s) => s.tier === 'widely-available'),
   },
   {
-    status: 'emerging',
-    label: 'Emerging — Interop focus areas',
-    items: showcases.filter((s) => s.status === 'emerging'),
+    tier: 'newly-available',
+    label: 'Newly available',
+    blurb:
+      'Baseline newly available — interoperable everywhere, recently. Used with cheap fallbacks where it matters.',
+    items: showcases.filter((s) => s.tier === 'newly-available'),
+  },
+  {
+    tier: 'limited-availability',
+    label: 'Limited availability — Interop focus areas',
+    blurb:
+      'Not yet in every engine. Demos only, always behind @supports — they degrade instead of breaking.',
+    items: showcases.filter((s) => s.tier === 'limited-availability'),
   },
 ])
 
@@ -627,15 +641,21 @@ const toc: TocGroup[] = [
     // anchor ids stamped on each ShowcaseFrame above.
     subgroups: [
       {
-        label: 'Widely supported',
+        label: 'Widely available',
         sections: showcases
-          .filter((s) => s.status === 'stable')
+          .filter((s) => s.tier === 'widely-available')
           .map((s) => ({ id: `showcase-${s.id}`, label: s.title, summary: s.summary })),
       },
       {
-        label: 'Emerging',
+        label: 'Newly available',
         sections: showcases
-          .filter((s) => s.status === 'emerging')
+          .filter((s) => s.tier === 'newly-available')
+          .map((s) => ({ id: `showcase-${s.id}`, label: s.title, summary: s.summary })),
+      },
+      {
+        label: 'Limited availability',
+        sections: showcases
+          .filter((s) => s.tier === 'limited-availability')
           .map((s) => ({ id: `showcase-${s.id}`, label: s.title, summary: s.summary })),
       },
     ],
