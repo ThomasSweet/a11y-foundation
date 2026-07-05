@@ -1,14 +1,16 @@
 /**
  * Showcase registry — single source of truth for the CSS showcases section;
- * App.vue renders this list grouped by status.
+ * App.vue renders this list grouped by Baseline tier.
  *
  * To add one: build a small demo under ./demos/ (one feature, new syntax behind
- * @supports with a fallback) plus a portable *.snippet.* excerpt, then add an
- * entry here.
+ * @supports with a fallback) plus a portable *.snippet.* excerpt, add an entry
+ * here, and map its id in scripts/gen-baseline.mjs.
  *
- * status: 'stable' = interoperable now (Baseline / done Interop areas), may be
- * used in the foundation itself; 'emerging' = active Interop area / partial
- * support, demo only, always progressive enhancement.
+ * tier is DERIVED from Baseline data at build time (gen-baseline.mjs →
+ * baseline-data.json), never hand-maintained: 'widely-available' (Baseline
+ * high) may be used in the foundation itself; 'newly-available' (Baseline low)
+ * is interoperable but recent; 'limited-availability' is demo-only, always
+ * behind @supports. File order only sets the order within each group.
  * supports = a CSS.supports() condition so ShowcaseFrame can tell visitors
  * whether they see the feature or the fallback ('' when none applies). For
  * JS APIs that CSS.supports() can't express, use `detect` instead.
@@ -16,6 +18,7 @@
  * Sources: https://wpt.fyi/interop-2026, https://web-platform-dx.github.io/web-features-explorer/
  */
 
+import baselineData from './baseline-data.json'
 import ContainerCardDemo from './demos/ContainerCardDemo/ContainerCardDemo.vue'
 import AnchorPopoverDemo from './demos/AnchorPopoverDemo/AnchorPopoverDemo.vue'
 import HasSelectorDemo from './demos/HasSelectorDemo/HasSelectorDemo.vue'
@@ -104,10 +107,12 @@ export interface BaselineInfo {
   support: Record<string, string | null>
 }
 
+export type BaselineTier = 'widely-available' | 'newly-available' | 'limited-availability'
+
 export interface Showcase {
   id: string
   title: string
-  status: 'stable' | 'emerging'
+  tier: BaselineTier
   supports: string
   /** JS feature test for APIs CSS.supports() can't express (View Transitions,
       Custom Highlight API). Takes precedence over `supports`. */
@@ -124,12 +129,11 @@ export interface Showcase {
   snippetJs?: string
 }
 
-export const showcases: Showcase[] = [
+const entries: Omit<Showcase, 'tier'>[] = [
   /* Stable — interoperable everywhere, fair game for the foundation. */
   {
     id: 'container-queries',
     title: 'Container queries',
-    status: 'stable',
     supports: 'container-type: inline-size',
     summary:
       'Components respond to the space they actually get instead of the ' +
@@ -149,7 +153,6 @@ export const showcases: Showcase[] = [
   {
     id: 'cq-units',
     title: 'Container query units',
-    status: 'stable',
     supports: 'width: 1cqi',
     summary:
       'The other half of container queries: cqi units inside clamp() scale ' +
@@ -169,7 +172,6 @@ export const showcases: Showcase[] = [
   {
     id: 'has-selector',
     title: ':has() relational selector',
-    status: 'stable',
     supports: 'selector(:has(a))',
     summary:
       'Style an element from its descendants’ state — something no ' +
@@ -189,7 +191,6 @@ export const showcases: Showcase[] = [
   {
     id: 'quantity-queries',
     title: 'Count-aware layouts (quantity queries)',
-    status: 'stable',
     supports: 'selector(:has(> :nth-child(2)))',
     summary:
       'The chat-app photo bundle, in pure CSS: the grid counts its own ' +
@@ -216,7 +217,6 @@ export const showcases: Showcase[] = [
   {
     id: 'subgrid',
     title: 'Subgrid',
-    status: 'stable',
     supports: 'grid-template-rows: subgrid',
     summary:
       'Nested grids adopt their parent’s tracks, so card internals ' +
@@ -234,7 +234,6 @@ export const showcases: Showcase[] = [
   {
     id: 'sliding-indicator',
     title: 'Sliding selection indicator',
-    status: 'stable',
     supports: 'selector(:has(*))',
     summary:
       'A modern way to visualize selection: one pill that travels between ' +
@@ -254,7 +253,6 @@ export const showcases: Showcase[] = [
   {
     id: 'text-wrap',
     title: 'text-wrap: balance / pretty',
-    status: 'stable',
     supports: 'text-wrap: balance',
     summary:
       'Let the browser decide line breaks. balance evens out short blocks ' +
@@ -272,7 +270,6 @@ export const showcases: Showcase[] = [
   {
     id: 'scroll-snap',
     title: 'Scroll snap',
-    status: 'stable',
     supports: 'scroll-snap-type: x mandatory',
     summary:
       'A horizontal strip where each card locks to centre as you scroll — ' +
@@ -293,7 +290,6 @@ export const showcases: Showcase[] = [
   {
     id: 'popover',
     title: 'Popover attribute',
-    status: 'stable',
     supports: '',
     summary:
       'A real actions menu wired by id alone — the platform hands you ' +
@@ -313,7 +309,6 @@ export const showcases: Showcase[] = [
   {
     id: 'user-valid',
     title: ':user-valid / :user-invalid',
-    status: 'stable',
     supports: 'selector(:user-valid)',
     summary:
       'Validation styling with manners — these pseudo-classes match only ' +
@@ -330,11 +325,9 @@ export const showcases: Showcase[] = [
     snippetCss: userValidSnippetCss,
   },
 
-  /* Emerging — Interop 2026 focus areas; demos only, behind @supports. */
   {
     id: 'anchor-positioning',
     title: 'Anchor positioning',
-    status: 'emerging',
     supports: 'anchor-name: --a',
     summary:
       'Tether a popover to the element that opened it, in pure CSS. ' +
@@ -358,7 +351,6 @@ export const showcases: Showcase[] = [
   {
     id: 'anchor-tooltip',
     title: 'Anchor-positioned tooltip',
-    status: 'emerging',
     supports: 'anchor-name: --a',
     summary:
       'A hover/focus hint tethered to its trigger with anchor positioning, ' +
@@ -384,7 +376,6 @@ export const showcases: Showcase[] = [
   {
     id: 'contrast-color',
     title: 'contrast-color()',
-    status: 'emerging',
     supports: 'color: contrast-color(red)',
     summary:
       'The browser picks a contrasting text color for any background — ' +
@@ -403,7 +394,6 @@ export const showcases: Showcase[] = [
   {
     id: 'theming',
     title: 'Contrast-safe theming',
-    status: 'emerging',
     supports: 'color: oklch(from red l c h)',
     summary:
       'One engine, many themes. Each theme is just two seed colors; the full ' +
@@ -426,7 +416,6 @@ export const showcases: Showcase[] = [
   {
     id: 'theme-picker',
     title: 'Contrast-clamped theme picker',
-    status: 'emerging',
     supports: 'color: oklch(from red l c h)',
     summary:
       'The same engine, made interactive: pick an accent and drag its ' +
@@ -450,7 +439,6 @@ export const showcases: Showcase[] = [
   {
     id: 'scroll-driven-animations',
     title: 'Scroll-driven animations',
-    status: 'emerging',
     supports: 'animation-timeline: scroll()',
     summary:
       'Animations driven by scroll position instead of time — no scroll ' +
@@ -469,7 +457,6 @@ export const showcases: Showcase[] = [
   {
     id: 'style-queries',
     title: 'Container style queries · non-color cues',
-    status: 'emerging',
     supports: '',
     summary:
       'Query a container’s custom-property value (not just its size) to ' +
@@ -492,7 +479,6 @@ export const showcases: Showcase[] = [
   {
     id: 'shape-function',
     title: 'shape()',
-    status: 'emerging',
     supports: 'clip-path: shape(from 0 0, line to 100% 0)',
     summary:
       'Responsive, keyword-based clip paths (lines, arcs, curves) that ' +
@@ -511,7 +497,6 @@ export const showcases: Showcase[] = [
   {
     id: 'starting-style',
     title: '@starting-style',
-    status: 'emerging',
     supports: 'transition-behavior: allow-discrete',
     summary:
       'Animate an element in from display:none — entry transitions with no ' +
@@ -531,7 +516,6 @@ export const showcases: Showcase[] = [
   {
     id: 'advanced-attr',
     title: 'Advanced attr()',
-    status: 'emerging',
     supports: 'width: calc(attr(data-value type(<number>), 0) * 1%)',
     summary:
       'attr() with types — read data attributes as lengths, colors, or ' +
@@ -551,7 +535,6 @@ export const showcases: Showcase[] = [
   {
     id: 'field-sizing',
     title: 'field-sizing: content',
-    status: 'emerging',
     supports: 'field-sizing: content',
     summary:
       'A textarea that grows and shrinks with its content — no scrollHeight ' +
@@ -571,7 +554,6 @@ export const showcases: Showcase[] = [
   {
     id: 'css-zoom',
     title: 'CSS zoom',
-    status: 'emerging',
     supports: 'zoom: 2',
     summary:
       'The newly-interoperable zoom property magnifies an element AND reflows ' +
@@ -591,7 +573,6 @@ export const showcases: Showcase[] = [
   {
     id: 'customizable-select',
     title: 'Customizable <select>',
-    status: 'emerging',
     supports: 'appearance: base-select',
     summary:
       'A native <select> opted into full CSS styling with appearance: ' +
@@ -615,7 +596,6 @@ export const showcases: Showcase[] = [
   {
     id: 'scroll-state',
     title: 'Scroll-state queries',
-    status: 'emerging',
     supports: 'container-type: scroll-state',
     summary:
       'Container queries that react to how an element sits in a scroller — ' +
@@ -639,7 +619,6 @@ export const showcases: Showcase[] = [
   {
     id: 'css-carousel',
     title: 'Pure-CSS carousel',
-    status: 'emerging',
     supports: 'selector(::scroll-marker)',
     summary:
       'Scroll buttons and marker dots generated entirely by CSS — focusable, ' +
@@ -660,7 +639,6 @@ export const showcases: Showcase[] = [
   {
     id: 'custom-highlight',
     title: 'Custom Highlight API',
-    status: 'emerging',
     supports: '',
     detect: () => 'highlights' in CSS,
     summary:
@@ -681,7 +659,6 @@ export const showcases: Showcase[] = [
   {
     id: 'dialog-polish',
     title: 'Dialog & popover niceties',
-    status: 'emerging',
     supports: 'selector(:open)',
     summary:
       'Newer overlay ergonomics: a popover="hint" toggletip (show + dismiss ' +
@@ -705,7 +682,6 @@ export const showcases: Showcase[] = [
   {
     id: 'interest-invokers',
     title: 'Interest invokers (interestfor)',
-    status: 'emerging',
     supports: 'interest-delay: 0s',
     summary:
       'Hover, keyboard focus, or touch long-press invokes a popover from one ' +
@@ -732,7 +708,6 @@ export const showcases: Showcase[] = [
   {
     id: 'view-transitions',
     title: 'View Transitions',
-    status: 'emerging',
     supports: '',
     detect: () => 'startViewTransition' in document,
     summary:
@@ -755,3 +730,12 @@ export const showcases: Showcase[] = [
   // Further candidates: media state pseudo-classes (custom player),
   // anchor-positioned tooltips, customizable <select>.
 ]
+
+const tierOf = (id: string): BaselineTier => {
+  const baseline = (baselineData as Record<string, BaselineInfo>)[id]?.baseline
+  if (baseline === 'high') return 'widely-available'
+  if (baseline === 'low') return 'newly-available'
+  return 'limited-availability'
+}
+
+export const showcases: Showcase[] = entries.map((e) => ({ ...e, tier: tierOf(e.id) }))

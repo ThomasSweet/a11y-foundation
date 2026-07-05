@@ -17,72 +17,12 @@ git history and the PRs, not here.
 
 ---
 
-## The plan
+## Open
 
-Ordered waves, one branch each; work top to bottom.
+Nothing queued — the July 2026 wave plan is complete (see Done). New ideas
+land here.
 
-### Wave 1 — quick wins
-
-- `:user-valid` / `:user-invalid` showcase — stable tier; TextField already
-  uses it.
-- `light-dark()` beyond color — style-query trick for non-color values;
-  extends LightDarkDemo rather than a new entry.
-- CoverageMatrix row: "loading state never announced" (axe can't see it).
-
-### Wave 2 — container query units showcase
-
-- `cqi` + `clamp()` ultra-fluid components — formalizes what the timeline's
-  ghost numerals already dogfood.
-
-### Wave 3 — high-contrast presets (+ theming split)
-
-- High-contrast light/dark presets — the engine's grey mix strengths
-  (border 44% / subtle 62%) become per-theme data (a contrast-boost knob):
-  contrast as data, not duplicate palettes. Complements
-  `prefers-contrast: more` for users without the OS setting.
-- While in there: grow `theming.css` into `src/theming/`.
-
-### Wave 4 — "Break it with content" craft block
-
-- Stress-test a real component with a content switcher: designer-perfect
-  copy → long titles → German compound words → Arabic with `dir="rtl"`.
-  The RTL leg proves the logical-properties rigor already in the codebase
-  (`:dir()` styling, no left/right anywhere); the long-content legs show
-  the defensive guards absorbing it. Content variants via tiny Vue state
-  (simulated CMS — allowed). Inspired by Shadeed's "Breaking a Layout
-  Intentionally" (Debugging CSS, ch. 5) and his RTL Styling 101.
-
-### Wave 5 — The proof pillar pass (+ responsive-reveal card)
-
-- Extension card on the @starting-style showcase: the trick inside a
-  breakpoint — a hidden panel fades in when its container crosses a width
-  threshold instead of popping (`@starting-style` + `allow-discrete` inside
-  `@container`), slider-driven. Our version adds the guard the viral
-  snippet skips: reduced-motion gating (resize/rotation triggers it).
-  Inspired by @micka_design on X.
-
-- Diagnostic stylesheet ("CSS that audits") — a small debug stylesheet that
-  outlines a11y smells using modern selectors alone: `img:not([alt])`,
-  `a[target="_blank"]:not(:has(.visually-hidden))`, `button:empty`,
-  unlabeled inputs via `:not(:has(+ label))`. Shown against an intentionally
-  broken sample fragment; the selector engine as an audit tool.
-- "Performance is accessibility" prose block — compositor animation →
-  vestibular safety, main-thread health → SR responsiveness,
-  keystroke-level performance as a metric.
-
-### Wave 6 — pure-CSS carousel
-
-- Scroll buttons + `::scroll-marker`, presented WITH the current
-  screen-reader caveats (that honesty is the site's voice). Biggest build;
-  emerging tier.
-
-### Wave 7 — infra
-
-- Derive the stable/emerging grouping (and sidebar clusters) from the
-  Baseline data instead of the hand-maintained `status` field;
-  `baseline-watch` already flags transitions.
-
-### Conditional / Watchlist
+### Watchlist (too early / conditional — revisit)
 
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
@@ -119,6 +59,15 @@ Ordered waves, one branch each; work top to bottom.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Wave 7: showcase grouping derived from Baseline data — three tiers in Baseline's own vocabulary (widely / newly / limited availability), computed at build time; hand-maintained `status` field removed.
+- **2026-07** Wave 6: pure-CSS carousel showcase — `::scroll-button` (anchor-positioned) + `::scroll-marker` dots with slash-alt accessible names; honest SR caveats; plain snap scroller everywhere else.
+- **2026-07** Wave 5: proof pillar pass — "CSS that audits" diagnostic-stylesheet demo (inert specimen), "performance is accessibility" prose, responsive-reveal card on @starting-style (with the reduced-motion guard the viral snippet skips).
+- **2026-07** Wave 4: "Break it with content" craft block — one card vs. long titles, German compounds (hyphens + lang), Arabic RTL (:dir(), logical properties).
+- **2026-07** Toolbar glyphs replaced with inline SVGs (font-metric-proof centering).
+- **2026-07** Wave 3: high-contrast presets via engine `--mix-*` contrast knob; theming split into engine + presets files.
+- **2026-07** Wave 2: container query units showcase (`clamp(rem, cqi, rem)` fluid card).
+- **2026-07** Wave 1: `:user-valid` showcase, light-dark() style-query card, CoverageMatrix loading row; media pseudos parked (no Chromium).
 
 - **2026-07** Timeline content pass — Bypass Blocks (2.4.1) skip-link demo fills the WCAG 2.0 era; era summaries tightened.
 - **2026-07** Theme presets site-wide — seed engine promoted to `:root[data-preset]`, header popover panel (mode + presets + CVD trio), no-flash localStorage persistence; popover display trap fixed and pinned by e2e; `src` now 100% TypeScript.
