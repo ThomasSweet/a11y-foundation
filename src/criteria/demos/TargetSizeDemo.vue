@@ -15,7 +15,10 @@
         :aria-label="tool.label"
         @click="active[tool.id] = !active[tool.id]"
       >
-        <span aria-hidden="true">{{ tool.glyph }}</span>
+        <span v-if="tool.glyph" class="target-size-glyph" aria-hidden="true">{{ tool.glyph }}</span>
+        <svg v-else class="target-size-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path :d="tool.d" />
+        </svg>
       </button>
     </div>
   </div>
@@ -28,12 +31,27 @@ defineProps({
   broken: { type: Boolean, default: false },
 })
 
-const tools = [
+interface Tool {
+  id: string
+  label: string
+  glyph?: string
+  d?: string
+}
+
+const tools: Tool[] = [
   { id: 'bold', glyph: 'B', label: 'Bold' },
   { id: 'italic', glyph: 'I', label: 'Italic' },
   { id: 'underline', glyph: 'U', label: 'Underline' },
-  { id: 'link', glyph: '🔗', label: 'Insert link' },
-  { id: 'list', glyph: '☰', label: 'Bulleted list' },
+  {
+    id: 'link',
+    label: 'Insert link',
+    d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71 M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71',
+  },
+  {
+    id: 'list',
+    label: 'Bulleted list',
+    d: 'M4.5 6h.01 M9.5 6H20 M4.5 12h.01 M9.5 12H20 M4.5 18h.01 M9.5 18H20',
+  },
 ]
 
 const active = reactive<Record<string, boolean>>({})
@@ -91,6 +109,20 @@ const active = reactive<Record<string, boolean>>({})
     @include forced-colors {
       border-color: ButtonText;
     }
+  }
+
+  .target-size-glyph {
+    line-height: 1;
+  }
+
+  .target-size-icon {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   /* The regression: drop well under 24px and remove spacing, so targets are
