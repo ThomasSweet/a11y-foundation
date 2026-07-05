@@ -513,9 +513,10 @@ export const showcases: Showcase[] = [
     supports: 'transition-behavior: allow-discrete',
     summary:
       'Animate an element in from display:none — entry transitions with no ' +
-      'JS — and out via transition-behavior: allow-discrete. The transitions ' +
-      'use motion tokens, so they respect reduced motion. Interop 2026 focus ' +
-      'area.',
+      'JS — and out via transition-behavior: allow-discrete. Composes with ' +
+      'container queries too: responsive reveals that fade instead of pop. ' +
+      'The transitions use motion tokens, so they respect reduced motion. ' +
+      'Interop 2026 focus area.',
     links: [
       {
         label: 'MDN: @starting-style',

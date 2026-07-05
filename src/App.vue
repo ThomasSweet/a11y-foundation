@@ -429,6 +429,40 @@
           </p>
           <CoverageMatrix />
         </section>
+
+        <section class="demo" aria-labelledby="testing-audit-css">
+          <h3 id="testing-audit-css">CSS that audits</h3>
+          <p>
+            The selector engine itself can be a testing layer. A handful of
+            modern selectors — <code>:not()</code>, <code>:has()</code>,
+            attribute checks — describe accessibility smells precisely enough
+            to paint them on screen: no build step, no extension, just a
+            stylesheet you drop into DevTools on any page. Flip the toggle and
+            watch four planted defects light up while their healthy twins stay
+            quiet.
+          </p>
+          <AuditStylesheet />
+        </section>
+
+        <section class="demo" aria-labelledby="testing-performance">
+          <h3 id="testing-performance">Performance is accessibility</h3>
+          <p>
+            Performance work usually files under "nice to have." For assistive
+            tech it's load-bearing. A screen reader walks the accessibility
+            tree through the same main thread your JavaScript blocks — every
+            long task is a stretch of silence between a keypress and hearing
+            where you landed. Motion that stutters is harder on vestibular
+            disorders than motion that glides, which is why this site animates
+            only <code>transform</code> and <code>opacity</code>: honoring
+            <code>prefers-reduced-motion</code> is step one, keeping the
+            remaining motion off the main thread is step two. And input
+            latency is felt hardest by the people who type through switch
+            devices or sticky keys — for them, a sluggish keystroke isn't an
+            annoyance but the interface going unresponsive mid-word. Less
+            JavaScript isn't just this site's aesthetic; it's why the
+            assistive-tech experience stays quick.
+          </p>
+        </section>
       </section>
     </main>
     </div>
@@ -509,6 +543,7 @@ import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
 import ContentStressDemo from './craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from './craft/demos/LoadingStateDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
+import AuditStylesheet from './testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
 import { heroIcons } from './icons/heroIcons'
 import { pillarIcons, type PillarIconName } from './icons/pillarIcons'
@@ -614,6 +649,8 @@ const toc: TocGroup[] = [
     sections: [
       { id: 'testing-layers', label: 'A layered job, not a button' },
       { id: 'testing-coverage', label: 'What automation can’t see' },
+      { id: 'testing-audit-css', label: 'CSS that audits' },
+      { id: 'testing-performance', label: 'Performance is accessibility' },
     ],
   },
 ]

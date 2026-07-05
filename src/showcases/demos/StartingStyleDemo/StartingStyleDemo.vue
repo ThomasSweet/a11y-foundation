@@ -24,6 +24,34 @@
         just <code>@starting-style</code> plus a transition.
       </p>
     </div>
+
+    <p class="starting-style-caption">
+      The same trick composes with breakpoints: put the block inside a
+      container (or media) query and responsive state changes <em>fade</em>
+      instead of popping. The motion tokens still guard it — resizing and
+      device rotation trigger this, so reduced motion collapses it to an
+      instant swap. Narrow the space until the details panel leaves, then
+      widen it again:
+    </p>
+
+    <label class="starting-style-control">
+      Container width
+      <input v-model="stageWidth" type="range" min="40" max="100" step="1" />
+      <span aria-hidden="true">{{ stageWidth }}%</span>
+    </label>
+
+    <div class="starting-style-stage" :style="{ inlineSize: `${stageWidth}%` }">
+      <div class="starting-style-app">
+        <div class="starting-style-main">
+          <p class="starting-style-card-title">Inbox</p>
+          <p class="starting-style-card-text">The content that's always there.</p>
+        </div>
+        <aside class="starting-style-panel">
+          <p class="starting-style-card-title">Details</p>
+          <p class="starting-style-card-text">I fade in when there's room.</p>
+        </aside>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,6 +61,7 @@ import { ref } from 'vue'
 import AppButton from '../../../components/AppButton/AppButton.vue'
 
 const open = ref(false)
+const stageWidth = ref(100)
 </script>
 
 <style scoped lang="scss">
@@ -80,6 +109,75 @@ const open = ref(false)
 
     @include high-contrast {
       border-color: currentcolor;
+    }
+  }
+
+  .starting-style-control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    justify-self: stretch;
+    font-size: var(--text-sm);
+
+    input {
+      flex: 1;
+      min-inline-size: 8rem;
+    }
+  }
+
+  .starting-style-stage {
+    container-type: inline-size;
+    justify-self: stretch;
+    min-inline-size: min(100%, 14rem);
+  }
+
+  .starting-style-app {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .starting-style-main {
+    flex: 1;
+    min-inline-size: 0;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+  }
+
+  .starting-style-panel {
+    display: none;
+    inline-size: 40%;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-subtle);
+    opacity: 0;
+    translate: 0.5rem 0;
+    transition:
+      opacity var(--duration-normal) var(--easing-standard),
+      translate var(--duration-normal) var(--easing-standard),
+      display var(--duration-normal) allow-discrete;
+  }
+
+  @container (inline-size >= 26rem) {
+    .starting-style-panel {
+      display: grid;
+      gap: var(--space-1);
+      align-content: start;
+      opacity: 1;
+      translate: 0 0;
+
+      @starting-style {
+        opacity: 0;
+        translate: 0.5rem 0;
+      }
     }
   }
 
