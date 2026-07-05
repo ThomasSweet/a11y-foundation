@@ -52,7 +52,14 @@ Ordered waves, one branch each; work top to bottom.
   (simulated CMS — allowed). Inspired by Shadeed's "Breaking a Layout
   Intentionally" (Debugging CSS, ch. 5) and his RTL Styling 101.
 
-### Wave 5 — The proof pillar pass
+### Wave 5 — The proof pillar pass (+ responsive-reveal card)
+
+- Extension card on the @starting-style showcase: the trick inside a
+  breakpoint — a hidden panel fades in when its container crosses a width
+  threshold instead of popping (`@starting-style` + `allow-discrete` inside
+  `@container`), slider-driven. Our version adds the guard the viral
+  snippet skips: reduced-motion gating (resize/rotation triggers it).
+  Inspired by @micka_design on X.
 
 - Diagnostic stylesheet ("CSS that audits") — a small debug stylesheet that
   outlines a11y smells using modern selectors alone: `img:not([alt])`,

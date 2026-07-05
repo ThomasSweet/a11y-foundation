@@ -314,6 +314,23 @@
           <DefensiveCssDemo />
         </section>
 
+        <section class="demo" aria-labelledby="craft-content-stress">
+          <h3 id="craft-content-stress">Break it with content</h3>
+          <p>
+            Layouts don't break in design reviews; they break the day the CMS
+            delivers a title nobody planned for. The habit that catches it
+            early is feeding a component hostile content on purpose: the
+            longest plausible headline, German compound words that refuse to
+            wrap, a right-to-left language. One card survives all four feeds
+            below because the guards were built in — logical properties
+            instead of left and right, <code>min-inline-size: 0</code> where
+            grids meet text, <code>hyphens: auto</code> riding on an honest
+            <code>lang</code> attribute, and a button sized by its label
+            instead of a designer's optimism.
+          </p>
+          <ContentStressDemo />
+        </section>
+
         <section class="demo" aria-labelledby="craft-loading">
           <h3 id="craft-loading">Loading states the accessibility tree can see</h3>
           <p>
@@ -489,6 +506,7 @@ import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
 import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
+import ContentStressDemo from './craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from './craft/demos/LoadingStateDemo.vue'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'
@@ -559,6 +577,7 @@ const toc: TocGroup[] = [
       { id: 'craft-motion', label: 'Motion that bows out on request' },
       { id: 'craft-targets', label: 'Targets for touch & forced colors' },
       { id: 'craft-defensive', label: 'Layouts that expect the worst' },
+      { id: 'craft-content-stress', label: 'Break it with content' },
       { id: 'craft-loading', label: 'Loading states AT can see' },
     ],
   },
