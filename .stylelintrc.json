@@ -26,7 +26,8 @@
               "--pick-h": "",
               "--pick-l": "",
               "--bypass": "",
-              "--photo-hue": ""
+              "--photo-hue": "",
+              "--slide-hue": ""
             }
           }
         ]

@@ -1,0 +1,26 @@
+/* The baseline for EVERY browser: a focusable snap scroller.
+   Buttons and dots below are enhancement on top of this. */
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+
+/* Generated, focusable, auto-disabling buttons — the text after
+   the slash is the accessible name. Never ship them nameless. */
+.carousel::scroll-button(inline-end) {
+  content: '›' / 'Next slides';
+}
+
+.carousel::scroll-button(inline-start) {
+  content: '‹' / 'Previous slides';
+}
+
+/* One dot per slide; the group is keyboard-navigable by itself. */
+.slide::scroll-marker {
+  content: ' ' / attr(data-marker-label);
+}
+
+.slide::scroll-marker:target-current {
+  background: var(--color-primary);
+}
