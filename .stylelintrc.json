@@ -14,7 +14,8 @@
         "comment": "Catches references to custom properties (tokens) that aren't defined anywhere — e.g. a typo'd `var(--space-5)` that would silently collapse to the initial value. Global tokens are read from the files below; component-local props defined in the same <style> block are recognized automatically. The listed props are injected via :style bindings in templates, so they have no CSS definition to find.",
         "importFrom": [
           "src/styles/tokens.css",
-          "src/styles/theming.css",
+          "src/styles/theming/engine.css",
+          "src/styles/theming/presets.css",
           "src/styles/preferences.css",
           {
             "customProperties": {

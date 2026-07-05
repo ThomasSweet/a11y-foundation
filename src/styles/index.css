@@ -7,7 +7,8 @@
 @import './layers.css';
 @import './reset.css';
 @import './tokens.css';
-@import './theming.css';
+@import './theming/engine.css';
+@import './theming/presets.css';
 @import './base.css';
 @import './utilities.css';
 @import './preferences.css';

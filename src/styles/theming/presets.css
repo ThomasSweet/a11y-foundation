@@ -1,0 +1,80 @@
+/* =============================================================================
+   theming/presets.css — theme presets: two seeds each (plus optional --mix-*
+   strengths), declared once for both scopes. The light-dark() tokens the
+   engine doesn't derive (status colours, shadows) follow each preset's
+   color-scheme.
+============================================================================= */
+
+@layer themes {
+
+  :root[data-preset='ocean'],
+  .theme-ocean {
+    --seed-surface: oklch(97% 0.025 220deg);
+    --seed-accent:  oklch(50% 0.12 230deg);
+    color-scheme: light;
+  }
+
+  :root[data-preset='midnight'],
+  .theme-midnight {
+    --seed-surface: oklch(21% 0.02 265deg);
+    --seed-accent:  oklch(72% 0.15 250deg);
+    color-scheme: dark;
+  }
+
+  :root[data-preset='sunset'],
+  .theme-sunset {
+    --seed-surface: oklch(96% 0.035 70deg);
+    --seed-accent:  oklch(52% 0.17 25deg);
+    color-scheme: light;
+  }
+
+
+  /* CVD-robust presets: lightness perception survives colour-vision deficiency
+     where hue discrimination doesn't, so these sit on hues that don't collapse
+     into the neutrals and keep the accent's lightness well clear of its label's.
+     Hue is never the only signal (see the non-colour cues showcase). */
+  :root[data-preset='cobalt'],
+  .theme-cobalt {
+    --seed-surface: oklch(98% 0.01 255deg);
+    --seed-accent:  oklch(48% 0.14 255deg);  /* dark blue → white label */
+    color-scheme: light;
+  }
+
+  :root[data-preset='teal'],
+  .theme-teal {
+    --seed-surface: oklch(98% 0.012 195deg);
+    --seed-accent:  oklch(45% 0.1 195deg);   /* dark teal → white label */
+    color-scheme: light;
+  }
+
+  :root[data-preset='amber'],
+  .theme-amber {
+    --seed-surface: oklch(98% 0.012 80deg);
+    --seed-accent:  oklch(82% 0.15 80deg);   /* light amber → black label */
+    color-scheme: light;
+  }
+
+
+  /* High-contrast pair: extreme seeds + raised mix strengths — contrast as
+     data, not a duplicate palette. Complements prefers-contrast: more for
+     users without the OS setting. */
+  :root[data-preset='contrast-light'],
+  .theme-contrast-light {
+    --seed-surface: oklch(100% 0 0deg);
+    --seed-accent:  oklch(35% 0.14 260deg);
+    --mix-border: 75%;
+    --mix-text-subtle: 85%;
+    --focus-ring-width: 4px;
+    color-scheme: light;
+  }
+
+  :root[data-preset='contrast-dark'],
+  .theme-contrast-dark {
+    --seed-surface: oklch(10% 0 0deg);
+    --seed-accent:  oklch(85% 0.13 250deg);
+    --mix-border: 75%;
+    --mix-text-subtle: 88%;
+    --focus-ring-width: 4px;
+    color-scheme: dark;
+  }
+}
