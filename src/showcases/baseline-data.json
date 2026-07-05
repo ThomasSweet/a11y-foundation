@@ -311,6 +311,19 @@
       "safari": null
     }
   },
+  "css-carousel": {
+    "feature": "scroll-markers",
+    "name": "Scroll markers",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "135",
+      "edge": "135",
+      "firefox": null,
+      "safari": null
+    }
+  },
   "custom-highlight": {
     "feature": "highlight",
     "name": "Custom highlights",

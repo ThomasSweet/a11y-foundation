@@ -49,6 +49,8 @@ import containerSnippetHtml from './demos/ContainerCardDemo/ContainerCardDemo.sn
 import containerSnippetCss from './demos/ContainerCardDemo/ContainerCardDemo.snippet.css?raw'
 import hasSnippetHtml from './demos/HasSelectorDemo/HasSelectorDemo.snippet.html?raw'
 import hasSnippetCss from './demos/HasSelectorDemo/HasSelectorDemo.snippet.css?raw'
+import CssCarouselDemo from './demos/CssCarouselDemo/CssCarouselDemo.vue'
+import cssCarouselSnippetCss from './demos/CssCarouselDemo/CssCarouselDemo.snippet.css?raw'
 import CqUnitsDemo from './demos/CqUnitsDemo/CqUnitsDemo.vue'
 import cqUnitsSnippetCss from './demos/CqUnitsDemo/CqUnitsDemo.snippet.css?raw'
 import UserValidDemo from './demos/UserValidDemo/UserValidDemo.vue'
@@ -633,6 +635,27 @@ export const showcases: Showcase[] = [
     ],
     component: ScrollStateDemo,
     snippetCss: scrollStateSnippetCss,
+  },
+  {
+    id: 'css-carousel',
+    title: 'Pure-CSS carousel',
+    status: 'emerging',
+    supports: 'selector(::scroll-marker)',
+    summary:
+      'Scroll buttons and marker dots generated entirely by CSS — focusable, ' +
+      'named (the content slash-alt syntax is mandatory craft here), and ' +
+      'auto-disabling at the ends. Underneath it stays an ordinary snap ' +
+      'scroller, so browsers without support lose the chrome, not the ' +
+      'content. Screen-reader announcement of the generated controls still ' +
+      'varies — honest status: enhancement, not yet a pattern replacement.',
+    links: [
+      {
+        label: 'MDN: ::scroll-marker',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker',
+      },
+    ],
+    component: CssCarouselDemo,
+    snippetCss: cssCarouselSnippetCss,
   },
   {
     id: 'custom-highlight',
