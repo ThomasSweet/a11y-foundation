@@ -8,8 +8,15 @@
 
 /* A style query reads the inherited value and adds a non-colour SHAPE to each
    status — so meaning never rests on colour alone. The status elements never
-   reference --cues; the query reaches them from their ancestor. */
+   reference --cues; the query reaches them from their ancestor.
+
+   Gotcha: keep pseudo-element rules OUT of the query — Safari doesn't apply
+   them there. Let the query set a variable, and the pseudo render it. */
+.status::before {
+  content: var(--cue, none);
+}
+
 @container style(--cues: on) {
-  .status--ok::before { content: '✓'; }
-  .status--down::before { content: '✕'; }
+  .status--ok { --cue: '✓'; }
+  .status--down { --cue: '✕'; }
 }

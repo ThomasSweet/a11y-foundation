@@ -2,14 +2,22 @@
   <div class="light-dark-demo">
     <p class="light-dark-caption">
       Two ways to give one swatch a light and a dark value. They look identical
-      at rest — until you <strong>flip the theme toggle in the header</strong>.
-      The <code>light-dark()</code> swatch follows your choice; the
+      at rest — until you <strong>flip the theme</strong>, right here. The
+      <code>light-dark()</code> swatch follows your choice; the
       <code>@media</code> swatch doesn't budge. That's the trap:
       <code>@media (prefers-color-scheme)</code> only listens to the
       <em>operating system</em>, so it silently ignores any in-app theme switch,
       while <code>light-dark()</code> resolves against <code>color-scheme</code>
       — the thing a theme toggle actually changes.
     </p>
+
+    <fieldset class="light-dark-switch">
+      <legend class="light-dark-switch-legend">Theme</legend>
+      <label v-for="mode in modes" :key="mode" class="light-dark-switch-option">
+        <input v-model="theme" type="radio" name="light-dark-theme" :value="mode" />
+        {{ mode }}
+      </label>
+    </fieldset>
 
     <div class="light-dark-grid">
       <article class="light-dark-card">
@@ -73,7 +81,11 @@
 </template>
 
 <script setup lang="ts">
-// No script needed — the whole point is that the theming is pure CSS.
+// The switcher is the same site-chrome control as the header's — the
+// mechanism being taught (light-dark() resolving color-scheme) stays pure CSS.
+import { modes, useSiteTheme } from '../../components/ThemeToggle/useSiteTheme'
+
+const theme = useSiteTheme()
 </script>
 
 <style scoped lang="scss">
@@ -92,6 +104,33 @@
   .light-dark-caption {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
+  }
+
+  .light-dark-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    justify-self: start;
+    margin: 0;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+  }
+
+  .light-dark-switch-legend {
+    float: inline-start;
+    padding-inline-end: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .light-dark-switch-option {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    text-transform: capitalize;
   }
 
   .light-dark-grid {

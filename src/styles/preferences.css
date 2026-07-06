@@ -79,4 +79,11 @@
     outline:        var(--focus-ring-width) solid var(--focus-ring-color);
     outline-offset: var(--focus-ring-offset);
   }
+
+  /* tabindex="-1" containers (skip target, dialog-close fallback) only ever
+     receive focus programmatically — WebKit still ring-lights them, outlining
+     the whole column. Never reachable by Tab, so no indicator is lost. */
+  [tabindex='-1']:focus-visible {
+    outline: none;
+  }
 }

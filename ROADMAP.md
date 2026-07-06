@@ -19,8 +19,38 @@ git history and the PRs, not here.
 
 ## Open
 
-Nothing queued — the July 2026 wave plan is complete (see Done). New ideas
-land here.
+### Feedback inbox — July 2026 round
+
+Collected from friends and former colleagues after launch; triage into
+fixes/features as they come in.
+
+- ~~Theme switch reachable from the dark-mode craft section~~ — fixed:
+  shared theme state (composable), inline mode switcher in the demo.
+- ~~Phantom focus ring on the content column after closing a dialog
+  (iOS)~~ — fixed: `tabindex="-1"` containers no longer draw the ring.
+- ~~Non-color cues invisible in Safari~~ — fixed: WebKit doesn't apply
+  pseudo-element rules inside style queries; the query now sets `--cue`
+  on the element, the pseudo renders it. Snippet teaches the gotcha.
+- Showcase findability: tags/categories ("scroll", "forms", "theming")
+  with filter chips — candidate for a pure-CSS `:has()` filter. The
+  catalog is one long list; browsing ≠ finding.
+- Positioning check (Thomas's call): mobile tester read the showcase as
+  "you don't need JS" more than "accessible by default" — consider an
+  explicit a11y-payoff line per showcase card. Counterpoint: the
+  shareable "there's a native way" framing is exactly why he'd send it
+  to a JS-heavy friend.
+- "The standard" pillar gets skipped on mobile (showcase is more fun) —
+  editorial; maybe fine (different entries for different readers).
+- shape() demo: make it interactive — toggle between shapes, or contrast
+  shape() with a frozen path() side by side.
+- text-wrap demo: interactive too — show default vs balance/pretty one at
+  a time instead of stacked cards.
+- Timeline ghost year too subtle in the dark default theme (fine in
+  light/sunset) — stroke-contrast tune; decorative, so keep it quiet, but
+  "didn't notice 2008" defeats the orientation purpose.
+- iOS zoom-in/zoom-out sometimes lands in a different section — needs the
+  tester's video to reproduce; suspects: scroll anchoring vs sticky
+  ghosts / scroll-driven timelines.
 
 ### Watchlist (too early / conditional — revisit)
 
