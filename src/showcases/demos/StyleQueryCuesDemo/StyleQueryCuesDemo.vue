@@ -125,22 +125,28 @@ const services: { name: string; state: State }[] = [
   }
 
   /* Style query: when --cues is on (inherited), swap the dot for a SHAPE that
-     survives any colour-vision deficiency — no status element references --cues. */
+     survives any colour-vision deficiency — no status element references --cues.
+     The query sets --cue on the element and the pseudo renders it: WebKit
+     doesn't apply pseudo-element rules nested inside style queries. */
+  .service-status::before {
+    content: var(--cue, none);
+  }
+
   @container style(--cues: on) {
     .service-status {
       background-color: transparent;
       color: var(--state-color);
 
-      &--ok::before {
-        content: '✓';
+      &--ok {
+        --cue: '✓';
       }
 
-      &--degraded::before {
-        content: '▲';
+      &--degraded {
+        --cue: '▲';
       }
 
-      &--down::before {
-        content: '✕';
+      &--down {
+        --cue: '✕';
       }
     }
   }
