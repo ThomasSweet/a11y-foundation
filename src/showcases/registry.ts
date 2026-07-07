@@ -118,6 +118,12 @@ export interface Showcase {
       Custom Highlight API). Takes precedence over `supports`. */
   detect?: () => boolean
   summary: string
+  /** One sentence naming who the feature helps and how — rendered as the
+      card's distinct accessibility-payoff line. */
+  payoff: string
+  /** Topic tags for the catalog filter — values must exist in the
+      $showcase-tags list in App.vue's styles. */
+  tags: string[]
   links?: { label: string; href: string }[]
   component: Component
   props?: Record<string, unknown>
@@ -146,6 +152,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries',
       },
     ],
+    payoff:
+      'Layouts that adapt to their space survive 400% zoom and squeezed sidebars alike — low-vision users get reflow (1.4.10) for free.',
+    tags: ['layout'],
     component: ContainerCardDemo,
     snippetHtml: containerSnippetHtml,
     snippetCss: containerSnippetCss,
@@ -166,6 +175,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_size_and_style_queries#container_query_length_units',
       },
     ],
+    payoff:
+      'The rem bounds in every clamp() keep the user’s font-size preference in charge at any container width — no breakpoint ever overrides it.',
+    tags: ['layout', 'typography'],
     component: CqUnitsDemo,
     snippetCss: cqUnitsSnippetCss,
   },
@@ -184,6 +196,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:has',
       },
     ],
+    payoff:
+      ':has() styles states the DOM already knows — no JS class-toggling that can drift from the real, announced state.',
+    tags: ['interaction'],
     component: HasSelectorDemo,
     snippetHtml: hasSnippetHtml,
     snippetCss: hasSnippetCss,
@@ -210,6 +225,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://alistapart.com/article/quantity-queries-for-css/',
       },
     ],
+    payoff:
+      'Count-aware layout keeps items at usable sizes however many a CMS delivers — target size (2.5.8) survives real content.',
+    tags: ['layout'],
     component: QuantityQueriesDemo,
     snippetHtml: quantitySnippetHtml,
     snippetCss: quantitySnippetCss,
@@ -228,6 +246,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid',
       },
     ],
+    payoff:
+      'Aligned tracks across cards keep visual order and reading order identical — what a screen reader announces matches what eyes scan.',
+    tags: ['layout'],
     component: SubgridDemo,
     snippetCss: subgridSnippetCss,
   },
@@ -246,6 +267,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:has',
       },
     ],
+    payoff:
+      'The moving highlight is a native radio group underneath — arrow keys, focus, and announcements come from the platform; only the paint animates.',
+    tags: ['interaction', 'motion'],
     component: SlidingIndicatorDemo,
     snippetHtml: slidingSnippetHtml,
     snippetCss: slidingSnippetCss,
@@ -264,6 +288,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap',
       },
     ],
+    payoff:
+      'Better line breaks with zero extra markup — nothing for assistive tech to trip on, and headings stay balanced at every zoom level.',
+    tags: ['typography'],
     component: TextWrapDemo,
     snippetCss: textWrapSnippetCss,
   },
@@ -283,6 +310,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap',
       },
     ],
+    payoff:
+      'Snap points give wheel, touch, and keyboard scrolling the same stopping places — no JS carousel intercepting arrow keys.',
+    tags: ['scroll'],
     component: ScrollSnapDemo,
     snippetHtml: scrollSnapSnippetHtml,
     snippetCss: scrollSnapSnippetCss,
@@ -303,6 +333,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/API/Popover_API',
       },
     ],
+    payoff:
+      'Esc-to-close, light dismiss, and aria-expanded come with the attribute — the keyboard traps of hand-rolled dropdowns never exist.',
+    tags: ['interaction'],
     component: PopoverMenuDemo,
     snippetHtml: popoverSnippetHtml,
   },
@@ -321,6 +354,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid',
       },
     ],
+    payoff:
+      'Errors wait until someone has actually been in the field — no red flags shouting at screen-magnifier users before they’ve typed a character.',
+    tags: ['forms'],
     component: UserValidDemo,
     snippetCss: userValidSnippetCss,
   },
@@ -344,6 +380,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://wpt.fyi/interop-2026',
       },
     ],
+    payoff:
+      'Tethered UI repositions instead of clipping at viewport edges — magnified and small-screen users keep the attached panel on screen.',
+    tags: ['layout', 'interaction'],
     component: AnchorPopoverDemo,
     snippetHtml: anchorPopoverSnippetHtml,
     snippetCss: anchorPopoverSnippetCss,
@@ -369,6 +408,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html',
       },
     ],
+    payoff:
+      'Position fallbacks flip the tooltip into view at any zoom, and the pattern stays hoverable and dismissible (1.4.13).',
+    tags: ['interaction'],
     component: AnchorTooltipDemo,
     snippetHtml: anchorTooltipSnippetHtml,
     snippetCss: anchorTooltipSnippetCss,
@@ -388,6 +430,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/contrast-color',
       },
     ],
+    payoff:
+      'The browser computes the readable label color for any background — text contrast becomes a guarantee, not a design-review catch.',
+    tags: ['theming'],
     component: ContrastColorDemo,
     snippetCss: contrastColorSnippetCss,
   },
@@ -410,6 +455,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/contrast-color',
       },
     ],
+    payoff:
+      'Every derived palette flips text to black or white against its seed — a theme cannot accidentally ship unreadable text (1.4.3 by construction).',
+    tags: ['theming'],
     component: ThemeShowcaseDemo,
     snippetCss: themingSnippetCss,
   },
@@ -433,6 +481,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',
       },
     ],
+    payoff:
+      'User color choices are clamped into the contrast-safe range — personalization without letting anyone pick their way into failure.',
+    tags: ['theming', 'forms'],
     component: ThemePickerDemo,
     snippetCss: themePickerSnippetCss,
   },
@@ -451,6 +502,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations',
       },
     ],
+    payoff:
+      'Scroll effects run off the main thread and collapse under prefers-reduced-motion — vestibular safety without losing the flourish.',
+    tags: ['scroll', 'motion'],
     component: ScrollProgressDemo,
     snippetCss: scrollProgressSnippetCss,
   },
@@ -473,6 +527,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html',
       },
     ],
+    payoff:
+      'Non-color cues switch on from one inherited flag — meaning stops resting on color alone (1.4.1) with no per-component code.',
+    tags: ['theming'],
     component: StyleQueryCuesDemo,
     snippetCss: styleQuerySnippetCss,
   },
@@ -491,6 +548,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape',
       },
     ],
+    payoff:
+      'The decorative clip never touches the text flow — zoom, reflow, and screen readers meet ordinary paragraphs underneath.',
+    tags: ['layout'],
     component: ShapeDemo,
     snippetCss: shapeSnippetCss,
   },
@@ -510,6 +570,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style',
       },
     ],
+    payoff:
+      'Entry and exit animate without JS timers — and display:none keeps closed panels truly gone from the accessibility tree, not just faded.',
+    tags: ['motion'],
     component: StartingStyleDemo,
     snippetCss: startingStyleSnippetCss,
   },
@@ -528,6 +591,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/attr',
       },
     ],
+    payoff:
+      'The styling reads the same attribute assistive tech could expose — one source of truth for the visual and the announced value.',
+    tags: ['layout'],
     component: AttrDemo,
     snippetHtml: attrSnippetHtml,
     snippetCss: attrSnippetCss,
@@ -547,6 +613,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing',
       },
     ],
+    payoff:
+      'Inputs grow with their content — screen-magnifier users see their whole answer instead of text scrolling out of a fixed box.',
+    tags: ['forms'],
     component: FieldSizingDemo,
     snippetHtml: fieldSizingSnippetHtml,
     snippetCss: fieldSizingSnippetCss,
@@ -567,6 +636,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/zoom',
       },
     ],
+    payoff:
+      'zoom scales a component the way real users magnify — a one-line testing lens for reflow and text-resize criteria.',
+    tags: ['layout'],
     component: ZoomCompareDemo,
     snippetCss: zoomSnippetCss,
   },
@@ -589,6 +661,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Learn/Forms/Customizable_select',
       },
     ],
+    payoff:
+      'Styled options on a real <select> — the keyboard model, mobile pickers, and screen-reader semantics stay native instead of ARIA-rebuilt.',
+    tags: ['forms'],
     component: CustomSelectDemo,
     snippetHtml: customSelectSnippetHtml,
     snippetCss: customSelectSnippetCss,
@@ -613,6 +688,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://wpt.fyi/interop-2026',
       },
     ],
+    payoff:
+      'The bar reacts to scrolling via CSS state, not scroll listeners — the main thread stays free, so assistive tech stays responsive.',
+    tags: ['scroll'],
     component: ScrollStateDemo,
     snippetCss: scrollStateSnippetCss,
   },
@@ -633,6 +711,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker',
       },
     ],
+    payoff:
+      'The generated buttons and dots are focusable and named — and without support it stays a keyboard-scrollable region, never a dead widget.',
+    tags: ['scroll', 'interaction'],
     component: CssCarouselDemo,
     snippetCss: cssCarouselSnippetCss,
   },
@@ -652,6 +733,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API',
       },
     ],
+    payoff:
+      'Highlights paint without wrapping spans — the text a screen reader reads is untouched by the visual layer.',
+    tags: ['typography'],
     component: HighlightApiDemo,
     snippetCss: highlightSnippetCss,
     snippetJs: highlightSnippetJs,
@@ -675,6 +759,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:open',
       },
     ],
+    payoff:
+      'showModal() brings focus trapping, Esc, and an inert background from the platform — the three things hand-rolled modals get wrong.',
+    tags: ['interaction'],
     component: DialogPolishDemo,
     snippetHtml: dialogPolishSnippetHtml,
     snippetCss: dialogPolishSnippetCss,
@@ -700,6 +787,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://chromestatus.com/feature/4530756656562176',
       },
     ],
+    payoff:
+      'Hover previews with built-in delays, keyboard parity, and Esc — the hover-only tooltip failures of 1.4.13, handled by an attribute.',
+    tags: ['interaction'],
     component: InterestInvokerDemo,
     snippetHtml: interestSnippetHtml,
     snippetCss: interestSnippetCss,
@@ -722,6 +812,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
         href: 'https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API',
       },
     ],
+    payoff:
+      'Cross-page continuity as pure enhancement — reduced-motion users get an ordinary navigation, and no JS router is required at all.',
+    tags: ['motion'],
     component: ViewTransitionDemo,
     snippetCss: viewTransitionSnippetCss,
     snippetJs: viewTransitionSnippetJs,

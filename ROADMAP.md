@@ -31,13 +31,12 @@ fixes/features as they come in.
 - ~~Non-color cues invisible in Safari~~ — fixed: WebKit doesn't apply
   pseudo-element rules inside style queries; the query now sets `--cue`
   on the element, the pseudo renders it. Snippet teaches the gotcha.
-- Showcase findability: tags/categories ("scroll", "forms", "theming")
-  with filter chips — candidate for a pure-CSS `:has()` filter. The
-  catalog is one long list; browsing ≠ finding.
-- **A11y payoff line per showcase (approved)** — a dedicated, visually
-  distinct "why this is accessibility" line on every showcase card,
-  rebalancing the "you don't need JS" reading. New registry field +
-  ShowcaseFrame rendering + 29 lines of copy.
+- ~~Showcase findability~~ — done: 7 topic tags on all 29 entries,
+  pure-CSS `:has()` radio-chip filter, empty tier groups hide themselves.
+- ~~A11y payoff line per showcase~~ — done: `payoff` registry field, 29
+  lines of copy, distinct accessibility-marked line on every card.
+- ~~Style guide dormant~~ — done: live theming/presets section (renders
+  from the real `.theme-*` classes) + footer link.
 - "The standard" pillar could be more interesting/interactive — parked
   for now (Thomas); revisit with concrete ideas, not urgency.
 - shape() demo: make it interactive — toggle between shapes, or contrast
@@ -50,6 +49,12 @@ fixes/features as they come in.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.
+- "Motion that bows out on request" demo is a bit boring — rethink it
+  (AnimationDemo). Make the reduced-motion contrast more visceral / the
+  default motion more worth taming.
+- Loading spinner (AppSpinner / loading-states demo) low-contrast in some
+  themes — the wheel can wash out against certain seeds. Give it a
+  theme-aware track/contrast treatment.
 
 ### Watchlist (too early / conditional — revisit)
 

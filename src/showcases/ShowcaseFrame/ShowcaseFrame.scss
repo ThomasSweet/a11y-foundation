@@ -43,6 +43,39 @@
     color: var(--color-text-subtle);
   }
 
+  .showcase-payoff {
+    display: flex;
+    gap: var(--space-2);
+    align-items: start;
+    padding: var(--space-2) var(--space-3);
+    border-inline-start: 3px solid var(--color-primary);
+    border-start-end-radius: var(--radius-sm);
+    border-end-end-radius: var(--radius-sm);
+    background-color: color-mix(in oklab, var(--color-primary) 7%, transparent);
+    font-size: var(--text-sm);
+
+    @include high-contrast {
+      border-color: currentcolor;
+      background-color: transparent;
+    }
+
+    @include forced-colors {
+      border: 1px solid CanvasText;
+    }
+  }
+
+  .showcase-payoff-icon {
+    flex: none;
+    inline-size: 1.15em;
+    block-size: 1.15em;
+    margin-block-start: 0.15em;
+    fill: var(--color-primary);
+
+    @include forced-colors {
+      fill: CanvasText;
+    }
+  }
+
   .showcase-unsupported {
     padding: var(--space-2) var(--space-3);
     border-inline-start: 3px solid var(--color-info);

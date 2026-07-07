@@ -8,6 +8,16 @@
 
     <p class="showcase-summary">{{ summary }}</p>
 
+    <p v-if="payoff" class="showcase-payoff">
+      <svg class="showcase-payoff-icon" viewBox="0 -960 960 960" aria-hidden="true">
+        <path
+          d="M480-720q-33 0-56.5-23.5T400-800q0-33 23.5-56.5T480-880q33 0 56.5 23.5T560-800q0 33-23.5 56.5T480-720ZM360-80v-520q-60-5-122-15t-118-25l20-80q78 21 166 30.5t174 9.5q86 0 174-9.5T820-720l20 80q-56 15-118 25t-122 15v520h-80v-240h-80v240h-80Z"
+        />
+      </svg>
+      <span class="visually-hidden">Accessibility payoff:</span>
+      <span>{{ payoff }}</span>
+    </p>
+
     <BaselineBadge v-if="baseline" :info="baseline" />
 
     <p v-if="!supported" class="showcase-unsupported" role="note">
@@ -83,6 +93,8 @@ const props = withDefaults(
   defineProps<{
     title: string
     summary: string
+    /** The card's accessibility-payoff line — who this helps and how. */
+    payoff?: string
     /** CSS.supports() condition for the feature, e.g. "container-type: inline-size". */
     supports?: string
     /** JS feature test for APIs CSS.supports() can't express (View Transitions,
@@ -102,6 +114,7 @@ const props = withDefaults(
   }>(),
   {
     supports: '',
+    payoff: '',
     links: () => [],
     headingLevel: 4,
     snippetHtml: '',
