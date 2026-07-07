@@ -10,15 +10,6 @@
 
   :root {
 
-    /* Breakpoints — mirror of the $breakpoints map in _breakpoints.scss.
-       Em-based so layouts respond to the user's default font size. */
-    --bp-sm:  30em;   /* 480px */
-    --bp-md:  48em;   /* 768px */
-    --bp-lg:  64em;   /* 1024px */
-    --bp-xl:  80em;   /* 1280px */
-    --bp-xxl: 96em;   /* 1536px */
-
-
     /* Spacing scale */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
@@ -66,7 +57,6 @@
 
     --color-text:         light-dark(#111, #f0f0f0);
     --color-text-subtle:  light-dark(#555, #a0a0a0);
-    --color-text-inverse: light-dark(#fff, #111);
 
     --color-primary:      light-dark(#2563eb, #3b82f6);
     --color-primary-hover:light-dark(#1d4ed8, #60a5fa);
