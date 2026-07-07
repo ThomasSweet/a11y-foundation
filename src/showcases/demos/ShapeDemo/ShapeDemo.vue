@@ -40,6 +40,35 @@
       <code>shape()</code> reflows with the layout — the reason
       responsive clipping used to need JS or an SVG viewBox.
     </p>
+
+    <div class="shape-morph">
+      <label class="shape-morph-toggle">
+        <input class="shape-morph-input" type="checkbox" />
+        Deepen the wave
+      </label>
+
+      <article class="shape-card shape-card-morph">
+        <div class="shape-banner shape-banner-morph" aria-hidden="true">
+          <span class="shape-banner-tag">shape() + @property</span>
+        </div>
+        <div class="shape-body">
+          <p class="shape-title">One curve, animated</p>
+          <p class="shape-text">
+            The edge is a <code>shape()</code> whose depth is a registered
+            <code>@property</code>. Because it's a real custom property, it
+            <em>interpolates</em> — so the whole silhouette morphs on a
+            transition. <code>path()</code> can do neither: it can't read a
+            variable, and only tweens between identical command lists.
+          </p>
+        </div>
+      </article>
+
+      <p class="shape-note">
+        Two things unique to <code>shape()</code>: it reads custom properties,
+        and it animates. Toggle the wave — under reduced-motion it simply
+        snaps, no morph.
+      </p>
+    </div>
   </div>
 </template>
 
@@ -50,6 +79,14 @@ const width = ref(100)
 </script>
 
 <style scoped lang="scss">
+/* Registered so the depth can interpolate — an unregistered custom property
+   is a plain string and would jump, not morph. */
+@property --shape-wave {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 78%;
+}
+
 @layer components {
   .shape-demo {
     display: grid;
@@ -148,6 +185,51 @@ const width = ref(100)
   .shape-note {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
+  }
+
+  .shape-morph {
+    display: grid;
+    gap: var(--space-3);
+    padding-block-start: var(--space-2);
+  }
+
+  .shape-morph-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-self: start;
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .shape-card-morph {
+    max-inline-size: 24rem;
+  }
+
+  /* The morphing edge: two curve control points ride --shape-wave. Checking the
+     box raises the depth; @property lets it interpolate to a smooth morph. */
+  @supports (clip-path: shape(from 0 0, line to 100% 0)) {
+    .shape-banner-morph {
+      min-block-size: 8rem;
+      clip-path: shape(
+        from 0 0,
+        line to 100% 0,
+        line to 100% 55%,
+        curve to 50% 55% with 75% var(--shape-wave),
+        curve to 0% 55% with 25% calc(110% - var(--shape-wave)),
+        close
+      );
+    }
+
+    .shape-morph:has(.shape-morph-input:checked) {
+      --shape-wave: 100%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .shape-banner-morph {
+        transition: --shape-wave var(--duration-slow) var(--easing-standard);
+      }
+    }
   }
 }
 </style>
