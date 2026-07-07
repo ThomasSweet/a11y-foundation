@@ -59,7 +59,6 @@
      40° around the hue wheel so gradients still travel, glass stays a
      translucent cut of the surface seed. */
   :root[data-preset] {
-    --color-text-inverse: var(--color-bg);
     --color-accent: oklch(from var(--seed-accent) l c calc(h + 40));
     --color-surface-glass: color-mix(in oklab, var(--seed-surface) 78%, transparent);
   }

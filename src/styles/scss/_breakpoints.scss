@@ -8,8 +8,7 @@
 
 @use 'sass:map';
 
-// Breakpoint token map — edit here, never hardcode at call sites; mirror
-// changes in the --bp-* tokens in tokens.css.
+// Breakpoint token map — edit here, never hardcode at call sites.
 $breakpoints: (
   'sm':  30em,   // 480px
   'md':  48em,   // 768px

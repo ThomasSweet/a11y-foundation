@@ -3,8 +3,10 @@
 **Live site: [accessible-by-default.dev](https://accessible-by-default.dev/)**
 
 An accessibility-first styling foundation — SCSS mixins, design tokens, and
-a cascade-layer architecture — demonstrated in a small Vue 3 playground.
-(Repository and package id: `a11y-foundation`.)
+a cascade-layer architecture — demonstrated in a Vue 3 site that runs as one
+argument in four parts: what **the standard** (WCAG) asks for, **the craft**
+of meeting it, what cutting-edge **CSS** now makes possible, and **the
+proof** that it holds up. (Repository and package id: `a11y-foundation`.)
 
 The goal: components that adapt to **user preferences** (reduced motion,
 high contrast, forced colors, dark mode, reduced transparency) and **input
@@ -13,12 +15,25 @@ instead of `!important`.
 
 ## What's inside
 
-- **Cascade layers** (`@layer reset, tokens, base, layout, components,
-  utilities, preferences`) — user preferences always win over component
-  styles, without specificity battles. The one rule: no unlayered CSS.
+- **Cascade layers** (`@layer reset, tokens, themes, base, layout,
+  components, utilities, preferences`) — user preferences always win over
+  component styles, without specificity battles. The one rule: no unlayered
+  CSS.
 - **Design tokens** with `color-scheme` + `light-dark()` — each color
   declared once, OS-preference and manual theming from the same tokens,
   native form controls included.
+- **A seed-driven theming engine** — a theme is two OKLCH seeds plus
+  optional contrast strengths; the full contrast-safe palette is derived in
+  CSS. Eight presets ship in the header panel (visual themes, a
+  color-vision-friendly trio, high-contrast light/dark), persisted with a
+  no-flash reload.
+- **WCAG, live** — criteria demos arranged on the standard's timeline, each
+  with a "break this rule" toggle so you can feel what the criterion
+  prevents.
+- **A CSS showcase catalog** — small accessible demos of modern platform
+  features, grouped into Baseline's own tiers (widely / newly / limited
+  availability) derived from `web-features` data at build time, with
+  official Baseline badges.
 - **Preference mixins** — `reduced-motion()`, `reduced-transparency()`,
   `high-contrast()`, `forced-colors()`, `dark-mode()`.
 - **Interaction mixins** — `can-hover()`, `touch-primary()` for capability
@@ -28,8 +43,8 @@ instead of `!important`.
 - **Accessibility utilities** — `.visually-hidden`, skip link, focus-visible
   styling that meets WCAG 2.2 focus appearance requirements, WCAG 2.5.8
   minimum target sizes as base styles.
-- **Vue demo components** — accessible button, native `<dialog>` modal,
-  form fields with wired-up hints/errors, theme toggle.
+- **Vue components** (100% TypeScript) — accessible button, native
+  `<dialog>` modal, form fields with wired-up hints/errors, the theme panel.
 
 ## Getting started
 
@@ -45,7 +60,8 @@ npm run build
 The playground responds live to OS settings — no reload needed:
 
 - **Reduced motion** → spinner stops, dialog entry animation disappears
-- **Dark mode / theme toggle** → all tokens and native controls flip
+- **Dark mode / theme panel** → all tokens and native controls flip; presets
+  re-derive the whole palette from two seeds
 - **Increased contrast** → borders strengthen, decorative shadows drop
 - **Forced colors (Windows)** → buttons and dialogs keep visible boundaries
 - **Keyboard only** → skip link appears on first Tab, consistent focus rings

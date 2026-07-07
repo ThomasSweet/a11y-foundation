@@ -34,13 +34,12 @@ fixes/features as they come in.
 - Showcase findability: tags/categories ("scroll", "forms", "theming")
   with filter chips — candidate for a pure-CSS `:has()` filter. The
   catalog is one long list; browsing ≠ finding.
-- Positioning check (Thomas's call): mobile tester read the showcase as
-  "you don't need JS" more than "accessible by default" — consider an
-  explicit a11y-payoff line per showcase card. Counterpoint: the
-  shareable "there's a native way" framing is exactly why he'd send it
-  to a JS-heavy friend.
-- "The standard" pillar gets skipped on mobile (showcase is more fun) —
-  editorial; maybe fine (different entries for different readers).
+- **A11y payoff line per showcase (approved)** — a dedicated, visually
+  distinct "why this is accessibility" line on every showcase card,
+  rebalancing the "you don't need JS" reading. New registry field +
+  ShowcaseFrame rendering + 29 lines of copy.
+- "The standard" pillar could be more interesting/interactive — parked
+  for now (Thomas); revisit with concrete ideas, not urgency.
 - shape() demo: make it interactive — toggle between shapes, or contrast
   shape() with a frozen path() side by side.
 - text-wrap demo: interactive too — show default vs balance/pretty one at
