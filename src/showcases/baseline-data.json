@@ -28,9 +28,9 @@
   "has-selector": {
     "feature": "has",
     "name": ":has()",
-    "baseline": "low",
+    "baseline": "high",
     "lowDate": "2023-12-19",
-    "highDate": null,
+    "highDate": "2026-06-19",
     "support": {
       "chrome": "105",
       "edge": "105",
@@ -41,9 +41,9 @@
   "quantity-queries": {
     "feature": "has",
     "name": ":has()",
-    "baseline": "low",
+    "baseline": "high",
     "lowDate": "2023-12-19",
-    "highDate": null,
+    "highDate": "2026-06-19",
     "support": {
       "chrome": "105",
       "edge": "105",
@@ -67,9 +67,9 @@
   "sliding-indicator": {
     "feature": "has",
     "name": ":has()",
-    "baseline": "low",
+    "baseline": "high",
     "lowDate": "2023-12-19",
-    "highDate": null,
+    "highDate": "2026-06-19",
     "support": {
       "chrome": "105",
       "edge": "105",
@@ -138,7 +138,7 @@
     "support": {
       "chrome": null,
       "edge": null,
-      "firefox": null,
+      "firefox": "151",
       "safari": null
     }
   },
@@ -151,7 +151,7 @@
     "support": {
       "chrome": null,
       "edge": null,
-      "firefox": null,
+      "firefox": "151",
       "safari": null
     }
   },
@@ -262,13 +262,13 @@
   "field-sizing": {
     "feature": "field-sizing",
     "name": "field-sizing",
-    "baseline": false,
-    "lowDate": null,
+    "baseline": "low",
+    "lowDate": "2026-06-16",
     "highDate": null,
     "support": {
       "chrome": "123",
       "edge": "123",
-      "firefox": null,
+      "firefox": "152",
       "safari": "26.2"
     }
   },
