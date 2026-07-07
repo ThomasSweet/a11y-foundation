@@ -540,8 +540,8 @@ const entries: Omit<Showcase, 'tier'>[] = [
     summary:
       'Responsive, keyword-based clip paths (lines, arcs, curves) that ' +
       'can use percentages and custom properties — unlike path(), which ' +
-      'is frozen SVG coordinates. Here it curves a decorative band; the ' +
-      'text stays clear of the clip. Interop 2026 focus area.',
+      'is frozen SVG coordinates. Resize the two cards to watch the ' +
+      'path() clip detach while shape() reflows. Interop 2026 focus area.',
     links: [
       {
         label: 'MDN: shape()',
