@@ -39,10 +39,10 @@ fixes/features as they come in.
   from the real `.theme-*` classes) + footer link.
 - "The standard" pillar could be more interesting/interactive — parked
   for now (Thomas); revisit with concrete ideas, not urgency.
-- shape() demo: make it interactive — toggle between shapes, or contrast
-  shape() with a frozen path() side by side.
-- text-wrap demo: interactive too — show default vs balance/pretty one at
-  a time instead of stacked cards.
+- ~~shape() demo interactive~~ — done: width slider resizes two cards;
+  path()'s frozen coords visibly detach while shape() reflows.
+- ~~text-wrap demo interactive~~ — done: one block toggled in place via
+  :has(), default vs balance+pretty.
 - Timeline ghost year too subtle in the dark default theme (fine in
   light/sunset) — stroke-contrast tune; decorative, so keep it quiet, but
   "didn't notice 2008" defeats the orientation purpose.

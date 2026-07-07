@@ -1,14 +1,50 @@
-/* A curved bottom edge from keyword commands in %/units, so it scales fluidly
-   — unlike path()'s frozen SVG coordinates. The band is decorative, so the
-   plain rectangular fallback loses no information where shape() is missing. */
+/* shape() draws in %/units, so the curve tracks the element at any width —
+   the whole point of the demo. */
 @supports (clip-path: shape(from 0 0, line to 100% 0)) {
-  .banner {
+  .banner-fluid {
     clip-path: shape(
       from 0 0,
       line to 100% 0,
-      line to 100% 72%,
-      curve to 0% 72% with 50% 100%,
+      line to 100% 60%,
+      curve to 0% 60% with 50% 100%,
       close
     );
+  }
+}
+
+/* path()'s coordinates are absolute pixels, frozen at one size. The same
+   curve only meets the edges at ~360px wide; resize and it detaches. This
+   is what shape() fixes. */
+.banner-frozen {
+  clip-path: path('M0 0 L360 0 L360 58 C240 96 120 96 0 58 Z');
+}
+
+/* shape()'s two superpowers path() lacks: it reads custom properties, and it
+   animates. Register the depth so it interpolates, feed it into the curve,
+   and a class toggle morphs the whole silhouette on a transition. */
+@property --wave {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 78%;
+}
+
+.banner-morph {
+  clip-path: shape(
+    from 0 0,
+    line to 100% 0,
+    line to 100% 55%,
+    curve to 50% 55% with 75% var(--wave),
+    curve to 0% 55% with 25% calc(110% - var(--wave)),
+    close
+  );
+}
+
+.banner-morph.is-deep {
+  --wave: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .banner-morph {
+    transition: --wave 400ms;
   }
 }
