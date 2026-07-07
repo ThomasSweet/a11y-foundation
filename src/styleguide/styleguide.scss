@@ -335,3 +335,36 @@
     margin-inline-start: auto;
   }
 }
+
+@layer components {
+  .presets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: var(--space-3);
+    margin: var(--space-4) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .preset {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+
+  .preset-name {
+    font-weight: 600;
+  }
+
+  .preset-chip {
+    inline-size: var(--space-8);
+    block-size: var(--space-3);
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+  }
+
+  .preset-class {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+}

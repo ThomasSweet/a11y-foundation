@@ -368,26 +368,42 @@
         </PillarHeader>
 
         <div class="demo">
+          <fieldset class="showcase-filter">
+            <legend class="showcase-filter-legend">Filter by topic</legend>
+            <label class="showcase-filter-chip">
+              <input type="radio" name="showcase-filter" value="all" checked />
+              All
+            </label>
+            <label v-for="tag in showcaseTags" :key="tag" class="showcase-filter-chip">
+              <input type="radio" name="showcase-filter" :value="tag" />
+              {{ tag }}
+            </label>
+          </fieldset>
+
           <template v-for="group in groups" :key="group.tier">
-            <h3 v-if="group.items.length">{{ group.label }}</h3>
-            <p v-if="group.items.length">{{ group.blurb }}</p>
-            <div class="showcase-list">
-              <ShowcaseFrame
-                v-for="item in group.items"
-                :key="item.id"
-                :id="`showcase-${item.id}`"
-                :title="item.title"
-                :summary="item.summary"
-                :supports="item.supports"
-                :detect="item.detect"
-                :baseline="baselineData[item.id]"
-                :links="item.links"
-                :snippet-html="item.snippetHtml"
-                :snippet-css="item.snippetCss"
-                :snippet-js="item.snippetJs"
-              >
-                <component :is="item.component" v-bind="item.props" />
-              </ShowcaseFrame>
+            <div v-if="group.items.length" class="showcase-group">
+              <h3>{{ group.label }}</h3>
+              <p>{{ group.blurb }}</p>
+              <div class="showcase-list">
+                <ShowcaseFrame
+                  v-for="item in group.items"
+                  :key="item.id"
+                  :id="`showcase-${item.id}`"
+                  :data-tags="item.tags.join(' ')"
+                  :title="item.title"
+                  :summary="item.summary"
+                  :payoff="item.payoff"
+                  :supports="item.supports"
+                  :detect="item.detect"
+                  :baseline="baselineData[item.id]"
+                  :links="item.links"
+                  :snippet-html="item.snippetHtml"
+                  :snippet-css="item.snippetCss"
+                  :snippet-js="item.snippetJs"
+                >
+                  <component :is="item.component" v-bind="item.props" />
+                </ShowcaseFrame>
+              </div>
             </div>
           </template>
         </div>
@@ -515,6 +531,7 @@
       </details>
 
       <nav class="footer-meta" aria-label="Site information">
+        <a href="/styleguide.html">Style guide</a>
         <a href="/impressum.html">Impressum</a>
         <a href="/privacy.html">Privacy</a>
         <a href="https://github.com/ThomasSweet/a11y-foundation">GitHub</a>
@@ -558,6 +575,10 @@ const baselineData = baselineDataJson as unknown as Record<string, BaselineInfo>
 
 // Tiers come straight from Baseline data (see registry.ts) — Baseline's own
 // vocabulary, so promotions happen at build time, not by hand.
+// Values must exist in the $showcase-tags list in this file's styles — the
+// pure-CSS filter rules are generated from that list.
+const showcaseTags = ['layout', 'scroll', 'forms', 'theming', 'typography', 'interaction', 'motion']
+
 const groups = computed(() => [
   {
     tier: 'widely-available',
@@ -828,6 +849,57 @@ const toc: TocGroup[] = [
     gap: var(--space-6);
   }
 
+  .showcase-group {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .showcase-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .showcase-filter-legend {
+    float: inline-start;
+    padding: 0;
+    padding-inline-end: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .showcase-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &:has(input:checked) {
+      border-color: var(--color-primary);
+      background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      font-weight: 600;
+    }
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--color-text-subtle);
+      }
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
   .site-footer {
     display: grid;
     gap: var(--space-4);
@@ -850,6 +922,23 @@ const toc: TocGroup[] = [
      rules under .toc). Harmless where unused (desktop) or unsupported. */
   :global(html) {
     container-type: scroll-state;
+  }
+
+  /* Pure-CSS catalog filter — keep in sync with showcaseTags in the script.
+     Must live in `components`, not `layout`: the hide has to beat the cards'
+     own display in the same layer. */
+  $showcase-tags: layout, scroll, forms, theming, typography, interaction, motion;
+
+  @each $tag in $showcase-tags {
+    .demo:has(.showcase-filter input[value='#{$tag}']:checked) {
+      .showcase[data-tags]:not([data-tags~='#{$tag}']) {
+        display: none;
+      }
+
+      .showcase-group:not(:has(.showcase[data-tags~='#{$tag}'])) {
+        display: none;
+      }
+    }
   }
 
   .toc {
@@ -991,12 +1080,22 @@ const toc: TocGroup[] = [
     gap: var(--space-1);
     min-block-size: 44px;
     padding: var(--space-1);
-    border-radius: var(--radius-md);
+    /* Concentric with the pill, so an active background can never poke
+       past the pill's end curves. */
+    border-radius: var(--radius-full);
     font-weight: 600;
     color: var(--color-text-subtle);
     text-decoration: none;
     white-space: nowrap;
     text-align: center;
+    background-image: radial-gradient(
+      100% 130% at 50% 135%,
+      color-mix(in oklab, var(--color-primary) 30%, transparent),
+      transparent 72%
+    );
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 100% 0;
 
     @include from('lg') {
       flex-direction: row;
@@ -1007,6 +1106,7 @@ const toc: TocGroup[] = [
       padding: var(--space-1) var(--space-2);
       border-radius: var(--radius-sm);
       font-weight: 700;
+      background-image: none;
     }
 
     @include can-hover {
@@ -1194,17 +1294,35 @@ const toc: TocGroup[] = [
       animation-range: cover 0% cover 100%;
     }
 
+    /* Mobile pill: the accent glow rises with the section's own scroll
+       progress — the scrub is the state. */
     @keyframes toc-group-active {
       0%,
       100% {
-        background-color: transparent;
         color: var(--color-text-subtle);
+        background-size: 100% 0;
       }
 
       12%,
       88% {
-        background-color: var(--color-bg-subtle);
         color: var(--color-text);
+        background-size: 100% 100%;
+      }
+    }
+
+    @include from('lg') {
+      @keyframes toc-group-active {
+        0%,
+        100% {
+          background-color: transparent;
+          color: var(--color-text-subtle);
+        }
+
+        12%,
+        88% {
+          background-color: var(--color-bg-subtle);
+          color: var(--color-text);
+        }
       }
     }
 

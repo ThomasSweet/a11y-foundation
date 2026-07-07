@@ -145,6 +145,77 @@
           </ul>
         </section>
 
+        <!-- ================================================ Theming -->
+        <section class="guide-section" aria-labelledby="sg-theming">
+          <h2 id="sg-theming">Theming</h2>
+          <p class="guide-note">
+            A theme is two OKLCH seeds — <code>--seed-surface</code> and
+            <code>--seed-accent</code> — plus optional <code>--mix-*</code>
+            contrast strengths; <code>theming/engine.css</code> derives the
+            full contrast-safe palette from them (text flips to black or
+            white against its seed, greys mix toward the text). The cards
+            below render from their real <code>.theme-*</code> classes, so
+            this page can't drift from the shipped values.
+          </p>
+
+          <ul class="presets" role="list">
+            <li class="surface preset">
+              <span class="preset-name">Default</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.surface</code>
+            </li>
+            <li class="surface theme-ocean preset">
+              <span class="preset-name">Ocean</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-ocean</code>
+            </li>
+            <li class="surface theme-midnight preset">
+              <span class="preset-name">Midnight</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-midnight</code>
+            </li>
+            <li class="surface theme-sunset preset">
+              <span class="preset-name">Sunset</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-sunset</code>
+            </li>
+            <li class="surface theme-cobalt preset">
+              <span class="preset-name">Cobalt</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-cobalt</code>
+            </li>
+            <li class="surface theme-teal preset">
+              <span class="preset-name">Teal</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-teal</code>
+            </li>
+            <li class="surface theme-amber preset">
+              <span class="preset-name">Amber</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-amber</code>
+            </li>
+            <li class="surface theme-contrast-light preset">
+              <span class="preset-name">Contrast light</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-contrast-light</code>
+            </li>
+            <li class="surface theme-contrast-dark preset">
+              <span class="preset-name">Contrast dark</span>
+              <span class="preset-chip" aria-hidden="true"></span>
+              <code class="preset-class">.theme-contrast-dark</code>
+            </li>
+          </ul>
+
+          <p class="guide-note">
+            Cobalt, Teal, and Amber are tuned for colour-vision deficiency —
+            lightness carries the signal, never hue alone. The Contrast pair
+            raises the engine's <code>--mix-*</code> strengths and widens the
+            focus ring: high contrast as data, not a duplicate palette. All
+            eight ship in the site header's theme panel, persisted with a
+            no-flash reload.
+          </p>
+        </section>
+
         <!-- ================================================ Typography -->
         <section class="guide-section" aria-labelledby="sg-type">
           <h2 id="sg-type">Typography</h2>
