@@ -71,9 +71,11 @@ fixes/features as they come in.
   skip links already cover the return-to-nav need, so this is additive.
 - Avatar + brief bio — DECIDED (Thomas): a footer sliver (face, one line,
   a link). Round 3c.
-- Hero hover flourish — animate a strike-through onto "bolted on" in
-  "Built in, not bolted on" (pure CSS, reduced-motion gated). Reinforces
-  the thesis on interaction.
+- ~~Hero hover flourish~~ — done (3b): a line draws across "bolted on" on
+  hover of the title. Pure CSS (scaleX on a pseudo-element), reduced-motion
+  gated (instant, no draw), can-hover only, forced-colors aware. The span
+  needed its own gradient clip — position:relative pulls it out of the
+  parent's background-clip:text.
 - Big idea (someday): structure the whole site's flow around a real
   physical object made digital — a skeuomorphic narrative spine. Open
   design question; bring references before building.

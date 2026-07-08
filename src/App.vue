@@ -60,7 +60,7 @@
           </span>
         </div>
 
-        <h1 class="hero-title">Built in, not bolted on</h1>
+        <h1 class="hero-title">Built in, not <span class="hero-strike">bolted on</span></h1>
         <p class="hero-lede">
           A hands-on look at how much of accessibility the modern web platform
           handles <em>natively</em> — with little to no JavaScript. It runs as
@@ -1386,6 +1386,52 @@ const toc: TocGroup[] = [
       background: none;
       -webkit-text-fill-color: CanvasText;
       color: CanvasText;
+    }
+  }
+
+  /* Hover flourish: a line draws across "bolted on", performing the thesis.
+     position:relative pulls the span out of the parent's background-clip:text,
+     so it needs its own gradient fill to keep rendering; the ::after line sits
+     in a solid colour over it. */
+  .hero-strike {
+    position: relative;
+    background: var(--gradient-accent);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include forced-colors {
+      background: none;
+      -webkit-text-fill-color: CanvasText;
+    }
+  }
+
+  .hero-strike::after {
+    content: '';
+    position: absolute;
+    inset-inline: -0.04em;
+    inset-block-start: 51%;
+    block-size: 0.09em;
+    border-radius: 1em;
+    background-color: var(--color-text);
+    scale: 0 1;
+    transform-origin: left center;
+
+    @include forced-colors {
+      background-color: CanvasText;
+    }
+  }
+
+  @include can-hover {
+    .hero-title:hover .hero-strike::after {
+      scale: 1 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-strike::after {
+      transition: scale var(--duration-normal) var(--easing-standard);
     }
   }
 
