@@ -17,6 +17,23 @@ test.describe('keyboard & focus behaviour', () => {
     }
   })
 
+  test('each pillar offers a "back to navigation" escape hatch', async ({ page }) => {
+    await page.goto('/')
+
+    // One per pillar, so keyboard users deep in long content can return to the nav.
+    const backLinks = page.getByRole('link', { name: /back to navigation/i })
+    await expect(backLinks).toHaveCount(4)
+
+    const first = backLinks.first()
+    await first.focus()
+    await expect(first).toBeVisible() // revealed on focus, not permanently hidden
+    await first.press('Enter')
+
+    await expect
+      .poll(() => page.evaluate(() => document.activeElement?.id))
+      .toBe('sections-nav')
+  })
+
   test('native dialog traps focus and closes on Escape', async ({ page }) => {
     await page.goto('/')
     await page.getByRole('button', { name: /open dialog/i }).click()

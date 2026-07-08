@@ -80,7 +80,7 @@
     </header>
 
     <div class="app-body">
-      <nav class="toc" aria-label="Sections">
+      <nav id="sections-nav" class="toc" tabindex="-1" aria-label="Sections">
         <p class="toc-heading">On this page</p>
         <ol class="toc-groups" role="list">
           <li v-for="group in toc" :key="group.id" class="toc-group">
@@ -185,6 +185,8 @@
           </p>
           <LegalMap />
         </section>
+
+        <a class="skip-link visually-hidden-focusable" href="#sections-nav">Back to navigation</a>
       </section>
 
       <section id="craft" class="pillar scrollspy-region" aria-labelledby="craft-title">
@@ -350,6 +352,8 @@
           </p>
           <LoadingStateDemo />
         </section>
+
+        <a class="skip-link visually-hidden-focusable" href="#sections-nav">Back to navigation</a>
       </section>
 
       <section id="showcase" class="pillar scrollspy-region" aria-labelledby="showcase-title">
@@ -407,6 +411,8 @@
             </div>
           </template>
         </div>
+
+        <a class="skip-link visually-hidden-focusable" href="#sections-nav">Back to navigation</a>
       </section>
 
       <section id="testing" class="pillar scrollspy-region" aria-labelledby="testing-title">
@@ -480,6 +486,8 @@
             assistive-tech experience stays quick.
           </p>
         </section>
+
+        <a class="skip-link visually-hidden-focusable" href="#sections-nav">Back to navigation</a>
       </section>
     </main>
     </div>

@@ -49,6 +49,35 @@ fixes/features as they come in.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.
+- ~~Theme panel stranded top-right on very wide screens~~ — fixed: the
+  capped header detaches the toggle from the viewport edge; panel now
+  tethered to the toggle via anchor positioning (xl+), fallback kept.
+- ~~Hard to return to nav after jumping into long content (keyboard)~~ —
+  fixed: "Back to navigation" skip link ending each pillar (fixed-position
+  reveal, targets the nav landmark); pinned by e2e.
+- Space vs Enter on nav items "inconsistent" — NOT a bug: links scroll on
+  Space (native), summaries toggle on Space; mixing the two is what feels
+  inconsistent. Hijacking Space on links would break a web convention.
+  Leave as-is; explain to the reporter.
+- **BUG: filter breaks sidebar nav.** A sidebar link to a showcase the
+  active filter has hidden (`display: none`) jumps nowhere. Likely clean
+  fix: `.showcase:target { display: … }` so a direct link un-hides its
+  card regardless of the filter (pure CSS, no JS). Was flagged as a known
+  limitation when the filter shipped — now promote to a fix.
+- Keyboard shortcuts, done accessibly (feature, not the nav fix) — NOT
+  cmd/ctrl+N (browser-reserved). If built: safe keys, a `?` help overlay,
+  a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
+  Teaches Character Key Shortcuts instead of violating it. The back-to-nav
+  skip links already cover the return-to-nav need, so this is additive.
+- Avatar + brief bio — put a face and a line of context on the site
+  (who made it, why). Supports the "personal / shareable" read testers
+  had. Content decision; where — hero corner, footer, or an About sliver.
+- Hero hover flourish — animate a strike-through onto "bolted on" in
+  "Built in, not bolted on" (pure CSS, reduced-motion gated). Reinforces
+  the thesis on interaction.
+- Big idea (someday): structure the whole site's flow around a real
+  physical object made digital — a skeuomorphic narrative spine. Open
+  design question; bring references before building.
 - "Motion that bows out on request" demo is a bit boring — rethink it
   (AnimationDemo). Make the reduced-motion contrast more visceral / the
   default motion more worth taming.
