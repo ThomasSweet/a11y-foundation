@@ -21,6 +21,16 @@
   }
 
 
+  /* A fragment link to a showcase the topic filter has hidden must still land:
+     :target reveals the card (and its tier group) regardless of the filter.
+     Works purely because utilities > components in the layer order — no
+     specificity battle, no JS to reset the filter. */
+  .showcase:target,
+  .showcase-group:has(.showcase:target) {
+    display: grid;
+  }
+
+
   /* Skip link — the "skip to main" first child of <body> and the "back to
      navigation" links ending each pillar (both target an id + tabindex="-1").
      Fixed, not absolute, so a link focused deep in the page still appears in

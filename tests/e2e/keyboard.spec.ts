@@ -89,4 +89,24 @@ test.describe('keyboard & focus behaviour', () => {
     await page.keyboard.press('ArrowRight')
     await expect(page.getByRole('radio', { name: 'Grid' })).toBeChecked()
   })
+
+  test('a link to a filtered-out showcase still reveals it (:target beats the filter)', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    // Filter to "forms" — the popover showcase (tagged interaction) is hidden.
+    // Set :checked directly; the CSS :has() filter reacts to the property, and
+    // it dodges a WebKit quirk clicking the custom-styled radio.
+    await page.locator('.showcase-filter input[value="forms"]').evaluate((el) => {
+      ;(el as HTMLInputElement).checked = true
+    })
+    const popover = page.locator('#showcase-popover')
+    await expect(popover).toBeHidden()
+
+    // A sidebar link navigates by fragment; the target must un-hide.
+    await page.evaluate(() => {
+      location.hash = '#showcase-popover'
+    })
+    await expect(popover).toBeVisible()
+  })
 })

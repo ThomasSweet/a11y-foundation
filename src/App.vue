@@ -60,7 +60,7 @@
           </span>
         </div>
 
-        <h1 class="hero-title">Built in, not bolted on</h1>
+        <h1 class="hero-title">Built in, not <span class="hero-strike">bolted on</span></h1>
         <p class="hero-lede">
           A hands-on look at how much of accessibility the modern web platform
           handles <em>natively</em> — with little to no JavaScript. It runs as
@@ -273,12 +273,14 @@
         <section class="demo" aria-labelledby="craft-motion">
           <h3 id="craft-motion">Motion that bows out on request</h3>
           <p>
-            This spinner stops when the OS asks for reduced motion — handled
-            globally in <code>preferences.css</code> from a single source of
-            truth, so no component has to remember to opt in. The craft move is
-            making the accessible behaviour automatic rather than per-component.
+            Three independent animations, one preference. When the OS asks for
+            reduced motion, all of them still — handled globally in
+            <code>preferences.css</code> from a single source of truth, so no
+            component has to remember to opt in. Flip the switch to simulate the
+            preference (your real OS setting works too) and watch every one stop
+            at once.
           </p>
-          <div class="spinner" aria-hidden="true"></div>
+          <MotionDemo />
         </section>
 
         <section class="demo" aria-labelledby="craft-targets">
@@ -290,10 +292,7 @@
             background is replaced — a failure mode most buttons never account
             for.
           </p>
-          <div class="demo-row">
-            <AppButton variant="primary">Primary action</AppButton>
-            <AppButton variant="secondary">Secondary action</AppButton>
-          </div>
+          <TargetsDemo />
         </section>
 
         <section class="demo" aria-labelledby="craft-defensive">
@@ -565,6 +564,8 @@ import CriteriaTimeline from './criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from './criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from './criteria/LegalMap/LegalMap.vue'
 import LightDarkDemo from './craft/demos/LightDarkDemo.vue'
+import MotionDemo from './craft/demos/MotionDemo.vue'
+import TargetsDemo from './craft/demos/TargetsDemo.vue'
 import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
 import ContentStressDemo from './craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from './craft/demos/LoadingStateDemo.vue'
@@ -1388,6 +1389,52 @@ const toc: TocGroup[] = [
     }
   }
 
+  /* Hover flourish: a line draws across "bolted on", performing the thesis.
+     position:relative pulls the span out of the parent's background-clip:text,
+     so it needs its own gradient fill to keep rendering; the ::after line sits
+     in a solid colour over it. */
+  .hero-strike {
+    position: relative;
+    background: var(--gradient-accent);
+    /* stylelint-disable-next-line property-no-vendor-prefix -- Safari */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include forced-colors {
+      background: none;
+      -webkit-text-fill-color: CanvasText;
+    }
+  }
+
+  .hero-strike::after {
+    content: '';
+    position: absolute;
+    inset-inline: -0.04em;
+    inset-block-start: 51%;
+    block-size: 0.09em;
+    border-radius: 1em;
+    background-color: var(--color-text);
+    scale: 0 1;
+    transform-origin: left center;
+
+    @include forced-colors {
+      background-color: CanvasText;
+    }
+  }
+
+  @include can-hover {
+    .hero-title:hover .hero-strike::after {
+      scale: 1 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-strike::after {
+      transition: scale var(--duration-normal) var(--easing-standard);
+    }
+  }
+
   .hero-lede {
     max-inline-size: 60ch;
     font-size: var(--text-lg);
@@ -1724,29 +1771,6 @@ const toc: TocGroup[] = [
   .footer-copy {
     margin-inline-start: auto;
     color: var(--color-text-subtle);
-  }
-
-  .spinner {
-    inline-size: var(--space-8);
-    block-size: var(--space-8);
-    /* Track + arc both derive from --color-text, which the theming engine
-       guarantees contrasts the background — --color-primary can wash out
-       against some seeds (e.g. the light amber preset). */
-    border: 4px solid color-mix(in oklab, var(--color-text) 20%, transparent);
-    border-block-start-color: var(--color-text);
-    border-radius: var(--radius-full);
-    animation: spin 1s linear infinite;
-
-    @include forced-colors {
-      border-color: CanvasText;
-      border-block-start-color: Highlight;
-    }
-  }
-
-  @keyframes spin {
-    to {
-      rotate: 1turn;
-    }
   }
 }
 </style>
