@@ -21,10 +21,12 @@
   }
 
 
-  /* Skip link — first focusable element in <body>, pointing at <main> (which
-     needs the matching id and tabindex="-1"). Pairs with -focusable above. */
+  /* Skip link — the "skip to main" first child of <body> and the "back to
+     navigation" links ending each pillar (both target an id + tabindex="-1").
+     Fixed, not absolute, so a link focused deep in the page still appears in
+     the viewport rather than at its container's top. Pairs with -focusable. */
   .skip-link {
-    position: absolute;
+    position: fixed;
     inset-block-start: var(--space-2);
     inset-inline-start: var(--space-2);
     z-index: 999;
