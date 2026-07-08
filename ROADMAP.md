@@ -43,9 +43,11 @@ fixes/features as they come in.
   path()'s frozen coords visibly detach while shape() reflows.
 - ~~text-wrap demo interactive~~ — done: one block toggled in place via
   :has(), default vs balance+pretty.
-- Timeline ghost year too subtle in the dark default theme (fine in
-  light/sunset) — stroke-contrast tune; decorative, so keep it quiet, but
-  "didn't notice 2008" defeats the orientation purpose.
+- ~~Timeline ghost year too subtle in dark theme~~ & ~~loading spinner
+  low-contrast in some themes~~ — fixed together (Round 2c): both now
+  derive from `--color-text` (engine-guaranteed to contrast the bg)
+  instead of `--color-border` / `--color-primary`, which can wash out on
+  some seeds. Ghost stays quiet (24% text mix); spinner arc is full text.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.

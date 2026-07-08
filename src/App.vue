@@ -1729,10 +1729,18 @@ const toc: TocGroup[] = [
   .spinner {
     inline-size: var(--space-8);
     block-size: var(--space-8);
-    border: 4px solid var(--color-border);
-    border-block-start-color: var(--color-primary);
+    /* Track + arc both derive from --color-text, which the theming engine
+       guarantees contrasts the background — --color-primary can wash out
+       against some seeds (e.g. the light amber preset). */
+    border: 4px solid color-mix(in oklab, var(--color-text) 20%, transparent);
+    border-block-start-color: var(--color-text);
     border-radius: var(--radius-full);
     animation: spin 1s linear infinite;
+
+    @include forced-colors {
+      border-color: CanvasText;
+      border-block-start-color: Highlight;
+    }
   }
 
   @keyframes spin {
