@@ -61,31 +61,28 @@ fixes/features as they come in.
   Space (native), summaries toggle on Space; mixing the two is what feels
   inconsistent. Hijacking Space on links would break a web convention.
   Leave as-is; explain to the reporter.
-- **BUG: filter breaks sidebar nav.** A sidebar link to a showcase the
-  active filter has hidden (`display: none`) jumps nowhere. Likely clean
-  fix: `.showcase:target { display: … }` so a direct link un-hides its
-  card regardless of the filter (pure CSS, no JS). Was flagged as a known
-  limitation when the filter shipped — now promote to a fix.
+- ~~BUG: filter breaks sidebar nav~~ — fixed (3a): `:target` reveal in the
+  utilities layer un-hides a linked-to card + its tier group, beating the
+  components-layer filter by layer order (pure CSS, no JS). Pinned by e2e.
 - Keyboard shortcuts, done accessibly (feature, not the nav fix) — NOT
   cmd/ctrl+N (browser-reserved). If built: safe keys, a `?` help overlay,
   a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
   Teaches Character Key Shortcuts instead of violating it. The back-to-nav
   skip links already cover the return-to-nav need, so this is additive.
-- Avatar + brief bio — put a face and a line of context on the site
-  (who made it, why). Supports the "personal / shareable" read testers
-  had. Content decision; where — hero corner, footer, or an About sliver.
+- Avatar + brief bio — DECIDED (Thomas): a footer sliver (face, one line,
+  a link). Round 3c.
 - Hero hover flourish — animate a strike-through onto "bolted on" in
   "Built in, not bolted on" (pure CSS, reduced-motion gated). Reinforces
   the thesis on interaction.
 - Big idea (someday): structure the whole site's flow around a real
   physical object made digital — a skeuomorphic narrative spine. Open
   design question; bring references before building.
-- "Motion that bows out on request" demo is a bit boring — rethink it
-  (AnimationDemo). Make the reduced-motion contrast more visceral / the
-  default motion more worth taming.
-- Loading spinner (AppSpinner / loading-states demo) low-contrast in some
-  themes — the wheel can wash out against certain seeds. Give it a
-  theme-aware track/contrast treatment.
+- ~~"Motion that bows out on request" demo boring~~ & ~~"Targets that
+  survive touch and forced colors" demo boring~~ — done: both rebuilt as
+  interactive. Motion: three animations (spinner/progress/pulse) that all
+  freeze from one simulate-reduced-motion switch. Targets: a coarse-pointer
+  toggle grows hit areas 24→44px, and a forced-colors preview dissolves the
+  colour-only button while the bordered one survives.
 
 ### Watchlist (too early / conditional — revisit)
 
