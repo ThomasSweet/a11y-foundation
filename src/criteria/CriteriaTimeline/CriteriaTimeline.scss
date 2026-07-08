@@ -59,7 +59,10 @@
     line-height: 1;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 1.5px var(--color-border);
+    /* A fixed fraction of the text colour, not --color-border: the border token
+       is calibrated against --color-bg and goes nearly invisible on the dark
+       default theme. This keeps the same quiet weight in every theme. */
+    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-text) 24%, transparent);
 
     @include high-contrast {
       content: none;
