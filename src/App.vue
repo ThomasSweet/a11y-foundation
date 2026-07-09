@@ -1473,12 +1473,22 @@ const toc: TocGroup[] = [
   }
 
   @include can-hover {
-    .hero-title:hover .hero-strike::after {
+    .hero-strike:hover {
+      // the gradient fill is painted via -webkit-text-fill-color, which beats
+      // `color` — so dim the words by overriding that, not `color`
+      -webkit-text-fill-color: var(--color-text-subtle);
+    }
+
+    .hero-strike:hover::after {
       scale: 1 1;
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    .hero-strike {
+      transition: -webkit-text-fill-color var(--duration-normal) var(--easing-standard);
+    }
+
     .hero-strike::after {
       transition: scale var(--duration-normal) var(--easing-standard);
     }
