@@ -1,0 +1,38 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .code-compare {
+    display: grid;
+    gap: var(--space-4);
+    min-inline-size: 0;
+  }
+
+  .code-compare-item {
+    display: grid;
+    gap: var(--space-2);
+    min-inline-size: 0; // let a wide snippet scroll instead of stretching the grid
+
+    /* Shape carries the mistake/craft distinction (cross vs check), so it
+       survives forced-colors and colour blindness; the tint just reinforces. */
+    &--mistake .code-compare-icon {
+      color: var(--color-error);
+    }
+
+    &--craft .code-compare-icon {
+      color: var(--color-success);
+    }
+  }
+
+  .code-compare-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .code-compare-icon {
+    flex: none;
+    inline-size: 1.15em;
+    block-size: 1.15em;
+  }
+}

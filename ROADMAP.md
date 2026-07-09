@@ -96,6 +96,25 @@ fixes/features as they come in.
   "Show the code" toggle from a muted grey pill to a filled primary button
   (mirrors AppButton --primary, so the label colour stays contrast-safe on every
   theme), so skimmers actually notice the code is there.
+- ~~Code in the Craft section~~ — done: a reusable `CodeCompare` pairs each craft
+  demo with a short "common mistake → the craft" snippet (reuses CodeBlock, and
+  each mirrors that demo's real CSS/HTML so it can't drift). Shipped on 7 demos
+  (validation, dialog, motion, targets, defensive, content-stress, loading);
+  light-dark was skipped because it already shows both code blocks inline. The
+  "mistake" side has its Copy button suppressed (new `copyable` flag on CodeBlock)
+  — no point one-click-copying the anti-pattern. Bad→good distinction rides on
+  shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
+  The optional "emerging" third act is deferred to demos where a real successor
+  exists. Directly answers the "avoid it from happening" feedback.
+- Site-wide flow / length restructure (open, big) — sections run long (Craft most
+  of all, now more so with the code comparisons). Not a per-section trim: rethink
+  the whole narrative flow, likely splitting the pillars onto their own
+  pages/routes so each breathes instead of competing for one scroll. Parked
+  deliberately until it's tackled as its own effort; once sections have their own
+  pages, keeping any single section minimal matters far less. Candidate to fold in
+  then: per-topic "reference" links (MDN/spec) on the craft demos, like the
+  showcase cards already carry — deferred now to avoid adding weight to an
+  already-long section.
 
 ### Watchlist (too early / conditional — revisit)
 
