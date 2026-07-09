@@ -92,7 +92,10 @@ fixes/features as they come in.
   snippet panel is only a portable excerpt. The URL is derived from the file
   tree (import.meta.glob → component→folder map), so new demos get it for free.
   The signal was worth acting on even though the reply read as a skim: code was
-  previously reachable only by opening each collapsed panel.
+  previously reachable only by opening each collapsed panel. Also elevated the
+  "Show the code" toggle from a muted grey pill to a filled primary button
+  (mirrors AppButton --primary, so the label colour stays contrast-safe on every
+  theme), so skimmers actually notice the code is there.
 
 ### Watchlist (too early / conditional — revisit)
 
