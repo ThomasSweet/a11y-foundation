@@ -110,7 +110,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-1);
+    min-block-size: 44px; // match the summary button's height so they sit level
+    padding: var(--space-2);
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-subtle);
@@ -138,30 +139,41 @@
     color: var(--color-primary);
   }
 
-  /* "Show the code" — a native <details>, so keyboard/SR behaviour and the
-     expanded state come for free; styled as a button-like affordance. */
+  /* "Show the code" — a native <details> summary (keyboard/SR behaviour and the
+     open state come for free), styled as the card's primary action so the code
+     reads as an obvious invitation, not a muted afterthought. Filled treatment
+     mirrors AppButton --primary, so the label colour is contrast-guaranteed on
+     every theme; the neighbouring "View source" stays a quiet secondary link. */
   .showcase-code-summary {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     inline-size: fit-content;
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
+    min-block-size: 44px;
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid transparent;
     border-radius: var(--radius-md);
-    background-color: var(--color-bg-subtle);
+    background-color: var(--color-primary);
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-primary-text);
     cursor: pointer;
     list-style: none; // strip Firefox's default disclosure marker
+    /* Motion tokens are zeroed under prefers-reduced-motion, so no override. */
+    transition:
+      background-color var(--duration-fast) var(--easing-standard),
+      scale var(--duration-fast) var(--easing-standard);
 
     &::-webkit-details-marker {
       display: none; // and the WebKit/Chrome one
     }
 
+    &:active {
+      scale: 0.97;
+    }
+
     @include can-hover {
       &:hover {
-        border-color: var(--color-text-subtle);
-        background-color: var(--color-surface);
+        background-color: var(--color-primary-hover);
       }
     }
 
@@ -170,21 +182,30 @@
       outline-offset: 2px;
     }
 
+    @include touch-primary {
+      min-block-size: 48px;
+      padding-block: var(--space-3);
+    }
+
     @include high-contrast {
       border-color: currentcolor;
     }
+
+    @include forced-colors {
+      border-color: ButtonText;
+    }
   }
 
+  /* Glyph and chevron inherit the button's on-primary label colour (an explicit
+     --color-primary would vanish against the filled primary background). */
   .showcase-code-glyph {
     inline-size: 1.15em;
     block-size: 1.15em;
-    color: var(--color-primary);
   }
 
   .showcase-code-chevron {
     inline-size: 1em;
     block-size: 1em;
-    color: var(--color-text-subtle);
     transition: rotate var(--duration-fast) var(--easing-standard);
   }
 
