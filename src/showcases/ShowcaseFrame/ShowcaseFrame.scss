@@ -90,6 +90,54 @@
     border-radius: var(--radius-md);
   }
 
+  /* Row holding the two ways to read the code: the inline "Show the code"
+     disclosure and an always-visible link to the full source on GitHub. Both
+     stay top-aligned so the link sits beside the summary as the panel expands. */
+  .showcase-code-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .showcase-code {
+    min-inline-size: 0; // let a wide code block scroll instead of stretching the row
+  }
+
+  /* The snippet panel is a portable excerpt; this links to the complete
+     component (template, styles, and the excerpt's source) on GitHub. */
+  .showcase-source {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+    text-decoration: none;
+
+    @include can-hover {
+      transition: color var(--duration-fast) var(--easing-standard);
+
+      &:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  .showcase-source-glyph {
+    inline-size: 1.15em;
+    block-size: 1.15em;
+    color: var(--color-primary);
+  }
+
   /* "Show the code" — a native <details>, so keyboard/SR behaviour and the
      expanded state come for free; styled as a button-like affordance. */
   .showcase-code-summary {

@@ -403,6 +403,7 @@
                   :snippet-html="item.snippetHtml"
                   :snippet-css="item.snippetCss"
                   :snippet-js="item.snippetJs"
+                  :source-href="item.sourceHref"
                 >
                   <component :is="item.component" v-bind="item.props" />
                 </ShowcaseFrame>

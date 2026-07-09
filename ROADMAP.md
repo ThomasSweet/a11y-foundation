@@ -86,6 +86,13 @@ fixes/features as they come in.
   freeze from one simulate-reduced-motion switch. Targets: a coarse-pointer
   toggle grows hit areas 24→44px, and a forced-colors preview dissolves the
   colour-only button while the bordered one survives.
+- ~~"I'd like to see the code" (former colleague)~~ — done: every showcase now
+  carries an always-visible "View source" link (GitHub mark, opens in a new tab)
+  beside "Show the code", pointing at that demo's full folder on GitHub — the
+  snippet panel is only a portable excerpt. The URL is derived from the file
+  tree (import.meta.glob → component→folder map), so new demos get it for free.
+  The signal was worth acting on even though the reply read as a skim: code was
+  previously reachable only by opening each collapsed panel.
 
 ### Watchlist (too early / conditional — revisit)
 

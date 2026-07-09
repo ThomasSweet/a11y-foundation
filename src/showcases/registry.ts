@@ -133,6 +133,9 @@ export interface Showcase {
   snippetCss?: string
   /** Only for genuine JS-API features (Custom Highlight API, View Transitions). */
   snippetJs?: string
+  /** Link to this demo's full source folder on GitHub. The "Show the code"
+      panel is a portable excerpt; this points to the real, complete component. */
+  sourceHref?: string
 }
 
 const entries: Omit<Showcase, 'tier'>[] = [
@@ -832,4 +835,22 @@ const tierOf = (id: string): BaselineTier => {
   return 'limited-availability'
 }
 
-export const showcases: Showcase[] = entries.map((e) => ({ ...e, tier: tierOf(e.id) }))
+/* Map each demo component to its source folder on GitHub, derived from the file
+   tree so there's no per-entry path to keep in sync. The "Show the code" panel
+   only holds a portable excerpt — this is the full, real implementation. */
+const REPO_TREE = 'https://github.com/ThomasSweet/a11y-foundation/tree/main/'
+const demoModules = import.meta.glob<{ default: Component }>('./demos/*/*.vue', {
+  eager: true,
+})
+const sourceHrefByComponent = new Map<Component, string>()
+for (const [path, module] of Object.entries(demoModules)) {
+  // './demos/Foo/Foo.vue' -> 'src/showcases/demos/Foo'
+  const dir = path.replace(/^\.\//, 'src/showcases/').replace(/\/[^/]+$/, '')
+  sourceHrefByComponent.set(module.default, REPO_TREE + dir)
+}
+
+export const showcases: Showcase[] = entries.map((e) => ({
+  ...e,
+  tier: tierOf(e.id),
+  sourceHref: sourceHrefByComponent.get(e.component),
+}))
