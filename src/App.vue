@@ -537,6 +537,37 @@
         </div>
       </details>
 
+      <div class="footer-author">
+        <span class="footer-author-avatar" aria-hidden="true"></span>
+        <div class="footer-author-body">
+          <p class="footer-author-bio">
+            Built by <strong>Thomas Sweet</strong> — a front-end developer
+            sharpening an accessibility-first craft in the open, one experiment
+            at a time. This whole site is the sketchbook. ☕
+          </p>
+          <ul class="footer-author-social" role="list">
+            <li>
+              <a class="footer-social-link" href="https://github.com/ThomasSweet" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.51 11.51 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg>
+                <span class="visually-hidden">GitHub (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social-link" href="https://www.linkedin.com/in/thomas-w-sweet" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" /></svg>
+                <span class="visually-hidden">LinkedIn (opens in a new tab)</span>
+              </a>
+            </li>
+            <li>
+              <a class="footer-social-link" href="https://x.com/thomas_sweet" target="_blank" rel="noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                <span class="visually-hidden">X (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <nav class="footer-meta" aria-label="Site information">
         <a href="/styleguide.html">Style guide</a>
         <a href="/impressum.html">Impressum</a>
@@ -707,6 +738,14 @@ const toc: TocGroup[] = [
 </script>
 
 <style scoped lang="scss">
+/* Registered so the avatar ring's conic angle can interpolate (an unregistered
+   custom property would jump, not spin). */
+@property --ring-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 @layer layout {
   /* Visually gone but renderable — display:none would break the gradient
      defs the <use> references resolve against in some engines. */
@@ -1751,6 +1790,116 @@ const toc: TocGroup[] = [
     padding: 0 var(--space-4) var(--space-4);
     max-inline-size: 65ch;
     color: var(--color-text-subtle);
+  }
+
+  .footer-author {
+    display: flex;
+    align-items: start;
+    gap: var(--space-4);
+    max-inline-size: 60ch;
+    margin-block-start: var(--space-12);
+    padding-block-start: var(--space-12);
+    border-block-start: 1px solid var(--color-border);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  /* The element is a gradient ring; the photo sits on ::after inset by the ring
+     width. Spinning the conic angle (not the element) leaves the photo still. */
+  .footer-author-avatar {
+    position: relative;
+    flex: none;
+    inline-size: var(--space-20);
+    block-size: var(--space-20);
+    border-radius: var(--radius-full);
+    background: conic-gradient(
+      from var(--ring-angle, 0deg),
+      var(--color-primary),
+      var(--color-accent),
+      var(--color-primary)
+    );
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: avatar-ring-spin 3s linear infinite;
+    }
+
+    @include forced-colors {
+      background: none;
+      border: 1px solid currentcolor;
+    }
+  }
+
+  /* Decorative (the name is in the adjacent text). background-* zooms and pans
+     to frame the face; the gradient shows if the photo ever fails to load. */
+  .footer-author-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0.28rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-subtle);
+    background-image: url('/thomas.jpg'), var(--gradient-accent);
+    background-size: 175%;
+    background-position: 55% 18%;
+    background-repeat: no-repeat;
+  }
+
+  @keyframes avatar-ring-spin {
+    to {
+      --ring-angle: 360deg;
+    }
+  }
+
+  .footer-author-body {
+    display: grid;
+    gap: var(--space-3);
+    padding-block-start: var(--space-2);
+  }
+
+  .footer-author-bio {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .footer-author-social {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-social-link {
+    display: grid;
+    place-items: center;
+    inline-size: 40px;
+    block-size: 40px;
+    border-radius: var(--radius-full);
+    color: var(--color-text-subtle);
+
+    svg {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+    }
+
+    @include can-hover {
+      transition:
+        color var(--duration-normal) var(--easing-standard),
+        translate var(--duration-fast) var(--easing-standard),
+        background-color var(--duration-normal) var(--easing-standard);
+
+      &:hover {
+        color: var(--color-primary);
+        background-color: var(--color-bg-subtle);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        &:hover {
+          translate: 0 -3px;
+        }
+      }
+    }
   }
 
   .footer-meta {

@@ -69,8 +69,9 @@ fixes/features as they come in.
   a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
   Teaches Character Key Shortcuts instead of violating it. The back-to-nav
   skip links already cover the return-to-nav need, so this is additive.
-- Avatar + brief bio — DECIDED (Thomas): a footer sliver (face, one line,
-  a link). Round 3c.
+- ~~Avatar + brief bio~~ — done (3c): footer sliver with a round photo
+  avatar (background-image framed on the face, gradient fallback) + one
+  line + GitHub link.
 - ~~Hero hover flourish~~ — done (3b): a line draws across "bolted on" on
   hover of the title. Pure CSS (scaleX on a pseudo-element), reduced-motion
   gated (instant, no draw), can-hover only, forced-colors aware. The span
