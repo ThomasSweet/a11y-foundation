@@ -233,6 +233,7 @@
               hint="Optional — include a domain, e.g. name@example.com."
             />
           </div>
+          <CodeCompare v-bind="craftSnippets.validation" />
         </section>
 
         <section class="demo" aria-labelledby="craft-light-dark">
@@ -268,6 +269,7 @@
               stays inside while the dialog is open.
             </p>
           </AppDialog>
+          <CodeCompare v-bind="craftSnippets.dialog" />
         </section>
 
         <section class="demo" aria-labelledby="craft-motion">
@@ -281,6 +283,7 @@
             at once.
           </p>
           <MotionDemo />
+          <CodeCompare v-bind="craftSnippets.motion" />
         </section>
 
         <section class="demo" aria-labelledby="craft-targets">
@@ -293,6 +296,7 @@
             for.
           </p>
           <TargetsDemo />
+          <CodeCompare v-bind="craftSnippets.targets" />
         </section>
 
         <section class="demo" aria-labelledby="craft-defensive">
@@ -313,6 +317,7 @@
             it the hard way during QA, courtesy of an iOS WebKit quirk.)
           </p>
           <DefensiveCssDemo />
+          <CodeCompare v-bind="craftSnippets.defensive" />
         </section>
 
         <section class="demo" aria-labelledby="craft-content-stress">
@@ -330,6 +335,7 @@
             instead of a designer's optimism.
           </p>
           <ContentStressDemo />
+          <CodeCompare v-bind="craftSnippets.contentStress" />
         </section>
 
         <section class="demo" aria-labelledby="craft-loading">
@@ -340,9 +346,9 @@
             are semantic-free <code>div</code>s — a screen reader finds an
             empty region with no hint that anything is happening. The craft
             move costs two attributes: <code>aria-busy="true"</code> marks the
-            region as loading (and asks assistive tech to hold announcements
-            until it settles), and one visually-hidden line says what's
-            coming. A live region is usually the <em>wrong</em> tool here — on
+            region as loading (a state you clear once it settles), and one
+            visually-hidden line says what's coming — the part a screen reader
+            actually reads. A live region is usually the <em>wrong</em> tool here — on
             a fast connection the "loading" announcement lands after the
             content it was warning about. And size placeholders to the content
             they stand in for: a skeleton that shifts the page when real
@@ -350,6 +356,7 @@
             CLS (Cumulative Layout Shift) measures.
           </p>
           <LoadingStateDemo />
+          <CodeCompare v-bind="craftSnippets.loading" />
         </section>
 
         <a class="skip-link visually-hidden-focusable" href="#sections-nav">Back to navigation</a>
@@ -601,6 +608,8 @@ import TargetsDemo from './craft/demos/TargetsDemo.vue'
 import DefensiveCssDemo from './craft/demos/DefensiveCssDemo.vue'
 import ContentStressDemo from './craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from './craft/demos/LoadingStateDemo.vue'
+import CodeCompare from './craft/CodeCompare/CodeCompare.vue'
+import { craftSnippets } from './craft/snippets'
 import TestingLayers from './testing/TestingLayers/TestingLayers.vue'
 import AuditStylesheet from './testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from './testing/CoverageMatrix/CoverageMatrix.vue'

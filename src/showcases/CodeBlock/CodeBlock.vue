@@ -3,6 +3,7 @@
     <figcaption class="code-block-bar">
       <span class="code-block-lang">{{ label }}</span>
       <button
+        v-if="copyable"
         type="button"
         class="code-block-copy"
         :aria-label="`Copy ${label} snippet to clipboard`"
@@ -17,19 +18,25 @@
     <pre class="code-block-pre" tabindex="0"><code v-html="highlighted" /></pre>
 
     <!-- Announces the copy result to screen readers without moving focus. -->
-    <span role="status" class="visually-hidden">{{ status }}</span>
+    <span v-if="copyable" role="status" class="visually-hidden">{{ status }}</span>
   </figure>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-const props = defineProps<{
-  /** Raw snippet text, rendered verbatim. */
-  code: string
-  /** Short language label shown in the bar and used for announcements. */
-  label: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    /** Raw snippet text, rendered verbatim. */
+    code: string
+    /** Short language label shown in the bar and used for announcements. */
+    label: string
+    /** Show the copy button. Off for code we don't want copied — e.g. the
+        "before" side of a bad→good comparison. */
+    copyable?: boolean
+  }>(),
+  { copyable: true },
+)
 
 const trimmed = computed(() => props.code.replace(/\s+$/, ''))
 
