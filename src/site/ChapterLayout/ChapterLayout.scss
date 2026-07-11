@@ -6,6 +6,51 @@
     gap: clamp(var(--space-6), 4vw, var(--space-16));
   }
 
+  /* Pure-CSS scroll-spy, the old sidebar's technique rescoped per chapter:
+     each tracked section names a view-timeline (inline, in the page), the rail
+     link scrubs its highlight over that timeline. timeline-scope bridges the
+     rail and the content columns. */
+  @supports (animation-timeline: view()) {
+    .chapter {
+      timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
+        --chapter-sec-4, --chapter-sec-5, --chapter-sec-6, --chapter-sec-7,
+        --chapter-sec-8, --chapter-sec-9, --chapter-sec-10;
+    }
+
+    .chapter-section-link {
+      animation: chapter-section-active linear both;
+      animation-range: cover 0% cover 100%;
+    }
+
+    @keyframes chapter-section-active {
+      0%,
+      100% {
+        border-inline-start-color: transparent;
+        color: var(--bp-ink-2);
+      }
+
+      8%,
+      96% {
+        border-inline-start-color: var(--bp-accent);
+        color: var(--bp-ink);
+      }
+    }
+
+    @include forced-colors {
+      @keyframes chapter-section-active {
+        0%,
+        100% {
+          border-inline-start-color: transparent;
+        }
+
+        8%,
+        96% {
+          border-inline-start-color: Highlight;
+        }
+      }
+    }
+  }
+
   @media (width <= 52rem) {
     .chapter {
       grid-template-columns: 1fr;
@@ -98,6 +143,7 @@
   .chapter-section-link {
     position: relative;
     padding: var(--space-1) 0 var(--space-1) var(--space-4);
+    border-inline-start: 2px solid transparent; /* the scroll-spy's highlight */
     font-size: var(--text-sm);
     line-height: 1.35;
     color: var(--bp-ink-2);
@@ -151,6 +197,47 @@
 
     @include forced-colors {
       display: none;
+    }
+  }
+
+  /* The watermark drifts against the page scroll — depth on the cheap
+     (transform-only, off the main thread). */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .chapter-watermark {
+        animation: chapter-watermark-drift linear both;
+        animation-timeline: scroll();
+      }
+
+      @keyframes chapter-watermark-drift {
+        from {
+          transform: translateY(0);
+        }
+
+        to {
+          transform: translateY(18rem);
+        }
+      }
+    }
+  }
+
+  /* Demos surface as they enter, exactly the old section-reveal. fill none, not
+     both: a held pre-entry transform inflates the rects of below-viewport
+     sections, so smooth anchor scrolls overshoot. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .chapter-content :deep(.demo) {
+        animation: chapter-demo-reveal linear none;
+        animation-timeline: view();
+        animation-range: entry 0% entry 420px;
+      }
+
+      @keyframes chapter-demo-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(4rem) scale(0.94);
+        }
+      }
     }
   }
 
@@ -213,6 +300,11 @@
     display: grid;
     gap: var(--space-6);
     min-inline-size: 0;
+  }
+
+  /* Anchored sections land clear of the sheet edge. */
+  .chapter-content :deep([id]) {
+    scroll-margin-block-start: var(--space-6);
   }
 
   .chapter-content :deep(.demo-stack) {

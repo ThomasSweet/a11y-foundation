@@ -22,8 +22,13 @@
         </label>
       </fieldset>
 
-      <template v-for="group in groups" :key="group.tier">
-        <div v-if="group.items.length" :id="`tier-${group.tier}`" class="showcase-group">
+      <template v-for="(group, gi) in groups" :key="group.tier">
+        <div
+          v-if="group.items.length"
+          :id="`tier-${group.tier}`"
+          class="showcase-group"
+          :style="{ viewTimelineName: `--chapter-sec-${gi + 1}` }"
+        >
           <h3>{{ group.label }}</h3>
           <p>{{ group.blurb }}</p>
           <div class="showcase-list">

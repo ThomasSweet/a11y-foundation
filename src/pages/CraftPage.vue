@@ -7,7 +7,7 @@
       each one is the accessible default.
     </p>
 
-    <section class="demo" aria-labelledby="craft-validation">
+    <section class="demo" aria-labelledby="craft-validation" style="view-timeline-name: --chapter-sec-1">
       <h3 id="craft-validation">Validation that waits its turn</h3>
       <p>
         Validation leans on the platform: native constraints
@@ -41,7 +41,7 @@
       <CodeCompare v-bind="craftSnippets.validation" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-light-dark">
+    <section class="demo" aria-labelledby="craft-light-dark" style="view-timeline-name: --chapter-sec-2">
       <h3 id="craft-light-dark">Dark mode from one source of truth</h3>
       <p>
         Theming is a place craft pays off quietly. Declaring each colour once
@@ -53,7 +53,7 @@
       <LightDarkDemo />
     </section>
 
-    <section class="demo" aria-labelledby="craft-dialog">
+    <section class="demo" aria-labelledby="craft-dialog" style="view-timeline-name: --chapter-sec-3">
       <h3 id="craft-dialog">Native dialog, zero trapping code</h3>
       <p>
         A native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
@@ -77,7 +77,7 @@
       <CodeCompare v-bind="craftSnippets.dialog" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-motion">
+    <section class="demo" aria-labelledby="craft-motion" style="view-timeline-name: --chapter-sec-4">
       <h3 id="craft-motion">Motion that bows out on request</h3>
       <p>
         Three independent animations, one preference. When the OS asks for
@@ -91,7 +91,7 @@
       <CodeCompare v-bind="craftSnippets.motion" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-targets">
+    <section class="demo" aria-labelledby="craft-targets" style="view-timeline-name: --chapter-sec-5">
       <h3 id="craft-targets">Targets that survive touch and forced colors</h3>
       <p>
         Hover styles only apply on devices that can actually hover; touch
@@ -104,7 +104,7 @@
       <CodeCompare v-bind="craftSnippets.targets" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-defensive">
+    <section class="demo" aria-labelledby="craft-defensive" style="view-timeline-name: --chapter-sec-6">
       <h3 id="craft-defensive">Layouts that expect the worst</h3>
       <p>
         Defensive CSS is the habit of assuming real content will be longer,
@@ -125,7 +125,7 @@
       <CodeCompare v-bind="craftSnippets.defensive" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-content-stress">
+    <section class="demo" aria-labelledby="craft-content-stress" style="view-timeline-name: --chapter-sec-7">
       <h3 id="craft-content-stress">Break it with content</h3>
       <p>
         Layouts don't break in design reviews; they break the day the CMS
@@ -143,7 +143,7 @@
       <CodeCompare v-bind="craftSnippets.contentStress" />
     </section>
 
-    <section class="demo" aria-labelledby="craft-loading">
+    <section class="demo" aria-labelledby="craft-loading" style="view-timeline-name: --chapter-sec-8">
       <h3 id="craft-loading">Loading states the accessibility tree can see</h3>
       <p>
         Skeleton screens are a perceived-performance trick for the eyes:

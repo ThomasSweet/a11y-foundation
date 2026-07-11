@@ -18,10 +18,11 @@
         </nav>
         <nav v-if="sections.length" class="chapter-sections" aria-label="Sections in this chapter">
           <a
-            v-for="s in sections"
+            v-for="(s, i) in sections"
             :key="s.id"
             class="chapter-section-link"
             :href="`#${s.id}`"
+            :style="{ animationTimeline: `--chapter-sec-${i + 1}` }"
           >
             {{ s.label }}
           </a>

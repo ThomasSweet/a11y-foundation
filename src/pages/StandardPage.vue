@@ -6,7 +6,7 @@
       right alongside the platform.
     </p>
 
-    <section class="demo" aria-labelledby="demo-criteria">
+    <section class="demo" aria-labelledby="demo-criteria" style="view-timeline-name: --chapter-sec-1">
       <h3 id="demo-criteria">Guidelines, alive</h3>
       <p>
         These aren't definitions of accessibility — they're the standard,
@@ -21,7 +21,7 @@
       <CriteriaTimeline />
     </section>
 
-    <section class="demo" aria-labelledby="demo-conformance">
+    <section class="demo" aria-labelledby="demo-conformance" style="view-timeline-name: --chapter-sec-2">
       <h3 id="demo-conformance">From pass / fail to outcomes</h3>
       <p>
         The timeline's next stop is the biggest change of all — not new
@@ -32,7 +32,7 @@
       <ConformanceShift />
     </section>
 
-    <section class="demo" aria-labelledby="demo-legal">
+    <section class="demo" aria-labelledby="demo-legal" style="view-timeline-name: --chapter-sec-3">
       <h3 id="demo-legal">One standard, many laws</h3>
       <p>
         WCAG isn't just guidance — it's the technical core that accessibility

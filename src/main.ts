@@ -3,8 +3,8 @@ import { createApp, type Component } from 'vue'
 import './styles/index.css'
 
 // Each MPA entry sets `data-view` on #app; the matching root is loaded on
-// demand so a page ships only its own view. No `data-view` (or an unknown one)
-// falls back to the original single-page App.
+// demand so a page ships only its own view. Unknown or missing values fall
+// back to the hub (the overview is the safe landing).
 const el = document.getElementById('app')!
 
 const views: Record<string, () => Promise<{ default: Component }>> = {
@@ -15,5 +15,5 @@ const views: Record<string, () => Promise<{ default: Component }>> = {
   proof: () => import('./pages/ProofPage.vue'),
 }
 
-const load = views[el.dataset.view ?? ''] ?? (() => import('./App.vue'))
+const load = views[el.dataset.view ?? ''] ?? views.hub
 load().then((mod) => createApp(mod.default).mount('#app'))

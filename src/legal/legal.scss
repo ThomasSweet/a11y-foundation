@@ -1,10 +1,40 @@
 /* Layout for the standalone legal pages (Impressum, Privacy). In the components
    layer (the project's "no unlayered CSS" rule). */
 @layer components {
+  /* The blueprint ground behind the sheet — targeted via :has() so the static
+     HTML needs no extra class. The sheet's offset is body *padding* (margin
+     would collapse through body and expose the bare canvas above it). */
+  html:has(.legal),
+  body:has(.legal) {
+    background: var(--bp-ground);
+  }
+
+  body:has(.legal) {
+    padding-block: clamp(var(--space-4), 3vw, var(--space-8));
+  }
+
+  /* The document itself reads as one drawing sheet: surface, faint grid, frame. */
   .legal {
     max-inline-size: 70ch;
     margin-inline: auto;
-    padding: var(--space-6) var(--space-4) var(--space-12);
+    padding: var(--space-6) clamp(var(--space-4), 4vw, var(--space-8)) var(--space-12);
+    background-color: var(--bp-sheet);
+    background-image:
+      linear-gradient(var(--bp-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bp-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    outline: 1.5px solid var(--bp-frame);
+    outline-offset: -8px;
+
+    @include high-contrast {
+      outline-color: currentcolor;
+    }
+
+    @include forced-colors {
+      background-image: none;
+      outline: 1px solid CanvasText;
+    }
   }
 
   .legal-header {

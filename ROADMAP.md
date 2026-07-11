@@ -109,15 +109,22 @@ fixes/features as they come in.
   shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
   The optional "emerging" third act is deferred to demos where a real successor
   exists. Directly answers the "avoid it from happening" feedback.
-- Site-wide flow / length restructure (open, big) — sections run long (Craft most
-  of all, now more so with the code comparisons). Not a per-section trim: rethink
-  the whole narrative flow, likely splitting the pillars onto their own
-  pages/routes so each breathes instead of competing for one scroll. Parked
-  deliberately until it's tackled as its own effort; once sections have their own
-  pages, keeping any single section minimal matters far less. Candidate to fold in
-  then: per-topic "reference" links (MDN/spec) on the craft demos, like the
-  showcase cards already carry — deferred now to avoid adding weight to an
-  already-long section.
+- Site-wide flow / length restructure — BUILT (July 2026, in review; not yet
+  deployed). The one-page scroll became a five-page MPA wearing a blueprint /
+  technical-drawing skin: an overview hub (index — hero, four "plates" on a
+  subgrid, a11y statement, author) and one chapter page per pillar
+  (standard/craft/showcase/proof.html), each with a legend rail (chapter
+  switcher + pure-CSS view-timeline scroll-spy), oversized watermark on a
+  scroll() parallax, demo reveals, and prev/next in the title block. Entering a
+  chapter morphs the plate's icon into the chapter header via cross-document
+  view transitions (zero JS, reduced-motion → instant nav). The skin is fully
+  theme-driven (--bp-* tokens derive from --color-*, so all presets/CVD/contrast
+  re-ink it); legal pages wear the sheet too. Legacy one-page anchors forward to
+  their chapter pages. App.vue (+ PillarHeader, heroIcons) deleted; e2e suite
+  extended to all 7 pages ×3 engines (54 tests green) — the sweep even caught a
+  real AA contrast bug in TargetsDemo (opacity on subtle text), fixed. Still
+  open from this thread: per-topic reference links (MDN/spec) on craft demos;
+  styleguide.html kept its old flat look (reskin later if wanted).
 
 ### Watchlist (too early / conditional — revisit)
 

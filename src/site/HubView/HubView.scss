@@ -1,4 +1,13 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
+
+/* Registered so the avatar's conic angle interpolates (unregistered custom
+   properties snap instead of animating). */
+@property --ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 @layer components {
   .hub-eyebrow {
     font-family: var(--bp-mono);
@@ -245,7 +254,63 @@
     color: var(--bp-accent);
   }
 
-  /* Author sliver in the title-block's footer-extra slot. */
+  /* Accessibility statement — the drawing set's cover-sheet notes. */
+  .hub-statement {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 64ch;
+    margin-block-end: var(--space-6);
+    padding-block-end: var(--space-6);
+    border-block-end: 1px solid var(--bp-line-strong);
+  }
+
+  .hub-statement-title {
+    font-size: var(--text-xl);
+    color: var(--bp-ink);
+  }
+
+  .hub-statement-lede {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-statement-summary {
+    inline-size: fit-content;
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .hub-statement-body {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-start: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-statement-body p {
+    margin: 0;
+  }
+
+  .hub-statement-body strong {
+    color: var(--bp-ink);
+  }
+
+  /* Author sliver in the title-block's footer-extra slot. The element is a
+     gradient ring; the photo sits on ::after inset by the ring width. Spinning
+     the conic angle (not the element) leaves the photo still. */
   .hub-author {
     display: flex;
     gap: var(--space-4);
@@ -256,11 +321,51 @@
   }
 
   .hub-author-avatar {
+    position: relative;
     flex: none;
-    inline-size: var(--space-12);
-    block-size: var(--space-12);
+    inline-size: var(--space-20);
+    block-size: var(--space-20);
     border-radius: var(--radius-full);
-    background: var(--gradient-accent);
+    background: conic-gradient(
+      from var(--ring-angle, 0deg),
+      var(--color-primary),
+      var(--color-accent),
+      var(--color-primary)
+    );
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: hub-avatar-ring-spin 3s linear infinite;
+    }
+
+    @include forced-colors {
+      background: none;
+      border: 1px solid currentcolor;
+    }
+  }
+
+  /* Decorative (the name is in the adjacent text). background-* zooms and pans
+     to frame the face; the gradient shows if the photo ever fails to load. */
+  .hub-author-avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0.28rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-subtle);
+    background-image: url("/thomas.jpg"), var(--gradient-accent);
+    background-size: 175%;
+    background-position: 55% 18%;
+    background-repeat: no-repeat;
+  }
+
+  @keyframes hub-avatar-ring-spin {
+    to {
+      --ring-angle: 360deg;
+    }
+  }
+
+  .hub-author-body {
+    display: grid;
+    gap: var(--space-2);
   }
 
   .hub-author-bio {
@@ -272,5 +377,39 @@
 
   .hub-author-bio strong {
     color: var(--bp-ink);
+  }
+
+  .hub-author-social {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hub-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: var(--radius-full);
+    color: var(--bp-ink-2);
+
+    svg {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+    }
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
   }
 }

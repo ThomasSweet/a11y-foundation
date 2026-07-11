@@ -9,7 +9,7 @@
       earn their place.)
     </p>
 
-    <section class="demo" aria-labelledby="testing-layers">
+    <section class="demo" aria-labelledby="testing-layers" style="view-timeline-name: --chapter-sec-1">
       <h3 id="testing-layers">A layered job, not a button</h3>
       <p>
         Each layer is cheaper and broader than the one above it, so it clears
@@ -20,7 +20,7 @@
       <TestingLayers />
     </section>
 
-    <section class="demo" aria-labelledby="testing-coverage">
+    <section class="demo" aria-labelledby="testing-coverage" style="view-timeline-name: --chapter-sec-2">
       <h3 id="testing-coverage">What automation can and can't see</h3>
       <p>
         This is the part that's rarely spelled out. An automated pass like
@@ -32,7 +32,7 @@
       <CoverageMatrix />
     </section>
 
-    <section class="demo" aria-labelledby="testing-audit-css">
+    <section class="demo" aria-labelledby="testing-audit-css" style="view-timeline-name: --chapter-sec-3">
       <h3 id="testing-audit-css">CSS that audits</h3>
       <p>
         The selector engine itself can be a testing layer. A handful of
@@ -46,7 +46,7 @@
       <AuditStylesheet />
     </section>
 
-    <section class="demo" aria-labelledby="testing-performance">
+    <section class="demo" aria-labelledby="testing-performance" style="view-timeline-name: --chapter-sec-4">
       <h3 id="testing-performance">Performance is accessibility</h3>
       <p>
         Performance work usually files under "nice to have." For assistive

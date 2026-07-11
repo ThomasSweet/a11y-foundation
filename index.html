@@ -27,6 +27,27 @@
       } catch (e) {}
     </script>
 
+    <!-- The one-page era's anchors live on their chapter pages now; forward
+         inbound deep links there (hash preserved) instead of dropping them. -->
+    <script>
+      ;(function () {
+        var h = location.hash
+        if (!h) return
+        var map = [
+          [/^#(standard|demo-criteria|demo-conformance|demo-legal)/, '/standard.html'],
+          [/^#craft/, '/craft.html'],
+          [/^#(showcase|tier-)/, '/showcase.html'],
+          [/^#testing/, '/proof.html'],
+        ]
+        for (var i = 0; i < map.length; i++) {
+          if (map[i][0].test(h)) {
+            location.replace(map[i][1] + h)
+            return
+          }
+        }
+      })()
+    </script>
+
     <title>Accessible by default — an accessibility-first styling playground</title>
     <meta
       name="description"
