@@ -1,0 +1,99 @@
+<template>
+  <SiteFrame>
+    <div class="chapter">
+      <aside class="chapter-rail">
+        <p class="chapter-rail-title">Legend</p>
+        <nav class="chapter-switch" aria-label="Chapters">
+          <a
+            v-for="c in pillars"
+            :key="c.id"
+            class="chapter-switch-link"
+            :class="{ 'is-current': c.id === id }"
+            :href="c.href"
+            :aria-current="c.id === id ? 'page' : undefined"
+          >
+            <span class="chapter-switch-n">{{ c.no }}</span>
+            <span>{{ c.short }}</span>
+          </a>
+        </nav>
+        <nav v-if="sections.length" class="chapter-sections" aria-label="Sections in this chapter">
+          <a
+            v-for="s in sections"
+            :key="s.id"
+            class="chapter-section-link"
+            :href="`#${s.id}`"
+          >
+            {{ s.label }}
+          </a>
+        </nav>
+      </aside>
+
+      <div class="chapter-body">
+        <span
+          class="chapter-watermark"
+          aria-hidden="true"
+          v-html="pillarIcons[pillar.icon]"
+        ></span>
+
+        <header class="chapter-head">
+          <p class="chapter-eyebrow">Drawing {{ pillar.no }} · {{ specLabel }}</p>
+          <div class="chapter-headrow">
+            <span class="chapter-no" :style="{ viewTransitionName: `${vt}-no` }">{{ pillar.no }}</span>
+            <span
+              class="chapter-mark"
+              :style="{ viewTransitionName: `${vt}-mark` }"
+              aria-hidden="true"
+              v-html="pillarIcons[pillar.icon]"
+            ></span>
+            <h1 class="chapter-title" :style="{ viewTransitionName: `${vt}-title` }">
+              {{ pillar.title }}
+            </h1>
+          </div>
+        </header>
+
+        <div class="chapter-content">
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <template #prevnext>
+      <div class="chapter-prevnext">
+        <a v-if="prev" class="chapter-nav chapter-nav-prev" :href="prev.href">
+          <span class="chapter-nav-k">← Previous drawing</span>
+          <span class="chapter-nav-t">{{ prev.no }} · {{ prev.title }}</span>
+        </a>
+        <span v-else></span>
+        <a v-if="next" class="chapter-nav chapter-nav-next" :href="next.href">
+          <span class="chapter-nav-k">Next drawing →</span>
+          <span class="chapter-nav-t">{{ next.no }} · {{ next.title }}</span>
+        </a>
+      </div>
+    </template>
+  </SiteFrame>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import SiteFrame from '../SiteFrame/SiteFrame.vue'
+import { pillars } from '../pillars'
+import { pillarIcons } from '../../icons/pillarIcons'
+
+const props = defineProps<{
+  /** Which chapter this is (matches a pillars[].id). */
+  id: string
+  /** In-chapter sections for the legend, in document order. */
+  sections?: { id: string; label: string }[]
+}>()
+
+const sections = computed(() => props.sections ?? [])
+const index = computed(() => pillars.findIndex((p) => p.id === props.id))
+const pillar = computed(() => pillars[index.value])
+const prev = computed(() => pillars[index.value - 1])
+const next = computed(() => pillars[index.value + 1])
+const vt = computed(() => `vt-${props.id}`)
+/** The eyebrow's trailing clause, e.g. "the requirement" or "shipping today". */
+const specLabel = computed(() => pillar.value.eyebrow.split('·').slice(1).join('·').trim())
+</script>
+
+<style scoped lang="scss" src="./ChapterLayout.scss"></style>

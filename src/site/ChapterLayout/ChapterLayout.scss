@@ -1,0 +1,273 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .chapter {
+    display: grid;
+    grid-template-columns: minmax(170px, 210px) minmax(0, 1fr);
+    gap: clamp(var(--space-6), 4vw, var(--space-16));
+  }
+
+  @media (width <= 52rem) {
+    .chapter {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  /* Legend rail — the reframed sidebar: a chapter switcher over this chapter's
+     section links. */
+  .chapter-rail {
+    align-self: start;
+    position: sticky;
+    inset-block-start: var(--space-6);
+  }
+
+  @media (width <= 52rem) {
+    .chapter-rail {
+      position: static;
+    }
+  }
+
+  .chapter-rail-title {
+    margin: 0 0 var(--space-3);
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid var(--bp-line-strong);
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-switch {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-block-end: var(--space-6);
+  }
+
+  @media (width <= 52rem) {
+    .chapter-switch {
+      flex-flow: row wrap;
+      gap: var(--space-2);
+    }
+  }
+
+  .chapter-switch-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-inline-start: 2px solid transparent;
+    font-size: var(--text-sm);
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    &.is-current {
+      border-inline-start-color: var(--bp-accent);
+      background: var(--bp-accent-soft);
+      color: var(--bp-ink);
+    }
+  }
+
+  .chapter-switch-n {
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-switch-link.is-current .chapter-switch-n {
+    color: var(--bp-accent);
+  }
+
+  .chapter-sections {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chapter-section-link {
+    position: relative;
+    padding: var(--space-1) 0 var(--space-1) var(--space-4);
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0.7em;
+      inline-size: 8px;
+      block-size: 1px;
+      background: var(--bp-line-strong);
+    }
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .chapter-body {
+    position: relative;
+    min-inline-size: 0;
+    overflow: clip;
+  }
+
+  /* Oversized icon watermark bleeding off the corner — the big-element/3D feel,
+     reskinned as blueprint line-art. */
+  .chapter-watermark {
+    position: absolute;
+    inset-block-start: -4%;
+    inset-inline-end: -6%;
+    inline-size: min(46%, 460px);
+    color: var(--bp-ink);
+    opacity: 0.05;
+    pointer-events: none;
+
+    :deep(svg) {
+      display: block;
+      inline-size: 100%;
+      block-size: auto;
+      stroke-width: 0.6;
+    }
+
+    @include forced-colors {
+      display: none;
+    }
+  }
+
+  .chapter-head {
+    position: relative;
+    margin-block-end: clamp(var(--space-8), 5vw, var(--space-16));
+  }
+
+  .chapter-eyebrow {
+    margin: 0 0 var(--space-4);
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+  }
+
+  .chapter-headrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .chapter-no {
+    font-family: var(--bp-mono);
+    font-size: clamp(1.75rem, 4.6vw, 2.75rem);
+    line-height: 1;
+    color: var(--bp-accent);
+  }
+
+  .chapter-mark {
+    inline-size: clamp(2rem, 4.2vw, 2.75rem);
+    block-size: clamp(2rem, 4.2vw, 2.75rem);
+    color: var(--bp-ink);
+
+    :deep(svg) {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+    }
+  }
+
+  .chapter-title {
+    margin: 0;
+    font-size: var(--text-4xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--bp-ink);
+  }
+
+  /* Slotted demo content — layout ported from the old pillar so the demos read
+     the same; reached with :deep because the slot renders in the page's scope. */
+  .chapter-content {
+    position: relative;
+    display: grid;
+    gap: clamp(var(--space-12), 6vw, var(--space-24));
+  }
+
+  .chapter-content :deep(.demo) {
+    display: grid;
+    gap: var(--space-6);
+    min-inline-size: 0;
+  }
+
+  .chapter-content :deep(.demo-stack) {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .chapter-content :deep(.demo-row) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .chapter-prevnext {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-block-start: var(--space-4);
+  }
+
+  .chapter-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .chapter-nav-next {
+    text-align: end;
+    margin-inline-start: auto;
+  }
+
+  .chapter-nav-k {
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-nav-t {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+}

@@ -9,6 +9,7 @@ const el = document.getElementById('app')!
 
 const views: Record<string, () => Promise<{ default: Component }>> = {
   hub: () => import('./site/HubView/HubView.vue'),
+  craft: () => import('./pages/CraftPage.vue'),
 }
 
 const load = views[el.dataset.view ?? ''] ?? (() => import('./App.vue'))
