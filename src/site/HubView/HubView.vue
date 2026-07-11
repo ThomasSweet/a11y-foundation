@@ -21,7 +21,6 @@
         :key="p.href"
         class="hub-plate"
         :href="p.href"
-        :style="{ viewTransitionName: `${p.vt}-plate` }"
       >
         <span class="hub-plate-top">
           <span class="hub-plate-no">{{ p.no }}</span>

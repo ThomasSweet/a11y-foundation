@@ -74,4 +74,13 @@
   @view-transition {
     navigation: auto;
   }
+
+  /* The shared-element morph (a hub plate's mark flying into the chapter header)
+     and the cross-fade, at a deliberate, drawing-like pace. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.42s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
