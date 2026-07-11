@@ -11,6 +11,7 @@ const views: Record<string, () => Promise<{ default: Component }>> = {
   hub: () => import('./site/HubView/HubView.vue'),
   standard: () => import('./pages/StandardPage.vue'),
   craft: () => import('./pages/CraftPage.vue'),
+  showcase: () => import('./pages/ShowcasePage.vue'),
   proof: () => import('./pages/ProofPage.vue'),
 }
 

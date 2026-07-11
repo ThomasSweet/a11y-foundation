@@ -12,6 +12,7 @@ export default defineConfig({
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         standard: fileURLToPath(new URL('./standard.html', import.meta.url)),
         craft: fileURLToPath(new URL('./craft.html', import.meta.url)),
+        showcase: fileURLToPath(new URL('./showcase.html', import.meta.url)),
         proof: fileURLToPath(new URL('./proof.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         privacy: fileURLToPath(new URL('./privacy.html', import.meta.url)),

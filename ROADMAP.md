@@ -64,11 +64,14 @@ fixes/features as they come in.
 - ~~BUG: filter breaks sidebar nav~~ — fixed (3a): `:target` reveal in the
   utilities layer un-hides a linked-to card + its tier group, beating the
   components-layer filter by layer order (pure CSS, no JS). Pinned by e2e.
-- Keyboard shortcuts, done accessibly (feature, not the nav fix) — NOT
-  cmd/ctrl+N (browser-reserved). If built: safe keys, a `?` help overlay,
-  a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
-  Teaches Character Key Shortcuts instead of violating it. The back-to-nav
-  skip links already cover the return-to-nav need, so this is additive.
+- ~~Keyboard shortcuts, done accessibly~~ — dropped (July 2026). Two reasons:
+  it needs JS for the mechanism (against the site's little-to-no-JS identity;
+  `accesskey`, the only no-JS option, is a native anti-pattern), and it
+  "improves accessibility" by adding a shortcut the user must *learn* — the
+  opposite of invisible/native. The pull toward shortcuts was really a symptom
+  of the flow/length problem, to be fixed structurally (per-pillar pages), not
+  band-aided. Leaves 2.1.4 (Character Key Shortcuts) an uncovered criterion by
+  choice.
 - ~~Avatar + brief bio~~ — done (3c): footer sliver with a round photo
   avatar (background-image framed on the face, gradient fallback) + one
   line + GitHub link.
