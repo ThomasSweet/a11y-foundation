@@ -197,15 +197,3 @@ const sections = [
   { id: 'craft-loading', label: 'Loading states the tree can see' },
 ]
 </script>
-
-<style scoped lang="scss">
-@layer components {
-  .chapter-intro {
-    max-inline-size: 62ch;
-    margin: 0;
-    font-size: var(--text-lg);
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-  }
-}
-</style>

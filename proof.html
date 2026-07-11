@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Lock the @layer order before any bundled CSS parses (see index.html). -->
+    <style>
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+    </style>
+
+    <!-- Apply the saved theme before first paint. Must stay in sync with ThemeToggle. -->
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('abd-theme')
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme
+        } else if (/^(ocean|midnight|sunset|cobalt|teal|amber|contrast-light|contrast-dark)$/.test(savedTheme)) {
+          document.documentElement.dataset.preset = savedTheme
+        }
+      } catch (e) {}
+    </script>
+
+    <title>The proof — Accessible by default</title>
+    <meta
+      name="description"
+      content="Accessibility testing is a layered job, not a green scanner light — the layers, what automation can and can't see, CSS that audits, and why performance is accessibility."
+    />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+  </head>
+  <body>
+    <div id="app" data-view="proof"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
