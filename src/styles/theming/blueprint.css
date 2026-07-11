@@ -1,0 +1,22 @@
+/* =============================================================================
+   blueprint.css — the technical-drawing skin, derived entirely from the theme
+   engine's --color-* tokens so every mode / preset / CVD / contrast setting
+   re-inks the sheet with no per-theme rules of its own.
+============================================================================= */
+@layer themes {
+  :root {
+    --bp-ground: var(--color-bg-subtle);
+    --bp-sheet: var(--color-surface);
+    --bp-ink: var(--color-text);
+    --bp-ink-2: var(--color-text-subtle);
+    --bp-accent: var(--color-primary);
+    --bp-accent-soft: color-mix(in oklab, var(--color-primary) 12%, transparent);
+
+    /* Grid + frame carry a faint accent tint, so a preset switch re-inks them. */
+    --bp-line: color-mix(in oklab, var(--color-primary) 9%, transparent);
+    --bp-line-strong: color-mix(in oklab, var(--color-primary) 22%, transparent);
+    --bp-frame: color-mix(in oklab, var(--color-primary) 42%, transparent);
+
+    --bp-mono: var(--font-mono, ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace);
+  }
+}

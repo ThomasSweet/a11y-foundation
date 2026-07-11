@@ -16,6 +16,7 @@
           "src/styles/tokens.css",
           "src/styles/theming/engine.css",
           "src/styles/theming/presets.css",
+          "src/styles/theming/blueprint.css",
           "src/styles/preferences.css",
           {
             "customProperties": {
@@ -32,6 +33,10 @@
           }
         ]
       }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { "ignorePseudoClasses": ["deep", "global", "slotted"] }
     ],
     "order/order": [
       "custom-properties",

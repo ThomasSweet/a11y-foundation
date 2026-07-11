@@ -1,0 +1,276 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .hub-eyebrow {
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+    margin-block-end: var(--space-3);
+  }
+
+  .hub-title {
+    font-size: var(--text-display);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    max-inline-size: 15ch;
+    text-wrap: balance;
+    color: var(--bp-ink);
+    margin: 0;
+  }
+
+  .hub-strike {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  /* A solid, text-coloured, square cross-out — the word reads as struck. */
+  .hub-strike::after {
+    content: "";
+    position: absolute;
+    inset-inline: -0.02em;
+    inset-block-start: 58%;
+    block-size: 0.11em;
+    background: currentcolor;
+    transform: translateY(-50%);
+  }
+
+  .hub-lede {
+    max-inline-size: 58ch;
+    margin-block: var(--space-4) 0;
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-lede strong {
+    color: var(--bp-ink);
+  }
+
+  .hub-index {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-4);
+    margin-block: var(--space-8) var(--space-4);
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .hub-index-k {
+    color: var(--bp-ink);
+  }
+
+  .hub-index-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hub-index-sep {
+    inline-size: 26px;
+    block-size: 1px;
+    background: var(--bp-line-strong);
+  }
+
+  .hub-plates {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(var(--space-3), 2.4vw, var(--space-6));
+  }
+
+  @media (width >= 60rem) {
+    .hub-plates {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(var(--space-3), 1.4vw, var(--space-4));
+    }
+
+    /* Subgrid aligns each plate's rows against its neighbours — a showcased
+       feature dogfooded on the hub; without it the cards align to themselves. */
+    @supports (grid-template-rows: subgrid) {
+      .hub-plates {
+        grid-template-rows: auto auto auto auto auto;
+        row-gap: var(--space-4);
+      }
+
+      .hub-plate {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 5;
+      }
+
+      .hub-plate > * {
+        margin: 0;
+      }
+    }
+  }
+
+  @media (width <= 34rem) {
+    .hub-plates {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hub-plate {
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+    padding: clamp(var(--space-4), 1.9vw, var(--space-6));
+    border: 1px solid var(--bp-line-strong);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard),
+      scale var(--duration-fast) var(--easing-standard);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inline-size: 12px;
+      block-size: 12px;
+      border: 0 solid var(--bp-ink-2);
+      opacity: 0.5;
+      transition: opacity var(--duration-fast) var(--easing-standard);
+    }
+
+    &::before {
+      inset-block-start: 6px;
+      inset-inline-start: 6px;
+      border-block-start-width: 1.5px;
+      border-inline-start-width: 1.5px;
+    }
+
+    &::after {
+      inset-block-end: 6px;
+      inset-inline-end: 6px;
+      border-block-end-width: 1.5px;
+      border-inline-end-width: 1.5px;
+    }
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--bp-accent);
+        background: var(--bp-accent-soft);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    &:hover::before,
+    &:hover::after,
+    &:focus-visible::before,
+    &:focus-visible::after {
+      opacity: 1;
+      border-color: var(--bp-accent);
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .hub-plate-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-block-end: var(--space-4);
+  }
+
+  .hub-plate-no {
+    font-family: var(--bp-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--bp-accent);
+  }
+
+  .hub-plate-icon {
+    inline-size: 38px;
+    block-size: 38px;
+    color: var(--bp-ink);
+
+    :deep(svg) {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+    }
+  }
+
+  .hub-plate:hover .hub-plate-icon,
+  .hub-plate:focus-visible .hub-plate-icon {
+    color: var(--bp-accent);
+  }
+
+  .hub-plate-spec {
+    display: block;
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+    margin-block-end: var(--space-1);
+  }
+
+  .hub-plate-title {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--bp-ink);
+    margin-block-end: var(--space-2);
+  }
+
+  .hub-plate-desc {
+    display: block;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+    margin-block-end: var(--space-4);
+  }
+
+  .hub-plate-enter {
+    display: block;
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+  }
+
+  /* Author sliver in the title-block's footer-extra slot. */
+  .hub-author {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-block-end: var(--space-6);
+    padding-block-end: var(--space-4);
+    border-block-end: 1px solid var(--bp-line-strong);
+  }
+
+  .hub-author-avatar {
+    flex: none;
+    inline-size: var(--space-12);
+    block-size: var(--space-12);
+    border-radius: var(--radius-full);
+    background: var(--gradient-accent);
+  }
+
+  .hub-author-bio {
+    margin: 0;
+    max-inline-size: 60ch;
+    font-size: var(--text-sm);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-author-bio strong {
+    color: var(--bp-ink);
+  }
+}
