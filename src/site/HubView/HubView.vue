@@ -23,19 +23,11 @@
         :href="p.href"
       >
         <span class="hub-plate-top">
-          <!-- Number, mark, and title share view-transition-names with the
-               chapter header, so entering a chapter carries them over — the
-               plate literally becomes the heading. -->
-          <span class="hub-plate-no" :style="{ viewTransitionName: `${p.vt}-no` }">{{ p.no }}</span>
-          <span
-            class="hub-plate-icon"
-            :style="{ viewTransitionName: `${p.vt}-mark` }"
-            aria-hidden="true"
-            v-html="pillarIcons[p.icon]"
-          ></span>
+          <span class="hub-plate-no">{{ p.no }}</span>
+          <span class="hub-plate-icon" aria-hidden="true" v-html="pillarIcons[p.icon]"></span>
         </span>
         <span class="hub-plate-spec">{{ p.spec }}</span>
-        <span class="hub-plate-title" :style="{ viewTransitionName: `${p.vt}-title` }">{{ p.title }}</span>
+        <span class="hub-plate-title">{{ p.title }}</span>
         <span class="hub-plate-desc">{{ p.desc }}</span>
         <span class="hub-plate-enter">Enter drawing →</span>
       </a>
@@ -134,14 +126,13 @@ interface Plate {
   spec: string
   title: string
   desc: string
-  vt: string
 }
 
 const plates: Plate[] = [
-  { no: '01', href: '/standard.html', icon: 'standard', tag: 'standard', spec: 'The requirement', title: 'The standard', desc: 'What WCAG asks for, arranged along the timeline it grew on.', vt: 'vt-standard' },
-  { no: '02', href: '/craft.html', icon: 'craft', tag: 'craft', spec: 'Shipping today', title: 'The craft', desc: 'Meeting the bar with modern CSS and native HTML.', vt: 'vt-craft' },
-  { no: '03', href: '/showcase.html', icon: 'next', tag: 'css', spec: 'Arriving next', title: 'CSS showcase', desc: 'Modern CSS worth knowing, grouped by Baseline support.', vt: 'vt-showcase' },
-  { no: '04', href: '/proof.html', icon: 'proof', tag: 'proof', spec: 'The proof', title: 'The proof', desc: 'Testing that it holds up — a layered job, not a scanner.', vt: 'vt-proof' },
+  { no: '01', href: '/standard.html', icon: 'standard', tag: 'standard', spec: 'The requirement', title: 'The standard', desc: 'What WCAG asks for, arranged along the timeline it grew on.' },
+  { no: '02', href: '/craft.html', icon: 'craft', tag: 'craft', spec: 'Shipping today', title: 'The craft', desc: 'Meeting the bar with modern CSS and native HTML.' },
+  { no: '03', href: '/showcase.html', icon: 'next', tag: 'css', spec: 'Arriving next', title: 'CSS showcase', desc: 'Modern CSS worth knowing, grouped by Baseline support.' },
+  { no: '04', href: '/proof.html', icon: 'proof', tag: 'proof', spec: 'The proof', title: 'The proof', desc: 'Testing that it holds up — a layered job, not a scanner.' },
 ]
 </script>
 

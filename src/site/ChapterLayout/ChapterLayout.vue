@@ -39,16 +39,9 @@
         <header class="chapter-head">
           <p class="chapter-eyebrow">Drawing {{ pillar.no }} · {{ specLabel }}</p>
           <div class="chapter-headrow">
-            <span class="chapter-no" :style="{ viewTransitionName: `${vt}-no` }">{{ pillar.no }}</span>
-            <span
-              class="chapter-mark"
-              :style="{ viewTransitionName: `${vt}-mark` }"
-              aria-hidden="true"
-              v-html="pillarIcons[pillar.icon]"
-            ></span>
-            <h1 class="chapter-title" :style="{ viewTransitionName: `${vt}-title` }">
-              {{ pillar.title }}
-            </h1>
+            <span class="chapter-no">{{ pillar.no }}</span>
+            <span class="chapter-mark" aria-hidden="true" v-html="pillarIcons[pillar.icon]"></span>
+            <h1 class="chapter-title">{{ pillar.title }}</h1>
           </div>
         </header>
 
@@ -92,7 +85,6 @@ const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])
 const next = computed(() => pillars[index.value + 1])
-const vt = computed(() => `vt-${props.id}`)
 /** The eyebrow's trailing clause, e.g. "the requirement" or "shipping today". */
 const specLabel = computed(() => pillar.value.eyebrow.split('·').slice(1).join('·').trim())
 </script>

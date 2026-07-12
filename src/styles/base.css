@@ -75,18 +75,27 @@
     navigation: auto;
   }
 
-  /* The shared-element morph (a hub plate's number, mark, and title flying into
-     the chapter header) outlasts the page cross-fade a touch, so the traveling
-     elements read as continuous instead of vanishing into the blend. */
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation-duration: 0.5s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Navigation lifts the top drawing off the stack: the new page lies fully
+     finished beneath (static — the desk never moves, nothing can flash) while
+     the old sheet is pulled away over it. The old snapshot is clipped to the
+     sheet's inline bounds so the flat ground at its sides stays put on wide
+     screens, and the pull eases in — a slow grip, then away. */
+  ::view-transition-new(root) {
+    animation: none;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.3s;
+  ::view-transition-old(root) {
+    /* Above the (static) new page for the whole pull. */
+    z-index: 1;
+    /* The sheet is centered at max 1160px inside the stage padding; crop the
+       snapshot to it so only the drawing travels, not the desk around it. */
+    clip-path: inset(0 max(clamp(14px, 3vw, 34px), (100vw - 1160px) / 2));
+    animation: 0.55s cubic-bezier(0.6, -0.05, 0.85, 0.4) both vt-sheet-away;
+  }
+
+  @keyframes vt-sheet-away {
+    to {
+      transform: translateX(-120%) rotate(-1.5deg);
+    }
   }
 }
