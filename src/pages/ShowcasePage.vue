@@ -138,7 +138,6 @@ const sections = [
     font-weight: 600;
   }
 
-  /* Square filter tags — legend keys, not pills. */
   .showcase-filter-chip {
     display: inline-flex;
     align-items: center;
@@ -173,9 +172,7 @@ const sections = [
     overflow: hidden;
   }
 
-  /* The catalog's atomic units reveal, not the catalog: the filter and tier
-     headers stand still while each card enters (same range discipline as the
-     chapter demo-reveal in ChapterLayout — settled if on screen at load). */
+  /* Cards reveal; the containing .demo is data-reveal="off" (see ChapterLayout). */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .showcase-list :deep(.showcase) {

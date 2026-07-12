@@ -1,7 +1,7 @@
 import type { PillarIconName } from '../icons/pillarIcons'
 
-/** The four chapters, in reading order — shared by the hub, the chapter rail,
- *  and prev/next. `vt-{id}-*` names drive the cross-document morph. */
+/** The four chapters, in reading order — drives the hub plates, the chapter
+ *  switcher, and prev/next. */
 export interface Pillar {
   id: string
   no: string

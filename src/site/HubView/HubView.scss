@@ -1,7 +1,6 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 
-/* Registered so the avatar's conic angle interpolates (unregistered custom
-   properties snap instead of animating). */
+/* Unregistered custom properties snap instead of interpolating. */
 @property --ring-angle {
   syntax: "<angle>";
   inherits: false;
@@ -33,7 +32,6 @@
     white-space: nowrap;
   }
 
-  /* A solid, text-coloured, square cross-out — the word reads as struck. */
   .hub-strike::after {
     content: "";
     position: absolute;
@@ -97,8 +95,6 @@
       gap: clamp(var(--space-3), 1.4vw, var(--space-4));
     }
 
-    /* Subgrid aligns each plate's rows against its neighbours — a showcased
-       feature dogfooded on the hub; without it the cards align to themselves. */
     @supports (grid-template-rows: subgrid) {
       .hub-plates {
         grid-template-rows: auto auto auto auto auto;
@@ -254,7 +250,6 @@
     color: var(--bp-accent);
   }
 
-  /* Accessibility statement — the drawing set's cover-sheet notes. */
   .hub-statement {
     display: grid;
     gap: var(--space-3);
@@ -308,9 +303,6 @@
     color: var(--bp-ink);
   }
 
-  /* Author sliver in the title-block's footer-extra slot. The element is a
-     gradient ring; the photo sits on ::after inset by the ring width. Spinning
-     the conic angle (not the element) leaves the photo still. */
   .hub-author {
     display: flex;
     gap: var(--space-4);
@@ -326,6 +318,7 @@
     inline-size: var(--space-20);
     block-size: var(--space-20);
     border-radius: var(--radius-full);
+    /* the animation spins the conic angle, not the element — the photo stays still */
     background: conic-gradient(
       from var(--ring-angle, 0deg),
       var(--color-primary),
@@ -343,8 +336,6 @@
     }
   }
 
-  /* Decorative (the name is in the adjacent text). background-* zooms and pans
-     to frame the face; the gradient shows if the photo ever fails to load. */
   .hub-author-avatar::after {
     content: "";
     position: absolute;

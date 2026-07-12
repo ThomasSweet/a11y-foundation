@@ -1,7 +1,5 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
-  /* Each showcase is a framed detail on the drawing sheet: square, thin frame,
-     corner ticks — attention comes from the accent, not from elevation. */
   .showcase {
     position: relative;
     display: grid;

@@ -31,10 +31,8 @@
   }
 
 
-  /* Skip link — the "skip to main" first child of <body> and the "back to
-     navigation" links ending each pillar (both target an id + tabindex="-1").
-     Fixed, not absolute, so a link focused deep in the page still appears in
-     the viewport rather than at its container's top. Pairs with -focusable. */
+  /* Fixed, not absolute, so the link appears in the viewport when focused
+     deep in the page, not at its container's top. Pairs with -focusable. */
   .skip-link {
     position: fixed;
     inset-block-start: var(--space-2);

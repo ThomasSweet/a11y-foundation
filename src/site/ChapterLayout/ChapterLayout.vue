@@ -74,9 +74,8 @@ import { pillars } from '../pillars'
 import { pillarIcons } from '../../icons/pillarIcons'
 
 const props = defineProps<{
-  /** Which chapter this is (matches a pillars[].id). */
+  /** Matches a pillars[].id. */
   id: string
-  /** In-chapter sections for the legend, in document order. */
   sections?: { id: string; label: string }[]
 }>()
 
@@ -85,7 +84,6 @@ const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])
 const next = computed(() => pillars[index.value + 1])
-/** The eyebrow's trailing clause, e.g. "the requirement" or "shipping today". */
 const specLabel = computed(() => pillar.value.eyebrow.split('·').slice(1).join('·').trim())
 </script>
 

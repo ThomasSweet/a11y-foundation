@@ -6,10 +6,8 @@
     gap: clamp(var(--space-6), 4vw, var(--space-16));
   }
 
-  /* Pure-CSS scroll-spy, the old sidebar's technique rescoped per chapter:
-     each tracked section names a view-timeline (inline, in the page), the rail
-     link scrubs its highlight over that timeline. timeline-scope bridges the
-     rail and the content columns. */
+  /* Scroll-spy: pages name each section's view-timeline inline; timeline-scope
+     is what lets the rail (a different subtree) attach to those timelines. */
   @supports (animation-timeline: view()) {
     .chapter {
       timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
@@ -58,8 +56,6 @@
     }
   }
 
-  /* Legend rail — the reframed sidebar: a chapter switcher over this chapter's
-     section links. */
   .chapter-rail {
     align-self: start;
     position: sticky;
@@ -143,7 +139,7 @@
   .chapter-section-link {
     position: relative;
     padding: var(--space-1) 0 var(--space-1) var(--space-4);
-    border-inline-start: 2px solid transparent; /* the scroll-spy's highlight */
+    border-inline-start: 2px solid transparent; /* scrubbed by the scroll-spy keyframes */
     font-size: var(--text-sm);
     line-height: 1.35;
     color: var(--bp-ink-2);
@@ -173,20 +169,18 @@
 
   .chapter-body {
     position: relative;
-    /* Content paints above the z-index:-1 watermark, but never above siblings. */
-    isolation: isolate;
+    isolation: isolate; /* anchors the z-index:-1 watermark below the content */
     min-inline-size: 0;
   }
 
-  /* Oversized icon watermark, sticky like the timeline's ghost years: it rides
-     along while the chapter scrolls (the big-element depth from the old site).
-     A zero-height in-flow box gives sticky its full travel; the art overflows
-     it and bleeds off the sheet edge (clipped by .site-sheet, not here). */
+  /* block-size: 0 is load-bearing: sticky travel = parent height − element
+     height, so the zero-height box rides the whole chapter. */
   .chapter-watermark {
     position: sticky;
     inset-block-start: var(--space-6);
     z-index: -1;
     display: flex;
+    align-items: start; /* stretch would squash the svg to the 0-height box */
     justify-content: flex-end;
     block-size: 0;
     color: var(--bp-ink);
@@ -199,7 +193,7 @@
       inline-size: min(46%, 460px);
       block-size: auto;
       stroke-width: 0.6;
-      transform: translate(6%, -10%); /* bleed toward the sheet's corner */
+      transform: translate(6%, -10%);
     }
 
     @include forced-colors {
@@ -207,12 +201,10 @@
     }
   }
 
-  /* Demos surface as they enter. The range ends early (160px) so a section
-     already on screen at load sits PAST it — settled, never frozen mid-reveal.
-     fill none, not both: a held pre-entry transform inflates the rects of
-     below-viewport sections, so smooth anchor scrolls overshoot. Pages opt a
-     container out with data-reveal="off" when its children reveal themselves
-     (the showcase catalog: filter stays put, cards enter one by one). */
+  /* The range ends at 160px so anything on screen at load sits past it
+     (settled, not frozen mid-reveal). fill none, not both: a held pre-entry
+     transform inflates below-viewport rects and anchor scrolls overshoot.
+     data-reveal="off" opts a container out when its children reveal themselves. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .chapter-content :deep(.demo:not([data-reveal='off'])) {
@@ -277,8 +269,7 @@
     color: var(--bp-ink);
   }
 
-  /* Slotted demo content — layout ported from the old pillar so the demos read
-     the same; reached with :deep because the slot renders in the page's scope. */
+  /* :deep — the slot content renders in the page's scope, not this one. */
   .chapter-content {
     position: relative;
     display: grid;
@@ -291,7 +282,6 @@
     min-inline-size: 0;
   }
 
-  /* Anchored sections land clear of the sheet edge. */
   .chapter-content :deep([id]) {
     scroll-margin-block-start: var(--space-6);
   }
@@ -307,7 +297,6 @@
     gap: var(--space-3);
   }
 
-  /* Lead paragraph each chapter opens with. */
   .chapter-content :deep(.chapter-intro) {
     max-inline-size: 62ch;
     margin: 0;

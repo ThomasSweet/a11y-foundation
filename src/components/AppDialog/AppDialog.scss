@@ -1,6 +1,5 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
-  /* Framed like a sheet of its own — square, thin frame, no rounded glass. */
   .dialog {
     max-inline-size: min(60ch, calc(100% - var(--space-8)));
     margin: auto;

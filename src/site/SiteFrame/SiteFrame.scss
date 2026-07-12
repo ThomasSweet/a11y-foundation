@@ -6,16 +6,14 @@
     background: var(--bp-ground);
   }
 
-  /* The drawing sheet: an accent-tinted grid (fine + major) behind the content,
-     a frame drawn with outline so it never eats into the padding box. */
   .site-sheet {
     position: relative;
     max-inline-size: 1160px;
     min-inline-size: 0;
     margin-inline: auto;
     padding: clamp(20px, 4vw, 52px);
-    /* Oversized art (chapter watermarks) bleeds to the sheet edge and stops
-       there — clip, not hidden, so the sticky legend rail keeps working. */
+    /* clip, not hidden — hidden would create a scroll container and break the
+       sticky legend rail */
     overflow: clip;
     background-color: var(--bp-sheet);
     background-image:
@@ -38,7 +36,6 @@
     }
   }
 
-  /* Corner registration marks. */
   .site-reg {
     position: absolute;
     inline-size: 16px;

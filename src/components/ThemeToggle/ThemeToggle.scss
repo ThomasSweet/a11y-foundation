@@ -3,8 +3,6 @@
     min-inline-size: 0;
   }
 
-  /* A technical control, not a pill: square, mono, quiet — matches the
-     header's GitHub link and the sheet's title-block chrome. */
   .theme-toggle-trigger {
     anchor-name: --theme-toggle;
     display: inline-flex;
@@ -31,7 +29,6 @@
     }
   }
 
-  /* The current accent as a legend key — square swatch, like a map's. */
   .theme-toggle-swatch {
     inline-size: var(--space-3);
     block-size: var(--space-3);
@@ -42,8 +39,6 @@
     }
   }
 
-  /* The panel is a small drawing sheet of its own: framed, square, with the
-     corner registration ticks. */
   .theme-panel {
     /* Fallback for browsers without anchor positioning: pin below the header,
        viewport-right. Superseded by the anchored rules below where supported. */
@@ -108,7 +103,6 @@
     min-inline-size: 0;
   }
 
-  /* Group labels read like the sheet's LEGEND / INDEX micro-labels. */
   .theme-panel-legend {
     padding: 0;
     margin-block-end: var(--space-1);
@@ -143,7 +137,6 @@
     }
   }
 
-  /* Square legend-key swatches: surface over accent, like a material sample. */
   .theme-panel-swatch {
     inline-size: var(--space-4);
     block-size: var(--space-4);

@@ -3,10 +3,8 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-/** Vite drops unknown attributes when it rewrites entry <script> tags in the
- *  build. `blocking="render"` is load-bearing here: it holds first paint until
- *  the page has mounted, so cross-document view transitions snapshot real
- *  content instead of an empty #app (which reads as a flash). */
+/** Vite drops unknown attributes when rewriting entry <script> tags;
+ *  blocking="render" is load-bearing (see src/entries/mount.ts). */
 const keepRenderBlocking = () => ({
   name: 'keep-render-blocking',
   transformIndexHtml: {

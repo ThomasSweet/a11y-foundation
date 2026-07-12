@@ -20,9 +20,7 @@
     min-inline-size: 0;
   }
 
-  /* Eras enter one by one — the timeline's atomic units, matching the showcase
-     cards and chapter demos (same early-ending range: settled if on screen at
-     load, fill none so pre-entry rects stay honest for anchor scrolls). */
+  /* Same reveal discipline as ChapterLayout's demo-reveal. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .timeline-era {
