@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  Contact details filled in. NOT legal advice — review before publishing.
+  STILL PENDING: the hosting provider name (highlighted below) once chosen.
+  Reflects a static site with NO analytics, cookies, or third-party embeds —
+  if you add any of those later, this must be updated.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy — Accessible by default</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+    <!-- Critical inline styles: set the surface colour up front so the first
+         paint is correct (no white flash in dark mode) even before the
+         stylesheets parse. Matches --color-bg. -->
+    <style>
+      /* Lock the @layer order before the stylesheets parse — the build can emit
+         the component-styles chunk before the global order declaration. */
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+
+      :root {
+        color-scheme: light dark;
+        background-color: light-dark(#fff, #0f0f0f);
+      }
+    </style>
+    <!-- Render-blocking stylesheets (not JS-injected) so the page paints fully
+         styled in one go — no flash of unstyled content. Zero runtime JS. -->
+    <link rel="stylesheet" crossorigin href="/assets/styles-thw8hpUb.css">
+    <link rel="stylesheet" crossorigin href="/assets/legal-Ded9m9dq.css">
+    <meta name="robots" content="noindex">
+  </head>
+  <body>
+    <div class="legal">
+      <header class="legal-header">
+        <a class="legal-home" href="/">
+          <img src="/favicon.svg" alt="" width="28" height="28" />
+          <span>Accessible <span class="legal-wordmark-dim">by default</span></span>
+        </a>
+        <a class="legal-back" href="/">← Back to the site</a>
+      </header>
+
+      <main class="legal-main">
+        <h1>Privacy</h1>
+        <p class="legal-lede">
+          The short version: this site collects nothing beyond what a web server
+          needs to deliver pages. No analytics, no cookies, no tracking.
+        </p>
+
+        <h2>No tracking</h2>
+        <p>
+          There are no analytics, advertising, cookies, fingerprinting, or
+          third-party embeds. Your operating-system preferences (dark mode,
+          reduced motion, increased contrast) are read by your own browser to
+          style the page and are never transmitted or stored anywhere.
+        </p>
+
+        <h2>Server logs</h2>
+        <p>
+          Like most websites, the hosting provider may automatically record
+          technical access data — IP address, date and time, the file
+          requested, and your browser's user-agent string — to deliver the site
+          and keep it secure. The legal basis is Art. 6 (1) (f) GDPR (legitimate
+          interest in operating the site reliably and securely).
+          STRATO AG, Pascalstraße 10, 10587 Berlin, Germany, processes this
+          data on our behalf.
+        </p>
+
+        <h2>Your rights</h2>
+        <p>
+          Under the GDPR you have the right to access, rectify, erase, restrict,
+          or object to the processing of your personal data, and the right to
+          data portability and to lodge a complaint with a supervisory
+          authority. To exercise any of these, contact us below.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Thomas Sweet ·
+          <a href="mailto:hello@accessible-by-default.dev">hello@accessible-by-default.dev</a>.
+          Postal address is listed in the <a href="/impressum.html">Impressum</a>.
+        </p>
+      </main>
+
+      <footer class="legal-footer">
+        <a href="/impressum.html">Impressum</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/">Home</a>
+        <span class="legal-footer-copy">© 2026 Accessible by default</span>
+      </footer>
+    </div>
+  </body>
+</html>
