@@ -14,8 +14,20 @@ const keepRenderBlocking = () => ({
   },
 })
 
+/** STAGING=1 builds carry noindex so the staging subdomain never gets crawled. */
+const stagingNoindex = () => ({
+  name: 'staging-noindex',
+  transformIndexHtml: {
+    order: 'post',
+    handler: (html) =>
+      process.env.STAGING
+        ? { html, tags: [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex' }, injectTo: 'head' }] }
+        : html,
+  },
+})
+
 export default defineConfig({
-  plugins: [vue(), keepRenderBlocking()],
+  plugins: [vue(), keepRenderBlocking(), stagingNoindex()],
   build: {
     rollupOptions: {
       // Multi-page: the SPA home plus standalone static pages (legal + guide).
