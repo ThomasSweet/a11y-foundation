@@ -10,6 +10,17 @@
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
     </style>
 
+    <!-- Cross-document view-transition opt-in, inline so it is present in the
+         static CSSOM of BOTH documents at navigation time (bundled CSS loads
+         too late under the dev server, which silently skips the morph). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+      }
+    </style>
+
     <!-- Apply the saved theme before first paint. Must stay in sync with ThemeToggle. -->
     <script>
       try {
@@ -36,7 +47,7 @@
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
   </head>
   <body>
-    <div id="app" data-view="standard"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="app"></div>
+    <script type="module" blocking="render" src="/src/entries/standard.ts"></script>
   </body>
 </html>

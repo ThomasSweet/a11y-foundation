@@ -173,26 +173,33 @@
 
   .chapter-body {
     position: relative;
+    /* Content paints above the z-index:-1 watermark, but never above siblings. */
+    isolation: isolate;
     min-inline-size: 0;
-    overflow: clip;
   }
 
-  /* Oversized icon watermark bleeding off the corner — the big-element/3D feel,
-     reskinned as blueprint line-art. */
+  /* Oversized icon watermark, sticky like the timeline's ghost years: it rides
+     along while the chapter scrolls (the big-element depth from the old site).
+     A zero-height in-flow box gives sticky its full travel; the art overflows
+     it and bleeds off the sheet edge (clipped by .site-sheet, not here). */
   .chapter-watermark {
-    position: absolute;
-    inset-block-start: -4%;
-    inset-inline-end: -6%;
-    inline-size: min(46%, 460px);
+    position: sticky;
+    inset-block-start: var(--space-6);
+    z-index: -1;
+    display: flex;
+    justify-content: flex-end;
+    block-size: 0;
     color: var(--bp-ink);
     opacity: 0.05;
     pointer-events: none;
+    user-select: none;
 
     :deep(svg) {
       display: block;
-      inline-size: 100%;
+      inline-size: min(46%, 460px);
       block-size: auto;
       stroke-width: 0.6;
+      transform: translate(6%, -10%); /* bleed toward the sheet's corner */
     }
 
     @include forced-colors {
@@ -200,42 +207,24 @@
     }
   }
 
-  /* The watermark drifts against the page scroll — depth on the cheap
-     (transform-only, off the main thread). */
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: scroll()) {
-      .chapter-watermark {
-        animation: chapter-watermark-drift linear both;
-        animation-timeline: scroll();
-      }
-
-      @keyframes chapter-watermark-drift {
-        from {
-          transform: translateY(0);
-        }
-
-        to {
-          transform: translateY(18rem);
-        }
-      }
-    }
-  }
-
-  /* Demos surface as they enter, exactly the old section-reveal. fill none, not
-     both: a held pre-entry transform inflates the rects of below-viewport
-     sections, so smooth anchor scrolls overshoot. */
+  /* Demos surface as they enter. The range ends early (160px) so a section
+     already on screen at load sits PAST it — settled, never frozen mid-reveal.
+     fill none, not both: a held pre-entry transform inflates the rects of
+     below-viewport sections, so smooth anchor scrolls overshoot. Pages opt a
+     container out with data-reveal="off" when its children reveal themselves
+     (the showcase catalog: filter stays put, cards enter one by one). */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .chapter-content :deep(.demo) {
+      .chapter-content :deep(.demo:not([data-reveal='off'])) {
         animation: chapter-demo-reveal linear none;
         animation-timeline: view();
-        animation-range: entry 0% entry 420px;
+        animation-range: entry 0% entry 160px;
       }
 
       @keyframes chapter-demo-reveal {
         from {
           opacity: 0;
-          transform: translateY(4rem) scale(0.94);
+          transform: translateY(2.5rem) scale(0.97);
         }
       }
     }

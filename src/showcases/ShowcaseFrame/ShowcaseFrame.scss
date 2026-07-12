@@ -1,26 +1,59 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
+  /* Each showcase is a framed detail on the drawing sheet: square, thin frame,
+     corner ticks — attention comes from the accent, not from elevation. */
   .showcase {
+    position: relative;
     display: grid;
     gap: var(--space-4);
     min-inline-size: 0;
     padding: var(--space-6);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-surface);
-    box-shadow: var(--shadow-md);
-    /* Elevation lift only. Motion tokens are zeroed under reduced motion. */
-    transition: box-shadow var(--duration-normal) var(--easing-standard);
+    border: 1px solid var(--bp-line-strong);
+    background-color: var(--bp-sheet);
+    transition: border-color var(--duration-normal) var(--easing-standard);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inline-size: 12px;
+      block-size: 12px;
+      border: 0 solid var(--bp-ink-2);
+      opacity: 0.5;
+      pointer-events: none;
+      transition: opacity var(--duration-fast) var(--easing-standard);
+    }
+
+    &::before {
+      inset-block-start: 6px;
+      inset-inline-start: 6px;
+      border-block-start-width: 1.5px;
+      border-inline-start-width: 1.5px;
+    }
+
+    &::after {
+      inset-block-end: 6px;
+      inset-inline-end: 6px;
+      border-block-end-width: 1.5px;
+      border-inline-end-width: 1.5px;
+    }
 
     @include can-hover {
       &:hover {
-        box-shadow: var(--shadow-lg);
+        border-color: var(--bp-accent);
       }
     }
 
-    /* Same lift when focus enters the card. */
     &:focus-within {
-      box-shadow: var(--shadow-lg);
+      border-color: var(--bp-accent);
+    }
+
+    &:hover::before,
+    &:hover::after,
+    &:focus-within::before,
+    &:focus-within::after {
+      opacity: 1;
+      border-color: var(--bp-accent);
     }
 
     @include high-contrast {

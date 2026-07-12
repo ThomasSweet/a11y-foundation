@@ -14,6 +14,9 @@
     min-inline-size: 0;
     margin-inline: auto;
     padding: clamp(20px, 4vw, 52px);
+    /* Oversized art (chapter watermarks) bleeds to the sheet edge and stops
+       there — clip, not hidden, so the sticky legend rail keeps working. */
+    overflow: clip;
     background-color: var(--bp-sheet);
     background-image:
       linear-gradient(var(--bp-line) 1px, transparent 1px),

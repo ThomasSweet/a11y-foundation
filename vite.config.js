@@ -3,8 +3,21 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+/** Vite drops unknown attributes when it rewrites entry <script> tags in the
+ *  build. `blocking="render"` is load-bearing here: it holds first paint until
+ *  the page has mounted, so cross-document view transitions snapshot real
+ *  content instead of an empty #app (which reads as a flash). */
+const keepRenderBlocking = () => ({
+  name: 'keep-render-blocking',
+  transformIndexHtml: {
+    order: 'post',
+    handler: (html) =>
+      html.replace(/<script type="module" crossorigin/g, '<script type="module" blocking="render" crossorigin'),
+  },
+})
+
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), keepRenderBlocking()],
   build: {
     rollupOptions: {
       // Multi-page: the SPA home plus standalone static pages (legal + guide).

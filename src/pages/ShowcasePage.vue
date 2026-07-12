@@ -9,7 +9,7 @@
       demos degrade instead of breaking.
     </p>
 
-    <div class="demo">
+    <div class="demo" data-reveal="off">
       <fieldset class="showcase-filter">
         <legend class="showcase-filter-legend">Filter by topic</legend>
         <label class="showcase-filter-chip">
@@ -138,26 +138,26 @@ const sections = [
     font-weight: 600;
   }
 
+  /* Square filter tags — legend keys, not pills. */
   .showcase-filter-chip {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-1) var(--space-3);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
+    border: 1px solid var(--bp-line-strong);
     font-size: var(--text-sm);
     text-transform: capitalize;
     cursor: pointer;
 
     &:has(input:checked) {
-      border-color: var(--color-primary);
-      background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      border-color: var(--bp-accent);
+      background-color: var(--bp-accent-soft);
       font-weight: 600;
     }
 
     @include can-hover {
       &:hover {
-        border-color: var(--color-text-subtle);
+        border-color: var(--bp-accent);
       }
     }
 
@@ -171,6 +171,26 @@ const sections = [
     inline-size: 0;
     block-size: 0;
     overflow: hidden;
+  }
+
+  /* The catalog's atomic units reveal, not the catalog: the filter and tier
+     headers stand still while each card enters (same range discipline as the
+     chapter demo-reveal in ChapterLayout — settled if on screen at load). */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .showcase-list :deep(.showcase) {
+        animation: showcase-card-reveal linear none;
+        animation-timeline: view();
+        animation-range: entry 0% entry 160px;
+      }
+
+      @keyframes showcase-card-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(2.5rem) scale(0.97);
+        }
+      }
+    }
   }
 
   /* Pure-CSS catalog filter — keep in sync with showcaseTags in the script.

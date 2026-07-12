@@ -6,7 +6,12 @@
       right alongside the platform.
     </p>
 
-    <section class="demo" aria-labelledby="demo-criteria" style="view-timeline-name: --chapter-sec-1">
+    <section
+      class="demo"
+      aria-labelledby="demo-criteria"
+      data-reveal="off"
+      style="view-timeline-name: --chapter-sec-1"
+    >
       <h3 id="demo-criteria">Guidelines, alive</h3>
       <p>
         These aren't definitions of accessibility — they're the standard,

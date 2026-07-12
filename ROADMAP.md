@@ -126,6 +126,15 @@ fixes/features as they come in.
   open from this thread: per-topic reference links (MDN/spec) on craft demos;
   styleguide.html kept its old flat look (reskin later if wanted).
 
+- The project itself as a showcase (open, directional) — Thomas's worry after the
+  restructure: some playfulness got lost, and the site chrome should *itself*
+  employ the CSS it showcases, visibly. Partly addressed already (cross-doc
+  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals, sticky
+  ghost years and chapter watermarks, anchor-positioned theme panel, :has() legal
+  wash) — but treat "does the site dogfood this?" as a standing design test, and
+  keep hunting for places where a showcased feature can do real chrome work with
+  personality. Playfulness is a feature, not a garnish.
+
 ### Watchlist (too early / conditional — revisit)
 
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by

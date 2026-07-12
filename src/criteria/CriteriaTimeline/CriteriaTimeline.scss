@@ -20,7 +20,29 @@
     min-inline-size: 0;
   }
 
-  @container (inline-size >= 50rem) {
+  /* Eras enter one by one — the timeline's atomic units, matching the showcase
+     cards and chapter demos (same early-ending range: settled if on screen at
+     load, fill none so pre-entry rects stay honest for anchor scrolls). */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .timeline-era {
+        animation: timeline-era-reveal linear none;
+        animation-timeline: view();
+        animation-range: entry 0% entry 160px;
+      }
+
+      @keyframes timeline-era-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(2.5rem) scale(0.97);
+        }
+      }
+    }
+  }
+
+  /* 44rem, not 50: the chapter layout's content column tops out around 49rem
+     on desktop, which silently dropped every ghost into the in-flow mode. */
+  @container (inline-size >= 44rem) {
     .timeline-era {
       --timeline-ghost-size: min(7rem, 11cqi);
     }

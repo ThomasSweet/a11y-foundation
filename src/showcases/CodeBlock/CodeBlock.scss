@@ -1,9 +1,9 @@
 @layer components {
+  /* A framed code excerpt — square, technical, its bar a sheet micro-label. */
   .code-block {
     margin: 0;
     min-inline-size: 0;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--bp-line-strong);
     background-color: var(--color-bg-subtle);
     overflow: clip;
 
@@ -18,7 +18,7 @@
     justify-content: space-between;
     gap: var(--space-3);
     padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
-    border-block-end: 1px solid var(--color-border);
+    border-block-end: 1px solid var(--bp-line-strong);
 
     @include high-contrast {
       border-color: currentcolor;
@@ -27,18 +27,17 @@
 
   .code-block-lang {
     font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    letter-spacing: 0.04em;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-subtle);
+    color: var(--bp-accent);
   }
 
   .code-block-copy {
     /* Comfortably past the 24px (WCAG 2.5.8) minimum target. */
     min-block-size: 32px;
     padding: var(--space-1) var(--space-3);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--bp-line-strong);
     background-color: var(--color-surface);
     color: var(--color-text);
     font-size: var(--text-sm);

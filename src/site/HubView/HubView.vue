@@ -23,7 +23,10 @@
         :href="p.href"
       >
         <span class="hub-plate-top">
-          <span class="hub-plate-no">{{ p.no }}</span>
+          <!-- Number, mark, and title share view-transition-names with the
+               chapter header, so entering a chapter carries them over — the
+               plate literally becomes the heading. -->
+          <span class="hub-plate-no" :style="{ viewTransitionName: `${p.vt}-no` }">{{ p.no }}</span>
           <span
             class="hub-plate-icon"
             :style="{ viewTransitionName: `${p.vt}-mark` }"
@@ -32,7 +35,7 @@
           ></span>
         </span>
         <span class="hub-plate-spec">{{ p.spec }}</span>
-        <span class="hub-plate-title">{{ p.title }}</span>
+        <span class="hub-plate-title" :style="{ viewTransitionName: `${p.vt}-title` }">{{ p.title }}</span>
         <span class="hub-plate-desc">{{ p.desc }}</span>
         <span class="hub-plate-enter">Enter drawing →</span>
       </a>

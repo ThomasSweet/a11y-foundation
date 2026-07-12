@@ -14,6 +14,17 @@
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
     </style>
 
+    <!-- Cross-document view-transition opt-in, inline so it is present in the
+         static CSSOM of BOTH documents at navigation time (bundled CSS loads
+         too late under the dev server, which silently skips the morph). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+      }
+    </style>
+
     <!-- Apply the saved theme before first paint so a reload never flashes
          the default palette. Must stay in sync with ThemeToggle. -->
     <script>
@@ -83,7 +94,7 @@
     <meta name="twitter:image" content="https://accessible-by-default.dev/og-image.png" />
   </head>
   <body>
-    <div id="app" data-view="hub"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="app"></div>
+    <script type="module" blocking="render" src="/src/entries/hub.ts"></script>
   </body>
 </html>
