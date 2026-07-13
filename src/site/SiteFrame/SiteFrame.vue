@@ -9,10 +9,16 @@
       <span class="site-reg site-reg-br" aria-hidden="true"></span>
 
       <header class="site-head">
-        <a class="site-brand" href="/">
-          <img class="site-brand-mark" src="/favicon.svg" alt="" />
-          <span>Accessible <span class="site-brand-dim">by default</span></span>
-        </a>
+        <div class="site-head-lead">
+          <a v-if="!home" class="site-back" href="/" aria-label="Back to the index">
+            <span class="site-back-arrow" aria-hidden="true">←</span>
+            Index
+          </a>
+          <a class="site-brand" href="/">
+            <img class="site-brand-mark" src="/favicon.svg" alt="" />
+            <span>Accessible <span class="site-brand-dim">by default</span></span>
+          </a>
+        </div>
         <div class="site-tools">
           <a
             class="site-github"
@@ -56,6 +62,8 @@
 
 <script setup lang="ts">
 import ThemeToggle from '../../components/ThemeToggle/ThemeToggle.vue'
+
+defineProps<{ home?: boolean }>()
 </script>
 
 <style scoped lang="scss" src="./SiteFrame.scss"></style>

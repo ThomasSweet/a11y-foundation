@@ -1,5 +1,5 @@
 <template>
-  <SiteFrame>
+  <SiteFrame home>
     <p class="hub-eyebrow">Drawing 00 · the through-line</p>
     <h1 class="hub-title">Built in, not <span class="hub-strike">bolted&nbsp;on</span></h1>
     <p class="hub-lede">

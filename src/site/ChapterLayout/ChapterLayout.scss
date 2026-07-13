@@ -173,31 +173,56 @@
     min-inline-size: 0;
   }
 
-  /* block-size: 0 is load-bearing: sticky travel = parent height − element
-     height, so the zero-height box rides the whole chapter. */
+  /* Relative (not sticky) so it scrolls away with the content. block-size: 0
+     keeps the overflowing svg from reserving layout space; z-index needs the
+     positioning. */
   .chapter-watermark {
-    position: sticky;
-    inset-block-start: var(--space-6);
+    position: relative;
     z-index: -1;
     display: flex;
     align-items: start; /* stretch would squash the svg to the 0-height box */
     justify-content: flex-end;
     block-size: 0;
     color: var(--bp-ink);
-    opacity: 0.05;
+    opacity: 0.045;
     pointer-events: none;
     user-select: none;
 
     :deep(svg) {
       display: block;
-      inline-size: min(46%, 460px);
+      inline-size: min(85%, 850px);
       block-size: auto;
-      stroke-width: 0.6;
-      transform: translate(6%, -10%);
+      stroke-width: 0.70;
+      transform: translate(20%, -10%);
     }
 
     @include forced-colors {
       display: none;
+    }
+  }
+
+  /* The blueprint inks itself: the watermark's strokes draw on over the first
+     stretch of chapter scroll, then hold. stroke-dashoffset repaints, but only
+     across the entry range — after that it's static. Reduced motion and
+     no-scroll()-support both fall back to a fully-drawn static mark. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .chapter-watermark :deep(svg :is(path, rect)) {
+        stroke-dasharray: 100;
+        animation: chapter-watermark-ink linear both;
+        animation-timeline: scroll();
+        animation-range: 0 360px;
+      }
+
+      @keyframes chapter-watermark-ink {
+        from {
+          stroke-dashoffset: 100;
+        }
+
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
     }
   }
 
