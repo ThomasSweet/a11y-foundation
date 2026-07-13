@@ -30,12 +30,6 @@
       </aside>
 
       <div class="chapter-body">
-        <span
-          class="chapter-watermark"
-          aria-hidden="true"
-          v-html="pillarIcons[pillar.icon]"
-        ></span>
-
         <header class="chapter-head">
           <p class="chapter-eyebrow">Drawing {{ pillar.no }} · {{ specLabel }}</p>
           <div class="chapter-headrow">
