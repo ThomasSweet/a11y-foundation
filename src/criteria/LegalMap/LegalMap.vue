@@ -50,7 +50,7 @@ const laws: Law[] = [
     region: 'United States · public sector',
     name: 'ADA Title II (DOJ 2024 rule)',
     references: 'WCAG 2.1 AA',
-    status: 'Phasing in 2026–2027',
+    status: 'Phasing in 2027–2028',
   },
   {
     region: 'Canada',
