@@ -74,23 +74,21 @@
     navigation: auto;
   }
 
-  /* The new page lies finished and static beneath; the old sheet is pulled
-     away over it, clipped to the sheet's bounds (max 1160px inside the stage
-     padding) so the ground around it never moves. */
+  /* The sheet chrome is near-identical on every page, so fading the old page
+     out over the static new one reads as the content dissolving while the
+     page itself stays put. */
   ::view-transition-new(root) {
     animation: none;
   }
 
   ::view-transition-old(root) {
-    z-index: 1; /* above the new page for the whole pull */
-    clip-path: inset(0 max(clamp(14px, 3vw, 34px), (100vw - 1160px) / 2));
-    transform-origin: 0% 50%; /* hinge at the spine */
-    animation: 0.62s cubic-bezier(0.4, 0, 0.7, 0.6) both vt-sheet-away;
+    z-index: 1;
+    animation: 0.28s ease both vt-content-fade;
   }
 
-  @keyframes vt-sheet-away {
+  @keyframes vt-content-fade {
     to {
-      transform: perspective(1600px) scale(1.08) translateX(-118%) rotateY(-24deg) rotate(-2deg);
+      opacity: 0;
     }
   }
 }

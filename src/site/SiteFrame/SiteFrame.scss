@@ -18,10 +18,8 @@
     background-color: var(--bp-sheet);
     background-image:
       linear-gradient(var(--bp-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--bp-line) 1px, transparent 1px),
-      linear-gradient(var(--bp-line-strong) 1px, transparent 1px),
-      linear-gradient(90deg, var(--bp-line-strong) 1px, transparent 1px);
-    background-size: 28px 28px, 28px 28px, 140px 140px, 140px 140px;
+      linear-gradient(90deg, var(--bp-line) 1px, transparent 1px);
+    background-size: 28px 28px;
     background-position: -1px -1px;
     outline: 1.5px solid var(--bp-frame);
     outline-offset: -10px;

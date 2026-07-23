@@ -9,7 +9,12 @@
     --bp-accent: var(--color-primary);
     --bp-accent-soft: color-mix(in oklab, var(--color-primary) 12%, transparent);
 
-    --bp-line: color-mix(in oklab, var(--color-primary) 9%, transparent);
+    /* The grid alpha is per-mode: the same tint carries far more luminance
+       contrast on light paper than on a dark sheet. */
+    --bp-line: light-dark(
+      color-mix(in oklab, var(--color-primary) 5%, transparent),
+      color-mix(in oklab, var(--color-primary) 9%, transparent)
+    );
     --bp-line-strong: color-mix(in oklab, var(--color-primary) 22%, transparent);
     --bp-frame: color-mix(in oklab, var(--color-primary) 42%, transparent);
 
