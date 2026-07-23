@@ -1,6 +1,6 @@
 /**
  * Showcase registry — single source of truth for the CSS showcases section;
- * App.vue renders this list grouped by Baseline tier.
+ * ShowcasePage renders this list grouped by Baseline tier.
  *
  * To add one: build a small demo under ./demos/ (one feature, new syntax behind
  * @supports with a fallback) plus a portable *.snippet.* excerpt, add an entry
@@ -122,7 +122,7 @@ export interface Showcase {
       card's distinct accessibility-payoff line. */
   payoff: string
   /** Topic tags for the catalog filter — values must exist in the
-      $showcase-tags list in App.vue's styles. */
+      $showcase-tags list in ShowcasePage's styles. */
   tags: string[]
   links?: { label: string; href: string }[]
   component: Component

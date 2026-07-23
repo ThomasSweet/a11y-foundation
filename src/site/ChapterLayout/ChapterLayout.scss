@@ -1,0 +1,324 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+@layer components {
+  .chapter {
+    display: grid;
+    grid-template-columns: minmax(170px, 210px) minmax(0, 1fr);
+    gap: clamp(var(--space-6), 4vw, var(--space-16));
+  }
+
+  /* Scroll-spy: pages name each section's view-timeline inline; timeline-scope
+     is what lets the rail (a different subtree) attach to those timelines. */
+  @supports (animation-timeline: view()) {
+    .chapter {
+      timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
+        --chapter-sec-4, --chapter-sec-5, --chapter-sec-6, --chapter-sec-7,
+        --chapter-sec-8, --chapter-sec-9, --chapter-sec-10;
+    }
+
+    .chapter-section-link {
+      animation: chapter-section-active linear both;
+      animation-range: cover 0% cover 100%;
+    }
+
+    @keyframes chapter-section-active {
+      0%,
+      100% {
+        border-inline-start-color: transparent;
+        color: var(--bp-ink-2);
+      }
+
+      8%,
+      96% {
+        border-inline-start-color: var(--bp-accent);
+        color: var(--bp-ink);
+      }
+    }
+
+    @include forced-colors {
+      @keyframes chapter-section-active {
+        0%,
+        100% {
+          border-inline-start-color: transparent;
+        }
+
+        8%,
+        96% {
+          border-inline-start-color: Highlight;
+        }
+      }
+    }
+  }
+
+  @media (width <= 52rem) {
+    .chapter {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  .chapter-rail {
+    align-self: start;
+    position: sticky;
+    inset-block-start: var(--space-6);
+  }
+
+  @media (width <= 52rem) {
+    .chapter-rail {
+      position: static;
+    }
+  }
+
+  .chapter-rail-title {
+    margin: 0 0 var(--space-3);
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid var(--bp-line-strong);
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-switch {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-block-end: var(--space-6);
+  }
+
+  @media (width <= 52rem) {
+    .chapter-switch {
+      flex-flow: row wrap;
+      gap: var(--space-2);
+    }
+  }
+
+  .chapter-switch-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-inline-start: 2px solid transparent;
+    font-size: var(--text-sm);
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    &.is-current {
+      border-inline-start-color: var(--bp-accent);
+      background: var(--bp-accent-soft);
+      color: var(--bp-ink);
+    }
+  }
+
+  .chapter-switch-n {
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-switch-link.is-current .chapter-switch-n {
+    color: var(--bp-accent);
+  }
+
+  .chapter-sections {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chapter-section-link {
+    position: relative;
+    padding: var(--space-1) 0 var(--space-1) var(--space-4);
+    border-inline-start: 2px solid transparent; /* scrubbed by the scroll-spy keyframes */
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: 0.7em;
+      inline-size: 8px;
+      block-size: 1px;
+      background: var(--bp-line-strong);
+    }
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .chapter-body {
+    position: relative;
+    isolation: isolate; /* anchors the z-index:-1 watermark below the content */
+    min-inline-size: 0;
+  }
+
+  /* The range ends at 160px so anything on screen at load sits past it
+     (settled, not frozen mid-reveal). fill none, not both: a held pre-entry
+     transform inflates below-viewport rects and anchor scrolls overshoot.
+     data-reveal="off" opts a container out when its children reveal themselves. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .chapter-content :deep(.demo:not([data-reveal='off'])) {
+        animation: chapter-demo-reveal linear none;
+        animation-timeline: view();
+        animation-range: entry 0% entry 160px;
+      }
+
+      @keyframes chapter-demo-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(2.5rem) scale(0.97);
+        }
+      }
+    }
+  }
+
+  .chapter-head {
+    position: relative;
+    margin-block-end: clamp(var(--space-8), 5vw, var(--space-16));
+  }
+
+  .chapter-eyebrow {
+    margin: 0 0 var(--space-4);
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+  }
+
+  .chapter-headrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .chapter-no {
+    font-family: var(--bp-mono);
+    font-size: clamp(1.75rem, 4.6vw, 2.75rem);
+    line-height: 1;
+    color: var(--bp-accent);
+  }
+
+  .chapter-mark {
+    inline-size: clamp(2rem, 4.2vw, 2.75rem);
+    block-size: clamp(2rem, 4.2vw, 2.75rem);
+    color: var(--bp-ink);
+
+    :deep(svg) {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+    }
+  }
+
+  .chapter-title {
+    margin: 0;
+    font-size: var(--text-4xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--bp-ink);
+  }
+
+  /* :deep — the slot content renders in the page's scope, not this one. */
+  .chapter-content {
+    position: relative;
+    display: grid;
+    gap: clamp(var(--space-12), 6vw, var(--space-24));
+  }
+
+  .chapter-content :deep(.demo) {
+    display: grid;
+    gap: var(--space-6);
+    min-inline-size: 0;
+  }
+
+  .chapter-content :deep([id]) {
+    scroll-margin-block-start: var(--space-6);
+  }
+
+  .chapter-content :deep(.demo-stack) {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .chapter-content :deep(.demo-row) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .chapter-content :deep(.chapter-intro) {
+    max-inline-size: 62ch;
+    margin: 0;
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-prevnext {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-block-start: var(--space-4);
+  }
+
+  .chapter-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .chapter-nav-next {
+    text-align: end;
+    margin-inline-start: auto;
+  }
+
+  .chapter-nav-k {
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .chapter-nav-t {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+}

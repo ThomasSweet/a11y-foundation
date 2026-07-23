@@ -14,6 +14,20 @@
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
     </style>
 
+    <!-- View-transition opt-in, inline: it must be in BOTH documents' static
+         CSSOM at navigation time (bundled CSS arrives too late in dev). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+
+        ::view-transition {
+          background-color: light-dark(#f5f5f5, #1a1a1a);
+        }
+      }
+    </style>
+
     <!-- Apply the saved theme before first paint so a reload never flashes
          the default palette. Must stay in sync with ThemeToggle. -->
     <script>
@@ -25,6 +39,27 @@
           document.documentElement.dataset.preset = savedTheme
         }
       } catch (e) {}
+    </script>
+
+    <!-- The one-page era's anchors live on their chapter pages now; forward
+         inbound deep links there (hash preserved) instead of dropping them. -->
+    <script>
+      ;(function () {
+        var h = location.hash
+        if (!h) return
+        var map = [
+          [/^#(standard|demo-criteria|demo-conformance|demo-legal)/, '/standard.html'],
+          [/^#craft/, '/craft.html'],
+          [/^#(showcase|tier-)/, '/showcase.html'],
+          [/^#testing/, '/proof.html'],
+        ]
+        for (var i = 0; i < map.length; i++) {
+          if (map[i][0].test(h)) {
+            location.replace(map[i][1] + h)
+            return
+          }
+        }
+      })()
     </script>
 
     <title>Accessible by default — an accessibility-first styling playground</title>
@@ -63,6 +98,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" blocking="render" src="/src/entries/hub.ts"></script>
   </body>
 </html>

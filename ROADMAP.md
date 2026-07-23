@@ -64,11 +64,14 @@ fixes/features as they come in.
 - ~~BUG: filter breaks sidebar nav~~ — fixed (3a): `:target` reveal in the
   utilities layer un-hides a linked-to card + its tier group, beating the
   components-layer filter by layer order (pure CSS, no JS). Pinned by e2e.
-- Keyboard shortcuts, done accessibly (feature, not the nav fix) — NOT
-  cmd/ctrl+N (browser-reserved). If built: safe keys, a `?` help overlay,
-  a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
-  Teaches Character Key Shortcuts instead of violating it. The back-to-nav
-  skip links already cover the return-to-nav need, so this is additive.
+- ~~Keyboard shortcuts, done accessibly~~ — dropped (July 2026). Two reasons:
+  it needs JS for the mechanism (against the site's little-to-no-JS identity;
+  `accesskey`, the only no-JS option, is a native anti-pattern), and it
+  "improves accessibility" by adding a shortcut the user must *learn* — the
+  opposite of invisible/native. The pull toward shortcuts was really a symptom
+  of the flow/length problem, to be fixed structurally (per-pillar pages), not
+  band-aided. Leaves 2.1.4 (Character Key Shortcuts) an uncovered criterion by
+  choice.
 - ~~Avatar + brief bio~~ — done (3c): footer sliver with a round photo
   avatar (background-image framed on the face, gradient fallback) + one
   line + GitHub link.
@@ -106,15 +109,31 @@ fixes/features as they come in.
   shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
   The optional "emerging" third act is deferred to demos where a real successor
   exists. Directly answers the "avoid it from happening" feedback.
-- Site-wide flow / length restructure (open, big) — sections run long (Craft most
-  of all, now more so with the code comparisons). Not a per-section trim: rethink
-  the whole narrative flow, likely splitting the pillars onto their own
-  pages/routes so each breathes instead of competing for one scroll. Parked
-  deliberately until it's tackled as its own effort; once sections have their own
-  pages, keeping any single section minimal matters far less. Candidate to fold in
-  then: per-topic "reference" links (MDN/spec) on the craft demos, like the
-  showcase cards already carry — deferred now to avoid adding weight to an
-  already-long section.
+- Site-wide flow / length restructure — BUILT (July 2026, in review; not yet
+  deployed). The one-page scroll became a five-page MPA wearing a blueprint /
+  technical-drawing skin: an overview hub (index — hero, four "plates" on a
+  subgrid, a11y statement, author) and one chapter page per pillar
+  (standard/craft/showcase/proof.html), each with a legend rail (chapter
+  switcher + pure-CSS view-timeline scroll-spy), oversized watermark on a
+  scroll() parallax, demo reveals, and prev/next in the title block. Entering a
+  chapter morphs the plate's icon into the chapter header via cross-document
+  view transitions (zero JS, reduced-motion → instant nav). The skin is fully
+  theme-driven (--bp-* tokens derive from --color-*, so all presets/CVD/contrast
+  re-ink it); legal pages wear the sheet too. Legacy one-page anchors forward to
+  their chapter pages. App.vue (+ PillarHeader, heroIcons) deleted; e2e suite
+  extended to all 7 pages ×3 engines (54 tests green) — the sweep even caught a
+  real AA contrast bug in TargetsDemo (opacity on subtle text), fixed. Still
+  open from this thread: per-topic reference links (MDN/spec) on craft demos;
+  styleguide.html kept its old flat look (reskin later if wanted).
+
+- The project itself as a showcase (open, directional) — Thomas's worry after the
+  restructure: some playfulness got lost, and the site chrome should *itself*
+  employ the CSS it showcases, visibly. Partly addressed already (cross-doc
+  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals, sticky
+  ghost years and chapter watermarks, anchor-positioned theme panel, :has() legal
+  wash) — but treat "does the site dogfood this?" as a standing design test, and
+  keep hunting for places where a showcased feature can do real chrome work with
+  personality. Playfulness is a feature, not a garnish.
 
 ### Watchlist (too early / conditional — revisit)
 

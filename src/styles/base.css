@@ -67,11 +67,28 @@
   }
 }
 
-/* Cross-document view transitions: same-origin navigations (home ↔ legal
-   pages) get a soft cross-fade where supported — an ordinary navigation
-   everywhere else. Outside @layer: it's an opt-in, not a cascading style. */
+/* Cross-document view transitions. Outside @layer: an opt-in, not a
+   cascading style. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
     navigation: auto;
+  }
+
+  /* The sheet chrome is near-identical on every page, so fading the old page
+     out over the static new one reads as the content dissolving while the
+     page itself stays put. */
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+    animation: 0.28s ease both vt-content-fade;
+  }
+
+  @keyframes vt-content-fade {
+    to {
+      opacity: 0;
+    }
   }
 }

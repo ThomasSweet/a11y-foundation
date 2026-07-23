@@ -2,7 +2,7 @@
  * Criteria registry — the "guidelines, alive" section. Each entry is a WCAG
  * criterion this foundation satisfies, paired with a demo whose compliance can
  * be toggled OFF (CriterionFrame's "break it" switch) so visitors feel what it
- * prevents. App.vue renders the list.
+ * prevents. StandardPage renders the list.
  *
  * To add one: build a demo in ./demos/ that's compliant by default and takes a
  * `broken` prop whose `.is-broken` block regresses ONLY this criterion's

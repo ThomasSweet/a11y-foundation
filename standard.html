@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Lock the @layer order before any bundled CSS parses (see index.html). -->
+    <style>
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+    </style>
+
+    <!-- View-transition opt-in, inline: it must be in BOTH documents' static
+         CSSOM at navigation time (bundled CSS arrives too late in dev). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+
+        ::view-transition {
+          background-color: light-dark(#f5f5f5, #1a1a1a);
+        }
+      }
+    </style>
+
+    <!-- Apply the saved theme before first paint. Must stay in sync with ThemeToggle. -->
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('abd-theme')
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme
+        } else if (/^(ocean|midnight|sunset|cobalt|teal|amber|contrast-light|contrast-dark)$/.test(savedTheme)) {
+          document.documentElement.dataset.preset = savedTheme
+        }
+      } catch (e) {}
+    </script>
+
+    <title>The standard — Accessible by default</title>
+    <meta
+      name="description"
+      content="WCAG is the standard the web is measured against — the criteria along their timeline, the shift from pass/fail to graded outcomes, and the laws that point at it."
+    />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" blocking="render" src="/src/entries/standard.ts"></script>
+  </body>
+</html>

@@ -20,7 +20,25 @@
     min-inline-size: 0;
   }
 
-  @container (inline-size >= 50rem) {
+  /* Same reveal discipline as ChapterLayout's demo-reveal. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .timeline-era {
+        animation: timeline-era-reveal linear none;
+        animation-timeline: view();
+        animation-range: entry 0% entry 160px;
+      }
+
+      @keyframes timeline-era-reveal {
+        from {
+          opacity: 0;
+          transform: translateY(2.5rem) scale(0.97);
+        }
+      }
+    }
+  }
+
+  @container (inline-size >= 44rem) {
     .timeline-era {
       --timeline-ghost-size: min(7rem, 11cqi);
     }
@@ -59,9 +77,7 @@
     line-height: 1;
     letter-spacing: -0.04em;
     color: transparent;
-    /* A fixed fraction of the text colour, not --color-border: the border token
-       is calibrated against --color-bg and goes nearly invisible on the dark
-       default theme. This keeps the same quiet weight in every theme. */
+
     -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-text) 24%, transparent);
 
     @include high-contrast {
