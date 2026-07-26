@@ -15,7 +15,10 @@
       <span class="custom-select-label">Task status</span>
 
       <!-- The button + <selectedcontent> is the styleable face in base-select
-           mode; legacy browsers ignore them and render the plain control. -->
+           mode; legacy browsers ignore them and render the plain control.
+           Vue's dev-only nesting warning (<span> in <option>) is a false
+           positive: base-select's updated content model allows this, and the
+           rich options are the point of the demo — don't "fix" them. -->
       <select id="custom-select-status" name="status" class="custom-select">
         <button type="button" class="custom-select-trigger">
           <selectedcontent class="custom-select-value"></selectedcontent>
