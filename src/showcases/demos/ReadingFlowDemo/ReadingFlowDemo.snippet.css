@@ -1,0 +1,18 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Visual promotion — the DOM stays chronological. */
+.featured {
+  order: -1;
+}
+
+/* Without this, Tab follows the DOM: 1 → 2 → 3 → jump back to 4.
+   With it, sequential focus (and assistive-tech reading order)
+   follows the visual arrangement: 4 → 1 → 2 → 3. */
+@supports (reading-flow: flex-visual) {
+  .gallery {
+    reading-flow: flex-visual;
+  }
+}
