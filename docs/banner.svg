@@ -19,14 +19,25 @@
       .strike { fill: #f0f0f0; }
     }
 
+    /* Replays 3 times (~25s) then settles struck — finite, so it needs no
+       pause control (WCAG 2.2.2); an image couldn't offer one. Note: no
+       angle brackets in this style element, ever — in XML they are markup
+       and silently truncate the stylesheet. `backwards` holds the undrawn
+       0% state through the delay; after the last cycle the element returns
+       to its base (struck) state. */
     @media (prefers-reduced-motion: no-preference) {
       .strike {
-        transform: scaleX(0);
-        animation: strike-draw 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+        animation: strike-cycle 8s cubic-bezier(0.4, 0, 0.2, 1) 0.9s 3 backwards;
       }
 
-      @keyframes strike-draw {
-        to { transform: scaleX(1); }
+      @keyframes strike-cycle {
+        0% { transform: scaleX(0); opacity: 1; }
+        10% { transform: scaleX(1); opacity: 1; }
+        75% { transform: scaleX(1); opacity: 1; }
+        82% { transform: scaleX(1); opacity: 0; }
+        83% { transform: scaleX(0); opacity: 0; }
+        91% { transform: scaleX(0); opacity: 1; }
+        100% { transform: scaleX(0); opacity: 1; }
       }
     }
   </style>

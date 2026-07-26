@@ -38,13 +38,13 @@ with the cascade doing the work instead of `!important`.
     <td>
       <a href="https://accessible-by-default.dev/"><picture>
         <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-current-dark.png">
-        <img alt="The current design's hero: gradient wordmark over a soft wash" src="docs/screenshots/design-current-light.png">
+        <img alt="Visit the live site — current design: gradient wordmark hero over a soft wash" src="docs/screenshots/design-current-light.png">
       </picture></a>
     </td>
     <td>
       <a href="https://staging.accessible-by-default.dev/"><picture>
         <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-blueprint-dark.png">
-        <img alt="The blueprint redesign's hub: four chapter plates on a drawing sheet" src="docs/screenshots/design-blueprint-light.png">
+        <img alt="Visit the staging redesign — blueprint hub: four chapter plates on a drawing sheet" src="docs/screenshots/design-blueprint-light.png">
       </picture></a>
     </td>
   </tr>
