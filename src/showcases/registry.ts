@@ -97,6 +97,9 @@ import viewTransitionSnippetJs from './demos/ViewTransitionDemo/ViewTransitionDe
 import ReadingFlowDemo from './demos/ReadingFlowDemo/ReadingFlowDemo.vue'
 import readingFlowSnippetHtml from './demos/ReadingFlowDemo/ReadingFlowDemo.snippet.html?raw'
 import readingFlowSnippetCss from './demos/ReadingFlowDemo/ReadingFlowDemo.snippet.css?raw'
+import DetailsContentDemo from './demos/DetailsContentDemo/DetailsContentDemo.vue'
+import detailsContentSnippetHtml from './demos/DetailsContentDemo/DetailsContentDemo.snippet.html?raw'
+import detailsContentSnippetCss from './demos/DetailsContentDemo/DetailsContentDemo.snippet.css?raw'
 
 /** Per-showcase Baseline status, generated into baseline-data.json by
     scripts/gen-baseline.mjs from the web-features package (build-time — the
@@ -850,9 +853,32 @@ const entries: Omit<Showcase, 'tier'>[] = [
     snippetHtml: readingFlowSnippetHtml,
     snippetCss: readingFlowSnippetCss,
   },
+  {
+    id: 'details-content',
+    title: '::details-content',
+    supports: 'selector(::details-content)',
+    summary:
+      'A JS accordion re-implements what <details> gives away free: button ' +
+      'semantics, the announced expanded state, keyboard support. The missing ' +
+      'piece was always the animation — ::details-content styles the ' +
+      'browser’s own content region, and interpolate-size lets it glide ' +
+      'to its real auto height. Fades where only the pseudo is supported, ' +
+      'opens instantly where neither is — never broken, always native.',
+    links: [
+      {
+        label: 'MDN: ::details-content',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::details-content',
+      },
+    ],
+    payoff:
+      'The disclosure stays a real <details> — expanded state announced free of charge — while motion is layered on as pure enhancement, gone under reduced motion.',
+    tags: ['interaction', 'motion'],
+    component: DetailsContentDemo,
+    snippetHtml: detailsContentSnippetHtml,
+    snippetCss: detailsContentSnippetCss,
+  },
 
   // Further candidates: media state pseudo-classes (custom player),
-  // ::details-content + interpolate-size (animated native disclosure),
   // text-box trim.
 ]
 
