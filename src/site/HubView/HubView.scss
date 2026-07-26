@@ -27,6 +27,27 @@
     margin: 0;
   }
 
+  /* Gradient only on the affirmed phrase — the clip can't reach into the
+     positioned strike span (its glyphs would inherit the transparent fill and
+     vanish), and the struck words read better in plain ink anyway. `color`
+     stays ink; the fill is restored in high-contrast/forced-colors or the
+     text goes invisible. */
+  .hub-title-accent {
+    background: linear-gradient(100deg, var(--bp-ink) 25%, var(--bp-accent) 115%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include high-contrast {
+      background: none;
+      -webkit-text-fill-color: currentcolor;
+    }
+
+    @include forced-colors {
+      background: none;
+      -webkit-text-fill-color: currentcolor;
+    }
+  }
+
   .hub-strike {
     position: relative;
     white-space: nowrap;

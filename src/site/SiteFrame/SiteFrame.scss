@@ -3,7 +3,13 @@
   .site-stage {
     min-block-size: 100vh;
     padding: clamp(14px, 3vw, 34px);
-    background: var(--bp-ground);
+    background: linear-gradient(
+      155deg,
+      color-mix(in oklab, var(--color-primary) 9%, var(--bp-ground)),
+      var(--bp-ground) 38%,
+      var(--bp-ground) 62%,
+      color-mix(in oklab, var(--color-primary) 6%, var(--bp-ground))
+    );
   }
 
   .site-sheet {

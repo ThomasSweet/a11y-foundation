@@ -1,7 +1,7 @@
 <template>
   <SiteFrame home>
     <p class="hub-eyebrow">Drawing 00 · the through-line</p>
-    <h1 class="hub-title">Built in, not <span class="hub-strike">bolted&nbsp;on</span></h1>
+    <h1 class="hub-title"><span class="hub-title-accent">Built in, not</span> <span class="hub-strike">bolted&nbsp;on</span></h1>
     <p class="hub-lede">
       How much of accessibility the modern web platform handles
       <strong>natively</strong> — with little to no JavaScript. One argument, in
