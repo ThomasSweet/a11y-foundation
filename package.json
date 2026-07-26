@@ -2,6 +2,7 @@
   "name": "a11y-foundation",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "description": "Accessible SCSS mixins, design tokens, and cascade-layer architecture, demonstrated in a Vue 3 playground.",
   "scripts": {

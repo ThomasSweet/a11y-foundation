@@ -1,0 +1,55 @@
+name: Barrier report
+description: Something got in your way — a keyboard trap, a screen-reader snag, contrast, motion, anything.
+title: "[barrier]: "
+labels: ["a11y-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — reports like this are acted on. No report is too small.
+  - type: dropdown
+    id: version
+    attributes:
+      label: Which version?
+      options:
+        - Live site (accessible-by-default.dev)
+        - Redesign staging (staging.accessible-by-default.dev)
+        - Both
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Where?
+      placeholder: e.g. /craft.html, the dialog demo
+    validations:
+      required: true
+  - type: dropdown
+    id: how
+    attributes:
+      label: How were you browsing?
+      multiple: true
+      options:
+        - Keyboard only
+        - Screen reader (VoiceOver)
+        - Screen reader (NVDA)
+        - Screen reader (JAWS)
+        - Screen reader (other / mobile)
+        - Voice control
+        - Switch access
+        - Magnification / zoom
+        - Reduced motion enabled
+        - Forced colors / high contrast
+        - Just looking (visual)
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What got in your way, and what did you expect instead?
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser / OS
+      placeholder: e.g. Firefox 143 on Windows 11
