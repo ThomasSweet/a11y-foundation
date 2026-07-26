@@ -94,6 +94,12 @@ import interestSnippetHtml from './demos/InterestInvokerDemo/InterestInvokerDemo
 import interestSnippetCss from './demos/InterestInvokerDemo/InterestInvokerDemo.snippet.css?raw'
 import viewTransitionSnippetCss from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.css?raw'
 import viewTransitionSnippetJs from './demos/ViewTransitionDemo/ViewTransitionDemo.snippet.js?raw'
+import ReadingFlowDemo from './demos/ReadingFlowDemo/ReadingFlowDemo.vue'
+import readingFlowSnippetHtml from './demos/ReadingFlowDemo/ReadingFlowDemo.snippet.html?raw'
+import readingFlowSnippetCss from './demos/ReadingFlowDemo/ReadingFlowDemo.snippet.css?raw'
+import DetailsContentDemo from './demos/DetailsContentDemo/DetailsContentDemo.vue'
+import detailsContentSnippetHtml from './demos/DetailsContentDemo/DetailsContentDemo.snippet.html?raw'
+import detailsContentSnippetCss from './demos/DetailsContentDemo/DetailsContentDemo.snippet.css?raw'
 
 /** Per-showcase Baseline status, generated into baseline-data.json by
     scripts/gen-baseline.mjs from the web-features package (build-time — the
@@ -823,9 +829,57 @@ const entries: Omit<Showcase, 'tier'>[] = [
     snippetCss: viewTransitionSnippetCss,
     snippetJs: viewTransitionSnippetJs,
   },
+  {
+    id: 'reading-flow',
+    title: 'reading-flow: flex-visual',
+    supports: 'reading-flow: flex-visual',
+    summary:
+      'order, row-reverse, and grid placement move things visually while ' +
+      'keyboard focus and screen-reader order stay stuck on the DOM — the ' +
+      'classic focus-order trap. reading-flow re-syncs sequential focus and ' +
+      'reading order with the visual arrangement in one declaration, pure ' +
+      'CSS; reading-order handles per-item exceptions. Tab through the ' +
+      'gallery with the fix off, then on.',
+    links: [
+      {
+        label: 'MDN: reading-flow',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/reading-flow',
+      },
+    ],
+    payoff:
+      'Focus and screen-reader order follow the layout users actually see — visual reordering stops breaking Focus Order (2.4.3) and Meaningful Sequence (1.3.2).',
+    tags: ['layout', 'interaction'],
+    component: ReadingFlowDemo,
+    snippetHtml: readingFlowSnippetHtml,
+    snippetCss: readingFlowSnippetCss,
+  },
+  {
+    id: 'details-content',
+    title: '::details-content',
+    supports: 'selector(::details-content)',
+    summary:
+      'A JS accordion re-implements what <details> gives away free: button ' +
+      'semantics, the announced expanded state, keyboard support. The missing ' +
+      'piece was always the animation — ::details-content styles the ' +
+      'browser’s own content region, and interpolate-size lets it glide ' +
+      'to its real auto height. Fades where only the pseudo is supported, ' +
+      'opens instantly where neither is — never broken, always native.',
+    links: [
+      {
+        label: 'MDN: ::details-content',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::details-content',
+      },
+    ],
+    payoff:
+      'The disclosure stays a real <details> — expanded state announced free of charge — while motion is layered on as pure enhancement, gone under reduced motion.',
+    tags: ['interaction', 'motion'],
+    component: DetailsContentDemo,
+    snippetHtml: detailsContentSnippetHtml,
+    snippetCss: detailsContentSnippetCss,
+  },
 
   // Further candidates: media state pseudo-classes (custom player),
-  // anchor-positioned tooltips, customizable <select>.
+  // text-box trim.
 ]
 
 const tierOf = (id: string): BaselineTier => {

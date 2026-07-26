@@ -142,4 +142,38 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(page).toHaveURL(/\/craft\.html#craft-validation$/)
     await expect(page.getByRole('heading', { name: /validation that waits its turn/i })).toBeVisible()
   })
+
+  test('reading-flow re-syncs tab order with the visual order (when supported)', async ({
+    page,
+  }) => {
+    await page.goto('/showcase.html')
+
+    const supported = await page.evaluate(() => CSS.supports('reading-flow: flex-visual'))
+    test.skip(!supported, 'reading-flow not implemented in this engine')
+
+    const toggle = page.locator('.reading-flow-toggle input')
+    await toggle.scrollIntoViewIfNeeded()
+
+    // Tab from the toggle through all four cards, collecting their numbers.
+    const tabbedOrder = async () => {
+      await toggle.focus()
+      let order = ''
+      for (let i = 0; i < 4; i++) {
+        await page.keyboard.press('Tab')
+        order += await page.evaluate(
+          () => document.activeElement?.textContent?.trim().charAt(0) ?? '?',
+        )
+      }
+      return order
+    }
+
+    // Unfixed: focus walks the DOM even though card 4 is visually first.
+    expect(await tabbedOrder()).toBe('1234')
+
+    // Set :checked directly, matching the filter test's WebKit-proof approach.
+    await toggle.evaluate((el) => {
+      ;(el as HTMLInputElement).checked = true
+    })
+    expect(await tabbedOrder()).toBe('4123')
+  })
 })

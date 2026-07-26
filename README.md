@@ -50,9 +50,11 @@ with the cascade doing the work instead of `!important`.
   </tr>
 </table>
 
-<sub>The banner and these screenshots follow your OS color scheme, and the
-banner's strike only animates without a reduced-motion preference — this
-README practises the thesis too.</sub>
+<sub>The banner and these screenshots follow your color-scheme preference
+(`prefers-color-scheme`, as reported by your browser — usually your OS
+setting, unless the browser overrides it), and the banner's strike only
+animates without a reduced-motion preference — this README practises the
+thesis too.</sub>
 
 ## The site practises what it shows
 
@@ -76,8 +78,9 @@ Every feature the site teaches is doing real work *in* the site — each behind
 
 - **Cascade layers** (`@layer reset, tokens, themes, base, layout, components,
   utilities, preferences`) — the one rule: no unlayered CSS, ever.
-- **Design tokens** declared once with `light-dark()` — OS preference and
-  manual theming from the same tokens, persisted with a no-flash reload.
+- **Design tokens** declared once with `light-dark()` — the user's scheme
+  preference and manual theming from the same tokens, persisted with a
+  no-flash reload.
 - **A seed-driven theming engine** — a theme is two OKLCH seeds plus optional
   contrast strengths; the full contrast-safe palette is derived in CSS. Eight
   presets: visual themes, a color-vision-friendly trio, high-contrast pair.
@@ -102,6 +105,10 @@ The site responds live to OS settings — no reload needed:
 - **Increased contrast** → borders strengthen, decorative shadows drop
 - **Forced colors (Windows)** → buttons, dialogs, and charts keep visible boundaries
 - **Keyboard only** → skip link on first Tab, consistent focus rings throughout
+
+<sub>If a toggle seems to do nothing, check your browser's own appearance
+setting — Chrome, for one, can pin light/dark and override the system
+scheme for every page.</sub>
 
 ## Tested like it matters
 

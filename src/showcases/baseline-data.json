@@ -375,5 +375,31 @@
       "firefox": "144",
       "safari": "18"
     }
+  },
+  "reading-flow": {
+    "feature": "reading-flow",
+    "name": "reading-flow",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "137",
+      "edge": "137",
+      "firefox": null,
+      "safari": null
+    }
+  },
+  "details-content": {
+    "feature": "details-content",
+    "name": "::details-content",
+    "baseline": "low",
+    "lowDate": "2025-09-16",
+    "highDate": null,
+    "support": {
+      "chrome": "131",
+      "edge": "131",
+      "firefox": "143",
+      "safari": "18.4"
+    }
   }
 }

@@ -46,6 +46,8 @@ const SHOWCASE_FEATURES = {
   'dialog-polish': 'dialog-closedby',
   'interest-invokers': 'interest-invokers',
   'view-transitions': 'view-transitions',
+  'reading-flow': 'reading-flow',
+  'details-content': 'details-content',
 }
 
 const BROWSERS = ['chrome', 'edge', 'firefox', 'safari']
