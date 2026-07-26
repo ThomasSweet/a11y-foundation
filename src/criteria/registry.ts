@@ -20,6 +20,7 @@ import FocusObscuredDemo from './demos/FocusObscuredDemo.vue'
 import FocusAppearanceDemo from './demos/FocusAppearanceDemo.vue'
 import AnimationDemo from './demos/AnimationDemo.vue'
 import OrientationDemo from './demos/OrientationDemo.vue'
+import RedundantEntryDemo from './demos/RedundantEntryDemo.vue'
 import type { Component } from 'vue'
 
 export interface Criterion {
@@ -257,6 +258,38 @@ export const criteria: Criterion[] = [
       },
     ],
     component: OrientationDemo,
+  },
+  {
+    id: '3.3.7',
+    name: 'Redundant Entry',
+    level: 'A',
+    version: 'WCAG 2.2',
+    principle: 'Understandable',
+    requirement:
+      'Information the user already entered in the same process is auto-' +
+      'populated or available to select — not asked for again, unless ' +
+      're-entering is essential (like a password) or the data has expired. ' +
+      'Added in WCAG 2.2 (2023) — re-typing taxes memory and motor effort, ' +
+      'and for people with cognitive or motor disabilities it can end the ' +
+      'task.',
+    breakLabel: 'Break this rule',
+    restoreLabel: 'Restore compliance',
+    passText:
+      'Meets 3.3.7 — billing reuses the delivery address through one pre-' +
+      'checked choice, so nothing is asked twice. The fields also carry ' +
+      'autocomplete tokens, so the browser can fill them for you if you do ' +
+      'switch addresses.',
+    failText:
+      '⚠ Failing 3.3.7 — the reuse option is gone: the same address must be ' +
+      'typed again from memory. Mildly tedious for you; a task-ender for ' +
+      'someone with a memory or motor impairment.',
+    links: [
+      {
+        label: 'WCAG: Understanding 3.3.7',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html',
+      },
+    ],
+    component: RedundantEntryDemo,
   },
 ]
 
