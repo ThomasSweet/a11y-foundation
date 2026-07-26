@@ -7,7 +7,7 @@
     .grid { stroke: rgba(37, 99, 235, 0.09); stroke-width: 1; }
     .reg { stroke: #2563eb; stroke-width: 2; fill: none; }
     .eyebrow { fill: #2563eb; font: 600 14px ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 3px; }
-    .ink { fill: #111111; font: 800 76px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: -1px; }
+    .ink { fill: #111111; font: 800 88px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: -1.2px; }
     .strike { fill: #111111; transform-box: fill-box; transform-origin: left center; }
 
     @media (prefers-color-scheme: dark) {
@@ -46,9 +46,12 @@
   <path class="reg" d="M22 184H6v-16" />
   <path class="reg" d="M1074 168v16h-16" />
 
-  <text class="eyebrow" x="64" y="56">ACCESSIBLE BY DEFAULT · DRAWING 00</text>
+  <text class="eyebrow" x="64" y="54">ACCESSIBLE BY DEFAULT · DRAWING 00</text>
 
-  <text class="ink" x="62" y="140" textLength="468" lengthAdjust="spacingAndGlyphs">Built in, not</text>
-  <text class="ink" x="562" y="140" textLength="356" lengthAdjust="spacingAndGlyphs">bolted on</text>
-  <rect class="strike" x="554" y="106" width="372" height="11" />
+  <!-- textLength matches the measured natural width (macOS system-ui 800/88px),
+       and lengthAdjust="spacing" keeps glyph shapes intact on platforms whose
+       fonts run wider/narrower — only the spacing flexes, never the letters. -->
+  <text class="ink" x="62" y="142" textLength="433" lengthAdjust="spacing">Built in, not</text>
+  <text class="ink" x="522" y="142" textLength="374" lengthAdjust="spacing">bolted on</text>
+  <rect class="strike" x="514" y="110" width="390" height="11" />
 </svg>
