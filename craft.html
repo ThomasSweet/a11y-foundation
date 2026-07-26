@@ -8,12 +8,17 @@
     <!-- Lock the @layer order before any bundled CSS parses (see index.html). -->
     <style>
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
-      /* Pre-CSS ground: a raw first frame during the view-transition handoff
-         paints desk-colored instead of UA-white. Base layer, before the
-         bundle, so the real theme tokens override it the moment CSS lands. */
+      /* Pre-CSS ground so a raw frame in the view-transition handoff paints
+         desk-colored, not UA-white. The literal mirrors --color-bg-subtle
+         (tokens.css); once the bundle loads, var(--bp-ground) takes over and
+         the canvas re-inks per theme. */
       @layer base {
+        :root {
+          --boot-ground: light-dark(#f5f5f5, #1a1a1a);
+        }
+
         html {
-          background-color: light-dark(#f5f5f5, #1a1a1a);
+          background-color: var(--bp-ground, var(--boot-ground));
         }
       }
     </style>
@@ -27,7 +32,7 @@
         }
 
         ::view-transition {
-          background-color: light-dark(#f5f5f5, #1a1a1a);
+          background-color: var(--bp-ground, var(--boot-ground));
         }
       }
     </style>
