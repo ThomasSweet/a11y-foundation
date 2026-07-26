@@ -3,3 +3,5 @@
 # they are allowed to fetch the pages.
 User-agent: *
 Allow: /
+
+Sitemap: https://accessible-by-default.dev/sitemap.xml
