@@ -375,5 +375,18 @@
       "firefox": "144",
       "safari": "18"
     }
+  },
+  "reading-flow": {
+    "feature": "reading-flow",
+    "name": "reading-flow",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "137",
+      "edge": "137",
+      "firefox": null,
+      "safari": null
+    }
   }
 }
