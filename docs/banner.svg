@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 190" width="1080" height="190">
+  <!-- The README's thesis, practising the thesis: colors follow
+       prefers-color-scheme, and the strike only animates when the viewer
+       has no reduced-motion preference (motion is the enhancement). -->
+  <style>
+    .bg { fill: #ffffff; }
+    .grid { stroke: rgba(37, 99, 235, 0.09); stroke-width: 1; }
+    .reg { stroke: #2563eb; stroke-width: 2; fill: none; }
+    .eyebrow { fill: #2563eb; font: 600 14px ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 3px; }
+    .ink { fill: #111111; font: 800 76px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: -1px; }
+    .strike { fill: #111111; transform-box: fill-box; transform-origin: left center; }
+
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1e1e1e; }
+      .grid { stroke: rgba(59, 130, 246, 0.12); }
+      .reg { stroke: #3b82f6; }
+      .eyebrow { fill: #3b82f6; }
+      .ink { fill: #f0f0f0; }
+      .strike { fill: #f0f0f0; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .strike {
+        transform: scaleX(0);
+        animation: strike-draw 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
+      }
+
+      @keyframes strike-draw {
+        to { transform: scaleX(1); }
+      }
+    }
+  </style>
+
+  <rect class="bg" width="1080" height="190" />
+
+  <defs>
+    <pattern id="sheet-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path class="grid" d="M28 0H0V28" fill="none" />
+    </pattern>
+  </defs>
+  <rect width="1080" height="190" fill="url(#sheet-grid)" />
+
+  <!-- corner registration marks -->
+  <path class="reg" d="M6 22V6h16" />
+  <path class="reg" d="M1058 6h16v16" />
+  <path class="reg" d="M22 184H6v-16" />
+  <path class="reg" d="M1074 168v16h-16" />
+
+  <text class="eyebrow" x="64" y="56">ACCESSIBLE BY DEFAULT · DRAWING 00</text>
+
+  <text class="ink" x="62" y="140" textLength="468" lengthAdjust="spacingAndGlyphs">Built in, not</text>
+  <text class="ink" x="562" y="140" textLength="356" lengthAdjust="spacingAndGlyphs">bolted on</text>
+  <rect class="strike" x="554" y="106" width="372" height="11" />
+</svg>

@@ -1,3 +1,5 @@
+<img src="docs/banner.svg" alt="Built in, not bolted on — with 'bolted on' struck through" width="1080">
+
 # Accessible by default
 
 [![CI](https://github.com/ThomasSweet/a11y-foundation/actions/workflows/ci.yml/badge.svg)](https://github.com/ThomasSweet/a11y-foundation/actions/workflows/ci.yml)
@@ -27,9 +29,30 @@ with the cascade doing the work instead of `!important`.
 > nitpicks, and accessibility findings on either version are genuinely
 > welcome: [open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
 
-| Current design (live) | Blueprint redesign (staging) |
-| --- | --- |
-| ![The current design's hero: gradient wordmark over a soft wash](docs/screenshots/design-current.png) | ![The blueprint redesign's hub: four chapter plates on a drawing sheet](docs/screenshots/design-blueprint.png) |
+<table>
+  <tr>
+    <th scope="col">Current design (live)</th>
+    <th scope="col">Blueprint redesign (staging)</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://accessible-by-default.dev/"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-current-dark.png">
+        <img alt="The current design's hero: gradient wordmark over a soft wash" src="docs/screenshots/design-current-light.png">
+      </picture></a>
+    </td>
+    <td>
+      <a href="https://staging.accessible-by-default.dev/"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-blueprint-dark.png">
+        <img alt="The blueprint redesign's hub: four chapter plates on a drawing sheet" src="docs/screenshots/design-blueprint-light.png">
+      </picture></a>
+    </td>
+  </tr>
+</table>
+
+<sub>The banner and these screenshots follow your OS color scheme, and the
+banner's strike only animates without a reduced-motion preference — this
+README practises the thesis too.</sub>
 
 ## The site practises what it shows
 
