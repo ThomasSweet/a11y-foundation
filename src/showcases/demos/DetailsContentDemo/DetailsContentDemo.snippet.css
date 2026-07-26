@@ -1,0 +1,28 @@
+/* Style the browser's own content region; allow-discrete keeps the
+   content rendered until the closing fade finishes. */
+details::details-content {
+  opacity: 0;
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    content-visibility 0.25s allow-discrete,
+    opacity 0.25s,
+    block-size 0.25s;
+}
+
+details[open]::details-content {
+  opacity: 1;
+  block-size: auto;
+}
+
+/* Where supported, block-size animates to the real auto height;
+   elsewhere the content still fades. */
+details {
+  interpolate-size: allow-keywords;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}

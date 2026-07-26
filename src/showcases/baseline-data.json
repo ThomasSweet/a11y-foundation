@@ -388,5 +388,18 @@
       "firefox": null,
       "safari": null
     }
+  },
+  "details-content": {
+    "feature": "details-content",
+    "name": "::details-content",
+    "baseline": "low",
+    "lowDate": "2025-09-16",
+    "highDate": null,
+    "support": {
+      "chrome": "131",
+      "edge": "131",
+      "firefox": "143",
+      "safari": "18.4"
+    }
   }
 }
