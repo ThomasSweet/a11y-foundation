@@ -83,7 +83,20 @@
 
   ::view-transition-old(root) {
     z-index: 1;
-    animation: 0.28s ease both vt-content-fade;
+    animation: 0.5s ease both vt-content-fade;
+  }
+
+  /* The UA applies plus-lighter blending to the snapshots (correct for its
+     default cross-fade, where opacities sum to 1). Ours is an opaque page
+     under a fading one — plus-lighter ADDS the colors and reads as a
+     brightness flash. Restore normal painting. */
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
   }
 
   @keyframes vt-content-fade {
