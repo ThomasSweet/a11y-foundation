@@ -118,6 +118,14 @@ fixes/features as they come in.
 
 ### Watchlist (too early / conditional — revisit)
 
+- WCAG 2.2 timeline coverage — settled at 4 of the 9 new criteria (2.5.8,
+  2.4.11, 2.4.13, 3.3.7); the rest assessed July 2026 and skipped on purpose:
+  2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8 need JS
+  mechanisms to break honestly, and **3.2.6 Consistent Help only becomes
+  demoable once the site has multiple pages — revisit if the restructure
+  merges.**
+- `text-box` (trim) — Chrome + Safari; typographic alignment with only a
+  modest a11y angle; take it only if a showcase gap needs filling.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
 - Media state pseudo-classes (`:playing` etc.) — checked July 2026: no
@@ -154,6 +162,11 @@ fixes/features as they come in.
 
 One line per item, newest first; details in git history / PRs.
 
+- **2026-07** Timeline: 3.3.7 Redundant Entry break-it demo — a two-step checkout whose reuse shortcut disappears when broken; first Understandable-principle criterion.
+- **2026-07** Wave 8 showcases: `reading-flow` (focus order follows the visual layout, tab order pinned by e2e) + `::details-content` with `interpolate-size` (animated native disclosure, reduced-motion gated).
+- **2026-07** SEO hygiene: robots.txt on main (crawl open, noindex gatekeeps); five-page sitemap prepared on the restructure branch; Search Console setup pending.
+- **2026-07** README relaunch: adaptive SVG banner (color-scheme + reduced-motion aware, finite strike animation), scheme-swapping screenshots, badges, MIT license, issue forms — plus the "your browser reports the scheme, not your OS" correction.
+- **2026-07** LegalMap: ADA Title II corrected to the 2027–2028 phase-in (community catch, applied to both designs).
 - **2026-07** Wave 7: showcase grouping derived from Baseline data — three tiers in Baseline's own vocabulary (widely / newly / limited availability), computed at build time; hand-maintained `status` field removed.
 - **2026-07** Wave 6: pure-CSS carousel showcase — `::scroll-button` (anchor-positioned) + `::scroll-marker` dots with slash-alt accessible names; honest SR caveats; plain snap scroller everywhere else.
 - **2026-07** Wave 5: proof pillar pass — "CSS that audits" diagnostic-stylesheet demo (inert specimen), "performance is accessibility" prose, responsive-reveal card on @starting-style (with the reduced-motion guard the viral snippet skips).
