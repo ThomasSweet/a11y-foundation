@@ -8,6 +8,14 @@
     <!-- Lock the @layer order before any bundled CSS parses (see index.html). -->
     <style>
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+      /* Pre-CSS ground: a raw first frame during the view-transition handoff
+         paints desk-colored instead of UA-white. Base layer, before the
+         bundle, so the real theme tokens override it the moment CSS lands. */
+      @layer base {
+        html {
+          background-color: light-dark(#f5f5f5, #1a1a1a);
+        }
+      }
     </style>
 
     <!-- View-transition opt-in, inline: it must be in BOTH documents' static
@@ -48,11 +56,11 @@
 
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
-    <script type="module" blocking="render" crossorigin src="/assets/proof-CKF0Cs2D.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/mount-C7s_P3IG.js">
-    <link rel="modulepreload" crossorigin href="/assets/ChapterLayout-C7d479zV.js">
+    <script type="module" blocking="render" crossorigin src="/assets/proof-DFQO_PKR.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/mount-CrISGy6h.js">
+    <link rel="modulepreload" crossorigin href="/assets/ChapterLayout-BJNC6WWA.js">
     <link rel="stylesheet" crossorigin href="/assets/mount-DJsgAJZl.css">
-    <link rel="stylesheet" crossorigin href="/assets/styles-C2ZP2_sr.css">
+    <link rel="stylesheet" crossorigin href="/assets/styles-B54pxFcY.css">
     <link rel="stylesheet" crossorigin href="/assets/ChapterLayout-963VvIJI.css">
     <link rel="stylesheet" crossorigin href="/assets/proof-gTJW8k8N.css">
     <meta name="robots" content="noindex">

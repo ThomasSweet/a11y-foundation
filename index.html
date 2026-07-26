@@ -12,6 +12,14 @@
          `components` as the lowest-priority layer and invert the cascade. -->
     <style>
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+      /* Pre-CSS ground: a raw first frame during the view-transition handoff
+         paints desk-colored instead of UA-white. Base layer, before the
+         bundle, so the real theme tokens override it the moment CSS lands. */
+      @layer base {
+        html {
+          background-color: light-dark(#f5f5f5, #1a1a1a);
+        }
+      }
     </style>
 
     <!-- View-transition opt-in, inline: it must be in BOTH documents' static
@@ -95,10 +103,10 @@
       content="Modern CSS handles accessibility natively — with little to no JavaScript."
     />
     <meta name="twitter:image" content="https://accessible-by-default.dev/og-image.png" />
-    <script type="module" blocking="render" crossorigin src="/assets/main-DGv94vCV.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/mount-C7s_P3IG.js">
+    <script type="module" blocking="render" crossorigin src="/assets/main-D7uNwkld.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/mount-CrISGy6h.js">
     <link rel="stylesheet" crossorigin href="/assets/mount-DJsgAJZl.css">
-    <link rel="stylesheet" crossorigin href="/assets/styles-C2ZP2_sr.css">
+    <link rel="stylesheet" crossorigin href="/assets/styles-B54pxFcY.css">
     <link rel="stylesheet" crossorigin href="/assets/main-CMCV1NOW.css">
     <meta name="robots" content="noindex">
   </head>
