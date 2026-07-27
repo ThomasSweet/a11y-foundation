@@ -45,6 +45,24 @@
       </div>
     </div>
 
+    <nav class="chapter-bar" aria-label="Chapter shortcuts">
+      <a class="chapter-bar-link" href="/">
+        <span class="chapter-bar-n" aria-hidden="true">←</span>
+        <span>Index</span>
+      </a>
+      <a
+        v-for="c in pillars"
+        :key="c.id"
+        class="chapter-bar-link"
+        :class="{ 'is-current': c.id === id }"
+        :href="c.href"
+        :aria-current="c.id === id ? 'page' : undefined"
+      >
+        <span class="chapter-bar-n" aria-hidden="true">{{ c.no }}</span>
+        <span>{{ c.short }}</span>
+      </a>
+    </nav>
+
     <template #prevnext>
       <div class="chapter-prevnext">
         <a v-if="prev" class="chapter-nav chapter-nav-prev" :href="prev.href">

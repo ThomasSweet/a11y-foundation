@@ -321,4 +321,115 @@
     font-size: var(--text-sm);
     font-weight: 600;
   }
+
+  /* Mobile chapter bar: a title-block strip on the sheet's bottom edge,
+     replacing the rail below its sticky gate. Opaque paper, so
+     reduced-transparency has nothing to object to. */
+  .chapter-bar {
+    display: none;
+  }
+
+  @media (width <= 52rem) {
+    .chapter-bar {
+      position: fixed;
+      z-index: 20;
+      inset-block-end: 0;
+      inset-inline: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding-block-end: env(safe-area-inset-bottom, 0);
+      border-block-start: 1px solid var(--bp-frame);
+      background-color: var(--bp-sheet);
+
+      @include forced-colors {
+        border-block-start-color: CanvasText;
+        background-color: Canvas;
+      }
+    }
+
+    /* Clearance so the strip never sits on the footer where scroll-state
+       (and its tuck-at-bottom) is unsupported. */
+    :global(body) {
+      padding-block-end: 64px;
+    }
+
+    /* Reveal choreography, ported from the original design's pill (and from
+       the showcase card teaching it): tucked over the hero, out while
+       reading, gone at the very end — and direction-aware where scrolled:
+       is supported. Without scroll-state the bar simply stays visible. */
+    @supports (container-type: scroll-state) {
+      .chapter-bar {
+        translate: 0 100%;
+        transition: translate var(--duration-normal) var(--easing-standard);
+      }
+
+      @container scroll-state(scrollable: top) {
+        .chapter-bar {
+          translate: 0 0;
+        }
+      }
+
+      @container scroll-state(scrolled: bottom) {
+        .chapter-bar {
+          translate: 0 100%;
+        }
+      }
+
+      @container scroll-state(scrolled: top) {
+        .chapter-bar {
+          translate: 0 0;
+        }
+      }
+
+      /* The hard positions come last so they beat a stale scroll direction
+         (e.g. an anchor jump to the end while the last gesture was upward). */
+      @container (not scroll-state(scrollable: bottom)) {
+        .chapter-bar {
+          translate: 0 100%;
+        }
+      }
+
+      @container (not scroll-state(scrollable: top)) {
+        .chapter-bar {
+          translate: 0 100%;
+        }
+      }
+    }
+
+    .chapter-bar-link {
+      display: grid;
+      gap: 2px;
+      justify-items: center;
+      align-content: center;
+      min-block-size: 52px;
+      padding: var(--space-1);
+      font-family: var(--bp-mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--bp-ink-2);
+
+      &.is-current {
+        color: var(--bp-ink);
+        box-shadow: inset 0 2px 0 var(--bp-accent);
+      }
+
+      &:focus-visible {
+        outline: var(--focus-ring-width) solid var(--focus-ring-color);
+        outline-offset: -2px;
+      }
+
+      @include high-contrast {
+        &.is-current {
+          box-shadow: inset 0 3px 0 currentcolor;
+        }
+      }
+    }
+
+    .chapter-bar-n {
+      font-size: 0.6875rem;
+      color: var(--bp-accent);
+    }
+  }
 }

@@ -4,6 +4,13 @@
 
 @layer base {
 
+  /* The page scroller as a scroll-state container: the chapter bottom bar
+     reacts to scroll position in pure CSS — no scroll listeners. Harmless
+     where unused or unsupported. */
+  html {
+    container-type: scroll-state;
+  }
+
   body {
     font-family: var(--font-sans);
     font-size: var(--text-base);
