@@ -1,0 +1,7 @@
+# Crawling stays open everywhere: the legal/styleguide pages (and all of
+# staging) opt out via meta noindex, which crawlers can only honor if
+# they are allowed to fetch the pages.
+User-agent: *
+Allow: /
+
+Sitemap: https://accessible-by-default.dev/sitemap.xml
