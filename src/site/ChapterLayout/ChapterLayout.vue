@@ -2,7 +2,7 @@
   <SiteFrame>
     <div class="chapter">
       <aside class="chapter-rail">
-        <p class="chapter-rail-title">Legend</p>
+        <p class="chapter-rail-title">Contents</p>
         <nav class="chapter-switch" aria-label="Chapters">
           <a
             v-for="c in pillars"
@@ -31,7 +31,6 @@
 
       <div class="chapter-body">
         <header class="chapter-head">
-          <p class="chapter-eyebrow">Drawing {{ pillar.no }} · {{ specLabel }}</p>
           <div class="chapter-headrow">
             <span class="chapter-no">{{ pillar.no }}</span>
             <span class="chapter-mark" aria-hidden="true" v-html="pillarIcons[pillar.icon]"></span>
@@ -64,17 +63,16 @@
     </nav>
 
     <template #prevnext>
-      <div class="chapter-prevnext">
-        <a v-if="prev" class="chapter-nav chapter-nav-prev" :href="prev.href">
-          <span class="chapter-nav-k">← Previous drawing</span>
+      <nav class="chapter-prevnext" aria-label="Adjacent chapters">
+        <a v-if="prev" class="chapter-nav" :href="prev.href">
+          <span class="chapter-nav-k">← Previous</span>
           <span class="chapter-nav-t">{{ prev.no }} · {{ prev.title }}</span>
         </a>
-        <span v-else></span>
         <a v-if="next" class="chapter-nav chapter-nav-next" :href="next.href">
-          <span class="chapter-nav-k">Next drawing →</span>
+          <span class="chapter-nav-k">Next →</span>
           <span class="chapter-nav-t">{{ next.no }} · {{ next.title }}</span>
         </a>
-      </div>
+      </nav>
     </template>
   </SiteFrame>
 </template>
@@ -96,7 +94,6 @@ const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])
 const next = computed(() => pillars[index.value + 1])
-const specLabel = computed(() => pillar.value.eyebrow.split('·').slice(1).join('·').trim())
 </script>
 
 <style scoped lang="scss" src="./ChapterLayout.scss"></style>

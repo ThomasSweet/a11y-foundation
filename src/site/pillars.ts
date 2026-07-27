@@ -1,13 +1,12 @@
 import type { PillarIconName } from '../icons/pillarIcons'
 
-/** The four chapters, in reading order — drives the hub plates, the chapter
- *  switcher, and prev/next. */
+/** The four chapters, in reading order — drives the chapter switcher, the
+ *  mobile chapter bar, and prev/next. */
 export interface Pillar {
   id: string
   no: string
   short: string
   title: string
-  eyebrow: string
   icon: PillarIconName
   href: string
 }
@@ -18,7 +17,6 @@ export const pillars: Pillar[] = [
     no: '01',
     short: 'Standard',
     title: 'The standard',
-    eyebrow: '01 · The requirement',
     icon: 'standard',
     href: '/standard.html',
   },
@@ -27,7 +25,6 @@ export const pillars: Pillar[] = [
     no: '02',
     short: 'Craft',
     title: 'The craft',
-    eyebrow: "02 · The platform's answer · shipping today",
     icon: 'craft',
     href: '/craft.html',
   },
@@ -36,7 +33,6 @@ export const pillars: Pillar[] = [
     no: '03',
     short: 'CSS',
     title: 'CSS showcase',
-    eyebrow: "03 · The platform's answer · arriving next",
     icon: 'next',
     href: '/showcase.html',
   },
@@ -45,7 +41,6 @@ export const pillars: Pillar[] = [
     no: '04',
     short: 'Proof',
     title: 'The proof',
-    eyebrow: '04 · The proof',
     icon: 'proof',
     href: '/proof.html',
   },

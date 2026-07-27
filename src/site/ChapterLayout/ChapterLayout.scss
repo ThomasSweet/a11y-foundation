@@ -199,15 +199,6 @@
     margin-block-end: clamp(var(--space-8), 5vw, var(--space-16));
   }
 
-  .chapter-eyebrow {
-    margin: 0 0 var(--space-4);
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-accent);
-  }
-
   .chapter-headrow {
     display: flex;
     align-items: center;
@@ -277,24 +268,37 @@
     color: var(--bp-ink-2);
   }
 
+  /* End-of-chapter pager: plate-style cards, so the way onward is as
+     prominent as the plates that brought you in. */
   .chapter-prevnext {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-4);
-    margin-block-start: var(--space-4);
+    margin-block-start: clamp(var(--space-8), 5vw, var(--space-16));
+  }
+
+  @media (width <= 40rem) {
+    .chapter-prevnext {
+      grid-template-columns: 1fr;
+    }
   }
 
   .chapter-nav {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid var(--bp-line-strong);
     color: var(--bp-ink-2);
     text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard);
 
     @include can-hover {
       &:hover {
-        color: var(--bp-accent);
+        border-color: var(--bp-accent);
+        background: var(--bp-accent-soft);
       }
     }
 
@@ -302,11 +306,17 @@
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
       outline-offset: 2px;
     }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
   }
 
+  /* Occupies the end column whether the grid has two columns or one —
+     and stays there when it is the only card (the first chapter). */
   .chapter-nav-next {
+    grid-column: -2 / -1;
     text-align: end;
-    margin-inline-start: auto;
   }
 
   .chapter-nav-k {
@@ -318,8 +328,15 @@
   }
 
   .chapter-nav-t {
-    font-size: var(--text-sm);
+    font-size: var(--text-lg);
     font-weight: 600;
+    color: var(--bp-ink);
+    transition: color var(--duration-fast) var(--easing-standard);
+  }
+
+  .chapter-nav:hover .chapter-nav-t,
+  .chapter-nav:focus-visible .chapter-nav-t {
+    color: var(--bp-accent);
   }
 
   /* Mobile chapter bar: a title-block strip on the sheet's bottom edge,

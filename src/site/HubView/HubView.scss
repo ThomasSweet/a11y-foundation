@@ -8,15 +8,6 @@
 }
 
 @layer components {
-  .hub-eyebrow {
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-accent);
-    margin-block-end: var(--space-3);
-  }
-
   .hub-title {
     font-size: var(--text-display);
     line-height: 0.98;
@@ -152,39 +143,11 @@
     color: var(--bp-ink);
   }
 
-  .hub-index {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-1) var(--space-4);
-    margin-block: var(--space-8) var(--space-4);
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-ink-2);
-  }
-
-  .hub-index-k {
-    color: var(--bp-ink);
-  }
-
-  .hub-index-item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-4);
-  }
-
-  .hub-index-sep {
-    inline-size: 26px;
-    block-size: 1px;
-    background: var(--bp-line-strong);
-  }
-
   .hub-plates {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(var(--space-3), 2.4vw, var(--space-6));
+    margin-block-start: var(--space-8);
   }
 
   @media (width >= 60rem) {
@@ -312,21 +275,19 @@
     color: var(--bp-accent);
   }
 
-  .hub-plate-spec {
-    display: block;
-    font-family: var(--bp-mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--bp-ink-2);
-    margin-block-end: var(--space-1);
-  }
-
   .hub-plate-title {
     display: block;
     font-size: var(--text-xl);
     font-weight: 600;
     letter-spacing: -0.01em;
+    color: var(--bp-ink);
+    margin-block-end: var(--space-1);
+  }
+
+  .hub-plate-sub {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--bp-ink);
     margin-block-end: var(--space-2);
   }

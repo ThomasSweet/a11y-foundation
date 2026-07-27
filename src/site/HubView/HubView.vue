@@ -1,19 +1,11 @@
 <template>
   <SiteFrame home>
-    <p class="hub-eyebrow">Drawing 00 · the through-line</p>
     <h1 class="hub-title"><span class="hub-title-accent">Built in, not</span> <span class="hub-strike">bolted&nbsp;on<svg class="hub-strike-scribble" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true"><path class="hub-strike-scribble-primer hub-strike-scribble-first" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" stroke-dasharray="200" stroke-dashoffset="200" /><path class="hub-strike-scribble-primer hub-strike-scribble-second" d="M 201 26 C 136 28.6, 66 32.4, 0 36" stroke-dasharray="202" stroke-dashoffset="202" /><path class="hub-strike-scribble-primer hub-strike-scribble-third" d="M 2 33 C 70 35.6, 136 38, 199 40" stroke-dasharray="198" stroke-dashoffset="198" /><path class="hub-strike-scribble-ink hub-strike-scribble-first" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" stroke-dasharray="200" stroke-dashoffset="200" /><path class="hub-strike-scribble-ink hub-strike-scribble-second" d="M 201 26 C 136 28.6, 66 32.4, 0 36" stroke-dasharray="202" stroke-dashoffset="202" /><path class="hub-strike-scribble-ink hub-strike-scribble-third" d="M 2 33 C 70 35.6, 136 38, 199 40" stroke-dasharray="198" stroke-dashoffset="198" /></svg></span></h1>
     <p class="hub-lede">
       How much of accessibility the modern web platform handles
       <strong>natively</strong> — with little to no JavaScript. One argument, in
       four parts. Start anywhere; the thread runs through all of them.
     </p>
-
-    <div class="hub-index" aria-hidden="true">
-      <span class="hub-index-k">Index</span>
-      <span v-for="p in plates" :key="p.href" class="hub-index-item">
-        <span class="hub-index-sep"></span>{{ p.no }} {{ p.tag }}
-      </span>
-    </div>
 
     <nav class="hub-plates" aria-label="Chapters">
       <a
@@ -26,10 +18,10 @@
           <span class="hub-plate-no">{{ p.no }}</span>
           <span class="hub-plate-icon" aria-hidden="true" v-html="pillarIcons[p.icon]"></span>
         </span>
-        <span class="hub-plate-spec">{{ p.spec }}</span>
         <span class="hub-plate-title">{{ p.title }}</span>
+        <span class="hub-plate-sub">{{ p.sub }}</span>
         <span class="hub-plate-desc">{{ p.desc }}</span>
-        <span class="hub-plate-enter">Enter drawing →</span>
+        <span class="hub-plate-enter">{{ p.cta }} →</span>
       </a>
     </nav>
 
@@ -124,17 +116,17 @@ interface Plate {
   no: string
   href: string
   icon: PillarIconName
-  tag: string
-  spec: string
   title: string
+  sub: string
   desc: string
+  cta: string
 }
 
 const plates: Plate[] = [
-  { no: '01', href: '/standard.html', icon: 'standard', tag: 'standard', spec: 'The requirement', title: 'The standard', desc: 'What WCAG asks for, arranged along the timeline it grew on.' },
-  { no: '02', href: '/craft.html', icon: 'craft', tag: 'craft', spec: 'Shipping today', title: 'The craft', desc: 'Meeting the bar with modern CSS and native HTML.' },
-  { no: '03', href: '/showcase.html', icon: 'next', tag: 'css', spec: 'Arriving next', title: 'CSS showcase', desc: 'Modern CSS worth knowing, grouped by Baseline support.' },
-  { no: '04', href: '/proof.html', icon: 'proof', tag: 'proof', spec: 'The proof', title: 'The proof', desc: 'Testing that it holds up — a layered job, not a scanner.' },
+  { no: '01', href: '/standard.html', icon: 'standard', title: 'The standard', sub: 'The requirement', desc: 'What WCAG asks for, arranged along the timeline it grew on.', cta: 'Open the standard' },
+  { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Meeting the bar with modern CSS and native HTML.', cta: 'Open the craft' },
+  { no: '03', href: '/showcase.html', icon: 'next', title: 'CSS showcase', sub: 'Arriving next', desc: 'Modern CSS worth knowing, grouped by Baseline support.', cta: 'Open the showcase' },
+  { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'How it holds up — a layered job, not a scanner.', cta: 'Open the proof' },
 ]
 </script>
 

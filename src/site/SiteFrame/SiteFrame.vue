@@ -41,6 +41,7 @@
 
       <main id="main" tabindex="-1" class="site-content">
         <slot />
+        <slot name="prevnext" />
       </main>
 
       <footer class="site-titleblock">
@@ -55,7 +56,6 @@
           </nav>
           <span class="site-tb-copy">© 2026 Accessible by default</span>
         </div>
-        <slot name="prevnext" />
       </footer>
     </div>
   </div>

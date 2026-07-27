@@ -1,6 +1,5 @@
 <template>
   <SiteFrame>
-    <p class="glossary-eyebrow">Drawing L·01 · the legend</p>
     <h1 class="glossary-title">Glossary</h1>
     <p class="glossary-lede">
       Every trade abbreviates, and this one is worse than most. Here is the
@@ -27,15 +26,6 @@ const terms = [...glossaryTerms].sort((a, b) => a.term.localeCompare(b.term))
 
 <style scoped lang="scss">
 @layer components {
-  .glossary-eyebrow {
-    margin-block-end: var(--space-3);
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-accent);
-  }
-
   .glossary-title {
     margin: 0;
     max-inline-size: 15ch;
