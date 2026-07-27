@@ -46,15 +46,34 @@
 
       <footer class="site-titleblock">
         <slot name="footer-extra" />
-        <div class="site-tb-row">
-          <span class="site-tb-drawn">Drawn by <b>Thomas Sweet</b></span>
-          <nav class="site-tb-legal" aria-label="Site information">
+        <div class="site-tb">
+          <div class="site-tb-cell site-tb-cell-project">
+            <span class="site-tb-label">Project</span>
+            <span class="site-tb-value">Accessible by default</span>
+            <span class="site-tb-fine">© 2026</span>
+          </div>
+          <div class="site-tb-cell">
+            <span class="site-tb-label">Title</span>
+            <span class="site-tb-value">{{ sheetTitle }}</span>
+          </div>
+          <div class="site-tb-cell">
+            <span class="site-tb-label">Drawn by</span>
+            <span class="site-tb-value">Thomas Sweet</span>
+          </div>
+          <div class="site-tb-cell">
+            <span class="site-tb-label">Scale</span>
+            <span class="site-tb-value">1:1</span>
+          </div>
+          <div class="site-tb-cell">
+            <span class="site-tb-label">Sheet</span>
+            <span class="site-tb-value">{{ sheet }}</span>
+          </div>
+          <nav class="site-tb-cell site-tb-refs" aria-label="Site information">
             <a href="/glossary.html">Glossary</a>
             <a href="/styleguide.html">Style guide</a>
             <a href="/impressum.html">Impressum</a>
             <a href="/privacy.html">Privacy</a>
           </nav>
-          <span class="site-tb-copy">© 2026 Accessible by default</span>
         </div>
       </footer>
     </div>
@@ -64,7 +83,11 @@
 <script setup lang="ts">
 import ThemeToggle from '../../components/ThemeToggle/ThemeToggle.vue'
 
-defineProps<{ home?: boolean }>()
+/** sheet/sheetTitle fill the title block; the defaults are the index sheet. */
+withDefaults(defineProps<{ home?: boolean; sheet?: string; sheetTitle?: string }>(), {
+  sheet: '00',
+  sheetTitle: 'Index',
+})
 </script>
 
 <style scoped lang="scss" src="./SiteFrame.scss"></style>

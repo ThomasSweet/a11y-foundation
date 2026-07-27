@@ -195,41 +195,100 @@
 
   .site-titleblock {
     margin-block-start: clamp(var(--space-8), 5vw, var(--space-16));
-    padding-block-start: var(--space-4);
-    border-block-start: 1px solid var(--bp-line-strong);
   }
 
-  .site-tb-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2) var(--space-4);
+  /* The drawing's title block: a ruled grid of labeled cells, drawn with the
+     gap-as-rule trick — the container paints the line color, the cells repaint
+     the sheet, and every 1px gap becomes a rule that works at any wrap. */
+  .site-tb {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--bp-frame);
+    background-color: var(--bp-line-strong);
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+
+    /* Forced colors strips the painted backgrounds, so the rules come back
+       as real borders. */
+    @include forced-colors {
+      gap: 0;
+      border-color: CanvasText;
+    }
+  }
+
+  @media (width >= 52rem) {
+    .site-tb {
+      grid-template-columns:
+        minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.6fr)
+        minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .site-tb-cell {
+    display: grid;
+    gap: 2px;
+    align-content: start;
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--bp-sheet);
+
+    @include forced-colors {
+      border: 1px solid CanvasText;
+    }
+  }
+
+  /* Below the five-column breakpoint the cells flow two-up; the project cell
+     spans the row so the odd count leaves no hole in the grid. */
+  @media (width <= 52rem) {
+    .site-tb-cell-project {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .site-tb-label {
     font-family: var(--bp-mono);
-    font-size: 0.625rem;
+    font-size: 0.5625rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--bp-ink-2);
   }
 
-  .site-tb-drawn b {
-    font-weight: 500;
+  .site-tb-value {
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--bp-ink);
   }
 
-  .site-tb-legal {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
+  .site-tb-fine {
+    font-family: var(--bp-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.04em;
+    color: var(--bp-ink-2);
   }
 
-  .site-tb-legal a,
-  .site-tb-copy {
+  .site-tb-refs {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .site-tb-refs a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--bp-ink-2);
     text-decoration: none;
-  }
 
-  .site-tb-legal a {
     @include can-hover {
       &:hover {
         color: var(--bp-accent);

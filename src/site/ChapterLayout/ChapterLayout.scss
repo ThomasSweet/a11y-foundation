@@ -199,10 +199,33 @@
     margin-block-end: clamp(var(--space-8), 5vw, var(--space-16));
   }
 
+  /* fit-content, so the dimension line below measures exactly the headrow. */
+  .chapter-headrow-wrap {
+    inline-size: fit-content;
+  }
+
   .chapter-headrow {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+  }
+
+  /* A drafter's dimension line under the title: end ticks and a hairline. */
+  .chapter-dim {
+    display: block;
+    block-size: 9px;
+    margin-block-start: var(--space-3);
+    border-inline: 1px solid var(--bp-line-strong);
+    background-image: linear-gradient(
+      to bottom,
+      transparent calc(50% - 0.5px),
+      var(--bp-line-strong) calc(50% - 0.5px) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+
+    @include forced-colors {
+      display: none;
+    }
   }
 
   .chapter-no {

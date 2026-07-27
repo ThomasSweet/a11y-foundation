@@ -1,5 +1,5 @@
 <template>
-  <SiteFrame>
+  <SiteFrame sheet="A·01" sheet-title="Glossary">
     <h1 class="glossary-title">Glossary</h1>
     <p class="glossary-lede">
       Every trade abbreviates, and this one is worse than most. Here is the

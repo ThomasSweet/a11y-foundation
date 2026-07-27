@@ -1,5 +1,5 @@
 <template>
-  <SiteFrame>
+  <SiteFrame :sheet="sheetNo" :sheet-title="pillar.title">
     <div class="chapter">
       <aside class="chapter-rail">
         <p class="chapter-rail-title">Contents</p>
@@ -31,10 +31,13 @@
 
       <div class="chapter-body">
         <header class="chapter-head">
-          <div class="chapter-headrow">
-            <span class="chapter-no">{{ pillar.no }}</span>
-            <span class="chapter-mark" aria-hidden="true" v-html="pillarIcons[pillar.icon]"></span>
-            <h1 class="chapter-title">{{ pillar.title }}</h1>
+          <div class="chapter-headrow-wrap">
+            <div class="chapter-headrow">
+              <span class="chapter-no">{{ pillar.no }}</span>
+              <span class="chapter-mark" aria-hidden="true" v-html="pillarIcons[pillar.icon]"></span>
+              <h1 class="chapter-title">{{ pillar.title }}</h1>
+            </div>
+            <span class="chapter-dim" aria-hidden="true"></span>
           </div>
         </header>
 
@@ -94,6 +97,7 @@ const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])
 const next = computed(() => pillars[index.value + 1])
+const sheetNo = computed(() => `${pillar.value.no} / ${String(pillars.length).padStart(2, '0')}`)
 </script>
 
 <style scoped lang="scss" src="./ChapterLayout.scss"></style>
