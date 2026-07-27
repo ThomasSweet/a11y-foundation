@@ -145,7 +145,8 @@ fixes/features as they come in.
   extended to all 7 pages ×3 engines (54 tests green) — the sweep even caught a
   real AA contrast bug in TargetsDemo (opacity on subtle text), fixed. Still
   open from this thread: per-topic reference links (MDN/spec) on craft demos;
-  styleguide.html kept its old flat look (reskin later if wanted).
+  styleguide.html reskinned July 2026 (sheet chrome, title block S·01, real
+  logo section) alongside the new brand assets.
 
 - The project itself as a showcase (open, directional) — Thomas's worry after the
   restructure: some playfulness got lost, and the site chrome should *itself*
@@ -161,14 +162,11 @@ fixes/features as they come in.
 - WCAG 2.2 timeline coverage — settled at 4 of the 9 new criteria (2.5.8,
   2.4.11, 2.4.13, 3.3.7); the rest assessed July 2026 and skipped on purpose:
   2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8 need JS
-  mechanisms to break honestly, and **3.2.6 Consistent Help only becomes
-  demoable once the site has multiple pages — revisit if the restructure
-  merges.**
+  mechanisms to break honestly. **3.2.6 Consistent Help is unblocked now
+  that the multi-page design is going live — a good first post-launch demo**
+  (help lives in the same footer slot on every page; break-it moves it).
 - `text-box` (trim) — Chrome + Safari; typographic alignment with only a
   modest a11y angle; take it only if a showcase gap needs filling.
-- Baseline tier icons on sidebar cluster summaries — main's design only
-  (the blueprint rail must stay theme-derived; fixed-palette brand marks
-  can't re-ink). Only worth building if the current design wins the vote.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
 - Media state pseudo-classes (`:playing` etc.) — checked July 2026: no
