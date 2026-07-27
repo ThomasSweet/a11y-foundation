@@ -51,6 +51,25 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(plates.nth(3)).toHaveAttribute('href', '/proof.html')
   })
 
+  // Presence and semantics only — the scroll-state reveal choreography needs
+  // real wheel gestures, which synthetic scrolling can't emulate reliably.
+  test('mobile chapter bar exists with the current chapter marked', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 })
+    await page.goto('/craft.html')
+
+    const bar = page.getByRole('navigation', { name: 'Chapter shortcuts' })
+    const links = bar.getByRole('link')
+    await expect(links).toHaveCount(5)
+    await expect(links.first()).toHaveAttribute('href', '/')
+    const current = bar.locator('[aria-current="page"]')
+    await expect(current).toHaveCount(1)
+    await expect(current).toContainText('Craft')
+
+    // Desktop keeps the rail; the bar must be gone entirely.
+    await page.setViewportSize({ width: 1280, height: 800 })
+    await expect(bar).toBeHidden()
+  })
+
   test('native dialog traps focus and closes on Escape', async ({ page }) => {
     await page.goto('/craft.html')
     await page.getByRole('button', { name: /open dialog/i }).click()

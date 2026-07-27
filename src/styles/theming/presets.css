@@ -50,7 +50,10 @@
   :root[data-preset='amber'],
   .theme-amber {
     --seed-surface: oklch(98% 0.012 80deg);
-    --seed-accent:  oklch(82% 0.15 80deg);   /* light amber → black label */
+    /* Deep honey-bronze → white label. The old 82%-lightness seed satisfied
+       the engine only as a button background; as text on the sheet it read
+       1.44:1. 50% carries 4.99:1 as text and keeps the CVD lightness gap. */
+    --seed-accent:  oklch(50% 0.12 70deg);
     color-scheme: light;
   }
 
