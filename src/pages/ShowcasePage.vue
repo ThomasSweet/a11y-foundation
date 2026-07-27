@@ -4,7 +4,8 @@
       The same idea, looking forward: modern CSS worth knowing, grouped by
       where it stands across the current versions of Chrome, Firefox, and
       Safari — based on
-      <a href="https://wpt.fyi/interop-2026">Interop</a> and Baseline.
+      <a href="https://wpt.fyi/interop-2026">Interop</a> and
+      <GlossaryRef id="baseline">Baseline</GlossaryRef>.
       Everything is written as a progressive enhancement, so unsupported
       demos degrade instead of breaking.
     </p>
@@ -65,6 +66,7 @@
 import { computed } from 'vue'
 
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import GlossaryRef from '../glossary/GlossaryRef.vue'
 import ShowcaseFrame from '../showcases/ShowcaseFrame/ShowcaseFrame.vue'
 import { showcases, type BaselineInfo } from '../showcases/registry'
 import baselineDataJson from '../showcases/baseline-data.json'

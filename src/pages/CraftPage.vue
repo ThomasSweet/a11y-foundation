@@ -60,7 +60,7 @@
         gives you focus trapping, Esc-to-close, and an inert background from
         the platform — the things hand-rolled modals get wrong. The entry
         animation uses motion tokens, so it disappears automatically under
-        reduced motion.
+        <GlossaryRef id="reduced-motion">reduced motion</GlossaryRef>.
       </p>
       <div class="demo-row">
         <AppButton variant="secondary" @click="dialog?.open()">
@@ -170,6 +170,7 @@
 import { ref } from 'vue'
 
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import GlossaryRef from '../glossary/GlossaryRef.vue'
 import TextField from '../components/TextField/TextField.vue'
 import AppButton from '../components/AppButton/AppButton.vue'
 import AppDialog from '../components/AppDialog/AppDialog.vue'

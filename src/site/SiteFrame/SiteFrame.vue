@@ -48,6 +48,7 @@
         <div class="site-tb-row">
           <span class="site-tb-drawn">Drawn by <b>Thomas Sweet</b></span>
           <nav class="site-tb-legal" aria-label="Site information">
+            <a href="/glossary.html">Glossary</a>
             <a href="/styleguide.html">Style guide</a>
             <a href="/impressum.html">Impressum</a>
             <a href="/privacy.html">Privacy</a>

@@ -12,6 +12,7 @@ const pages = [
   { path: '/craft.html', name: 'craft' },
   { path: '/showcase.html', name: 'showcase' },
   { path: '/proof.html', name: 'proof' },
+  { path: '/glossary.html', name: 'glossary' },
   { path: '/impressum.html', name: 'impressum' },
   { path: '/privacy.html', name: 'privacy' },
 ]

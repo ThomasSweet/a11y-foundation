@@ -49,12 +49,13 @@
   }
 
   .hub-strike {
-    position: relative;
-    white-space: nowrap;
     /* Arms the scribble. Flipped by the delayed micro-animation below or
        instantly by hover — both roads lead to the same value, so a draw
        that already ran can never restart. */
     --scribble-play: paused;
+
+    position: relative;
+    white-space: nowrap;
     animation: hub-scribble-arm 0.01s linear 2.2s forwards;
 
     @include reduced-motion {

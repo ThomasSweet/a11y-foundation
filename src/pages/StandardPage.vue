@@ -1,7 +1,8 @@
 <template>
   <ChapterLayout id="standard" :sections="sections">
     <p class="chapter-intro">
-      Accessibility begins as a requirement, not a feature. WCAG is the
+      Accessibility begins as a requirement, not a feature.
+      <GlossaryRef id="wcag">WCAG</GlossaryRef> is the
       standard the rest of the web is measured against — and it has grown
       right alongside the platform.
     </p>
@@ -51,6 +52,7 @@
 
 <script setup lang="ts">
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import GlossaryRef from '../glossary/GlossaryRef.vue'
 import CriteriaTimeline from '../criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from '../criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from '../criteria/LegalMap/LegalMap.vue'

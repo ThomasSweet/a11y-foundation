@@ -46,7 +46,8 @@
         <p class="hub-statement-lede">
           It also leans on genuinely new platform features — anchor positioning,
           scroll-driven animation, container queries, <code>contrast-color()</code>.
-          Each is a progressive enhancement: where your browser supports it you get
+          Each is a <GlossaryRef id="progressive-enhancement">progressive
+          enhancement</GlossaryRef>: where your browser supports it you get
           the richer version; where it doesn't you get an accessible fallback, not a
           broken page. New features extend the baseline here — they never replace it.
         </p>
@@ -116,6 +117,7 @@
 
 <script setup lang="ts">
 import SiteFrame from '../SiteFrame/SiteFrame.vue'
+import GlossaryRef from '../../glossary/GlossaryRef.vue'
 import { pillarIcons, type PillarIconName } from '../../icons/pillarIcons'
 
 interface Plate {

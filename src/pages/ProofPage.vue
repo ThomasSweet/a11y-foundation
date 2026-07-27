@@ -24,7 +24,8 @@
       <h3 id="testing-coverage">What automation can and can't see</h3>
       <p>
         This is the part that's rarely spelled out. An automated pass like
-        <code>axe</code> is excellent at a specific slice of WCAG and misses
+        <code>axe</code> is excellent at a specific slice of
+        <GlossaryRef id="wcag">WCAG</GlossaryRef> and misses
         the rest entirely. Here's a sample of real defects against the methods that
         catch them — read the <code>axe</code> column top to bottom and watch
         it run out.
@@ -50,7 +51,8 @@
       <h3 id="testing-performance">Performance is accessibility</h3>
       <p>
         Performance work usually files under "nice to have." For assistive
-        tech it's load-bearing. A screen reader walks the accessibility
+        tech it's load-bearing. A
+        <GlossaryRef id="screen-reader">screen reader</GlossaryRef> walks the accessibility
         tree through the same main thread your JavaScript blocks — every
         long task is a stretch of silence between a keypress and hearing
         where you landed. Motion that stutters is harder on vestibular
@@ -70,6 +72,7 @@
 
 <script setup lang="ts">
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import GlossaryRef from '../glossary/GlossaryRef.vue'
 import TestingLayers from '../testing/TestingLayers/TestingLayers.vue'
 import AuditStylesheet from '../testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from '../testing/CoverageMatrix/CoverageMatrix.vue'
