@@ -15,6 +15,7 @@
 
     <!-- tabindex makes overflowing code keyboard-scrollable. v-html is safe:
          the source is our own escaped text, with <span>s only around comments. -->
+    <!-- eslint-disable-next-line vue/no-v-html -- see above -->
     <pre class="code-block-pre" tabindex="0"><code v-html="highlighted" /></pre>
 
     <!-- Announces the copy result to screen readers without moving focus. -->

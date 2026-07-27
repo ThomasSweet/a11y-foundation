@@ -147,8 +147,13 @@ exactly like inline blocks did.
 - Registries are `.ts` and export a typed shape (`Showcase[]`, `Criterion[]`),
   so the data and the components that consume it stay in sync.
 - `npm run typecheck` runs `vue-tsc --noEmit`. Run it alongside
-  `npm run lint:css` before committing — a clean build does **not** imply a
-  clean type-check (esbuild strips types without checking them).
+  `npm run lint:css` and `npm run lint:js` before committing — a clean build
+  does **not** imply a clean type-check (esbuild strips types without checking
+  them), and neither implies clean lint.
+- `npm run lint:js` is ESLint (flat config, `eslint.config.js`) over JS/TS/Vue,
+  at `--max-warnings 0`. It is deliberately lean: types belong to vue-tsc and
+  formatting rules are switched off, so what remains flags real defects. The
+  few `vue/no-v-html` suppressions are per-site and each carries its reason.
 
 ---
 

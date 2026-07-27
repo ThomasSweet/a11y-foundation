@@ -37,6 +37,9 @@ jobs:
       - name: Lint styles
         run: npm run lint:css
 
+      - name: Lint scripts
+        run: npm run lint:js
+
       # Informational: prints which tracked features are newly available (so we
       # notice), without failing — the gate is the baseline unit test below.
       - name: Baseline report
