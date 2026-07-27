@@ -1,12 +1,5 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 
-/* Unregistered custom properties snap instead of interpolating. */
-@property --ring-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 @layer components {
   .hub-title {
     font-size: var(--text-display);
@@ -330,6 +323,14 @@
     color: var(--bp-ink-2);
   }
 
+  /* The hub dogfoods its own ::details-content showcase: a smooth native
+     disclosure, and no scroll jump when it collapses. */
+  .hub-statement-details {
+    @supports (interpolate-size: allow-keywords) {
+      interpolate-size: allow-keywords;
+    }
+  }
+
   .hub-statement-summary {
     inline-size: fit-content;
     font-family: var(--bp-mono);
@@ -345,10 +346,32 @@
     }
   }
 
+  /* allow-discrete holds content-visibility until the closing fade finishes.
+     The global reduced-motion kill switch only reaches *::before/::after, so
+     this pseudo-element gates itself. */
+  .hub-statement-details::details-content {
+    opacity: 0;
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      content-visibility var(--duration-normal) allow-discrete,
+      opacity var(--duration-normal),
+      block-size var(--duration-normal);
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  .hub-statement-details[open]::details-content {
+    opacity: 1;
+    block-size: auto;
+  }
+
   .hub-statement-body {
     display: grid;
     gap: var(--space-3);
-    margin-block-start: var(--space-3);
+    padding-block-start: var(--space-3);
     font-size: var(--text-sm);
     line-height: var(--leading-normal);
     color: var(--bp-ink-2);
@@ -367,31 +390,22 @@
     gap: var(--space-4);
     align-items: center;
     margin-block-end: var(--space-6);
-    padding-block-end: var(--space-4);
-    border-block-end: 1px solid var(--bp-line-strong);
   }
 
+  /* A drafter's compass circle around the photo: solid ring, dashed
+     construction line outside. */
   .hub-author-avatar {
     position: relative;
     flex: none;
     inline-size: var(--space-20);
     block-size: var(--space-20);
     border-radius: var(--radius-full);
-    /* the animation spins the conic angle, not the element — the photo stays still */
-    background: conic-gradient(
-      from var(--ring-angle, 0deg),
-      var(--color-primary),
-      var(--color-accent),
-      var(--color-primary)
-    );
-
-    @media (prefers-reduced-motion: no-preference) {
-      animation: hub-avatar-ring-spin 3s linear infinite;
-    }
+    border: 1px solid var(--bp-frame);
+    outline: 1px dashed var(--bp-line-strong);
+    outline-offset: 4px;
 
     @include forced-colors {
-      background: none;
-      border: 1px solid currentcolor;
+      border-color: CanvasText;
     }
   }
 
@@ -400,17 +414,11 @@
     position: absolute;
     inset: 0.28rem;
     border-radius: var(--radius-full);
-    background-color: var(--color-bg-subtle);
-    background-image: url("/thomas.jpg"), var(--gradient-accent);
+    background-color: var(--bp-accent-soft);
+    background-image: url("/thomas.jpg");
     background-size: 175%;
     background-position: 55% 18%;
     background-repeat: no-repeat;
-  }
-
-  @keyframes hub-avatar-ring-spin {
-    to {
-      --ring-angle: 360deg;
-    }
   }
 
   .hub-author-body {
@@ -443,8 +451,11 @@
     justify-content: center;
     inline-size: 44px;
     block-size: 44px;
-    border-radius: var(--radius-full);
+    border: 1px solid var(--bp-line-strong);
     color: var(--bp-ink-2);
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      color var(--duration-fast) var(--easing-standard);
 
     svg {
       inline-size: 1.25rem;
@@ -453,6 +464,7 @@
 
     @include can-hover {
       &:hover {
+        border-color: var(--bp-accent);
         color: var(--bp-accent);
       }
     }
@@ -460,6 +472,10 @@
     &:focus-visible {
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
       outline-offset: 2px;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
     }
   }
 }
