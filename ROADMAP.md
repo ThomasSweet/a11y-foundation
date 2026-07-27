@@ -117,6 +117,19 @@ fixes/features as they come in.
   shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
   The optional "emerging" third act is deferred to demos where a real successor
   exists. Directly answers the "avoid it from happening" feedback.
+- ~~Blueprint wayfinding review (Klara, July 2026)~~ — done, in two moves.
+  Subtraction: the fake-breadcrumb eyebrows ("Drawing 03 · …"), the aria-hidden
+  hub index strip, and the drawing vocabulary in nav ("Legend", "Enter drawing")
+  all read as navigation to decode or ornament posing as controls — deleted or
+  renamed to plain prose; plate subtext now follows the heading as a subtitle;
+  CTAs name their destination. Addition: the blueprintiness returned where
+  drafting legitimately puts it — the footer became a real ruled title block
+  (project / title / drawn by / scale 1:1 / sheet n° + references row; hub 00,
+  chapters n / 04, glossary A·01) plus a dimension line under chapter titles.
+  Standing rule: metaphor lives in ornament and prose, never in labels, link
+  text, or group names; mono-caps never marks a bare link in text flow. Also
+  from this round (spouse): the end-of-chapter pager was too small and hidden
+  under the legal row — now plate-style cards inside main.
 - Site-wide flow / length restructure — BUILT (July 2026, in review; not yet
   deployed). The one-page scroll became a five-page MPA wearing a blueprint /
   technical-drawing skin: an overview hub (index — hero, four "plates" on a
