@@ -21,6 +21,7 @@ import FocusAppearanceDemo from './demos/FocusAppearanceDemo.vue'
 import AnimationDemo from './demos/AnimationDemo.vue'
 import OrientationDemo from './demos/OrientationDemo.vue'
 import RedundantEntryDemo from './demos/RedundantEntryDemo.vue'
+import ConsistentHelpDemo from './demos/ConsistentHelpDemo.vue'
 import type { Component } from 'vue'
 
 export interface Criterion {
@@ -290,6 +291,38 @@ export const criteria: Criterion[] = [
       },
     ],
     component: RedundantEntryDemo,
+  },
+  {
+    id: '3.2.6',
+    name: 'Consistent Help',
+    level: 'A',
+    version: 'WCAG 2.2',
+    principle: 'Understandable',
+    requirement:
+      'If a page offers help — a contact detail, a support link, a chat, a ' +
+      'glossary — it appears in the same relative order on every page that ' +
+      'has it, unless the user moves it themselves. Added in WCAG 2.2 ' +
+      '(2023). Help that relocates has to be re-found on each page, and ' +
+      'the people most likely to need it are the ones least able to hunt.',
+    breakLabel: 'Break this rule',
+    restoreLabel: 'Restore compliance',
+    passText:
+      'Meets 3.2.6 — help sits in the same place in the footer on all three ' +
+      'pages. Found once, and from then on it is simply known. Note the ' +
+      'criterion asks for the same relative order, not identical pixels: a ' +
+      'narrow layout may reflow, as long as help keeps its place in the ' +
+      'sequence.',
+    failText:
+      '⚠ Failing 3.2.6 — help jumps to the header on one page and into the ' +
+      'body copy on the next. Each page restarts the search, which taxes ' +
+      'memory and attention exactly when someone is already stuck.',
+    links: [
+      {
+        label: 'WCAG: Understanding 3.2.6',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html',
+      },
+    ],
+    component: ConsistentHelpDemo,
   },
 ]
 

@@ -34,6 +34,7 @@
           <div class="chapter-headrow-wrap">
             <div class="chapter-headrow">
               <span class="chapter-no">{{ pillar.no }}</span>
+              <!-- eslint-disable-next-line vue/no-v-html -- build-time icon map, never user input -->
               <span class="chapter-mark" aria-hidden="true" v-html="pillarIcons[pillar.icon]"></span>
               <h1 class="chapter-title">{{ pillar.title }}</h1>
             </div>

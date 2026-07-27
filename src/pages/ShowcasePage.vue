@@ -58,6 +58,7 @@
     </div>
 
     <!-- Baseline icon sprite — the badges reference it with <use>; defined once. -->
+    <!-- eslint-disable-next-line vue/no-v-html -- static sprite asset imported at build time -->
     <div class="baseline-sprite" aria-hidden="true" v-html="baselineSprite"></div>
   </ChapterLayout>
 </template>

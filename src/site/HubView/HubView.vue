@@ -16,6 +16,7 @@
       >
         <span class="hub-plate-top">
           <span class="hub-plate-no">{{ p.no }}</span>
+          <!-- eslint-disable-next-line vue/no-v-html -- build-time icon map, never user input -->
           <span class="hub-plate-icon" aria-hidden="true" v-html="pillarIcons[p.icon]"></span>
         </span>
         <span class="hub-plate-title">{{ p.title }}</span>

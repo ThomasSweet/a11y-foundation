@@ -116,6 +116,7 @@ npm install
 npm run dev         # playground at http://localhost:5173
 npm run typecheck   # vue-tsc
 npm run lint:css    # stylelint, including mixin-order enforcement
+npm run lint:js     # eslint (vue + typescript), zero warnings tolerated
 npm run build
 ```
 
