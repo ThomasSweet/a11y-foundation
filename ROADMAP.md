@@ -145,6 +145,9 @@ fixes/features as they come in.
   merges.**
 - `text-box` (trim) — Chrome + Safari; typographic alignment with only a
   modest a11y angle; take it only if a showcase gap needs filling.
+- Baseline tier icons on sidebar cluster summaries — main's design only
+  (the blueprint rail must stay theme-derived; fixed-palette brand marks
+  can't re-ink). Only worth building if the current design wins the vote.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
 - Media state pseudo-classes (`:playing` etc.) — checked July 2026: no

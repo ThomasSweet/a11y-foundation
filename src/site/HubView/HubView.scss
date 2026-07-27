@@ -93,7 +93,7 @@
     stroke-width: 7;
     stroke-linecap: butt;
     stroke-linejoin: round;
-    stroke-opacity: 0.96;
+    stroke-opacity: 0.95;
     animation: hub-scribble-draw 0.18s cubic-bezier(0.3, 0.1, 0.3, 1) forwards;
     animation-play-state: var(--scribble-play);
 
@@ -113,6 +113,25 @@
 
   .hub-strike-scribble .hub-strike-scribble-third {
     animation-delay: 0.48s;
+  }
+
+  /* The ink multiplies, so crossings burn like layered marker. Safe because
+     of the underbase below: it repaints the ink's exact geometry in white —
+     multiply's identity — so the blend only ever meets paper or sibling ink,
+     never the page text behind. Screen printers call this an underbase. */
+  .hub-strike-scribble .hub-strike-scribble-ink {
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+
+    @include forced-colors {
+      mix-blend-mode: normal;
+    }
+  }
+
+  .hub-strike-scribble .hub-strike-scribble-primer {
+    @include forced-colors {
+      display: none;
+    }
   }
 
   @keyframes hub-scribble-draw {
