@@ -37,8 +37,16 @@ fixes/features as they come in.
   lines of copy, distinct accessibility-marked line on every card.
 - ~~Style guide dormant~~ — done: live theming/presets section (renders
   from the real `.theme-*` classes) + footer link.
-- "The standard" pillar could be more interesting/interactive — parked
-  for now (Thomas); revisit with concrete ideas, not urgency.
+- ~~"The standard" pillar could be more interesting/interactive~~ — closed
+  (July 2026). The chapter's real interactivity is the break-it criteria,
+  which grew from 7 to 9 while this sat parked (ghost-year timeline redesign,
+  Bypass Blocks, 3.3.7). Two additions were tried and rejected the same day:
+  a "criteria you're currently breaking" tally (reads as surveillance — makes
+  the consequence-free sandbox feel consequential) and a LegalMap jurisdiction
+  picker (built, then reverted: at four region-headlined cards the eye filters
+  faster than any control). Standing lesson: "make X more interactive" is a
+  trap framing — interaction earns its place when it IS the lesson, as in
+  break-it, never as decoration.
 - ~~shape() demo interactive~~ — done: width slider resizes two cards;
   path()'s frozen coords visibly detach while shape() reflows.
 - ~~text-wrap demo interactive~~ — done: one block toggled in place via
