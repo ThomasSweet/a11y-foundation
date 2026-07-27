@@ -37,8 +37,16 @@ fixes/features as they come in.
   lines of copy, distinct accessibility-marked line on every card.
 - ~~Style guide dormant~~ — done: live theming/presets section (renders
   from the real `.theme-*` classes) + footer link.
-- "The standard" pillar could be more interesting/interactive — parked
-  for now (Thomas); revisit with concrete ideas, not urgency.
+- ~~"The standard" pillar could be more interesting/interactive~~ — closed
+  (July 2026). The chapter's real interactivity is the break-it criteria,
+  which grew from 7 to 9 while this sat parked (ghost-year timeline redesign,
+  Bypass Blocks, 3.3.7). Two additions were tried and rejected the same day:
+  a "criteria you're currently breaking" tally (reads as surveillance — makes
+  the consequence-free sandbox feel consequential) and a LegalMap jurisdiction
+  picker (built, then reverted: at four region-headlined cards the eye filters
+  faster than any control). Standing lesson: "make X more interactive" is a
+  trap framing — interaction earns its place when it IS the lesson, as in
+  break-it, never as decoration.
 - ~~shape() demo interactive~~ — done: width slider resizes two cards;
   path()'s frozen coords visibly detach while shape() reflows.
 - ~~text-wrap demo interactive~~ — done: one block toggled in place via
@@ -64,11 +72,14 @@ fixes/features as they come in.
 - ~~BUG: filter breaks sidebar nav~~ — fixed (3a): `:target` reveal in the
   utilities layer un-hides a linked-to card + its tier group, beating the
   components-layer filter by layer order (pure CSS, no JS). Pinned by e2e.
-- Keyboard shortcuts, done accessibly (feature, not the nav fix) — NOT
-  cmd/ctrl+N (browser-reserved). If built: safe keys, a `?` help overlay,
-  a 2.1.4 disable/remap mechanism, fire only when focus isn't in a field.
-  Teaches Character Key Shortcuts instead of violating it. The back-to-nav
-  skip links already cover the return-to-nav need, so this is additive.
+- ~~Keyboard shortcuts, done accessibly~~ — dropped (July 2026). Two reasons:
+  it needs JS for the mechanism (against the site's little-to-no-JS identity;
+  `accesskey`, the only no-JS option, is a native anti-pattern), and it
+  "improves accessibility" by adding a shortcut the user must *learn* — the
+  opposite of invisible/native. The pull toward shortcuts was really a symptom
+  of the flow/length problem, to be fixed structurally (per-pillar pages), not
+  band-aided. Leaves 2.1.4 (Character Key Shortcuts) an uncovered criterion by
+  choice.
 - ~~Avatar + brief bio~~ — done (3c): footer sliver with a round photo
   avatar (background-image framed on the face, gradient fallback) + one
   line + GitHub link.
@@ -106,24 +117,54 @@ fixes/features as they come in.
   shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
   The optional "emerging" third act is deferred to demos where a real successor
   exists. Directly answers the "avoid it from happening" feedback.
-- Site-wide flow / length restructure (open, big) — sections run long (Craft most
-  of all, now more so with the code comparisons). Not a per-section trim: rethink
-  the whole narrative flow, likely splitting the pillars onto their own
-  pages/routes so each breathes instead of competing for one scroll. Parked
-  deliberately until it's tackled as its own effort; once sections have their own
-  pages, keeping any single section minimal matters far less. Candidate to fold in
-  then: per-topic "reference" links (MDN/spec) on the craft demos, like the
-  showcase cards already carry — deferred now to avoid adding weight to an
-  already-long section.
+- ~~Blueprint wayfinding review (Klara, July 2026)~~ — done, in two moves.
+  Subtraction: the fake-breadcrumb eyebrows ("Drawing 03 · …"), the aria-hidden
+  hub index strip, and the drawing vocabulary in nav ("Legend", "Enter drawing")
+  all read as navigation to decode or ornament posing as controls — deleted or
+  renamed to plain prose; plate subtext now follows the heading as a subtitle;
+  CTAs name their destination. Addition: the blueprintiness returned where
+  drafting legitimately puts it — the footer became a real ruled title block
+  (project / title / drawn by / scale 1:1 / sheet n° + references row; hub 00,
+  chapters n / 04, glossary A·01) plus a dimension line under chapter titles.
+  Standing rule: metaphor lives in ornament and prose, never in labels, link
+  text, or group names; mono-caps never marks a bare link in text flow. Also
+  from this round (spouse): the end-of-chapter pager was too small and hidden
+  under the legal row — now plate-style cards inside main.
+- Site-wide flow / length restructure — BUILT (July 2026, in review; not yet
+  deployed). The one-page scroll became a five-page MPA wearing a blueprint /
+  technical-drawing skin: an overview hub (index — hero, four "plates" on a
+  subgrid, a11y statement, author) and one chapter page per pillar
+  (standard/craft/showcase/proof.html), each with a legend rail (chapter
+  switcher + pure-CSS view-timeline scroll-spy), oversized watermark on a
+  scroll() parallax, demo reveals, and prev/next in the title block. Entering a
+  chapter morphs the plate's icon into the chapter header via cross-document
+  view transitions (zero JS, reduced-motion → instant nav). The skin is fully
+  theme-driven (--bp-* tokens derive from --color-*, so all presets/CVD/contrast
+  re-ink it); legal pages wear the sheet too. Legacy one-page anchors forward to
+  their chapter pages. App.vue (+ PillarHeader, heroIcons) deleted; e2e suite
+  extended to all 7 pages ×3 engines (54 tests green) — the sweep even caught a
+  real AA contrast bug in TargetsDemo (opacity on subtle text), fixed. Still
+  open from this thread: per-topic reference links (MDN/spec) on craft demos;
+  styleguide.html reskinned July 2026 (sheet chrome, title block S·01, real
+  logo section) alongside the new brand assets.
+
+- The project itself as a showcase (open, directional) — Thomas's worry after the
+  restructure: some playfulness got lost, and the site chrome should *itself*
+  employ the CSS it showcases, visibly. Partly addressed already (cross-doc
+  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals, sticky
+  ghost years and chapter watermarks, anchor-positioned theme panel, :has() legal
+  wash) — but treat "does the site dogfood this?" as a standing design test, and
+  keep hunting for places where a showcased feature can do real chrome work with
+  personality. Playfulness is a feature, not a garnish.
 
 ### Watchlist (too early / conditional — revisit)
 
 - WCAG 2.2 timeline coverage — settled at 4 of the 9 new criteria (2.5.8,
   2.4.11, 2.4.13, 3.3.7); the rest assessed July 2026 and skipped on purpose:
   2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8 need JS
-  mechanisms to break honestly, and **3.2.6 Consistent Help only becomes
-  demoable once the site has multiple pages — revisit if the restructure
-  merges.**
+  mechanisms to break honestly. **3.2.6 Consistent Help is unblocked now
+  that the multi-page design is going live — a good first post-launch demo**
+  (help lives in the same footer slot on every page; break-it moves it).
 - `text-box` (trim) — Chrome + Safari; typographic alignment with only a
   modest a11y angle; take it only if a showcase gap needs filling.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by

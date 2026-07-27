@@ -12,6 +12,33 @@
          `components` as the lowest-priority layer and invert the cascade. -->
     <style>
       @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+      /* Pre-CSS ground so a raw frame in the view-transition handoff paints
+         desk-colored, not UA-white. The literal mirrors --color-bg-subtle
+         (tokens.css); once the bundle loads, var(--bp-ground) takes over and
+         the canvas re-inks per theme. */
+      @layer base {
+        :root {
+          --boot-ground: light-dark(#f5f5f5, #1a1a1a);
+        }
+
+        html {
+          background-color: var(--bp-ground, var(--boot-ground));
+        }
+      }
+    </style>
+
+    <!-- View-transition opt-in, inline: it must be in BOTH documents' static
+         CSSOM at navigation time (bundled CSS arrives too late in dev). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+
+        ::view-transition {
+          background-color: var(--bp-ground, var(--boot-ground));
+        }
+      }
     </style>
 
     <!-- Apply the saved theme before first paint so a reload never flashes
@@ -27,6 +54,27 @@
       } catch (e) {}
     </script>
 
+    <!-- The one-page era's anchors live on their chapter pages now; forward
+         inbound deep links there (hash preserved) instead of dropping them. -->
+    <script>
+      ;(function () {
+        var h = location.hash
+        if (!h) return
+        var map = [
+          [/^#(standard|demo-criteria|demo-conformance|demo-legal)/, '/standard.html'],
+          [/^#craft/, '/craft.html'],
+          [/^#(showcase|tier-)/, '/showcase.html'],
+          [/^#testing/, '/proof.html'],
+        ]
+        for (var i = 0; i < map.length; i++) {
+          if (map[i][0].test(h)) {
+            location.replace(map[i][1] + h)
+            return
+          }
+        }
+      })()
+    </script>
+
     <title>Accessible by default — an accessibility-first styling playground</title>
     <meta
       name="description"
@@ -39,8 +87,8 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Browser chrome colour follows the site's light/dark surfaces. -->
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f0f0f" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" />
 
     <!-- Open Graph / Twitter for link sharing. -->
     <meta property="og:type" content="website" />
@@ -63,6 +111,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" blocking="render" src="/src/entries/hub.ts"></script>
   </body>
 </html>

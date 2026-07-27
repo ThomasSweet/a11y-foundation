@@ -219,10 +219,11 @@ const actions = [
     color: var(--color-text-subtle);
   }
 
+  /* No opacity: subtle text is already at the token's contrast floor, and
+     blending it further dropped below AA — caught by the axe sweep. */
   .targets-fine-print {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
-    opacity: 0.8;
   }
 }
 </style>

@@ -49,9 +49,9 @@ const popoverId = useId()
 
     /* The enhancement, only where the feature exists. */
     @supports (anchor-name: --a) {
-      /* Keep `position: fixed`, NOT absolute. Absolute would resolve against
-         .app-shell (positioned, full-page-tall), so the panel never overflows
-         the viewport edge and the flip fallbacks never fire. */
+      /* Keep `position: fixed`, NOT absolute: absolute resolves against a
+         positioned ancestor (.showcase), so the panel would never overflow the
+         viewport edge and the flip fallbacks would never fire. */
       position: fixed;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;

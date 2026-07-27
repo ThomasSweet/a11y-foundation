@@ -4,9 +4,8 @@
     max-inline-size: min(60ch, calc(100% - var(--space-8)));
     margin: auto;
     padding: var(--space-6);
-    border: none;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-surface);
+    border: 1px solid var(--bp-frame);
+    background-color: var(--bp-sheet);
     color: var(--color-text);
     box-shadow: var(--shadow-lg);
 

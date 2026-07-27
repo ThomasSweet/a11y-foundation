@@ -1,10 +1,117 @@
 /* Layout for the living style-guide page. In the components layer (the project's
    "no unlayered CSS" rule); mixins come from Vite's additionalData. */
 @layer components {
+  /* The desk behind the sheet. */
+  body {
+    padding: clamp(14px, 3vw, 34px);
+    background-color: var(--bp-ground);
+  }
+
   .guide {
-    max-inline-size: 60rem;
+    position: relative;
+    max-inline-size: 64rem;
     margin-inline: auto;
-    padding: var(--space-6) var(--space-4) var(--space-16);
+    padding: clamp(20px, 4vw, 52px);
+    overflow: clip;
+    background-color: var(--bp-sheet);
+    background-image:
+      linear-gradient(var(--bp-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bp-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    outline: 1.5px solid var(--bp-frame);
+    outline-offset: -10px;
+
+    @include high-contrast {
+      outline-color: currentcolor;
+    }
+
+    @include forced-colors {
+      background-image: none;
+      outline: 1px solid CanvasText;
+    }
+  }
+
+  .guide-reg {
+    position: absolute;
+    inline-size: 16px;
+    block-size: 16px;
+    border: 0 solid var(--bp-accent);
+
+    @include forced-colors {
+      border-color: CanvasText;
+    }
+  }
+
+  .guide-reg-tl {
+    inset-block-start: 4px;
+    inset-inline-start: 4px;
+    border-block-start-width: 2px;
+    border-inline-start-width: 2px;
+  }
+
+  .guide-reg-tr {
+    inset-block-start: 4px;
+    inset-inline-end: 4px;
+    border-block-start-width: 2px;
+    border-inline-end-width: 2px;
+  }
+
+  .guide-reg-bl {
+    inset-block-end: 4px;
+    inset-inline-start: 4px;
+    border-block-end-width: 2px;
+    border-inline-start-width: 2px;
+  }
+
+  .guide-reg-br {
+    inset-block-end: 4px;
+    inset-inline-end: 4px;
+    border-block-end-width: 2px;
+    border-inline-end-width: 2px;
+  }
+
+  .guide-mark,
+  .guide-mark-sample {
+    path,
+    circle {
+      fill: none;
+      stroke: var(--bp-ink);
+      stroke-width: 3.2;
+    }
+
+    .guide-mark-accent {
+      stroke: var(--bp-accent);
+    }
+
+    .guide-mark-prick {
+      fill: var(--bp-accent);
+      stroke: none;
+    }
+
+    /* Forced colors doesn't repaint SVG strokes — flatten to text color. */
+    @include forced-colors {
+      path,
+      circle {
+        stroke: CanvasText;
+      }
+
+      .guide-mark-prick {
+        fill: CanvasText;
+      }
+    }
+  }
+
+  .guide-mark {
+    inline-size: 2em;
+    block-size: 2em;
+  }
+
+  .guide-mark-row {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-6);
+    margin-block-end: var(--space-4);
   }
 
   .guide-header {
@@ -304,35 +411,106 @@
     line-height: var(--leading-normal);
   }
 
-  /* ---- Logo (deferred) ------------------------------------------------- */
-  .guide-tbd {
-    padding: 0 var(--space-2);
-    border-radius: var(--radius-full);
-    background-color: color-mix(in oklch, var(--color-accent) 22%, transparent);
-    color: var(--color-text);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
+  /* ---- Title-block footer (mirrors the app pages' SiteFrame block) ----- */
+  .guide-titleblock {
+    margin-block-start: var(--space-16);
   }
 
-  /* ---- Footer ---------------------------------------------------------- */
-  .guide-footer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2) var(--space-4);
-    margin-block-start: var(--space-16);
-    padding-block-start: var(--space-4);
-    border-block-start: 1px solid var(--color-border);
-    font-size: var(--text-sm);
-    color: var(--color-text-subtle);
+  .guide-tb {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border: 1px solid var(--bp-frame);
+    background-color: var(--bp-line-strong);
 
     @include high-contrast {
       border-color: currentcolor;
     }
+
+    @include forced-colors {
+      gap: 0;
+      border-color: CanvasText;
+    }
   }
 
-  .guide-footer-copy {
-    margin-inline-start: auto;
+  @media (width >= 52rem) {
+    .guide-tb {
+      grid-template-columns:
+        minmax(0, 2.2fr) minmax(0, 1.6fr) minmax(0, 1.6fr)
+        minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  .guide-tb-cell {
+    display: grid;
+    gap: 2px;
+    align-content: start;
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--bp-sheet);
+
+    @include forced-colors {
+      border: 1px solid CanvasText;
+    }
+  }
+
+  @media (width <= 52rem) {
+    .guide-tb-cell-project {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .guide-tb-label {
+    font-family: var(--bp-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+  }
+
+  .guide-tb-value {
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bp-ink);
+  }
+
+  .guide-tb-fine {
+    font-family: var(--bp-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.04em;
+    color: var(--bp-ink-2);
+  }
+
+  .guide-tb-refs {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .guide-tb-refs a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-ink-2);
+    text-decoration: none;
+
+    @include can-hover {
+      &:hover {
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
   }
 }
 

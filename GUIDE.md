@@ -31,8 +31,14 @@ src/
 │   └── AppButton/
 │       ├── AppButton.vue       — template + <script setup lang="ts">
 │       └── AppButton.scss      — styles, via <style scoped src>
+├── site/                   — the blueprint shell shared by every page
+│   ├── SiteFrame/          — sheet frame, grid, header, title-block footer
+│   ├── HubView/            — the overview hub (index page)
+│   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark
+│   └── pillars.ts          — the four chapters (order, titles, hrefs, icons)
+├── pages/                  — one thin root per chapter (MPA entries, see main.ts)
 ├── showcases/              — cutting-edge CSS demos (see "CSS showcases")
-│   ├── registry.ts         — typed metadata for every showcase, drives App.vue
+│   ├── registry.ts         — typed metadata for every showcase, drives ShowcasePage
 │   ├── ShowcaseFrame/      — wrapper: status badge, support detection, links
 │   └── demos/              — one small component per CSS feature
 └── criteria/              — "Guidelines, alive" WCAG demos (CriterionFrame)

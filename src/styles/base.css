@@ -4,6 +4,13 @@
 
 @layer base {
 
+  /* The page scroller as a scroll-state container: the chapter bottom bar
+     reacts to scroll position in pure CSS — no scroll listeners. Harmless
+     where unused or unsupported. */
+  html {
+    container-type: scroll-state;
+  }
+
   body {
     font-family: var(--font-sans);
     font-size: var(--text-base);
@@ -67,11 +74,41 @@
   }
 }
 
-/* Cross-document view transitions: same-origin navigations (home ↔ legal
-   pages) get a soft cross-fade where supported — an ordinary navigation
-   everywhere else. Outside @layer: it's an opt-in, not a cascading style. */
+/* Cross-document view transitions. Outside @layer: an opt-in, not a
+   cascading style. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
     navigation: auto;
+  }
+
+  /* The sheet chrome is near-identical on every page, so fading the old page
+     out over the static new one reads as the content dissolving while the
+     page itself stays put. */
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+    animation: 0.5s ease both vt-content-fade;
+  }
+
+  /* The UA applies plus-lighter blending to the snapshots (correct for its
+     default cross-fade, where opacities sum to 1). Ours is an opaque page
+     under a fading one — plus-lighter ADDS the colors and reads as a
+     brightness flash. Restore normal painting. */
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+  }
+
+  @keyframes vt-content-fade {
+    to {
+      opacity: 0;
+    }
   }
 }

@@ -1,6 +1,6 @@
 /**
- * The four pillar marks — shared by PillarHeader (small header tile) and the
- * hero (oversized watermark). Decorative; always rendered aria-hidden.
+ * The four pillar marks — shared by the hub plates, the chapter headers, and
+ * their oversized watermarks. Decorative; always rendered aria-hidden.
  */
 const svg = (paths: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`

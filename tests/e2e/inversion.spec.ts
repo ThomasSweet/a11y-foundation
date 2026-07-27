@@ -21,7 +21,7 @@ test.describe('ThemePicker — the clamp guarantee, verified in a real browser',
   test('clamped preview is contrast-clean; bypassing flips the read-out to a failure', async ({
     page,
   }) => {
-    await page.goto('/')
+    await page.goto('/showcase.html')
     await page.locator('.theme-picker-preview').scrollIntoViewIfNeeded()
     const readout = page.locator('.theme-picker-note')
 

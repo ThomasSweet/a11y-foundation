@@ -1,0 +1,481 @@
+/* Library mixins are injected via Vite's additionalData, so no @use here. */
+
+@layer components {
+  .hub-title {
+    font-size: var(--text-display);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    max-inline-size: 15ch;
+    text-wrap: balance;
+    color: var(--bp-ink);
+    margin: 0;
+  }
+
+  /* Gradient only on the affirmed phrase — the clip can't reach into the
+     positioned strike span (its glyphs would inherit the transparent fill and
+     vanish), and the struck words read better in plain ink anyway. `color`
+     stays ink; the fill is restored in high-contrast/forced-colors or the
+     text goes invisible. */
+  .hub-title-accent {
+    background: linear-gradient(100deg, var(--bp-ink) 25%, var(--bp-accent) 115%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include high-contrast {
+      background: none;
+      -webkit-text-fill-color: currentcolor;
+    }
+
+    @include forced-colors {
+      background: none;
+      -webkit-text-fill-color: currentcolor;
+    }
+  }
+
+  .hub-strike {
+    /* Arms the scribble. Flipped by the delayed micro-animation below or
+       instantly by hover — both roads lead to the same value, so a draw
+       that already ran can never restart. */
+    --scribble-play: paused;
+
+    position: relative;
+    white-space: nowrap;
+    animation: hub-scribble-arm 0.01s linear 2.2s forwards;
+
+    @include reduced-motion {
+      animation: none;
+    }
+  }
+
+  .hub-strike:hover {
+    --scribble-play: running;
+  }
+
+  @keyframes hub-scribble-arm {
+    to {
+      --scribble-play: running;
+    }
+  }
+
+  .hub-strike-scribble {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: -0.02em -0.12em;
+    overflow: visible;
+    color: var(--bp-redline);
+    pointer-events: none;
+
+    @include forced-colors {
+      color: CanvasText;
+    }
+  }
+
+
+  .hub-strike-scribble path {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 7;
+    stroke-linecap: butt;
+    stroke-linejoin: round;
+    stroke-opacity: 0.98;
+    animation: hub-scribble-draw 0.18s cubic-bezier(0.3, 0.1, 0.3, 1) forwards;
+    animation-play-state: var(--scribble-play);
+
+    /* The global reduced-motion kill zeroes durations but not delays or
+       play-state, so the scribble gates itself: no draw, already struck. */
+    @include reduced-motion {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Three slashes, one after another; the second draws right-to-left the
+     way a returning hand would. */
+  .hub-strike-scribble .hub-strike-scribble-second {
+    animation-delay: 0.24s;
+  }
+
+  .hub-strike-scribble .hub-strike-scribble-third {
+    animation-delay: 0.48s;
+  }
+
+  /* The ink multiplies, so crossings burn like layered marker. Safe because
+     of the underbase below: it repaints the ink's exact geometry in white —
+     multiply's identity — so the blend only ever meets paper or sibling ink,
+     never the page text behind. Screen printers call this an underbase. */
+  .hub-strike-scribble .hub-strike-scribble-ink {
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+
+    @include forced-colors {
+      mix-blend-mode: normal;
+    }
+  }
+
+  .hub-strike-scribble .hub-strike-scribble-primer {
+    @include forced-colors {
+      display: none;
+    }
+  }
+
+  @keyframes hub-scribble-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .hub-lede {
+    max-inline-size: 58ch;
+    margin-block: var(--space-4) 0;
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-lede strong {
+    color: var(--bp-ink);
+  }
+
+  .hub-plates {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(var(--space-3), 2.4vw, var(--space-6));
+    margin-block-start: var(--space-8);
+  }
+
+  @media (width >= 60rem) {
+    .hub-plates {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(var(--space-3), 1.4vw, var(--space-4));
+    }
+
+    @supports (grid-template-rows: subgrid) {
+      .hub-plates {
+        grid-template-rows: auto auto auto auto auto;
+        row-gap: var(--space-4);
+      }
+
+      .hub-plate {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 5;
+      }
+
+      .hub-plate > * {
+        margin: 0;
+      }
+    }
+  }
+
+  @media (width <= 34rem) {
+    .hub-plates {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hub-plate {
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+    padding: clamp(var(--space-4), 1.9vw, var(--space-6));
+    border: 1px solid var(--bp-line-strong);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard),
+      scale var(--duration-fast) var(--easing-standard);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inline-size: 12px;
+      block-size: 12px;
+      border: 0 solid var(--bp-ink-2);
+      opacity: 0.5;
+      transition: opacity var(--duration-fast) var(--easing-standard);
+    }
+
+    &::before {
+      inset-block-start: 6px;
+      inset-inline-start: 6px;
+      border-block-start-width: 1.5px;
+      border-inline-start-width: 1.5px;
+    }
+
+    &::after {
+      inset-block-end: 6px;
+      inset-inline-end: 6px;
+      border-block-end-width: 1.5px;
+      border-inline-end-width: 1.5px;
+    }
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--bp-accent);
+        background: var(--bp-accent-soft);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    &:hover::before,
+    &:hover::after,
+    &:focus-visible::before,
+    &:focus-visible::after {
+      opacity: 1;
+      border-color: var(--bp-accent);
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .hub-plate-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-block-end: var(--space-4);
+  }
+
+  .hub-plate-no {
+    font-family: var(--bp-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--bp-accent);
+  }
+
+  .hub-plate-icon {
+    inline-size: 38px;
+    block-size: 38px;
+    color: var(--bp-ink);
+
+    :deep(svg) {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+    }
+  }
+
+  .hub-plate:hover .hub-plate-icon,
+  .hub-plate:focus-visible .hub-plate-icon {
+    color: var(--bp-accent);
+  }
+
+  .hub-plate-title {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--bp-ink);
+    margin-block-end: var(--space-1);
+  }
+
+  .hub-plate-sub {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--bp-ink);
+    margin-block-end: var(--space-2);
+  }
+
+  .hub-plate-desc {
+    display: block;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+    margin-block-end: var(--space-4);
+  }
+
+  .hub-plate-enter {
+    display: block;
+    font-family: var(--bp-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+  }
+
+  .hub-statement {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 64ch;
+    margin-block-end: var(--space-6);
+    padding-block-end: var(--space-6);
+    border-block-end: 1px solid var(--bp-line-strong);
+  }
+
+  .hub-statement-title {
+    font-size: var(--text-xl);
+    color: var(--bp-ink);
+  }
+
+  .hub-statement-lede {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  /* The hub dogfoods its own ::details-content showcase: a smooth native
+     disclosure, and no scroll jump when it collapses. */
+  .hub-statement-details {
+    @supports (interpolate-size: allow-keywords) {
+      interpolate-size: allow-keywords;
+    }
+  }
+
+  .hub-statement-summary {
+    inline-size: fit-content;
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  /* allow-discrete holds content-visibility until the closing fade finishes.
+     The global reduced-motion kill switch only reaches *::before/::after, so
+     this pseudo-element gates itself. */
+  .hub-statement-details::details-content {
+    opacity: 0;
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      content-visibility var(--duration-normal) allow-discrete,
+      opacity var(--duration-normal),
+      block-size var(--duration-normal);
+
+    @include reduced-motion {
+      transition: none;
+    }
+  }
+
+  .hub-statement-details[open]::details-content {
+    opacity: 1;
+    block-size: auto;
+  }
+
+  .hub-statement-body {
+    display: grid;
+    gap: var(--space-3);
+    padding-block-start: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-statement-body p {
+    margin: 0;
+  }
+
+  .hub-statement-body strong {
+    color: var(--bp-ink);
+  }
+
+  .hub-author {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-block-end: var(--space-6);
+  }
+
+  /* A drafter's compass circle around the photo: solid ring, dashed
+     construction line outside. */
+  .hub-author-avatar {
+    position: relative;
+    flex: none;
+    inline-size: var(--space-20);
+    block-size: var(--space-20);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--bp-frame);
+    outline: 1px dashed var(--bp-line-strong);
+    outline-offset: 4px;
+
+    @include forced-colors {
+      border-color: CanvasText;
+    }
+  }
+
+  .hub-author-avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0.28rem;
+    border-radius: var(--radius-full);
+    background-color: var(--bp-accent-soft);
+    background-image: url("/thomas.jpg");
+    background-size: 175%;
+    background-position: 55% 18%;
+    background-repeat: no-repeat;
+  }
+
+  .hub-author-body {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .hub-author-bio {
+    margin: 0;
+    max-inline-size: 60ch;
+    font-size: var(--text-sm);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-author-bio strong {
+    color: var(--bp-ink);
+  }
+
+  .hub-author-social {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hub-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 44px;
+    block-size: 44px;
+    border: 1px solid var(--bp-line-strong);
+    color: var(--bp-ink-2);
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      color var(--duration-fast) var(--easing-standard);
+
+    svg {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+    }
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--bp-accent);
+        color: var(--bp-accent);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+}
