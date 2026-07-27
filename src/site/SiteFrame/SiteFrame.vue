@@ -15,7 +15,17 @@
             Index
           </a>
           <a class="site-brand" href="/">
-            <img class="site-brand-mark" src="/favicon.svg" alt="" />
+            <!-- Inline (not the favicon file) so the mark re-inks with the
+                 live theme; geometry mirrors scripts/gen-icons.mjs. -->
+            <svg class="site-brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="13.6" cy="36" r="8.4" />
+              <path d="M22 22.5 V49.5" />
+              <circle class="site-brand-mark-prick" cx="13.6" cy="36" r="1.8" />
+              <path class="site-brand-mark-accent" d="M30.7 20 V52" />
+              <path class="site-brand-mark-accent" d="M40.4 20 V52" />
+              <path d="M48 26.5 L54.2 46" />
+              <path d="M60.4 26.5 L50.7 57" />
+            </svg>
             <span>Accessible <span class="site-brand-dim">by default</span></span>
           </a>
         </div>

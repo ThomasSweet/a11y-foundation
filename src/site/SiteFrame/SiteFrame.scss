@@ -147,8 +147,35 @@
   }
 
   .site-brand-mark {
-    inline-size: 1.6em;
-    block-size: 1.6em;
+    inline-size: 2em;
+    block-size: 2em;
+
+    path,
+    circle {
+      fill: none;
+      stroke: currentcolor;
+      stroke-width: 3.2;
+    }
+
+    .site-brand-mark-accent {
+      stroke: var(--bp-accent);
+    }
+
+    .site-brand-mark-prick {
+      fill: var(--bp-accent);
+      stroke: none;
+    }
+
+    /* Forced colors doesn't repaint SVG strokes — flatten to text color. */
+    @include forced-colors {
+      .site-brand-mark-accent {
+        stroke: currentcolor;
+      }
+
+      .site-brand-mark-prick {
+        fill: currentcolor;
+      }
+    }
   }
 
   .site-brand-dim {

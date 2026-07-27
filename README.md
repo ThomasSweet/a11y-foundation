@@ -4,7 +4,6 @@
 
 [![CI](https://github.com/ThomasSweet/a11y-foundation/actions/workflows/ci.yml/badge.svg)](https://github.com/ThomasSweet/a11y-foundation/actions/workflows/ci.yml)
 [![Live site](https://img.shields.io/badge/live-accessible--by--default.dev-2563eb)](https://accessible-by-default.dev/)
-[![Redesign preview](https://img.shields.io/badge/redesign-staging-7c3aed)](https://staging.accessible-by-default.dev/)
 [![WCAG](https://img.shields.io/badge/WCAG_2.2_AA-target-16a34a)](https://www.w3.org/TR/WCAG22/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8a8a8a)](./LICENSE)
 
@@ -20,37 +19,20 @@ design tokens, and a cascade-layer architecture — where components adapt to
 reduced transparency) and **input capabilities** (hover, touch) by default,
 with the cascade doing the work instead of `!important`.
 
-> [!IMPORTANT]
-> **Two designs are live right now, and you can help pick one.**
-> The [live site](https://accessible-by-default.dev/) runs the current
-> single-page design; a full restructure — an overview hub plus four chapter
-> pages, wearing a technical-drawing look — is in review on
-> [staging](https://staging.accessible-by-default.dev/). Impressions,
-> nitpicks, and accessibility findings on either version are genuinely
-> welcome: [open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
+> [!NOTE]
+> **The design vote is settled.** The blueprint restructure — an overview hub
+> plus four chapter pages, wearing a technical-drawing look — won the review
+> round and is now the live design. The previous single-page design is kept
+> under the `design-classic` git tag. Impressions, nitpicks, and accessibility
+> findings are always welcome:
+> [open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
 
-<table>
-  <tr>
-    <th scope="col">Current design (live)</th>
-    <th scope="col">Blueprint redesign (staging)</th>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://accessible-by-default.dev/"><picture>
-        <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-current-dark.png">
-        <img alt="Visit the live site — current design: gradient wordmark hero over a soft wash" src="docs/screenshots/design-current-light.png">
-      </picture></a>
-    </td>
-    <td>
-      <a href="https://staging.accessible-by-default.dev/"><picture>
-        <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/design-blueprint-dark.png">
-        <img alt="Visit the staging redesign — blueprint hub: four chapter plates on a drawing sheet" src="docs/screenshots/design-blueprint-light.png">
-      </picture></a>
-    </td>
-  </tr>
-</table>
+<a href="https://accessible-by-default.dev/"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hub-dark.png">
+  <img alt="Visit the live site — the hub: four chapter plates indexed on a drawing sheet" src="docs/screenshots/hub-light.png" width="1080">
+</picture></a>
 
-<sub>The banner and these screenshots follow your color-scheme preference
+<sub>The banner and this screenshot follow your color-scheme preference
 (`prefers-color-scheme`, as reported by your browser — usually your OS
 setting, unless the browser overrides it), and the banner's strike only
 animates without a reduced-motion preference — this README practises the
