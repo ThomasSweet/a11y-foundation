@@ -1,7 +1,7 @@
 <template>
   <SiteFrame home>
     <p class="hub-eyebrow">Drawing 00 · the through-line</p>
-    <h1 class="hub-title"><span class="hub-title-accent">Built in, not</span> <span class="hub-strike">bolted&nbsp;on</span></h1>
+    <h1 class="hub-title"><span class="hub-title-accent">Built in, not</span> <span class="hub-strike">bolted&nbsp;on<svg class="hub-strike-scribble" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true"><path class="hub-strike-scribble-first" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" stroke-dasharray="200" stroke-dashoffset="200" /><path class="hub-strike-scribble-second" d="M 201 26 C 136 28.6, 66 32.4, 0 36" stroke-dasharray="202" stroke-dashoffset="202" /><path class="hub-strike-scribble-third" d="M 2 33 C 70 35.6, 136 38, 199 40" stroke-dasharray="198" stroke-dashoffset="198" /></svg></span></h1>
     <p class="hub-lede">
       How much of accessibility the modern web platform handles
       <strong>natively</strong> — with little to no JavaScript. One argument, in

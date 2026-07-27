@@ -51,16 +51,73 @@
   .hub-strike {
     position: relative;
     white-space: nowrap;
+    /* Arms the scribble. Flipped by the delayed micro-animation below or
+       instantly by hover — both roads lead to the same value, so a draw
+       that already ran can never restart. */
+    --scribble-play: paused;
+    animation: hub-scribble-arm 0.01s linear 2.2s forwards;
+
+    @include reduced-motion {
+      animation: none;
+    }
   }
 
-  .hub-strike::after {
-    content: "";
+  .hub-strike:hover {
+    --scribble-play: running;
+  }
+
+  @keyframes hub-scribble-arm {
+    to {
+      --scribble-play: running;
+    }
+  }
+
+  .hub-strike-scribble {
     position: absolute;
-    inset-inline: -0.02em;
-    inset-block-start: 58%;
-    block-size: 0.11em;
-    background: currentcolor;
-    transform: translateY(-50%);
+    inset-block: 0;
+    inset-inline: -0.02em -0.12em;
+    overflow: visible;
+    color: var(--bp-redline);
+    pointer-events: none;
+
+    @include forced-colors {
+      color: CanvasText;
+    }
+  }
+
+
+  .hub-strike-scribble path {
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 7;
+    stroke-linecap: butt;
+    stroke-linejoin: round;
+    stroke-opacity: 0.96;
+    animation: hub-scribble-draw 0.18s cubic-bezier(0.3, 0.1, 0.3, 1) forwards;
+    animation-play-state: var(--scribble-play);
+
+    /* The global reduced-motion kill zeroes durations but not delays or
+       play-state, so the scribble gates itself: no draw, already struck. */
+    @include reduced-motion {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Three slashes, one after another; the second draws right-to-left the
+     way a returning hand would. */
+  .hub-strike-scribble .hub-strike-scribble-second {
+    animation-delay: 0.24s;
+  }
+
+  .hub-strike-scribble .hub-strike-scribble-third {
+    animation-delay: 0.48s;
+  }
+
+  @keyframes hub-scribble-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .hub-lede {
