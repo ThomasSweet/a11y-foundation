@@ -28,15 +28,28 @@
     </style>
     <!-- Render-blocking stylesheets (not JS-injected) so the page paints fully
          styled in one go — no flash of unstyled content. Zero runtime JS. -->
-    <link rel="stylesheet" crossorigin href="/assets/styleguide-BmCUy7Lm.css">
+    <link rel="stylesheet" crossorigin href="/assets/styleguide-CQz68vpf.css">
     <link rel="stylesheet" crossorigin href="/assets/styles-C7xzWZ22.css">
     <meta name="robots" content="noindex">
   </head>
   <body>
     <div class="guide">
+      <span class="guide-reg guide-reg-tl" aria-hidden="true"></span>
+      <span class="guide-reg guide-reg-tr" aria-hidden="true"></span>
+      <span class="guide-reg guide-reg-bl" aria-hidden="true"></span>
+      <span class="guide-reg guide-reg-br" aria-hidden="true"></span>
+
       <header class="guide-header">
         <a class="guide-home" href="/">
-          <img src="/favicon.svg" alt="" width="28" height="28" />
+          <svg class="guide-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="13.6" cy="36" r="8.4" />
+            <path d="M22 22.5 V49.5" />
+            <circle class="guide-mark-prick" cx="13.6" cy="36" r="1.8" />
+            <path class="guide-mark-accent" d="M30.7 20 V52" />
+            <path class="guide-mark-accent" d="M40.4 20 V52" />
+            <path d="M48 26.5 L54.2 46" />
+            <path d="M60.4 26.5 L50.7 57" />
+          </svg>
           <span>Accessible <span class="guide-home-dim">by default</span></span>
         </a>
         <a class="guide-back" href="/">← Back to the site</a>
@@ -79,8 +92,9 @@
           </ul>
           <div class="gradient-bar" aria-hidden="true"></div>
           <p class="guide-note">
-            <code>--gradient-accent</code> — primary → accent, the signature
-            blue→violet used in the mark, headings, and accents.
+            <code>--gradient-accent</code> — primary → accent, used by demo
+            components and image fallbacks. The logo itself uses flat ink and
+            accent tokens (see Logo &amp; naming below).
           </p>
 
           <h3>Surfaces</h3>
@@ -142,6 +156,41 @@
               <span class="swatch-chip" style="background: var(--color-info)"></span>
               <span class="swatch-name">--color-info</span>
               <span class="swatch-hex">#0284c7 · #38bdf8</span>
+            </li>
+          </ul>
+
+          <h3>Site chrome</h3>
+          <p class="guide-note">
+            The page chrome (paper, grid, frame, registration ticks, title
+            block) reads its own token set, derived from the semantic tokens
+            above in <code>blueprint.css</code> — so every theme preset,
+            CVD variant, and contrast setting re-inks it with no extra rules.
+          </p>
+          <ul class="swatches" role="list">
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-sheet)"></span>
+              <span class="swatch-name">--bp-sheet</span>
+              <span class="swatch-hex">= --color-surface</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-ink)"></span>
+              <span class="swatch-name">--bp-ink</span>
+              <span class="swatch-hex">= --color-text</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-accent)"></span>
+              <span class="swatch-name">--bp-accent</span>
+              <span class="swatch-hex">= --color-primary</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-frame)"></span>
+              <span class="swatch-name">--bp-frame</span>
+              <span class="swatch-hex">primary 42% mix</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-redline)"></span>
+              <span class="swatch-name">--bp-redline</span>
+              <span class="swatch-hex">= --color-error</span>
             </li>
           </ul>
         </section>
@@ -336,22 +385,100 @@
           </ul>
         </section>
 
-        <!-- ============================================== Logo (later) -->
+        <!-- ===================================================== Logo -->
         <section class="guide-section" aria-labelledby="sg-logo">
           <h2 id="sg-logo">Logo &amp; naming</h2>
           <p class="guide-note">
-            <span class="guide-tbd">Coming soon</span> — the mark (ring + dot,
-            app-icon tile in the brand gradient) is settled, but the wordmark
-            and naming guidance wait until the project name is finalised.
+            The mark is the numeronym <strong>a11y</strong> drawn with
+            drafting instruments: a compass-drawn single-storey a (its center
+            prick left in), two ruled lines standing in for the 11, and a
+            straightedge y. Read fast, it also says <em>ally</em> — both
+            readings are intended. Strokes overshoot only where they end in
+            open air; everything sits on a shared baseline and x-height.
+          </p>
+          <div class="guide-mark-row" aria-hidden="true">
+            <svg class="guide-mark-sample" viewBox="0 0 64 64" width="96" height="96">
+              <circle cx="13.6" cy="36" r="8.4" />
+              <path d="M22 22.5 V49.5" />
+              <circle class="guide-mark-prick" cx="13.6" cy="36" r="1.8" />
+              <path class="guide-mark-accent" d="M30.7 20 V52" />
+              <path class="guide-mark-accent" d="M40.4 20 V52" />
+              <path d="M48 26.5 L54.2 46" />
+              <path d="M60.4 26.5 L50.7 57" />
+            </svg>
+            <svg class="guide-mark-sample" viewBox="0 0 64 64" width="48" height="48">
+              <circle cx="13.6" cy="36" r="8.4" />
+              <path d="M22 22.5 V49.5" />
+              <circle class="guide-mark-prick" cx="13.6" cy="36" r="1.8" />
+              <path class="guide-mark-accent" d="M30.7 20 V52" />
+              <path class="guide-mark-accent" d="M40.4 20 V52" />
+              <path d="M48 26.5 L54.2 46" />
+              <path d="M60.4 26.5 L50.7 57" />
+            </svg>
+            <svg class="guide-mark-sample" viewBox="0 0 64 64" width="24" height="24">
+              <circle cx="13.6" cy="36" r="8.4" />
+              <path d="M22 22.5 V49.5" />
+              <circle class="guide-mark-prick" cx="13.6" cy="36" r="1.8" />
+              <path class="guide-mark-accent" d="M30.7 20 V52" />
+              <path class="guide-mark-accent" d="M40.4 20 V52" />
+              <path d="M48 26.5 L54.2 46" />
+              <path d="M60.4 26.5 L50.7 57" />
+            </svg>
+            <svg class="guide-mark-sample" viewBox="0 0 64 64" width="16" height="16">
+              <circle cx="13.6" cy="36" r="8.4" />
+              <path d="M22 22.5 V49.5" />
+              <circle class="guide-mark-prick" cx="13.6" cy="36" r="1.8" />
+              <path class="guide-mark-accent" d="M30.7 20 V52" />
+              <path class="guide-mark-accent" d="M40.4 20 V52" />
+              <path d="M48 26.5 L54.2 46" />
+              <path d="M60.4 26.5 L50.7 57" />
+            </svg>
+          </div>
+          <p class="guide-note">
+            In the site header the mark is inline SVG on the ink and accent
+            tokens, so it re-inks with every theme and flattens to a single
+            color in forced-colors mode. The favicon adapts to light and dark
+            with its own media query, and every raster asset (app icons, the
+            link-preview image) is generated from one definition in
+            <code>scripts/gen-icons.mjs</code>.
+          </p>
+          <p class="guide-note">
+            The name is <strong>Accessible by default</strong> —
+            <code>a11y-foundation</code> is the repository, not the brand.
           </p>
         </section>
       </main>
 
-      <footer class="guide-footer">
-        <a href="/">Home</a>
-        <a href="/impressum.html">Impressum</a>
-        <a href="/privacy.html">Privacy</a>
-        <span class="guide-footer-copy">© 2026 Accessible by default</span>
+      <footer class="guide-titleblock">
+        <div class="guide-tb">
+          <div class="guide-tb-cell guide-tb-cell-project">
+            <span class="guide-tb-label">Project</span>
+            <span class="guide-tb-value">Accessible by default</span>
+            <span class="guide-tb-fine">© 2026</span>
+          </div>
+          <div class="guide-tb-cell">
+            <span class="guide-tb-label">Title</span>
+            <span class="guide-tb-value">Style guide</span>
+          </div>
+          <div class="guide-tb-cell">
+            <span class="guide-tb-label">Drawn by</span>
+            <span class="guide-tb-value">Thomas Sweet</span>
+          </div>
+          <div class="guide-tb-cell">
+            <span class="guide-tb-label">Scale</span>
+            <span class="guide-tb-value">1:1</span>
+          </div>
+          <div class="guide-tb-cell">
+            <span class="guide-tb-label">Sheet</span>
+            <span class="guide-tb-value">S·01</span>
+          </div>
+          <nav class="guide-tb-cell guide-tb-refs" aria-label="Site information">
+            <a href="/">Home</a>
+            <a href="/glossary.html">Glossary</a>
+            <a href="/impressum.html">Impressum</a>
+            <a href="/privacy.html">Privacy</a>
+          </nav>
+        </div>
       </footer>
     </div>
   </body>

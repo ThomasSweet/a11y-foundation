@@ -1,11 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Accessible by default">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2563eb" />
-      <stop offset="1" stop-color="#7c3aed" />
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g)" />
-  <rect x="14" y="14" width="36" height="36" rx="10" fill="none" stroke="#fff" stroke-width="4.5" />
-  <circle cx="32" cy="32" r="4.5" fill="#fff" />
+  <style>
+    .ink { stroke: #1a1a1a; }
+    .acc { stroke: oklch(52% 0.16 260deg); }
+    .prk { fill: oklch(52% 0.16 260deg); }
+    @media (prefers-color-scheme: dark) {
+      .ink { stroke: #f2f2f2; }
+      .acc { stroke: oklch(72% 0.15 250deg); }
+      .prk { fill: oklch(72% 0.15 250deg); }
+    }
+  </style>
+  <g fill="none" stroke-width="3.2">
+    <circle class="ink" cx="13.6" cy="36" r="8.4"/>
+    <path class="ink" d="M22 22.5 V49.5"/>
+    <path class="acc" d="M30.7 20 V52"/>
+    <path class="acc" d="M40.4 20 V52"/>
+    <path class="ink" d="M48 26.5 L54.2 46"/>
+    <path class="ink" d="M60.4 26.5 L50.7 57"/>
+  </g>
+  <circle class="prk" cx="13.6" cy="36" r="1.8" stroke="none"/>
 </svg>
