@@ -24,6 +24,17 @@ git history and the PRs, not here.
 Collected from friends and former colleagues after launch; triage into
 fixes/features as they come in.
 
+- ~~Ship the concept in a form AI agents can use (Jakub)~~ — done:
+  `skills/accessible-by-default` is an Agent Skill — hand-written decisions
+  (reach for the native element, guard by Baseline tier, preferences are
+  constraints) over three reference files generated from the criteria and
+  showcase registries, so it can't drift from the demos. Explained on the site
+  at `/agent-skill.html` (page A·02, linked from the title block's references
+  row) — not in a chapter: it's the argument in another medium, not a fifth
+  part of it, and the proof chapter is about evidence. The page carries a
+  shelf-life note, since agent mechanics will date long before the rules do.
+  A public `/llms.txt` is the natural follow-up; it needs page-level markdown
+  the site doesn't emit yet.
 - ~~Theme switch reachable from the dark-mode craft section~~ — fixed:
   shared theme state (composable), inline mode switcher in the demo.
 - ~~Phantom focus ring on the content column after closing a dialog
@@ -203,6 +214,7 @@ fixes/features as they come in.
 
 One line per item, newest first; details in git history / PRs.
 
+- **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by a reviewer, after Chrome's Modern Web Guidance.
 - **2026-07** Launched: the multi-page redesign replaced the one-page site in production (old design kept at the `design-classic` tag), with a new brand mark, regenerated icons/OG image, and the style guide reskinned to match.
 - **2026-07** Timeline: 3.2.6 Consistent Help break-it demo — three page mock-ups whose help link either holds its slot or wanders; the first criterion the multi-page structure made demoable.
 - **2026-07** ESLint added (flat config, vue + typescript, `--max-warnings 0`, wired into CI) — the JS/TS gate that stylelint and vue-tsc never covered.

@@ -15,6 +15,7 @@
     "lint:js": "eslint . --max-warnings 0",
     "baseline:check": "node scripts/baseline-watch.js",
     "icons:gen": "node scripts/gen-icons.mjs",
+    "skill:gen": "node scripts/gen-skill.mjs",
     "test:unit": "vitest run",
     "test:e2e": "playwright test"
   },

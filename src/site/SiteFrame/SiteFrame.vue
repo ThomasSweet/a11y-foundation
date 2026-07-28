@@ -81,6 +81,7 @@
           <nav class="site-tb-cell site-tb-refs" aria-label="Site information">
             <a href="/glossary.html">Glossary</a>
             <a href="/styleguide.html">Style guide</a>
+            <a href="/agent-skill.html">Agent skill</a>
             <a href="/impressum.html">Impressum</a>
             <a href="/privacy.html">Privacy</a>
           </nav>

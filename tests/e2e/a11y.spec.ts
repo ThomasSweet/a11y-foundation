@@ -13,6 +13,7 @@ const pages = [
   { path: '/showcase.html', name: 'showcase' },
   { path: '/proof.html', name: 'proof' },
   { path: '/glossary.html', name: 'glossary' },
+  { path: '/agent-skill.html', name: 'agent skill' },
   { path: '/impressum.html', name: 'impressum' },
   { path: '/privacy.html', name: 'privacy' },
 ]

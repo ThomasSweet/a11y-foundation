@@ -68,7 +68,7 @@ Every feature the site teaches is doing real work *in* the site — each behind
   presets: visual themes, a color-vision-friendly trio, high-contrast pair.
 - **WCAG, live** — criteria demos on the standard's timeline, each with a
   **"break this rule"** toggle so you can feel what the criterion prevents.
-- **A CSS showcase catalog** — 29 accessible demos of modern platform
+- **A CSS showcase catalog** — 31 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
 - **Preference & interaction mixins** — `reduced-motion()`, `forced-colors()`,
@@ -76,6 +76,27 @@ Every feature the site teaches is doing real work *in* the site — each behind
   enhancement only, never gating.
 - **Accessibility utilities** — `.visually-hidden`, skip link, WCAG 2.2 focus
   appearance, minimum target sizes as base styles.
+
+## Use it with your coding agent
+
+The same argument ships as an **[Agent Skill](skills/accessible-by-default)**,
+so an agent writing markup reaches for the native element before the `div`,
+guards modern CSS behind the right `@supports`, and can name the criterion it
+is about to break. `SKILL.md` holds the decisions; three reference files carry
+the WCAG criteria, the Baseline-tiered feature catalog, and a copy-paste-ready
+accessible implementation of each.
+
+Drop the folder wherever your agent loads skills from — for Claude Code that is
+`~/.claude/skills/`:
+
+```sh
+cp -r skills/accessible-by-default ~/.claude/skills/
+```
+
+The reference files are generated from the same registries the site renders
+(`npm run skill:gen`), so the skill can't drift from the live demos. The idea
+came from reviewer feedback, alongside Chrome's
+[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance).
 
 ## Try it with your OS preferences
 

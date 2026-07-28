@@ -38,6 +38,7 @@ export default defineConfig({
         showcase: fileURLToPath(new URL('./showcase.html', import.meta.url)),
         proof: fileURLToPath(new URL('./proof.html', import.meta.url)),
         glossary: fileURLToPath(new URL('./glossary.html', import.meta.url)),
+        agentSkill: fileURLToPath(new URL('./agent-skill.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         privacy: fileURLToPath(new URL('./privacy.html', import.meta.url)),
         styleguide: fileURLToPath(new URL('./styleguide.html', import.meta.url)),

@@ -154,6 +154,13 @@ exactly like inline blocks did.
   at `--max-warnings 0`. It is deliberately lean: types belong to vue-tsc and
   formatting rules are switched off, so what remains flags real defects. The
   few `vue/no-v-html` suppressions are per-site and each carries its reason.
+- The registries feed one more consumer: `npm run skill:gen` emits the Agent
+  Skill's reference files under `skills/accessible-by-default/references/`.
+  **Re-run it after adding or editing a criterion or a showcase**, or the
+  published skill drifts from the site. It loads the registries through Vite's
+  SSR pipeline (they import `.vue` and `?raw`, so plain node can't), and emits
+  only context-free fields — `summary`, `passText` and `failText` are written
+  for someone looking at a live demo and don't travel.
 
 ---
 
