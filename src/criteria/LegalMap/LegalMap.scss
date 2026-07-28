@@ -69,6 +69,19 @@
     font-weight: 600;
   }
 
+  /* The name carries the link rather than a separate "source" affordance: the
+     underline is the cue, so it survives forced colors, and the row keeps the
+     accent for the WCAG reference alone. */
+  .legal-map-name a {
+    color: inherit;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 0.2em;
+  }
+
+  .legal-map-name a:hover {
+    text-decoration-color: currentcolor;
+  }
+
   .legal-map-ref {
     font-family: var(--font-mono);
     font-size: var(--text-sm);

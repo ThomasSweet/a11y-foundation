@@ -154,7 +154,28 @@ statement lives on the site. Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues) — that
 feedback is welcome and acted on.
 
+## Thanks
+
+Feedback from these people changed the site. Named with their permission, and
+described by what they actually found, because "thanks for the feedback" is not
+a credit.
+
+- **[Imad Abdulkarim](https://github.com/fanckush)** — noticed that the
+  non-colour state cues vanished in iOS Safari, which turned out to be WebKit
+  declining to apply pseudo-element rules inside a style query. Also argued the
+  showcase read as "you don't need JavaScript" rather than accessibility, which
+  is why every entry now names who the feature helps, and asked for topic tags,
+  which became the catalog filter.
+
 ## Credits
+
+Two of the ideas here started as someone else's. The craft chapter's
+defensive-CSS section builds on **[Defensive CSS](https://defensivecss.dev/)**
+by [Ahmad Shadeed](https://ishadeed.com/) — guarding a layout against content
+you did not anticipate is his framing, and it is the whole premise of that
+section. The interest-invoker toolbar behaviour comes from a trick by
+[Una Kravets](https://una.im/). The implementations and the accessibility
+argument are mine; the insight was theirs.
 
 The decorative hero pictograms are
 [Material Symbols](https://github.com/google/material-design-icons) by Google,
