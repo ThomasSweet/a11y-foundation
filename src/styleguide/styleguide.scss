@@ -1,7 +1,7 @@
 /* Layout for the living style-guide page. In the components layer (the project's
    "no unlayered CSS" rule); mixins come from Vite's additionalData. */
 @layer components {
-  /* The desk behind the sheet. */
+  /* The ground behind the page. */
   body {
     padding: clamp(14px, 3vw, 34px);
     background-color: var(--bp-ground);

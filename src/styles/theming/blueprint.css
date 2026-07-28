@@ -1,5 +1,5 @@
-/* blueprint.css — the sheet-skin tokens, derived from --color-* so every
-   mode / preset / CVD / contrast setting re-inks the sheet with no rules here. */
+/* blueprint.css — the blueprint skin's tokens, derived from --color-* so every
+   mode / preset / CVD / contrast setting re-inks the page with no rules here. */
 @layer themes {
   :root {
     --bp-ground: var(--color-bg-subtle);
@@ -12,7 +12,7 @@
     --bp-redline: var(--color-error);
 
     /* The grid alpha is per-mode: the same tint carries far more luminance
-       contrast on light paper than on a dark sheet. */
+       contrast in light mode than in dark. */
     --bp-line: light-dark(
       color-mix(in oklab, var(--color-primary) 5%, transparent),
       color-mix(in oklab, var(--color-primary) 9%, transparent)

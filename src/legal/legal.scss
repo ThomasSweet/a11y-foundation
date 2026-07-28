@@ -8,7 +8,7 @@
 
   body:has(.legal) {
     /* padding, not margin on .legal — a margin collapses through body and
-       exposes the bare canvas above the sheet */
+       exposes the bare ground above the page */
     padding-block: clamp(var(--space-4), 3vw, var(--space-8));
   }
 

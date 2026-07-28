@@ -86,12 +86,12 @@ const tile = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
 const iconPage = (svg) =>
   `<!doctype html><meta charset="utf-8"><style>*{margin:0}html,body{width:100%;height:100%}svg{display:block;width:100vw;height:100vh}</style>${svg}`
 
-// --- Sheet cards: the link preview and repo card are themselves sheets ----
+// --- Cards: the link preview and the repo card wear the site's own chrome --
 const ogMark = `<svg viewBox="0 0 64 44" width="310" style="overflow:visible">
   <g transform="translate(0 -16)">${mark(INK_LIGHT, ACCENT_LIGHT)}</g>
 </svg>`
 
-const sheetPage = (w, h) => `<!doctype html><meta charset="utf-8"><style>
+const cardPage = (w, h) => `<!doctype html><meta charset="utf-8"><style>
   *{margin:0;box-sizing:border-box}
   html,body{width:${w}px;height:${h}px}
   body{background:${PAPER};color:${INK_LIGHT};font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -132,10 +132,10 @@ const jobs = [
   { name: 'apple-touch-icon.png', dir: out, w: 180, h: 180, html: iconPage(tile) },
   { name: 'icon-192.png', dir: out, w: 192, h: 192, html: iconPage(tile) },
   { name: 'icon-512.png', dir: out, w: 512, h: 512, html: iconPage(tile) },
-  { name: 'og-image.png', dir: out, w: 1200, h: 630, html: sheetPage(1200, 630) },
+  { name: 'og-image.png', dir: out, w: 1200, h: 630, html: cardPage(1200, 630) },
   // GitHub's repo card wants 1280×640 and isn't served by the site, so it is
-  // the same sheet re-cut, kept in docs/ and uploaded in repo settings.
-  { name: 'social-preview.png', dir: docs, w: 1280, h: 640, html: sheetPage(1280, 640) },
+  // the same card re-cut, kept in docs/ and uploaded in repo settings.
+  { name: 'social-preview.png', dir: docs, w: 1280, h: 640, html: cardPage(1280, 640) },
 ]
 
 const browser = await chromium.launch()

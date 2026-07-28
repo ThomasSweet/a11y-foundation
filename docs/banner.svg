@@ -74,7 +74,7 @@
   <path class="reg" d="M22 184H6v-16" />
   <path class="reg" d="M1074 168v16h-16" />
 
-  <text class="eyebrow" x="64" y="54">ACCESSIBLE BY DEFAULT · SHEET 00</text>
+  <text class="eyebrow" x="64" y="54">ACCESSIBLE BY DEFAULT</text>
 
   <!-- textLength matches the measured natural width (macOS system-ui 800/88px),
        and lengthAdjust="spacing" keeps glyph shapes intact on platforms whose
