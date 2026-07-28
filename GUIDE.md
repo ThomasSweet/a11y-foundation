@@ -32,7 +32,7 @@ src/
 │       ├── AppButton.vue       — template + <script setup lang="ts">
 │       └── AppButton.scss      — styles, via <style scoped src>
 ├── site/                   — the blueprint shell shared by every page
-│   ├── SiteFrame/          — sheet frame, grid, header, title-block footer
+│   ├── SiteFrame/          — page frame, grid, header, title-block footer
 │   ├── HubView/            — the overview hub (index page)
 │   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark
 │   └── pillars.ts          — the four chapters (order, titles, hrefs, icons)

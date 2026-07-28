@@ -81,7 +81,7 @@
     navigation: auto;
   }
 
-  /* The sheet chrome is near-identical on every page, so fading the old page
+  /* The chrome is near-identical on every page, so fading the old page
      out over the static new one reads as the content dissolving while the
      page itself stays put. */
   ::view-transition-new(root) {

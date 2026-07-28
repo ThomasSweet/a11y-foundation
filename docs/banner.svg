@@ -1,14 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 190" width="1080" height="190">
   <!-- The README's thesis, practising the thesis: colors follow
-       prefers-color-scheme, and the strike only animates when the viewer
-       has no reduced-motion preference (motion is the enhancement). -->
+       prefers-color-scheme, and the redline is only drawn when the viewer
+       has no reduced-motion preference (motion is the enhancement).
+       Geometry and palette mirror the live hero. -->
   <style>
     .bg { fill: #ffffff; }
     .grid { stroke: rgba(37, 99, 235, 0.09); stroke-width: 1; }
     .reg { stroke: #2563eb; stroke-width: 2; fill: none; }
     .eyebrow { fill: #2563eb; font: 600 14px ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 3px; }
     .ink { fill: #111111; font: 800 88px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: -1.2px; }
-    .strike { fill: #111111; transform-box: fill-box; transform-origin: left center; }
+    /* Element + class, so the dark-mode `.ink` fill below can't outrank it. */
+    text.affirmed { fill: url(#affirmed-ink); }
+    .stop-ink { stop-color: #111111; }
+    .stop-accent { stop-color: #2563eb; }
+
+    .slash { fill: none; stroke: #dc2626; stroke-width: 6.5; stroke-linecap: butt; stroke-opacity: 0.98; stroke-dashoffset: 0; }
+    /* A 35%-multiplied repaint of the same three strokes, so the crossings
+       burn the way layered marker does. */
+    .slash-ink { mix-blend-mode: multiply; opacity: 0.35; }
 
     @media (prefers-color-scheme: dark) {
       .bg { fill: #1e1e1e; }
@@ -16,28 +25,32 @@
       .reg { stroke: #3b82f6; }
       .eyebrow { fill: #3b82f6; }
       .ink { fill: #f0f0f0; }
-      .strike { fill: #f0f0f0; }
+      .stop-ink { stop-color: #f0f0f0; }
+      .stop-accent { stop-color: #3b82f6; }
+      .slash { stroke: #f87171; }
     }
 
-    /* Replays 3 times (~25s) then settles struck — finite, so it needs no
-       pause control (WCAG 2.2.2); an image couldn't offer one. Note: no
-       angle brackets in this style element, ever — in XML they are markup
-       and silently truncate the stylesheet. `backwards` holds the undrawn
-       0% state through the delay; after the last cycle the element returns
-       to its base (struck) state. */
+    /* Draws, wipes, and redraws 3 times (~25s), then settles struck — finite,
+       so it needs no pause control (WCAG 2.2.2); an image couldn't offer one.
+       Note: no angle brackets in this style element, ever — in XML they are
+       markup and silently truncate the stylesheet. `backwards` holds the
+       undrawn 0% state through the delay; after the last cycle the strokes
+       return to their base (struck) state. */
     @media (prefers-reduced-motion: no-preference) {
-      .strike {
-        animation: strike-cycle 8s cubic-bezier(0.4, 0, 0.2, 1) 0.9s 3 backwards;
+      .slash {
+        animation: strike-cycle 8s cubic-bezier(0.3, 0.1, 0.3, 1) 0.9s 3 backwards;
       }
 
+      /* Three slashes, one after another, as a returning hand would. */
+      .slash-2 { animation-delay: 1.14s; }
+      .slash-3 { animation-delay: 1.38s; }
+
       @keyframes strike-cycle {
-        0% { transform: scaleX(0); opacity: 1; }
-        10% { transform: scaleX(1); opacity: 1; }
-        75% { transform: scaleX(1); opacity: 1; }
-        82% { transform: scaleX(1); opacity: 0; }
-        83% { transform: scaleX(0); opacity: 0; }
-        91% { transform: scaleX(0); opacity: 1; }
-        100% { transform: scaleX(0); opacity: 1; }
+        0% { stroke-dashoffset: 210; }
+        2.5% { stroke-dashoffset: 0; }
+        72% { stroke-dashoffset: 0; }
+        78% { stroke-dashoffset: -210; }
+        100% { stroke-dashoffset: -210; }
       }
     }
   </style>
@@ -48,6 +61,10 @@
     <pattern id="sheet-grid" width="28" height="28" patternUnits="userSpaceOnUse">
       <path class="grid" d="M28 0H0V28" fill="none" />
     </pattern>
+    <linearGradient id="affirmed-ink" gradientUnits="userSpaceOnUse" x1="62" y1="88" x2="495" y2="163">
+      <stop class="stop-ink" offset="0.25" />
+      <stop class="stop-accent" offset="1" />
+    </linearGradient>
   </defs>
   <rect width="1080" height="190" fill="url(#sheet-grid)" />
 
@@ -57,12 +74,24 @@
   <path class="reg" d="M22 184H6v-16" />
   <path class="reg" d="M1074 168v16h-16" />
 
-  <text class="eyebrow" x="64" y="54">ACCESSIBLE BY DEFAULT · DRAWING 00</text>
+  <text class="eyebrow" x="64" y="54">ACCESSIBLE BY DEFAULT · SHEET 00</text>
 
   <!-- textLength matches the measured natural width (macOS system-ui 800/88px),
        and lengthAdjust="spacing" keeps glyph shapes intact on platforms whose
        fonts run wider/narrower — only the spacing flexes, never the letters. -->
-  <text class="ink" x="62" y="142" textLength="433" lengthAdjust="spacing">Built in, not</text>
+  <text class="ink affirmed" x="62" y="142" textLength="433" lengthAdjust="spacing">Built in, not</text>
   <text class="ink" x="522" y="142" textLength="374" lengthAdjust="spacing">bolted on</text>
-  <rect class="strike" x="514" y="110" width="390" height="11" />
+
+  <!-- The redline, laid over "bolted on". The box keeps the 200:44 ratio so the
+       strokes scale as evenly as they do in the hero. -->
+  <svg x="514" y="55" width="390" height="86" viewBox="0 0 200 44" overflow="visible">
+    <g stroke-dasharray="210">
+      <path class="slash slash-1" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" />
+      <path class="slash slash-2" d="M 201 26 C 136 28.6, 66 32.4, 0 36" />
+      <path class="slash slash-3" d="M 2 33 C 70 35.6, 136 38, 199 40" />
+      <path class="slash slash-ink slash-1" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" />
+      <path class="slash slash-ink slash-2" d="M 201 26 C 136 28.6, 66 32.4, 0 36" />
+      <path class="slash slash-ink slash-3" d="M 2 33 C 70 35.6, 136 38, 199 40" />
+    </g>
+  </svg>
 </svg>

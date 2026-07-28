@@ -1,5 +1,6 @@
 /**
- * Brand asset generator — favicon, PWA icons, apple-touch icon, OG image.
+ * Brand asset generator — favicon, PWA icons, apple-touch icon, OG image, and
+ * the GitHub social preview.
  *
  * The mark ("a11y" drafted: compass-drawn a, twin rules as the 11, straight-
  * edge y) is defined ONCE below; favicon.svg and every PNG are emitted from
@@ -11,6 +12,10 @@
  * Playwright's bundled Chromium at exact pixel dimensions.
  *
  * Run:  node scripts/gen-icons.mjs
+ *
+ * Everything in public/ ships with the site. docs/social-preview.png does not:
+ * GitHub only reads it from Settings → General → Social preview, so re-upload
+ * it there after a regeneration that changes it.
  */
 import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -20,6 +25,7 @@ import { chromium } from 'playwright'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const out = resolve(root, 'public')
+const docs = resolve(root, 'docs')
 
 // Default-theme brand colors (the in-site header mark follows the live theme
 // instead; these statics are for contexts that can't know it).
@@ -80,14 +86,14 @@ const tile = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
 const iconPage = (svg) =>
   `<!doctype html><meta charset="utf-8"><style>*{margin:0}html,body{width:100%;height:100%}svg{display:block;width:100vw;height:100vh}</style>${svg}`
 
-// --- OG image: the link preview is itself a drawing sheet -----------------
+// --- Sheet cards: the link preview and repo card are themselves sheets ----
 const ogMark = `<svg viewBox="0 0 64 44" width="310" style="overflow:visible">
   <g transform="translate(0 -16)">${mark(INK_LIGHT, ACCENT_LIGHT)}</g>
 </svg>`
 
-const ogPage = `<!doctype html><meta charset="utf-8"><style>
+const sheetPage = (w, h) => `<!doctype html><meta charset="utf-8"><style>
   *{margin:0;box-sizing:border-box}
-  html,body{width:1200px;height:630px}
+  html,body{width:${w}px;height:${h}px}
   body{background:${PAPER};color:${INK_LIGHT};font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
     position:relative;padding:64px 90px 0;
     background-image:linear-gradient(oklch(52% 0.16 260deg / 0.05) 1px, transparent 1px),
@@ -123,10 +129,13 @@ ${ogMark}
 </div>`
 
 const jobs = [
-  { name: 'apple-touch-icon.png', w: 180, h: 180, html: iconPage(tile) },
-  { name: 'icon-192.png', w: 192, h: 192, html: iconPage(tile) },
-  { name: 'icon-512.png', w: 512, h: 512, html: iconPage(tile) },
-  { name: 'og-image.png', w: 1200, h: 630, html: ogPage },
+  { name: 'apple-touch-icon.png', dir: out, w: 180, h: 180, html: iconPage(tile) },
+  { name: 'icon-192.png', dir: out, w: 192, h: 192, html: iconPage(tile) },
+  { name: 'icon-512.png', dir: out, w: 512, h: 512, html: iconPage(tile) },
+  { name: 'og-image.png', dir: out, w: 1200, h: 630, html: sheetPage(1200, 630) },
+  // GitHub's repo card wants 1280×640 and isn't served by the site, so it is
+  // the same sheet re-cut, kept in docs/ and uploaded in repo settings.
+  { name: 'social-preview.png', dir: docs, w: 1280, h: 640, html: sheetPage(1280, 640) },
 ]
 
 const browser = await chromium.launch()
@@ -136,7 +145,7 @@ for (const job of jobs) {
     deviceScaleFactor: 1,
   })
   await page.setContent(job.html, { waitUntil: 'networkidle' })
-  await page.screenshot({ path: resolve(out, job.name), type: 'png' })
+  await page.screenshot({ path: resolve(job.dir, job.name), type: 'png' })
   await page.close()
   console.log(`✓ ${job.name} (${job.w}×${job.h})`)
 }

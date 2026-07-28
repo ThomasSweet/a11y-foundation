@@ -1,4 +1,4 @@
-/* blueprint.css — the drawing-skin tokens, derived from --color-* so every
+/* blueprint.css — the sheet-skin tokens, derived from --color-* so every
    mode / preset / CVD / contrast setting re-inks the sheet with no rules here. */
 @layer themes {
   :root {

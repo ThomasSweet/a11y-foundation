@@ -35,7 +35,7 @@ test.describe('keyboard & focus behaviour', () => {
       await expect(current).toHaveCount(1)
       await expect(current).toContainText(c.label)
 
-      // Reading-order escape hatches at the sheet's title block.
+      // Reading-order escape hatches at the page's title block.
       if (c.prev) await expect(page.getByRole('link', { name: c.prev })).toBeVisible()
       if (c.next) await expect(page.getByRole('link', { name: c.next })).toBeVisible()
     }

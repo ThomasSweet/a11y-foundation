@@ -29,7 +29,7 @@ with the cascade doing the work instead of `!important`.
 
 <a href="https://accessible-by-default.dev/"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hub-dark.png">
-  <img alt="Visit the live site — the hub: four chapter plates indexed on a drawing sheet" src="docs/screenshots/hub-light.png" width="1080">
+  <img alt="Visit the live site — the hub: four chapter plates indexed on one sheet" src="docs/screenshots/hub-light.png" width="1080">
 </picture></a>
 
 <sub>The banner and this screenshot follow your color-scheme preference

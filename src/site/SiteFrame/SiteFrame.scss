@@ -224,9 +224,9 @@
     margin-block-start: clamp(var(--space-8), 5vw, var(--space-16));
   }
 
-  /* The drawing's title block: a ruled grid of labeled cells, drawn with the
+  /* The page's title block: a ruled grid of labeled cells, drawn with the
      gap-as-rule trick — the container paints the line color, the cells repaint
-     the sheet, and every 1px gap becomes a rule that works at any wrap. */
+     the surface, and every 1px gap becomes a rule that works at any wrap. */
   .site-tb {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
