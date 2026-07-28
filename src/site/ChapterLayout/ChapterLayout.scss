@@ -68,10 +68,13 @@
     }
   }
 
+  /* No rule under this label. The header's own bottom border already sets a
+     full-width line; a second fragment here and the headrow's dimension line
+     sat at different heights, reading as one broken line rather than two
+     deliberate ones. The dimension line stays because it measures something. */
   .chapter-rail-title {
     margin: 0 0 var(--space-3);
     padding-block-end: var(--space-2);
-    border-block-end: 1px solid var(--bp-line-strong);
     font-family: var(--bp-mono);
     font-size: 0.625rem;
     letter-spacing: 0.08em;

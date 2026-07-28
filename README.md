@@ -156,6 +156,14 @@ feedback is welcome and acted on.
 
 ## Credits
 
+Two of the ideas here started as someone else's. The craft chapter's
+defensive-CSS section builds on **[Defensive CSS](https://defensivecss.dev/)**
+by [Ahmad Shadeed](https://ishadeed.com/) — guarding a layout against content
+you did not anticipate is his framing, and it is the whole premise of that
+section. The interest-invoker toolbar behaviour comes from a trick by
+[Una Kravets](https://una.im/). The implementations and the accessibility
+argument are mine; the insight was theirs.
+
 The decorative hero pictograms are
 [Material Symbols](https://github.com/google/material-design-icons) by Google,
 used under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
