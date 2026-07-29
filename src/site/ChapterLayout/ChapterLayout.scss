@@ -1,14 +1,5 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 
-/* Colour must not live in the scroll-spy keyframes: keyframe custom properties
-   resolve once and survive a theme change, so the rail kept light-mode ink on a
-   dark sheet. The keyframes carry progress only; the colours stay live. */
-@property --chapter-active {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0;
-}
-
 @layer components {
   .chapter {
     display: grid;
@@ -16,8 +7,7 @@
     gap: clamp(var(--space-6), 4vw, var(--space-16));
   }
 
-  /* Scroll-spy: pages name each section's view-timeline inline; timeline-scope
-     is what lets the rail (a different subtree) attach to those timelines. */
+  /* timeline-scope lets the rail attach to view-timelines named in another subtree. */
   @supports (animation-timeline: view()) {
     .chapter {
       timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
@@ -25,34 +15,23 @@
         --chapter-sec-8, --chapter-sec-9, --chapter-sec-10;
     }
 
-    .chapter-section-link {
+    /* Animate only opacity here — colour-keyed versions cached keyframe var()s
+       across theme flips and lagged paint under real scrolling. */
+    .chapter-section-link::after {
       animation: chapter-section-active linear both;
+      animation-timeline: var(--section-timeline, none);
       animation-range: cover 0% cover 100%;
     }
 
     @keyframes chapter-section-active {
       0%,
       100% {
-        --chapter-active: 0;
+        opacity: 0;
       }
 
-      8%,
-      96% {
-        --chapter-active: 1;
-      }
-    }
-
-    @include forced-colors {
-      @keyframes chapter-section-active {
-        0%,
-        100% {
-          border-inline-start-color: transparent;
-        }
-
-        8%,
-        96% {
-          border-inline-start-color: Highlight;
-        }
+      22%,
+      78% {
+        opacity: 1;
       }
     }
   }
@@ -76,10 +55,6 @@
     }
   }
 
-  /* No rule under this label. The header's own bottom border already sets a
-     full-width line; a second fragment here and the headrow's dimension line
-     sat at different heights, reading as one broken line rather than two
-     deliberate ones. The dimension line stays because it measures something. */
   .chapter-rail-title {
     margin: 0 0 var(--space-3);
     padding-block-end: var(--space-2);
@@ -148,35 +123,39 @@
     border-inline-start: 2px solid var(--bp-line);
   }
 
-  /* Sits on the track above, so the active segment reads as a thumb in it. */
   .chapter-section-link {
     position: relative;
     margin-inline-start: -2px;
     padding: var(--space-1) 0 var(--space-1) var(--space-4);
-    border-inline-start: 2px solid;
-    /* From the track colour, not from transparent: partial alpha over a dark
-       sheet composites to near-black navy, so the thumb went dark before it
-       went blue. Starting at the track also makes an inactive link seamless. */
-    border-inline-start-color: color-mix(
-      in oklab,
-      var(--bp-line),
-      var(--bp-accent) calc(var(--chapter-active, 0) * 100%)
-    );
+    border-inline-start: 2px solid transparent;
     font-size: var(--text-sm);
     line-height: 1.35;
-    color: color-mix(in oklab, var(--bp-ink-2), var(--bp-ink) calc(var(--chapter-active, 0) * 100%));
+    color: var(--bp-ink-2);
     text-decoration: none;
 
-    /* Graduations off the track. Flush against it, not floating beside it —
-       detached, they were the dashes that made the rail look unresolved. */
     &::before {
       content: '';
       position: absolute;
       inset-inline-start: 4px;
-      inset-block-start: 0.7em;
+      inset-block-start: 0.9em;
       inline-size: 7px;
       block-size: 1px;
       background: var(--bp-line-strong);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      inset-inline-start: -2px;
+      border-inline-start: 2px solid var(--bp-accent);
+      background-color: var(--bp-accent-soft);
+      opacity: 0;
+      pointer-events: none;
+
+      @include forced-colors {
+        border-inline-start-color: Highlight;
+      }
     }
 
     @include can-hover {
@@ -197,10 +176,8 @@
     min-inline-size: 0;
   }
 
-  /* The range ends at 160px so anything on screen at load sits past it
-     (settled, not frozen mid-reveal). fill none, not both: a held pre-entry
-     transform inflates below-viewport rects and anchor scrolls overshoot.
-     data-reveal="off" opts a container out when its children reveal themselves. */
+  /* fill none, not both: a held pre-entry transform inflates below-viewport
+     rects and anchor scrolls overshoot. data-reveal="off" opts a container out. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .chapter-content :deep(.demo:not([data-reveal='off'])) {
@@ -223,7 +200,6 @@
     margin-block-end: clamp(var(--space-8), 5vw, var(--space-16));
   }
 
-  /* fit-content, so the dimension line below measures exactly the headrow. */
   .chapter-headrow-wrap {
     inline-size: fit-content;
   }
@@ -234,7 +210,6 @@
     gap: var(--space-4);
   }
 
-  /* A drafter's dimension line under the title: end ticks and a hairline. */
   .chapter-dim {
     display: block;
     block-size: 9px;
@@ -279,7 +254,6 @@
     color: var(--bp-ink);
   }
 
-  /* :deep — the slot content renders in the page's scope, not this one. */
   .chapter-content {
     position: relative;
     display: grid;
@@ -315,8 +289,6 @@
     color: var(--bp-ink-2);
   }
 
-  /* End-of-chapter pager: plate-style cards, so the way onward is as
-     prominent as the plates that brought you in. */
   .chapter-prevnext {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -359,8 +331,7 @@
     }
   }
 
-  /* Occupies the end column whether the grid has two columns or one —
-     and stays there when it is the only card (the first chapter). */
+  /* Negative lines keep the card in the end column even when it is alone. */
   .chapter-nav-next {
     grid-column: -2 / -1;
     text-align: end;
@@ -386,9 +357,6 @@
     color: var(--bp-accent);
   }
 
-  /* Mobile chapter bar: a title-block strip on the page's bottom edge,
-     replacing the rail below its sticky gate. Opaque paper, so
-     reduced-transparency has nothing to object to. */
   .chapter-bar {
     display: none;
   }
@@ -411,16 +379,10 @@
       }
     }
 
-    /* Clearance so the strip never sits on the footer where scroll-state
-       (and its tuck-at-bottom) is unsupported. */
     :global(body) {
       padding-block-end: 64px;
     }
 
-    /* Reveal choreography, ported from the original design's pill (and from
-       the showcase card teaching it): tucked over the hero, out while
-       reading, gone at the very end — and direction-aware where scrolled:
-       is supported. Without scroll-state the bar simply stays visible. */
     @supports (container-type: scroll-state) {
       .chapter-bar {
         translate: 0 100%;
@@ -445,8 +407,7 @@
         }
       }
 
-      /* The hard positions come last so they beat a stale scroll direction
-         (e.g. an anchor jump to the end while the last gesture was upward). */
+      /* Last, so the hard positions beat a stale scroll direction. */
       @container (not scroll-state(scrollable: bottom)) {
         .chapter-bar {
           translate: 0 100%;
