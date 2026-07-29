@@ -166,6 +166,23 @@ a credit.
   showcase read as "you don't need JavaScript" rather than accessibility, which
   is why every entry now names who the feature helps, and asked for topic tags,
   which became the catalog filter.
+- **[Josefine Schaefer](https://github.com/josefineschaefer)** — pointed out, in
+  passing, that "blind spot" is contested language. It was gone from the site
+  the same evening and the wording is plainer for it (*catches* and *misses*).
+  Also made the introductions that most of the rest of this list came from.
+- **[Lorena Ramonda](https://github.com/lorenaramonda)** — found that content
+  was cut off on mobile and, crucially, kept saying so after I had twice
+  announced it was fixed. It took three commits: iOS WebKit was inflating
+  sections past the viewport. She also spotted that the `light-dark()` demo was
+  showing the two schemes the wrong way round.
+- **[Dhiego Bastos](https://github.com/dhiego-bastos)** — recorded two videos
+  rather than describing the problems, which made both trivial to track down.
+  The theme panel was flying out detached from its button on wide screens; it is
+  anchored now. The second turned out to be correct behaviour, and explaining
+  why Space scrolls and Enter activates was worth the trip on its own.
+- **My wife** — caught that the end-of-chapter links were too small and easy to
+  miss, which is why they are full cards now, and has been the steady source of
+  pointers and ideas behind a lot of the rest.
 
 ## Credits
 
