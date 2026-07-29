@@ -32,6 +32,7 @@ import ThemePickerDemo from './demos/ThemePickerDemo/ThemePickerDemo.vue'
 import SlidingIndicatorDemo from './demos/SlidingIndicatorDemo/SlidingIndicatorDemo.vue'
 import StyleQueryCuesDemo from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.vue'
 import ShapeDemo from './demos/ShapeDemo/ShapeDemo.vue'
+import RoundedClipDemo from './demos/RoundedClipDemo/RoundedClipDemo.vue'
 import StartingStyleDemo from './demos/StartingStyleDemo/StartingStyleDemo.vue'
 import AttrDemo from './demos/AttrDemo/AttrDemo.vue'
 import ScrollSnapDemo from './demos/ScrollSnapDemo/ScrollSnapDemo.vue'
@@ -77,6 +78,8 @@ import themePickerSnippetCss from './demos/ThemePickerDemo/ThemePickerDemo.snipp
 import scrollProgressSnippetCss from './demos/ScrollProgressDemo/ScrollProgressDemo.snippet.css?raw'
 import styleQuerySnippetCss from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.snippet.css?raw'
 import shapeSnippetCss from './demos/ShapeDemo/ShapeDemo.snippet.css?raw'
+import roundedClipSnippetHtml from './demos/RoundedClipDemo/RoundedClipDemo.snippet.html?raw'
+import roundedClipSnippetCss from './demos/RoundedClipDemo/RoundedClipDemo.snippet.css?raw'
 import startingStyleSnippetCss from './demos/StartingStyleDemo/StartingStyleDemo.snippet.css?raw'
 import attrSnippetHtml from './demos/AttrDemo/AttrDemo.snippet.html?raw'
 import attrSnippetCss from './demos/AttrDemo/AttrDemo.snippet.css?raw'
@@ -563,6 +566,38 @@ const entries: Omit<Showcase, 'tier'>[] = [
     tags: ['layout'],
     component: ShapeDemo,
     snippetCss: shapeSnippetCss,
+  },
+  {
+    id: 'polygon-round',
+    title: 'Rounded polygon()',
+    supports: 'clip-path: polygon(round 8px, 0 0, 100% 0, 50% 100%)',
+    summary:
+      'An arrow tag used to be a rotated-box hack or an exported image — ' +
+      'and the export took real text with it. The round keyword makes the ' +
+      'shape one declaration on ordinary markup, so the text comes back: it ' +
+      'reflows under zoom, translates, re-inks with themes, reads aloud. ' +
+      'The craft is where the clip goes: clip a child, keep the focusable ' +
+      'element unclipped, and the focus ring can even follow the shape — ' +
+      'drop-shadows on the parent trace the clipped silhouette, which ' +
+      'outline never can. Break it to see why: clip the link itself and ' +
+      'every ring is cut away with the rest of what it paints. One radius ' +
+      'rounds every corner; per-corner control is shape()’s job.',
+    links: [
+      {
+        label: 'MDN: polygon()',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polygon',
+      },
+      {
+        label: 'CSS Tip: rounded shapes (Temani Afif)',
+        href: 'https://css-tip.com/rounded-shapes/',
+      },
+    ],
+    payoff:
+      'Labels that used to ship as images of text stay real text (1.4.5) — zoom reflows it, translation translates it, themes re-ink it, screen readers just read it.',
+    tags: ['layout', 'typography'],
+    component: RoundedClipDemo,
+    snippetHtml: roundedClipSnippetHtml,
+    snippetCss: roundedClipSnippetCss,
   },
   {
     id: 'starting-style',

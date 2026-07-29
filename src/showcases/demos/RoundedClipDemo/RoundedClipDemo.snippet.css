@@ -1,0 +1,41 @@
+/* round softens every corner with one radius —
+   per-corner control is shape()'s job. */
+.spec-tag {
+  display: inline-block;
+  padding: 4px 26px 4px 12px;
+  background: #dbe7ff;
+  clip-path: polygon(
+    round 8px,
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%
+  );
+}
+
+/* Clip the child, never the focusable element: clip-path cuts away
+   everything the element paints — a focus outline included. */
+.spec-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Better: a ring that follows the shape. Drop-shadows on the UNclipped
+   parent trace the clipped child's silhouette — outline never can, and
+   on a clipped link the clip runs after filters and cuts the ring away. */
+@supports (clip-path: polygon(round 1px, 0 0, 1% 0, 0 1%)) {
+  .spec-link:focus-visible {
+    outline: none;
+    filter: drop-shadow(2px 0 0 currentColor) drop-shadow(-2px 0 0 currentColor)
+      drop-shadow(0 2px 0 currentColor) drop-shadow(0 -2px 0 currentColor);
+  }
+}
+
+/* No support? A plain rounded chip, not a broken shape. */
+@supports not (clip-path: polygon(round 1px, 0 0, 1% 0, 0 1%)) {
+  .spec-tag {
+    border-radius: 8px;
+    padding-inline-end: 12px;
+  }
+}

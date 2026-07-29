@@ -312,6 +312,19 @@ Animations driven by scroll position instead of time — no scroll listeners, ru
 
 - [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
 
+### Rounded polygon()
+
+An arrow tag used to be a rotated-box hack or an exported image — and the export took real text with it.
+
+**Accessibility payoff:** Labels that used to ship as images of text stay real text (1.4.5) — zoom reflows it, translation translates it, themes re-ink it, screen readers just read it.
+
+**Guard:** `@supports (clip-path: polygon(round 8px, 0 0, 100% 0, 50% 100%))`
+
+**Topics:** layout, typography
+
+- [MDN: polygon()](https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polygon)
+- [CSS Tip: rounded shapes (Temani Afif)](https://css-tip.com/rounded-shapes/)
+
 ### Advanced attr()
 
 attr() with types — read data attributes as lengths, colors, or numbers in any property, not just content.

@@ -15,7 +15,9 @@ import { fileURLToPath } from 'node:url'
 import { features } from 'web-features'
 
 /** Showcase id (registry) → web-features id. Combo demos without one clear
-    upstream feature are simply absent — no badge is rendered for them. */
+    upstream feature are simply absent — no badge is rendered for them.
+    polygon-round is absent on purpose: web-features has no id for the round
+    keyword yet, and 'shapes' (the pre-round basics) would claim the wrong tier. */
 const SHOWCASE_FEATURES = {
   'container-queries': 'container-queries',
   'cq-units': 'container-queries',
