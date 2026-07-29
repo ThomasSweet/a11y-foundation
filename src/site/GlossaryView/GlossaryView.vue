@@ -56,7 +56,6 @@ const terms = [...glossaryTerms].sort((a, b) => a.term.localeCompare(b.term))
     border: 1px solid var(--bp-line-strong);
     border-radius: var(--radius-md);
     background-color: var(--bp-sheet);
-    /* Deep links land clear of the viewport edge. */
     scroll-margin-block-start: var(--space-8);
 
     @include high-contrast {

@@ -175,7 +175,6 @@ const sections = [
     overflow: hidden;
   }
 
-  /* Cards reveal; the containing .demo is data-reveal="off" (see ChapterLayout). */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .showcase-list :deep(.showcase) {
@@ -193,8 +192,6 @@ const sections = [
     }
   }
 
-  /* Pure-CSS catalog filter — keep in sync with showcaseTags in the script.
-     Must live in `components` so the hide beats the cards' own display. */
   $showcase-tags: layout, scroll, forms, theming, typography, interaction, motion;
 
   @each $tag in $showcase-tags {

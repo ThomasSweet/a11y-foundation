@@ -121,9 +121,6 @@
     border-radius: var(--radius-md);
   }
 
-  /* Row holding the two ways to read the code: the inline "Show the code"
-     disclosure and an always-visible link to the full source on GitHub. Both
-     stay top-aligned so the link sits beside the summary as the panel expands. */
   .showcase-code-actions {
     display: flex;
     flex-wrap: wrap;
@@ -135,8 +132,6 @@
     min-inline-size: 0; // let a wide code block scroll instead of stretching the row
   }
 
-  /* The snippet panel is a portable excerpt; this links to the complete
-     component (template, styles, and the excerpt's source) on GitHub. */
   .showcase-source {
     display: inline-flex;
     align-items: center;
@@ -170,11 +165,6 @@
     color: var(--color-primary);
   }
 
-  /* "Show the code" — a native <details> summary (keyboard/SR behaviour and the
-     open state come for free), styled as the card's primary action so the code
-     reads as an obvious invitation, not a muted afterthought. Filled treatment
-     mirrors AppButton --primary, so the label colour is contrast-guaranteed on
-     every theme; the neighbouring "View source" stays a quiet secondary link. */
   .showcase-code-summary {
     display: inline-flex;
     align-items: center;
@@ -189,7 +179,6 @@
     color: var(--color-primary-text);
     cursor: pointer;
     list-style: none; // strip Firefox's default disclosure marker
-    /* Motion tokens are zeroed under prefers-reduced-motion, so no override. */
     transition:
       background-color var(--duration-fast) var(--easing-standard),
       scale var(--duration-fast) var(--easing-standard);
@@ -227,8 +216,6 @@
     }
   }
 
-  /* Glyph and chevron inherit the button's on-primary label colour (an explicit
-     --color-primary would vanish against the filled primary background). */
   .showcase-code-glyph {
     inline-size: 1.15em;
     block-size: 1.15em;
@@ -244,7 +231,6 @@
     rotate: 180deg;
   }
 
-  /* Swap the label on open — display:none keeps the hidden one out of the a11y name. */
   .showcase-code-label-hide {
     display: none;
   }

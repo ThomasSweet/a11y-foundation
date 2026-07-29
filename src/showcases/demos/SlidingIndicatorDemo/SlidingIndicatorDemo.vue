@@ -68,8 +68,6 @@ const view = ref(options[0])
     }
   }
 
-  /* The one continuous pill: one cell wide, translated by i × 100% per option.
-     The motion token is zeroed under reduced motion, so the slide jumps instantly. */
   .segmented-indicator {
     position: absolute;
     z-index: 0;
@@ -87,7 +85,6 @@ const view = ref(options[0])
     }
   }
 
-  /* :has() maps the checked radio to the indicator's slot index. */
   .segmented-track:has(.segmented-opt:nth-of-type(1) input:checked) { --i: 0; }
   .segmented-track:has(.segmented-opt:nth-of-type(2) input:checked) { --i: 1; }
   .segmented-track:has(.segmented-opt:nth-of-type(3) input:checked) { --i: 2; }
@@ -103,7 +100,6 @@ const view = ref(options[0])
     border-radius: var(--radius-full);
     cursor: pointer;
 
-    /* Focus ring rides on the option, since the radio itself is hidden. */
     &:has(input:focus-visible) {
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
       outline-offset: 2px;
@@ -116,7 +112,6 @@ const view = ref(options[0])
     color: var(--color-text-subtle);
   }
 
-  /* Selected label firms up — state isn't carried by pill position alone. */
   .segmented-opt:has(input:checked) .segmented-label {
     font-weight: 600;
     color: var(--color-text);

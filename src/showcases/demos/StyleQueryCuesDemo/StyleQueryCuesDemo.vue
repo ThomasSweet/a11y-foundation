@@ -51,7 +51,6 @@ const services: { name: string; state: State }[] = [
 <style scoped lang="scss">
 @layer components {
   .cues-demo {
-    /* :has() reads the checkbox and flips --cues (inherits to every status). */
     --cues: off;
 
     display: grid;
@@ -105,7 +104,6 @@ const services: { name: string; state: State }[] = [
     inline-size: 1.25rem;
     block-size: 1.25rem;
     border-radius: var(--radius-full);
-    /* Color-only by default — the trap. */
     background-color: var(--state-color);
     font-size: var(--text-sm);
     font-weight: 700;
@@ -124,10 +122,6 @@ const services: { name: string; state: State }[] = [
     }
   }
 
-  /* Style query: when --cues is on (inherited), swap the dot for a SHAPE that
-     survives any colour-vision deficiency — no status element references --cues.
-     The query sets --cue on the element and the pseudo renders it: WebKit
-     doesn't apply pseudo-element rules nested inside style queries. */
   .service-status::before {
     content: var(--cue, none);
   }

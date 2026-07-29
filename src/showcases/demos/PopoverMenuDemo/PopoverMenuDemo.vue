@@ -82,7 +82,6 @@ const items = [
     font: inherit;
     font-weight: 600;
     cursor: pointer;
-    /* The element the menu tethers to (see .popover-menu). */
     anchor-name: --popover-menu-anchor;
 
     @include can-hover {
@@ -108,23 +107,15 @@ const items = [
     background-color: var(--color-surface);
     box-shadow: var(--shadow-lg);
 
-    /* Tether the menu to its trigger. Without anchor support it falls back
-       to the UA popover placement (top-layer, centered) — still usable. */
     @supports (anchor-name: --a) {
-      /* Stay `position: fixed`: absolute resolves against a positioned ancestor
-         (.showcase), so the menu would never overflow and flips never fire. */
       position: fixed;
       position-anchor: --popover-menu-anchor;
-      /* Drop below the trigger, aligned to its inline-start edge. */
       position-area: block-end span-inline-end;
-      /* Clear the UA centering (inset: 0; margin: auto) so the anchor wins. */
       inset: auto;
       margin-block-start: var(--space-1);
-      /* Flip across any edge it would overflow — no JS, no scroll listeners. */
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
     }
 
-    /* Open state styling for the entry transition below. */
     opacity: 0;
     transform: translateY(-0.25rem);
     transition:
@@ -139,7 +130,6 @@ const items = [
       opacity: 1;
       transform: translateY(0);
 
-      /* Fade/slide in from display:none the first time it opens. */
       @starting-style {
         opacity: 0;
         transform: translateY(-0.25rem);

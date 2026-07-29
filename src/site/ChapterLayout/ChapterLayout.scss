@@ -7,7 +7,6 @@
     gap: clamp(var(--space-6), 4vw, var(--space-16));
   }
 
-  /* timeline-scope lets the rail attach to view-timelines named in another subtree. */
   @supports (animation-timeline: view()) {
     .chapter {
       timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
@@ -331,7 +330,6 @@
     }
   }
 
-  /* Negative lines keep the card in the end column even when it is alone. */
   .chapter-nav-next {
     grid-column: -2 / -1;
     text-align: end;

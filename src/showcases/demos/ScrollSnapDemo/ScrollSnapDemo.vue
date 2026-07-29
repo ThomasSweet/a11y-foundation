@@ -53,11 +53,9 @@ const cards = [
     padding: var(--space-2);
     overflow-x: auto;
     min-inline-size: 0;
-    /* The whole point: each card lands on a snap position, never mid-scroll. */
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
 
-    /* Focusable scroll container — give it the standard focus ring. */
     border-radius: var(--radius-md);
 
     &:focus-visible {
@@ -89,7 +87,6 @@ const cards = [
     border-radius: var(--radius-lg);
     background: var(--gradient-accent);
     color: #fff;
-    /* Centre each card under the viewport of the track. */
     scroll-snap-align: center;
 
     @include high-contrast {

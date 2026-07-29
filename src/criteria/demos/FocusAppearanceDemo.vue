@@ -62,9 +62,6 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     }
   }
 
-  /* The regression: a hairline, zero-offset outline. The foundation's ring
-     lives in the preferences layer (which wins over components), so defeating
-     it takes !important — that it does IS the lesson: you must fight to fail. */
   .is-broken {
     .focus-appearance-btn:focus-visible {
       /* stylelint-disable declaration-no-important -- deliberately simulating the anti-pattern */

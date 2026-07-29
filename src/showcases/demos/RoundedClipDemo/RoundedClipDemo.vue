@@ -124,8 +124,6 @@ const exportedTag =
         0 100%
       );
 
-      /* Forced colors override the fill the shape is cut from — fall back
-         to the bordered chip instead of an invisible outline. */
       @include forced-colors {
         border-radius: var(--radius-md);
         padding-inline-end: var(--space-3);
@@ -154,14 +152,6 @@ const exportedTag =
       }
     }
 
-    /* The ring that follows the shape: four drop-shadows on the UNclipped
-       parent trace the child's clipped silhouette — outline draws the border
-       box and never can. The preferences-layer ring beats any components
-       outline: none by design, so it is re-inked transparent on this one
-       element instead, with the visible colour captured on the parent first.
-       Forced colors are excluded: the system ring stays in charge there.
-       On the broken link the clip runs after filters, so even this ring is
-       cut away — which is the lesson. */
     @media (forced-colors: none) {
       .rounded-clip-focus {
         --rounded-clip-ring: var(--focus-ring-color);
@@ -191,8 +181,6 @@ const exportedTag =
     font-size: var(--text-sm);
     font-weight: 600;
 
-    /* Nested so the emitted rule always follows the display above —
-       a sibling block at equal specificity loses to source order. */
     @supports not (clip-path: polygon(round 1px, 0 0, 1% 0, 0 1%)) {
       display: none;
     }

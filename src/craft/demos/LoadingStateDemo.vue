@@ -163,7 +163,6 @@ const feed = [
     color: var(--color-text-subtle);
   }
 
-  /* Skeleton shapes: decorative shimmer, static under reduced motion. */
   .loading-shape {
     border-radius: var(--radius-sm);
     background: linear-gradient(
@@ -191,8 +190,6 @@ const feed = [
     border-radius: var(--radius-full);
   }
 
-  /* Placeholder lines occupy the same line box as the text they stand in
-     for (same font-size, 1lh tall) — so nothing shifts when content lands. */
   .loading-shape-line {
     block-size: 1lh;
     font-size: var(--text-sm);
@@ -203,7 +200,6 @@ const feed = [
     }
   }
 
-  /* The aria-hidden wrapper must not swallow the card's row gap. */
   .loading-skeleton-group {
     display: contents;
   }
@@ -215,8 +211,6 @@ const feed = [
   }
 
   .loading-readout {
-    /* Reserve two lines so the state swap can't shift the page — the demo
-       practises the stability it preaches. */
     min-block-size: 2lh;
     font-size: var(--text-sm);
     color: var(--color-text-subtle);

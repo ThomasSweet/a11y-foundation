@@ -40,8 +40,6 @@
   }
 
   .theme-panel {
-    /* Fallback for browsers without anchor positioning: pin below the header,
-       viewport-right. Superseded by the anchored rules below where supported. */
     position: fixed;
     inset: auto;
     inset-block-start: calc(var(--space-16) + var(--space-3));
@@ -68,11 +66,6 @@
     }
   }
 
-  /* Once the header hits its max width and centres, the toggle leaves the
-     viewport edge — a fixed corner position would strand the panel far from
-     it (the wide-screen bug). Tether it to the trigger instead (dogfoods
-     anchor positioning). Below the cap the viewport-corner fallback fits and
-     stays put, so this only engages from xl up. */
   @supports (anchor-name: --a) {
     @include from('xl') {
       .theme-panel {
@@ -86,8 +79,6 @@
     }
   }
 
-  /* display stays with the UA's popover state — an unconditional display
-     would keep the closed panel painted. */
   .theme-panel:popover-open {
     display: grid;
     opacity: 1;

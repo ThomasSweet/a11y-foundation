@@ -110,8 +110,6 @@ const dlg = ref<HTMLDialogElement | null>(null)
     box-shadow: var(--shadow-md);
     font-size: var(--text-sm);
 
-    /* Tether the toggletip to the "?" button. Without support it falls back
-       to the UA-centered popover (margin: auto, restored in the reset). */
     @supports (anchor-name: --a) {
       position: fixed;
       position-anchor: --dialog-tip-anchor;
@@ -135,8 +133,6 @@ const dlg = ref<HTMLDialogElement | null>(null)
     color: var(--color-text);
     box-shadow: var(--shadow-lg);
 
-    /* Style only while open via the new :open pseudo-class. The entry uses
-       motion tokens, so it's instant under reduced motion. */
     &:open {
       opacity: 1;
       scale: 1;

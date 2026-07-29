@@ -80,11 +80,8 @@ const metrics = [
     block-size: 100%;
     border-radius: inherit;
     background: var(--gradient-accent);
-    /* Fallback today: a custom property mirrors the data value. */
     inline-size: calc(var(--v, 0) * 1%);
 
-    /* The feature: read straight from the attribute, no inline style or JS.
-       (Sass reads the <number> type as operators, so that rule is silenced.) */
     /* stylelint-disable scss/operator-no-unspaced */
     @supports (width: calc(attr(data-value type(<number>), 0) * 1%)) {
       inline-size: calc(attr(data-value type(<number>), 0) * 1%);

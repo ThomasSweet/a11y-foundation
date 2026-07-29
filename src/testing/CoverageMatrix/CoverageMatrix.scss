@@ -4,7 +4,6 @@
     gap: var(--space-6);
   }
 
-  /* Focusable scroll region so the table can overflow horizontally, still keyboard-operable. */
   .coverage-matrix-scroll {
     overflow-x: auto;
     min-inline-size: 0;
@@ -18,7 +17,6 @@
   .coverage-matrix-table {
     inline-size: 100%;
     border-collapse: collapse;
-    /* Keep columns from crushing; the wrapper scrolls instead. */
     min-inline-size: max-content;
   }
 
@@ -76,7 +74,6 @@
     text-align: center;
   }
 
-  /* Glyph + visually-hidden label carry the verdict, not colour alone. */
   .coverage-matrix-glyph {
     font-size: var(--text-lg);
     line-height: 1;
@@ -111,7 +108,6 @@
     }
   }
 
-  /* Decorative zebra striping — drops cleanly under forced-colors. */
   tbody tr:nth-child(even) {
     background-color: color-mix(in oklch, var(--color-bg-subtle) 50%, transparent);
 

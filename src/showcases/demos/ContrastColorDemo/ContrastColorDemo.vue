@@ -47,8 +47,6 @@ const bg = ref('#2563eb')
     background-color: var(--swatch-bg);
     font-weight: 600;
 
-    /* Fallback: fixed light text + shadow — readable on most picks, but the
-       user can defeat it. contrast-color() guarantees a contrasting colour. */
     color: var(--color-primary-text);
     text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
 

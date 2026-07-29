@@ -12,8 +12,6 @@
     border-radius: var(--radius-md);
     font-weight: 600;
     cursor: pointer;
-    /* Motion tokens are zeroed under prefers-reduced-motion, so this
-       transition needs no reduced-motion override. */
     transition:
       background-color var(--duration-fast) var(--easing-standard),
       border-color var(--duration-fast) var(--easing-standard),

@@ -73,8 +73,6 @@ const items = [
   }
 
   .focus-obscured-link {
-    /* The fix: scroll-margin keeps a focused link clear of the sticky bar
-       when it's scrolled into view, so the focus ring is never obscured. */
     scroll-margin-block-start: var(--space-12);
     padding: var(--space-3);
     border-block-end: 1px solid var(--color-border);
@@ -92,8 +90,6 @@ const items = [
     }
   }
 
-  /* The regression: drop the scroll offset, so a link tabbed near the top
-     scrolls flush under the sticky bar and its focus ring is hidden. */
   .is-broken {
     .focus-obscured-link {
       scroll-margin-block-start: 0;

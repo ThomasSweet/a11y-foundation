@@ -10,7 +10,6 @@
     box-shadow: var(--shadow-lg);
 
     &[open] {
-      /* Uses motion tokens, so reduced-motion handling is automatic. */
       animation: dialog-in var(--duration-normal) var(--easing-enter);
     }
 
@@ -18,8 +17,6 @@
       background-color: rgb(0 0 0 / 50%);
     }
 
-    /* Shadow and backdrop dimming are stripped in forced-colors mode —
-       a border restores the dialog's visible boundary. */
     @include forced-colors {
       border: 2px solid CanvasText;
     }

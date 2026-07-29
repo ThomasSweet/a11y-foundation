@@ -185,10 +185,6 @@ const files = [
     color: var(--bp-ink);
   }
 
-  /* The mark is a shape, and the sentence opens with "Use" or "Not", so the
-     distinction never rests on colour. */
-  /* Body size, not small: the element name is the payload, and base `code` is
-     already 0.9em on top of whatever it inherits. */
   .agent-skill-swap-line {
     display: flex;
     gap: var(--space-2);

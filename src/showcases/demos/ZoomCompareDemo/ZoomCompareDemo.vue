@@ -58,7 +58,6 @@
 <style scoped lang="scss">
 @layer components {
   .zoom-compare {
-    /* The checked radio sets the factor for both cards. */
     --factor: 1;
     display: grid;
     gap: var(--space-4);
@@ -146,7 +145,6 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
-    /* Keep each demo's spillover inside its own box. */
     overflow: clip;
 
     @include high-contrast {
@@ -172,8 +170,6 @@
     white-space: nowrap;
   }
 
-  /* The enhancement: real layout magnification. Where unsupported, the card just
-     stays 1× (the comparison still reads via the scale panel). */
   .zoom-compare-card-zoom {
     @supports (zoom: 2) {
       /* stylelint-disable-next-line property-no-unknown -- interoperable, linter lags */
@@ -181,8 +177,6 @@
     }
   }
 
-  /* The contrast: a paint-only transform. Grows from the top-left so it visibly
-     covers the block beneath it. */
   .zoom-compare-card-scale {
     transform: scale(var(--factor));
     transform-origin: top left;

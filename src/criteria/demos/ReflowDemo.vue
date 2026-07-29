@@ -56,7 +56,6 @@ const stats = [
   }
 
   .reflow-viewport {
-    /* Fixed, phone-narrow stage. overflow:auto keeps any overflow local. */
     inline-size: min(100%, 21rem);
     min-inline-size: 0;
     max-block-size: 15rem;
@@ -75,8 +74,6 @@ const stats = [
   }
 
   .reflow-content {
-    /* Compliant: the content is fluid and never forced wider than the
-       viewport — the same intrinsic approach used across this project. */
     display: grid;
     gap: var(--space-3);
     padding: var(--space-3);
@@ -93,8 +90,6 @@ const stats = [
   }
 
   .reflow-stats {
-    /* auto-fit + min() reflows from a row to a single column as space
-       tightens — no media query, no fixed track widths. */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr));
     gap: var(--space-2);
@@ -126,9 +121,6 @@ const stats = [
     color: var(--color-text-subtle);
   }
 
-  /* The regression: fixed widths force the content wider than its container, so
-     reading needs two-dimensional scrolling — what 1.4.10 forbids. Sizing only;
-     content and structure are unchanged. */
   .is-broken {
     .reflow-content {
       inline-size: 34rem;

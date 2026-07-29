@@ -50,8 +50,6 @@ const pages = [{ title: 'Products' }, { title: 'Pricing' }, { title: 'Account' }
 
 <style scoped lang="scss">
 @layer components {
-  /* Sized by its column, not the viewport — the demo sits in a content column
-     whose width varies with the rail. */
   .consistent-help-demo {
     container-type: inline-size;
     display: grid;
@@ -63,8 +61,6 @@ const pages = [{ title: 'Products' }, { title: 'Pricing' }, { title: 'Account' }
     color: var(--color-text-subtle);
   }
 
-  /* Three across, or one per row — never a ragged 2 + 1, which would read as
-     a layout accident and break the comparison the demo is making. */
   .consistent-help-pages {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -75,8 +71,6 @@ const pages = [{ title: 'Products' }, { title: 'Pricing' }, { title: 'Account' }
     }
   }
 
-  /* Equal-height pages, so a moved help link is visible as a change in
-     height, not just as a change in wording. */
   .consistent-help-page {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -121,8 +115,6 @@ const pages = [{ title: 'Products' }, { title: 'Pricing' }, { title: 'Account' }
     border-radius: var(--radius-full);
     background-color: var(--color-border);
 
-    /* Forced colors strips the fill; keep the mock content visible so the
-       "buried mid-content" state still has its context. */
     @include forced-colors {
       border: 1px solid GrayText;
     }
@@ -165,22 +157,15 @@ const pages = [{ title: 'Products' }, { title: 'Pricing' }, { title: 'Account' }
     }
   }
 
-  /* Every page carries a help link in all three slots; exactly one is ever
-     rendered, so the accessibility tree always matches what is on screen
-     (moving it with `order` would desync reading order from the picture). */
   .consistent-help-link-head,
   .consistent-help-link-body {
     display: none;
   }
 
-  /* Compliant: same slot, same relative position, on every page — findable
-     once, then known. */
   .consistent-help-link-foot {
     display: block;
   }
 
-  /* The regression: help wanders. Page 2 promotes it to the header, page 3
-     buries it in the content — so each page restarts the search. */
   .is-broken .consistent-help-page:nth-child(2) {
     .consistent-help-link-foot {
       display: none;

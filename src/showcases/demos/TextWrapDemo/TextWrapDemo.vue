@@ -93,7 +93,6 @@ const body =
     font-size: var(--text-lg);
     line-height: var(--leading-tight);
 
-    /* balance evens line lengths across a short block (headings) — its sweet spot. */
     &--balance {
       text-wrap: balance;
     }
@@ -104,7 +103,6 @@ const body =
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
 
-    /* pretty targets the last line (orphans) — cheap enough for body copy. */
     &--pretty {
       text-wrap: pretty;
     }

@@ -39,9 +39,6 @@ const cards = [
 
   .subgrid-card {
     display: grid;
-    /* Each card spans and adopts three parent rows, so title/text/meta line up
-       across cards regardless of content length. (Subgrid hit Baseline Mar 2026
-       — no @supports fallback needed.) */
     grid-row: span 3;
     grid-template-rows: subgrid;
     gap: var(--space-2);

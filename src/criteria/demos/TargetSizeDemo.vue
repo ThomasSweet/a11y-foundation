@@ -76,8 +76,6 @@ const active = reactive<Record<string, boolean>>({})
   }
 
   .target-size-btn {
-    /* Compliant: 44px here (the 2.5.5 AAA / platform best practice; the
-       2.5.8 AA floor is 24px), with real spacing between targets. */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -125,8 +123,6 @@ const active = reactive<Record<string, boolean>>({})
     stroke-linejoin: round;
   }
 
-  /* The regression: drop well under 24px and remove spacing, so targets are
-     cramped and easy to mis-tap; only 2.5.8 is violated. */
   .is-broken {
     .target-size-toolbar {
       gap: 0;

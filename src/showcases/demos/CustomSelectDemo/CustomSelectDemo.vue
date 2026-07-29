@@ -101,7 +101,6 @@
     font-weight: 600;
   }
 
-  /* Baseline styling for both modes — even the native fallback gets a tidy border. */
   .custom-select {
     padding: var(--space-2) var(--space-3);
     border: 1px solid var(--color-border);
@@ -115,8 +114,6 @@
     }
   }
 
-  /* The enhancement: opt the control and its picker popup into full styling,
-     only where base-select is supported (degrades to a native select). */
   @supports (appearance: base-select) {
     /* stylelint-disable property-no-unknown -- emerging customizable-select syntax */
     .custom-select,
@@ -133,8 +130,6 @@
       cursor: pointer;
     }
 
-    /* Trigger fully covers the <select> box (full width, ≥44px) so it's ONE
-       target — no select sliver peeking past a smaller button (target size). */
     .custom-select-trigger {
       display: flex;
       align-items: center;
@@ -162,10 +157,6 @@
       }
     }
 
-    /* Selected content is mirrored into <selectedcontent>; lay it out like an
-       option row (flex blockifies the dot span — inline-size doesn't apply to
-       inline elements, so without this the cloned dot renders 0×0). Hide the
-       long description so the closed control stays compact. */
     .custom-select-value {
       display: flex;
       flex: 1;
@@ -177,7 +168,6 @@
       }
     }
 
-    /* Hide the UA's ::picker-icon; use our own arrow inside the trigger. */
     .custom-select::picker-icon {
       display: none;
     }
@@ -195,10 +185,8 @@
       rotate: 225deg;
     }
 
-    /* The popup — base-select auto-anchors it, so no manual anchor wiring. */
     .custom-select::picker(select) {
       margin-block-start: var(--space-1);
-      /* Generous floor before the popup shrinks/flips — gives way only when there's no room. */
       min-block-size: 12rem;
       padding: var(--space-1);
       border: 1px solid var(--color-border);
@@ -230,7 +218,6 @@
       gap: var(--space-3);
       padding: var(--space-2) var(--space-3);
       border-radius: var(--radius-sm);
-      /* Undo the group-label typography inherited from <optgroup>. */
       font-size: var(--text-base);
       font-weight: 400;
       color: var(--color-text);
@@ -247,7 +234,6 @@
       cursor: not-allowed;
     }
 
-    /* Tint the active option so it reads at a glance (never colour alone — the ✓ carries it). */
     .custom-select option:checked {
       background-color: color-mix(in oklch, var(--color-primary) 14%, transparent);
 
@@ -257,7 +243,6 @@
       }
     }
 
-    /* The built-in checkmark column — keep it, just align it with our text. */
     .custom-select option::checkmark {
       order: 1; // push it to the end, opposite the dot
       margin-inline-start: auto;
@@ -271,8 +256,6 @@
       }
     }
 
-    /* Tint is reinforcement only — the mirrored dot and name carry the
-       meaning (WCAG 1.4.1). */
     .custom-select:has(option[value='in-progress']:checked) .custom-select-trigger {
       border-color: color-mix(in oklab, var(--color-info) 55%, var(--color-border));
     }
@@ -291,7 +274,6 @@
       }
     }
 
-    /* Open/close transitions ride the motion tokens (zeroed under reduced motion). */
     .custom-select::picker(select) {
       opacity: 0;
       translate: 0 -0.25rem;

@@ -7,10 +7,7 @@
 ============================================================================= */
 
 @layer tokens {
-
   :root {
-
-    /* Spacing scale */
     --space-1: 0.25rem;
     --space-2: 0.5rem;
     --space-3: 0.75rem;
@@ -24,8 +21,6 @@
     --space-32: 8rem;
     --space-40: 10rem;
 
-
-    /* Typography */
     --font-sans: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 
@@ -37,8 +32,6 @@
     --text-3xl:  1.875rem;
     --text-4xl:  2.25rem;
 
-    /* Fluid display sizes: clamp() scales between a mobile floor and desktop
-       ceiling with no breakpoints; rem bounds honour the font-size preference. */
     --text-display:    clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
     --text-display-sm: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
 
@@ -48,8 +41,6 @@
 
     --tracking-tight: -0.02em;
 
-
-    /* Colour tokens — light-dark(light, dark) */
     --color-bg:           light-dark(#fff, #0f0f0f);
     /* Mirrored inline as --boot-ground in the entry HTMLs (pre-CSS first
        paint) — keep the values in sync. */
@@ -62,9 +53,6 @@
 
     --color-primary:      light-dark(#2563eb, #3b82f6);
     --color-primary-hover:light-dark(#1d4ed8, #60a5fa);
-    /* The label sits ON --color-primary, so it must contrast the primary, not
-       the page. The dark-mode primary is brighter (white only ~3.7:1, below
-       AA), so the label flips dark there (≈ 5.1:1). */
     --color-primary-text: light-dark(#fff, #111);
 
     --color-success:      light-dark(#16a34a, #4ade80);
@@ -72,12 +60,8 @@
     --color-error:        light-dark(#dc2626, #f87171);
     --color-info:         light-dark(#0284c7, #38bdf8);
 
-    /* A second accent, so gradients/highlights have somewhere to travel. */
     --color-accent:       light-dark(#7c3aed, #a78bfa);
 
-
-    /* Decorative surfaces (hero, glassy header). Translucent; swapped opaque
-       under prefers-reduced-transparency. */
     --gradient-accent: linear-gradient(
       100deg,
       var(--color-primary),
@@ -95,12 +79,10 @@
         transparent 55%
       );
 
-
     /* Focus ring — used globally; never remove outlines entirely. */
     --focus-ring-width:  3px;
     --focus-ring-offset: 2px;
     --focus-ring-color:  light-dark(#2563eb, #60a5fa);
-
 
     /* Motion tokens — reference these so preferences.css can override motion
        from a single source of truth. */
@@ -111,17 +93,12 @@
     --easing-enter:     cubic-bezier(0, 0, 0.2, 1);
     --easing-exit:      cubic-bezier(0.4, 0, 1, 1);
 
-
-    /* Border radius */
     --radius-sm:   0.25rem;
     --radius-md:   0.5rem;
     --radius-lg:   0.75rem;
     --radius-xl:   1rem;
     --radius-full: 9999px;
 
-
-    /* Shadow — layered elevation, deeper in dark mode. light-dark() wraps only
-       each layer's <color> (it's a colour function), never the whole value. */
     --shadow-sm: 0 1px 2px light-dark(rgb(15 23 42 / 8%), rgb(0 0 0 / 40%));
     --shadow-md:
       0 2px 4px light-dark(rgb(15 23 42 / 6%), rgb(0 0 0 / 30%)),
@@ -130,12 +107,9 @@
       0 4px 8px light-dark(rgb(15 23 42 / 8%), rgb(0 0 0 / 35%)),
       0 20px 40px -8px light-dark(rgb(15 23 42 / 18%), rgb(0 0 0 / 55%));
 
-    /* The switch the light-dark() tokens resolve against. */
     color-scheme: light dark;
   }
 
-
-  /* Manual override: [data-theme] just flips color-scheme; every light-dark() token follows. */
   [data-theme="light"] {
     color-scheme: light;
   }

@@ -42,8 +42,6 @@
     background-color: var(--color-primary);
     transform-origin: 0 50%;
 
-    /* Hidden unless the browser can drive it from scroll — a frozen bar would
-       read as "0%". Scroll-linked motion mirrors the gesture, so no RM override. */
     display: none;
 
     @supports (animation-timeline: scroll()) {

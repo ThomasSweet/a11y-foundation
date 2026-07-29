@@ -11,18 +11,12 @@
     min-inline-size: 0;
   }
 
-  /* The spine only earns its width once the chapter is two-column; on a phone
-     it would cost 24px of a 430px viewport to say what the order already says.
-     A media query, not a container query: .timeline is its own container and
-     cannot query itself. */
   @media (width >= 52rem) {
     .timeline {
       padding-inline-start: var(--space-6);
       border-inline-start: 1px solid var(--bp-line-strong);
     }
 
-    /* Reaches back to meet the spine, so the two read as one drawing rather
-       than a stripe beside a rule. */
     .timeline-era:not(:first-child) .timeline-era-body::before {
       margin-inline-start: calc(var(--space-6) * -1);
     }
@@ -34,7 +28,6 @@
     min-inline-size: 0;
   }
 
-  /* Same reveal discipline as ChapterLayout's demo-reveal. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .timeline-era {
@@ -67,8 +60,6 @@
     min-inline-size: 0;
   }
 
-  /* Pins the era's own heading rather than a second copy of its date: the
-     question "which era am I in" is what the ghost year used to answer. */
   .timeline-era-header {
     position: sticky;
     inset-block-start: 0;
@@ -87,7 +78,6 @@
     background-color: var(--bp-sheet);
   }
 
-  /* The rule appears only while pinned, so a stationary header adds no line. */
   @supports (container-type: scroll-state) {
     @container scroll-state(stuck: top) {
       .timeline-era-headrow {

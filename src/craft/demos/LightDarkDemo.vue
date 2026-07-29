@@ -166,12 +166,10 @@ const theme = useSiteTheme()
     border-radius: var(--radius-sm);
   }
 
-  /* The modern swatch: one declaration, both modes. */
   .light-dark-swatch-modern {
     background-color: light-dark(#e6e6fa, #1a1a2e);
   }
 
-  /* The legacy swatch: base value + media-query override — two declarations to keep in sync. */
   .light-dark-swatch-legacy {
     background-color: #e6e6fa;
 

@@ -6,7 +6,6 @@
     padding: 0;
     list-style: none;
 
-    /* Two-up once there's room; numbered labels keep the base→top order clear. */
     @include from('md') {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -51,7 +50,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* Inline label so the catches/misses split reads without colour alone. */
   .testing-layers-tag {
     display: inline-block;
     margin-inline-end: var(--space-1);

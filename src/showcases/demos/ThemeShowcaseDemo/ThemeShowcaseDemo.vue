@@ -54,15 +54,12 @@ const themes = [
     color: var(--color-text-subtle);
   }
 
-  /* Intrinsic reflow — one column when tight, more when there's room. */
   .theme-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     gap: var(--space-4);
   }
 
-  /* .surface presentation (bg, border, padding, derived tokens) comes from
-     theming.css; here we only lay out its contents. */
   .surface {
     display: grid;
     gap: var(--space-2);

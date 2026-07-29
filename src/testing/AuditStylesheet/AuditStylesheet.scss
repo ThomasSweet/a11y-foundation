@@ -104,8 +104,6 @@
     font-weight: 600;
   }
 
-  /* The debug stylesheet itself — the same four selectors the <pre> shows,
-     scoped to the specimen and armed by the toggle. */
   .audit-css:has(.audit-css-toggle-input:checked) .audit-css-specimen {
     img:not([alt]),
     button:empty,

@@ -8,11 +8,8 @@
     --bp-ink-2: var(--color-text-subtle);
     --bp-accent: var(--color-primary);
     --bp-accent-soft: color-mix(in oklab, var(--color-primary) 12%, transparent);
-    /* Drafting redline — the color of corrections marked on a drawing. */
     --bp-redline: var(--color-error);
 
-    /* The grid alpha is per-mode: the same tint carries far more luminance
-       contrast in light mode than in dark. */
     --bp-line: light-dark(
       color-mix(in oklab, var(--color-primary) 5%, transparent),
       color-mix(in oklab, var(--color-primary) 9%, transparent)

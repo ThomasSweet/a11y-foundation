@@ -108,9 +108,6 @@ const count = ref(1)
     font-variant-numeric: tabular-nums;
   }
 
-  /* The message bubble: compositions below re-map this grid per EXACT count.
-     :nth-child(n):last-child inside :has() reads "the nth child is also the
-     last" — i.e. exactly n children. */
   .quantity-gallery {
     display: grid;
     gap: var(--space-1);
@@ -123,18 +120,15 @@ const count = ref(1)
     list-style: none;
   }
 
-  /* Exactly 1 — one big photo. */
   .quantity-gallery:has(> :first-child:last-child) {
     grid-auto-rows: 15rem;
   }
 
-  /* Exactly 2 — split the bubble. */
   .quantity-gallery:has(> :nth-child(2):last-child) {
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: 11rem;
   }
 
-  /* Exactly 3 — a lead photo with a stacked pair. */
   .quantity-gallery:has(> :nth-child(3):last-child) {
     grid-template-columns: 3fr 2fr;
     grid-template-areas:
@@ -146,12 +140,10 @@ const count = ref(1)
     > :nth-child(3) { grid-area: bottom; }
   }
 
-  /* Exactly 4 — the quad. */
   .quantity-gallery:has(> :nth-child(4):last-child) {
     grid-template-columns: 1fr 1fr;
   }
 
-  /* 5 or more — mosaic: the first photo leads, the rest flow densely. */
   .quantity-gallery:has(> :nth-child(5)) {
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 5.5rem;
@@ -162,9 +154,6 @@ const count = ref(1)
       grid-row: span 2;
     }
 
-    /* Keep the bubble gapless. The lead uses 4 cells, so n photos fill n+3;
-       any remainder shows up as short rows at the tail. Give each short row
-       one wide photo: count ≡ 2 (mod 3) → one, count ≡ 1 (mod 3) → two. */
     &:has(> :nth-child(3n + 2):last-child) > :nth-last-child(2),
     &:has(> :nth-child(3n + 1):last-child) > :nth-last-child(2),
     &:has(> :nth-child(3n + 1):last-child) > :nth-last-child(3) {
@@ -172,7 +161,6 @@ const count = ref(1)
     }
   }
 
-  /* Stand-in photos — a gradient per item, hue set inline per index. */
   .quantity-photo {
     background: linear-gradient(
       135deg,

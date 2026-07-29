@@ -117,8 +117,6 @@ const navItems = ['Home', 'Products', 'Pricing', 'Docs', 'Blog', 'Contact']
     color: var(--color-primary);
   }
 
-  /* The regression: the bypass mechanism disappears — every nav link becomes
-     a mandatory tab stop on the way to the content. */
   .is-broken .bypass-skip {
     display: none;
   }

@@ -134,7 +134,6 @@
     font-weight: 600;
   }
 
-  /* The positioning context for the fallback (non-anchor) placement. */
   .anchor-tooltip-anchor {
     position: relative;
     display: inline-flex;
@@ -172,8 +171,6 @@
   }
 
   .anchor-tooltip-bubble {
-    /* Fallback placement (no anchor positioning): centered above the trigger,
-       relative to .anchor-tooltip-anchor. */
     position: absolute;
     inset-block-end: calc(100% + var(--space-2));
     inset-inline-start: 50%;
@@ -192,8 +189,6 @@
     font-weight: 400;
     text-align: start;
 
-    /* Hidden until hover/focus; rides the motion tokens so it's instant under
-       reduced motion with no extra override. */
     opacity: 0;
     visibility: hidden;
     transition:
@@ -205,8 +200,6 @@
     }
   }
 
-  /* A transparent bridge across the gap so moving the pointer from the trigger
-     to the hint keeps it open — the "hoverable" half of 1.4.13. */
   .anchor-tooltip-bubble::before {
     content: '';
     position: absolute;
@@ -215,8 +208,6 @@
     block-size: var(--space-2);
   }
 
-  /* Reveal on hover, on keyboard focus, AND while the hint itself is hovered
-     (so it stays put when you move onto it). */
   .anchor-tooltip-trigger:hover ~ .anchor-tooltip-bubble,
   .anchor-tooltip-trigger:focus-visible ~ .anchor-tooltip-bubble,
   .anchor-tooltip-bubble:hover {
@@ -224,8 +215,6 @@
     visibility: visible;
   }
 
-  /* The enhancement: real anchor positioning, so the hint tracks its button and
-     flips to stay on-screen instead of being clipped or going off-edge. */
   @supports (anchor-name: --a) {
     /* stylelint-disable property-no-unknown -- anchor positioning */
     .anchor-tooltip-row:nth-child(1) .anchor-tooltip-trigger { anchor-name: --anchor-tooltip-1; }
@@ -236,14 +225,11 @@
     .anchor-tooltip-row:nth-child(3) .anchor-tooltip-bubble { position-anchor: --anchor-tooltip-3; }
 
     .anchor-tooltip-bubble {
-      /* Fixed + anchor positions against the trigger in the viewport, so the
-         hint follows on scroll and can't be clipped by the card's overflow. */
       position: fixed;
       inset: auto;
       translate: none;
       position-area: top center;
       margin-block-end: var(--space-2);
-      /* No room above? flip below; then nudge inline to stay on-screen. */
       position-try-fallbacks: flip-block, flip-inline;
     }
     /* stylelint-enable property-no-unknown */

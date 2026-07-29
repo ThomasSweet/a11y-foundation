@@ -61,11 +61,9 @@ const text = ref('')
     background-color: var(--color-surface);
     color: var(--color-text);
     font: inherit;
-    /* Fallback: a draggable fixed-height box (rows="2" sets the start). */
     resize: vertical;
 
     @supports (field-sizing: content) {
-      /* The enhancement: size to content, bounded so it can't run away. */
       /* stylelint-disable-next-line property-no-unknown -- emerging feature */
       field-sizing: content;
       min-block-size: 2lh;

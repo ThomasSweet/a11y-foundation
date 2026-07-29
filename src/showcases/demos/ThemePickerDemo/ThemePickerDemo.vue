@@ -189,7 +189,6 @@ const note = computed(() => {
     accent-color: var(--color-primary);
   }
 
-  /* A hue wheel as the track — communicates what the slider controls. */
   .theme-picker-hue {
     block-size: 0.5rem;
     border-radius: var(--radius-full);
@@ -254,15 +253,8 @@ const note = computed(() => {
     }
   }
 
-  /* Live preview surface. Only the picked inputs are inline; the cascade does
-     the rest: raw L from the slider → a no-JS step (1 when the accent is dark)
-     → snap a mid pick to the nearest safe extreme (dark caps at DARK_MAX, light
-     floors at LIGHT_MIN; the muddy middle is squeezed out) → bypass blends back
-     to raw to expose the unsafe pick. Overriding --seed-accent here (components
-     layer) beats theming/ (themes layer). */
   .theme-picker-preview {
     --raw-l: calc(var(--pick-l) / 100);
-    /* A big multiplier turns the sign of (0.62 − L) into a 0/1 step. */
     --is-dark: clamp(0, (0.62 - var(--raw-l)) * 100000, 1);
     --safe-l: calc(var(--is-dark) * min(var(--raw-l), 0.45) + (1 - var(--is-dark)) * max(var(--raw-l), 0.78));
     --final-l: calc(

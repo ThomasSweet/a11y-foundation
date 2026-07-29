@@ -7,7 +7,6 @@
 ============================================================================= */
 
 @layer preferences {
-
   /* Reduced motion — global safety net. 0.01ms (not `none`) keeps
      animationend/transitionend firing, so JS waiting on them doesn't break.
      Components needing a simplified (not removed) animation use the mixin. */
@@ -21,7 +20,6 @@
       scroll-behavior:           auto   !important;
     }
 
-    /* Reset motion tokens so component-level calc() still works */
     :root {
       --duration-fast:   0.01ms;
       --duration-normal: 0.01ms;
@@ -29,10 +27,6 @@
     }
   }
 
-
-  /* High contrast — strengthen borders, drop decorative shadows. Border uses
-     CanvasText (system text colour) so it stays visible in light AND dark; a
-     hardcoded #000 would vanish on a dark background. */
   @media (prefers-contrast: more) {
     :root {
       --color-border:      CanvasText;
@@ -47,16 +41,12 @@
     }
   }
 
-
-  /* Forced colors (Windows High Contrast) — the browser overrides colours, so
-     restore meaning with system colour keywords; never hardcode values here. */
   @media (forced-colors: active) {
     *:focus-visible {
       outline: 3px solid ButtonText;
       outline-offset: var(--focus-ring-offset);
     }
 
-    /* Restore borders where differentiation was background-only. */
     button,
     [role="button"],
     input,
@@ -66,11 +56,6 @@
     }
   }
 
-
-  /* Focus visible — global base. WCAG 2.2 SC 2.4.11/2.4.13 need focus
-     indicators of adequate size + contrast; a 3px ring with offset passes.
-     No border-radius here: outlines already follow the element's own radius,
-     and setting it would change the element's shape while focused. */
   *:focus {
     outline: none; /* replaced by :focus-visible below */
   }

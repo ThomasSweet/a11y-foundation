@@ -19,154 +19,25 @@ git history and the PRs, not here.
 
 ## Open
 
-### Feedback inbox — July 2026 round
+### Feedback inbox
 
-Collected from friends and former colleagues after launch; triage into
-fixes/features as they come in.
-
-- ~~Ship the concept in a form AI agents can use (Jakub)~~ — done:
-  `skills/accessible-by-default` is an Agent Skill — hand-written decisions
-  (reach for the native element, guard by Baseline tier, preferences are
-  constraints) over three reference files generated from the criteria and
-  showcase registries, so it can't drift from the demos. Explained on the site
-  at `/agent-skill.html` (page A·02, linked from the title block's references
-  row) — not in a chapter: it's the argument in another medium, not a fifth
-  part of it, and the proof chapter is about evidence. The page carries a
-  shelf-life note, since agent mechanics will date long before the rules do.
-  A public `/llms.txt` is the natural follow-up; it needs page-level markdown
-  the site doesn't emit yet.
-- ~~Theme switch reachable from the dark-mode craft section~~ — fixed:
-  shared theme state (composable), inline mode switcher in the demo.
-- ~~Phantom focus ring on the content column after closing a dialog
-  (iOS)~~ — fixed: `tabindex="-1"` containers no longer draw the ring.
-- ~~Non-color cues invisible in Safari~~ — fixed: WebKit doesn't apply
-  pseudo-element rules inside style queries; the query now sets `--cue`
-  on the element, the pseudo renders it. Snippet teaches the gotcha.
-- ~~Showcase findability~~ — done: 7 topic tags on all 29 entries,
-  pure-CSS `:has()` radio-chip filter, empty tier groups hide themselves.
-- ~~A11y payoff line per showcase~~ — done: `payoff` registry field, 29
-  lines of copy, distinct accessibility-marked line on every card.
-- ~~Style guide dormant~~ — done: live theming/presets section (renders
-  from the real `.theme-*` classes) + footer link.
-- ~~"The standard" pillar could be more interesting/interactive~~ — closed
-  (July 2026). The chapter's real interactivity is the break-it criteria,
-  which grew from 7 to 9 while this sat parked (ghost-year timeline redesign,
-  Bypass Blocks, 3.3.7). Two additions were tried and rejected the same day:
-  a "criteria you're currently breaking" tally (reads as surveillance — makes
-  the consequence-free sandbox feel consequential) and a LegalMap jurisdiction
-  picker (built, then reverted: at four region-headlined cards the eye filters
-  faster than any control). Standing lesson: "make X more interactive" is a
-  trap framing — interaction earns its place when it IS the lesson, as in
-  break-it, never as decoration.
-- ~~shape() demo interactive~~ — done: width slider resizes two cards;
-  path()'s frozen coords visibly detach while shape() reflows.
-- ~~text-wrap demo interactive~~ — done: one block toggled in place via
-  :has(), default vs balance+pretty.
-- ~~Timeline ghost year too subtle in dark theme~~ & ~~loading spinner
-  low-contrast in some themes~~ — fixed together (Round 2c): both now
-  derive from `--color-text` (engine-guaranteed to contrast the bg)
-  instead of `--color-border` / `--color-primary`, which can wash out on
-  some seeds. Ghost stays quiet (24% text mix); spinner arc is full text.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.
-- ~~Theme panel stranded top-right on very wide screens~~ — fixed: the
-  capped header detaches the toggle from the viewport edge; panel now
-  tethered to the toggle via anchor positioning (xl+), fallback kept.
-- ~~Hard to return to nav after jumping into long content (keyboard)~~ —
-  fixed: "Back to navigation" skip link ending each pillar (fixed-position
-  reveal, targets the nav landmark); pinned by e2e.
-- Space vs Enter on nav items "inconsistent" — NOT a bug: links scroll on
-  Space (native), summaries toggle on Space; mixing the two is what feels
-  inconsistent. Hijacking Space on links would break a web convention.
-  Leave as-is; explain to the reporter.
-- ~~BUG: filter breaks sidebar nav~~ — fixed (3a): `:target` reveal in the
-  utilities layer un-hides a linked-to card + its tier group, beating the
-  components-layer filter by layer order (pure CSS, no JS). Pinned by e2e.
-- ~~Keyboard shortcuts, done accessibly~~ — dropped (July 2026). Two reasons:
-  it needs JS for the mechanism (against the site's little-to-no-JS identity;
-  `accesskey`, the only no-JS option, is a native anti-pattern), and it
-  "improves accessibility" by adding a shortcut the user must *learn* — the
-  opposite of invisible/native. The pull toward shortcuts was really a symptom
-  of the flow/length problem, to be fixed structurally (per-pillar pages), not
-  band-aided. Leaves 2.1.4 (Character Key Shortcuts) an uncovered criterion by
-  choice.
-- ~~Avatar + brief bio~~ — done (3c): footer sliver with a round photo
-  avatar (background-image framed on the face, gradient fallback) + one
-  line + GitHub link.
-- ~~Hero hover flourish~~ — done (3b): a line draws across "bolted on" on
-  hover of the title. Pure CSS (scaleX on a pseudo-element), reduced-motion
-  gated (instant, no draw), can-hover only, forced-colors aware. The span
-  needed its own gradient clip — position:relative pulls it out of the
-  parent's background-clip:text.
-- Big idea (someday): structure the whole site's flow around a real
-  physical object made digital — a skeuomorphic narrative spine. Open
-  design question; bring references before building.
-- ~~"Motion that bows out on request" demo boring~~ & ~~"Targets that
-  survive touch and forced colors" demo boring~~ — done: both rebuilt as
-  interactive. Motion: three animations (spinner/progress/pulse) that all
-  freeze from one simulate-reduced-motion switch. Targets: a coarse-pointer
-  toggle grows hit areas 24→44px, and a forced-colors preview dissolves the
-  colour-only button while the bordered one survives.
-- ~~"I'd like to see the code" (former colleague)~~ — done: every showcase now
-  carries an always-visible "View source" link (GitHub mark, opens in a new tab)
-  beside "Show the code", pointing at that demo's full folder on GitHub — the
-  snippet panel is only a portable excerpt. The URL is derived from the file
-  tree (import.meta.glob → component→folder map), so new demos get it for free.
-  The signal was worth acting on even though the reply read as a skim: code was
-  previously reachable only by opening each collapsed panel. Also elevated the
-  "Show the code" toggle from a muted grey pill to a filled primary button
-  (mirrors AppButton --primary, so the label colour stays contrast-safe on every
-  theme), so skimmers actually notice the code is there.
-- ~~Code in the Craft section~~ — done: a reusable `CodeCompare` pairs each craft
-  demo with a short "common mistake → the craft" snippet (reuses CodeBlock, and
-  each mirrors that demo's real CSS/HTML so it can't drift). Shipped on 7 demos
-  (validation, dialog, motion, targets, defensive, content-stress, loading);
-  light-dark was skipped because it already shows both code blocks inline. The
-  "mistake" side has its Copy button suppressed (new `copyable` flag on CodeBlock)
-  — no point one-click-copying the anti-pattern. Bad→good distinction rides on
-  shape (✕/✓) + text, not colour alone. Snippets live in `src/craft/snippets.ts`.
-  The optional "emerging" third act is deferred to demos where a real successor
-  exists. Directly answers the "avoid it from happening" feedback.
-- ~~Blueprint wayfinding review (Klara, July 2026)~~ — done, in two moves.
-  Subtraction: the fake-breadcrumb eyebrows ("Drawing 03 · …"), the aria-hidden
-  hub index strip, and the drawing vocabulary in nav ("Legend", "Enter drawing")
-  all read as navigation to decode or ornament posing as controls — deleted or
-  renamed to plain prose; plate subtext now follows the heading as a subtitle;
-  CTAs name their destination. Addition: the blueprintiness returned where
-  drafting legitimately puts it — the footer became a real ruled title block
-  (project / title / drawn by / scale 1:1 / sheet n° + references row; hub 00,
-  chapters n / 04, glossary A·01) plus a dimension line under chapter titles.
-  Standing rule: metaphor lives in ornament and prose, never in labels, link
-  text, or group names; mono-caps never marks a bare link in text flow. Also
-  from this round (spouse): the end-of-chapter pager was too small and hidden
-  under the legal row — now plate-style cards inside main.
-- Site-wide flow / length restructure — BUILT (July 2026, in review; not yet
-  deployed). The one-page scroll became a five-page MPA wearing a blueprint /
-  technical-drawing skin: an overview hub (index — hero, four "plates" on a
-  subgrid, a11y statement, author) and one chapter page per pillar
-  (standard/craft/showcase/proof.html), each with a legend rail (chapter
-  switcher + pure-CSS view-timeline scroll-spy), oversized watermark on a
-  scroll() parallax, demo reveals, and prev/next in the title block. Entering a
-  chapter morphs the plate's icon into the chapter header via cross-document
-  view transitions (zero JS, reduced-motion → instant nav). The skin is fully
-  theme-driven (--bp-* tokens derive from --color-*, so all presets/CVD/contrast
-  re-ink it); legal pages wear the sheet too. Legacy one-page anchors forward to
-  their chapter pages. App.vue (+ PillarHeader, heroIcons) deleted; e2e suite
-  extended to all 7 pages ×3 engines (54 tests green) — the sweep even caught a
-  real AA contrast bug in TargetsDemo (opacity on subtle text), fixed. Still
-  open from this thread: per-topic reference links (MDN/spec) on craft demos;
-  styleguide.html reskinned July 2026 (sheet chrome, title block S·01, real
-  logo section) alongside the new brand assets.
+- Per-topic reference links (MDN/spec) on craft demos — the one leftover
+  from the restructure thread.
+- A public `/llms.txt` as the agent-skill follow-up — needs page-level
+  markdown the site doesn't emit yet.
 
-- The project itself as a showcase (open, directional) — Thomas's worry after the
+- The project itself as a showcase (open, directional) — my worry after the
   restructure: some playfulness got lost, and the site chrome should *itself*
   employ the CSS it showcases, visibly. Partly addressed already (cross-doc
-  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals, sticky
-  ghost years and chapter watermarks, anchor-positioned theme panel, :has() legal
-  wash) — but treat "does the site dogfood this?" as a standing design test, and
-  keep hunting for places where a showcased feature can do real chrome work with
-  personality. Playfulness is a feature, not a garnish.
+  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals,
+  chapter watermarks, anchor-positioned theme panel, :has() legal wash, the
+  rounded-polygon "You are here" tag) — but treat "does the site dogfood
+  this?" as a standing design test, and keep hunting for places where a
+  showcased feature can do real chrome work with personality. Playfulness is
+  a feature, not a garnish.
 
 ### The masterclass sweep (July 2026) — specialist-lens gap analysis
 
@@ -296,6 +167,18 @@ the agent skill and the scope note can point at the ARIA APG instead.
 - **No JS in demos** — if pure CSS/HTML can't do it, drop the idea; tiny Vue
   state is acceptable only to simulate external context (a CMS, a fetch),
   never the mechanism being taught.
+- **Interaction earns its place only when it IS the lesson** — as in the
+  break-it toggles. "Make X more interactive" is a trap framing; two
+  additions built on that framing were rejected the same day they were
+  tried (breakage tally: reads as surveillance; LegalMap jurisdiction
+  picker: the eye filters four cards faster than any control).
+- **No learned-affordance features** — mechanisms a visitor must first
+  learn (keyboard shortcuts, custom gestures) are the opposite of
+  invisible/native accessibility; a pull toward nav conveniences is a flow
+  problem to fix structurally. Leaves 2.1.4 uncovered by choice.
+- **Metaphor lives in ornament and prose** — never in labels, link text, or
+  group names; mono-caps never marks a bare link in text flow. (Klara's
+  wayfinding round.)
 - **Form validation demo stays CSS/native-only** — the JS layer (validation
   message wiring, submit gating) is deliberately out of scope.
 - **Scroll-driven custom-property color: rejected** for performance; don't
@@ -315,14 +198,35 @@ the agent skill and the scope note can point at the ARIA APG instead.
 
 One line per item, newest first; details in git history / PRs.
 
-- **2026-07** Wave 9 showcase: rounded `polygon()` — real text vs an exported image of text (1.4.5), a break-it that clips the focus ring off the link, and the timeline's "You are here" label re-cut as a pointer tag (dogfood). Idea via Temani Afif's CSS Tip.
-
+- **2026-07** Stage wash pinned to the viewport (fixed pseudo-element) — the showcase filter used to re-stretch the page-length gradient behind the sheet.
+- **2026-07** Wave 9 showcase: rounded `polygon()` — real text vs an exported image of text (1.4.5), a break-it that clips the focus ring off the link, a drop-shadow focus ring that follows the shape, and the timeline's "You are here" label re-cut as a pointer tag (dogfood). Idea via Temani Afif's CSS Tip.
+- **2026-07** Sidebar rail scroll-spy rebuilt on an opacity-only overlay after four defects in the colour-animation mechanism; theme flips re-ink via plain declarations.
+- **2026-07** Timeline redesign II: ghost years removed, era rules + spine, sticky era heading with a `scroll-state(stuck)` border (Josi/Imad/Klara feedback).
+- **2026-07** LegalMap: every law links to its official text with a hand-set "last read" date; "Orientation, not legal advice" (Morgan's caution, uncredited by request).
+- **2026-07** README Thanks/Credits: contributors credited by what they found, with permission; Ahmad Shadeed, Una Kravets, Bramus Van Damme credited for reused ideas.
+- **2026-07** July feedback round cleared (details in git history):
+  theme switcher reachable inside the dark-mode craft demo; iOS phantom
+  focus ring after dialog close fixed; WebKit style-query pseudo cue moved
+  to a `--cue` custom property (snippet teaches the gotcha); showcase topic
+  filter (7 tags, `:has()` radio chips) + a11y payoff line on every card;
+  style guide revived with a live theming section; `shape()` and
+  `text-wrap` demos made interactive; ghost/spinner contrast re-derived
+  from `--color-text`; theme panel anchored to its toggle on wide screens;
+  "back to navigation" skip links (pinned by e2e); `:target` reveal beats
+  the filter (pinned by e2e); motion + targets demos rebuilt interactive;
+  "View source" links on every showcase + CodeCompare mistake→craft pairs
+  on 7 craft demos; avatar/bio footer; hero strike-through hover;
+  Space-vs-Enter closed as not-a-bug (native link behaviour);
+  keyboard shortcuts dropped on purpose; "make the standard pillar more
+  interactive" closed after break-it criteria grew 7→9; wayfinding
+  subtraction + the ruled title block from Klara's review, and the
+  end-of-chapter pager grown into plate cards after my wife caught how
+  hidden it was.
 - **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by a reviewer, after Chrome's Modern Web Guidance.
 - **2026-07** Launched: the multi-page redesign replaced the one-page site in production (old design kept at the `design-classic` tag), with a new brand mark, regenerated icons/OG image, and the style guide reskinned to match.
 - **2026-07** Timeline: 3.2.6 Consistent Help break-it demo — three page mock-ups whose help link either holds its slot or wanders; the first criterion the multi-page structure made demoable.
 - **2026-07** ESLint added (flat config, vue + typescript, `--max-warnings 0`, wired into CI) — the JS/TS gate that stylelint and vue-tsc never covered.
 - **2026-07** Canonical URLs on all nine entry pages — the site answers on four host/scheme variants, so the canonical tag names the one true URL.
-
 - **2026-07** Timeline: 3.3.7 Redundant Entry break-it demo — a two-step checkout whose reuse shortcut disappears when broken; first Understandable-principle criterion.
 - **2026-07** Wave 8 showcases: `reading-flow` (focus order follows the visual layout, tab order pinned by e2e) + `::details-content` with `interpolate-size` (animated native disclosure, reduced-motion gated).
 - **2026-07** SEO hygiene: robots.txt on main (crawl open, noindex gatekeeps); five-page sitemap prepared on the restructure branch; Search Console setup pending.
@@ -336,7 +240,6 @@ One line per item, newest first; details in git history / PRs.
 - **2026-07** Wave 3: high-contrast presets via engine `--mix-*` contrast knob; theming split into engine + presets files.
 - **2026-07** Wave 2: container query units showcase (`clamp(rem, cqi, rem)` fluid card).
 - **2026-07** Wave 1: `:user-valid` showcase, light-dark() style-query card, CoverageMatrix loading row; media pseudos parked (no Chromium).
-
 - **2026-07** Timeline content pass — Bypass Blocks (2.4.1) skip-link demo fills the WCAG 2.0 era; era summaries tightened.
 - **2026-07** Theme presets site-wide — seed engine promoted to `:root[data-preset]`, header popover panel (mode + presets + CVD trio), no-flash localStorage persistence; popover display trap fixed and pinned by e2e; `src` now 100% TypeScript.
 - **2026-07** Timeline redesign — ghost-year watermarks (in-flow on narrow columns, sticky rail on wide), cumulative strata era markers, "you are here — 2026" divider; per-era named view timelines fix the scroll mistiming; wider section gaps site-wide.

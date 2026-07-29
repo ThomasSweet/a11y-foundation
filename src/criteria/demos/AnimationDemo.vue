@@ -39,8 +39,6 @@ const playId = ref(0)
 <style scoped lang="scss">
 @layer components {
   .animation-demo {
-    /* One switch for all motion: 0 = allowed, 1 = suppressed. Compliant flips
-       it to 1 on the preference (simulated or real); broken forces it to 0. */
     --rm: 0;
 
     display: grid;
@@ -51,13 +49,10 @@ const playId = ref(0)
     }
   }
 
-  /* Compliant respects a simulated preference… */
   .animation-demo.is-rm {
     --rm: 1;
   }
 
-  /* …but broken ignores the preference entirely — declared last so it wins
-     over both the simulated and the real (media-query) overrides above. */
   .animation-demo.is-broken {
     --rm: 0;
   }
@@ -76,7 +71,6 @@ const playId = ref(0)
   }
 
   .animation-stage {
-    /* Clip the slide so it can't introduce horizontal scrolling. */
     overflow: hidden;
     padding: var(--space-1);
   }
@@ -89,8 +83,6 @@ const playId = ref(0)
     border-radius: var(--radius-md);
     background-color: var(--color-bg-subtle);
 
-    /* Duration collapses to 0 when --rm is 1, so the panel simply appears
-       with no motion. No per-state duplication — the switch does it. */
     animation: animation-slide calc(450ms * (1 - var(--rm))) var(--easing-enter) both;
 
     @include high-contrast {

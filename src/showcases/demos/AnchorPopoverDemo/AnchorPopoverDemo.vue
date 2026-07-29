@@ -37,8 +37,6 @@ const popoverId = useId()
   }
 
   .anchor-panel {
-    /* Base styles double as the fallback presentation: an unanchored
-       popover uses the UA default (fixed, centered) and stays usable. */
     max-inline-size: 36ch;
     padding: var(--space-3) var(--space-4);
     border: 1px solid var(--color-border);
@@ -47,17 +45,11 @@ const popoverId = useId()
     box-shadow: var(--shadow-md);
     font-size: var(--text-sm);
 
-    /* The enhancement, only where the feature exists. */
     @supports (anchor-name: --a) {
-      /* Keep `position: fixed`, NOT absolute: absolute resolves against a
-         positioned ancestor (.showcase), so the panel would never overflow the
-         viewport edge and the flip fallbacks would never fire. */
       position: fixed;
       position-anchor: --showcase-anchor;
       position-area: block-end span-inline-end;
-      /* Clear the UA centering (inset:0; margin:auto) or it fights position-area. */
       inset: auto;
-      /* Try until one fits: flip block, flip inline, then both for the corner. */
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
       margin: var(--space-2) 0 0;
     }

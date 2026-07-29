@@ -152,7 +152,6 @@
     color: var(--color-text);
   }
 
-  /* Entry/exit ride the motion tokens — instant under reduced motion. */
   /* stylelint-disable-next-line property-no-unknown -- transition of display/overlay */
   .interest-card {
     opacity: 0;
@@ -178,20 +177,15 @@
 
   /* stylelint-disable property-no-unknown -- interest invokers + anchor positioning */
 
-  /* Politeness dial: wait a beat before showing, linger a beat before hiding. */
   [interestfor] {
     interest-delay: 0.4s 0.2s;
   }
 
-  /* Una Kravets' toolbar trick: once any hint in the bar is open, drop the
-     start delay so browsing the neighbours feels instant. */
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- :interest-source */
   .interest-toolbar:has(:interest-source) .interest-toolbar-button {
     interest-delay-start: 0s;
   }
 
-  /* Tether each hint to its invoker; flip to stay on-screen. Chrome (the only
-     engine with interestfor today) also ships anchor positioning. */
   [interestfor='interest-preview-wcag'] { anchor-name: --interest-wcag; }
   #interest-preview-wcag { position-anchor: --interest-wcag; }
   [interestfor='interest-preview-interop'] { anchor-name: --interest-interop; }

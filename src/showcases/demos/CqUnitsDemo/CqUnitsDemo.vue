@@ -50,8 +50,6 @@ const width = ref(100)
     min-inline-size: min(100%, 12rem);
   }
 
-  /* No thresholds anywhere: every value scales in proportion to the
-     container, clamped in rem so user font-size settings stay respected. */
   .cq-units-card {
     display: grid;
     gap: clamp(0.25rem, 2cqi, 0.75rem);

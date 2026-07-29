@@ -91,8 +91,6 @@
     display: grid;
     gap: var(--space-2);
     margin: 0;
-    /* The scaffolding practises what the demo preaches: without this the
-       broken card would stretch the frame instead of being clipped by it. */
     min-inline-size: 0;
   }
 
@@ -102,10 +100,7 @@
     color: var(--color-text-subtle);
   }
 
-  /* The "viewport": clip, so escaping content gets sliced exactly like a
-     real phone edge. */
   .defensive-stage {
-    /* "At every grid hop" — the stage is one too (child of the frame grid). */
     min-inline-size: 0;
     padding: var(--space-3);
     border: 1px solid var(--color-border);
@@ -142,8 +137,6 @@
     }
   }
 
-  /* Guard #1: without this, the column's minimum is its min-content size —
-     the full nowrap URL — and the whole grid lays out wider than the stage. */
   .defensive-content {
     display: grid;
     gap: var(--space-2);
@@ -154,7 +147,6 @@
     font-weight: 600;
   }
 
-  /* Guard #2: the unbreakable line gets a local scroll strategy. */
   .defensive-code {
     min-inline-size: 0;
     padding: var(--space-2);
@@ -175,10 +167,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* Break it: back to the naive version most layouts start as — no minimum
-     overrides anywhere, no scroll strategy on the unbreakable line. The
-     mockup frame gets the same broken CSS and keeps looking perfect: short
-     content never trips the min-content floor. That's the lesson. */
   .defensive-demo:has(.defensive-toggle-input:checked) {
     .defensive-content {
       min-inline-size: auto;
@@ -190,7 +178,6 @@
     }
   }
 
-  /* Status copy swaps with the toggle; role="status" announces the change. */
   .defensive-status-broken {
     display: none;
   }

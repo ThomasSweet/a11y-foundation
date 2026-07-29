@@ -48,7 +48,6 @@ const browserSupport = computed(() =>
 <style scoped lang="scss">
 @layer components {
   .baseline-badge {
-    /* Official Baseline palette (from the baseline-status widget). */
     --baseline-status-color-widely: light-dark(#1e8e3e, #24a446);
     --baseline-status-color-newly: light-dark(#1a73e8, #4185ff);
     --baseline-status-color-limited: light-dark(#ea8600, #f09418);
@@ -69,7 +68,6 @@ const browserSupport = computed(() =>
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
 
-    /* Level is carried by the words; the tint is reinforcement only. */
     &[data-level='widely'] {
       background-color: color-mix(in oklab, var(--baseline-status-color-widely) 8%, var(--color-surface));
     }
@@ -120,8 +118,6 @@ const browserSupport = computed(() =>
     block-size: 18px;
   }
 
-  /* Marks are currentColor in the official artwork; green check / orange
-     cross exactly as the widget colours them. */
   .baseline-badge-mark {
     inline-size: 15px;
     block-size: 18px;
@@ -136,7 +132,6 @@ const browserSupport = computed(() =>
   }
 
   @include forced-colors {
-    /* Brand colours are replaced; keep the marks legible via system ink. */
     .baseline-badge-mark {
       color: currentcolor !important;
     }

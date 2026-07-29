@@ -141,15 +141,11 @@ defineProps({
     }
   }
 
-  /* Compliant: reusing the delivery address removes the duplicate questions —
-     the information is "available to select" (3.3.7's own mechanism). */
   .redundant-entry-demo:not(.is-broken):has(.redundant-entry-same input:checked)
     .redundant-entry-refill {
     display: none;
   }
 
-  /* The regression: only the reuse shortcut disappears; every question
-     returns and must be answered from memory. */
   .is-broken .redundant-entry-same {
     display: none;
   }

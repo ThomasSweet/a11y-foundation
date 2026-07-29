@@ -22,7 +22,6 @@
 ============================================================================= */
 
 @layer themes {
-
   :root[data-preset],
   .surface {
     --mix-surface: 5%;
@@ -48,23 +47,18 @@
 
     --focus-ring-color: var(--seed-accent);
 
-    /* Where supported, let the browser pick the optimal label (supersedes the flip above). */
     @supports (color: contrast-color(red)) {
       --color-text:         contrast-color(var(--seed-surface));
       --color-primary-text: contrast-color(var(--seed-accent));
     }
   }
 
-  /* Site-wide extras the demo cards never need: the secondary accent walks
-     40° around the hue wheel so gradients still travel, glass stays a
-     translucent cut of the surface seed. */
   :root[data-preset] {
     --color-accent: oklch(from var(--seed-accent) l c calc(h + 40));
     --color-surface-glass: color-mix(in oklab, var(--seed-surface) 78%, transparent);
   }
 
   .surface {
-    /* Default seeds — overridden by a .theme-* preset class. */
     --seed-surface: oklch(99% 0.004 255deg);
     --seed-accent:  oklch(52% 0.16 260deg);
 

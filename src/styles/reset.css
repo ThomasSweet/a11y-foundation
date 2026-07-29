@@ -4,7 +4,6 @@
 ============================================================================= */
 
 @layer reset {
-
   *,
   *::before,
   *::after {
@@ -15,9 +14,6 @@
     margin: 0;
   }
 
-  /* The `* { margin: 0 }` above also kills the UA `margin: auto` that centres a
-     modal <dialog> / open [popover], dropping them top-left. Restore it.
-     (Anchored popovers set their own margin in a higher layer.) */
   dialog,
   [popover] {
     margin: auto;

@@ -6,7 +6,6 @@
 ============================================================================= */
 
 @layer themes {
-
   :root[data-preset='ocean'],
   .theme-ocean {
     --seed-surface: oklch(97% 0.025 220deg);
@@ -28,39 +27,27 @@
     color-scheme: light;
   }
 
-
-  /* CVD-robust presets: lightness perception survives colour-vision deficiency
-     where hue discrimination doesn't, so these sit on hues that don't collapse
-     into the neutrals and keep the accent's lightness well clear of its label's.
-     Hue is never the only signal (see the non-colour cues showcase). */
   :root[data-preset='cobalt'],
   .theme-cobalt {
     --seed-surface: oklch(98% 0.01 255deg);
-    --seed-accent:  oklch(48% 0.14 255deg);  /* dark blue → white label */
+    --seed-accent:  oklch(48% 0.14 255deg);
     color-scheme: light;
   }
 
   :root[data-preset='teal'],
   .theme-teal {
     --seed-surface: oklch(98% 0.012 195deg);
-    --seed-accent:  oklch(45% 0.1 195deg);   /* dark teal → white label */
+    --seed-accent:  oklch(45% 0.1 195deg);
     color-scheme: light;
   }
 
   :root[data-preset='amber'],
   .theme-amber {
     --seed-surface: oklch(98% 0.012 80deg);
-    /* Deep honey-bronze → white label. The old 82%-lightness seed satisfied
-       the engine only as a button background; as text on the page it read
-       1.44:1. 50% carries 4.99:1 as text and keeps the CVD lightness gap. */
     --seed-accent:  oklch(50% 0.12 70deg);
     color-scheme: light;
   }
 
-
-  /* High-contrast pair: extreme seeds + raised mix strengths — contrast as
-     data, not a duplicate palette. Complements prefers-contrast: more for
-     users without the OS setting. */
   :root[data-preset='contrast-light'],
   .theme-contrast-light {
     --seed-surface: oklch(100% 0 0deg);

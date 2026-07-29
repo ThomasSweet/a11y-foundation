@@ -72,7 +72,6 @@ const landscape = ref(false)
     }
   }
 
-  /* Rotating swaps the device's dimensions (.is-landscape sits on the root). */
   .is-landscape .orientation-device {
     inline-size: 17rem;
     block-size: 11rem;
@@ -98,7 +97,6 @@ const landscape = ref(false)
   }
 
   .orientation-rotate-notice {
-    /* Hidden by default — the app works in every orientation. */
     display: none;
     place-content: center;
     justify-items: center;
@@ -112,8 +110,6 @@ const landscape = ref(false)
     font-size: var(--text-3xl);
   }
 
-  /* The regression: the app only supports landscape, so in portrait it
-     blocks the content behind a "rotate your device" wall. */
   .is-broken:not(.is-landscape) {
     .orientation-screen {
       display: none;

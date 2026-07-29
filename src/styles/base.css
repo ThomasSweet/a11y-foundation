@@ -3,7 +3,6 @@
 ============================================================================= */
 
 @layer base {
-
   /* The page scroller as a scroll-state container: the chapter bottom bar
      reacts to scroll position in pure CSS — no scroll listeners. Harmless
      where unused or unsupported. */
@@ -24,7 +23,6 @@
   h3,
   h4 {
     line-height: var(--leading-tight);
-    /* No lone words on wrapped headings; browsers without support ignore it. */
     text-wrap: balance;
   }
 
@@ -39,8 +37,6 @@
 
   a {
     color: var(--color-primary);
-    /* Keep the underline — color alone is not a sufficient affordance
-       (WCAG 1.4.1 Use of Color). */
     text-underline-offset: 0.15em;
   }
 
@@ -50,9 +46,6 @@
     font-size: 0.9em;
   }
 
-  /* Minimum target sizes — base styles, not gated on pointer type: small
-     targets hurt motor-impaired mouse users too. WCAG 2.5.8 (AA) wants 24×24px;
-     the touch-primary() mixin raises this toward 44px on coarse pointers. */
   button,
   [role="button"],
   select,
@@ -61,8 +54,6 @@
     min-block-size: 24px;
   }
 
-  /* Fragment navigation — keep targets clear of sticky headers; smooth scroll
-     only when motion is allowed. */
   :target {
     scroll-margin-block-start: var(--space-16);
   }
@@ -81,9 +72,6 @@
     navigation: auto;
   }
 
-  /* The chrome is near-identical on every page, so fading the old page
-     out over the static new one reads as the content dissolving while the
-     page itself stays put. */
   ::view-transition-new(root) {
     animation: none;
   }

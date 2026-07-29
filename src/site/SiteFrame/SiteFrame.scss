@@ -1,15 +1,24 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .site-stage {
+    isolation: isolate;
     min-block-size: 100vh;
     padding: clamp(14px, 3vw, 34px);
-    background: linear-gradient(
-      155deg,
-      color-mix(in oklab, var(--color-primary) 9%, var(--bp-ground)),
-      var(--bp-ground) 38%,
-      var(--bp-ground) 62%,
-      color-mix(in oklab, var(--color-primary) 6%, var(--bp-ground))
-    );
+    background-color: var(--bp-ground);
+
+    &::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        155deg,
+        color-mix(in oklab, var(--color-primary) 9%, var(--bp-ground)),
+        var(--bp-ground) 38%,
+        var(--bp-ground) 62%,
+        color-mix(in oklab, var(--color-primary) 6%, var(--bp-ground))
+      );
+    }
   }
 
   .site-sheet {
@@ -166,7 +175,6 @@
       stroke: none;
     }
 
-    /* Forced colors doesn't repaint SVG strokes — flatten to text color. */
     @include forced-colors {
       .site-brand-mark-accent {
         stroke: currentcolor;
@@ -224,9 +232,6 @@
     margin-block-start: clamp(var(--space-8), 5vw, var(--space-16));
   }
 
-  /* The page's title block: a ruled grid of labeled cells, drawn with the
-     gap-as-rule trick — the container paints the line color, the cells repaint
-     the surface, and every 1px gap becomes a rule that works at any wrap. */
   .site-tb {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -238,8 +243,6 @@
       border-color: currentcolor;
     }
 
-    /* Forced colors strips the painted backgrounds, so the rules come back
-       as real borders. */
     @include forced-colors {
       gap: 0;
       border-color: CanvasText;
@@ -266,8 +269,6 @@
     }
   }
 
-  /* Below the five-column breakpoint the cells flow two-up; the project cell
-     spans the row so the odd count leaves no hole in the grid. */
   @media (width <= 52rem) {
     .site-tb-cell-project {
       grid-column: 1 / -1;

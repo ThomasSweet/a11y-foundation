@@ -28,12 +28,6 @@
     background-color: var(--color-surface);
     color: var(--color-text);
 
-    /* :user-* (not :valid/:invalid) only match after interaction, so pristine
-       fields never flag; the thicker invalid border is a non-colour cue that
-       survives forced-colors. Success shows only with content (an empty
-       optional field is valid but a green border there is noise) —
-       :placeholder-shown detects emptiness, :where() keeps specificity flat so
-       the explicit-error rule below still wins on source order. */
     &:user-valid:not(:where(:placeholder-shown)) {
       border-color: var(--color-success);
     }
@@ -43,8 +37,6 @@
       border-width: 2px;
     }
 
-    /* An explicit error (e.g. server-side) is authoritative — declared
-       last so it wins over the native pseudo-classes above. */
     &[aria-invalid='true'] {
       border-color: var(--color-error);
       border-width: 2px;
@@ -56,8 +48,6 @@
     font-weight: 600;
     color: var(--color-error);
 
-    /* Color is stripped in forced-colors mode — the prefix below keeps
-       the error state perceivable without it. */
     &::before {
       content: '⚠ ';
     }

@@ -11,11 +11,6 @@
     margin: 0;
   }
 
-  /* Gradient only on the affirmed phrase — the clip can't reach into the
-     positioned strike span (its glyphs would inherit the transparent fill and
-     vanish), and the struck words read better in plain ink anyway. `color`
-     stays ink; the fill is restored in high-contrast/forced-colors or the
-     text goes invisible. */
   .hub-title-accent {
     background: linear-gradient(100deg, var(--bp-ink) 25%, var(--bp-accent) 115%);
     background-clip: text;
@@ -33,9 +28,6 @@
   }
 
   .hub-strike {
-    /* Arms the scribble. Flipped by the delayed micro-animation below or
-       instantly by hover — both roads lead to the same value, so a draw
-       that already ran can never restart. */
     --scribble-play: paused;
 
     position: relative;
@@ -70,7 +62,6 @@
     }
   }
 
-
   .hub-strike-scribble path {
     fill: none;
     stroke: currentcolor;
@@ -89,8 +80,6 @@
     }
   }
 
-  /* Three slashes, one after another; the second draws right-to-left the
-     way a returning hand would. */
   .hub-strike-scribble .hub-strike-scribble-second {
     animation-delay: 0.24s;
   }
@@ -99,10 +88,6 @@
     animation-delay: 0.48s;
   }
 
-  /* The ink multiplies, so crossings burn like layered marker. Safe because
-     of the underbase below: it repaints the ink's exact geometry in white —
-     multiply's identity — so the blend only ever meets paper or sibling ink,
-     never the page text behind. Screen printers call this an underbase. */
   .hub-strike-scribble .hub-strike-scribble-ink {
     mix-blend-mode: multiply;
     opacity: 0.35;
@@ -323,8 +308,6 @@
     color: var(--bp-ink-2);
   }
 
-  /* The hub dogfoods its own ::details-content showcase: a smooth native
-     disclosure, and no scroll jump when it collapses. */
   .hub-statement-details {
     @supports (interpolate-size: allow-keywords) {
       interpolate-size: allow-keywords;
@@ -346,9 +329,6 @@
     }
   }
 
-  /* allow-discrete holds content-visibility until the closing fade finishes.
-     The global reduced-motion kill switch only reaches *::before/::after, so
-     this pseudo-element gates itself. */
   .hub-statement-details::details-content {
     opacity: 0;
     block-size: 0;
@@ -392,8 +372,6 @@
     margin-block-end: var(--space-6);
   }
 
-  /* A drafter's compass circle around the photo: solid ring, dashed
-     construction line outside. */
   .hub-author-avatar {
     position: relative;
     flex: none;

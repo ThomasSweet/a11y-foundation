@@ -132,9 +132,6 @@ const actions = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* 24px is the 2.5.8 AA floor for a fine pointer; touch bumps the tap area
-       to 44px, mirroring the touch-primary() mixin. The icon never resizes —
-       only the hittable padding around it grows. */
     min-inline-size: 24px;
     min-block-size: 24px;
     border: none;
@@ -185,24 +182,17 @@ const actions = [
     cursor: pointer;
   }
 
-  /* Relies on background colour alone — no border. */
   .targets-fc-fill {
     border: none;
     background-color: var(--color-primary);
   }
 
-  /* Same fill, but a border does the load-bearing work. */
   .targets-fc-border {
     border: 2px solid var(--color-primary-hover);
     background-color: var(--color-primary);
   }
 
-  /* Simulated forced colors: strip the custom fills to a neutral surface, as
-     the real mode does. The colour-only button now blends into the panel;
-     the bordered one keeps a visible outline. */
   .is-forced {
-    /* Match the panel exactly, as the real mode collapses everything to one
-       surface: the colour-only button dissolves into it, edges and all. */
     .targets-fc {
       background-color: var(--color-bg-subtle);
       color: var(--color-text);
@@ -219,8 +209,6 @@ const actions = [
     color: var(--color-text-subtle);
   }
 
-  /* No opacity: subtle text is already at the token's contrast floor, and
-     blending it further dropped below AA — caught by the axe sweep. */
   .targets-fine-print {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);

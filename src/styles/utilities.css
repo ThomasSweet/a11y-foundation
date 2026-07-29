@@ -4,9 +4,6 @@
 ============================================================================= */
 
 @layer utilities {
-
-  /* Visually hidden ("sr-only") — hidden visually, available to screen readers.
-     The -focusable variant becomes visible on focus (skip-link building block). */
   .visually-hidden,
   .visually-hidden-focusable:not(:focus, :focus-within) {
     position: absolute;
@@ -20,7 +17,6 @@
     border: 0;
   }
 
-
   /* A fragment link to a showcase the topic filter has hidden must still land:
      :target reveals the card (and its tier group) regardless of the filter.
      Works purely because utilities > components in the layer order — no
@@ -29,7 +25,6 @@
   .showcase-group:has(.showcase:target) {
     display: grid;
   }
-
 
   /* Fixed, not absolute, so the link appears in the viewport when focused
      deep in the page, not at its container's top. Pairs with -focusable. */

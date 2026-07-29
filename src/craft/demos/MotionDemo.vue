@@ -40,9 +40,6 @@ const readout = computed(() =>
 <style scoped lang="scss">
 @layer components {
   .motion-demo {
-    /* One switch for every animation here: 0 = allowed, 1 = suppressed. The
-       real preference sets it globally (preferences.css); the checkbox
-       simulates that so the payoff is visible in-page. */
     --rm: 0;
 
     display: grid;
@@ -93,8 +90,6 @@ const readout = computed(() =>
     color: var(--color-text-subtle);
   }
 
-  /* Every duration is scaled by (1 - --rm): at rm:1 it collapses to 0, so the
-     animation holds its start frame — no per-element reduced-motion rule. */
   .motion-spinner {
     inline-size: var(--space-8);
     block-size: var(--space-8);

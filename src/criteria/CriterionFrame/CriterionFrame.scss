@@ -80,7 +80,6 @@
     border: 1px dashed var(--color-border);
     border-radius: var(--radius-md);
 
-    /* Redundant-with-text danger cue when the rule is off. */
     &.is-broken {
       border-style: dashed;
       border-color: var(--color-error);

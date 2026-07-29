@@ -83,7 +83,6 @@
     display: grid;
     gap: var(--space-2);
 
-    /* Inherited — lets every item's block-size animate to auto (Chrome). */
     @supports (interpolate-size: allow-keywords) {
       interpolate-size: allow-keywords;
     }
@@ -109,9 +108,6 @@
     }
   }
 
-  /* allow-discrete holds content-visibility until the closing fade finishes.
-     The global reduced-motion kill switch only reaches *::before/::after, so
-     this pseudo-element gates itself. */
   .details-demo-item::details-content {
     opacity: 0;
     block-size: 0;

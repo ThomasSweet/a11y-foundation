@@ -87,7 +87,6 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     color: var(--color-text-subtle);
   }
 
-  /* ---- Snapped carousel ---- */
   .scroll-state-track {
     padding: var(--space-2);
     overflow-x: auto;
@@ -112,8 +111,6 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
   .scroll-state-card {
     flex: 0 0 min(60%, 13rem);
     scroll-snap-align: center;
-    /* The card becomes a scroll-state query container; its inner content
-       reacts to whether the card is currently snapped. */
     container-type: scroll-state;
   }
 
@@ -145,7 +142,6 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     font-weight: 600;
   }
 
-  /* Badge hidden until the card is snapped (revealed in the query below). */
   .scroll-state-snapped {
     inline-size: fit-content;
     margin-block-start: var(--space-1);
@@ -172,7 +168,6 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
     }
   }
 
-  /* ---- Stuck sticky header ---- */
   .scroll-state-scroll {
     block-size: 12rem;
     overflow-y: auto;
@@ -188,8 +183,6 @@ const rows = Array.from({ length: 12 }, (_, i) => i + 1)
   .scroll-state-stick {
     position: sticky;
     inset-block-start: 0;
-    /* The sticky element is the scroll-state container; its inner header
-       reacts to becoming stuck to the top. */
     container-type: scroll-state;
   }
 

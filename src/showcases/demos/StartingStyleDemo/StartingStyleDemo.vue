@@ -78,7 +78,6 @@ const stageWidth = ref(100)
   }
 
   .starting-style-card {
-    /* Closed state: removed from layout and the a11y tree. */
     display: none;
     max-inline-size: 40ch;
     padding: var(--space-4);
@@ -88,7 +87,6 @@ const stageWidth = ref(100)
     box-shadow: var(--shadow-md);
     opacity: 0;
     transform: translateY(0.5rem);
-    /* allow-discrete lets `display` participate, so the exit animates too. */
     transition:
       opacity var(--duration-normal) var(--easing-standard),
       transform var(--duration-normal) var(--easing-standard),
@@ -100,7 +98,6 @@ const stageWidth = ref(100)
       opacity: 1;
       transform: translateY(0);
 
-      /* The from-state for the entry transition (display:none → shown). */
       @starting-style {
         opacity: 0;
         transform: translateY(0.5rem);

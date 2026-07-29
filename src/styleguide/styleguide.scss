@@ -1,7 +1,6 @@
 /* Layout for the living style-guide page. In the components layer (the project's
    "no unlayered CSS" rule); mixins come from Vite's additionalData. */
 @layer components {
-  /* The ground behind the page. */
   body {
     padding: clamp(14px, 3vw, 34px);
     background-color: var(--bp-ground);
@@ -89,7 +88,6 @@
       stroke: none;
     }
 
-    /* Forced colors doesn't repaint SVG strokes — flatten to text color. */
     @include forced-colors {
       path,
       circle {
@@ -155,7 +153,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* Each foundation is its own "chapter", set well apart. */
   .guide-section {
     margin-block-start: var(--space-16);
   }
@@ -188,7 +185,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* ---- Color swatches -------------------------------------------------- */
   .swatches {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
@@ -213,7 +209,6 @@
     border-radius: var(--radius-md);
   }
 
-  /* Light surfaces need an edge to be visible against the page. */
   .swatch-chip-bordered {
     box-shadow: inset 0 0 0 1px var(--color-border);
   }
@@ -238,7 +233,6 @@
     background: var(--gradient-accent);
   }
 
-  /* ---- Typography ------------------------------------------------------ */
   .type-families {
     display: grid;
     gap: var(--space-3);
@@ -288,7 +282,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* ---- Spacing --------------------------------------------------------- */
   .space-scale {
     display: grid;
     gap: var(--space-3);
@@ -315,7 +308,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* ---- Radius & shadow ------------------------------------------------- */
   .radius-grid,
   .shadow-grid,
   .motion-grid {
@@ -358,9 +350,7 @@
     color: var(--color-text-subtle);
   }
 
-  /* ---- Motion ---------------------------------------------------------- */
   .motion-swatch {
-    /* Defaults; each item overrides --d / --e inline to show its own curve. */
     --d: var(--duration-normal);
     --e: var(--easing-standard);
     inline-size: 4rem;
@@ -382,7 +372,6 @@
     }
   }
 
-  /* ---- Elements -------------------------------------------------------- */
   .element-row {
     display: flex;
     flex-wrap: wrap;
@@ -398,7 +387,6 @@
     color: var(--color-text-subtle);
   }
 
-  /* ---- Principles ------------------------------------------------------ */
   .principles {
     display: grid;
     gap: var(--space-3);
@@ -411,7 +399,6 @@
     line-height: var(--leading-normal);
   }
 
-  /* ---- Title-block footer (mirrors the app pages' SiteFrame block) ----- */
   .guide-titleblock {
     margin-block-start: var(--space-16);
   }

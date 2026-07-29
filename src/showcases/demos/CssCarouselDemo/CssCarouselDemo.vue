@@ -50,7 +50,6 @@ const slides = [
   }
 
   .css-carousel {
-    /* Baseline experience everywhere: a keyboard-focusable snap scroller. */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-block-end: var(--space-2);
@@ -113,8 +112,6 @@ const slides = [
     text-wrap: balance;
   }
 
-  /* The generated controls — Chromium-only for now; elsewhere these rules
-     are ignored and the scroller above is the whole (working) story. */
   /* stylelint-disable selector-pseudo-element-no-unknown, selector-pseudo-class-no-unknown, property-no-unknown */
   .css-carousel::scroll-button(inline-start),
   .css-carousel::scroll-button(inline-end) {

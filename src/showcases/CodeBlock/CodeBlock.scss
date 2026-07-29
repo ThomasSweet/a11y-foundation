@@ -33,7 +33,6 @@
   }
 
   .code-block-copy {
-    /* Comfortably past the 24px (WCAG 2.5.8) minimum target. */
     min-block-size: 32px;
     padding: var(--space-1) var(--space-3);
     border: 1px solid var(--bp-line-strong);
@@ -75,9 +74,6 @@
     }
   }
 
-  /* Comments recede so the actual code carries the emphasis. Still a
-     readable, AA-contrast colour — muted, not faint. The spans are injected
-     via v-html, so they need :deep() to escape scoped-style rewriting. */
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Vue :deep(); recognised in .vue but not a standalone .scss */
   .code-block-pre :deep(.code-comment) {
     color: var(--color-text-subtle);

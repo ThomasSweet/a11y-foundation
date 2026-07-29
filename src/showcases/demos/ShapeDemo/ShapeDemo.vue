@@ -79,8 +79,6 @@ const width = ref(100)
 </script>
 
 <style scoped lang="scss">
-/* Registered so the depth can interpolate — an unregistered custom property
-   is a plain string and would jump, not morph. */
 @property --shape-wave {
   syntax: '<percentage>';
   inherits: true;
@@ -147,7 +145,6 @@ const width = ref(100)
     font-size: var(--text-sm);
   }
 
-  /* The fluid version: percentage commands, so the curve tracks any width. */
   @supports (clip-path: shape(from 0 0, line to 100% 0)) {
     .shape-banner-fluid {
       clip-path: shape(
@@ -160,8 +157,6 @@ const width = ref(100)
     }
   }
 
-  /* The frozen version: absolute px coordinates sized for a ~360px-wide banner.
-     They don't scale, so the curve only meets the edges at that one width. */
   .shape-banner-frozen {
     clip-path: path('M0 0 L360 0 L360 58 C240 96 120 96 0 58 Z');
   }
@@ -206,8 +201,6 @@ const width = ref(100)
     max-inline-size: 24rem;
   }
 
-  /* The morphing edge: two curve control points ride --shape-wave. Checking the
-     box raises the depth; @property lets it interpolate to a smooth morph. */
   @supports (clip-path: shape(from 0 0, line to 100% 0)) {
     .shape-banner-morph {
       min-block-size: 8rem;
