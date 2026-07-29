@@ -186,13 +186,17 @@ a credit.
 
 ## Credits
 
-Two of the ideas here started as someone else's. The craft chapter's
+Several of the ideas here started as someone else's. The craft chapter's
 defensive-CSS section builds on **[Defensive CSS](https://defensivecss.dev/)**
 by [Ahmad Shadeed](https://ishadeed.com/) — guarding a layout against content
 you did not anticipate is his framing, and it is the whole premise of that
 section. The interest-invoker toolbar behaviour comes from a trick by
-[Una Kravets](https://una.im/). The implementations and the accessibility
-argument are mine; the insight was theirs.
+[Una Kravets](https://una.im/). And a CSS Day talk by
+[Bramus Van Damme](https://www.bram.us/) is why the scroll-driven animation
+work is here at all — the reading-position rail, the section reveals, the
+timeline's strata — along with the cross-document view transitions that carry
+navigation between chapters with no routing JavaScript. The implementations and
+the accessibility argument are mine; the insight was theirs.
 
 The decorative hero pictograms are
 [Material Symbols](https://github.com/google/material-design-icons) by Google,
