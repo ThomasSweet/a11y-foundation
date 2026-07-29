@@ -193,6 +193,27 @@
     color: var(--color-primary);
   }
 
+  @supports (clip-path: polygon(round 1px, 0 0, 1% 0, 0 1%)) {
+    .timeline-now-label {
+      padding: var(--space-1) calc(var(--space-3) + 12px) var(--space-1) var(--space-3);
+      background-color: var(--bp-accent-soft);
+      clip-path: polygon(
+        round 6px,
+        0 0,
+        calc(100% - 12px) 0,
+        100% 50%,
+        calc(100% - 12px) 100%,
+        0 100%
+      );
+
+      @include forced-colors {
+        padding: 0;
+        background-color: transparent;
+        clip-path: none;
+      }
+    }
+  }
+
   .timeline-now-year {
     font-family: var(--font-mono);
     font-weight: 400;

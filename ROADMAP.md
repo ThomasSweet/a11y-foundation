@@ -168,6 +168,98 @@ fixes/features as they come in.
   keep hunting for places where a showcased feature can do real chrome work with
   personality. Playfulness is a feature, not a garnish.
 
+### The masterclass sweep (July 2026) — specialist-lens gap analysis
+
+The exercise: what would an accessibility specialist and a senior
+accessibility engineer say is missing, if this site is meant to go past
+"what is a11y" into building solid foundations and auditing well? Verdict
+first: the four pillars hold. The real gaps cluster in three places — the
+**Understandable** principle is the thinnest pillar, **layout under user
+stress** (zoom, spacing, translation) is practised everywhere but taught
+nowhere, and the proof chapter argues the layered model without teaching
+the *practice* of auditing (screen-reader literacy, triage, reporting).
+Every candidate below keeps the house rules: interaction only when it IS
+the lesson, pure CSS/HTML mechanisms, JS-territory named as out of lane
+rather than half-covered.
+
+**POUR, honestly scored.** Perceivable: strong (contrast engine, theming,
+forced colors, reduced motion/transparency) — missing 1.4.12 and 1.4.13.
+Operable: strong (targets, focus appearance, bypass) — missing the sticky
+chrome/focus interaction. Understandable: thinnest — 3.3.7 and 3.2.6 stand
+almost alone; 1.3.5, 3.1.1/3.1.2 are absent or unnamed. Robust: the site
+*is* the demo (landmarks, headings, native elements) but never teaches the
+hiding-technique decisions every dev gets wrong; status messages (4.1.3)
+are JS and should be named as out of lane, not skipped silently.
+
+Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
+
+- **Text-spacing stress test (1.4.12)** — a toggle applies the WCAG
+  override values (line-height 1.5×, paragraph 2×, letter 0.12×, word
+  0.16×); the defensively-built card breathes, the fixed-height twin
+  clips. The 200%-zoom sibling of Break-it-with-content.
+- **The sticky bar that eats your focus (2.4.11)** — tab through a list
+  under a sticky header and watch focus land hidden behind it; then
+  `scroll-padding` on the scroller fixes it. The site does this
+  everywhere (`scroll-margin` on every `[id]`) and teaches it nowhere.
+- **The hiding matrix** — one specimen hidden four ways (`display:none`,
+  `.visually-hidden`, `aria-hidden`, `inert`) with a "what the screen
+  reader meets / what the keyboard meets" readout per technique. The
+  single most-asked junior question, rarely answered in one place.
+- **Truncation ethics** — `line-clamp` cuts content with no way to reach
+  it (1.4.10 / 1.4.4); pair the clamp with a native disclosure so the
+  full text stays reachable. Sits beside ::details-content.
+- **The scrollbar you shouldn't style** — `scrollbar-gutter: stable`,
+  the macOS-overlay vs Windows-classic split, and why scrollable regions
+  need to be keyboard-reachable (the site's `tabindex="0"` regions).
+  From the July sidebar thread; the lesson is restraint.
+- **Input purpose (1.3.5)** — a checkout form where `autocomplete`
+  tokens let the browser fill name/address/email; break-it removes the
+  tokens and autofill goes blind. Pure HTML; the `forms` tag exists and
+  is underfed. Could live on the timeline as a break-it criterion instead.
+- **content-visibility** — performance as accessibility, with the nuance
+  that (unlike `display:none`) skipped content stays findable and
+  announceable; find-in-page proves it live. Showcase candidate.
+- **`display: contents` warning** — not a demo; a CodeCompare "gotcha"
+  note. It stripped list/table semantics for years; still bites.
+
+Proof-chapter candidates (the premise says "audit effectively and
+efficiently" — the chapter argues the model, these teach the practice):
+
+- **A screen reader's first fifteen minutes** — VoiceOver/NVDA survival
+  card: the rotor, heading/landmark/form hops, why you don't narrate
+  every word. `<kbd>`-styled, printable. Best home may be a reference
+  sheet (A·03) off the title block, like the glossary and agent-skill
+  pages — reference, not argument.
+- **Reading the accessibility tree** — DevTools walkthrough: name, role,
+  value for the working dev; where the computed name actually comes from.
+- **Triage that survives a sprint** — severity as user-impact (task
+  blocked? how often? any workaround?), not WCAG level; plus the bug
+  template that names the barrier, the AT, the criterion, and the fix.
+  Copyable block; CodeBlock already does this job elsewhere.
+- **The audit room (capstone, big)** — an inert specimen page seeded
+  with a known number of barriers; visitors hunt them, hints and answers
+  behind `<details>`. Break-it scaled from one rule to a whole page; the
+  AuditStylesheet demo already proved the inert-specimen pattern. The
+  most "masterclass" idea here — also the most work; scope it standalone.
+- **Reader mode as an audit layer** — if semantic HTML is right, Reader
+  view works; a one-paragraph smoke test worth adding to the layers.
+- **WebAIM survey grounding** — the numbers (mobile SR share, top
+  frustrations) that turn "test on phones" from anecdote (article 01's
+  reviewers) into data. One sourced paragraph in the proof intro.
+
+Structure: nothing above needs a fifth pillar. Understandable items feed
+the timeline, stress/hiding/scrollbar feed craft, audit practice feeds
+proof, and cheat-sheet material extends the title-block reference sheets
+(A·03, A·04…) the way glossary and agent-skill already do. One addition
+worth making explicit *on the site*: a short "edge of the argument" note —
+ARIA widget patterns, live regions, and focus management are real, they
+are JavaScript's territory, and this site deliberately stops where the
+platform's free guarantees stop. Saying so is more credible than silence.
+
+Out of lane, stated once: captions/media (no media on the site), 4.1.3
+live regions, ARIA authoring patterns, focus management — JS mechanisms;
+the agent skill and the scope note can point at the ARIA APG instead.
+
 ### Watchlist (too early / conditional — revisit)
 
 - WCAG 2.2 timeline coverage — settled at 4 of the 9 new criteria (2.5.8,
@@ -183,6 +275,15 @@ fixes/features as they come in.
 - Media state pseudo-classes (`:playing` etc.) — checked July 2026: no
   Chromium support (Firefox 150 + Safari only, Baseline false per
   web-features); revisit when Chrome ships.
+- `text-fit` (a.k.a. the `text-grow`/`text-shrink` proposals) — assessed
+  July 2026: no engine ships it, so it can't be demoed honestly. The a11y
+  case is real but double-edged: *grow/fit* would retire images-of-text and
+  SVG `textLength` hacks for display headlines (real text that translates
+  and reads aloud), but *shrink per-line* can quietly fight the user — bump
+  your font size and the algorithm shrinks it back to fit, a 1.4.4 failure
+  mode with the same flavour as `maximum-scale=1`. If it ships: demo it as
+  display-type-only, never body or functional text, and lead with the
+  shrink caveat. Revisit when any engine lands it.
 - `sibling-index()` / `sibling-count()` — Canary only.
 - `border-shape` — spec in flux; candidate for the anchor-tooltip arrow.
 - Overscroll areas / built-in gestures — early spec discussion.
@@ -213,6 +314,8 @@ fixes/features as they come in.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Wave 9 showcase: rounded `polygon()` — real text vs an exported image of text (1.4.5), a break-it that clips the focus ring off the link, and the timeline's "You are here" label re-cut as a pointer tag (dogfood). Idea via Temani Afif's CSS Tip.
 
 - **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by a reviewer, after Chrome's Modern Web Guidance.
 - **2026-07** Launched: the multi-page redesign replaced the one-page site in production (old design kept at the `design-classic` tag), with a new brand mark, regenerated icons/OG image, and the style guide reskinned to match.
