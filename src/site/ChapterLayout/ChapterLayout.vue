@@ -22,7 +22,7 @@
             :key="s.id"
             class="chapter-section-link"
             :href="`#${s.id}`"
-            :style="{ animationTimeline: `--chapter-sec-${i + 1}` }"
+            :style="{ '--section-timeline': `--chapter-sec-${i + 1}` }"
           >
             {{ s.label }}
           </a>
