@@ -161,6 +161,15 @@ exactly like inline blocks did.
   SSR pipeline (they import `.vue` and `?raw`, so plain node can't), and emits
   only context-free fields — `summary`, `passText` and `failText` are written
   for someone looking at a live demo and don't travel.
+- **`npm run build` prints ~14 `[lightningcss minify]` warnings, and they are
+  expected.** Vite's minifier does not recognise the newest selectors this site
+  showcases: `::scroll-button()`, `::scroll-marker`, `::scroll-marker-group`,
+  `:target-current`, `:interest-source`, `::highlight()`. Verified July 2026
+  that it warns and then emits every one of them **unchanged** — the occurrence
+  counts in `dist/assets/*.css` match the warning counts exactly. Nothing is
+  stripped or rewritten. If you ever need to re-check, grep the built CSS for
+  the selector rather than trusting the warning. They will disappear on their
+  own as lightningcss catches up with the specs.
 
 ---
 

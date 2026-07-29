@@ -1,4 +1,14 @@
 /* Library mixins are injected via Vite's additionalData, so no @use here. */
+
+/* Colour must not live in the scroll-spy keyframes: keyframe custom properties
+   resolve once and survive a theme change, so the rail kept light-mode ink on a
+   dark sheet. The keyframes carry progress only; the colours stay live. */
+@property --chapter-active {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
 @layer components {
   .chapter {
     display: grid;
@@ -23,14 +33,12 @@
     @keyframes chapter-section-active {
       0%,
       100% {
-        border-inline-start-color: transparent;
-        color: var(--bp-ink-2);
+        --chapter-active: 0;
       }
 
       8%,
       96% {
-        border-inline-start-color: var(--bp-accent);
-        color: var(--bp-ink);
+        --chapter-active: 1;
       }
     }
 
@@ -137,23 +145,36 @@
   .chapter-sections {
     display: flex;
     flex-direction: column;
+    border-inline-start: 2px solid var(--bp-line);
   }
 
+  /* Sits on the track above, so the active segment reads as a thumb in it. */
   .chapter-section-link {
     position: relative;
+    margin-inline-start: -2px;
     padding: var(--space-1) 0 var(--space-1) var(--space-4);
-    border-inline-start: 2px solid transparent; /* scrubbed by the scroll-spy keyframes */
+    border-inline-start: 2px solid;
+    /* From the track colour, not from transparent: partial alpha over a dark
+       sheet composites to near-black navy, so the thumb went dark before it
+       went blue. Starting at the track also makes an inactive link seamless. */
+    border-inline-start-color: color-mix(
+      in oklab,
+      var(--bp-line),
+      var(--bp-accent) calc(var(--chapter-active, 0) * 100%)
+    );
     font-size: var(--text-sm);
     line-height: 1.35;
-    color: var(--bp-ink-2);
+    color: color-mix(in oklab, var(--bp-ink-2), var(--bp-ink) calc(var(--chapter-active, 0) * 100%));
     text-decoration: none;
 
+    /* Graduations off the track. Flush against it, not floating beside it —
+       detached, they were the dashes that made the rail look unresolved. */
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       inset-inline-start: 0;
       inset-block-start: 0.7em;
-      inline-size: 8px;
+      inline-size: 7px;
       block-size: 1px;
       background: var(--bp-line-strong);
     }

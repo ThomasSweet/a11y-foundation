@@ -2,19 +2,18 @@
   <ol class="timeline">
     <template v-for="era in eras" :key="era.id">
       <li class="timeline-era" :class="{ 'is-new-model': era.newModel }">
-        <span class="timeline-era-ghost" :data-year="era.ghost" aria-hidden="true"></span>
         <div class="timeline-era-body">
           <header class="timeline-era-header">
-            <span class="timeline-era-strata" aria-hidden="true">
-              <span v-for="n in era.depth" :key="n" class="timeline-strata-layer"></span>
-            </span>
-            <div class="timeline-era-heading">
+            <div class="timeline-era-headrow">
+              <span class="timeline-era-strata" aria-hidden="true">
+                <span v-for="n in era.depth" :key="n" class="timeline-strata-layer"></span>
+              </span>
               <h4 class="timeline-era-title">
                 {{ era.label }} <span class="timeline-era-year">{{ era.year }}</span>
               </h4>
-              <p class="timeline-era-summary">{{ era.summary }}</p>
             </div>
           </header>
+          <p class="timeline-era-summary">{{ era.summary }}</p>
 
           <div v-if="era.items.length" class="timeline-era-criteria">
             <CriterionFrame
@@ -60,7 +59,6 @@ const eras = wcagTimeline.map((era, index) => {
     items: era.version ? criteria.filter((c) => c.version === era.version) : [],
     depth: newModel ? 2 : index + 1,
     newModel,
-    ghost: newModel ? '3.0' : era.year,
   }
 })
 </script>

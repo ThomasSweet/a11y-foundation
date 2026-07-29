@@ -11,11 +11,25 @@
     min-inline-size: 0;
   }
 
-  .timeline-era {
-    --timeline-ghost-size: clamp(5.5rem, 24cqi, 9rem);
+  /* The spine only earns its width once the chapter is two-column; on a phone
+     it would cost 24px of a 430px viewport to say what the order already says.
+     A media query, not a container query: .timeline is its own container and
+     cannot query itself. */
+  @media (width >= 52rem) {
+    .timeline {
+      padding-inline-start: var(--space-6);
+      border-inline-start: 1px solid var(--bp-line-strong);
+    }
 
+    /* Reaches back to meet the spine, so the two read as one drawing rather
+       than a stripe beside a rule. */
+    .timeline-era:not(:first-child) .timeline-era-body::before {
+      margin-inline-start: calc(var(--space-6) * -1);
+    }
+  }
+
+  .timeline-era {
     position: relative;
-    /* Keeps the z-index: -1 ghost above the page background but below era content. */
     isolation: isolate;
     min-inline-size: 0;
   }
@@ -38,54 +52,12 @@
     }
   }
 
-  @container (inline-size >= 44rem) {
-    .timeline-era {
-      --timeline-ghost-size: min(7rem, 11cqi);
-    }
-
-    .timeline-era-ghost {
-      position: sticky;
-      inset-block-start: var(--space-16);
-      z-index: -1;
-      block-size: 0;
-    }
-
-    .timeline-era-ghost::before {
-      position: absolute;
-      inset-block-start: 0;
-      inset-inline-end: 0;
-    }
-
-    .timeline-era-criteria {
-      margin-inline-end: calc(var(--timeline-ghost-size) * 2.6);
-    }
-  }
-
-  .timeline-era-ghost {
-    display: block;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .timeline-era-ghost::before {
-    content: attr(data-year) / '';
-    display: block;
-    text-align: end;
-    font-family: var(--font-mono);
-    font-size: var(--timeline-ghost-size);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: transparent;
-
-    -webkit-text-stroke: 1.5px color-mix(in oklab, var(--color-text) 24%, transparent);
+  .timeline-era:not(:first-child) .timeline-era-body::before {
+    content: '';
+    border-block-start: 1px solid var(--bp-line-strong);
 
     @include high-contrast {
-      content: none;
-    }
-
-    @include forced-colors {
-      content: none;
+      border-block-start-color: currentcolor;
     }
   }
 
@@ -95,10 +67,33 @@
     min-inline-size: 0;
   }
 
+  /* Pins the era's own heading rather than a second copy of its date: the
+     question "which era am I in" is what the ghost year used to answer. */
   .timeline-era-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+
+    @supports (container-type: scroll-state) {
+      container-type: scroll-state;
+    }
+  }
+
+  .timeline-era-headrow {
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
+    padding-block: var(--space-3);
+    background-color: var(--bp-sheet);
+  }
+
+  /* The rule appears only while pinned, so a stationary header adds no line. */
+  @supports (container-type: scroll-state) {
+    @container scroll-state(stuck: top) {
+      .timeline-era-headrow {
+        border-block-end: 1px solid var(--bp-line-strong);
+      }
+    }
   }
 
   .timeline-era-strata {
@@ -132,13 +127,8 @@
     border: 1.5px dashed var(--color-text-subtle);
   }
 
-  .timeline-era-heading {
-    display: grid;
-    gap: var(--space-1);
-    min-inline-size: 0;
-  }
-
   .timeline-era-title {
+    min-inline-size: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -212,16 +202,6 @@
 
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .timeline-era {
-        view-timeline: --timeline-era block;
-      }
-
-      .timeline-era-ghost::before {
-        animation: ghost-drift linear both;
-        animation-timeline: --timeline-era;
-        animation-range: cover 0% cover 100%;
-      }
-
       .timeline-strata-layer {
         animation: layer-pour linear both;
         animation-timeline: view();
@@ -250,26 +230,6 @@
         animation: era-slide-in linear both;
         animation-timeline: view();
         animation-range: entry 0% entry 65%;
-      }
-
-      @keyframes ghost-drift {
-        0% {
-          opacity: 0;
-          translate: 0 2rem;
-        }
-
-        18% {
-          opacity: 1;
-        }
-
-        82% {
-          opacity: 1;
-        }
-
-        100% {
-          opacity: 0;
-          translate: 0 -2rem;
-        }
       }
 
       @keyframes layer-pour {

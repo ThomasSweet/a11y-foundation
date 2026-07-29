@@ -49,7 +49,7 @@ Every feature the site teaches is doing real work *in* the site — each behind
 | `light-dark()` + `color-scheme` | every color token, native controls included |
 | OKLCH + `color-mix()` | the seed-driven theming engine — 8 presets derived from two seeds each |
 | Container queries + `cqi` | the WCAG timeline reflows by its own width, not the viewport's |
-| Scroll-driven animations | reading-position nav highlight, the timeline's ghost years |
+| Scroll-driven animations | reading-position nav highlight, the timeline's era strata pouring in |
 | Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
 | `@starting-style` + `allow-discrete` | dialog and popover entry/exit transitions |

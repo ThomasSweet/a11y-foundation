@@ -17,7 +17,13 @@
       color-mix(in oklab, var(--color-primary) 5%, transparent),
       color-mix(in oklab, var(--color-primary) 9%, transparent)
     );
-    --bp-line-strong: color-mix(in oklab, var(--color-primary) 22%, transparent);
+    /* On the dark sheet the accent is tinted toward the ink first: 22% of a
+       saturated blue over near-black lands on navy, which reads as a dark
+       stripe even though it measures lighter than the sheet. */
+    --bp-line-strong: light-dark(
+      color-mix(in oklab, var(--color-primary) 22%, transparent),
+      color-mix(in oklab, color-mix(in oklab, var(--color-text) 78%, var(--color-primary)) 26%, transparent)
+    );
     --bp-frame: color-mix(in oklab, var(--color-primary) 42%, transparent);
 
     --bp-mono: var(--font-mono, ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace);
