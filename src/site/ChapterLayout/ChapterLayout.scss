@@ -11,7 +11,8 @@
     .chapter {
       timeline-scope: --chapter-sec-1, --chapter-sec-2, --chapter-sec-3,
         --chapter-sec-4, --chapter-sec-5, --chapter-sec-6, --chapter-sec-7,
-        --chapter-sec-8, --chapter-sec-9, --chapter-sec-10;
+        --chapter-sec-8, --chapter-sec-9, --chapter-sec-10, --chapter-sec-11,
+        --chapter-sec-12;
     }
 
     /* Animate only opacity here — colour-keyed versions cached keyframe var()s

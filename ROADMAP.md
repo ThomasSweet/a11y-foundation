@@ -69,14 +69,6 @@ are JS and should be named as out of lane, not skipped silently.
 
 Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
 
-- **Text-spacing stress test (1.4.12)** — a toggle applies the WCAG
-  override values (line-height 1.5×, paragraph 2×, letter 0.12×, word
-  0.16×); the defensively-built card breathes, the fixed-height twin
-  clips. The 200%-zoom sibling of Break-it-with-content.
-- **The hiding matrix** — one specimen hidden four ways (`display:none`,
-  `.visually-hidden`, `aria-hidden`, `inert`) with a "what the screen
-  reader meets / what the keyboard meets" readout per technique. The
-  single most-asked junior question, rarely answered in one place.
 - **Input purpose (1.3.5)** — a checkout form where `autocomplete`
   tokens let the browser fill name/address/email; break-it removes the
   tokens and autofill goes blind. Pure HTML; the `forms` tag exists and
@@ -178,6 +170,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Craft wave: the hiding matrix (four techniques × visible/tree/tab-order, live inert specimen, the aria-hidden + `tabindex="-1"` pairing shown) and the 1.4.12 text-spacing stress test (toggle applies the reader's override values; the fixed-height card clips, the flexible one breathes). Craft is at twelve sections; rail scope extended to match.
 
 - **2026-07** Quick-wins content sweep: truncation craft demo (a clamped `<details>` preview via `::details-content` — the clamp IS the disclosure), "the scrollbar you leave alone" demo (`scrollbar-gutter: stable` + keyboard-reachable regions), the `display: contents` subgrid gotcha pair, reference links on all ten craft demos, WebAIM Survey 10 numbers + reader-mode smoke test in proof, and a "Where this argument stops" scope section pointing at the ARIA APG.
 
