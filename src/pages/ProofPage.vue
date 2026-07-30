@@ -17,7 +17,26 @@
         can judge. None replaces the next. Every layer below points at the
         real artifact in this repo — the suite you can open and run.
       </p>
+      <p>
+        The layers also answer a fair question: tested for <em>whom</em>? In
+        <a href="https://webaim.org/projects/screenreadersurvey10/">WebAIM's
+        tenth screen-reader survey</a> (1,539 respondents, early 2024),
+        91.3% reported using a screen reader on a mobile device — while most
+        testing happens at a desktop. And the frustrations they ranked
+        highest — CAPTCHA, interactive elements behaving unexpectedly,
+        unclear links and buttons — are judgment calls no scanner flags.
+        Only about a third felt the web had become more accessible. The
+        layered model exists because the failures that matter most live
+        where automation isn't looking.
+      </p>
       <TestingLayers />
+      <p>
+        One more layer costs nothing and isn't in the diagram: reader mode.
+        It rebuilds the page from semantics alone — headings, lists, article
+        structure — so a page that survives the trip probably has its bones
+        right, and a page reader mode can't parse is one a screen reader is
+        likely fighting too. Thirty seconds, no tooling.
+      </p>
     </section>
 
     <section class="demo" aria-labelledby="testing-coverage" style="view-timeline-name: --chapter-sec-2">
@@ -67,6 +86,24 @@
         assistive-tech experience stays quick.
       </p>
     </section>
+
+    <section class="demo" aria-labelledby="testing-edge" style="view-timeline-name: --chapter-sec-5">
+      <h3 id="testing-edge">Where this argument stops</h3>
+      <p>
+        Everything on this site stays on one side of a line: what HTML and
+        CSS guarantee before any JavaScript arrives. The other side is real,
+        and application work lands on it daily — ARIA widget patterns, live
+        regions that announce what just changed, focus management after a
+        route change or a deletion. Those are JavaScript's territory,
+        harder to get right than anything shown here, and claiming CSS
+        covers them would be exactly the kind of overclaim this site
+        argues against. When you cross the line, the
+        <a href="https://www.w3.org/WAI/ARIA/apg/">ARIA Authoring Practices
+        Guide</a> is the map — and the habit from this chapter still
+        applies: test what you build, in layers, with the people and tools
+        the layers stand in for.
+      </p>
+    </section>
   </ChapterLayout>
 </template>
 
@@ -82,5 +119,6 @@ const sections = [
   { id: 'testing-coverage', label: "What automation can and can't see" },
   { id: 'testing-audit-css', label: 'CSS that audits' },
   { id: 'testing-performance', label: 'Performance is accessibility' },
+  { id: 'testing-edge', label: 'Where this argument stops' },
 ]
 </script>

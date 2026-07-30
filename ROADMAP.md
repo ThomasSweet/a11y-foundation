@@ -24,10 +24,15 @@ git history and the PRs, not here.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.
-- Per-topic reference links (MDN/spec) on craft demos — the one leftover
-  from the restructure thread.
 - A public `/llms.txt` as the agent-skill follow-up — needs page-level
   markdown the site doesn't emit yet.
+- Distribution (Anthony's push): get the project into curated lists —
+  the accessibility side (brunopulis/awesome-a11y, The A11y Project's
+  resources page, an A11y Weekly link suggestion) and the agent side,
+  where "a11y for AI agents" is a near-empty niche (VoltAgent/
+  awesome-agent-skills and the awesome-claude-skills lists). Also worth
+  a shot: CSS/frontend newsletters for the showcase itself. Draft the
+  PR/blurb texts once, submit by hand.
 
 - The project itself as a showcase (open, directional) — my worry after the
   restructure: some playfulness got lost, and the site chrome should *itself*
@@ -55,8 +60,8 @@ rather than half-covered.
 
 **POUR, honestly scored.** Perceivable: strong (contrast engine, theming,
 forced colors, reduced motion/transparency) — missing 1.4.12 and 1.4.13.
-Operable: strong (targets, focus appearance, bypass) — missing the sticky
-chrome/focus interaction. Understandable: thinnest — 3.3.7 and 3.2.6 stand
+Operable: strong (targets, focus appearance, bypass, and 2.4.11's sticky-bar
+break-it already exists). Understandable: thinnest — 3.3.7 and 3.2.6 stand
 almost alone; 1.3.5, 3.1.1/3.1.2 are absent or unnamed. Robust: the site
 *is* the demo (landmarks, headings, native elements) but never teaches the
 hiding-technique decisions every dev gets wrong; status messages (4.1.3)
@@ -68,21 +73,10 @@ Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
   override values (line-height 1.5×, paragraph 2×, letter 0.12×, word
   0.16×); the defensively-built card breathes, the fixed-height twin
   clips. The 200%-zoom sibling of Break-it-with-content.
-- **The sticky bar that eats your focus (2.4.11)** — tab through a list
-  under a sticky header and watch focus land hidden behind it; then
-  `scroll-padding` on the scroller fixes it. The site does this
-  everywhere (`scroll-margin` on every `[id]`) and teaches it nowhere.
 - **The hiding matrix** — one specimen hidden four ways (`display:none`,
   `.visually-hidden`, `aria-hidden`, `inert`) with a "what the screen
   reader meets / what the keyboard meets" readout per technique. The
   single most-asked junior question, rarely answered in one place.
-- **Truncation ethics** — `line-clamp` cuts content with no way to reach
-  it (1.4.10 / 1.4.4); pair the clamp with a native disclosure so the
-  full text stays reachable. Sits beside ::details-content.
-- **The scrollbar you shouldn't style** — `scrollbar-gutter: stable`,
-  the macOS-overlay vs Windows-classic split, and why scrollable regions
-  need to be keyboard-reachable (the site's `tabindex="0"` regions).
-  From the July sidebar thread; the lesson is restraint.
 - **Input purpose (1.3.5)** — a checkout form where `autocomplete`
   tokens let the browser fill name/address/email; break-it removes the
   tokens and autofill goes blind. Pure HTML; the `forms` tag exists and
@@ -90,8 +84,6 @@ Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
 - **content-visibility** — performance as accessibility, with the nuance
   that (unlike `display:none`) skipped content stays findable and
   announceable; find-in-page proves it live. Showcase candidate.
-- **`display: contents` warning** — not a demo; a CodeCompare "gotcha"
-  note. It stripped list/table semantics for years; still bites.
 
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
@@ -112,33 +104,22 @@ efficiently" — the chapter argues the model, these teach the practice):
   behind `<details>`. Break-it scaled from one rule to a whole page; the
   AuditStylesheet demo already proved the inert-specimen pattern. The
   most "masterclass" idea here — also the most work; scope it standalone.
-- **Reader mode as an audit layer** — if semantic HTML is right, Reader
-  view works; a one-paragraph smoke test worth adding to the layers.
-- **WebAIM survey grounding** — the numbers (mobile SR share, top
-  frustrations) that turn "test on phones" from anecdote (article 01's
-  reviewers) into data. One sourced paragraph in the proof intro.
-
 Structure: nothing above needs a fifth pillar. Understandable items feed
-the timeline, stress/hiding/scrollbar feed craft, audit practice feeds
+the timeline, the hiding/stress work feeds craft, audit practice feeds
 proof, and cheat-sheet material extends the title-block reference sheets
-(A·03, A·04…) the way glossary and agent-skill already do. One addition
-worth making explicit *on the site*: a short "edge of the argument" note —
-ARIA widget patterns, live regions, and focus management are real, they
-are JavaScript's territory, and this site deliberately stops where the
-platform's free guarantees stop. Saying so is more credible than silence.
+(A·03, A·04…) the way glossary and agent-skill already do.
 
-Out of lane, stated once: captions/media (no media on the site), 4.1.3
-live regions, ARIA authoring patterns, focus management — JS mechanisms;
-the agent skill and the scope note can point at the ARIA APG instead.
+Out of lane — now stated on the site ("Where this argument stops", end of
+proof): captions/media (no media on the site), 4.1.3 live regions, ARIA
+authoring patterns, focus management — JS mechanisms; the section points
+at the ARIA APG.
 
 ### Watchlist (too early / conditional — revisit)
 
-- WCAG 2.2 timeline coverage — settled at 4 of the 9 new criteria (2.5.8,
-  2.4.11, 2.4.13, 3.3.7); the rest assessed July 2026 and skipped on purpose:
-  2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8 need JS
-  mechanisms to break honestly. **3.2.6 Consistent Help is unblocked now
-  that the multi-page design is going live — a good first post-launch demo**
-  (help lives in the same footer slot on every page; break-it moves it).
+- WCAG 2.2 timeline coverage — settled at 5 of the 9 new criteria (2.5.8,
+  2.4.11, 2.4.13, 3.2.6, 3.3.7); the rest assessed July 2026 and skipped on
+  purpose: 2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8
+  need JS mechanisms to break honestly.
 - `text-box` (trim) — Chrome + Safari; typographic alignment with only a
   modest a11y angle; take it only if a showcase gap needs filling.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
@@ -198,6 +179,8 @@ the agent skill and the scope note can point at the ARIA APG instead.
 
 One line per item, newest first; details in git history / PRs.
 
+- **2026-07** Quick-wins content sweep: truncation craft demo (a clamped `<details>` preview via `::details-content` — the clamp IS the disclosure), "the scrollbar you leave alone" demo (`scrollbar-gutter: stable` + keyboard-reachable regions), the `display: contents` subgrid gotcha pair, reference links on all ten craft demos, WebAIM Survey 10 numbers + reader-mode smoke test in proof, and a "Where this argument stops" scope section pointing at the ARIA APG.
+
 - **2026-07** Stage wash pinned to the viewport (fixed pseudo-element) — the showcase filter used to re-stretch the page-length gradient behind the sheet.
 - **2026-07** Wave 9 showcase: rounded `polygon()` — real text vs an exported image of text (1.4.5), a break-it that clips the focus ring off the link, a drop-shadow focus ring that follows the shape, and the timeline's "You are here" label re-cut as a pointer tag (dogfood). Idea via Temani Afif's CSS Tip.
 - **2026-07** Sidebar rail scroll-spy rebuilt on an opacity-only overlay after four defects in the colour-animation mechanism; theme flips re-ink via plain declarations.
@@ -222,7 +205,7 @@ One line per item, newest first; details in git history / PRs.
   subtraction + the ruled title block from Klara's review, and the
   end-of-chapter pager grown into plate cards after my wife caught how
   hidden it was.
-- **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by a reviewer, after Chrome's Modern Web Guidance.
+- **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by Jakub Andrzejewski, after Chrome's Modern Web Guidance.
 - **2026-07** Launched: the multi-page redesign replaced the one-page site in production (old design kept at the `design-classic` tag), with a new brand mark, regenerated icons/OG image, and the style guide reskinned to match.
 - **2026-07** Timeline: 3.2.6 Consistent Help break-it demo — three page mock-ups whose help link either holds its slot or wanders; the first criterion the multi-page structure made demoable.
 - **2026-07** ESLint added (flat config, vue + typescript, `--max-warnings 0`, wired into CI) — the JS/TS gate that stylelint and vue-tsc never covered.
