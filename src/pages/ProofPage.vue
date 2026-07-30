@@ -1,5 +1,5 @@
 <template>
-  <ChapterLayout id="proof" :sections="sections">
+  <ChapterLayout id="proof">
     <p class="chapter-intro">
       A standard and a clever platform answer are only claims until something
       checks them. Accessibility testing is where many teams get lost — they
@@ -9,8 +9,7 @@
       earn their place.)
     </p>
 
-    <section class="demo" aria-labelledby="testing-layers" style="view-timeline-name: --chapter-sec-1">
-      <h3 id="testing-layers">A layered job, not a button</h3>
+    <ChapterSection id="testing-layers" title="A layered job, not a button">
       <p>
         Each layer is cheaper and broader than the one above it, so it clears
         the easy ground and frees the slow, human layer for what only a person
@@ -37,10 +36,9 @@
         right, and a page reader mode can't parse is one a screen reader is
         likely fighting too. Thirty seconds, no tooling.
       </p>
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="testing-coverage" style="view-timeline-name: --chapter-sec-2">
-      <h3 id="testing-coverage">What automation can and can't see</h3>
+    <ChapterSection id="testing-coverage" title="What automation can and can't see">
       <p>
         This is the part that's rarely spelled out. An automated pass like
         <code>axe</code> is excellent at a specific slice of
@@ -50,10 +48,9 @@
         it run out.
       </p>
       <CoverageMatrix />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="testing-audit-css" style="view-timeline-name: --chapter-sec-3">
-      <h3 id="testing-audit-css">CSS that audits</h3>
+    <ChapterSection id="testing-audit-css" title="CSS that audits">
       <p>
         The selector engine itself can be a testing layer. A handful of
         modern selectors — <code>:not()</code>, <code>:has()</code>,
@@ -64,10 +61,9 @@
         quiet.
       </p>
       <AuditStylesheet />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="testing-performance" style="view-timeline-name: --chapter-sec-4">
-      <h3 id="testing-performance">Performance is accessibility</h3>
+    <ChapterSection id="testing-performance" title="Performance is accessibility">
       <p>
         Performance work usually files under "nice to have." For assistive
         tech it's load-bearing. A
@@ -85,10 +81,9 @@
         JavaScript isn't just this site's aesthetic; it's why the
         assistive-tech experience stays quick.
       </p>
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="testing-edge" style="view-timeline-name: --chapter-sec-5">
-      <h3 id="testing-edge">Where this argument stops</h3>
+    <ChapterSection id="testing-edge" title="Where this argument stops">
       <p>
         Everything on this site stays on one side of a line: what HTML and
         CSS guarantee before any JavaScript arrives. The other side is real,
@@ -103,22 +98,15 @@
         applies: test what you build, in layers, with the people and tools
         the layers stand in for.
       </p>
-    </section>
+    </ChapterSection>
   </ChapterLayout>
 </template>
 
 <script setup lang="ts">
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import TestingLayers from '../testing/TestingLayers/TestingLayers.vue'
 import AuditStylesheet from '../testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from '../testing/CoverageMatrix/CoverageMatrix.vue'
-
-const sections = [
-  { id: 'testing-layers', label: 'A layered job, not a button' },
-  { id: 'testing-coverage', label: "What automation can and can't see" },
-  { id: 'testing-audit-css', label: 'CSS that audits' },
-  { id: 'testing-performance', label: 'Performance is accessibility' },
-  { id: 'testing-edge', label: 'Where this argument stops' },
-]
 </script>

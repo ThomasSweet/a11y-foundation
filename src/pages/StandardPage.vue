@@ -1,5 +1,5 @@
 <template>
-  <ChapterLayout id="standard" :sections="sections">
+  <ChapterLayout id="standard">
     <p class="chapter-intro">
       Accessibility begins as a requirement, not a feature.
       <GlossaryRef id="wcag">WCAG</GlossaryRef> is the
@@ -7,13 +7,7 @@
       right alongside the platform.
     </p>
 
-    <section
-      class="demo"
-      aria-labelledby="demo-criteria"
-      data-reveal="off"
-      style="view-timeline-name: --chapter-sec-1"
-    >
-      <h3 id="demo-criteria">Guidelines, alive</h3>
+    <ChapterSection id="demo-criteria" title="Guidelines, alive" data-reveal="off">
       <p>
         These aren't definitions of accessibility — they're the standard,
         running. The criteria are arranged along WCAG's timeline, so you can
@@ -25,10 +19,9 @@
         POUR at the core: Perceivable, Operable, Understandable, Robust.
       </p>
       <CriteriaTimeline />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="demo-conformance" style="view-timeline-name: --chapter-sec-2">
-      <h3 id="demo-conformance">From pass / fail to outcomes</h3>
+    <ChapterSection id="demo-conformance" title="From pass / fail to outcomes">
       <p>
         The timeline's next stop is the biggest change of all — not new
         criteria, but a new <em>way of measuring</em>. Drag the slider to see
@@ -36,30 +29,24 @@
         draft graded scoring.
       </p>
       <ConformanceShift />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="demo-legal" style="view-timeline-name: --chapter-sec-3">
-      <h3 id="demo-legal">One standard, many laws</h3>
+    <ChapterSection id="demo-legal" title="One standard, many laws">
       <p>
         WCAG isn't just guidance — it's the technical core that accessibility
         law around the world points to. The map below shows how different
         jurisdictions wrap legal force around the same standard.
       </p>
       <LegalMap />
-    </section>
+    </ChapterSection>
   </ChapterLayout>
 </template>
 
 <script setup lang="ts">
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import CriteriaTimeline from '../criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import ConformanceShift from '../criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from '../criteria/LegalMap/LegalMap.vue'
-
-const sections = [
-  { id: 'demo-criteria', label: 'Guidelines, alive' },
-  { id: 'demo-conformance', label: 'From pass / fail to outcomes' },
-  { id: 'demo-legal', label: 'One standard, many laws' },
-]
 </script>

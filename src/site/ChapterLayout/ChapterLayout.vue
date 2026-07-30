@@ -82,18 +82,38 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, provide, ref } from 'vue'
 import SiteFrame from '../SiteFrame/SiteFrame.vue'
 import { pillars } from '../pillars'
 import { pillarIcons } from '../../icons/pillarIcons'
+import { chapterSectionsKey, type ChapterSectionEntry } from './chapterSections'
 
 const props = defineProps<{
   /** Matches a pillars[].id. */
   id: string
+  /** Only for pages that don't compose ChapterSection (the showcase's tier
+      groups); sections registered by ChapterSection children win otherwise. */
   sections?: { id: string; label: string }[]
 }>()
 
-const sections = computed(() => props.sections ?? [])
+const registered = ref<ChapterSectionEntry[]>([])
+
+provide(chapterSectionsKey, {
+  register: (entry) => {
+    const existing = registered.value.findIndex((e) => e.id === entry.id)
+    if (existing !== -1) {
+      registered.value[existing] = entry
+      return existing + 1
+    }
+    return registered.value.push(entry)
+  },
+})
+
+const sections = computed(() =>
+  props.sections?.length
+    ? props.sections
+    : registered.value.map((e) => ({ id: e.id, label: e.railLabel ?? e.title })),
+)
 const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])

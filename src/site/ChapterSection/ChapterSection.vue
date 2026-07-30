@@ -1,16 +1,26 @@
 <template>
-  <section class="demo" :aria-labelledby="id" :style="{ viewTimelineName: `--chapter-sec-${n}` }">
+  <section
+    class="demo"
+    :aria-labelledby="id"
+    :style="n ? { viewTimelineName: `--chapter-sec-${n}` } : undefined"
+  >
     <h3 :id="id">{{ title }}</h3>
     <slot />
   </section>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  /** Anchor id — must match the entry in ChapterLayout's sections list. */
+import { inject } from 'vue'
+import { chapterSectionsKey } from '../ChapterLayout/chapterSections'
+
+const props = defineProps<{
   id: string
-  /** 1-based position, feeding the rail's --chapter-sec-N view timeline. */
-  n: number
   title: string
+  railLabel?: string
 }>()
+
+const registry = inject(chapterSectionsKey, null)
+const n = registry
+  ? registry.register({ id: props.id, title: props.title, railLabel: props.railLabel })
+  : 0
 </script>

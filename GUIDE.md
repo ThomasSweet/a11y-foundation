@@ -34,7 +34,9 @@ src/
 ├── site/                   — the blueprint shell shared by every page
 │   ├── SiteFrame/          — page frame, grid, header, title-block footer
 │   ├── HubView/            — the overview hub (index page)
-│   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark
+│   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark;
+│   │                         chapterSections.ts holds the section registry
+│   ├── ChapterSection/     — one chapter section; registers itself with the rail
 │   └── pillars.ts          — the four chapters (order, titles, hrefs, icons)
 ├── pages/                  — one thin root per chapter (MPA entries, see main.ts)
 ├── showcases/              — cutting-edge CSS demos (see "CSS showcases")
@@ -170,6 +172,63 @@ exactly like inline blocks did.
   stripped or rewritten. If you ever need to re-check, grep the built CSS for
   the selector rather than trusting the warning. They will disappear on their
   own as lightningcss catches up with the specs.
+
+---
+
+## Chapter page anatomy
+
+Every chapter page (`standard`, `craft`, `proof`, `showcase`) is the same
+four-layer composition. Each layer has one job:
+
+- **`SiteFrame`** — the paper: sheet outline, grid, registration marks, the
+  header and the title-block footer. Knows nothing about chapters; the hub
+  and the legal pages use it too.
+- **`ChapterLayout`** — one chapter's chrome: the legend rail (chapter
+  switcher + section scroll-spy), the chapter header, the mobile bottom bar,
+  prev/next. Renders into `SiteFrame` and **provides the section registry**.
+- **`ChapterSection`** — one section: the `<section class="demo">` wrapper
+  and the anchor-carrying `<h3>`. Registers itself with the layout (see
+  below) and receives its position back.
+- **Leaf content** — demos, `CodeCompare`, `CraftLinks`, prose. Composed
+  freely in the section's slot; the wrapper imposes nothing on it.
+
+### The section registry — how the rail knows the sections
+
+There is no hand-maintained list of sections. `ChapterLayout` provides a
+registry (`site/ChapterLayout/chapterSections.ts`, via provide/inject); each
+`ChapterSection` registers `{ id, title, railLabel? }` during setup and gets
+its 1-based position back, which sets its `--chapter-sec-N` view timeline —
+the hook the rail's scroll-spy attaches to. The rail renders from the
+registered list; a section's rail text is `railLabel ?? title`.
+
+```vue
+<ChapterSection
+  id="craft-light-dark"
+  title="Dark mode from one source of truth"
+  rail-label="Dark mode from one source"
+>
+  <p>…prose…</p>
+  <LightDarkDemo />
+</ChapterSection>
+```
+
+The rules that keep it sound:
+
+- **Document order is the only order.** Position comes from mount order, so
+  a `ChapterSection` must render unconditionally — never behind `v-if`.
+  Reordering sections in the template is the whole ceremony.
+- **`rail-label` exists only to shorten.** The rail column is ~200px; give a
+  long title a short label there, and nothing else. Omit it when the title
+  fits.
+- **Ids are unique per page.** Registration dedupes by id (that's what keeps
+  hot reload from double-counting), so a duplicated id silently merges.
+- **Pages without `ChapterSection` pass `sections` as a prop** — the
+  showcase's tier groups do this — and the prop wins over registration.
+  Those pages then also own their `view-timeline-name` numbering.
+- **The rail's `timeline-scope` has a ceiling** — `ChapterLayout.scss`
+  currently declares `--chapter-sec-1` through `-12`. A chapter that
+  outgrows it needs that list extended, or its scroll-spy quietly stops
+  at the ceiling.
 
 ---
 

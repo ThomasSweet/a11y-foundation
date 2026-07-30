@@ -1,5 +1,5 @@
 <template>
-  <ChapterLayout id="craft" :sections="sections">
+  <ChapterLayout id="craft">
     <p class="chapter-intro">
       The standard sets the bar; modern CSS and HTML clear most of it with no
       JavaScript at all. Not a component catalog — the deliberate,
@@ -7,7 +7,7 @@
       each one is the accessible default.
     </p>
 
-    <ChapterSection id="craft-validation" :n="1" title="Validation that waits its turn">
+    <ChapterSection id="craft-validation" title="Validation that waits its turn">
       <p>
         Validation leans on the platform: native constraints
         (<code>required</code>, <code>type="email"</code>) drive the styling
@@ -41,7 +41,11 @@
       <CraftLinks :links="craftLinks.validation" />
     </ChapterSection>
 
-    <ChapterSection id="craft-light-dark" :n="2" title="Dark mode from one source of truth">
+    <ChapterSection
+      id="craft-light-dark"
+      title="Dark mode from one source of truth"
+      rail-label="Dark mode from one source"
+    >
       <p>
         Theming is a place craft pays off quietly. Declaring each colour once
         with <code>light-dark()</code> keeps the light and dark values
@@ -53,7 +57,11 @@
       <CraftLinks :links="craftLinks.lightDark" />
     </ChapterSection>
 
-    <ChapterSection id="craft-dialog" :n="3" title="Native dialog, zero trapping code">
+    <ChapterSection
+      id="craft-dialog"
+      title="Native dialog, zero trapping code"
+      rail-label="Native dialog, zero trapping"
+    >
       <p>
         A native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
         gives you focus trapping, Esc-to-close, and an inert background from
@@ -77,7 +85,11 @@
       <CraftLinks :links="craftLinks.dialog" />
     </ChapterSection>
 
-    <ChapterSection id="craft-motion" :n="4" title="Motion that bows out on request">
+    <ChapterSection
+      id="craft-motion"
+      title="Motion that bows out on request"
+      rail-label="Motion that bows out"
+    >
       <p>
         Three independent animations, one preference. When the OS asks for
         reduced motion, all of them still — handled globally in
@@ -91,7 +103,11 @@
       <CraftLinks :links="craftLinks.motion" />
     </ChapterSection>
 
-    <ChapterSection id="craft-targets" :n="5" title="Targets that survive touch and forced colors">
+    <ChapterSection
+      id="craft-targets"
+      title="Targets that survive touch and forced colors"
+      rail-label="Targets that survive touch"
+    >
       <p>
         Hover styles only apply on devices that can actually hover; touch
         devices get larger targets via <code>touch-primary()</code>. In
@@ -104,7 +120,7 @@
       <CraftLinks :links="craftLinks.targets" />
     </ChapterSection>
 
-    <ChapterSection id="craft-defensive" :n="6" title="Layouts that expect the worst">
+    <ChapterSection id="craft-defensive" title="Layouts that expect the worst">
       <p>
         Defensive CSS is the habit of assuming real content will be longer,
         wider, and weirder than the mockup. Designs are composed with tidy
@@ -125,7 +141,7 @@
       <CraftLinks :links="craftLinks.defensive" />
     </ChapterSection>
 
-    <ChapterSection id="craft-content-stress" :n="7" title="Break it with content">
+    <ChapterSection id="craft-content-stress" title="Break it with content">
       <p>
         Layouts don't break in design reviews; they break the day the CMS
         delivers a title nobody planned for. The habit that catches it
@@ -155,7 +171,11 @@
       <CraftLinks :links="craftLinks.contentStress" />
     </ChapterSection>
 
-    <ChapterSection id="craft-loading" :n="8" title="Loading states the accessibility tree can see">
+    <ChapterSection
+      id="craft-loading"
+      title="Loading states the accessibility tree can see"
+      rail-label="Loading states the tree can see"
+    >
       <p>
         Skeleton screens are a perceived-performance trick for the eyes:
         grey shapes promise that content is on its way. But placeholders
@@ -176,7 +196,11 @@
       <CraftLinks :links="craftLinks.loading" />
     </ChapterSection>
 
-    <ChapterSection id="craft-truncation" :n="9" title="Truncation that keeps a way in">
+    <ChapterSection
+      id="craft-truncation"
+      title="Truncation that keeps a way in"
+      rail-label="Truncation with a way in"
+    >
       <p>
         <code>line-clamp</code> cuts a paragraph to a tidy three lines — and
         for a sighted visitor, everything past the clamp simply stops
@@ -197,7 +221,11 @@
       <CraftLinks :links="craftLinks.truncation" />
     </ChapterSection>
 
-    <ChapterSection id="craft-scrollbar" :n="10" title="The scrollbar you leave alone">
+    <ChapterSection
+      id="craft-scrollbar"
+      title="The scrollbar you leave alone"
+      rail-label="The scrollbar left alone"
+    >
       <p>
         Scrollbars are OS territory the page only borrows. On macOS they
         float above content by default and take no space; on Windows and
@@ -218,7 +246,11 @@
       <CraftLinks :links="craftLinks.scrollbar" />
     </ChapterSection>
 
-    <ChapterSection id="craft-hiding" :n="11" title="Four ways to hide, and whom they hide from">
+    <ChapterSection
+      id="craft-hiding"
+      title="Four ways to hide, and whom they hide from"
+      rail-label="Four ways to hide"
+    >
       <p>
         "How do I hide this?" is the wrong question — the right one is
         <em>from whom</em>. <code>display: none</code> removes content for
@@ -239,7 +271,11 @@
       <CraftLinks :links="craftLinks.hiding" />
     </ChapterSection>
 
-    <ChapterSection id="craft-text-spacing" :n="12" title="Text spacing is the reader's setting">
+    <ChapterSection
+      id="craft-text-spacing"
+      title="Text spacing is the reader's setting"
+      rail-label="The reader's text spacing"
+    >
       <p>
         WCAG 1.4.12 grants readers the right to raise line height to 1.5,
         letter spacing to 0.12em, word spacing to 0.16em, and paragraph
@@ -286,19 +322,4 @@ import { craftLinks } from '../craft/links'
 const name = ref('')
 const email = ref('')
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
-
-const sections = [
-  { id: 'craft-validation', label: 'Validation that waits its turn' },
-  { id: 'craft-light-dark', label: 'Dark mode from one source' },
-  { id: 'craft-dialog', label: 'Native dialog, zero trapping' },
-  { id: 'craft-motion', label: 'Motion that bows out' },
-  { id: 'craft-targets', label: 'Targets that survive touch' },
-  { id: 'craft-defensive', label: 'Layouts that expect the worst' },
-  { id: 'craft-content-stress', label: 'Break it with content' },
-  { id: 'craft-loading', label: 'Loading states the tree can see' },
-  { id: 'craft-truncation', label: 'Truncation with a way in' },
-  { id: 'craft-scrollbar', label: 'The scrollbar left alone' },
-  { id: 'craft-hiding', label: 'Four ways to hide' },
-  { id: 'craft-text-spacing', label: "The reader's text spacing" },
-]
 </script>
