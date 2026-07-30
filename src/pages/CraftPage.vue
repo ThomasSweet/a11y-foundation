@@ -39,6 +39,7 @@
         />
       </div>
       <CodeCompare v-bind="craftSnippets.validation" />
+      <CraftLinks :links="craftLinks.validation" />
     </section>
 
     <section class="demo" aria-labelledby="craft-light-dark" style="view-timeline-name: --chapter-sec-2">
@@ -51,6 +52,7 @@
         eventually edits half of. Same result, half the surface area for bugs.
       </p>
       <LightDarkDemo />
+      <CraftLinks :links="craftLinks.lightDark" />
     </section>
 
     <section class="demo" aria-labelledby="craft-dialog" style="view-timeline-name: --chapter-sec-3">
@@ -75,6 +77,7 @@
         </p>
       </AppDialog>
       <CodeCompare v-bind="craftSnippets.dialog" />
+      <CraftLinks :links="craftLinks.dialog" />
     </section>
 
     <section class="demo" aria-labelledby="craft-motion" style="view-timeline-name: --chapter-sec-4">
@@ -89,6 +92,7 @@
       </p>
       <MotionDemo />
       <CodeCompare v-bind="craftSnippets.motion" />
+      <CraftLinks :links="craftLinks.motion" />
     </section>
 
     <section class="demo" aria-labelledby="craft-targets" style="view-timeline-name: --chapter-sec-5">
@@ -102,6 +106,7 @@
       </p>
       <TargetsDemo />
       <CodeCompare v-bind="craftSnippets.targets" />
+      <CraftLinks :links="craftLinks.targets" />
     </section>
 
     <section class="demo" aria-labelledby="craft-defensive" style="view-timeline-name: --chapter-sec-6">
@@ -123,6 +128,7 @@
       </p>
       <DefensiveCssDemo />
       <CodeCompare v-bind="craftSnippets.defensive" />
+      <CraftLinks :links="craftLinks.defensive" />
     </section>
 
     <section class="demo" aria-labelledby="craft-content-stress" style="view-timeline-name: --chapter-sec-7">
@@ -141,6 +147,19 @@
       </p>
       <ContentStressDemo />
       <CodeCompare v-bind="craftSnippets.contentStress" />
+      <p>
+        One more content-shaped trap: flattening a list with
+        <code>display: contents</code> so its items can sit on the parent
+        grid. For years that stripped the list's semantics from assistive
+        tech — and Safari has relapsed more than once. Subgrid gets the same
+        alignment without the sacrifice.
+      </p>
+      <CodeCompare
+        v-bind="craftSnippets.displayContents"
+        mistake-label="The tempting flatten"
+        craft-label="Subgrid instead"
+      />
+      <CraftLinks :links="craftLinks.contentStress" />
     </section>
 
     <section class="demo" aria-labelledby="craft-loading" style="view-timeline-name: --chapter-sec-8">
@@ -162,6 +181,51 @@
       </p>
       <LoadingStateDemo />
       <CodeCompare v-bind="craftSnippets.loading" />
+      <CraftLinks :links="craftLinks.loading" />
+    </section>
+
+    <section class="demo" aria-labelledby="craft-truncation" style="view-timeline-name: --chapter-sec-9">
+      <h3 id="craft-truncation">Truncation that keeps a way in</h3>
+      <p>
+        <code>line-clamp</code> cuts a paragraph to a tidy three lines — and
+        for a sighted visitor, everything past the clamp simply stops
+        existing, because the property is visual-only and ships no control
+        to open it. A screen reader still gets the full text, so the two
+        audiences quietly read different documents. The craft move: make
+        the clamp itself the collapsed state of a native
+        <code>&lt;details&gt;</code> — <code>::details-content</code>
+        normally hides closed content, but overriding its
+        <code>content-visibility</code> leaves a clamped preview showing.
+        One element, expanded state announced for free, nothing duplicated.
+        Browsers without the pseudo-element fall back to an ordinary closed
+        disclosure. And when the content is essential, the honest fix is
+        simpler: don't clamp it.
+      </p>
+      <TruncationDemo />
+      <CodeCompare v-bind="craftSnippets.truncation" />
+      <CraftLinks :links="craftLinks.truncation" />
+    </section>
+
+    <section class="demo" aria-labelledby="craft-scrollbar" style="view-timeline-name: --chapter-sec-10">
+      <h3 id="craft-scrollbar">The scrollbar you leave alone</h3>
+      <p>
+        Scrollbars are OS territory the page only borrows. On macOS they
+        float above content by default and take no space; on Windows and
+        for anyone who sets "always show", they claim a lane — and when one
+        appears mid-interaction, every line of text re-wraps around it.
+        <code>scrollbar-gutter: stable</code> reserves the lane before it's
+        needed, which is the one scrollbar property worth adopting. The
+        rest is restraint: restyled scrollbars use syntax Firefox ignores,
+        tend toward thin low-contrast thumbs that hurt exactly the people
+        scrollbars serve most, and are invisible to overlay users anyway —
+        while the native bar already follows <code>color-scheme</code> into
+        dark mode. What a scrollable region does need is
+        <code>tabindex="0"</code> and a label, so keyboard users can reach
+        and scroll it at all.
+      </p>
+      <ScrollbarDemo />
+      <CodeCompare v-bind="craftSnippets.scrollbar" />
+      <CraftLinks :links="craftLinks.scrollbar" />
     </section>
   </ChapterLayout>
 </template>
@@ -180,7 +244,10 @@ import TargetsDemo from '../craft/demos/TargetsDemo.vue'
 import DefensiveCssDemo from '../craft/demos/DefensiveCssDemo.vue'
 import ContentStressDemo from '../craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from '../craft/demos/LoadingStateDemo.vue'
+import TruncationDemo from '../craft/demos/TruncationDemo.vue'
+import ScrollbarDemo from '../craft/demos/ScrollbarDemo.vue'
 import CodeCompare from '../craft/CodeCompare/CodeCompare.vue'
+import CraftLinks from '../craft/CraftLinks/CraftLinks.vue'
 import { craftSnippets } from '../craft/snippets'
 
 const name = ref('')
@@ -196,5 +263,94 @@ const sections = [
   { id: 'craft-defensive', label: 'Layouts that expect the worst' },
   { id: 'craft-content-stress', label: 'Break it with content' },
   { id: 'craft-loading', label: 'Loading states the tree can see' },
+  { id: 'craft-truncation', label: 'Truncation with a way in' },
+  { id: 'craft-scrollbar', label: 'The scrollbar left alone' },
 ]
+
+const craftLinks = {
+  validation: [
+    {
+      label: 'MDN: :user-invalid',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid',
+    },
+    {
+      label: 'WCAG 3.3.1 Error Identification',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html',
+    },
+  ],
+  lightDark: [
+    {
+      label: 'MDN: light-dark()',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark',
+    },
+  ],
+  dialog: [
+    {
+      label: 'MDN: <dialog>',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog',
+    },
+  ],
+  motion: [
+    {
+      label: 'MDN: prefers-reduced-motion',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
+    },
+    {
+      label: 'WCAG 2.3.3 Animation from Interactions',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
+    },
+  ],
+  targets: [
+    {
+      label: 'WCAG 2.5.8 Target Size',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html',
+    },
+    {
+      label: 'MDN: forced-colors',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors',
+    },
+  ],
+  defensive: [
+    {
+      label: 'Defensive CSS (Ahmad Shadeed)',
+      href: 'https://defensivecss.dev/',
+    },
+  ],
+  contentStress: [
+    {
+      label: 'MDN: hyphens',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens',
+    },
+    {
+      label: 'MDN: logical properties',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values',
+    },
+  ],
+  loading: [
+    {
+      label: 'MDN: aria-busy',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy',
+    },
+  ],
+  truncation: [
+    {
+      label: 'MDN: -webkit-line-clamp',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-line-clamp',
+    },
+    {
+      label: 'MDN: ::details-content',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::details-content',
+    },
+  ],
+  scrollbar: [
+    {
+      label: 'MDN: scrollbar-gutter',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter',
+    },
+    {
+      label: 'WCAG 2.1.1 Keyboard',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html',
+    },
+  ],
+}
 </script>

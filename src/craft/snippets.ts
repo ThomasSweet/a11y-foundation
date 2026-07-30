@@ -112,6 +112,67 @@ input:user-invalid {
 }`,
   },
 
+  // Mirrors TruncationDemo — the clamp that is also the disclosure.
+  truncation: {
+    language: 'CSS',
+    mistake: `/* Three lines survive; the rest of the content is gone
+   for sighted users, with nothing to open. (A screen
+   reader still gets all of it — the two audiences now
+   read different documents.) */
+.teaser {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}`,
+    craft: `/* Clamp the closed state of a real <details>: the preview
+   is the collapsed disclosure itself — expanded state
+   announced natively, nothing duplicated. */
+details:not([open])::details-content {
+  content-visibility: visible;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}`,
+  },
+
+  // Mirrors ScrollbarDemo — reserve the gutter, leave the rest alone.
+  scrollbar: {
+    language: 'CSS',
+    mistake: `/* Restyled scrollbars: invisible in Firefox (different
+   syntax), often low-contrast, thinner than any touch
+   target — and overlay-scrollbar users see none of it. */
+.panel::-webkit-scrollbar { width: 4px; }
+.panel::-webkit-scrollbar-thumb { background: #ddd; }`,
+    craft: `/* Reserve the scrollbar's lane so content doesn't reflow
+   when it appears, and keep the native bar. (The region
+   itself gets tabindex="0" and a label for keyboard use.) */
+.panel {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}`,
+  },
+
+  // The display:contents trap — layout wins, list semantics lose.
+  displayContents: {
+    language: 'CSS',
+    mistake: `/* Flattening a list into the parent grid. For years this
+   stripped list semantics from assistive tech (Safari
+   still relapses) — the layout wins, the <ul> vanishes. */
+ul.cards {
+  display: contents;
+}`,
+    craft: `/* Subgrid aligns the items to the page grid while the
+   list keeps its box and its semantics. If you must use
+   display:contents, re-test with a screen reader. */
+ul.cards {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+}`,
+  },
+
   // Mirrors LoadingStateDemo — aria-busy + one hidden line.
   loading: {
     language: 'HTML',

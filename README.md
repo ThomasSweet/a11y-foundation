@@ -95,7 +95,7 @@ cp -r skills/accessible-by-default ~/.claude/skills/
 
 The reference files are generated from the same registries the site renders
 (`npm run skill:gen`), so the skill can't drift from the live demos. The idea
-came from reviewer feedback, alongside Chrome's
+came from [Jakub Andrzejewski](https://x.com/jacobandrewsky), alongside Chrome's
 [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance).
 
 ## Try it with your OS preferences
@@ -180,6 +180,10 @@ a credit.
   The theme panel was flying out detached from its button on wide screens; it is
   anchored now. The second turned out to be correct behaviour, and explaining
   why Space scrolls and Enter activates was worth the trip on its own.
+- **[Jakub Andrzejewski](https://x.com/jacobandrewsky)** — asked whether the
+  whole argument could ship in a form AI agents can use. That question became
+  the Agent Skill and its page — arguably the most portable thing the project
+  produces.
 - **My wife** — caught that the end-of-chapter links were too small and easy to
   miss, which is why they are full cards now, and has been the steady source of
   pointers and ideas behind a lot of the rest.
