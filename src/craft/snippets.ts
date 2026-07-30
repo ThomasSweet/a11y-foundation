@@ -173,6 +173,41 @@ ul.cards {
 }`,
   },
 
+  // Mirrors HidingMatrixDemo — hide for the right audience.
+  hiding: {
+    language: 'CSS',
+    mistake: `/* "Hidden" by eye only: invisible, but still announced
+   by screen readers and still a tab stop — keyboard
+   users land on nothing. */
+.menu {
+  opacity: 0;
+}`,
+    craft: `/* Pick the technique by audience, not by looks:
+   gone for everyone      → display: none
+   screen readers only    → .visually-hidden
+   visible but inactive   → the inert attribute */
+.menu[data-closed] {
+  display: none;
+}`,
+  },
+
+  // Mirrors TextSpacingDemo — boxes that survive the 1.4.12 overrides.
+  textSpacing: {
+    language: 'CSS',
+    mistake: `/* A pixel-perfect text box. The moment a reader raises
+   line height or letter spacing (WCAG 1.4.12 says they
+   may), the last sentences are clipped away. */
+.card {
+  height: 176px;
+  overflow: hidden;
+}`,
+    craft: `/* Set a floor, never a ceiling — the box grows with the
+   reader's spacing instead of eating their text. */
+.card {
+  min-block-size: 176px;
+}`,
+  },
+
   // Mirrors LoadingStateDemo — aria-busy + one hidden line.
   loading: {
     language: 'HTML',

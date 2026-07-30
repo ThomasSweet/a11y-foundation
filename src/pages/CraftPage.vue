@@ -7,8 +7,7 @@
       each one is the accessible default.
     </p>
 
-    <section class="demo" aria-labelledby="craft-validation" style="view-timeline-name: --chapter-sec-1">
-      <h3 id="craft-validation">Validation that waits its turn</h3>
+    <ChapterSection id="craft-validation" :n="1" title="Validation that waits its turn">
       <p>
         Validation leans on the platform: native constraints
         (<code>required</code>, <code>type="email"</code>) drive the styling
@@ -40,10 +39,9 @@
       </div>
       <CodeCompare v-bind="craftSnippets.validation" />
       <CraftLinks :links="craftLinks.validation" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-light-dark" style="view-timeline-name: --chapter-sec-2">
-      <h3 id="craft-light-dark">Dark mode from one source of truth</h3>
+    <ChapterSection id="craft-light-dark" :n="2" title="Dark mode from one source of truth">
       <p>
         Theming is a place craft pays off quietly. Declaring each colour once
         with <code>light-dark()</code> keeps the light and dark values
@@ -53,10 +51,9 @@
       </p>
       <LightDarkDemo />
       <CraftLinks :links="craftLinks.lightDark" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-dialog" style="view-timeline-name: --chapter-sec-3">
-      <h3 id="craft-dialog">Native dialog, zero trapping code</h3>
+    <ChapterSection id="craft-dialog" :n="3" title="Native dialog, zero trapping code">
       <p>
         A native <code>&lt;dialog&gt;</code> with <code>showModal()</code>
         gives you focus trapping, Esc-to-close, and an inert background from
@@ -78,10 +75,9 @@
       </AppDialog>
       <CodeCompare v-bind="craftSnippets.dialog" />
       <CraftLinks :links="craftLinks.dialog" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-motion" style="view-timeline-name: --chapter-sec-4">
-      <h3 id="craft-motion">Motion that bows out on request</h3>
+    <ChapterSection id="craft-motion" :n="4" title="Motion that bows out on request">
       <p>
         Three independent animations, one preference. When the OS asks for
         reduced motion, all of them still — handled globally in
@@ -93,10 +89,9 @@
       <MotionDemo />
       <CodeCompare v-bind="craftSnippets.motion" />
       <CraftLinks :links="craftLinks.motion" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-targets" style="view-timeline-name: --chapter-sec-5">
-      <h3 id="craft-targets">Targets that survive touch and forced colors</h3>
+    <ChapterSection id="craft-targets" :n="5" title="Targets that survive touch and forced colors">
       <p>
         Hover styles only apply on devices that can actually hover; touch
         devices get larger targets via <code>touch-primary()</code>. In
@@ -107,10 +102,9 @@
       <TargetsDemo />
       <CodeCompare v-bind="craftSnippets.targets" />
       <CraftLinks :links="craftLinks.targets" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-defensive" style="view-timeline-name: --chapter-sec-6">
-      <h3 id="craft-defensive">Layouts that expect the worst</h3>
+    <ChapterSection id="craft-defensive" :n="6" title="Layouts that expect the worst">
       <p>
         Defensive CSS is the habit of assuming real content will be longer,
         wider, and weirder than the mockup. Designs are composed with tidy
@@ -129,10 +123,9 @@
       <DefensiveCssDemo />
       <CodeCompare v-bind="craftSnippets.defensive" />
       <CraftLinks :links="craftLinks.defensive" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-content-stress" style="view-timeline-name: --chapter-sec-7">
-      <h3 id="craft-content-stress">Break it with content</h3>
+    <ChapterSection id="craft-content-stress" :n="7" title="Break it with content">
       <p>
         Layouts don't break in design reviews; they break the day the CMS
         delivers a title nobody planned for. The habit that catches it
@@ -160,10 +153,9 @@
         craft-label="Subgrid instead"
       />
       <CraftLinks :links="craftLinks.contentStress" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-loading" style="view-timeline-name: --chapter-sec-8">
-      <h3 id="craft-loading">Loading states the accessibility tree can see</h3>
+    <ChapterSection id="craft-loading" :n="8" title="Loading states the accessibility tree can see">
       <p>
         Skeleton screens are a perceived-performance trick for the eyes:
         grey shapes promise that content is on its way. But placeholders
@@ -182,10 +174,9 @@
       <LoadingStateDemo />
       <CodeCompare v-bind="craftSnippets.loading" />
       <CraftLinks :links="craftLinks.loading" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-truncation" style="view-timeline-name: --chapter-sec-9">
-      <h3 id="craft-truncation">Truncation that keeps a way in</h3>
+    <ChapterSection id="craft-truncation" :n="9" title="Truncation that keeps a way in">
       <p>
         <code>line-clamp</code> cuts a paragraph to a tidy three lines — and
         for a sighted visitor, everything past the clamp simply stops
@@ -204,10 +195,9 @@
       <TruncationDemo />
       <CodeCompare v-bind="craftSnippets.truncation" />
       <CraftLinks :links="craftLinks.truncation" />
-    </section>
+    </ChapterSection>
 
-    <section class="demo" aria-labelledby="craft-scrollbar" style="view-timeline-name: --chapter-sec-10">
-      <h3 id="craft-scrollbar">The scrollbar you leave alone</h3>
+    <ChapterSection id="craft-scrollbar" :n="10" title="The scrollbar you leave alone">
       <p>
         Scrollbars are OS territory the page only borrows. On macOS they
         float above content by default and take no space; on Windows and
@@ -226,7 +216,46 @@
       <ScrollbarDemo />
       <CodeCompare v-bind="craftSnippets.scrollbar" />
       <CraftLinks :links="craftLinks.scrollbar" />
-    </section>
+    </ChapterSection>
+
+    <ChapterSection id="craft-hiding" :n="11" title="Four ways to hide, and whom they hide from">
+      <p>
+        "How do I hide this?" is the wrong question — the right one is
+        <em>from whom</em>. <code>display: none</code> removes content for
+        everyone: eyes, screen readers, the Tab key. The
+        <code>.visually-hidden</code> pattern removes it for eyes only,
+        which is how labels and hints reach a screen reader without
+        cluttering the layout — but any control inside stays tabbable, so
+        focus can land on nothing visible. <code>aria-hidden</code> is the
+        mirror image: fully visible, silent to assistive tech, and it does
+        <em>not</em> touch the tab order, which is why it must never wrap
+        anything interactive. And <code>inert</code> switches a visible
+        region off for everyone at once — the modern answer for the page
+        behind a modal. Native <code>&lt;dialog&gt;</code> applies it to
+        the whole background for free.
+      </p>
+      <HidingMatrixDemo />
+      <CodeCompare v-bind="craftSnippets.hiding" />
+      <CraftLinks :links="craftLinks.hiding" />
+    </ChapterSection>
+
+    <ChapterSection id="craft-text-spacing" :n="12" title="Text spacing is the reader's setting">
+      <p>
+        WCAG 1.4.12 grants readers the right to raise line height to 1.5,
+        letter spacing to 0.12em, word spacing to 0.16em, and paragraph
+        spacing to 2em — people with dyslexia or low vision do this
+        through extensions and user stylesheets, and the page has to
+        survive it with no loss of content or function. What breaks is
+        never the text; it's the pixel-perfect box around it. The toggle
+        below does exactly what a reader's override does: the flexible
+        card breathes, the fixed-height one clips sentences mid-thought.
+        The craft is one habit — heights on text containers are floors
+        (<code>min-block-size</code>), never ceilings.
+      </p>
+      <TextSpacingDemo />
+      <CodeCompare v-bind="craftSnippets.textSpacing" />
+      <CraftLinks :links="craftLinks.textSpacing" />
+    </ChapterSection>
   </ChapterLayout>
 </template>
 
@@ -234,6 +263,7 @@
 import { ref } from 'vue'
 
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
+import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import TextField from '../components/TextField/TextField.vue'
 import AppButton from '../components/AppButton/AppButton.vue'
@@ -246,9 +276,12 @@ import ContentStressDemo from '../craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from '../craft/demos/LoadingStateDemo.vue'
 import TruncationDemo from '../craft/demos/TruncationDemo.vue'
 import ScrollbarDemo from '../craft/demos/ScrollbarDemo.vue'
+import HidingMatrixDemo from '../craft/demos/HidingMatrixDemo.vue'
+import TextSpacingDemo from '../craft/demos/TextSpacingDemo.vue'
 import CodeCompare from '../craft/CodeCompare/CodeCompare.vue'
 import CraftLinks from '../craft/CraftLinks/CraftLinks.vue'
 import { craftSnippets } from '../craft/snippets'
+import { craftLinks } from '../craft/links'
 
 const name = ref('')
 const email = ref('')
@@ -265,92 +298,7 @@ const sections = [
   { id: 'craft-loading', label: 'Loading states the tree can see' },
   { id: 'craft-truncation', label: 'Truncation with a way in' },
   { id: 'craft-scrollbar', label: 'The scrollbar left alone' },
+  { id: 'craft-hiding', label: 'Four ways to hide' },
+  { id: 'craft-text-spacing', label: "The reader's text spacing" },
 ]
-
-const craftLinks = {
-  validation: [
-    {
-      label: 'MDN: :user-invalid',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid',
-    },
-    {
-      label: 'WCAG 3.3.1 Error Identification',
-      href: 'https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html',
-    },
-  ],
-  lightDark: [
-    {
-      label: 'MDN: light-dark()',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark',
-    },
-  ],
-  dialog: [
-    {
-      label: 'MDN: <dialog>',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog',
-    },
-  ],
-  motion: [
-    {
-      label: 'MDN: prefers-reduced-motion',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
-    },
-    {
-      label: 'WCAG 2.3.3 Animation from Interactions',
-      href: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
-    },
-  ],
-  targets: [
-    {
-      label: 'WCAG 2.5.8 Target Size',
-      href: 'https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html',
-    },
-    {
-      label: 'MDN: forced-colors',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors',
-    },
-  ],
-  defensive: [
-    {
-      label: 'Defensive CSS (Ahmad Shadeed)',
-      href: 'https://defensivecss.dev/',
-    },
-  ],
-  contentStress: [
-    {
-      label: 'MDN: hyphens',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens',
-    },
-    {
-      label: 'MDN: logical properties',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values',
-    },
-  ],
-  loading: [
-    {
-      label: 'MDN: aria-busy',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy',
-    },
-  ],
-  truncation: [
-    {
-      label: 'MDN: -webkit-line-clamp',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-line-clamp',
-    },
-    {
-      label: 'MDN: ::details-content',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/::details-content',
-    },
-  ],
-  scrollbar: [
-    {
-      label: 'MDN: scrollbar-gutter',
-      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter',
-    },
-    {
-      label: 'WCAG 2.1.1 Keyboard',
-      href: 'https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html',
-    },
-  ],
-}
 </script>
