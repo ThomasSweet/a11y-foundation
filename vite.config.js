@@ -27,7 +27,17 @@ const stagingNoindex = () => ({
 })
 
 export default defineConfig({
-  plugins: [vue(), keepRenderBlocking(), stagingNoindex()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag === 'selectedcontent',
+        },
+      },
+    }),
+    keepRenderBlocking(),
+    stagingNoindex(),
+  ],
   build: {
     rollupOptions: {
       // Multi-page: the SPA home plus standalone static pages (legal + guide).
