@@ -180,6 +180,12 @@ a credit.
   The theme panel was flying out detached from its button on wide screens; it is
   anchored now. The second turned out to be correct behaviour, and explaining
   why Space scrolls and Enter activates was worth the trip on its own.
+- **[Klara Schmitt](https://portfolio.klaraschmitt.com/)** — reviewed the
+  redesign's wayfinding and called out where the blueprint metaphor had leaked
+  into the navigation: labels that needed decoding, mono-caps dressing up bare
+  links. "Metaphor lives in ornament, never in labels" has been a house rule
+  since, the title block gained its ruled form in the same review, and the
+  timeline grew clearer from her notes on it.
 - **[Jakub Andrzejewski](https://x.com/jacobandrewsky)** — asked whether the
   whole argument could ship in a form AI agents can use. That question became
   the Agent Skill and its page — arguably the most portable thing the project
