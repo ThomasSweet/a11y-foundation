@@ -4,7 +4,9 @@
       The standard sets the bar; modern CSS and HTML clear most of it with no
       JavaScript at all. Not a component catalog — the deliberate,
       low-drama <em>craft decisions</em> this foundation is built on, and why
-      each one is the accessible default.
+      each one is the accessible default. These decisions also ship as
+      <a href="/agent-skill.html">an agent skill</a> — the same swaps,
+      packaged for the coding agents that increasingly write this markup.
     </p>
 
     <ChapterSection id="craft-validation" title="Validation that waits its turn">

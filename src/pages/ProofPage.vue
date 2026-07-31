@@ -67,7 +67,9 @@
         Firefox it's the Accessibility tab in the inspector; Safari shows the
         same under the Node sidebar in Web Inspector. Try it on the four
         specimens below — none of the captions ask to be believed. Select the
-        element and read what the browser actually computed.
+        element and read what the browser actually computed. The pane is one
+        of eight built-in tools — <a href="/devtools.html">the DevTools
+        sheet</a> inventories the rest.
       </p>
       <AccessibilityTree />
       <p>
@@ -108,6 +110,40 @@
         quiet.
       </p>
       <AuditStylesheet />
+    </ChapterSection>
+
+    <ChapterSection id="testing-filing" title="Filing what you find">
+      <p>
+        Most audit findings die in a backlog, and it's usually the report's
+        fault. A ticket titled "fails WCAG 1.3.1" competes against feature
+        work and loses — and copying severity from the conformance level
+        grades how foundational the <em>rule</em> is, not how much this
+        instance hurts. Grade each finding by user impact instead, with
+        three questions:
+        is the task blocked, or just harder? how often does someone hit it —
+        critical path or corner? and is there a workaround a non-expert
+        would actually find? A silent div-button on checkout and a redundant
+        alt text can fail at the same level; they are not the same bug.
+      </p>
+      <p>
+        The report itself has one job: let a teammate who wasn't in the
+        audit act on it. So the headline names the barrier — what a person
+        cannot do — not the criterion. The setup names the assistive tech
+        and browser together, because bugs live in pairs. The criterion
+        appears once, as a reference, so nobody has to become a WCAG lawyer
+        to close the ticket. And it's one barrier per ticket, sized like any
+        other bug — never one mega-ticket called "accessibility audit".
+        Filled in the way an audit of a fictional checkout might:
+      </p>
+      <CodeBlock :code="bugTemplate" label="md" />
+      <p>
+        The last line is where this site's whole argument cashes out: most
+        accessibility bugs are a native element that got rebuilt by hand, so
+        most suspected fixes are swaps — the same swaps
+        <a href="/agent-skill.html">the agent skill</a> teaches. And when a
+        finding has no obvious fix line, that's fine. Naming the barrier
+        precisely is the report's real work.
+      </p>
     </ChapterSection>
 
     <ChapterSection id="testing-performance" title="Performance is accessibility">
@@ -157,4 +193,23 @@ import TestingLayers from '../testing/TestingLayers/TestingLayers.vue'
 import AccessibilityTree from '../testing/AccessibilityTree/AccessibilityTree.vue'
 import AuditStylesheet from '../testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from '../testing/CoverageMatrix/CoverageMatrix.vue'
+import CodeBlock from '../showcases/CodeBlock/CodeBlock.vue'
+
+const bugTemplate = `## Barrier: payment method can't be chosen with a keyboard
+
+**Impact**: Blocker — checkout cannot be completed
+**Where**: /checkout, the payment method cards
+**Setup**: VoiceOver + Safari 26 (also reproduced: NVDA + Firefox)
+
+**Steps**
+1. Tab through the checkout form
+2. Focus jumps from the address field straight to "Pay now"
+3. The payment cards are never reachable
+
+**Heard**: "Pay now, button" — no mention a choice was expected
+**Expected**: each card focusable, announcing name, role, checked state
+
+**Reference**: WCAG 2.1.1 Keyboard
+**Suspected fix**: the cards are divs with click handlers —
+a native radio group does all of this for free`
 </script>

@@ -83,6 +83,7 @@
             <a href="/styleguide.html">Style guide</a>
             <a href="/agent-skill.html">Agent skill</a>
             <a href="/screen-reader.html">Screen reader</a>
+            <a href="/devtools.html">DevTools</a>
             <a href="/impressum.html">Impressum</a>
             <a href="/privacy.html">Privacy</a>
           </nav>

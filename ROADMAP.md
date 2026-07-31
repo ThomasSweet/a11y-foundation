@@ -80,10 +80,6 @@ Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
 
-- **Triage that survives a sprint** — severity as user-impact (task
-  blocked? how often? any workaround?), not WCAG level; plus the bug
-  template that names the barrier, the AT, the criterion, and the fix.
-  Copyable block; CodeBlock already does this job elsewhere.
 - **The audit room (capstone, big)** — an inert specimen page seeded
   with a known number of barriers; visitors hunt them, hints and answers
   behind `<details>`. Break-it scaled from one rule to a whole page; the
@@ -163,6 +159,10 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Reference sheet A·04, "DevTools for accessibility": the built-in inventory (accessibility pane, color-picker contrast, inspect tooltip, Rendering emulations, emulate-a-focused-page, live expressions with document.activeElement, Lighthouse-is-axe, Firefox's inspector) and the three add-ons that pass the "does something the panels can't" test (axe DevTools, Accessibility Insights, WAVE). The thesis transposed to tooling: built in, not bolted on. Idea from a conversation about extensions rebuilding native features.
+
+- **2026-07** Proof gained "Filing what you find" (first titled with "triage" — renamed for plain words): severity as user impact (blocked? how often? workaround?) instead of conformance level, one barrier per ticket, and a copyable bug template filled in for a fictional checkout — barrier headline, AT+browser pair, criterion once as reference, suspected fix as the swap.
 
 - **2026-07** Proof gained "Reading the accessibility tree": four live specimens (styled div vs native button vs `<label>` vs `aria-label`) with role/name/source readouts, DevTools directions per browser, and the name-computation precedence; new glossary term "Accessibility tree". The demo's captions invite verification in DevTools instead of asking to be believed.
 

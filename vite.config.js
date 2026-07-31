@@ -40,6 +40,7 @@ export default defineConfig({
         glossary: fileURLToPath(new URL('./glossary.html', import.meta.url)),
         agentSkill: fileURLToPath(new URL('./agent-skill.html', import.meta.url)),
         screenReader: fileURLToPath(new URL('./screen-reader.html', import.meta.url)),
+        devtools: fileURLToPath(new URL('./devtools.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         privacy: fileURLToPath(new URL('./privacy.html', import.meta.url)),
         styleguide: fileURLToPath(new URL('./styleguide.html', import.meta.url)),

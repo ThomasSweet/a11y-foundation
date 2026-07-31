@@ -151,6 +151,7 @@ const sheets = [
   { no: 'A·01', href: '/glossary.html', name: 'Glossary', desc: 'Short, honest definitions of the vocabulary the site leans on — every term linkable.' },
   { no: 'A·02', href: '/agent-skill.html', name: 'Agent skill', desc: 'The whole argument, packaged so a coding agent can load it.' },
   { no: 'A·03', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
+  { no: 'A·04', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
   { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },
 ]
 </script>

@@ -15,6 +15,7 @@ const pages = [
   { path: '/glossary.html', name: 'glossary' },
   { path: '/agent-skill.html', name: 'agent skill' },
   { path: '/screen-reader.html', name: 'screen reader' },
+  { path: '/devtools.html', name: 'devtools' },
   { path: '/impressum.html', name: 'impressum' },
   { path: '/privacy.html', name: 'privacy' },
 ]

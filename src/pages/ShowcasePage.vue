@@ -7,7 +7,9 @@
       <a href="https://wpt.fyi/interop-2026">Interop</a> and
       <GlossaryRef id="baseline">Baseline</GlossaryRef>.
       Everything is written as a progressive enhancement, so unsupported
-      demos degrade instead of breaking.
+      demos degrade instead of breaking. Every snippet here also ships in
+      <a href="/agent-skill.html">the agent skill</a>, generated from the
+      same registry — so the two can't drift apart.
     </p>
 
     <div class="demo" data-reveal="off">
