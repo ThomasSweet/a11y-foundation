@@ -80,11 +80,6 @@ Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
 
-- **A screen reader's first fifteen minutes** — VoiceOver/NVDA survival
-  card: the rotor, heading/landmark/form hops, why you don't narrate
-  every word. `<kbd>`-styled, printable. Best home may be a reference
-  sheet (A·03) off the title block, like the glossary and agent-skill
-  pages — reference, not argument.
 - **Reading the accessibility tree** — DevTools walkthrough: name, role,
   value for the working dev; where the computed name actually comes from.
 - **Triage that survives a sprint** — severity as user-impact (task
@@ -170,6 +165,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Reference sheet A·03, "A screen reader's first fifteen minutes": VoiceOver/NVDA/phone keystroke cards, the fifteen-minute plan, and a "what this doesn't prove" close; linked from the title block on every page and from proof's human layer.
 
 - **2026-07** Craft wave: the hiding matrix (four techniques × visible/tree/tab-order, live inert specimen, the aria-hidden + `tabindex="-1"` pairing shown) and the 1.4.12 text-spacing stress test (toggle applies the reader's override values; the fixed-height card clips, the flexible one breathes). Craft is at twelve sections; rail scope extended to match.
 

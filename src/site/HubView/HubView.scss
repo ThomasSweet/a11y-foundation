@@ -125,7 +125,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(var(--space-3), 2.4vw, var(--space-6));
-    margin-block-start: var(--space-8);
+    margin-block-start: clamp(var(--space-8), calc(12vh - 3rem), var(--space-16));
   }
 
   @media (width >= 60rem) {
@@ -285,6 +285,86 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--bp-accent);
+  }
+
+  .hub-sheets {
+    margin-block-start: clamp(var(--space-16), 14vh, var(--space-24));
+    max-inline-size: 72ch;
+    padding-block-start: var(--space-8);
+    border-block-start: 1px solid var(--bp-line-strong);
+    scroll-margin-block-start: var(--space-8);
+  }
+
+  .hub-sheets-title {
+    margin: 0;
+    font-size: var(--text-xl);
+    color: var(--bp-ink);
+  }
+
+  .hub-sheets-lede {
+    margin-block: var(--space-2) 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
+  }
+
+  .hub-sheets-list {
+    display: grid;
+    gap: var(--space-2);
+    margin-block: var(--space-6) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hub-sheet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    align-items: baseline;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--bp-line-strong);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) var(--easing-standard),
+      background-color var(--duration-fast) var(--easing-standard);
+
+    @include can-hover {
+      &:hover {
+        border-color: var(--bp-accent);
+        background: var(--bp-accent-soft);
+      }
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .hub-sheet-no {
+    flex: 0 0 3.2rem;
+    font-family: var(--bp-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--bp-accent);
+  }
+
+  .hub-sheet-name {
+    flex: 0 0 8.5rem;
+    font-weight: 600;
+    color: var(--bp-ink);
+  }
+
+  .hub-sheet-desc {
+    flex: 1 1 24ch;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--bp-ink-2);
   }
 
   .hub-statement {

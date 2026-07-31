@@ -30,6 +30,13 @@
       </p>
       <TestingLayers />
       <p>
+        The slow human layer starts with a screen reader you already own.
+        If you have never heard a page read aloud,
+        <a href="/screen-reader.html">a screen reader's first fifteen
+        minutes</a> (sheet A·03) has the keystrokes that matter and a plan
+        for hearing your own page.
+      </p>
+      <p>
         One more layer costs nothing and isn't in the diagram: reader mode.
         It rebuilds the page from semantics alone — headings, lists, article
         structure — so a page that survives the trip probably has its bones

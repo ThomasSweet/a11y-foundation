@@ -26,6 +26,23 @@
       </a>
     </nav>
 
+    <nav id="reference-sheets" class="hub-sheets" aria-labelledby="hub-sheets-title">
+      <h2 id="hub-sheets-title" class="hub-sheets-title">Reference sheets</h2>
+      <p class="hub-sheets-lede">
+        The appendix to the four chapters — standalone pages for looking
+        things up and taking along.
+      </p>
+      <ul class="hub-sheets-list" role="list">
+        <li v-for="s in sheets" :key="s.href">
+          <a class="hub-sheet" :href="s.href">
+            <span class="hub-sheet-no">{{ s.no }}</span>
+            <span class="hub-sheet-name">{{ s.name }}</span>
+            <span class="hub-sheet-desc">{{ s.desc }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <template #footer-extra>
       <section class="hub-statement" aria-labelledby="a11y-statement">
         <h2 id="a11y-statement" class="hub-statement-title">Accessibility</h2>
@@ -128,6 +145,13 @@ const plates: Plate[] = [
   { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Meeting the bar with modern CSS and native HTML.', cta: 'Open the craft' },
   { no: '03', href: '/showcase.html', icon: 'next', title: 'CSS showcase', sub: 'Arriving next', desc: 'Modern CSS worth knowing, grouped by Baseline support.', cta: 'Open the showcase' },
   { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'How it holds up — a layered job, not a scanner.', cta: 'Open the proof' },
+]
+
+const sheets = [
+  { no: 'A·01', href: '/glossary.html', name: 'Glossary', desc: 'Short, honest definitions of the vocabulary the site leans on — every term linkable.' },
+  { no: 'A·02', href: '/agent-skill.html', name: 'Agent skill', desc: 'The whole argument, packaged so a coding agent can load it.' },
+  { no: 'A·03', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
+  { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },
 ]
 </script>
 
