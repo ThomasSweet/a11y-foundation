@@ -13,14 +13,34 @@
     <p class="audit-room-contract">
       The contract: every barrier lives inside the marked specimen, nothing
       outside it is broken, none of its links or buttons do anything real,
-      and the answers wait at the end.
-      <a href="#audit-room-answers">Skip past the broken page, straight to
+      and the answers wait at the end. The specimen is its own page —
+      deliberately outside this site's styles and safety nets, so what you
+      catch behaves the way it would in the wild. Below is only a
+      half-scale preview; the hunt happens at full scale in its own tab.
+      One warning: a barrier in there is a small badge that bounces and
+      ignores your reduced-motion preference. If that's harmful for you,
+      <a href="#audit-room-answers">skip past the broken page, straight to
       the answers.</a>
     </p>
 
     <section id="audit-specimen" class="audit-room-specimen" aria-label="The specimen: a deliberately broken page">
-      <p class="audit-room-specimen-tag">Specimen · deliberately broken · barriers 1–12</p>
-      <AuditSpecimen />
+      <p class="audit-room-specimen-tag">Specimen · deliberately broken · barriers 1–12 · preview at 1:2</p>
+      <a class="audit-room-preview" href="/audit-specimen.html" target="_blank" rel="noopener">
+        <iframe
+          class="audit-room-preview-frame"
+          src="/audit-specimen.html"
+          title="Preview of the specimen"
+          aria-hidden="true"
+          tabindex="-1"
+          inert
+          loading="lazy"
+        ></iframe>
+        <span class="audit-room-preview-open">Open the specimen at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
+      </a>
+      <p class="audit-room-specimen-open">
+        Full-page DevTools, your own Lighthouse run — the hunt happens at
+        full scale.
+      </p>
     </section>
 
     <p class="audit-room-end">
@@ -92,7 +112,6 @@
 
 <script setup lang="ts">
 import SiteFrame from '../SiteFrame/SiteFrame.vue'
-import AuditSpecimen from './AuditSpecimen.vue'
 
 interface Barrier {
   n: number
@@ -175,7 +194,7 @@ const barriers: Barrier[] = [
   {
     n: 8,
     hint: 'Tab into the signup form and watch your position vanish',
-    what: 'The form controls set outline: none (and this site had to fight its own protections to plant that). Keyboard users lose their place exactly where the page asks them to type.',
+    what: 'The form controls set outline: none, and inside its own little page there is no preferences layer to overrule it. Tab into the form and your position simply vanishes — exactly where the page asks you to type.',
     criterion: '2.4.7 Focus Visible',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html',
     caught: 'the Tab key; scanners stay silent',
@@ -202,10 +221,10 @@ const barriers: Barrier[] = [
   {
     n: 11,
     hint: 'something on this page never stops moving',
-    what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. If it is holding still for you, that is this site’s global animation kill stepping in front of it; the specimen itself never asked. Drop the same CSS into an ordinary page and it bounces at everyone, including the people who switched motion off.',
+    what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. Because the specimen is its own page, no site-wide kill rescues it either: set your OS preference or flip the Rendering-panel emulation and it keeps bouncing. That indifference is the barrier.',
     criterion: '2.3.3 Animation from Interactions',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
-    caught: 'the Styles pane — no media query wraps the animation; on a page without a global kill, the reduced-motion emulation (A·04) exposes it too',
+    caught: 'the reduced-motion emulation (A·04) — compliant motion stops, this doesn’t',
     fix: 'Wrap it in @media (prefers-reduced-motion: no-preference) — motion is the enhancement, stillness the default.',
   },
   {
@@ -272,6 +291,70 @@ const barriers: Barrier[] = [
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--bp-redline);
+  }
+
+  .audit-room-preview {
+    position: relative;
+    display: block;
+    block-size: 24rem;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: #fff;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: 0;
+      block-size: 7rem;
+      background: linear-gradient(transparent, #fff 80%);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: 2px;
+    }
+  }
+
+  .audit-room-preview-frame {
+    inline-size: 200%;
+    block-size: 48rem;
+    border: 0;
+    transform: scale(0.5);
+    transform-origin: top left;
+    pointer-events: none;
+  }
+
+  .audit-room-preview-open {
+    position: absolute;
+    inset-block-end: var(--space-4);
+    inset-inline-start: 50%;
+    translate: -50% 0;
+    z-index: 1;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--bp-line-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--bp-sheet);
+    font-family: var(--bp-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+    white-space: nowrap;
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .audit-room-preview:hover .audit-room-preview-open {
+    border-color: var(--bp-accent);
+  }
+
+  .audit-room-specimen-open {
+    margin: var(--space-3) 0 0;
+    font-size: var(--text-sm);
+    color: var(--bp-ink-2);
   }
 
   .audit-room-end {

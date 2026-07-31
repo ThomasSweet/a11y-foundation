@@ -13,22 +13,35 @@ bottom; open decisions marked ⚑ throughout.
 
 ## The one rule that shapes everything
 
-The barriers must be real (otherwise the tools the site taught wouldn't
-find them), but **the room must never injure the visitor it teaches**.
-Every barrier needs a "protected visitor" story:
+The barriers must be real — and since 2026-08 they are real all the way
+down: the specimen is **its own document** (`/audit-specimen.html`,
+noindex), embedded in an iframe, built without this site's styles,
+layers, or safety nets. Nothing can rescue it. That revision came from
+practising in the room: the site's global reduced-motion kill and
+preferences-layer focus ring were quietly repairing planted barriers,
+forcing a mental jump ("the site is protecting this") that practice
+should never require. A separate document is the only boundary CSS
+actually respects — `@layer` tricks can't stop universal selectors or
+inheritance.
 
-- The specimen is one clearly announced region with a skip link past it.
-  Nothing inside it is required to operate the room.
-- The animation barrier stays behind the site's global reduced-motion
-  kill: visitors who opted out are protected, and the answer tells them
-  so — everyone else sees it misbehave, and the Styles pane shows the
-  missing guard either way (the kill means the emulation alone can't
-  distinguish a guarded animation from a rescued one here).
-- Forced-colors users are protected from the contrast barrier by the
-  platform itself — which is its own little lesson, and the answer says
-  that too.
+What "never injure the visitor" means under full isolation:
+
+- The specimen is one clearly announced region with a skip link past
+  it. Nothing inside it is required to operate the room.
+- The room **warns instead of silently protecting**: the contract names
+  the unguarded motion (a small bouncing badge) before the frame, with
+  the skip route in the same sentence. Reduced-motion users get the
+  choice, not the harm by ambush.
+- Forced colors still reach into the frame — that preference is
+  user-level, not site-level, so it genuinely holds everywhere.
 - No keyboard traps, no audio, nothing timed. Traps need JS and JS
   barriers are out of lane; the answers name that boundary once.
+
+In the room itself the specimen appears only as an inert half-scale
+preview (an inset drawing at 1:2 — no nested scrolling, nothing to tab
+into by accident); the hunt happens at 1:1 in the specimen's own tab.
+Side benefit: the standalone URL takes a full-page Lighthouse run, so
+"a scanner finds two of twelve" is reproducible by any visitor.
 
 ## The fiction
 

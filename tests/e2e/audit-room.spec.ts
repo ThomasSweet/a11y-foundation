@@ -4,15 +4,11 @@ import AxeBuilder from '@axe-core/playwright'
 const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
 
 test('the specimen is exactly as broken as documented', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/audit-room.html', { waitUntil: 'networkidle' })
-  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await page.goto('/audit-specimen.html', { waitUntil: 'networkidle' })
+  await expect(page.locator('.specimen-listen')).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
 
-  const results = await new AxeBuilder({ page })
-    .withTags(tags)
-    .include('#audit-specimen')
-    .analyze()
+  const results = await new AxeBuilder({ page }).withTags(tags).analyze()
 
   expect(results.violations.map((v) => v.id).sort()).toEqual([
     'color-contrast',
