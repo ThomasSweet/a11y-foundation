@@ -4,8 +4,9 @@
  * accessible-by-default.dev actually shows.
  *
  * SKILL.md itself is hand-written (it holds the decisions); only the files
- * under skills/accessible-by-default/references/ are generated. Run after
- * changing either registry.
+ * under skills/accessible-by-default/references/ are generated. All four are
+ * mirrored to public/llms/ for the site's /llms.txt. Run after changing
+ * either registry.
  *
  * Only context-free fields are emitted. The registries' `summary`, `passText`
  * and `failText` are written for someone looking at a live demo ("use the
@@ -18,7 +19,7 @@
  *
  * Run:  npm run skill:gen
  */
-import { writeFileSync, mkdirSync } from 'node:fs'
+import { writeFileSync, mkdirSync, copyFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 
@@ -26,6 +27,7 @@ import { createServer } from 'vite'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const refs = resolve(root, 'skills/accessible-by-default/references')
+const llms = resolve(root, 'public/llms')
 
 const SITE = 'https://accessible-by-default.dev'
 
@@ -144,11 +146,15 @@ const snippetsDoc =
   '\n'
 
 mkdirSync(refs, { recursive: true })
+mkdirSync(llms, { recursive: true })
 for (const [name, doc, count] of [
   ['wcag-criteria.md', criteriaDoc, `${criteria.length} criteria`],
   ['modern-css.md', catalogDoc, `${showcases.length} features`],
   ['css-snippets.md', snippetsDoc, `${withCode.length} implementations`],
 ]) {
   writeFileSync(resolve(refs, name), doc)
+  writeFileSync(resolve(llms, name), doc)
   console.log(`✓ ${name} (${count})`)
 }
+copyFileSync(resolve(root, 'skills/accessible-by-default/SKILL.md'), resolve(llms, 'SKILL.md'))
+console.log('✓ public/llms/ mirror (4 files)')

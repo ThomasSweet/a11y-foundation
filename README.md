@@ -98,6 +98,9 @@ The reference files are generated from the same registries the site renders
 came from [Jakub Andrzejewski](https://x.com/jacobandrewsky), alongside Chrome's
 [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance).
 
+For agents that read rather than install, the same markdown is served at
+[accessible-by-default.dev/llms.txt](https://accessible-by-default.dev/llms.txt).
+
 ## Try it with your OS preferences
 
 The site responds live to OS settings — no reload needed:

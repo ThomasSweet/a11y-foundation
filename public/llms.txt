@@ -1,0 +1,51 @@
+# Accessible by default
+
+> How much of accessibility the modern web platform handles natively — with
+> little to no JavaScript. An interactive argument in four chapters: the
+> standard (WCAG on the timeline it grew on, each criterion with a working
+> break-this-rule demo), the craft (accessible-default decisions in modern
+> CSS and native HTML), a CSS showcase grouped by Baseline support, and the
+> proof (testing as a layered job). By Thomas Sweet.
+
+The pages are rendered HTML. The markdown under /llms/ is generated from the
+same registries that render the pages, so it cannot drift from the live demos.
+
+## Docs
+
+- [SKILL.md](https://accessible-by-default.dev/llms/SKILL.md): the decisions,
+  written for coding agents — what to reach for, what never to break, how to
+  guard a feature that is not Baseline yet, and the ways this usually goes wrong
+- [wcag-criteria.md](https://accessible-by-default.dev/llms/wcag-criteria.md):
+  the success criteria most often broken by hand-built components, each with
+  its requirement and who pays when it is missed
+- [modern-css.md](https://accessible-by-default.dev/llms/modern-css.md): every
+  showcased feature grouped by Baseline tier, with its @supports condition and
+  the accessibility problem it solves
+- [css-snippets.md](https://accessible-by-default.dev/llms/css-snippets.md):
+  the accessible implementation of each feature, dependency-free and
+  copy-paste ready
+
+## Pages
+
+- [The standard](https://accessible-by-default.dev/standard.html): WCAG on an
+  explorable timeline, with break-this-rule demos per criterion
+- [The craft](https://accessible-by-default.dev/craft.html): the
+  accessible-default decisions in modern CSS and native HTML
+- [CSS showcase](https://accessible-by-default.dev/showcase.html): modern CSS
+  grouped by Baseline support, written as progressive enhancement
+- [The proof](https://accessible-by-default.dev/proof.html): layered testing —
+  automation's limits, the accessibility tree, filing what you find
+- [Glossary](https://accessible-by-default.dev/glossary.html): short, honest
+  definitions of the vocabulary the site leans on
+- [Screen reader basics](https://accessible-by-default.dev/screen-reader.html):
+  the keystrokes that matter and a fifteen-minute plan for hearing a page
+- [DevTools for accessibility](https://accessible-by-default.dev/devtools.html):
+  the audit tooling built into the browser, and the three add-ons that add
+  something the panels can't
+
+## Optional
+
+- [GitHub repository](https://github.com/ThomasSweet/a11y-foundation): source
+  for everything above, including the installable agent skill
+- [Style guide](https://accessible-by-default.dev/styleguide.html): the design
+  tokens and components the site is drawn with

@@ -24,8 +24,6 @@ git history and the PRs, not here.
 - iOS zoom-in/zoom-out sometimes lands in a different section — needs the
   tester's video to reproduce; suspects: scroll anchoring vs sticky
   ghosts / scroll-driven timelines.
-- A public `/llms.txt` as the agent-skill follow-up — needs page-level
-  markdown the site doesn't emit yet.
 - Distribution (Anthony's push): get the project into curated lists —
   the accessibility side (brunopulis/awesome-a11y, The A11y Project's
   resources page, an A11y Weekly link suggestion) and the agent side,
@@ -159,6 +157,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** `/llms.txt` shipped: the skill's four markdown files (SKILL.md + the three generated references) are mirrored to `public/llms/` by gen-skill.mjs, and a hand-written index at `public/llms.txt` points agents at them plus the pages. The "needs page-level markdown" blocker had quietly dissolved — the skill already emitted it.
 
 - **2026-07** Reference sheet A·04, "DevTools for accessibility": the built-in inventory (accessibility pane, color-picker contrast, inspect tooltip, Rendering emulations, emulate-a-focused-page, live expressions with document.activeElement, Lighthouse-is-axe, Firefox's inspector) and the three add-ons that pass the "does something the panels can't" test (axe DevTools, Accessibility Insights, WAVE). The thesis transposed to tooling: built in, not bolted on. Idea from a conversation about extensions rebuilding native features.
 
