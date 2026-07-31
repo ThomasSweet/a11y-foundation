@@ -1,0 +1,12 @@
+/* Skip the rendering work for off-screen sections — a long page
+   paints fast with no virtual-scrolling JS, and nothing is taken
+   from anyone: skipped content stays findable and announceable. */
+@supports (content-visibility: auto) {
+  .long-read section {
+    content-visibility: auto;
+
+    /* Estimated size for skipped sections, so the scrollbar
+       doesn't lie while they're unrendered. */
+    contain-intrinsic-block-size: auto 12rem;
+  }
+}

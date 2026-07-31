@@ -43,6 +43,7 @@ const SHOWCASE_FEATURES = {
   'css-zoom': 'zoom',
   'customizable-select': 'customizable-select',
   'scroll-state': 'container-scroll-state-queries',
+  'content-visibility': 'content-visibility',
   'css-carousel': 'scroll-markers',
   'custom-highlight': 'highlight',
   'dialog-polish': 'dialog-closedby',

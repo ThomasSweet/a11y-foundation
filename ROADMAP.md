@@ -59,21 +59,11 @@ rather than half-covered.
 **POUR, honestly scored.** Perceivable: strong (contrast engine, theming,
 forced colors, reduced motion/transparency) — missing 1.4.12 and 1.4.13.
 Operable: strong (targets, focus appearance, bypass, and 2.4.11's sticky-bar
-break-it already exists). Understandable: thinnest — 3.3.7 and 3.2.6 stand
-almost alone; 1.3.5, 3.1.1/3.1.2 are absent or unnamed. Robust: the site
+break-it already exists). Understandable: was thinnest — 3.3.7, 3.2.6, and
+now 1.3.5 cover it; 3.1.1/3.1.2 remain absent or unnamed. Robust: the site
 *is* the demo (landmarks, headings, native elements) but never teaches the
 hiding-technique decisions every dev gets wrong; status messages (4.1.3)
 are JS and should be named as out of lane, not skipped silently.
-
-Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
-
-- **Input purpose (1.3.5)** — a checkout form where `autocomplete`
-  tokens let the browser fill name/address/email; break-it removes the
-  tokens and autofill goes blind. Pure HTML; the `forms` tag exists and
-  is underfed. Could live on the timeline as a break-it criterion instead.
-- **content-visibility** — performance as accessibility, with the nuance
-  that (unlike `display:none`) skipped content stays findable and
-  announceable; find-in-page proves it live. Showcase candidate.
 
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
@@ -157,6 +147,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Wave 10: 1.3.5 Identify Input Purpose joined the timeline as break-it criterion eleven (token-less twin form — CSS can't remove attributes, so the break swaps twins; captions honest about depending on the visitor's saved autofill), and `content-visibility` became showcase 33 (find-in-page as the interactive proof: "cardamom" findable inside a skipped section, "saffron" invisible in a display:none appendix). Understandable is no longer the thinnest principle.
 
 - **2026-07** `/llms.txt` shipped: the skill's four markdown files (SKILL.md + the three generated references) are mirrored to `public/llms/` by gen-skill.mjs, and a hand-written index at `public/llms.txt` points agents at them plus the pages. The "needs page-level markdown" blocker had quietly dissolved — the skill already emitted it.
 

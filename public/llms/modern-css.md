@@ -198,6 +198,19 @@ Responsive, keyword-based clip paths (lines, arcs, curves) that can use percenta
 
 - [MDN: shape()](https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/shape)
 
+### content-visibility
+
+content-visibility: auto lets the browser skip rendering sections until they approach the viewport, so long pages paint fast with no virtual-scrolling JS.
+
+**Accessibility payoff:** Fast first paint without hiding anything from anyone: skipped sections stay findable and announceable — and a lighter main thread is assistive-tech responsiveness, because the accessibility tree is walked on that same thread.
+
+**Guard:** `@supports (content-visibility: auto)`
+
+**Topics:** scroll, layout
+
+- [MDN: content-visibility](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility)
+- [web.dev: content-visibility](https://web.dev/articles/content-visibility)
+
 ### @starting-style
 
 Animate an element in from display:none — entry transitions with no JS — and out via transition-behavior: allow-discrete.
