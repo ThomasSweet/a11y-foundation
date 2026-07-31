@@ -51,6 +51,7 @@ export default defineConfig({
         agentSkill: fileURLToPath(new URL('./agent-skill.html', import.meta.url)),
         screenReader: fileURLToPath(new URL('./screen-reader.html', import.meta.url)),
         devtools: fileURLToPath(new URL('./devtools.html', import.meta.url)),
+        auditRoom: fileURLToPath(new URL('./audit-room.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         privacy: fileURLToPath(new URL('./privacy.html', import.meta.url)),
         styleguide: fileURLToPath(new URL('./styleguide.html', import.meta.url)),
