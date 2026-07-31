@@ -311,6 +311,19 @@
       "safari": null
     }
   },
+  "content-visibility": {
+    "feature": "content-visibility",
+    "name": "content-visibility",
+    "baseline": "low",
+    "lowDate": "2025-09-15",
+    "highDate": null,
+    "support": {
+      "chrome": "108",
+      "edge": "108",
+      "firefox": "130",
+      "safari": "26"
+    }
+  },
   "css-carousel": {
     "feature": "scroll-markers",
     "name": "Scroll markers",

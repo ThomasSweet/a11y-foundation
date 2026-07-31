@@ -552,6 +552,37 @@ check its tier in `modern-css.md` first.
 }
 ```
 
+## content-visibility
+
+**Guard:** `@supports (content-visibility: auto)`
+
+```html
+<article class="long-read">
+  <section>
+    <h2>Chapter one</h2>
+    <p>Painted only when it approaches the viewport…</p>
+  </section>
+  <!-- …dozens more sections. Skipped, not hidden: still searchable
+       with find-in-page, still in the tab order, still in the
+       accessibility tree. display:none would take away all three. -->
+</article>
+```
+
+```css
+/* Skip the rendering work for off-screen sections — a long page
+   paints fast with no virtual-scrolling JS, and nothing is taken
+   from anyone: skipped content stays findable and announceable. */
+@supports (content-visibility: auto) {
+  .long-read section {
+    content-visibility: auto;
+
+    /* Estimated size for skipped sections, so the scrollbar
+       doesn't lie while they're unrendered. */
+    contain-intrinsic-block-size: auto 12rem;
+  }
+}
+```
+
 ## Rounded polygon()
 
 **Guard:** `@supports (clip-path: polygon(round 8px, 0 0, 100% 0, 50% 100%))`

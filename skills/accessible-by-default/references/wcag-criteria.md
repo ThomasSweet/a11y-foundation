@@ -70,6 +70,15 @@ Content does not lock to a single display orientation — portrait or landscape 
 
 - [WCAG: Understanding 1.3.4](https://www.w3.org/WAI/WCAG22/Understanding/orientation.html)
 
+## 1.3.5 Identify Input Purpose
+
+**Level AA · WCAG 2.1 · Understandable**
+
+Fields that collect information about the user — name, email, address — expose their purpose programmatically, in practice through autocomplete tokens. Added in WCAG 2.1 (2018): it turns autofill from a guess into a guarantee, for people for whom every keystroke is expensive and every transcription is a chance to get it wrong.
+
+- [WCAG: Understanding 1.3.5](https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html)
+- [MDN: autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+
 ## 3.3.7 Redundant Entry
 
 **Level A · WCAG 2.2 · Understandable**

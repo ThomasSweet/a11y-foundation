@@ -20,6 +20,7 @@ import FocusObscuredDemo from './demos/FocusObscuredDemo.vue'
 import FocusAppearanceDemo from './demos/FocusAppearanceDemo.vue'
 import AnimationDemo from './demos/AnimationDemo.vue'
 import OrientationDemo from './demos/OrientationDemo.vue'
+import InputPurposeDemo from './demos/InputPurposeDemo.vue'
 import RedundantEntryDemo from './demos/RedundantEntryDemo.vue'
 import ConsistentHelpDemo from './demos/ConsistentHelpDemo.vue'
 import type { Component } from 'vue'
@@ -259,6 +260,42 @@ export const criteria: Criterion[] = [
       },
     ],
     component: OrientationDemo,
+  },
+  {
+    id: '1.3.5',
+    name: 'Identify Input Purpose',
+    level: 'AA',
+    version: 'WCAG 2.1',
+    principle: 'Understandable',
+    requirement:
+      'Fields that collect information about the user — name, email, ' +
+      'address — expose their purpose programmatically, in practice through ' +
+      'autocomplete tokens. Added in WCAG 2.1 (2018): it turns autofill ' +
+      'from a guess into a guarantee, for people for whom every keystroke ' +
+      'is expensive and every transcription is a chance to get it wrong.',
+    breakLabel: 'Break this rule',
+    restoreLabel: 'Restore compliance',
+    passText:
+      'Meets 1.3.5 — every field names its purpose with an autocomplete ' +
+      'token (name, email, street-address). The browser can fill them with ' +
+      'certainty, and tools that overlay familiar icons on fields have ' +
+      'something to read. This site’s own demo forms carry the same tokens.',
+    failText:
+      '⚠ Failing 1.3.5 — the tokens are gone. The fields look identical, ' +
+      'but their purpose is no longer machine-readable: autofill falls ' +
+      'back to guessing from labels (and often guesses nothing), and ' +
+      'assistive tooling has nothing to build on.',
+    links: [
+      {
+        label: 'WCAG: Understanding 1.3.5',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html',
+      },
+      {
+        label: 'MDN: autocomplete',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete',
+      },
+    ],
+    component: InputPurposeDemo,
   },
   {
     id: '3.3.7',

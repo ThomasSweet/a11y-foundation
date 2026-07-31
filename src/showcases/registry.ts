@@ -33,6 +33,7 @@ import SlidingIndicatorDemo from './demos/SlidingIndicatorDemo/SlidingIndicatorD
 import StyleQueryCuesDemo from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.vue'
 import ShapeDemo from './demos/ShapeDemo/ShapeDemo.vue'
 import RoundedClipDemo from './demos/RoundedClipDemo/RoundedClipDemo.vue'
+import ContentVisibilityDemo from './demos/ContentVisibilityDemo/ContentVisibilityDemo.vue'
 import StartingStyleDemo from './demos/StartingStyleDemo/StartingStyleDemo.vue'
 import AttrDemo from './demos/AttrDemo/AttrDemo.vue'
 import ScrollSnapDemo from './demos/ScrollSnapDemo/ScrollSnapDemo.vue'
@@ -80,6 +81,8 @@ import styleQuerySnippetCss from './demos/StyleQueryCuesDemo/StyleQueryCuesDemo.
 import shapeSnippetCss from './demos/ShapeDemo/ShapeDemo.snippet.css?raw'
 import roundedClipSnippetHtml from './demos/RoundedClipDemo/RoundedClipDemo.snippet.html?raw'
 import roundedClipSnippetCss from './demos/RoundedClipDemo/RoundedClipDemo.snippet.css?raw'
+import contentVisibilitySnippetHtml from './demos/ContentVisibilityDemo/ContentVisibilityDemo.snippet.html?raw'
+import contentVisibilitySnippetCss from './demos/ContentVisibilityDemo/ContentVisibilityDemo.snippet.css?raw'
 import startingStyleSnippetCss from './demos/StartingStyleDemo/StartingStyleDemo.snippet.css?raw'
 import attrSnippetHtml from './demos/AttrDemo/AttrDemo.snippet.html?raw'
 import attrSnippetCss from './demos/AttrDemo/AttrDemo.snippet.css?raw'
@@ -566,6 +569,37 @@ const entries: Omit<Showcase, 'tier'>[] = [
     tags: ['layout'],
     component: ShapeDemo,
     snippetCss: shapeSnippetCss,
+  },
+  {
+    id: 'content-visibility',
+    title: 'content-visibility',
+    supports: 'content-visibility: auto',
+    summary:
+      'content-visibility: auto lets the browser skip rendering sections ' +
+      'until they approach the viewport, so long pages paint fast with no ' +
+      'virtual-scrolling JS. The accessibility story is what skipping ' +
+      'keeps: unlike display:none, skipped content stays in find-in-page, ' +
+      'the tab order, and the accessibility tree. Prove it with your own ' +
+      'browser — search the pane for “cardamom” and the browser finds it ' +
+      'inside a section it never rendered; search “saffron” and the ' +
+      'display:none appendix stays invisible. contain-intrinsic-block-size ' +
+      'keeps the scrollbar honest while sections are skipped.',
+    links: [
+      {
+        label: 'MDN: content-visibility',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility',
+      },
+      {
+        label: 'web.dev: content-visibility',
+        href: 'https://web.dev/articles/content-visibility',
+      },
+    ],
+    payoff:
+      'Fast first paint without hiding anything from anyone: skipped sections stay findable and announceable — and a lighter main thread is assistive-tech responsiveness, because the accessibility tree is walked on that same thread.',
+    tags: ['scroll', 'layout'],
+    component: ContentVisibilityDemo,
+    snippetHtml: contentVisibilitySnippetHtml,
+    snippetCss: contentVisibilitySnippetCss,
   },
   {
     id: 'polygon-round',
