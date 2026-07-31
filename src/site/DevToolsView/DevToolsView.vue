@@ -28,7 +28,7 @@
       <p class="devtools-p">
         The first row is the pane
         <a href="/proof.html#testing-tree">the proof chapter walks through</a> —
-        the four specimens there make a good first target for it. And the
+        the four examples there make a good first target for it. And the
         Rendering emulations are this site's own test rig: flip
         <GlossaryRef id="forced-colors">forced colors</GlossaryRef> or
         reduced motion right here and watch the page hold.

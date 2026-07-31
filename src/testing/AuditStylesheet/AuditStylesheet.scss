@@ -33,7 +33,7 @@
     color: var(--color-text-subtle);
   }
 
-  .audit-css-specimen {
+  .audit-css-example {
     display: grid;
     gap: var(--space-4);
     align-items: start;
@@ -104,7 +104,7 @@
     font-weight: 600;
   }
 
-  .audit-css:has(.audit-css-toggle-input:checked) .audit-css-specimen {
+  .audit-css:has(.audit-css-toggle-input:checked) .audit-css-example {
     img:not([alt]),
     button:empty,
     input:not(label input, [aria-label], [aria-labelledby]),

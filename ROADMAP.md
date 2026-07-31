@@ -155,11 +155,11 @@ One line per item, newest first; details in git history / PRs.
 
 - **2026-07** Proof gained "Filing what you find" (first titled with "triage" — renamed for plain words): severity as user impact (blocked? how often? workaround?) instead of conformance level, one barrier per ticket, and a copyable bug template filled in for a fictional checkout — barrier headline, AT+browser pair, criterion once as reference, suspected fix as the swap.
 
-- **2026-07** Proof gained "Reading the accessibility tree": four live specimens (styled div vs native button vs `<label>` vs `aria-label`) with role/name/source readouts, DevTools directions per browser, and the name-computation precedence; new glossary term "Accessibility tree". The demo's captions invite verification in DevTools instead of asking to be believed.
+- **2026-07** Proof gained "Reading the accessibility tree": four live examples (styled div vs native button vs `<label>` vs `aria-label`) with role/name/source readouts, DevTools directions per browser, and the name-computation precedence; new glossary term "Accessibility tree". The demo's captions invite verification in DevTools instead of asking to be believed.
 
 - **2026-07** Reference sheet A·03, "A screen reader's first fifteen minutes": VoiceOver/NVDA/phone keystroke cards, the fifteen-minute plan, and a "what this doesn't prove" close; linked from the title block on every page and from proof's human layer.
 
-- **2026-07** Craft wave: the hiding matrix (four techniques × visible/tree/tab-order, live inert specimen, the aria-hidden + `tabindex="-1"` pairing shown) and the 1.4.12 text-spacing stress test (toggle applies the reader's override values; the fixed-height card clips, the flexible one breathes). Craft is at twelve sections; rail scope extended to match.
+- **2026-07** Craft wave: the hiding matrix (four techniques × visible/tree/tab-order, live inert example, the aria-hidden + `tabindex="-1"` pairing shown) and the 1.4.12 text-spacing stress test (toggle applies the reader's override values; the fixed-height card clips, the flexible one breathes). Craft is at twelve sections; rail scope extended to match.
 
 - **2026-07** Quick-wins content sweep: truncation craft demo (a clamped `<details>` preview via `::details-content` — the clamp IS the disclosure), "the scrollbar you leave alone" demo (`scrollbar-gutter: stable` + keyboard-reachable regions), the `display: contents` subgrid gotcha pair, reference links on all ten craft demos, WebAIM Survey 10 numbers + reader-mode smoke test in proof, and a "Where this argument stops" scope section pointing at the ARIA APG.
 
@@ -199,7 +199,7 @@ One line per item, newest first; details in git history / PRs.
 - **2026-07** LegalMap: ADA Title II corrected to the 2027–2028 phase-in (community catch, applied to both designs).
 - **2026-07** Wave 7: showcase grouping derived from Baseline data — three tiers in Baseline's own vocabulary (widely / newly / limited availability), computed at build time; hand-maintained `status` field removed.
 - **2026-07** Wave 6: pure-CSS carousel showcase — `::scroll-button` (anchor-positioned) + `::scroll-marker` dots with slash-alt accessible names; honest SR caveats; plain snap scroller everywhere else.
-- **2026-07** Wave 5: proof pillar pass — "CSS that audits" diagnostic-stylesheet demo (inert specimen), "performance is accessibility" prose, responsive-reveal card on @starting-style (with the reduced-motion guard the viral snippet skips).
+- **2026-07** Wave 5: proof pillar pass — "CSS that audits" diagnostic-stylesheet demo (inert example), "performance is accessibility" prose, responsive-reveal card on @starting-style (with the reduced-motion guard the viral snippet skips).
 - **2026-07** Wave 4: "Break it with content" craft block — one card vs. long titles, German compounds (hyphens + lang), Arabic RTL (:dir(), logical properties).
 - **2026-07** Toolbar glyphs replaced with inline SVGs (font-metric-proof centering).
 - **2026-07** Wave 3: high-contrast presets via engine `--mix-*` contrast knob; theming split into engine + presets files.

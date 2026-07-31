@@ -7,12 +7,12 @@
 
     <div class="audit-css-frame">
       <p class="audit-css-frame-label">
-        Specimen — four planted defects, two healthy controls. Behind glass
+        Broken on purpose — four planted defects, two healthy controls. Behind glass
         (<code>inert</code> and hidden from assistive tech): even broken
         examples must never harm a real visitor.
       </p>
 
-      <div class="audit-css-specimen" inert aria-hidden="true">
+      <div class="audit-css-example" inert aria-hidden="true">
         <img class="audit-css-image" src="/favicon.svg" width="48" height="48" />
         <img class="audit-css-image" src="/favicon.svg" width="48" height="48" alt="Site logo" />
         <div class="audit-css-field">

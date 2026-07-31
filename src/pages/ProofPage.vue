@@ -66,7 +66,7 @@
         Elements panel and open the <strong>Accessibility</strong> pane; in
         Firefox it's the Accessibility tab in the inspector; Safari shows the
         same under the Node sidebar in Web Inspector. Try it on the four
-        specimens below — none of the captions ask to be believed. Select the
+        examples below — none of the captions ask to be believed. Select the
         element and read what the browser actually computed. The pane is one
         of eight built-in tools — <a href="/devtools.html">the DevTools
         sheet</a> inventories the rest.

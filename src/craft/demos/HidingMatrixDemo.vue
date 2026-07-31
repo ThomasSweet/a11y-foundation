@@ -2,7 +2,7 @@
   <div class="hiding-demo">
     <article class="hiding-card" aria-labelledby="hiding-display-none">
       <p id="hiding-display-none" class="hiding-card-label">display: none</p>
-      <div class="hiding-specimen">
+      <div class="hiding-example">
         <div class="hiding-gone">
           <p>This paragraph and its button render nowhere.</p>
           <button type="button" class="hiding-control">Example control</button>
@@ -18,7 +18,7 @@
 
     <article class="hiding-card" aria-labelledby="hiding-visually-hidden">
       <p id="hiding-visually-hidden" class="hiding-card-label">.visually-hidden</p>
-      <div class="hiding-specimen">
+      <div class="hiding-example">
         <p class="visually-hidden">
           A screen reader reads this sentence even though the box looks empty.
         </p>
@@ -37,7 +37,7 @@
 
     <article class="hiding-card" aria-labelledby="hiding-aria-hidden">
       <p id="hiding-aria-hidden" class="hiding-card-label">aria-hidden="true"</p>
-      <div class="hiding-specimen" aria-hidden="true">
+      <div class="hiding-example" aria-hidden="true">
         <p>Fully visible, and a screen reader will never mention it.</p>
         <button type="button" class="hiding-control" tabindex="-1">Example control</button>
       </div>
@@ -55,7 +55,7 @@
 
     <article class="hiding-card" aria-labelledby="hiding-inert">
       <p id="hiding-inert" class="hiding-card-label">inert</p>
-      <div class="hiding-specimen hiding-specimen-inert" inert>
+      <div class="hiding-example hiding-example-inert" inert>
         <p>Visible but switched off — try clicking or tabbing to the button.</p>
         <button type="button" class="hiding-control">Example control</button>
       </div>
@@ -98,7 +98,7 @@
     color: var(--color-text-subtle);
   }
 
-  .hiding-specimen {
+  .hiding-example {
     display: grid;
     gap: var(--space-2);
     justify-items: start;
@@ -113,7 +113,7 @@
     }
   }
 
-  .hiding-specimen-inert {
+  .hiding-example-inert {
     opacity: 0.55;
   }
 
