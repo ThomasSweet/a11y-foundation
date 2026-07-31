@@ -31,6 +31,14 @@ export const glossaryTerms: GlossaryEntry[] = [
       'first rule of ARIA: prefer native HTML, which needs none.',
   },
   {
+    id: 'accessibility-tree',
+    term: 'Accessibility tree',
+    def:
+      'The browser’s distilled version of the page that assistive technology ' +
+      'actually reads: for every element that matters, a role, a name, and ' +
+      'its current state. DevTools can show it to you.',
+  },
+  {
     id: 'assistive-technology',
     term: 'Assistive technology (AT)',
     def:

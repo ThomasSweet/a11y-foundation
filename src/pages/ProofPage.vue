@@ -45,6 +45,46 @@
       </p>
     </ChapterSection>
 
+    <ChapterSection
+      id="testing-tree"
+      title="Reading the accessibility tree"
+      rail-label="The accessibility tree"
+    >
+      <p>
+        A screen reader doesn't read your HTML, and it doesn't see your
+        pixels. The browser distils every element into a parallel structure —
+        the <GlossaryRef id="accessibility-tree">accessibility
+        tree</GlossaryRef> — and that is what gets spoken: for each node a
+        role (what is this?), a name (what is it called?), and, for controls,
+        a value or state (what is it right now?). WCAG 4.1.2 is literally
+        titled <em>Name, Role, Value</em>; it asks that this tree end up
+        complete. What you hear in a screen reader's first fifteen minutes
+        is this tree, read aloud.
+      </p>
+      <p>
+        You can read it directly. In Chrome or Edge, select an element in the
+        Elements panel and open the <strong>Accessibility</strong> pane; in
+        Firefox it's the Accessibility tab in the inspector; Safari shows the
+        same under the Node sidebar in Web Inspector. Try it on the four
+        specimens below — none of the captions ask to be believed. Select the
+        element and read what the browser actually computed.
+      </p>
+      <AccessibilityTree />
+      <p>
+        When several naming mechanisms collide, the
+        <a href="https://www.w3.org/TR/accname-1.2/">name computation</a>
+        settles it in strict order: <code>aria-labelledby</code> beats
+        <code>aria-label</code>, which beats the native sources — the
+        <code>&lt;label&gt;</code>, an image's <code>alt</code>, the
+        element's own content — with <code>title</code> as a last resort.
+        The practical rule hiding in that order: prefer the native source,
+        because it stays visible, translated, and true; and when you must
+        layer ARIA on top, start with the visible words. The tree is the
+        contract between your markup and every assistive technology — the
+        rest of this chapter is ways of checking the contract held.
+      </p>
+    </ChapterSection>
+
     <ChapterSection id="testing-coverage" title="What automation can and can't see">
       <p>
         This is the part that's rarely spelled out. An automated pass like
@@ -114,6 +154,7 @@ import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
 import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import TestingLayers from '../testing/TestingLayers/TestingLayers.vue'
+import AccessibilityTree from '../testing/AccessibilityTree/AccessibilityTree.vue'
 import AuditStylesheet from '../testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from '../testing/CoverageMatrix/CoverageMatrix.vue'
 </script>

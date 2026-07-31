@@ -80,8 +80,6 @@ Craft-chapter candidates (pure CSS/HTML, each with the interactive hook):
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
 
-- **Reading the accessibility tree** — DevTools walkthrough: name, role,
-  value for the working dev; where the computed name actually comes from.
 - **Triage that survives a sprint** — severity as user-impact (task
   blocked? how often? any workaround?), not WCAG level; plus the bug
   template that names the barrier, the AT, the criterion, and the fix.
@@ -165,6 +163,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-07** Proof gained "Reading the accessibility tree": four live specimens (styled div vs native button vs `<label>` vs `aria-label`) with role/name/source readouts, DevTools directions per browser, and the name-computation precedence; new glossary term "Accessibility tree". The demo's captions invite verification in DevTools instead of asking to be believed.
 
 - **2026-07** Reference sheet A·03, "A screen reader's first fifteen minutes": VoiceOver/NVDA/phone keystroke cards, the fifteen-minute plan, and a "what this doesn't prove" close; linked from the title block on every page and from proof's human layer.
 
