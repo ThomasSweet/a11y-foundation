@@ -26,6 +26,22 @@
       </a>
     </nav>
 
+    <nav id="practice" class="hub-sheets" aria-labelledby="hub-practice-title">
+      <h2 id="hub-practice-title" class="hub-sheets-title">Practice</h2>
+      <p class="hub-sheets-lede">
+        Where the tools the chapters taught get used in anger.
+      </p>
+      <ul class="hub-sheets-list" role="list">
+        <li>
+          <a class="hub-sheet" href="/audit-room.html">
+            <span class="hub-sheet-no">P·01</span>
+            <span class="hub-sheet-name">Audit room</span>
+            <span class="hub-sheet-desc">A page broken on purpose: twelve barriers, your tools, answers included.</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <nav id="reference-sheets" class="hub-sheets" aria-labelledby="hub-sheets-title">
       <h2 id="hub-sheets-title" class="hub-sheets-title">Reference sheets</h2>
       <p class="hub-sheets-lede">

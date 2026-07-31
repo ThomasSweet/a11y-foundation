@@ -68,11 +68,8 @@ are JS and should be named as out of lane, not skipped silently.
 Proof-chapter candidates (the premise says "audit effectively and
 efficiently" — the chapter argues the model, these teach the practice):
 
-- **The audit room (capstone, big)** — an inert specimen page seeded
-  with a known number of barriers; visitors hunt them, hints and answers
-  behind `<details>`. Break-it scaled from one rule to a whole page; the
-  AuditStylesheet demo already proved the inert-specimen pattern. The
-  most "masterclass" idea here — also the most work; scope it standalone.
+- **The audit room** — BUILT 2026-08-01 (see Done); the scope that
+  drove it stays in [docs/audit-room-scope.md](docs/audit-room-scope.md).
 Structure: nothing above needs a fifth pillar. Understandable items feed
 the timeline, the hiding/stress work feeds craft, audit practice feeds
 proof, and cheat-sheet material extends the title-block reference sheets
@@ -147,6 +144,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-08** The audit room (P·01, the practice capstone): a fictional Fitis EP release page with twelve planted barriers inside a red-dashed specimen frame, hint-then-answer via nested `<details>`, and the inverted spec pinning axe to exactly two findings (`image-alt`, `color-contrast`) — label-in-name turned out to be experimental-off in axe, so "two of twelve" became the coverage lesson. Hub gained the "Practice" section; proof's pager now ends there; the room hands off to the reference sheets.
 
 - **2026-07** Wave 10: 1.3.5 Identify Input Purpose joined the timeline as break-it criterion eleven (token-less twin form — CSS can't remove attributes, so the break swaps twins; captions honest about depending on the visitor's saved autofill), and `content-visibility` became showcase 33 (find-in-page as the interactive proof: "cardamom" findable inside a skipped section, "saffron" invisible in a display:none appendix). Understandable is no longer the thinnest principle.
 

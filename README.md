@@ -71,6 +71,9 @@ Every feature the site teaches is doing real work *in* the site — each behind
 - **A CSS showcase catalog** — 33 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
+- **The audit room** — a page broken on purpose: twelve planted barriers to
+  hunt with the tools the site teaches, answers behind `<details>`, and a
+  test suite that asserts the page stays exactly that broken.
 - **Preference & interaction mixins** — `reduced-motion()`, `forced-colors()`,
   `high-contrast()`, `can-hover()`, `touch-primary()` and friends —
   enhancement only, never gating.

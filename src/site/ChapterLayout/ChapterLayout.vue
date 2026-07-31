@@ -76,9 +76,9 @@
           <span class="chapter-nav-k">Next →</span>
           <span class="chapter-nav-t">{{ next.no }} · {{ next.title }}</span>
         </a>
-        <a v-else class="chapter-nav chapter-nav-next" href="/#reference-sheets">
+        <a v-else class="chapter-nav chapter-nav-next" href="/audit-room.html">
           <span class="chapter-nav-k">Next →</span>
-          <span class="chapter-nav-t">A · Reference sheets</span>
+          <span class="chapter-nav-t">P·01 · The audit room</span>
         </a>
       </nav>
     </template>

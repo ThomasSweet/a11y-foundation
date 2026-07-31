@@ -42,6 +42,9 @@ same registries that render the pages, so it cannot drift from the live demos.
 - [DevTools for accessibility](https://accessible-by-default.dev/devtools.html):
   the audit tooling built into the browser, and the three add-ons that add
   something the panels can't
+- [The audit room](https://accessible-by-default.dev/audit-room.html): a page
+  broken on purpose — twelve barriers to find with the tools above, answers
+  included
 
 ## Optional
 
