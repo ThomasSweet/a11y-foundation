@@ -145,7 +145,7 @@ at the ARIA APG.
 
 One line per item, newest first; details in git history / PRs.
 
-- **2026-08** The audit room (P·01, the practice capstone): a fictional Fitis EP release page with twelve planted barriers inside a red-dashed specimen frame, hint-then-answer via nested `<details>`, and the inverted spec pinning axe to exactly two findings (`image-alt`, `color-contrast`) — label-in-name turned out to be experimental-off in axe, so "two of twelve" became the coverage lesson. Hub gained the "Practice" section; proof's pager now ends there; the room hands off to the reference sheets.
+- **2026-08** The audit room (P·01, the practice capstone): a fictional Fitis EP release page with twelve planted barriers on a standalone broken page (`/broken-page.html`, previewed inert at 1:2 in a red-dashed frame), hint-then-answer via nested `<details>`, and the inverted spec pinning axe to exactly two findings (`image-alt`, `color-contrast`) — label-in-name turned out to be experimental-off in axe, so "two of twelve" became the coverage lesson. Hub gained the "Practice" section; proof's pager now ends there; the room hands off to the reference sheets.
 
 - **2026-07** Wave 10: 1.3.5 Identify Input Purpose joined the timeline as break-it criterion eleven (token-less twin form — CSS can't remove attributes, so the break swaps twins; captions honest about depending on the visitor's saved autofill), and `content-visibility` became showcase 33 (find-in-page as the interactive proof: "cardamom" findable inside a skipped section, "saffron" invisible in a display:none appendix). Understandable is no longer the thinnest principle.
 

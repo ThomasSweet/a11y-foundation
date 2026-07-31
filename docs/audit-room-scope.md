@@ -14,7 +14,7 @@ bottom; open decisions marked ⚑ throughout.
 ## The one rule that shapes everything
 
 The barriers must be real — and since 2026-08 they are real all the way
-down: the specimen is **its own document** (`/audit-specimen.html`,
+down: the broken page is **its own document** (`/broken-page.html`,
 noindex), embedded in an iframe, built without this site's styles,
 layers, or safety nets. Nothing can rescue it. That revision came from
 practising in the room: the site's global reduced-motion kill and
@@ -26,7 +26,7 @@ inheritance.
 
 What "never injure the visitor" means under full isolation:
 
-- The specimen is one clearly announced region with a skip link past
+- The broken page is one clearly announced region with a skip link past
   it. Nothing inside it is required to operate the room.
 - The room **warns instead of silently protecting**: the contract names
   the unguarded motion (a small bouncing badge) before the frame, with
@@ -37,9 +37,9 @@ What "never injure the visitor" means under full isolation:
 - No keyboard traps, no audio, nothing timed. Traps need JS and JS
   barriers are out of lane; the answers name that boundary once.
 
-In the room itself the specimen appears only as an inert half-scale
+In the room itself the broken page appears only as an inert half-scale
 preview (an inset drawing at 1:2 — no nested scrolling, nothing to tab
-into by accident); the hunt happens at 1:1 in the specimen's own tab.
+into by accident); the hunt happens at 1:1 in the broken page's own tab.
 Side benefit: the standalone URL takes a full-page Lighthouse run, so
 "a scanner finds two of twelve" is reproducible by any visitor.
 
@@ -54,9 +54,9 @@ barrier slot has a natural host here, and the fiction is personally
 mine — which fits a site whose title block says who drew it.
 
 Guardrails: it's a release page, not a shop (nothing pretends to
-sell); every link inside the specimen is a stub, per the room
+sell); every link inside the broken page is a stub, per the room
 contract; and the one real link — fitis-band.de — lives outside the
-specimen, in the room's outro, so the planted brokenness never
+broken page, in the room's outro, so the planted brokenness never
 touches the actual band. Corollary: visitors will follow that link
 with freshly sharpened tools, so the real site gets its own audit
 pass before the room ships.
@@ -64,18 +64,18 @@ pass before the room ships.
 Alternatives considered: a bakery order page (the site's usual demo
 flavor), a meetup landing page. Both work; neither is mine.
 
-The specimen wears its own deliberately generic styling — not the
+The broken page wears its own deliberately generic styling — not the
 blueprint system — and sits framed on the drafting sheet like an
 artifact pinned for review. The visual seam between room chrome
-(compliant, blueprint) and specimen (broken, ordinary) is the framing
+(compliant, blueprint) and broken page (broken, ordinary) is the framing
 device and the accessibility boundary at once.
 
 ## The barrier list (draft twelve)
 
 Chosen to spread across POUR, to need different layers to catch (the
 coverage lesson, felt), and to be pure HTML/CSS. The split matters:
-**a scanner should find roughly a third** — run axe on the room and it
-finds four; there are twelve. That number pair is the poster.
+**a scanner finds two; there are twelve.** That number pair is the
+poster (the measured note below the table is the ground truth).
 
 | # | Barrier | Criterion | Caught by |
 |---|---------|-----------|-----------|
@@ -109,8 +109,8 @@ invisible, weak for a mixed audience; candidate for a future round).
 Paper-simple, native elements only:
 
 1. **Intro** states the contract: twelve barriers, all inside the
-   marked specimen, nothing outside it is broken, answers below.
-2. **The specimen.**
+   marked broken page, nothing outside it is broken, answers below.
+2. **The broken page.**
 3. **Answers** — one `<details>` per barrier: the summary is a hint
    ("Barrier 3 — one of the photos is lying"), and a nested
    `<details>` inside reveals the answer: what it is, the criterion
@@ -131,14 +131,14 @@ first-finds order (the empty heading outline and nameless controls
 surface immediately where sighted visitors see them last). The intro
 says exactly that: different tools surface different subsets first,
 and that asymmetry is the coverage lesson wearing another coat. The
-specimen boundary is announced before and after; the skip link works.
+broken page boundary is announced before and after; the skip link works.
 
 ## Testing (the fun part)
 
 The room leaves the normal axe sweep and gets its own **inverted
-spec**: axe scoped to the specimen must report *exactly* the
+spec**: axe scoped to the broken page must report *exactly* the
 documented violation set — same rules, same counts — and axe scoped to
-everything outside the specimen must be clean. The suite doesn't just
+everything outside the broken page must be clean. The suite doesn't just
 tolerate the broken page; it pins it. If a future refactor accidentally
 fixes a barrier, CI fails. Plus a keyboard spec for the skip route and
 the details tiers, across the usual three engines.
@@ -159,7 +159,7 @@ the details tiers, across the usual three engines.
 ## Phases
 
 1. **Scope review** — this document, torn apart and locked.
-2. **Specimen** — the bakery page with all twelve planted, framed,
+2. **Broken page** — the bakery page with all twelve planted, framed,
    skip route in place.
 3. **Answers** — hints, reveals, cross-links.
 4. **Test rig** — inverted axe spec, keyboard spec, exclusion wiring;

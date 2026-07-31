@@ -3,9 +3,9 @@ import AxeBuilder from '@axe-core/playwright'
 
 const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
 
-test('the specimen is exactly as broken as documented', async ({ page }) => {
-  await page.goto('/audit-specimen.html', { waitUntil: 'networkidle' })
-  await expect(page.locator('.specimen-listen')).toBeVisible()
+test('the broken page is exactly as broken as documented', async ({ page }) => {
+  await page.goto('/broken-page.html', { waitUntil: 'networkidle' })
+  await expect(page.locator('.broken-page-listen')).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
 
   const results = await new AxeBuilder({ page }).withTags(tags).analyze()
@@ -16,7 +16,7 @@ test('the specimen is exactly as broken as documented', async ({ page }) => {
   ])
 })
 
-test('everything outside the specimen is clean', async ({ page }) => {
+test('everything outside the broken page is clean', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/audit-room.html', { waitUntil: 'networkidle' })
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
@@ -24,7 +24,7 @@ test('everything outside the specimen is clean', async ({ page }) => {
 
   const results = await new AxeBuilder({ page })
     .withTags(tags)
-    .exclude('#audit-specimen')
+    .exclude('#broken-page')
     .analyze()
 
   expect(results.violations).toEqual([])

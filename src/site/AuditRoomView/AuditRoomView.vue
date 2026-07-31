@@ -11,33 +11,34 @@
       site's own suite measured it. The other ten need you.
     </p>
     <p class="audit-room-contract">
-      The contract: every barrier lives inside the marked specimen, nothing
-      outside it is broken, none of its links or buttons do anything real,
-      and the answers wait at the end. The specimen is its own page —
-      deliberately outside this site's styles and safety nets, so what you
-      catch behaves the way it would in the wild. Below is only a
-      half-scale preview; the hunt happens at full scale in its own tab.
-      One warning: a barrier in there is a small badge that bounces and
-      ignores your reduced-motion preference. If that's harmful for you,
+      The contract: every barrier lives inside the framed page below,
+      nothing outside the frame is broken, none of its links or buttons do
+      anything real, and the answers wait at the end. The broken page is a
+      page of its own — deliberately outside this site's styles and safety
+      nets, so what you catch behaves the way it would in the wild. What
+      sits below is only a half-scale preview; the hunt happens at full
+      scale in its own tab. One warning: a barrier in there is a small
+      badge that bounces and ignores your reduced-motion preference. If
+      that's harmful for you,
       <a href="#audit-room-answers">skip past the broken page, straight to
       the answers.</a>
     </p>
 
-    <section id="audit-specimen" class="audit-room-specimen" aria-label="The specimen: a deliberately broken page">
-      <p class="audit-room-specimen-tag">Specimen · deliberately broken · barriers 1–12 · preview at 1:2</p>
-      <a class="audit-room-preview" href="/audit-specimen.html" target="_blank" rel="noopener">
+    <section id="broken-page" class="audit-room-broken-page" aria-label="The broken page, previewed at half scale">
+      <p class="audit-room-broken-page-tag">Broken on purpose · barriers 1–12 · preview at 1:2</p>
+      <a class="audit-room-preview" href="/broken-page.html" target="_blank" rel="noopener">
         <iframe
           class="audit-room-preview-frame"
-          src="/audit-specimen.html"
-          title="Preview of the specimen"
+          src="/broken-page.html"
+          title="Preview of the broken page"
           aria-hidden="true"
           tabindex="-1"
           inert
           loading="lazy"
         ></iframe>
-        <span class="audit-room-preview-open">Open the specimen at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
+        <span class="audit-room-preview-open">Open the broken page at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
       </a>
-      <p class="audit-room-specimen-open">
+      <p class="audit-room-broken-page-note">
         Full-page DevTools, your own Lighthouse run — the hunt happens at
         full scale.
       </p>
@@ -221,7 +222,7 @@ const barriers: Barrier[] = [
   {
     n: 11,
     hint: 'something on this page never stops moving',
-    what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. Because the specimen is its own page, no site-wide kill rescues it either: set your OS preference or flip the Rendering-panel emulation and it keeps bouncing. That indifference is the barrier.',
+    what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. Because the broken page is a document of its own, no site-wide kill rescues it either: set your OS preference or flip the Rendering-panel emulation and it keeps bouncing. That indifference is the barrier.',
     criterion: '2.3.3 Animation from Interactions',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
     caught: 'the reduced-motion emulation (A·04) — compliant motion stops, this doesn’t',
@@ -271,7 +272,7 @@ const barriers: Barrier[] = [
     color: var(--bp-ink-2);
   }
 
-  .audit-room-specimen {
+  .audit-room-broken-page {
     max-inline-size: 68ch;
     margin-block-start: var(--space-8);
     padding: var(--space-4);
@@ -284,7 +285,7 @@ const barriers: Barrier[] = [
     }
   }
 
-  .audit-room-specimen-tag {
+  .audit-room-broken-page-tag {
     margin: 0 0 var(--space-3);
     font-family: var(--bp-mono);
     font-size: 0.6875rem;
@@ -351,7 +352,7 @@ const barriers: Barrier[] = [
     border-color: var(--bp-accent);
   }
 
-  .audit-room-specimen-open {
+  .audit-room-broken-page-note {
     margin: var(--space-3) 0 0;
     font-size: var(--text-sm);
     color: var(--bp-ink-2);
