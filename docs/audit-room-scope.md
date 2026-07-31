@@ -21,8 +21,9 @@ Every barrier needs a "protected visitor" story:
   Nothing inside it is required to operate the room.
 - The animation barrier stays behind the site's global reduced-motion
   kill: visitors who opted out are protected, and the answer tells them
-  so — everyone else can watch it misbehave, and either group can flip
-  the Rendering-panel emulation (A·04) to see the other side.
+  so — everyone else sees it misbehave, and the Styles pane shows the
+  missing guard either way (the kill means the emulation alone can't
+  distinguish a guarded animation from a rescued one here).
 - Forced-colors users are protected from the contrast barrier by the
   platform itself — which is its own little lesson, and the answer says
   that too.

@@ -202,10 +202,10 @@ const barriers: Barrier[] = [
   {
     n: 11,
     hint: 'something on this page never stops moving',
-    what: 'The "OUT NOW" badge bounces forever with no reduced-motion guard. (If you have reduced motion set, this site’s global kill is protecting you right now — flip the emulation in the Rendering panel to watch it misbehave.)',
+    what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. If it is holding still for you, that is this site’s global animation kill stepping in front of it; the specimen itself never asked. Drop the same CSS into an ordinary page and it bounces at everyone, including the people who switched motion off.',
     criterion: '2.3.3 Animation from Interactions',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
-    caught: 'the reduced-motion emulation (A·04)',
+    caught: 'the Styles pane — no media query wraps the animation; on a page without a global kill, the reduced-motion emulation (A·04) exposes it too',
     fix: 'Wrap it in @media (prefers-reduced-motion: no-preference) — motion is the enhancement, stillness the default.',
   },
   {
