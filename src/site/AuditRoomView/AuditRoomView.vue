@@ -167,7 +167,7 @@ const barriers: Barrier[] = [
   {
     n: 5,
     hint: 'read the band’s self-description in bad light',
-    what: 'The tagline is #a7a7a7 on white — roughly 2.6:1, far under the 4.5:1 minimum for body text.',
+    what: 'The tagline is #a7a7a7 on white — roughly 2.4:1, far under the 4.5:1 minimum for body text.',
     criterion: '1.4.3 Contrast (Minimum)',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',
     caught: 'a scanner, or the color picker’s contrast readout',
