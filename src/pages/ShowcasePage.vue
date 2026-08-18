@@ -98,7 +98,7 @@ const groups = computed(() => [
   },
   {
     tier: 'limited-availability',
-    label: 'Limited availability — Interop focus areas',
+    label: 'Limited availability',
     blurb:
       'Not yet in every engine. Demos only, always behind @supports — they degrade instead of breaking.',
     items: showcases.filter((s) => s.tier === 'limited-availability'),

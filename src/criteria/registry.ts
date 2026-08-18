@@ -411,8 +411,8 @@ export const wcagTimeline: WcagEra[] = [
     year: 'draft',
     version: null,
     summary:
-      'The next chapter — from binary A/AA/AAA pass-fail toward graded, ' +
-      'outcome-based scoring.',
+      'The next chapter — a new conformance model: a core baseline plus ' +
+      'higher levels built from supplemental requirements and assertions.',
     note: 'Still a working draft: a different model, not just more criteria.',
   },
 ]

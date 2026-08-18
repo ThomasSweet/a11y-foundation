@@ -89,7 +89,7 @@ const nativeFeatures = [
   {
     name: 'Rendering emulations',
     where: 'More tools → Rendering',
-    desc: 'Emulate prefers-color-scheme, reduced motion, forced colors, prefers-contrast, and five vision deficiencies — several extensions replaced by one panel, no device settings touched.',
+    desc: 'Emulate prefers-color-scheme, reduced motion, forced colors, prefers-contrast, and six vision deficiencies — several extensions replaced by one panel, no device settings touched.',
   },
   {
     name: 'Emulate a focused page',

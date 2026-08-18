@@ -21,16 +21,6 @@
       <CriteriaTimeline />
     </ChapterSection>
 
-    <ChapterSection id="demo-conformance" title="From pass / fail to outcomes">
-      <p>
-        The timeline's next stop is the biggest change of all — not new
-        criteria, but a new <em>way of measuring</em>. Drag the slider to see
-        how the same result reads under today's binary model versus WCAG 3.0's
-        draft graded scoring.
-      </p>
-      <ConformanceShift />
-    </ChapterSection>
-
     <ChapterSection id="demo-legal" title="One standard, many laws">
       <p>
         WCAG isn't just guidance — it's the technical core that accessibility
@@ -47,6 +37,5 @@ import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
 import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import CriteriaTimeline from '../criteria/CriteriaTimeline/CriteriaTimeline.vue'
-import ConformanceShift from '../criteria/ConformanceShift/ConformanceShift.vue'
 import LegalMap from '../criteria/LegalMap/LegalMap.vue'
 </script>

@@ -641,8 +641,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'Animate an element in from display:none — entry transitions with no ' +
       'JS — and out via transition-behavior: allow-discrete. Composes with ' +
       'container queries too: responsive reveals that fade instead of pop. ' +
-      'The transitions use motion tokens, so they respect reduced motion. ' +
-      'Interop 2026 focus area.',
+      'The transitions use motion tokens, so they respect reduced motion.',
     links: [
       {
         label: 'MDN: @starting-style',
@@ -685,7 +684,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'A textarea that grows and shrinks with its content — no scrollHeight ' +
       'measuring, no resize listeners, no JS. It tracks the text between a ' +
       'min and max height (in lh units); without support it falls back to a ' +
-      'fixed, drag-to-resize box. Interop 2026 focus area.',
+      'fixed, drag-to-resize box.',
     links: [
       {
         label: 'MDN: field-sizing',
@@ -733,7 +732,8 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'platform. ' +
       'Keyboard, type-ahead, the screen-reader combobox, and form submission ' +
       'stay native, so it replaces the hand-rolled ARIA combobox. Without ' +
-      'support it falls back to a plain native select. Interop 2026 focus area.',
+      'support it falls back to a plain native select. Currently ' +
+      'Chromium-only (Chrome and Edge 135+).',
     links: [
       {
         label: 'MDN: Customizable select',
@@ -756,15 +756,12 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'scroll-state(snapped) and scroll-state(stuck). A card knows when it’s ' +
       'the snapped one and a header knows when it’s pinned, with no scroll ' +
       'listeners and no JS — the clean fix for the “highlight the current ' +
-      'item / detect stuck” problems. Interop 2026 focus area.',
+      'item / detect stuck” problems. Currently Chromium-only (Chrome and ' +
+      'Edge 133+).',
     links: [
       {
         label: 'MDN: scroll-state queries',
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_conditional_rules/Container_scroll-state_queries',
-      },
-      {
-        label: 'Interop 2026 dashboard',
-        href: 'https://wpt.fyi/interop-2026',
       },
     ],
     payoff:

@@ -373,7 +373,6 @@ Container queries that react to how an element sits in a scroller — scroll-sta
 **Topics:** scroll
 
 - [MDN: scroll-state queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_conditional_rules/Container_scroll-state_queries)
-- [Interop 2026 dashboard](https://wpt.fyi/interop-2026)
 
 ### Pure-CSS carousel
 

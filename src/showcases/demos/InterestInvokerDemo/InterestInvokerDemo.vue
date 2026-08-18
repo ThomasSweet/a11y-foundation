@@ -36,7 +36,7 @@
       <div id="interest-preview-interop" popover="hint" class="interest-card">
         <strong class="interest-card-title">Interop 2026</strong>
         The cross-engine effort deciding which platform features Chrome,
-        Firefox, and Safari all ship next — the source of the “Emerging” badges.
+        Firefox, and Safari all ship next.
       </div>
     </section>
 
