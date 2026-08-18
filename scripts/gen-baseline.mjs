@@ -51,6 +51,9 @@ const SHOWCASE_FEATURES = {
   'view-transitions': 'view-transitions',
   'reading-flow': 'reading-flow',
   'details-content': 'details-content',
+  'invoker-commands': 'invoker-commands',
+  'spelling-error': 'text-decoration-spelling-grammar',
+  'corner-shape': 'corner-shape',
 }
 
 const BROWSERS = ['chrome', 'edge', 'firefox', 'safari']

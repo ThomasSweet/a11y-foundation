@@ -26,7 +26,11 @@
       written as a progressive enhancement.
     </p>
 
-    <div class="showcase-demo">
+    <a class="showcase-demo-focus" :href="`#${demoId}`">
+      Focus the demo<span class="visually-hidden"> — {{ title }}</span>
+    </a>
+
+    <div :id="demoId" class="showcase-demo" tabindex="-1">
       <slot />
     </div>
 
@@ -146,6 +150,7 @@ const props = withDefaults(
 )
 
 const headingId = useId()
+const demoId = useId()
 const headingTag = computed(() => `h${props.headingLevel}`)
 const hasSnippet = computed(() =>
   Boolean(props.snippetHtml || props.snippetCss || props.snippetJs),

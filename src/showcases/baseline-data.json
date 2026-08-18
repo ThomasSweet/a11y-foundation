@@ -414,5 +414,44 @@
       "firefox": "143",
       "safari": "18.4"
     }
+  },
+  "invoker-commands": {
+    "feature": "invoker-commands",
+    "name": "Invoker commands",
+    "baseline": "low",
+    "lowDate": "2025-12-12",
+    "highDate": null,
+    "support": {
+      "chrome": "135",
+      "edge": "135",
+      "firefox": "144",
+      "safari": "26.2"
+    }
+  },
+  "spelling-error": {
+    "feature": "text-decoration-spelling-grammar",
+    "name": "Spelling and grammar text decorations",
+    "baseline": "low",
+    "lowDate": "2025-12-12",
+    "highDate": null,
+    "support": {
+      "chrome": "121",
+      "edge": "121",
+      "firefox": "137",
+      "safari": "26.2"
+    }
+  },
+  "corner-shape": {
+    "feature": "corner-shape",
+    "name": "corner-shape",
+    "baseline": false,
+    "lowDate": null,
+    "highDate": null,
+    "support": {
+      "chrome": "139",
+      "edge": "139",
+      "firefox": null,
+      "safari": null
+    }
   }
 }

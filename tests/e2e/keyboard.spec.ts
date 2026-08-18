@@ -195,4 +195,42 @@ test.describe('keyboard & focus behaviour', () => {
     })
     expect(await tabbedOrder()).toBe('4123')
   })
+
+  test('invoker commands drive the dialog with no script', async ({ page }) => {
+    await page.goto('/showcase.html')
+    const supported = await page.evaluate(
+      () => 'commandForElement' in HTMLButtonElement.prototype,
+    )
+    test.skip(!supported, 'invoker commands not shipped in this engine')
+
+    const trigger = page.getByRole('button', { name: 'Open the dialog' })
+    await trigger.focus()
+    await page.keyboard.press('Enter')
+    const dialog = page.locator('#invoker-commands-dialog')
+    await expect(dialog).toHaveAttribute('open', '')
+    await page.keyboard.press('Escape')
+    await expect(dialog).not.toHaveAttribute('open', '')
+    await expect(trigger).toBeFocused()
+  })
+
+  test('the focus-the-demo link drops focus at the demo', async ({ page, browserName }) => {
+    await page.goto('/showcase.html')
+    await page.getByRole('link', { name: /focus the demo.*corner-shape/i }).click()
+    const focusedClass = await page.evaluate(() => document.activeElement?.className ?? '')
+    expect(focusedClass).toContain('showcase-demo')
+
+    if (browserName !== 'webkit') {
+      await page.keyboard.press('Tab')
+      await expect(page.getByRole('button', { name: 'Squircle', exact: true })).toBeFocused()
+    }
+  })
+
+  test('corner-shape buttons keep the default focus ring reachable', async ({ page }) => {
+    await page.goto('/showcase.html')
+    for (const name of ['Squircle', 'Scoop', 'Notch', 'You are here', 'Morph', 'Clipped']) {
+      const button = page.getByRole('button', { name, exact: true })
+      await button.focus()
+      await expect(button).toBeFocused()
+    }
+  })
 })

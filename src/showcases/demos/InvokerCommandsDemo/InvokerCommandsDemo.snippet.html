@@ -1,0 +1,16 @@
+<!-- The button names its target (commandfor) and the action (command).
+     No JS anywhere: focus moves in, Esc closes, focus returns to the trigger. -->
+<button type="button" commandfor="dlg" command="show-modal">Open the dialog</button>
+
+<dialog id="dlg">
+  <p>Top layer, backdrop, and focus handling — all platform-provided.</p>
+  <!-- Closing is declarative too. -->
+  <button type="button" commandfor="dlg" command="close">Close</button>
+</dialog>
+
+<!-- The same attribute pair drives popovers. -->
+<button type="button" commandfor="card" command="toggle-popover">Toggle the popover</button>
+<div id="card" popover>Esc and light dismiss included.</div>
+
+<!-- Escape hatch: command="request-close" fires a cancelable close request
+     first, for the rare dialog that needs to confirm before closing. -->

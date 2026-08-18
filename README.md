@@ -68,7 +68,7 @@ Every feature the site teaches is doing real work *in* the site — each behind
   presets: visual themes, a color-vision-friendly trio, high-contrast pair.
 - **WCAG, live** — criteria demos on the standard's timeline, each with a
   **"break this rule"** toggle so you can feel what the criterion prevents.
-- **A CSS showcase catalog** — 33 accessible demos of modern platform
+- **A CSS showcase catalog** — 36 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
 - **The audit room** — a page broken on purpose: twelve planted barriers to

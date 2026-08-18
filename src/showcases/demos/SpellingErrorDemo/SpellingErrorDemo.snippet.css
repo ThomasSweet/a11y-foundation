@@ -1,0 +1,46 @@
+/* The platform already has a squiggle convention — let the browser
+   draw it. Right shape, right colour, on every wrapped line, at any
+   zoom, and it survives forced colours. */
+.typo {
+  /* Fallback for browsers without it: meaning preserved,
+     convention lost. */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-error);
+}
+
+.grammar-slip {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-success);
+}
+
+@supports (text-decoration-line: spelling-error) {
+  .typo {
+    /* The browser ignores your decoration colour and style here
+       and paints its native marking instead. */
+    text-decoration-line: spelling-error;
+  }
+
+  .grammar-slip {
+    text-decoration-line: grammar-error;
+  }
+}
+
+/* The hack: paint the squiggle yourself. Backgrounds mark boxes,
+   not text — the span goes inline-block so the gradient has a box
+   to sit against, and the prose stops wrapping like prose. */
+.typo-hack {
+  display: inline-block;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-error) 0 2px,
+    transparent 2px 5px
+  );
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 4px;
+  /* Why it drifts: on wrap the squiggle holds only the last line
+     of the box; it cuts through descenders instead of skipping
+     ink; and forced colours erase painted backgrounds outright. */
+}

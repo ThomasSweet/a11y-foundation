@@ -1,0 +1,72 @@
+/* corner-shape reshapes the corner your border-radius already reaches:
+   the radius sets how far in the corner starts, corner-shape sets the
+   path it takes — squircle, scoop, notch, bevel. */
+.corner-button {
+  border: 1px solid #c9c9c9;
+  border-radius: 16px;
+}
+
+/* Chrome/Edge 139+ for now. Guard it: everyone else simply keeps the
+   plain rounded corner — a fallback, not a failure. */
+@supports (corner-shape: squircle) {
+  .corner-button.squircle { corner-shape: squircle; }
+  .corner-button.scoop    { corner-shape: scoop; }
+  .corner-button.notch    { corner-shape: notch; }
+}
+
+/* Per-corner longhands mix treatments on one box. Two full-height
+   bevels on the same side meet in a point: the pointer-tag silhouette,
+   cut with borders intact — no clip anywhere near it. */
+.tag-button {
+  border-radius: 0 1.5rem 1.5rem 0 / 0 50% 50% 0;
+}
+
+@supports (corner-shape: squircle) {
+  .tag-button {
+    corner-top-right-shape: bevel;
+    corner-bottom-right-shape: bevel;
+  }
+}
+
+/* The keywords are superellipse() curves underneath, so corner-shape
+   interpolates: this hover morph sweeps squircle → bevel → scoop as one
+   eased transition. Portable code carries its own motion guard — with
+   reduced motion the shape still changes, it just stops animating. */
+.morph-button {
+  corner-shape: squircle;
+  transition: corner-shape 0.4s ease;
+}
+
+.morph-button:hover,
+.morph-button:focus-visible {
+  corner-shape: scoop;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-button {
+    transition: none;
+  }
+}
+
+/* Real border geometry, so everything drawn along the box follows it —
+   background, border, box-shadow, and the focus ring. Nothing bespoke
+   here: any outline, the browser default included, hugs the new corner. */
+.corner-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* The anti-pattern: faking the notch by clipping. clip-path applies
+   AFTER the element paints — outline included — so the ring is thrown
+   away wherever it falls outside the polygon. Clipped exactly to the
+   box like this, an offset ring vanishes altogether; the live demo
+   hangs its polygon 8px past each edge so you can watch the slice. */
+.clipped-button {
+  clip-path: polygon(
+    0 16px, 16px 16px, 16px 0,
+    calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px,
+    100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)
+  );
+}

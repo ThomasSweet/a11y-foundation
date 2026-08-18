@@ -135,6 +135,18 @@ A real actions menu wired by id alone — the platform hands you Esc-to-close, l
 
 - [MDN: popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 
+### Native error squiggles
+
+text-decoration-line: spelling-error and grammar-error draw the platform’s own squiggle — the marking every visitor already knows from their spell checker, rendered by the engine on real text.
+
+**Accessibility payoff:** Error marking in the OS’s own convention — it tracks wrapped lines, survives zoom, and stays visible in forced colors where painted backgrounds are erased.
+
+**Guard:** `@supports (text-decoration-line: spelling-error)`
+
+**Topics:** typography, forms
+
+- [MDN: text-decoration-line](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line)
+
 ### contrast-color()
 
 The browser picks a contrasting text color for any background — user-generated colors, theming APIs, data-viz palettes stay readable without contrast math.
@@ -259,6 +271,19 @@ Paint ranges of text from JS via ::highlight() — styled in CSS, with no wrappe
 
 - [MDN: CSS Custom Highlight API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API)
 
+### Invoker commands
+
+command and commandfor on a plain <button> open, close, and toggle dialogs and popovers declaratively — the last onclick glue for the top layer, gone.
+
+**Accessibility payoff:** Dialog and popover wiring with zero script means zero chances to forget the focus handling — the button says what it does, and the browser does it.
+
+**Guard:** Feature-detect in JS — no CSS condition expresses it.
+
+**Topics:** interaction
+
+- [MDN: command attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#command)
+- [Open UI: Invokers](https://open-ui.org/components/invokers.explainer/)
+
 ### View Transitions
 
 Animate between two DOM states by giving shared elements a view-transition-name and wrapping the change in startViewTransition() — the browser tweens position, size, and cross-fade with no FLIP math or animation library.
@@ -337,6 +362,18 @@ An arrow tag used to be a rotated-box hack or an exported image — and the expo
 
 - [MDN: polygon()](https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polygon)
 - [CSS Tip: rounded shapes (Temani Afif)](https://css-tip.com/rounded-shapes/)
+
+### corner-shape
+
+Squircles, scoops, and notches as real border geometry — corner-shape reshapes the corners border-radius rounds, so the border, the shadow, and the default focus ring all trace the exotic outline exactly.
+
+**Accessibility payoff:** Fancy corners without clip-path means the keyboard user’s focus ring survives intact — geometry the ring can trace instead of a cut that slices it off.
+
+**Guard:** `@supports (corner-shape: squircle)`
+
+**Topics:** layout, interaction
+
+- [MDN: corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape)
 
 ### Advanced attr()
 

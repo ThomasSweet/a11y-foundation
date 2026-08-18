@@ -106,6 +106,12 @@ import readingFlowSnippetCss from './demos/ReadingFlowDemo/ReadingFlowDemo.snipp
 import DetailsContentDemo from './demos/DetailsContentDemo/DetailsContentDemo.vue'
 import detailsContentSnippetHtml from './demos/DetailsContentDemo/DetailsContentDemo.snippet.html?raw'
 import detailsContentSnippetCss from './demos/DetailsContentDemo/DetailsContentDemo.snippet.css?raw'
+import InvokerCommandsDemo from './demos/InvokerCommandsDemo/InvokerCommandsDemo.vue'
+import invokerCommandsSnippetHtml from './demos/InvokerCommandsDemo/InvokerCommandsDemo.snippet.html?raw'
+import SpellingErrorDemo from './demos/SpellingErrorDemo/SpellingErrorDemo.vue'
+import spellingErrorSnippetCss from './demos/SpellingErrorDemo/SpellingErrorDemo.snippet.css?raw'
+import CornerShapeDemo from './demos/CornerShapeDemo/CornerShapeDemo.vue'
+import cornerShapeSnippetCss from './demos/CornerShapeDemo/CornerShapeDemo.snippet.css?raw'
 
 /** Per-showcase Baseline status, generated into baseline-data.json by
     scripts/gen-baseline.mjs from the web-features package (build-time — the
@@ -377,6 +383,29 @@ const entries: Omit<Showcase, 'tier'>[] = [
   },
 
   {
+    id: 'spelling-error',
+    title: 'Native error squiggles',
+    supports: 'text-decoration-line: spelling-error',
+    summary:
+      'text-decoration-line: spelling-error and grammar-error draw the ' +
+      'platform’s own squiggle — the marking every visitor already knows ' +
+      'from their spell checker, rendered by the engine on real text. The ' +
+      'classic hack paints a gradient onto an inline-block box instead: it ' +
+      'marks the box, not the text, and wrapping tears it apart.',
+    links: [
+      {
+        label: 'MDN: text-decoration-line',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-line',
+      },
+    ],
+    payoff:
+      'Error marking in the OS’s own convention — it tracks wrapped lines, survives zoom, and stays visible in forced colors where painted backgrounds are erased.',
+    tags: ['typography', 'forms'],
+    component: SpellingErrorDemo,
+    snippetCss: spellingErrorSnippetCss,
+  },
+
+  {
     id: 'anchor-positioning',
     title: 'Anchor positioning',
     supports: 'anchor-name: --a',
@@ -614,8 +643,10 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'element unclipped, and the focus ring can even follow the shape — ' +
       'drop-shadows on the parent trace the clipped silhouette, which ' +
       'outline never can. Break it to see why: clip the link itself and ' +
-      'every ring is cut away with the rest of what it paints. One radius ' +
-      'rounds every corner; per-corner control is shape()’s job.',
+      'every ring is cut away with the rest of what it paints. And when ' +
+      'the shape is really a corner treatment, corner-shape now cuts it ' +
+      'with no clip at all — arbitrary geometry stays polygon() and ' +
+      'shape() territory.',
     links: [
       {
         label: 'MDN: polygon()',
@@ -633,6 +664,33 @@ const entries: Omit<Showcase, 'tier'>[] = [
     snippetHtml: roundedClipSnippetHtml,
     snippetCss: roundedClipSnippetCss,
   },
+  {
+    id: 'corner-shape',
+    title: 'corner-shape',
+    supports: 'corner-shape: squircle',
+    summary:
+      'Squircles, scoops, and notches as real border geometry — corner-shape ' +
+      'reshapes the corners border-radius rounds, so the border, the shadow, ' +
+      'and the default focus ring all trace the exotic outline exactly. ' +
+      'Per-corner longhands mix treatments on one box: two bevels meeting ' +
+      'in a point cut this site’s pointer tag with borders intact. They ' +
+      'even animate — the keywords are superellipse() curves, so a ' +
+      'transition sweeps squircle through bevel to scoop. The ' +
+      'mirror lesson of the rounded polygon() demo: nothing is clipped, so ' +
+      'no focus ring needs rescuing. Chrome and Edge 139+ for now.',
+    links: [
+      {
+        label: 'MDN: corner-shape',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape',
+      },
+    ],
+    payoff:
+      'Fancy corners without clip-path means the keyboard user’s focus ring survives intact — geometry the ring can trace instead of a cut that slices it off.',
+    tags: ['layout', 'interaction'],
+    component: CornerShapeDemo,
+    snippetCss: cornerShapeSnippetCss,
+  },
+
   {
     id: 'starting-style',
     title: '@starting-style',
@@ -842,6 +900,34 @@ const entries: Omit<Showcase, 'tier'>[] = [
     snippetHtml: dialogPolishSnippetHtml,
     snippetCss: dialogPolishSnippetCss,
   },
+  {
+    id: 'invoker-commands',
+    title: 'Invoker commands',
+    supports: '',
+    detect: () => 'commandForElement' in HTMLButtonElement.prototype,
+    summary:
+      'command and commandfor on a plain <button> open, close, and toggle ' +
+      'dialogs and popovers declaratively — the last onclick glue for the ' +
+      'top layer, gone. Focus handoff, Esc, backdrop, and light dismiss are ' +
+      'platform behaviour, and the wiring lives in markup where it can’t ' +
+      'drift from what actually happens. Baseline newly available.',
+    links: [
+      {
+        label: 'MDN: command attribute',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#command',
+      },
+      {
+        label: 'Open UI: Invokers',
+        href: 'https://open-ui.org/components/invokers.explainer/',
+      },
+    ],
+    payoff:
+      'Dialog and popover wiring with zero script means zero chances to forget the focus handling — the button says what it does, and the browser does it.',
+    tags: ['interaction'],
+    component: InvokerCommandsDemo,
+    snippetHtml: invokerCommandsSnippetHtml,
+  },
+
   {
     id: 'interest-invokers',
     title: 'Interest invokers (interestfor)',

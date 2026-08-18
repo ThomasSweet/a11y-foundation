@@ -90,9 +90,10 @@ at the ARIA APG.
   modest a11y angle; take it only if a showcase gap needs filling.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
-- Media state pseudo-classes (`:playing` etc.) — checked July 2026: no
-  Chromium support (Firefox 150 + Safari only, Baseline false per
-  web-features); revisit when Chrome ships.
+- Media state pseudo-classes (`:playing` etc.) — re-checked Aug 2026: still
+  no Chromium (Firefox 150 + Safari only; a claimed Chrome 150 ship did not
+  survive verification — `CSS.supports` in a real Chromium and web-features
+  both say no). Interop 2026 focus area, so recheck around year-end.
 - `text-fit` (a.k.a. the `text-grow`/`text-shrink` proposals) — assessed
   July 2026: no engine ships it, so it can't be demoed honestly. The a11y
   case is real but double-edged: *grow/fit* would retire images-of-text and
@@ -101,9 +102,15 @@ at the ARIA APG.
   your font size and the algorithm shrinks it back to fit, a 1.4.4 failure
   mode with the same flavour as `maximum-scale=1`. If it ships: demo it as
   display-type-only, never body or functional text, and lead with the
-  shrink caveat. Revisit when any engine lands it.
-- `sibling-index()` / `sibling-count()` — Canary only.
-- `border-shape` — spec in flux; candidate for the anchor-tooltip arrow.
+  shrink caveat. Update Aug 2026: Chrome 150 shipped it, so the condition is
+  met and the framing above is the build spec; passed over for wave 11 while
+  single-engine, ready whenever a limited-tier slot wants it.
+- `sibling-index()` / `sibling-count()` — re-checked Aug 2026: now stable in
+  Chrome 138 and Safari 26.2, but the payoff is still aesthetic; at most a
+  footnote on the quantity-queries showcase.
+- `border-shape` — spec still in flux; candidate for the anchor-tooltip
+  arrow. Its corner cousin `corner-shape` shipped in Chrome 139 and joined
+  the showcase in wave 11.
 - Overscroll areas / built-in gestures — early spec discussion.
 - Scoped view transitions (`element.startViewTransition`) — Chrome-only JS API.
 
@@ -144,6 +151,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-08** Wave 11: invoker commands (command/commandfor — dialogs and popovers driven from markup with zero script; Baseline newly available Dec 2025), native error squiggles (text-decoration-line: spelling-error/grammar-error vs the inline-block gradient hack — backgrounds mark boxes, not text), and corner-shape (squircle/scoop/notch as real border geometry the default focus ring traces; the rounded polygon() demo's mirror lesson). Catalog 33 → 36; keyboard specs pin the script-free dialog cycle and the surviving rings. Scouted from a 56-candidate sweep; runners-up and the refuted media-pseudos Chrome rumour recorded in the watchlist. Follow-up from Thomas's testing notes: every showcase card gained a "Focus the demo" skip link (the 2.4.1 pattern doing local work — fragment navigation to a tabindex="-1" demo mount, zero JS), and the corner demo grew per-corner longhands cutting the site's own "You are here" pointer tag with borders and ring intact, plus an animated morph (the keywords are superellipse() curves — interpolation verified in Chromium, computed values sweep squircle through bevel to scoop), with both shape showcases now naming when to reach for which tool.
 
 - **2026-08** Site-wide accuracy audit (five-agent verify pass against primary sources): five bogus "Interop 2026 focus area" labels corrected, vision deficiencies five→six, WebAIM attribution pinned to Survey 10 (2024), anchor positioning's retracted Firefox support regenerated out, web-features and axe-core pinned exactly. The big one: WCAG 3.0's March 2026 draft dropped graded scoring for binary core requirements + supplemental levels, so the ConformanceShift demo was rebuilt honest — and then retired, because at the base level the new model behaves like AA and a slider demonstrating "same" teaches nothing; the timeline's era entry now carries 3.0 alone. Dated re-checks live in the session memory watchlist: EN 301 549 v4 (~Oct 2026), WebAIM Survey 11 (Sept 2026), next WCAG 3.0 draft.
 

@@ -286,6 +286,59 @@ check its tier in `modern-css.md` first.
 }
 ```
 
+## Native error squiggles
+
+**Guard:** `@supports (text-decoration-line: spelling-error)`
+
+```css
+/* The platform already has a squiggle convention — let the browser
+   draw it. Right shape, right colour, on every wrapped line, at any
+   zoom, and it survives forced colours. */
+.typo {
+  /* Fallback for browsers without it: meaning preserved,
+     convention lost. */
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-error);
+}
+
+.grammar-slip {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-success);
+}
+
+@supports (text-decoration-line: spelling-error) {
+  .typo {
+    /* The browser ignores your decoration colour and style here
+       and paints its native marking instead. */
+    text-decoration-line: spelling-error;
+  }
+
+  .grammar-slip {
+    text-decoration-line: grammar-error;
+  }
+}
+
+/* The hack: paint the squiggle yourself. Backgrounds mark boxes,
+   not text — the span goes inline-block so the gradient has a box
+   to sit against, and the prose stops wrapping like prose. */
+.typo-hack {
+  display: inline-block;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-error) 0 2px,
+    transparent 2px 5px
+  );
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 4px;
+  /* Why it drifts: on wrap the squiggle holds only the last line
+     of the box; it cuts through descenders instead of skipping
+     ink; and forced colours erase painted backgrounds outright. */
+}
+```
+
 ## Anchor positioning
 
 **Guard:** `@supports (anchor-name: --a)`
@@ -638,6 +691,85 @@ check its tier in `modern-css.md` first.
 }
 ```
 
+## corner-shape
+
+**Guard:** `@supports (corner-shape: squircle)`
+
+```css
+/* corner-shape reshapes the corner your border-radius already reaches:
+   the radius sets how far in the corner starts, corner-shape sets the
+   path it takes — squircle, scoop, notch, bevel. */
+.corner-button {
+  border: 1px solid #c9c9c9;
+  border-radius: 16px;
+}
+
+/* Chrome/Edge 139+ for now. Guard it: everyone else simply keeps the
+   plain rounded corner — a fallback, not a failure. */
+@supports (corner-shape: squircle) {
+  .corner-button.squircle { corner-shape: squircle; }
+  .corner-button.scoop    { corner-shape: scoop; }
+  .corner-button.notch    { corner-shape: notch; }
+}
+
+/* Per-corner longhands mix treatments on one box. Two full-height
+   bevels on the same side meet in a point: the pointer-tag silhouette,
+   cut with borders intact — no clip anywhere near it. */
+.tag-button {
+  border-radius: 0 1.5rem 1.5rem 0 / 0 50% 50% 0;
+}
+
+@supports (corner-shape: squircle) {
+  .tag-button {
+    corner-top-right-shape: bevel;
+    corner-bottom-right-shape: bevel;
+  }
+}
+
+/* The keywords are superellipse() curves underneath, so corner-shape
+   interpolates: this hover morph sweeps squircle → bevel → scoop as one
+   eased transition. Portable code carries its own motion guard — with
+   reduced motion the shape still changes, it just stops animating. */
+.morph-button {
+  corner-shape: squircle;
+  transition: corner-shape 0.4s ease;
+}
+
+.morph-button:hover,
+.morph-button:focus-visible {
+  corner-shape: scoop;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-button {
+    transition: none;
+  }
+}
+
+/* Real border geometry, so everything drawn along the box follows it —
+   background, border, box-shadow, and the focus ring. Nothing bespoke
+   here: any outline, the browser default included, hugs the new corner. */
+.corner-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* The anti-pattern: faking the notch by clipping. clip-path applies
+   AFTER the element paints — outline included — so the ring is thrown
+   away wherever it falls outside the polygon. Clipped exactly to the
+   box like this, an offset ring vanishes altogether; the live demo
+   hangs its polygon 8px past each edge so you can watch the slice. */
+.clipped-button {
+  clip-path: polygon(
+    0 16px, 16px 16px, 16px 0,
+    calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px,
+    100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)
+  );
+}
+```
+
 ## @starting-style
 
 **Guard:** `@supports (transition-behavior: allow-discrete)`
@@ -954,6 +1086,29 @@ dialog:open {
     scale: 0.96;
   }
 }
+```
+
+## Invoker commands
+
+**Guard:** Feature-detect in JS — no CSS condition expresses it.
+
+```html
+<!-- The button names its target (commandfor) and the action (command).
+     No JS anywhere: focus moves in, Esc closes, focus returns to the trigger. -->
+<button type="button" commandfor="dlg" command="show-modal">Open the dialog</button>
+
+<dialog id="dlg">
+  <p>Top layer, backdrop, and focus handling — all platform-provided.</p>
+  <!-- Closing is declarative too. -->
+  <button type="button" commandfor="dlg" command="close">Close</button>
+</dialog>
+
+<!-- The same attribute pair drives popovers. -->
+<button type="button" commandfor="card" command="toggle-popover">Toggle the popover</button>
+<div id="card" popover>Esc and light dismiss included.</div>
+
+<!-- Escape hatch: command="request-close" fires a cancelable close request
+     first, for the rare dialog that needs to confirm before closing. -->
 ```
 
 ## Interest invokers (interestfor)
