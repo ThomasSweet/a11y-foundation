@@ -149,7 +149,7 @@ at the ARIA APG.
 
 One line per item, newest first; details in git history / PRs.
 
-- **2026-08** The 404 page: a standalone zero-JavaScript blueprint sheet ("Sheet 404 · not in this set") — the "You are here" tag cut with corner-shape bevels pointing at an empty dashed frame, a home button that morphs squircle→scoop on hover and focus, light-dark() theming, an @starting-style entrance carrying its own reduced-motion guard, and a native details explaining what the page just did for the visitor. Error pages are where accessibility usually gets forgotten; this one is in the axe suite. Wired via ErrorDocument in .htaccess.
+- **2026-08** The 404 page: a standalone zero-JavaScript blueprint sheet ("Sheet 404 · not in this set") — the "You are here" tag cut with corner-shape bevels pointing at an empty dashed frame, a home button in a quiet corner-shape squircle (a hover morph was tried and cut as ugly; the whimsy moved to ghost numerals that draft themselves via SVG stroke animation, hub-scribble style, plus a ::details-content eased disclosure), light-dark() theming, an @starting-style entrance carrying its own reduced-motion guard, and a native details explaining what the page just did for the visitor. Error pages are where accessibility usually gets forgotten; this one is in the axe suite. Wired via ErrorDocument in .htaccess.
 
 - **2026-08** Search-index hygiene: host-variant 301s (www strips and upgrades in one hop, TLS forced host-preserving so staging survives) plus X-Robots-Tag noindex on the llms mirrors — text duplicates of page content can't carry a canonical, so they're kept fetchable for agents but out of the index. Closes the GSC "duplicate without user-selected canonical" report.
 

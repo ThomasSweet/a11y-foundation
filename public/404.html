@@ -1,10 +1,11 @@
 <!doctype html>
 <!-- A dead end, drawn on purpose. This page ships zero JavaScript: the
-     colours follow your colour scheme via light-dark(), the entrance and
-     the button morph respect prefers-reduced-motion, the shapes come from
-     corner-shape with plain rounded fallbacks, and everything works with
-     a keyboard. Error pages are where accessibility usually gets
-     forgotten — the rest of the argument lives at / -->
+     numerals draft themselves with an SVG stroke animation, the colours
+     follow your colour scheme via light-dark(), every motion respects
+     prefers-reduced-motion, the shapes come from corner-shape with plain
+     rounded fallbacks, and everything works with a keyboard. Error pages
+     are where accessibility usually gets forgotten — the rest of the
+     argument lives at / -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -156,6 +157,18 @@
         opacity: 0.55;
       }
 
+      .not-found-ghost text {
+        stroke-dasharray: 280;
+        stroke-dashoffset: 280;
+        animation: not-found-draft 2.6s linear 0.3s forwards;
+      }
+
+      @keyframes not-found-draft {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
       .not-found-annotation {
         font-family: var(--mono);
         font-size: 0.8rem;
@@ -181,7 +194,11 @@
         color: var(--on-accent);
         font-weight: 600;
         text-decoration: none;
-        transition: corner-shape 0.4s ease;
+      }
+
+      .not-found-home:hover {
+        background-color: color-mix(in oklab, var(--accent), var(--ink) 14%);
+        border-color: color-mix(in oklab, var(--accent), var(--ink) 14%);
       }
 
       @supports (corner-shape: squircle) {
@@ -192,11 +209,6 @@
 
         .not-found-home {
           corner-shape: squircle;
-        }
-
-        .not-found-home:hover,
-        .not-found-home:focus-visible {
-          corner-shape: scoop;
         }
       }
 
@@ -215,6 +227,24 @@
         margin-block-start: 2rem;
         border-block-start: 1px solid var(--line);
         padding-block-start: 1rem;
+      }
+
+      @supports (interpolate-size: allow-keywords) {
+        .not-found-why {
+          interpolate-size: allow-keywords;
+        }
+
+        .not-found-why::details-content {
+          block-size: 0;
+          overflow-y: clip;
+          transition:
+            block-size 0.35s ease,
+            content-visibility 0.35s allow-discrete;
+        }
+
+        .not-found-why[open]::details-content {
+          block-size: auto;
+        }
       }
 
       .not-found-why summary {
@@ -254,8 +284,17 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .not-found-sheet,
-        .not-found-home {
+        .not-found-sheet {
+          transition: none;
+        }
+
+        .not-found-ghost text {
+          stroke-dasharray: none;
+          stroke-dashoffset: 0;
+          animation: none;
+        }
+
+        .not-found-why::details-content {
           transition: none;
         }
       }
@@ -308,10 +347,13 @@
         <p>
           Error pages are where accessibility usually gets forgotten. This one
           ships zero JavaScript. The colours follow your colour scheme through
-          <code>light-dark()</code>, the entrance and the button's shape-morph
-          switch off under your reduced-motion preference, and the morph
-          itself is <code>corner-shape</code> easing from squircle to scoop —
-          in browsers without it, the button is simply a rounded button.
+          <code>light-dark()</code>, and the numerals draft themselves with an
+          SVG stroke animation that — like the entrance — switches off under
+          your reduced-motion preference. The quiet squircle on the button and
+          the pointer tag's cut corners are <code>corner-shape</code>: in
+          browsers without it, plain rounded shapes, nothing lost. Even this
+          disclosure eased open natively, <code>::details-content</code> in
+          the engines that ship it.
         </p>
         <p>
           Every link here is a real link, the disclosure you just opened is a
