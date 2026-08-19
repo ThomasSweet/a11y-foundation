@@ -1,0 +1,332 @@
+<!doctype html>
+<!-- A dead end, drawn on purpose. This page ships zero JavaScript: the
+     colours follow your colour scheme via light-dark(), the entrance and
+     the button morph respect prefers-reduced-motion, the shapes come from
+     corner-shape with plain rounded fallbacks, and everything works with
+     a keyboard. Error pages are where accessibility usually gets
+     forgotten — the rest of the argument lives at / -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found — Accessible by default</title>
+    <meta name="description" content="There is no sheet at this address. The index lists every sheet that exists." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: light-dark(#eef2f6, #0c1218);
+        --sheet: light-dark(#fbfdfe, #101a24);
+        --ink: light-dark(#16324a, #d9e6f2);
+        --ink-subtle: light-dark(#43607b, #9fb6ca);
+        --line: light-dark(rgb(22 72 110 / 20%), rgb(159 199 229 / 22%));
+        --accent: light-dark(#0a6598, #64b8e8);
+        --on-accent: light-dark(#fbfdfe, #0c1218);
+        --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      body {
+        min-block-size: 100svb;
+        display: grid;
+        place-items: center;
+        padding: clamp(1rem, 4vmin, 3rem);
+        background-color: var(--bg);
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 24px 24px;
+        color: var(--ink);
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      }
+
+      .not-found-sheet {
+        position: relative;
+        max-inline-size: 42rem;
+        padding: clamp(1.5rem, 5vmin, 3rem);
+        border: 1px solid var(--line);
+        outline: 1px solid var(--line);
+        outline-offset: 6px;
+        background-color: var(--sheet);
+        transition: opacity 0.5s ease, translate 0.5s ease;
+
+        @starting-style {
+          opacity: 0;
+          translate: 0 14px;
+        }
+      }
+
+      .not-found-sheet::before,
+      .not-found-sheet::after {
+        content: "";
+        position: absolute;
+        inline-size: 12px;
+        block-size: 12px;
+        border: 0 solid var(--ink-subtle);
+      }
+
+      .not-found-sheet::before {
+        inset-block-start: 8px;
+        inset-inline-start: 8px;
+        border-block-start-width: 2px;
+        border-inline-start-width: 2px;
+      }
+
+      .not-found-sheet::after {
+        inset-block-end: 8px;
+        inset-inline-end: 8px;
+        border-block-end-width: 2px;
+        border-inline-end-width: 2px;
+      }
+
+      .not-found-brand {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        color: var(--ink-subtle);
+        text-decoration: none;
+      }
+
+      .not-found-brand:hover {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
+      .not-found-eyebrow {
+        margin-block-start: 1.75rem;
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--ink-subtle);
+      }
+
+      h1 {
+        margin-block-start: 0.5rem;
+        font-size: clamp(1.5rem, 5vmin, 2.1rem);
+        line-height: 1.25;
+        text-wrap: balance;
+      }
+
+      .not-found-lede {
+        margin-block-start: 0.75rem;
+        max-inline-size: 55ch;
+        color: var(--ink-subtle);
+        text-wrap: pretty;
+      }
+
+      .not-found-drawing {
+        margin-block-start: 2rem;
+      }
+
+      .not-found-tag {
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        margin-inline-start: 1.25rem;
+        margin-block-end: -0.9rem;
+        padding: 0.35rem 1.6rem 0.35rem 0.9rem;
+        border: 2px solid var(--accent);
+        border-radius: 0 1.1rem 1.1rem 0 / 0 50% 50% 0;
+        background-color: var(--sheet);
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--ink);
+      }
+
+      .not-found-frame {
+        display: grid;
+        place-items: center;
+        gap: 0.25rem;
+        min-block-size: 9rem;
+        padding: 1.5rem;
+        border: 2px dashed var(--line);
+        border-radius: 4px;
+      }
+
+      .not-found-ghost {
+        inline-size: min(11rem, 60%);
+        overflow: visible;
+        font-family: var(--mono);
+        stroke: var(--ink-subtle);
+        opacity: 0.55;
+      }
+
+      .not-found-annotation {
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-style: italic;
+        color: var(--ink-subtle);
+        text-align: center;
+      }
+
+      .not-found-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem 1.5rem;
+        margin-block-start: 2rem;
+      }
+
+      .not-found-home {
+        display: inline-block;
+        padding: 0.65rem 1.4rem;
+        border: 2px solid var(--accent);
+        border-radius: 1.1rem;
+        background-color: var(--accent);
+        color: var(--on-accent);
+        font-weight: 600;
+        text-decoration: none;
+        transition: corner-shape 0.4s ease;
+      }
+
+      @supports (corner-shape: squircle) {
+        .not-found-tag {
+          corner-top-right-shape: bevel;
+          corner-bottom-right-shape: bevel;
+        }
+
+        .not-found-home {
+          corner-shape: squircle;
+        }
+
+        .not-found-home:hover,
+        .not-found-home:focus-visible {
+          corner-shape: scoop;
+        }
+      }
+
+      .not-found-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .not-found-links a {
+        color: var(--accent);
+      }
+
+      .not-found-why {
+        margin-block-start: 2rem;
+        border-block-start: 1px solid var(--line);
+        padding-block-start: 1rem;
+      }
+
+      .not-found-why summary {
+        inline-size: fit-content;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .not-found-why p {
+        margin-block-start: 0.75rem;
+        max-inline-size: 60ch;
+        font-size: 0.95rem;
+        color: var(--ink-subtle);
+        text-wrap: pretty;
+      }
+
+      .not-found-titleblock {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2rem;
+        margin-block-start: 2rem;
+        border-block-start: 1px solid var(--line);
+        padding-block-start: 0.75rem;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--ink-subtle);
+      }
+
+      .not-found-titleblock b {
+        font-weight: 400;
+        color: var(--ink);
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .not-found-sheet,
+        .not-found-home {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="not-found-sheet">
+      <a class="not-found-brand" href="/">Accessible by default</a>
+
+      <p class="not-found-eyebrow">Sheet 404 · not in this set</p>
+      <h1>There is no sheet at this address.</h1>
+      <p class="not-found-lede">
+        A typo, an old link, or a drawing that was retired — whatever led you
+        here points at a page this set doesn't contain. The index lists every
+        sheet that exists.
+      </p>
+
+      <div class="not-found-drawing">
+        <span class="not-found-tag">You are here</span>
+        <div class="not-found-frame">
+          <svg class="not-found-ghost" viewBox="0 0 220 90" aria-hidden="true">
+            <text
+              x="50%"
+              y="72"
+              text-anchor="middle"
+              font-size="88"
+              fill="none"
+              stroke-width="1.75"
+            >
+              404
+            </text>
+          </svg>
+          <p class="not-found-annotation">this sheet was never drawn</p>
+        </div>
+      </div>
+
+      <div class="not-found-actions">
+        <a class="not-found-home" href="/">Back to the index</a>
+        <nav class="not-found-links" aria-label="Sheets that do exist">
+          <a href="/standard.html">The standard</a>
+          <a href="/craft.html">The craft</a>
+          <a href="/showcase.html">CSS showcase</a>
+          <a href="/proof.html">The proof</a>
+          <a href="/glossary.html">Glossary</a>
+        </nav>
+      </div>
+
+      <details class="not-found-why">
+        <summary>Even a dead end can practise what this site preaches</summary>
+        <p>
+          Error pages are where accessibility usually gets forgotten. This one
+          ships zero JavaScript. The colours follow your colour scheme through
+          <code>light-dark()</code>, the entrance and the button's shape-morph
+          switch off under your reduced-motion preference, and the morph
+          itself is <code>corner-shape</code> easing from squircle to scoop —
+          in browsers without it, the button is simply a rounded button.
+        </p>
+        <p>
+          Every link here is a real link, the disclosure you just opened is a
+          native <code>&lt;details&gt;</code>, and all of it works with a
+          keyboard. A dead end should still be perceivable, operable,
+          understandable, and robust.
+        </p>
+      </details>
+
+      <footer class="not-found-titleblock">
+        <span>Project <b>Accessible by default</b></span>
+        <span>Title <b>Missing sheet</b></span>
+        <span>Sheet <b>404</b></span>
+        <span>Scale <b>1:1</b></span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -5,6 +5,8 @@
 # appearing not to land). Fingerprinted CSS/JS — Vite puts a content hash in
 # every filename, so a change always yields a new name — is then allowed to
 # cache for a year; static media for a day.
+ErrorDocument 404 /404.html
+
 # One canonical origin: strip www (forcing TLS in the same hop), then force
 # TLS on any remaining host — staging keeps its own hostname.
 <IfModule mod_rewrite.c>

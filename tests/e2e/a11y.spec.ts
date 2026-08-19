@@ -18,6 +18,7 @@ const pages = [
   { path: '/devtools.html', name: 'devtools' },
   { path: '/impressum.html', name: 'impressum' },
   { path: '/privacy.html', name: 'privacy' },
+  { path: '/404.html', name: 'not found' },
 ]
 
 for (const { path, name } of pages) {
