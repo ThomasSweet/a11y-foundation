@@ -21,9 +21,6 @@ git history and the PRs, not here.
 
 ### Feedback inbox
 
-- iOS zoom-in/zoom-out sometimes lands in a different section — needs the
-  tester's video to reproduce; suspects: scroll anchoring vs sticky
-  ghosts / scroll-driven timelines.
 - Distribution (Anthony's push): get the project into curated lists —
   the accessibility side (brunopulis/awesome-a11y, The A11y Project's
   resources page, an A11y Weekly link suggestion) and the agent side,
