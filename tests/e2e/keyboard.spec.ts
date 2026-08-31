@@ -225,6 +225,13 @@ test.describe('keyboard & focus behaviour', () => {
     }
   })
 
+  test('criterion frames offer the focus-the-demo link too', async ({ page }) => {
+    await page.goto('/standard.html')
+    await page.getByRole('link', { name: /focus the demo.*2\.5\.8/i }).click()
+    const focusedClass = await page.evaluate(() => document.activeElement?.className ?? '')
+    expect(focusedClass).toContain('criterion-demo')
+  })
+
   test('corner-shape buttons keep the default focus ring reachable', async ({ page }) => {
     await page.goto('/showcase.html')
     for (const name of ['Squircle', 'Scoop', 'Notch', 'You are here', 'Morph', 'Clipped']) {
