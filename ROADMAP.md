@@ -39,6 +39,29 @@ git history and the PRs, not here.
   showcased feature can do real chrome work with personality. Playfulness is
   a feature, not a garnish.
 
+### Positioning & wayfinding (review 2026-08-31)
+
+Full findings and the tiered work program live in
+[docs/positioning-review.md](docs/positioning-review.md). Verdict: the
+argument and the destinations are strong, but the site under-states its own
+identity
+(llms.txt describes it to machines better than the hub describes it to
+humans), the routing layer above the chapters lacks task words, and nothing
+user-facing ever says the site changed. Tier 1 (copy) largely applied
+2026-08-31: hub lede states claim + mechanic + audience, plate descs became
+outcome contracts with counts, coverage-policy sentence on the Standard
+intro (the 2.4.7 trap), boring-prose rail labels, three syntax-only
+showcase titles renamed, standard→craft bridge line. Tier-1 remainder:
+per-chapter intro contract sentences, craft's closing agent-skill echo.
+Tier 2, each its own change: dated what's-new block + Atom feed, task-index
+sheet (A·05), criterion cards registered in the Standard rail, glossary as
+concept router, error-cluster cross-links, Baseline-movement sentence,
+agent-skill date stamp, bug-template llms mirror. Tier 3 is the deferred
+per-section-pages split, which these findings strengthen — the task index
+becomes its IA. Explicitly rejected: quizzes, progress marks, time
+estimates, search, newsletter capture (see the doc's "deliberately not
+doing" list).
+
 ### The masterclass sweep (July 2026) — specialist-lens gap analysis
 
 The exercise: what would an accessibility specialist and a senior

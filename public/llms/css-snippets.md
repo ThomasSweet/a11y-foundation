@@ -548,7 +548,7 @@ check its tier in `modern-css.md` first.
 }
 ```
 
-## shape()
+## shape() responsive clipping
 
 **Guard:** `@supports (clip-path: shape(from 0 0, line to 100% 0))`
 
@@ -826,7 +826,7 @@ check its tier in `modern-css.md` first.
 }
 ```
 
-## Advanced attr()
+## Typed attr()
 
 **Guard:** `@supports (width: calc(attr(data-value type(<number>), 0) * 1%))`
 
@@ -1054,7 +1054,7 @@ CSS.highlights.set('search', new Highlight(...ranges))
 // never be the sole way meaning is conveyed.
 ```
 
-## Dialog & popover niceties
+## Dialog & popover dismissal
 
 **Guard:** `@supports (selector(:open))`
 

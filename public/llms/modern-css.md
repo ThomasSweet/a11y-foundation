@@ -198,7 +198,7 @@ Query a container’s custom-property value (not just its size) to restyle desce
 - [MDN: style queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_size_and_style_queries)
 - [WCAG: Use of Color (1.4.1)](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
 
-### shape()
+### shape() responsive clipping
 
 Responsive, keyword-based clip paths (lines, arcs, curves) that can use percentages and custom properties — unlike path(), which is frozen SVG coordinates.
 
@@ -375,7 +375,7 @@ Squircles, scoops, and notches as real border geometry — corner-shape reshapes
 
 - [MDN: corner-shape](https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape)
 
-### Advanced attr()
+### Typed attr()
 
 attr() with types — read data attributes as lengths, colors, or numbers in any property, not just content.
 
@@ -423,7 +423,7 @@ Scroll buttons and marker dots generated entirely by CSS — focusable, named (t
 
 - [MDN: ::scroll-marker](https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker)
 
-### Dialog & popover niceties
+### Dialog & popover dismissal
 
 Newer overlay ergonomics: a popover="hint" toggletip (show + dismiss for free) and a <dialog closedby="none"> takeover that Esc and outside-clicks can’t dismiss, for the rare must-decide moment.
 

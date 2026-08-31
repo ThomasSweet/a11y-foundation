@@ -2,9 +2,14 @@
   <SiteFrame home>
     <h1 class="hub-title"><span class="hub-title-accent">Built in, not</span> <span class="hub-strike">bolted&nbsp;on<svg class="hub-strike-scribble" viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true"><path class="hub-strike-scribble-primer hub-strike-scribble-first" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" stroke-dasharray="200" stroke-dashoffset="200" /><path class="hub-strike-scribble-primer hub-strike-scribble-second" d="M 201 26 C 136 28.6, 66 32.4, 0 36" stroke-dasharray="202" stroke-dashoffset="202" /><path class="hub-strike-scribble-primer hub-strike-scribble-third" d="M 2 33 C 70 35.6, 136 38, 199 40" stroke-dasharray="198" stroke-dashoffset="198" /><path class="hub-strike-scribble-ink hub-strike-scribble-first" d="M 1 25 C 66 26.2, 134 28.2, 200 30.5" stroke-dasharray="200" stroke-dashoffset="200" /><path class="hub-strike-scribble-ink hub-strike-scribble-second" d="M 201 26 C 136 28.6, 66 32.4, 0 36" stroke-dasharray="202" stroke-dashoffset="202" /><path class="hub-strike-scribble-ink hub-strike-scribble-third" d="M 2 33 C 70 35.6, 136 38, 199 40" stroke-dasharray="198" stroke-dashoffset="198" /></svg></span></h1>
     <p class="hub-lede">
-      How much of accessibility the modern web platform handles
-      <strong>natively</strong> — with little to no JavaScript. One argument, in
-      four parts. Start anywhere; the thread runs through all of them.
+      Most of what WCAG asks for, the platform already ships — HTML and
+      modern CSS meet the bar <strong>natively</strong>, before any
+      JavaScript arrives. That claim runs live on every page here: criteria
+      you can break and restore, craft decisions shown against the mistakes
+      they replace, tests you can rerun. Written for developers who already
+      ship UI; nothing here repeats what the rest of the web teaches well.
+      One argument, in four parts — start anywhere, the thread runs through
+      all of them.
     </p>
 
     <nav class="hub-plates" aria-label="Chapters">
@@ -29,7 +34,7 @@
     <nav id="practice" class="hub-sheets" aria-labelledby="hub-practice-title">
       <h2 id="hub-practice-title" class="hub-sheets-title">Practice</h2>
       <p class="hub-sheets-lede">
-        Where the tools the chapters taught get used in anger.
+        Where the tools the chapters taught meet a page that fights back.
       </p>
       <ul class="hub-sheets-list" role="list">
         <li>
@@ -157,15 +162,15 @@ interface Plate {
 }
 
 const plates: Plate[] = [
-  { no: '01', href: '/standard.html', icon: 'standard', title: 'The standard', sub: 'The requirement', desc: 'What WCAG asks for, arranged along the timeline it grew on.', cta: 'Open the standard' },
-  { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Meeting the bar with modern CSS and native HTML.', cta: 'Open the craft' },
-  { no: '03', href: '/showcase.html', icon: 'next', title: 'CSS showcase', sub: 'Arriving next', desc: 'Modern CSS worth knowing, grouped by Baseline support.', cta: 'Open the showcase' },
-  { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'How it holds up — a layered job, not a scanner.', cta: 'Open the proof' },
+  { no: '01', href: '/standard.html', icon: 'standard', title: 'The standard', sub: 'The requirement', desc: 'Eleven criteria as working demos — flip each one off and feel what it prevents, on the timeline WCAG grew along.', cta: 'Open the standard' },
+  { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Twelve default decisions where native HTML and CSS clear the bar, each shown against the hand-rolled version it replaces.', cta: 'Open the craft' },
+  { no: '03', href: '/showcase.html', icon: 'next', title: 'CSS showcase', sub: 'Shipping and next', desc: 'Thirty-six modern CSS features with their accessibility payoff, sorted by how safely you can ship each today.', cta: 'Open the showcase' },
+  { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'The layered testing that checks this site\'s claim — what scanners catch, what only a person can, and how to file what you find.', cta: 'Open the proof' },
 ]
 
 const sheets = [
   { no: 'A·01', href: '/glossary.html', name: 'Glossary', desc: 'Short, honest definitions of the vocabulary the site leans on — every term linkable.' },
-  { no: 'A·02', href: '/agent-skill.html', name: 'Agent skill', desc: 'The whole argument, packaged so a coding agent can load it.' },
+  { no: 'A·02', href: '/agent-skill.html', name: 'Agent skill', desc: 'The argument as an installable skill: what to reach for, what never to break, and how to guard features that aren\'t Baseline yet.' },
   { no: 'A·03', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
   { no: 'A·04', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
   { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },

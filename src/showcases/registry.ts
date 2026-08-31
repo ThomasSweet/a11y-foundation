@@ -579,7 +579,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
   },
   {
     id: 'shape-function',
-    title: 'shape()',
+    title: 'shape() responsive clipping',
     supports: 'clip-path: shape(from 0 0, line to 100% 0)',
     summary:
       'Responsive, keyword-based clip paths (lines, arcs, curves) that ' +
@@ -714,7 +714,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
   },
   {
     id: 'advanced-attr',
-    title: 'Advanced attr()',
+    title: 'Typed attr()',
     supports: 'width: calc(attr(data-value type(<number>), 0) * 1%)',
     summary:
       'attr() with types — read data attributes as lengths, colors, or ' +
@@ -876,7 +876,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
   },
   {
     id: 'dialog-polish',
-    title: 'Dialog & popover niceties',
+    title: 'Dialog & popover dismissal',
     supports: 'selector(:open)',
     summary:
       'Newer overlay ergonomics: a popover="hint" toggletip (show + dismiss ' +

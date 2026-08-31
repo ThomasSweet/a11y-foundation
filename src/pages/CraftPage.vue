@@ -90,7 +90,7 @@
     <ChapterSection
       id="craft-motion"
       title="Motion that bows out on request"
-      rail-label="Motion that bows out"
+      rail-label="Reduced motion"
     >
       <p>
         Three independent animations, one preference. When the OS asks for
@@ -122,7 +122,7 @@
       <CraftLinks :links="craftLinks.targets" />
     </ChapterSection>
 
-    <ChapterSection id="craft-defensive" title="Layouts that expect the worst">
+    <ChapterSection id="craft-defensive" title="Layouts that expect the worst" rail-label="Defensive layouts">
       <p>
         Defensive CSS is the habit of assuming real content will be longer,
         wider, and weirder than the mockup. Designs are composed with tidy
@@ -143,7 +143,7 @@
       <CraftLinks :links="craftLinks.defensive" />
     </ChapterSection>
 
-    <ChapterSection id="craft-content-stress" title="Break it with content">
+    <ChapterSection id="craft-content-stress" title="Break it with content" rail-label="Content stress test">
       <p>
         Layouts don't break in design reviews; they break the day the CMS
         delivers a title nobody planned for. The habit that catches it
@@ -176,7 +176,7 @@
     <ChapterSection
       id="craft-loading"
       title="Loading states the accessibility tree can see"
-      rail-label="Loading states the tree can see"
+      rail-label="Loading states"
     >
       <p>
         Skeleton screens are a perceived-performance trick for the eyes:
@@ -201,7 +201,7 @@
     <ChapterSection
       id="craft-truncation"
       title="Truncation that keeps a way in"
-      rail-label="Truncation with a way in"
+      rail-label="Truncating text"
     >
       <p>
         <code>line-clamp</code> cuts a paragraph to a tidy three lines — and
@@ -226,7 +226,7 @@
     <ChapterSection
       id="craft-scrollbar"
       title="The scrollbar you leave alone"
-      rail-label="The scrollbar left alone"
+      rail-label="Scrollbars"
     >
       <p>
         Scrollbars are OS territory the page only borrows. On macOS they
@@ -276,7 +276,7 @@
     <ChapterSection
       id="craft-text-spacing"
       title="Text spacing is the reader's setting"
-      rail-label="The reader's text spacing"
+      rail-label="Text spacing"
     >
       <p>
         WCAG 1.4.12 grants readers the right to raise line height to 1.5,
