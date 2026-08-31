@@ -14,13 +14,19 @@
 
     <p class="criterion-requirement">{{ requirement }}</p>
 
-    <a class="criterion-demo-focus" :href="`#${demoId}`">
+    <a class="criterion-demo-focus" :href="`#${demoId}`" @click.prevent="focusDemo">
       Focus the demo<span class="visually-hidden"> — {{ id }} {{ name }}</span>
     </a>
 
     <!-- `broken` passes to the demo via the slot prop so it regresses its own
          styles; the wrapper class is just the frame's danger outline. -->
-    <div :id="demoId" class="criterion-demo" :class="{ 'is-broken': broken }" tabindex="-1">
+    <div
+      :id="demoId"
+      ref="demoEl"
+      class="criterion-demo"
+      :class="{ 'is-broken': broken }"
+      tabindex="-1"
+    >
       <slot :broken="broken" />
     </div>
 
@@ -82,6 +88,8 @@ const props = withDefaults(
 const broken = ref(false)
 const headingId = useId()
 const demoId = useId()
+const demoEl = ref<HTMLElement | null>(null)
+const focusDemo = () => demoEl.value?.focus()
 const headingTag = computed(() => `h${props.headingLevel}`)
 </script>
 

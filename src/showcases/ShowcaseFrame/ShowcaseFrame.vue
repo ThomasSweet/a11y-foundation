@@ -26,11 +26,11 @@
       written as a progressive enhancement.
     </p>
 
-    <a class="showcase-demo-focus" :href="`#${demoId}`">
+    <a class="showcase-demo-focus" :href="`#${demoId}`" @click.prevent="focusDemo">
       Focus the demo<span class="visually-hidden"> — {{ title }}</span>
     </a>
 
-    <div :id="demoId" class="showcase-demo" tabindex="-1">
+    <div :id="demoId" ref="demoEl" class="showcase-demo" tabindex="-1">
       <slot />
     </div>
 
@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useId } from 'vue'
+import { computed, ref, useId } from 'vue'
 import CodeBlock from '../CodeBlock/CodeBlock.vue'
 import BaselineBadge from '../BaselineBadge/BaselineBadge.vue'
 import type { BaselineInfo } from '../registry'
@@ -151,6 +151,8 @@ const props = withDefaults(
 
 const headingId = useId()
 const demoId = useId()
+const demoEl = ref<HTMLElement | null>(null)
+const focusDemo = () => demoEl.value?.focus()
 const headingTag = computed(() => `h${props.headingLevel}`)
 const hasSnippet = computed(() =>
   Boolean(props.snippetHtml || props.snippetCss || props.snippetJs),
