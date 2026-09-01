@@ -30,6 +30,7 @@
             <span class="custom-select-dot" data-tone="neutral" aria-hidden="true"></span>
             <span class="custom-select-text">
               <span class="custom-select-name">Backlog</span>
+              <span class="custom-select-sep"> — </span>
               <span class="custom-select-desc">Captured, not scheduled</span>
             </span>
           </option>
@@ -37,6 +38,7 @@
             <span class="custom-select-dot" data-tone="info" aria-hidden="true"></span>
             <span class="custom-select-text">
               <span class="custom-select-name">In progress</span>
+              <span class="custom-select-sep"> — </span>
               <span class="custom-select-desc">Someone is on it now</span>
             </span>
           </option>
@@ -44,6 +46,7 @@
             <span class="custom-select-dot" data-tone="warn" aria-hidden="true"></span>
             <span class="custom-select-text">
               <span class="custom-select-name">In review</span>
+              <span class="custom-select-sep"> — </span>
               <span class="custom-select-desc">Waiting on a second pair of eyes</span>
             </span>
           </option>
@@ -53,6 +56,7 @@
             <span class="custom-select-dot" data-tone="success" aria-hidden="true"></span>
             <span class="custom-select-text">
               <span class="custom-select-name">Done</span>
+              <span class="custom-select-sep"> — </span>
               <span class="custom-select-desc">Shipped and verified</span>
             </span>
           </option>
@@ -60,6 +64,7 @@
             <span class="custom-select-dot" data-tone="neutral" aria-hidden="true"></span>
             <span class="custom-select-text">
               <span class="custom-select-name">Archived</span>
+              <span class="custom-select-sep"> — </span>
               <span class="custom-select-desc">Read-only after 90 days</span>
             </span>
           </option>
@@ -128,6 +133,10 @@
       border: none;
       background: none;
       cursor: pointer;
+    }
+
+    .custom-select-sep {
+      display: none;
     }
 
     .custom-select-trigger {

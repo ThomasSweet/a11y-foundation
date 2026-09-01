@@ -8,10 +8,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-8a8a8a)](./LICENSE)
 
 How much of accessibility does the modern web platform handle **natively** —
-with little to no JavaScript? This site is that question, answered as one
-argument in four parts: what **the standard** (WCAG) asks for, **the craft**
-of meeting it with modern CSS and HTML, what cutting-edge **CSS** makes
-possible next, and **the proof** that it holds up.
+with little to no JavaScript? **Most of it.** This site is that claim, argued
+in four parts and running live: what **the standard** (WCAG) asks for —
+eleven criteria you can break and restore — **the craft** of meeting it with
+modern CSS and HTML, the modern **CSS** worth knowing sorted by how safely it
+ships today, and **the proof** that the claim holds up.
 
 Underneath it is an accessibility-first styling foundation — SCSS mixins,
 design tokens, and a cascade-layer architecture — where components adapt to
@@ -19,13 +20,9 @@ design tokens, and a cascade-layer architecture — where components adapt to
 reduced transparency) and **input capabilities** (hover, touch) by default,
 with the cascade doing the work instead of `!important`.
 
-> [!NOTE]
-> **The design vote is settled.** The blueprint restructure — an overview hub
-> plus four chapter pages, wearing a technical-drawing look — won the review
-> round and is now the live design. The previous single-page design is kept
-> under the `design-classic` git tag. Impressions, nitpicks, and accessibility
-> findings are always welcome:
-> [open an issue](https://github.com/ThomasSweet/a11y-foundation/issues).
+The site wears a technical-drawing look: an overview hub plus four chapter
+pages. Its previous single-page design is preserved under the
+`design-classic` git tag.
 
 <a href="https://accessible-by-default.dev/"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hub-dark.png">
@@ -53,8 +50,8 @@ Every feature the site teaches is doing real work *in* the site — each behind
 | Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
 | `@starting-style` + `allow-discrete` | dialog and popover entry/exit transitions |
-| Subgrid | the redesign's hub plates align rows across cards |
-| Cross-document view transitions | the redesign's page-to-page content fade — an MPA with zero routing JS |
+| Subgrid | the hub plates align rows across cards |
+| Cross-document view transitions | the page-to-page content fade — an MPA with zero routing JS |
 
 ## What's inside
 
@@ -66,14 +63,18 @@ Every feature the site teaches is doing real work *in* the site — each behind
 - **A seed-driven theming engine** — a theme is two OKLCH seeds plus optional
   contrast strengths; the full contrast-safe palette is derived in CSS. Eight
   presets: visual themes, a color-vision-friendly trio, high-contrast pair.
-- **WCAG, live** — criteria demos on the standard's timeline, each with a
-  **"break this rule"** toggle so you can feel what the criterion prevents.
+- **WCAG, live** — eleven criteria demos on the standard's timeline, each
+  with a **"break this rule"** toggle so you can feel what the criterion
+  prevents.
 - **A CSS showcase catalog** — 36 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
 - **The audit room** — a page broken on purpose: twelve planted barriers to
   hunt with the tools the site teaches, answers behind `<details>`, and a
   test suite that asserts the page stays exactly that broken.
+- **Reference sheets** — a screen reader's first fifteen minutes, the
+  DevTools accessibility inventory, a linkable glossary, and the style guide
+  the site is drawn with.
 - **Preference & interaction mixins** — `reduced-motion()`, `forced-colors()`,
   `high-contrast()`, `can-hover()`, `touch-primary()` and friends —
   enhancement only, never gating.
@@ -160,6 +161,29 @@ statement lives on the site. Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues) — that
 feedback is welcome and acted on.
 
+## How this was built
+
+This site was built in a directed collaboration with an AI pair — Claude,
+working in Claude Code. The division of labour: the taste, the decisions,
+and the standard are mine; a large share of the execution — code, copy
+drafts, research sweeps, whole demo components — came from the agent,
+working under review. Nothing ships unread, and nothing ships untested:
+every page passes the axe sweep in three engines and the keyboard specs,
+and I put my own hands on a keyboard and a screen reader before anything
+goes live. Where the site states a number, the number was measured; the
+claims that matter are pinned in CI precisely so they cannot drift,
+however they were written. [ROADMAP.md](./ROADMAP.md) keeps the honest
+record, including ideas the agent proposed that I rejected and things we
+built and then cut.
+
+That isn't a caveat — it's the site's argument, applied to itself. This
+project packages its guidance as an agent skill because coding agents
+increasingly write the web's markup; it was built the way it recommends
+the web be built: platform-first defaults, an agent doing much of the
+typing, a human holding the result to the standard. Just as important is
+what AI did **not** do here: no accessibility overlay, no automated
+"remediation", and no generated claim presented as tested when it wasn't.
+
 ## Thanks
 
 Feedback from these people changed the site. Named with their permission, and
@@ -214,7 +238,8 @@ timeline's strata — along with the cross-document view transitions that carry
 navigation between chapters with no routing JavaScript. The implementations and
 the accessibility argument are mine; the insight was theirs.
 
-The decorative hero pictograms are
+The small decorative glyphs — the payoff figure on the showcase cards among
+them — are
 [Material Symbols](https://github.com/google/material-design-icons) by Google,
 used under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
