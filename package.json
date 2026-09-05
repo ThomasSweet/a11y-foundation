@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "node scripts/gen-baseline.mjs",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
     "lint:css": "stylelint \"src/**/*.{css,scss,vue}\"",

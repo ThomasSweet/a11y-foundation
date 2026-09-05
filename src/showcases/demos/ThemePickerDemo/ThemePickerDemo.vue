@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import AppButton from '../../../components/AppButton/AppButton.vue'
 // Contrast maths lives in a sibling module so it's unit-testable (themePickerMath.test.ts).
@@ -123,8 +123,10 @@ const report = computed(() =>
 
 // Detect the second safety net so the read-out is honest about what THIS
 // browser paints (with contrast-color() vs the plain fallback flip).
-const supportsContrastColor =
-  typeof CSS !== 'undefined' && CSS.supports('color', 'contrast-color(red)')
+const supportsContrastColor = ref(false)
+onMounted(() => {
+  supportsContrastColor.value = CSS.supports('color', 'contrast-color(red)')
+})
 
 const note = computed(() => {
   const r = report.value
@@ -134,7 +136,7 @@ const note = computed(() => {
   if (r.fallback.passes) {
     return 'Unclamped — this particular pick’s fallback happens to pass too.'
   }
-  return supportsContrastColor
+  return supportsContrastColor.value
     ? 'Unclamped: the black/white fallback can’t reach AA here, so contrast-color() is rescuing the rendered label in this browser — but the clamp is what guarantees it everywhere, support or not. Turn the clamp back on.'
     : 'Unclamped: the black/white fallback can’t reach AA here, and this browser has no contrast-color() to fall back on, so the label really is failing. Turn the clamp back on.'
 })

@@ -132,8 +132,11 @@ npm run test:unit   # contrast-clamp guarantee + Baseline fallback watch (Vitest
 npm run test:e2e    # axe sweep of every page + keyboard/focus specs, on Chromium, Firefox, and WebKit
 ```
 
-The e2e suite runs the `axe` scan across all pages in three engines and pins
-keyboard behaviour (skip link, dialog focus, popovers, theme persistence).
+The e2e suite runs the `axe` scan across all pages in three engines, pins
+keyboard behaviour (skip link, dialog focus, popovers, theme persistence),
+and fetches every page's raw HTML to assert the content is there before any
+JavaScript runs — the pages are prerendered at build time and hydrated on
+the client.
 It has caught real WCAG failures on this very site before they shipped —
 which is the strongest argument for the layered model the site makes.
 
@@ -145,7 +148,7 @@ npm run dev         # playground at http://localhost:5173
 npm run typecheck   # vue-tsc
 npm run lint:css    # stylelint, including mixin-order enforcement
 npm run lint:js     # eslint (vue + typescript), zero warnings tolerated
-npm run build
+npm run build       # client build, then every page's HTML is prerendered
 ```
 
 Conventions live in [GUIDE.md](./GUIDE.md) — the layer rules, mixin ordering,

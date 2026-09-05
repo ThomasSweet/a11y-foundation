@@ -1,5 +1,5 @@
 <template>
-  <ChapterLayout id="proof">
+  <ChapterLayout id="proof" :sections="rail">
     <p class="chapter-intro">
       A standard and a clever platform answer are only claims until something
       checks them. Accessibility testing is where many teams get lost — they
@@ -9,7 +9,7 @@
       earn their place.)
     </p>
 
-    <ChapterSection id="testing-layers" title="A layered job, not a button">
+    <ChapterSection v-bind="sections.layers">
       <p>
         Each layer is cheaper and broader than the one above it, so it clears
         the easy ground and frees the slow, human layer for what only a person
@@ -45,11 +45,7 @@
       </p>
     </ChapterSection>
 
-    <ChapterSection
-      id="testing-tree"
-      title="Reading the accessibility tree"
-      rail-label="The accessibility tree"
-    >
+    <ChapterSection v-bind="sections.tree">
       <p>
         A screen reader doesn't read your HTML, and it doesn't see your
         pixels. The browser distils every element into a parallel structure —
@@ -87,7 +83,7 @@
       </p>
     </ChapterSection>
 
-    <ChapterSection id="testing-coverage" title="What automation can and can't see">
+    <ChapterSection v-bind="sections.coverage">
       <p>
         This is the part that's rarely spelled out. An automated pass like
         <code>axe</code> is excellent at a specific slice of
@@ -99,7 +95,7 @@
       <CoverageMatrix />
     </ChapterSection>
 
-    <ChapterSection id="testing-audit-css" title="CSS that audits">
+    <ChapterSection v-bind="sections.auditCss">
       <p>
         The selector engine itself can be a testing layer. A handful of
         modern selectors — <code>:not()</code>, <code>:has()</code>,
@@ -112,7 +108,7 @@
       <AuditStylesheet />
     </ChapterSection>
 
-    <ChapterSection id="testing-filing" title="Filing what you find">
+    <ChapterSection v-bind="sections.filing">
       <p>
         Most audit findings die in a backlog, and it's usually the report's
         fault. A ticket titled "fails WCAG 1.3.1" competes against feature
@@ -146,7 +142,7 @@
       </p>
     </ChapterSection>
 
-    <ChapterSection id="testing-performance" title="Performance is accessibility">
+    <ChapterSection v-bind="sections.performance">
       <p>
         Performance work usually files under "nice to have." For assistive
         tech it's load-bearing. A
@@ -166,7 +162,7 @@
       </p>
     </ChapterSection>
 
-    <ChapterSection id="testing-edge" title="Where this argument stops">
+    <ChapterSection v-bind="sections.edge">
       <p>
         Everything on this site stays on one side of a line: what HTML and
         CSS guarantee before any JavaScript arrives. The other side is real,
@@ -194,6 +190,18 @@ import AccessibilityTree from '../testing/AccessibilityTree/AccessibilityTree.vu
 import AuditStylesheet from '../testing/AuditStylesheet/AuditStylesheet.vue'
 import CoverageMatrix from '../testing/CoverageMatrix/CoverageMatrix.vue'
 import CodeBlock from '../showcases/CodeBlock/CodeBlock.vue'
+import { railFrom, type ChapterSectionEntry } from '../site/ChapterLayout/chapterSections'
+
+const sections = {
+  layers: { id: 'testing-layers', title: 'A layered job, not a button' },
+  tree: { id: 'testing-tree', title: 'Reading the accessibility tree', railLabel: 'The accessibility tree' },
+  coverage: { id: 'testing-coverage', title: "What automation can and can't see" },
+  auditCss: { id: 'testing-audit-css', title: 'CSS that audits' },
+  filing: { id: 'testing-filing', title: 'Filing what you find' },
+  performance: { id: 'testing-performance', title: 'Performance is accessibility' },
+  edge: { id: 'testing-edge', title: 'Where this argument stops' },
+} satisfies Record<string, ChapterSectionEntry>
+const rail = railFrom(Object.values(sections))
 
 const bugTemplate = `## Barrier: payment method can't be chosen with a keyboard
 

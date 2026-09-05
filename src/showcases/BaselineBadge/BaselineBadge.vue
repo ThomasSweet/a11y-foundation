@@ -2,7 +2,7 @@
   <p class="baseline-badge" :data-level="levelKey">
     <span class="baseline-badge-status">
       <svg class="baseline-badge-icon" aria-hidden="true">
-        <use :href="`#bl-${levelKey}`" />
+        <use :href.attr="`#bl-${levelKey}`" />
       </svg>
       <strong class="baseline-badge-level">
         <template v-if="info.baseline === 'high'">Baseline · Widely available</template>
@@ -13,10 +13,10 @@
     <span class="baseline-badge-browsers">
       <span v-for="b in browserSupport" :key="b.key" class="baseline-badge-browser">
         <svg class="baseline-badge-logo" aria-hidden="true">
-          <use :href="`#bl-${b.key}`" />
+          <use :href.attr="`#bl-${b.key}`" />
         </svg>
         <svg class="baseline-badge-mark" :data-mark="b.version ? 'yes' : 'no'" aria-hidden="true">
-          <use :href="b.version ? '#bl-available' : '#bl-unavailable'" />
+          <use :href.attr="b.version ? '#bl-available' : '#bl-unavailable'" />
         </svg>
         <span class="visually-hidden">
           {{ b.label }}: {{ b.version ? `supported since version ${b.version}` : 'not supported' }}

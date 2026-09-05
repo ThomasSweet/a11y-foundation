@@ -86,6 +86,12 @@
           <summary class="hub-statement-summary">What that means in practice</summary>
           <div class="hub-statement-body">
             <p>
+              <strong>View source: the argument is in the HTML.</strong> Every
+              page is rendered to markup at build time, so its content is
+              there before any JavaScript runs; the script only wakes up what
+              is already on the page.
+            </p>
+            <p>
               <strong>It's a demo, not a dependency.</strong> This is a
               playground for showing how the modern web platform answers
               accessibility natively, with little to no JavaScript — made to be

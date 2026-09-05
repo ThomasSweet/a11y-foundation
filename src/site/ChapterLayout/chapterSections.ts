@@ -12,3 +12,6 @@ export interface ChapterSectionRegistry {
 
 export const chapterSectionsKey: InjectionKey<ChapterSectionRegistry> =
   Symbol('chapter-sections')
+
+export const railFrom = (entries: ChapterSectionEntry[]) =>
+  entries.map((e) => ({ id: e.id, label: e.railLabel ?? e.title }))

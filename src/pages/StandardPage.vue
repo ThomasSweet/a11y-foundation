@@ -1,5 +1,5 @@
 <template>
-  <ChapterLayout id="standard">
+  <ChapterLayout id="standard" :sections="rail">
     <p class="chapter-intro">
       Accessibility begins as a requirement, not a feature.
       <GlossaryRef id="wcag">WCAG</GlossaryRef> is the
@@ -7,12 +7,7 @@
       right alongside the platform.
     </p>
 
-    <ChapterSection
-      id="demo-criteria"
-      title="Guidelines, alive"
-      rail-label="The break-it criteria"
-      data-reveal="off"
-    >
+    <ChapterSection v-bind="sections.criteria" data-reveal="off">
       <p>
         These aren't definitions of accessibility — they're the standard,
         running. The criteria are arranged along WCAG's timeline, so you can
@@ -30,7 +25,7 @@
       <CriteriaTimeline />
     </ChapterSection>
 
-    <ChapterSection id="demo-legal" title="One standard, many laws">
+    <ChapterSection v-bind="sections.legal">
       <p>
         WCAG isn't just guidance — it's the technical core that accessibility
         law around the world points to. The map below shows how different
@@ -51,4 +46,11 @@ import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import CriteriaTimeline from '../criteria/CriteriaTimeline/CriteriaTimeline.vue'
 import LegalMap from '../criteria/LegalMap/LegalMap.vue'
+import { railFrom, type ChapterSectionEntry } from '../site/ChapterLayout/chapterSections'
+
+const sections = {
+  criteria: { id: 'demo-criteria', title: 'Guidelines, alive', railLabel: 'The break-it criteria' },
+  legal: { id: 'demo-legal', title: 'One standard, many laws' },
+} satisfies Record<string, ChapterSectionEntry>
+const rail = railFrom(Object.values(sections))
 </script>

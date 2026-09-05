@@ -1,4 +1,4 @@
-import { ref, watchEffect } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 
 export const modes = ['system', 'light', 'dark'] as const
 export const presets = [
@@ -28,9 +28,7 @@ const PRESET_VALUES: readonly string[] = [...presets, ...cvdPresets, ...contrast
 )
 const STORAGE_KEY = 'abd-theme'
 
-// The inline script in index.html already applied the saved value pre-paint;
-// state starts from the DOM so UI and document never disagree.
-const initial = (): Theme => {
+const fromDocument = (): Theme => {
   const root = document.documentElement
   if (root.dataset.preset && PRESET_VALUES.includes(root.dataset.preset)) {
     return root.dataset.preset as Theme
@@ -41,10 +39,10 @@ const initial = (): Theme => {
   return 'system'
 }
 
-// Module scope: one theme, however many controls bind to it.
-const theme = ref<Theme>(initial())
+const theme = ref<Theme>('system')
+let synced = false
 
-watchEffect(() => {
+const apply = () => {
   const root = document.documentElement
   if (PRESET_VALUES.includes(theme.value)) {
     root.dataset.preset = theme.value
@@ -65,8 +63,14 @@ watchEffect(() => {
   } catch {
     /* storage unavailable (private mode) — theme still applies for the session */
   }
-})
+}
 
 export function useSiteTheme() {
+  onMounted(() => {
+    if (synced) return
+    synced = true
+    theme.value = fromDocument()
+    watchEffect(apply)
+  })
   return theme
 }

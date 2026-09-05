@@ -1,18 +1,8 @@
+import { basename } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-
-/** Vite drops unknown attributes when rewriting entry <script> tags;
- *  blocking="render" is load-bearing (see src/entries/mount.ts). */
-const keepRenderBlocking = () => ({
-  name: 'keep-render-blocking',
-  transformIndexHtml: {
-    order: 'post',
-    handler: (html) =>
-      html.replace(/<script type="module" crossorigin/g, '<script type="module" blocking="render" crossorigin'),
-  },
-})
 
 /** STAGING=1 builds carry noindex so the staging subdomain never gets crawled. */
 const stagingNoindex = () => ({
@@ -26,6 +16,26 @@ const stagingNoindex = () => ({
   },
 })
 
+const prerenderDev = () => {
+  let server
+  return {
+    name: 'prerender-dev',
+    apply: 'serve',
+    configureServer(s) {
+      server = s
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler: async (html, ctx) => {
+        const name = basename(ctx.filename, '.html')
+        const { views, render } = await server.ssrLoadModule('/src/entries/prerender.ts')
+        if (!views[name]) return html
+        return html.replace('<div id="app"></div>', `<div id="app">${await render(name)}</div>`)
+      },
+    },
+  }
+}
+
 export default defineConfig({
   plugins: [
     vue({
@@ -35,8 +45,8 @@ export default defineConfig({
         },
       },
     }),
-    keepRenderBlocking(),
     stagingNoindex(),
+    prerenderDev(),
   ],
   build: {
     rollupOptions: {

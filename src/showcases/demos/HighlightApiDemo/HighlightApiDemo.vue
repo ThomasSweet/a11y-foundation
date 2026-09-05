@@ -46,10 +46,10 @@ const HIGHLIGHT = 'a11y-search'
 const query = ref('access')
 const prose = ref<HTMLElement | null>(null)
 const count = ref(0)
-const supported = typeof CSS !== 'undefined' && 'highlights' in CSS
+const supported = ref(false)
 
 function update() {
-  if (!supported || !prose.value) return
+  if (!supported.value || !prose.value) return
   CSS.highlights.delete(HIGHLIGHT)
 
   const needle = query.value.trim().toLowerCase()
@@ -78,7 +78,10 @@ function update() {
   if (ranges.length) CSS.highlights.set(HIGHLIGHT, new Highlight(...ranges))
 }
 
-onMounted(update)
+onMounted(() => {
+  supported.value = 'highlights' in CSS
+  update()
+})
 watch(query, update)
 </script>
 

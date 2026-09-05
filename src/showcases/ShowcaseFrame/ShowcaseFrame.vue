@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useId } from 'vue'
+import { computed, onMounted, ref, useId } from 'vue'
 import CodeBlock from '../CodeBlock/CodeBlock.vue'
 import BaselineBadge from '../BaselineBadge/BaselineBadge.vue'
 import type { BaselineInfo } from '../registry'
@@ -157,9 +157,13 @@ const headingTag = computed(() => `h${props.headingLevel}`)
 const hasSnippet = computed(() =>
   Boolean(props.snippetHtml || props.snippetCss || props.snippetJs),
 )
-const supported = computed(() => {
-  if (props.detect) return props.detect()
-  return props.supports ? CSS.supports(props.supports) : true
+const supported = ref(true)
+onMounted(() => {
+  supported.value = props.detect
+    ? props.detect()
+    : props.supports
+      ? CSS.supports(props.supports)
+      : true
 })
 </script>
 

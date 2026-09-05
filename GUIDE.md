@@ -192,43 +192,97 @@ four-layer composition. Each layer has one job:
 - **Leaf content** — demos, `CodeCompare`, `CraftLinks`, prose. Composed
   freely in the section's slot; the wrapper imposes nothing on it.
 
-### The section registry — how the rail knows the sections
+### Sections — declared once, registered too
 
-There is no hand-maintained list of sections. `ChapterLayout` provides a
-registry (`site/ChapterLayout/chapterSections.ts`, via provide/inject); each
-`ChapterSection` registers `{ id, title, railLabel? }` during setup and gets
-its 1-based position back, which sets its `--chapter-sec-N` view timeline —
-the hook the rail's scroll-spy attaches to. The rail renders from the
-registered list; a section's rail text is `railLabel ?? title`.
+Each chapter page declares its sections as data and binds every
+`ChapterSection` from it. The declared list feeds the rail through
+`ChapterLayout`'s `sections` prop, which is what lets the rail be rendered on
+the server: prerendering emits the layout's rail before the slot content
+exists, so a rail that only learned its sections from children registering
+would ship empty.
 
 ```vue
-<ChapterSection
-  id="craft-light-dark"
-  title="Dark mode from one source of truth"
-  rail-label="Dark mode from one source"
->
-  <p>…prose…</p>
-  <LightDarkDemo />
-</ChapterSection>
+<ChapterLayout id="craft" :sections="rail">
+  <ChapterSection v-bind="sections.lightDark">
+    <p>…prose…</p>
+    <LightDarkDemo />
+  </ChapterSection>
+</ChapterLayout>
 ```
+
+```ts
+const sections = {
+  lightDark: { id: 'craft-light-dark', title: 'Dark mode from one source of truth', railLabel: 'Dark mode from one source' },
+} satisfies Record<string, ChapterSectionEntry>
+const rail = railFrom(Object.values(sections))
+```
+
+`ChapterSection` still registers `{ id, title, railLabel? }` with the
+layout's registry (`site/ChapterLayout/chapterSections.ts`, via
+provide/inject) and gets its 1-based position back, which sets its
+`--chapter-sec-N` view timeline — the hook the rail's scroll-spy attaches
+to. Registration is also the rail's fallback when no prop is passed. A
+section's rail text is `railLabel ?? title`.
 
 The rules that keep it sound:
 
-- **Document order is the only order.** Position comes from mount order, so
-  a `ChapterSection` must render unconditionally — never behind `v-if`.
-  Reordering sections in the template is the whole ceremony.
-- **`rail-label` exists only to shorten.** The rail column is ~200px; give a
-  long title a short label there, and nothing else. Omit it when the title
-  fits.
+- **The `sections` object is in template order.** Position comes from mount
+  order and the rail comes from the object, so the two must agree;
+  reordering a section means moving both its entry and its markup. A
+  `ChapterSection` renders unconditionally — never behind `v-if`.
+- **`rail-label` says the task in boring prose.** The rail is navigation:
+  "Reduced motion", "Truncating text", "Scrollbars". Titles keep their
+  character; the label is where the plain words live. Omit it only when the
+  title already is the plain words.
 - **Ids are unique per page.** Registration dedupes by id (that's what keeps
   hot reload from double-counting), so a duplicated id silently merges.
-- **Pages without `ChapterSection` pass `sections` as a prop** — the
-  showcase's tier groups do this — and the prop wins over registration.
-  Those pages then also own their `view-timeline-name` numbering.
+- **Pages without `ChapterSection`** — the showcase's tier groups — pass
+  `sections` directly and own their `view-timeline-name` numbering.
 - **The rail's `timeline-scope` has a ceiling** — `ChapterLayout.scss`
   currently declares `--chapter-sec-1` through `-12`. A chapter that
   outgrows it needs that list extended, or its scroll-spy quietly stops
   at the ceiling.
+
+## Prerendering and SSR safety
+
+`npm run build` runs the client build and then `scripts/prerender.mjs`: a
+vite SSR build of `src/entries/prerender.ts` (production mode, so
+scoped-style hashes match the client bundle) renders every view with
+`renderToString` and injects the markup into `dist/*.html` in place of the
+empty `#app`. The dev server does the same per request through
+`ssrLoadModule` (the `prerender-dev` plugin in `vite.config.js`), so
+`npm run dev` serves prerendered pages too — and since Vue reports hydration
+mismatches only in development, development is where they get caught.
+`mount.ts` hydrates with `createSSRApp`.
+
+What that demands of every component:
+
+- **No browser APIs during render.** `window`, `document`, `CSS.supports`,
+  `matchMedia`, `localStorage` must not run at module scope, in `setup`, or
+  in a `computed` the template reads — the server has none of them. Put
+  them in `onMounted` or in event handlers.
+- **Render the same tree on both sides.** Anything environment-dependent
+  (feature support, a stored preference) starts from a fixed default the
+  server renders too, then updates in `onMounted`. `ShowcaseFrame`'s
+  `supported` and `useSiteTheme` are the reference patterns. A divergence
+  shows up as `[Vue warn]: Hydration … mismatch` in the dev console; the
+  bar is zero.
+- **Bind SVG `href` as an attribute** (`:href.attr`) — the hydration path
+  otherwise sets it as a DOM property, which is read-only on `<use>`.
+- **New views register in `prerender.ts`** under the HTML file's basename,
+  or they ship as an empty shell. `tests/e2e/prerender.spec.ts` fetches
+  every page's raw HTML and asserts its content is there.
+- **`blocking="render"` on the entry scripts is for the dev server only.**
+  In development Vite injects CSS through JavaScript, so without it the
+  prerendered content paints unstyled and then snaps into place — a flash
+  that is worst in dark mode, where the placeholder background and the
+  real palette differ most. The attribute makes the browser wait for the
+  module graph, so the first paint is styled. The build strips it (Vite
+  drops unknown attributes when it rewrites entry scripts), and production
+  does not need it: its CSS is a render-blocking `<link>` in the head, so
+  the prerendered page paints styled at once and hydration changes nothing
+  visible. Do not restore the old plugin that re-added the attribute after
+  the build — it would only delay production's first paint.
 
 ---
 

@@ -95,8 +95,8 @@ import { chapterSectionsKey, type ChapterSectionEntry } from './chapterSections'
 const props = defineProps<{
   /** Matches a pillars[].id. */
   id: string
-  /** Only for pages that don't compose ChapterSection (the showcase's tier
-      groups); sections registered by ChapterSection children win otherwise. */
+  /** The rail entries. Pages pass them explicitly so server-rendered HTML
+      carries the rail; ChapterSection registration is the client fallback. */
   sections?: { id: string; label: string }[]
 }>()
 
