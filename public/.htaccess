@@ -29,6 +29,9 @@ ErrorDocument 404 /404.html
   <Files "llms.txt">
     Header set X-Robots-Tag "noindex"
   </Files>
+  <Files "feed.xml">
+    Header set Content-Type "application/atom+xml; charset=utf-8"
+  </Files>
 
   # Hashed build output — safe to cache immutably; the URL changes on any edit.
   <FilesMatch "\.(?:css|js)$">

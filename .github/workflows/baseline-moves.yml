@@ -1,0 +1,53 @@
+name: Baseline moves
+
+on:
+  schedule:
+    - cron: '30 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update web-features
+        run: npm install web-features@latest --save-dev --save-exact
+
+      - name: Regenerate Baseline data
+        run: node scripts/gen-baseline.mjs
+
+      - name: Propose what-changed lines
+        run: node scripts/gen-moves.mjs | tee moves.md
+
+      - name: Regenerate the feed
+        run: node scripts/gen-feed.mjs
+
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.BOT_TOKEN || github.token }}
+          branch: chore/baseline-moves
+          delete-branch: true
+          commit-message: 'chore: bump web-features and propose what-changed lines'
+          title: 'chore: Baseline moved, what-changed lines proposed'
+          body-path: moves.md
+          labels: baseline
+          add-paths: |
+            package.json
+            package-lock.json
+            src/showcases/baseline-data.json
+            src/site/HubRevisions/revisions.ts
+            public/feed.xml

@@ -48,6 +48,9 @@ same registries that render the pages, so it cannot drift from the live demos.
 
 ## Optional
 
+- [What changed](https://accessible-by-default.dev/feed.xml): an Atom feed of
+  dated changes to the site, newest first; the same six lines sit at the
+  bottom of the hub
 - [GitHub repository](https://github.com/ThomasSweet/a11y-foundation): source
   for everything above, including the installable agent skill
 - [Style guide](https://accessible-by-default.dev/styleguide.html): the design
