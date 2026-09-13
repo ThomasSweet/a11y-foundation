@@ -76,7 +76,7 @@
   .standards-map-wrapper {
     flex: 0 0 100%;
     min-inline-size: 0;
-    transition: flex-basis var(--duration-slow);
+    transition: flex-basis var(--duration-normal);
 
     @include cq-from('lg', 'standards-map-row') {
       flex-basis: calc(50% - var(--space-4) / 2);
@@ -97,9 +97,9 @@
     border-radius: var(--radius-xl);
     background-color: var(--color-surface);
     transition:
-      scale var(--duration-slow),
-      border-color var(--duration-slow),
-      box-shadow var(--duration-slow);
+      scale var(--duration-normal),
+      border-color var(--duration-normal),
+      box-shadow var(--duration-normal);
 
     @include reduced-motion {
       transition: none;
@@ -158,7 +158,7 @@
       rotate: 45deg;
       translate: 0 -0.15em;
       color: var(--color-text-subtle);
-      transition: rotate var(--duration-slow);
+      transition: rotate var(--duration-normal);
 
       @include reduced-motion {
         transition: none;
@@ -212,9 +212,9 @@
       opacity: 0;
       overflow: clip;
       transition:
-        block-size var(--duration-slow),
-        opacity var(--duration-slow),
-        content-visibility var(--duration-slow) allow-discrete;
+        block-size var(--duration-normal),
+        opacity var(--duration-normal),
+        content-visibility var(--duration-normal) allow-discrete;
 
       @include reduced-motion {
         transition: none;
