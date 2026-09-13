@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Accessible by default: what changed</title>
+  <subtitle>Dated changes to accessible-by-default.dev, newest first.</subtitle>
+  <id>https://accessible-by-default.dev/feed.xml</id>
+  <link rel="self" type="application/atom+xml" href="https://accessible-by-default.dev/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://accessible-by-default.dev/#what-changed"/>
+  <updated>2026-09-13T00:00:00Z</updated>
+  <author><name>Thomas Sweet</name></author>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-13:standards-map</id>
+    <title>Standard: The legal map became a standards map</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/standard.html#demo-legal"/>
+    <published>2026-09-13T00:00:00Z</published>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <summary>The legal map became a standards map: laws sit in the row of the WCAG version they cite, and each opens to show how many layers sit between it and the criterion you test.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-10:wcag-3-september-draft</id>
+    <title>Standard: A new WCAG 3.0 working draft</title>
+    <link rel="alternate" href="https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/"/>
+    <published>2026-09-10T00:00:00Z</published>
+    <updated>2026-09-10T00:00:00Z</updated>
+    <summary>A new WCAG 3.0 working draft: one bar of core requirements, with supplemental requirements and assertions as extras you report. The timeline entry follows it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-07:en-301-549-v4</id>
+    <title>Standard: EN 301 549 V4.1.1 is published</title>
+    <link rel="alternate" href="https://accessible-eu-centre.ec.europa.eu/content-corner/news/european-accessibility-standard-en-301-549-has-been-updated-2026-09-07_en"/>
+    <published>2026-09-07T00:00:00Z</published>
+    <updated>2026-09-07T00:00:00Z</updated>
+    <summary>ETSI published EN 301 549 V4.1.1, quoting WCAG 2.2 AA. Until the Official Journal cites it, 2.1 AA stays the bar on the map.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-01:firefox-155-typed-attr</id>
+    <title>Showcase: Firefox 155 ships typed attr()</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-advanced-attr"/>
+    <published>2026-09-01T00:00:00Z</published>
+    <updated>2026-09-01T00:00:00Z</updated>
+    <summary>Firefox 155 ships typed attr(), so that showcase now runs in two engines; Safari has it in Technology Preview.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-08-25:media-pseudo-classes-baseline</id>
+    <title>Showcase: Media state pseudo-classes reach Baseline</title>
+    <link rel="alternate" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:playing"/>
+    <published>2026-08-25T00:00:00Z</published>
+    <updated>2026-08-25T00:00:00Z</updated>
+    <summary>Chrome 152 shipped the media state pseudo-classes, the third engine, so :playing and :paused now work everywhere without script.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-08-01:audit-room</id>
+    <title>Proof: The audit room</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/audit-room.html"/>
+    <published>2026-08-01T00:00:00Z</published>
+    <updated>2026-08-01T00:00:00Z</updated>
+    <summary>The audit room: a page broken on purpose, twelve barriers, answers included.</summary>
+  </entry>
+</feed>

@@ -64,6 +64,8 @@
       </ul>
     </nav>
 
+    <HubRevisions />
+
     <template #footer-extra>
       <section class="hub-statement" aria-labelledby="a11y-statement">
         <h2 id="a11y-statement" class="hub-statement-title">Accessibility</h2>
@@ -154,6 +156,7 @@
 
 <script setup lang="ts">
 import SiteFrame from '../SiteFrame/SiteFrame.vue'
+import HubRevisions from '../HubRevisions/HubRevisions.vue'
 import GlossaryRef from '../../glossary/GlossaryRef.vue'
 import { pillarIcons, type PillarIconName } from '../../icons/pillarIcons'
 

@@ -1,0 +1,117 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://accessible-by-default.dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Prepare SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -n "$DEPLOY_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$DEPLOY_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+          else
+            ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+          fi
+          echo "GIT_SSH_COMMAND=ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes" >> "$GITHUB_ENV"
+
+      - name: Push the build to the deploy branch
+        env:
+          DEPLOY_REPO: ${{ secrets.DEPLOY_REPO }}
+        run: |
+          set -e
+          git config --global user.name 'deploy'
+          git config --global user.email 'deploy@accessible-by-default.dev'
+          rm -rf /tmp/deploy && mkdir /tmp/deploy && cd /tmp/deploy
+          git init -q
+          git remote add production "$DEPLOY_REPO"
+          if git fetch -q production deploy; then
+            git checkout -q -b deploy production/deploy
+          else
+            git checkout -q --orphan deploy
+          fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r "$GITHUB_WORKSPACE/dist/." .
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'Nothing changed, pushing the existing deploy branch.'
+          else
+            git commit -q -m "Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ) from ${GITHUB_SHA::7}"
+          fi
+          git push -q production deploy
+
+      - name: Pull on the server
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" "cd '$DEPLOY_PATH' && git pull -q"
+
+      - name: Confirm production serves this build
+        run: |
+          set -e
+          sleep 5
+          asset=$(grep -o 'assets/[^"]*\.js' dist/index.html | head -1)
+          curl -sS --max-time 30 https://accessible-by-default.dev/ -o live-index.html
+          grep -q "$asset" live-index.html
+          curl -sS --max-time 30 https://accessible-by-default.dev/feed.xml -o live-feed.xml
+          node -e "
+            const xml = require('fs').readFileSync('live-feed.xml', 'utf8')
+            const titles = [...xml.matchAll(/<entry>[\s\S]*?<title>([^<]*)<\/title>[\s\S]*?<updated>([^<]*)<\/updated>/g)]
+            const lines = titles.slice(0, 6).map(([, title, updated]) => '- ' + updated.slice(0, 10) + ' · ' + title)
+            require('fs').writeFileSync('deploy-summary.md', 'Live feed, newest first:\n\n' + lines.join('\n') + '\n')
+          "
+          cat deploy-summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Tell the merged pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+            })
+            if (prs.length === 0) return
+            const summary = fs.readFileSync('deploy-summary.md', 'utf8')
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prs[0].number,
+              body: `Deployed to production: https://accessible-by-default.dev (build ${context.sha.slice(0, 7)}).\n\n${summary}`,
+            })
