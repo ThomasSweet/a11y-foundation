@@ -1,0 +1,55 @@
+@layer components {
+  .standards-map-layer {
+    --standards-map-tint: 4%;
+
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--bp-frame);
+    border-radius: var(--radius-lg);
+    background-color: color-mix(in oklab, var(--color-primary) var(--standards-map-tint), var(--color-surface));
+
+    @supports (corner-shape: squircle) {
+      corner-shape: squircle;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  :where(.standards-map-layer .standards-map-layer) {
+    --standards-map-tint: 8%;
+
+    margin-block-start: var(--space-3);
+  }
+
+  :where(.standards-map-layer .standards-map-layer .standards-map-layer) {
+    --standards-map-tint: 12%;
+  }
+
+  .standards-map-layer.is-core {
+    --standards-map-tint: 0%;
+
+    border-width: 2px;
+    border-color: var(--color-primary);
+  }
+
+  .standards-map-layer-kind {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+
+  .standards-map-layer-name {
+    font-weight: 600;
+  }
+
+  .standards-map-layer-note {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+    text-wrap: pretty;
+  }
+}

@@ -790,12 +790,12 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'platform. ' +
       'Keyboard, type-ahead, the screen-reader combobox, and form submission ' +
       'stay native, so it replaces the hand-rolled ARIA combobox. Without ' +
-      'support it falls back to a plain native select. Currently ' +
-      'Chromium-only (Chrome and Edge 135+).',
+      'support it falls back to a plain native select. Chrome and Edge ' +
+      '135+, Safari 27+; Firefox not yet.',
     links: [
       {
         label: 'MDN: Customizable select',
-        href: 'https://developer.mozilla.org/en-US/docs/Learn/Forms/Customizable_select',
+        href: 'https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select',
       },
     ],
     payoff:
@@ -942,7 +942,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
     links: [
       {
         label: 'MDN: interest-delay',
-        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/interest-delay',
+        href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interest-delay',
       },
       {
         label: 'Chrome Status: Interest Invokers',
