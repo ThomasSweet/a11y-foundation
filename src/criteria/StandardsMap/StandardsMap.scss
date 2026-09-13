@@ -1,0 +1,237 @@
+@layer components {
+  .standards-map {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .standards-map-lede {
+    max-inline-size: 60ch;
+    margin: 0;
+    color: var(--color-text-subtle);
+    text-wrap: pretty;
+  }
+
+  .standards-map-rows {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .standards-map-row {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-block-start: 1px dashed var(--bp-frame);
+
+    @include from('md') {
+      grid-template-columns: 9rem 1fr;
+    }
+  }
+
+  .standards-map-version {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+  }
+
+  .standards-map-version-title {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-text-subtle);
+  }
+
+  .standards-map-version-number {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-primary);
+  }
+
+  .standards-map-version-note {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+    text-wrap: pretty;
+  }
+
+  .standards-map-wrappers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .standards-map-wrapper:has(> .standards-map-law[open]) {
+    grid-column: 1 / -1;
+  }
+
+  .standards-map-law {
+    interpolate-size: allow-keywords;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface);
+    transition:
+      scale var(--duration-normal),
+      border-color var(--duration-normal),
+      box-shadow var(--duration-normal);
+
+    @include reduced-motion {
+      transition: none;
+    }
+
+    @include high-contrast {
+      border-color: currentcolor;
+    }
+  }
+
+  .standards-map-law[open] {
+    border-color: var(--color-primary);
+    box-shadow:
+      0 0 0 6px var(--bp-accent-soft),
+      var(--shadow-md);
+
+    @supports (corner-shape: squircle) {
+      corner-shape: squircle;
+    }
+
+    @include forced-colors {
+      border-width: 3px;
+      box-shadow: none;
+    }
+  }
+
+  .standards-map:has(.standards-map-law[open]) .standards-map-law:not([open]) {
+    scale: 0.975;
+    border-color: color-mix(in oklab, var(--color-border) 60%, transparent);
+
+    &:hover,
+    &:focus-within {
+      scale: 1;
+      border-color: var(--bp-frame);
+    }
+  }
+
+  .standards-map-summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-1) var(--space-4);
+    align-items: center;
+    padding: var(--space-4);
+    border-radius: inherit;
+    list-style: none;
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      grid-row: 1 / span 3;
+      grid-column: 2;
+      inline-size: 0.7em;
+      block-size: 0.7em;
+      border-inline-end: 2px solid currentcolor;
+      border-block-end: 2px solid currentcolor;
+      rotate: 45deg;
+      translate: 0 -0.15em;
+      color: var(--color-text-subtle);
+      transition: rotate var(--duration-normal);
+
+      @include reduced-motion {
+        transition: none;
+      }
+    }
+  }
+
+  .standards-map-law[open] .standards-map-summary::after {
+    rotate: 225deg;
+    translate: 0 0.15em;
+  }
+
+  .standards-map-region {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  .standards-map-name {
+    font-weight: 600;
+  }
+
+  .standards-map-stamp {
+    justify-self: start;
+    padding: 0.15em 0.6em;
+    border: 1px solid var(--bp-frame);
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    background-color: var(--bp-accent-soft);
+
+    @include forced-colors {
+      border-color: CanvasText;
+    }
+  }
+
+  @supports selector(::details-content) {
+    .standards-map-law::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow: clip;
+      transition:
+        block-size var(--duration-normal),
+        opacity var(--duration-normal),
+        content-visibility var(--duration-normal) allow-discrete;
+
+      @include reduced-motion {
+        transition: none;
+      }
+    }
+
+    .standards-map-law[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+
+  .standards-map-chain {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  .standards-map-arriving {
+    display: grid;
+    align-content: center;
+    padding: var(--space-4);
+    border: 1px dashed var(--bp-frame);
+    border-radius: var(--radius-xl);
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+
+    p {
+      margin: 0;
+      text-wrap: pretty;
+    }
+  }
+
+  .standards-map-empty {
+    margin: 0;
+    font-style: italic;
+    color: var(--color-text-subtle);
+  }
+
+  .standards-map-caption {
+    max-inline-size: 65ch;
+    color: var(--color-text-subtle);
+  }
+
+  .standards-map-disclaimer {
+    font-style: italic;
+  }
+}

@@ -31,7 +31,7 @@
         law around the world points to. The map below shows how different
         jurisdictions wrap legal force around the same standard.
       </p>
-      <LegalMap />
+      <StandardsMap />
       <p>
         The bar, set. <a href="/craft.html">Chapter 02</a> is how the
         platform clears it.
@@ -45,7 +45,7 @@ import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
 import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
 import GlossaryRef from '../glossary/GlossaryRef.vue'
 import CriteriaTimeline from '../criteria/CriteriaTimeline/CriteriaTimeline.vue'
-import LegalMap from '../criteria/LegalMap/LegalMap.vue'
+import StandardsMap from '../criteria/StandardsMap/StandardsMap.vue'
 import { railFrom, type ChapterSectionEntry } from '../site/ChapterLayout/chapterSections'
 
 const sections = {

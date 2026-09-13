@@ -110,10 +110,10 @@ at the ARIA APG.
   modest a11y angle; take it only if a showcase gap needs filling.
 - Subgrid card alignment — only if criteria/showcase cards ever sit side by
   side; verify the layout before building.
-- Media state pseudo-classes (`:playing` etc.) — re-checked Aug 2026: still
-  no Chromium (Firefox 150 + Safari only; a claimed Chrome 150 ship did not
-  survive verification — `CSS.supports` in a real Chromium and web-features
-  both say no). Interop 2026 focus area, so recheck around year-end.
+- Media state pseudo-classes (`:playing` etc.) — re-checked Sep 2026: Chrome 152
+  (25 Aug 2026) shipped all seven, so they are Baseline newly available
+  (Firefox 150, Safari 15.4). No longer blocked: a demo can style state on a
+  native `<video controls>` without script. Ready whenever a slot wants it.
 - `text-fit` (a.k.a. the `text-grow`/`text-shrink` proposals) — assessed
   July 2026: no engine ships it, so it can't be demoed honestly. The a11y
   case is real but double-edged: *grow/fit* would retire images-of-text and
@@ -125,9 +125,9 @@ at the ARIA APG.
   shrink caveat. Update Aug 2026: Chrome 150 shipped it, so the condition is
   met and the framing above is the build spec; passed over for wave 11 while
   single-engine, ready whenever a limited-tier slot wants it.
-- `sibling-index()` / `sibling-count()` — re-checked Aug 2026: now stable in
-  Chrome 138 and Safari 26.2, but the payoff is still aesthetic; at most a
-  footnote on the quantity-queries showcase.
+- `sibling-index()` / `sibling-count()` — re-checked Sep 2026: Baseline newly
+  available since Firefox 154 (18 Aug 2026), but the payoff is still
+  aesthetic; at most a footnote on the quantity-queries showcase.
 - `border-shape` — spec still in flux; candidate for the anchor-tooltip
   arrow. Its corner cousin `corner-shape` shipped in Chrome 139 and joined
   the showcase in wave 11.
@@ -171,6 +171,8 @@ at the ARIA APG.
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-09** Freshness audit (mid-September): the WCAG 3.0 timeline entry reworded for the 10 Sep working draft (one bar of core requirements; supplemental requirements and assertions are extras you report, not higher levels); customizable select copy updated for Safari 27 (14 Sep); legal map re-read against ETSI, the Commission, the Federal Register and the Canada Gazette (EN 301 549 V4.1.1 published with WCAG 2.2 AA but its Official Journal citation is pending, so 2.1 AA stays the cited bar; Canada split into the ACA via CAN/ASC-EN 301 549 and AODA at 2.0 AA); two moved MDN links repointed. Confirmed unchanged: ADA Title II's 2027–2028 phase-in under the April interim rule (challenged in court, no ruling), Section 508 at 2.0 AA, all seven Interop 2026 labels, the Survey 10 attributions (Survey 11 still unpublished). web-features 3.35 to 3.38 changes no badge tier.
 
 - **2026-09** Prerendered: every Vue page's served HTML now carries its content (a vite SSR build renders each entry at build time and the client hydrates; the dev server renders the same way through ssrLoadModule, so hydration mismatches surface in development where Vue reports them). SSR-safety pass: the theme composable no longer touches the document at import, ShowcaseFrame's support check and two demos moved browser-API reads to onMounted, chapter pages declare their sections as data so the Contents rail is server-rendered, SVG `use` hrefs bind as attributes. `blocking="render"` retired from production output (it only ever hid an empty mount point; measured hub first paint 956 → 588 ms on a throttled connection) but kept in the source shells for the dev server, where Vite injects CSS via JS and the prerendered page would otherwise paint unstyled — the build strips it by itself. A permanent spec fetches every page's raw HTML and asserts the content. Scope and rationale: [docs/prerender-scope.md](docs/prerender-scope.md).
 

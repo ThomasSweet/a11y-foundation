@@ -411,8 +411,9 @@ export const wcagTimeline: WcagEra[] = [
     year: 'draft',
     version: null,
     summary:
-      'The next chapter — a new conformance model: a core baseline plus ' +
-      'higher levels built from supplemental requirements and assertions.',
+      'The next chapter — a new conformance model: one bar of core ' +
+      'requirements, with supplemental requirements and assertions as ' +
+      'extras you report, not higher levels.',
     note: 'Still a working draft: a different model, not just more criteria.',
   },
 ]
