@@ -4,15 +4,13 @@
     <span class="standards-map-layer-name">{{ layers[0].name }}</span>
     <p class="standards-map-layer-note">
       {{ layers[0].note }}
-      <a v-if="layers.length === 1" :href="href"
-        >Official text<span class="visually-hidden"> of {{ lawName }}</span></a
-      >
+      <a v-if="layers.length === 1" :href="href">{{ linkLabel }}</a>
     </p>
     <StandardsMapChain
       v-if="layers.length > 1"
       :layers="layers.slice(1)"
       :href="href"
-      :law-name="lawName"
+      :link-label="linkLabel"
     />
   </div>
 </template>
@@ -23,7 +21,7 @@ import type { MapLayer } from './standardsMapData'
 defineProps<{
   layers: MapLayer[]
   href: string
-  lawName: string
+  linkLabel: string
 }>()
 </script>
 

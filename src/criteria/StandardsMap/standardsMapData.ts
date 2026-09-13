@@ -11,6 +11,7 @@ export interface MapLaw {
   name: string
   stamp: string
   href: string
+  link: string
   layers: MapLayer[]
 }
 
@@ -41,6 +42,7 @@ export const laws: MapLaw[] = [
     name: 'Section 508',
     stamp: 'WCAG 2.0 AA',
     href: 'https://www.section508.gov/',
+    link: 'The 508 Standards on section508.gov',
     layers: [
       {
         kind: 'Law',
@@ -66,6 +68,7 @@ export const laws: MapLaw[] = [
     name: 'AODA',
     stamp: 'WCAG 2.0 AA',
     href: 'https://www.ontario.ca/laws/regulation/110191',
+    link: 'Ontario Regulation 191/11 on ontario.ca',
     layers: [
       {
         kind: 'Law',
@@ -88,6 +91,7 @@ export const laws: MapLaw[] = [
     name: 'European Accessibility Act',
     stamp: 'WCAG 2.1 AA',
     href: 'https://eur-lex.europa.eu/eli/dir/2019/882/oj',
+    link: 'Directive 2019/882 on EUR-Lex',
     layers: [
       {
         kind: 'National law',
@@ -122,6 +126,7 @@ export const laws: MapLaw[] = [
     name: 'ADA Title II web rule',
     stamp: 'WCAG 2.1 AA',
     href: 'https://www.ada.gov/resources/2024-03-08-web-rule/',
+    link: 'The web rule on ada.gov',
     layers: [
       {
         kind: 'Regulation',
@@ -144,6 +149,7 @@ export const laws: MapLaw[] = [
     name: 'Accessible Canada Act',
     stamp: 'WCAG 2.1 AA',
     href: 'https://gazette.gc.ca/rp-pr/p2/2025/2025-12-17/html/sor-dors255-eng.html',
+    link: 'SOR/2025-255 in the Canada Gazette',
     layers: [
       {
         kind: 'Law and regulation',
@@ -169,6 +175,7 @@ export const laws: MapLaw[] = [
     name: 'Public Sector Bodies Accessibility Regulations',
     stamp: 'WCAG 2.2 AA',
     href: 'https://www.legislation.gov.uk/uksi/2018/952/contents',
+    link: 'The 2018 regulations on legislation.gov.uk',
     layers: [
       {
         kind: 'Regulation',

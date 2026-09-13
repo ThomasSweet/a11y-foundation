@@ -27,7 +27,7 @@
                 <span class="standards-map-stamp">{{ law.stamp }}</span>
               </summary>
               <div class="standards-map-chain">
-                <StandardsMapChain :layers="law.layers" :href="law.href" :law-name="law.name" />
+                <StandardsMapChain :layers="law.layers" :href="law.href" :link-label="law.link" />
               </div>
             </details>
           </li>
