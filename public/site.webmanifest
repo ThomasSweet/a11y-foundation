@@ -1,7 +1,7 @@
 {
   "name": "Accessible by default",
   "short_name": "Accessible",
-  "description": "An accessibility-first styling foundation — modern CSS and the web platform handling accessibility natively, with little to no JavaScript.",
+  "description": "How much of accessibility the web platform handles natively, with little to no JavaScript. An interactive argument in four chapters, running live.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a1a1a",

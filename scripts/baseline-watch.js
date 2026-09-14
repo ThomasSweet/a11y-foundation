@@ -7,7 +7,7 @@
  * The MANIFEST is the single source of truth. The pure `evaluateBaseline()`
  * below is consumed two ways: a Vitest spec asserts nothing is removable yet
  * (the gate), and the CLI at the bottom prints a detailed report (`npm run
- * baseline:check`, also what the scheduled CI run surfaces).
+ * baseline:check`).
  *
  * Removal bar — set by the *kind* of fallback, because they cost differently:
  *
@@ -36,9 +36,9 @@ import { features } from 'web-features'
 /** @type {Entry[]} */
 export const MANIFEST = [
   { id: 'anchor-positioning', fallback: 'css', used: ['PopoverMenuDemo', 'AnchorPopoverDemo', 'DialogPolishDemo'] },
-  { id: 'scroll-driven-animations', fallback: 'css', used: ['ScrollProgressDemo', 'CriteriaTimeline', 'App.vue'] },
+  { id: 'scroll-driven-animations', fallback: 'css', used: ['ScrollProgressDemo', 'CriteriaTimeline', 'ChapterLayout', 'ShowcasePage.vue'] },
   { id: 'field-sizing', fallback: 'css', used: ['FieldSizingDemo'] },
-  { id: 'contrast-color', fallback: 'css', used: ['ContrastColorDemo', 'theming.css'] },
+  { id: 'contrast-color', fallback: 'css', used: ['ContrastColorDemo', 'ThemeShowcaseDemo', 'styles/theming/engine.css'] },
   { id: 'container-scroll-state-queries', fallback: 'css', used: ['ScrollStateDemo'] },
   { id: 'container-style-queries', fallback: 'css', used: ['StyleQueryCuesDemo'] },
   { id: 'shape-function', fallback: 'css', used: ['ShapeDemo'] },

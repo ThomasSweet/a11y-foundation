@@ -34,7 +34,8 @@ git history and the PRs, not here.
   employ the CSS it showcases, visibly. Partly addressed already (cross-doc
   view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals,
   chapter watermarks, anchor-positioned theme panel, :has() legal wash, the
-  rounded-polygon "You are here" tag) — but treat "does the site dogfood
+  rounded-polygon "You are here" tag, the standards map's exclusive details,
+  ::details-content and :has() bubble) — but treat "does the site dogfood
   this?" as a standing design test, and keep hunting for places where a
   showcased feature can do real chrome work with personality. Playfulness is
   a feature, not a garnish.
@@ -46,17 +47,22 @@ Full findings and the tiered work program live in
 argument and the destinations are strong, but the site under-states its own
 identity
 (llms.txt describes it to machines better than the hub describes it to
-humans), the routing layer above the chapters lacks task words, and nothing
-user-facing ever says the site changed. Tier 1 (copy) largely applied
+humans), the routing layer above the chapters lacks task words, and, until
+September, nothing user-facing said the site changed. Tier 1 (copy) largely applied
 2026-08-31: hub lede states claim + mechanic + audience, plate descs became
 outcome contracts with counts, coverage-policy sentence on the Standard
 intro (the 2.4.7 trap), boring-prose rail labels, three syntax-only
 showcase titles renamed, standard→craft bridge line. Tier-1 remainder:
 per-chapter intro contract sentences, craft's closing agent-skill echo.
-Tier 2, each its own change: dated what's-new block + Atom feed, task-index
+Tier 2 items 1 and 2, the what's-new block and the Atom feed, shipped
+2026-09-13 (see Done). Tier 2 remainder, each its own change: task-index
 sheet (A·05), criterion cards registered in the Standard rail, glossary as
-concept router, error-cluster cross-links, Baseline-movement sentence,
-agent-skill date stamp, bug-template llms mirror. Tier 3 is the deferred
+concept router, error-cluster cross-links, Baseline-movement sentence in the
+showcase intro (the Monday bot feeds the what-changed block, the intro still
+says nothing), agent-skill date stamp, bug-template llms mirror, and a
+chapter-level "last changed" stamp in each chapter's title block, derived
+from the newest revisions.ts line for that area (no second registry, no
+counts, no unread badges). Tier 3 is the deferred
 per-section-pages split, which these findings strengthen — the task index
 becomes its IA. Explicitly rejected: quizzes, progress marks, time
 estimates, search, newsletter capture (see the doc's "deliberately not
@@ -133,6 +139,48 @@ at the ARIA APG.
   the showcase in wave 11.
 - Overscroll areas / built-in gestures — early spec discussion.
 - Scoped view transitions (`element.startViewTransition`) — Chrome-only JS API.
+- Interop 2027: proposals close 23 Sep 2026, the scope is published 4 Feb
+  2027. When it lands, re-check the seven "Interop 2026 focus area" labels on
+  the cards, the showcase intro's Interop link and the two wpt.fyi links in
+  src/showcases/registry.ts (the header and the Interop entry), and see
+  whether any feature above made the cut.
+- Standards map, neighbour glide: when the open card spans the row, the
+  displaced card hops instead of gliding; pure CSS cannot animate a reflow.
+  A same-document View Transition around the toggle would, but that is
+  script. Parked as a deliberate call, not forgotten.
+
+### Standards re-checks (dated)
+
+The map and the timeline carry claims with expiry dates. Re-read the primary
+source before touching the wording or the sources-read stamp in
+`standardsMapData.ts`.
+
+- EN 301 549 V4.1.1 (WCAG 2.2 AA): published by ETSI, not yet cited in the
+  Official Journal. Re-check December 2026; when cited, the EAA chain moves
+  to the 2.2 row and the "arriving" note goes. Canada's ACA cites the 2024
+  Canadian adoption of V3.2.1, so it stays at 2.1 AA regardless.
+- WCAG 3.0: next working draft expected Q4 2026 (the 3.0 row note says
+  "late 2026" and must follow it); Candidate Recommendation snapshot targeted
+  Q4 2027.
+- WebAIM Screen Reader Survey 11: closed 31 Aug 2026, results pending.
+  When published, refresh the Survey 10 numbers in A·03 and proof in one pass.
+- ADA Title II: the April 2026 interim final rule (26 Apr 2027 and 26 Apr
+  2028) is challenged in court, no ruling yet; the phase-in wording holds
+  until one lands.
+- axe-core 4.13 changes rule behaviour; when bumping, re-run the audit-room
+  spec that pins exactly two findings, and bump `@axe-core/playwright` in
+  the same change, or it nests its own axe-core and the pin stops governing.
+
+### Owed checks
+
+- Safari 27 (14 Sep 2026): add the what-changed line for customizable select
+  in a second engine (the bot's own line later is dropped as a duplicate: same
+  href, same engine, within 60 days); re-test the StyleQueryCuesDemo claim that Safari skips
+  pseudo-element rules inside style queries and qualify it with the last
+  affected version if fixed; the sample bug report in proof names Safari 26.
+- A real-Chrome check of the cross-document transitions and the theme
+  no-flash on the live site after a deploy, still owed from
+  [docs/prerender-scope.md](docs/prerender-scope.md).
 
 ---
 
@@ -144,8 +192,8 @@ at the ARIA APG.
 - **Interaction earns its place only when it IS the lesson** — as in the
   break-it toggles. "Make X more interactive" is a trap framing; two
   additions built on that framing were rejected the same day they were
-  tried (breakage tally: reads as surveillance; LegalMap jurisdiction
-  picker: the eye filters four cards faster than any control).
+  tried (breakage tally: reads as surveillance; the old legal map's
+  jurisdiction picker: the eye filtered four cards faster than any control).
 - **No learned-affordance features** — mechanisms a visitor must first
   learn (keyboard shortcuts, custom gestures) are the opposite of
   invisible/native accessibility; a pull toward nav conveniences is a flow
@@ -163,8 +211,19 @@ at the ARIA APG.
   needs JS; accepted trade-off, mitigated by closed-by-default `<details>`.
 - **View-transition scrubbing / FLIP keyframe optimization: not doing** —
   deep JS, against the house rules.
-- **Comments: near zero** — self-documenting code; only non-obvious "why"
-  survives review (see GUIDE.md).
+- **Comments: zero by default.** The code says what; the reasoning lives in
+  commit messages, this file, or GUIDE.md. A comment that seems load-bearing
+  is proposed in review first (see GUIDE.md).
+- **What earns a what-changed line.** What moved in the platform and the
+  standards, and what it changed here. A line goes in only if a reader can
+  act on it: a platform or standards fact with its consequence on the site,
+  or a new thing here to try. Never plumbing (prerender, the 404 page,
+  durations belong in git). One sentence, exactly one link, to the primary
+  source or the place on the site.
+- **Automation lives in CI, not in the site.** The weekly Baseline-moves bot
+  and the deploy workflow are repository tooling like the build-time
+  generators in `scripts/`: no runtime dependency, no site JavaScript,
+  nothing the served pages execute. The bot proposes, a person merges.
 
 ---
 
@@ -172,17 +231,23 @@ at the ARIA APG.
 
 One line per item, newest first; details in git history / PRs.
 
-- **2026-09** Freshness audit (mid-September): the WCAG 3.0 timeline entry reworded for the 10 Sep working draft (one bar of core requirements; supplemental requirements and assertions are extras you report, not higher levels); customizable select copy updated for Safari 27 (14 Sep); legal map re-read against ETSI, the Commission, the Federal Register and the Canada Gazette (EN 301 549 V4.1.1 published with WCAG 2.2 AA but its Official Journal citation is pending, so 2.1 AA stays the cited bar; Canada split into the ACA via CAN/ASC-EN 301 549 and AODA at 2.0 AA); two moved MDN links repointed. Confirmed unchanged: ADA Title II's 2027–2028 phase-in under the April interim rule (challenged in court, no ruling), Section 508 at 2.0 AA, all seven Interop 2026 labels, the Survey 10 attributions (Survey 11 still unpublished). web-features 3.35 to 3.38 changes no badge tier.
+- **2026-09** Kept current by machine: a Monday workflow bumps `web-features`, regenerates the Baseline data, the agent skill and the feed, and opens a pull request proposing what-changed lines for showcases that gained an engine or reached Baseline (`scripts/gen-moves.mjs`, deduped against hand-written lines by id, or by the same showcase link naming the same engine or tier within 60 days); a deploy workflow runs after a green CI run on main, pushes the build to production, confirms the live site serves it, and comments on the merged pull request; CI gained a gate that fails when the committed skill, llms mirror, feed or Baseline data fall behind their registries. The Monday CI cron went: on a locked package it could never see new Baseline data.
+
+- **2026-09** What changed: a dated block at the foot of the hub (`src/site/HubRevisions`, six rows from a hand-kept `revisions.ts` registry, one sentence and exactly one link each) and an Atom feed from the same registry (`scripts/gen-feed.mjs` in prebuild writes `public/feed.xml`; every Vue page shell carries the alternate link, `.htaccess` forces the Atom type, llms.txt lists it). Closes positioning Tier 2 items 1 and 2. What earns a line is a standing decision, above.
+
+- **2026-09** The standards map replaced the flat legal map on the standard page (`src/criteria/StandardsMap`): rows are WCAG versions, each law sits in the row of the version it cites, so the lag is visible (the 3.0 row is empty), and opening a law unfolds the layers between it and the criterion you test (Germany's BFSG ⊃ the EAA ⊃ EN 301 549 ⊃ WCAG 2.1 AA is four; the ADA rule ⊃ WCAG 2.1 AA is two). Zero script: an exclusive `<details name>` accordion, `::details-content` height transitions with `interpolate-size` where supported, a `:has()` bubble that grows the open card to span the row (a flex-basis transition) and eases the siblings back, `corner-shape: squircle` behind `@supports`. Six laws: Section 508, AODA, EAA, ADA Title II, ACA, PSBAR; each links its official text with a hand-set sources-read date. Axe clean after two contrast fixes; the displaced neighbour still hops (see the watchlist).
+
+- **2026-09** Freshness audit (mid-September): the WCAG 3.0 timeline entry reworded for the 10 Sep working draft (one bar of core requirements; supplemental requirements and assertions are extras you report, not higher levels); customizable select copy updated for Safari 27 (14 Sep); legal map (the standards map since the same commit) re-read against ETSI, the Commission, the Federal Register and the Canada Gazette (EN 301 549 V4.1.1 published with WCAG 2.2 AA but its Official Journal citation is pending, so 2.1 AA stays the cited bar; Canada split into the ACA via CAN/ASC-EN 301 549 and AODA at 2.0 AA); two moved MDN links repointed. Confirmed unchanged: ADA Title II's 2027–2028 phase-in under the April interim rule (challenged in court, no ruling), Section 508 at 2.0 AA, all seven Interop 2026 labels, the Survey 10 attributions (Survey 11 still unpublished). web-features 3.35 to 3.38 changes no badge tier.
 
 - **2026-09** Prerendered: every Vue page's served HTML now carries its content (a vite SSR build renders each entry at build time and the client hydrates; the dev server renders the same way through ssrLoadModule, so hydration mismatches surface in development where Vue reports them). SSR-safety pass: the theme composable no longer touches the document at import, ShowcaseFrame's support check and two demos moved browser-API reads to onMounted, chapter pages declare their sections as data so the Contents rail is server-rendered, SVG `use` hrefs bind as attributes. `blocking="render"` retired from production output (it only ever hid an empty mount point; measured hub first paint 956 → 588 ms on a throttled connection) but kept in the source shells for the dev server, where Vite injects CSS via JS and the prerendered page would otherwise paint unstyled — the build strips it by itself. A permanent spec fetches every page's raw HTML and asserts the content. Scope and rationale: [docs/prerender-scope.md](docs/prerender-scope.md).
 
 - **2026-08** The 404 page: a standalone zero-JavaScript blueprint sheet ("Sheet 404 · not in this set") — the "You are here" tag cut with corner-shape bevels pointing at an empty dashed frame, a home button in a quiet corner-shape squircle (a hover morph was tried and cut as ugly; the whimsy moved to ghost numerals that draft themselves via SVG stroke animation, hub-scribble style, plus a ::details-content eased disclosure), light-dark() theming, an @starting-style entrance carrying its own reduced-motion guard, and a native details explaining what the page just did for the visitor. Error pages are where accessibility usually gets forgotten; this one is in the axe suite. Wired via ErrorDocument in .htaccess.
 
-- **2026-08** Search-index hygiene: host-variant 301s (www strips and upgrades in one hop, TLS forced host-preserving so staging survives) plus X-Robots-Tag noindex on the llms mirrors — text duplicates of page content can't carry a canonical, so they're kept fetchable for agents but out of the index. Closes the GSC "duplicate without user-selected canonical" report.
+- **2026-08** Search-index hygiene: host-variant 301s (www strips and upgrades in one hop, TLS forced host-preserving so the staging host keeps its own name) plus X-Robots-Tag noindex on the llms mirrors — text duplicates of page content can't carry a canonical, so they're kept fetchable for agents but out of the index. Closes the GSC "duplicate without user-selected canonical" report.
 
 - **2026-08** Wave 11: invoker commands (command/commandfor — dialogs and popovers driven from markup with zero script; Baseline newly available Dec 2025), native error squiggles (text-decoration-line: spelling-error/grammar-error vs the inline-block gradient hack — backgrounds mark boxes, not text), and corner-shape (squircle/scoop/notch as real border geometry the default focus ring traces; the rounded polygon() demo's mirror lesson). Catalog 33 → 36; keyboard specs pin the script-free dialog cycle and the surviving rings. Scouted from a 56-candidate sweep; runners-up and the refuted media-pseudos Chrome rumour recorded in the watchlist. Follow-up from Thomas's testing notes: every showcase card gained a "Focus the demo" skip link (the 2.4.1 pattern doing local work — fragment navigation to a tabindex="-1" demo mount, zero JS), and the corner demo grew per-corner longhands cutting the site's own "You are here" pointer tag with borders and ring intact, plus an animated morph (the keywords are superellipse() curves — interpolation verified in Chromium, computed values sweep squircle through bevel to scoop), with both shape showcases now naming when to reach for which tool.
 
-- **2026-08** Site-wide accuracy audit (five-agent verify pass against primary sources): five bogus "Interop 2026 focus area" labels corrected, vision deficiencies five→six, WebAIM attribution pinned to Survey 10 (2024), anchor positioning's retracted Firefox support regenerated out, web-features and axe-core pinned exactly. The big one: WCAG 3.0's March 2026 draft dropped graded scoring for binary core requirements + supplemental levels, so the ConformanceShift demo was rebuilt honest — and then retired, because at the base level the new model behaves like AA and a slider demonstrating "same" teaches nothing; the timeline's era entry now carries 3.0 alone. Dated re-checks live in the session memory watchlist: EN 301 549 v4 (~Oct 2026), WebAIM Survey 11 (Sept 2026), next WCAG 3.0 draft.
+- **2026-08** Site-wide accuracy audit (five-agent verify pass against primary sources): five bogus "Interop 2026 focus area" labels corrected, vision deficiencies five→six, WebAIM attribution pinned to Survey 10 (2024), anchor positioning's retracted Firefox support regenerated out, axe-core pinned exactly (web-features stays a caret range, held by the lockfile until the Monday bot writes it exact). The big one: WCAG 3.0's March 2026 draft dropped graded scoring for binary core requirements + supplemental levels, so the ConformanceShift demo was rebuilt honest — and then retired, because at the base level the new model behaves like AA and a slider demonstrating "same" teaches nothing; the timeline's era entry now carries 3.0 alone. Dated re-checks live in the watchlist above.
 
 - **2026-08** The audit room (P·01, the practice capstone): a fictional Fitis EP release page with twelve planted barriers on a standalone broken page (`/broken-page.html`, previewed inert at 1:2 in a red-dashed frame), hint-then-answer via nested `<details>`, and the inverted spec pinning axe to exactly two findings (`image-alt`, `color-contrast`) — label-in-name turned out to be experimental-off in axe, so "two of twelve" became the coverage lesson. Hub gained the "Practice" section; proof's pager now ends there; the room hands off to the reference sheets.
 

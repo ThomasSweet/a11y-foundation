@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
-  "description": "Accessible SCSS mixins, design tokens, and cascade-layer architecture, demonstrated in a Vue 3 playground.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "description": "How much of accessibility the modern web platform handles natively: an interactive argument in four chapters, with a Baseline-tiered CSS showcase, an installable agent skill and an Atom feed of platform and standards moves. Vue 3, prerendered MPA.",
   "scripts": {
     "dev": "vite",
     "prebuild": "node scripts/gen-baseline.mjs && node scripts/gen-feed.mjs",

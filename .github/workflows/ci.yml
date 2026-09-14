@@ -5,11 +5,6 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  # Baseline status is time-driven, not change-driven: a tracked feature can
-  # reach Baseline without anyone touching the repo. The weekly run surfaces
-  # that (a failing unit test) before the next commit would.
-  schedule:
-    - cron: '0 9 * * 1' # Mondays 09:00 UTC
 
 # Cancel superseded runs on the same branch/PR.
 concurrency:
@@ -45,18 +40,19 @@ jobs:
       - name: Baseline report
         run: npm run baseline:check || true
 
-      # Pure-logic suite: the ThemePicker contrast-clamp guarantee and the
-      # Baseline fallback gate (fails when a fallback is now removable).
+      # Pure-logic suite, see GUIDE.md.
       - name: Unit tests
         run: npm run test:unit
 
       - name: Build
         run: npm run build
 
+      - name: Generated files are committed
+        run: |
+          npm run skill:gen
+          git diff --exit-code -- skills public/llms public/feed.xml src/showcases/baseline-data.json
+
   e2e:
-    # The e2e suite gates real changes; it adds nothing on the weekly Baseline
-    # cron, so skip it there.
-    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

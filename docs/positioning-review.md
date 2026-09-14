@@ -89,6 +89,16 @@ Tier-1 remainder, not yet applied:
 
 ## Tier 2 — small structural (each its own change)
 
+Applied 2026-09-13: items 1 and 2 shipped, the block at the foot of the hub
+and the Atom feed from one registry, with one reframe. The block is what
+moved in the platform and the standards and what it changed here, not a
+site changelog; plumbing never gets a line, and every line carries exactly
+one link. The Tier 1 bridge sentence (item 6) now follows the standards
+map, which replaced LegalMap the same day. Added to the list since: a
+chapter-level "last changed" stamp in each chapter's title block, derived
+from the newest registry line for that area, so there is no second
+registry.
+
 1. **What's-new block on the hub**: 5–8 dated one-liners from a tiny
    hand-maintained registry (the ROADMAP Done lines are already written in
    this shape). The site ships constantly — audit room, two sheets,

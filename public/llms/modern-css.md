@@ -397,7 +397,7 @@ A native <select> opted into full CSS styling with appearance: base-select — t
 
 **Topics:** forms
 
-- [MDN: Customizable select](https://developer.mozilla.org/en-US/docs/Learn/Forms/Customizable_select)
+- [MDN: Customizable select](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select)
 
 ### Scroll-state queries
 
@@ -446,7 +446,7 @@ Hover, keyboard focus, or touch long-press invokes a popover from one HTML attri
 
 **Topics:** interaction
 
-- [MDN: interest-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/interest-delay)
+- [MDN: interest-delay](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interest-delay)
 - [Chrome Status: Interest Invokers](https://chromestatus.com/feature/4530756656562176)
 
 ### reading-flow: flex-visual

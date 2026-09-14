@@ -14,7 +14,10 @@ src/
 │   ├── layers.css          — @layer stack declaration (imported FIRST)
 │   ├── reset.css           — element normalization            (layer: reset)
 │   ├── tokens.css          — design tokens, light-dark theming (layer: tokens)
-│   ├── theming.css         — seed-driven palette derivation     (layer: themes)
+│   ├── theming/
+│   │   ├── engine.css      — seed-driven palette derivation     (layer: themes)
+│   │   ├── presets.css     — the theme presets, two seeds each  (layer: themes)
+│   │   └── blueprint.css   — the blueprint skin's --bp-* tokens (layer: themes)
 │   ├── base.css            — bare-element styles, target sizes (layer: base)
 │   ├── utilities.css       — .visually-hidden, .skip-link   (layer: utilities)
 │   ├── preferences.css     — global preference overrides  (layer: preferences)
@@ -28,22 +31,77 @@ src/
 │       │                         dark-mode(), light-mode()
 │       └── _mixins.scss        — barrel file
 ├── components/             — reusable components, one folder each:
-│   └── AppButton/
-│       ├── AppButton.vue       — template + <script setup lang="ts">
-│       └── AppButton.scss      — styles, via <style scoped src>
-├── site/                   — the blueprint shell shared by every page
+│   ├── AppButton/          — AppButton.vue + AppButton.scss (via <style scoped src>)
+│   ├── AppDialog/          — native <dialog> with closedby
+│   ├── TextField/          — labelled input with :user-invalid cues
+│   └── ThemeToggle/        — the header theme control; useSiteTheme.ts is the composable
+├── site/                   — the blueprint shell shared by every Vue page
 │   ├── SiteFrame/          — page frame, grid, header, title-block footer
 │   ├── HubView/            — the overview hub (index page)
+│   ├── HubRevisions/       — the hub's "What changed" block; revisions.ts is the registry
 │   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark;
 │   │                         chapterSections.ts holds the section registry
 │   ├── ChapterSection/     — one chapter section; registers itself with the rail
+│   ├── AgentSkillView/, AuditRoomView/, DevToolsView/, GlossaryView/,
+│   │   ScreenReaderView/   — the five reference sheets, each a SiteFrame page
 │   └── pillars.ts          — the four chapters (order, titles, hrefs, icons)
-├── pages/                  — one thin root per chapter (MPA entries, see main.ts)
-├── showcases/              — cutting-edge CSS demos (see "CSS showcases")
+├── pages/                  — one thin root per chapter: StandardPage, CraftPage,
+│                             ShowcasePage, ProofPage (ChapterLayout plus sections)
+├── entries/                — one module per HTML file; mount.ts imports the
+│                             stylesheet and hydrates, prerender.ts lists every view
+├── showcases/              — CSS showcases grouped by Baseline tier (see "CSS showcases")
 │   ├── registry.ts         — typed metadata for every showcase, drives ShowcasePage
-│   ├── ShowcaseFrame/      — wrapper: status badge, support detection, links
-│   └── demos/              — one small component per CSS feature
-└── criteria/              — "Guidelines, alive" WCAG demos (CriterionFrame)
+│   ├── baseline-data.json  — generated per-showcase Baseline status, committed
+│   ├── ShowcaseFrame/      — wrapper: Baseline badge, support detection, code panel, links
+│   ├── BaselineBadge/      — the badge and its sprite of the official Baseline icons
+│   ├── CodeBlock/          — the "Show the code" panel
+│   └── demos/              — one folder per CSS feature: XDemo.vue + XDemo.snippet.*
+├── criteria/               — "Guidelines, alive" WCAG demos
+│   ├── registry.ts         — typed metadata for every criterion
+│   ├── CriteriaTimeline/   — the criteria on WCAG's timeline
+│   ├── CriterionFrame/     — wrapper with the "break this rule" switch
+│   ├── StandardsMap/       — laws by the WCAG version they cite; standardsMapData.ts
+│   └── demos/              — one component per criterion
+├── craft/                  — the craft chapter: demos/, CodeCompare, CraftLinks,
+│                             links.ts and snippets.ts (the per-section data)
+├── testing/                — the proof chapter's pieces: AccessibilityTree,
+│                             AuditStylesheet, CoverageMatrix, TestingLayers
+├── glossary/               — terms.ts (the glossary registry) and GlossaryRef.vue
+├── icons/                  — pillarIcons.ts, the chapter icons
+├── legal/                  — legal.scss for the static impressum and privacy pages
+└── styleguide/             — styleguide.scss for the static style-guide page
+
+scripts/
+├── gen-baseline.mjs        — writes src/showcases/baseline-data.json from web-features (prebuild)
+├── gen-feed.mjs            — writes public/feed.xml from revisions.ts (prebuild; npm run feed:gen)
+├── gen-moves.mjs           — proposes what-changed lines after a web-features bump (npm run moves:gen)
+├── gen-skill.mjs           — emits the agent skill's references and the public/llms/ mirror (npm run skill:gen)
+├── gen-icons.mjs           — favicon, PWA icons, apple-touch icon, OG image, social preview (npm run icons:gen)
+├── gen-baseline-icons.mjs  — fetches the official Baseline icon sprite; manual, needs the network
+├── baseline-watch.js       — the fallback MANIFEST; report via npm run baseline:check, gate via vitest
+└── prerender.mjs           — SSR build of every view into dist/*.html, the second half of npm run build
+
+tests/
+├── unit/                   — vitest, node environment: themePickerMath, showcaseSnippets,
+│                             baseline, revisions
+└── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
+                              inversion, audit-room, prerender, feed, standards-map
+
+.github/workflows/
+├── ci.yml                  — the gates, on push and pull_request to main
+├── deploy.yml              — production deploy after a green CI run on main
+└── baseline-moves.yml      — the Monday bot: web-features bump and a what-changed PR
+
+skills/accessible-by-default/
+├── SKILL.md                — hand-written
+└── references/             — generated by gen-skill.mjs: wcag-criteria, modern-css, css-snippets
+
+public/                     — copied verbatim into dist/; the parts that are generated:
+├── feed.xml                — the Atom feed, from gen-feed.mjs
+├── llms/                   — SKILL.md and the three references, mirrored by gen-skill.mjs
+├── favicon.svg, icon-192.png, icon-512.png, apple-touch-icon.png, og-image.png
+│                           — from gen-icons.mjs
+└── sitemap.xml             — hand-maintained: add a page here when you add an HTML file
 ```
 
 ---
@@ -129,8 +187,12 @@ sibling `.scss` file referenced by `src` — which keeps Vue's `scoped` +
 ```
 components/AppButton/
   AppButton.vue     ← template + <script setup lang="ts">
-  AppButton.scss    ← @layer components { … }   (future: AppButton.test.ts)
+  AppButton.scss    ← @layer components { … }
 ```
+
+Tests do not sit beside the component: vitest includes only
+`tests/unit/**/*.test.ts` (`vitest.config.ts`), and interaction behaviour is
+covered by the Playwright suite in `tests/e2e/`.
 
 ```vue
 <!-- AppButton.vue -->
@@ -146,23 +208,45 @@ exactly like inline blocks did.
 - `<script setup lang="ts">` in components (transpiled by esbuild — no extra
   dependency for dev/build). Prefer type-based props:
   `withDefaults(defineProps<{ variant?: 'primary' | 'secondary' }>(), { … })`.
-- Registries are `.ts` and export a typed shape (`Showcase[]`, `Criterion[]`),
-  so the data and the components that consume it stay in sync.
+- Content lives in typed registries, so the data and the components that
+  consume it stay in sync: `src/showcases/registry.ts` (`Showcase[]`),
+  `src/criteria/registry.ts` (`Criterion[]`),
+  `src/criteria/StandardsMap/standardsMapData.ts` (the laws, plus the
+  `sourcesRead` stamp the map prints; move that date when you re-read the
+  sources), `src/site/HubRevisions/revisions.ts` (`Revision[]`, see "What
+  changed"), `src/craft/links.ts` and `src/craft/snippets.ts` (the craft
+  chapter's per-section links and bad-to-good pairs), and
+  `src/glossary/terms.ts` (`GlossaryEntry[]`).
 - `npm run typecheck` runs `vue-tsc --noEmit`. Run it alongside
   `npm run lint:css` and `npm run lint:js` before committing — a clean build
   does **not** imply a clean type-check (esbuild strips types without checking
-  them), and neither implies clean lint.
+  them), and neither implies clean lint. Then `npm run test:unit`: vitest in
+  the node environment, holding the ThemePicker contrast maths
+  (`themePickerMath.test.ts`), the snippet guard that fails a showcase folder
+  without a `*.snippet.*` file (`showcaseSnippets.test.ts`), the Baseline gate
+  that fails when a fallback in the `MANIFEST` of `scripts/baseline-watch.js`
+  has reached its removal bar (`baseline.test.ts`), and the revisions guard
+  (`revisions.test.ts`, see "What changed"). `npm run test:e2e` builds, serves
+  and runs the Playwright suite in three engines; `npm run baseline:check`
+  prints the Baseline report the gate is built on. CI runs all of it.
 - `npm run lint:js` is ESLint (flat config, `eslint.config.js`) over JS/TS/Vue,
   at `--max-warnings 0`. It is deliberately lean: types belong to vue-tsc and
   formatting rules are switched off, so what remains flags real defects. The
   few `vue/no-v-html` suppressions are per-site and each carries its reason.
 - The registries feed one more consumer: `npm run skill:gen` emits the Agent
-  Skill's reference files under `skills/accessible-by-default/references/`.
+  Skill's reference files under `skills/accessible-by-default/references/`
+  and mirrors them, together with the hand-written `SKILL.md`, to
+  `public/llms/`, which is what `/llms.txt` links.
   **Re-run it after adding or editing a criterion or a showcase**, or the
-  published skill drifts from the site. It loads the registries through Vite's
-  SSR pipeline (they import `.vue` and `?raw`, so plain node can't), and emits
-  only context-free fields — `summary`, `passText` and `failText` are written
-  for someone looking at a live demo and don't travel.
+  published skill drifts from the site. CI enforces this: the "Generated files
+  are committed" step runs `skill:gen` after the build and fails when
+  `skills/`, `public/llms/`, `public/feed.xml` or
+  `src/showcases/baseline-data.json` differ from what is committed. The
+  Monday bot regenerates all of them itself (see "Continuous integration and
+  deployment"). The script loads the registries through Vite's SSR pipeline
+  (they import `.vue` and `?raw`, so plain node can't), and emits only
+  context-free fields — `summary`, `passText` and `failText` are written for
+  someone looking at a live demo and don't travel.
 - **`npm run build` prints ~14 `[lightningcss minify]` warnings, and they are
   expected.** Vite's minifier does not recognise the newest selectors this site
   showcases: `::scroll-button()`, `::scroll-marker`, `::scroll-marker-group`,
@@ -175,6 +259,15 @@ exactly like inline blocks did.
 
 ---
 
+## Comments
+
+Zero by default. The code says what; the reasoning belongs in the commit
+message, in `ROADMAP.md`, or in this guide. If a comment ever seems
+load-bearing, propose its exact text in review and wait for a yes before
+adding it. CSS, SCSS and Vue `<style>` blocks carry none, ever.
+
+---
+
 ## Chapter page anatomy
 
 Every chapter page (`standard`, `craft`, `proof`, `showcase`) is the same
@@ -182,7 +275,10 @@ four-layer composition. Each layer has one job:
 
 - **`SiteFrame`** — the paper: sheet outline, grid, registration marks, the
   header and the title-block footer. Knows nothing about chapters; the hub
-  and the legal pages use it too.
+  and the five reference sheets (glossary, agent skill, screen reader,
+  devtools, audit room) use it too. The impressum, privacy and style-guide
+  pages do not: they are static HTML styled by `legal.scss` and
+  `styleguide.scss`, and never mount Vue.
 - **`ChapterLayout`** — one chapter's chrome: the legend rail (chapter
   switcher + section scroll-spy), the chapter header, the mobile bottom bar,
   prev/next. Renders into `SiteFrame` and **provides the section registry**.
@@ -255,6 +351,13 @@ empty `#app`. The dev server does the same per request through
 mismatches only in development, development is where they get caught.
 `mount.ts` hydrates with `createSSRApp`.
 
+Before any of that, `npm run build` has a `prebuild` step: `gen-baseline`
+then `gen-feed`. Both rewrite committed files, `src/showcases/baseline-data.json`
+and `public/feed.xml`, so an edit to `revisions.ts` or a `web-features` bump
+shows up as a modified generated file after the build, and that modified file
+belongs in the commit. The reverse also holds: a hand edit to either file is
+overwritten by the next build.
+
 What that demands of every component:
 
 - **No browser APIs during render.** `window`, `document`, `CSS.supports`,
@@ -288,11 +391,22 @@ What that demands of every component:
 
 ## Setup
 
-`src/main.js` imports the single entry point:
+Node 22.18 or newer (`engines` in `package.json`): `gen-feed` (part of
+`prebuild`) and `gen-moves` import `revisions.ts` directly, which relies on
+Node's type stripping.
 
-```js
-import './styles/index.css'
+There is no `main` module. Each HTML file loads one module from `src/entries/`
+(`hub.ts`, `standard.ts`, and so on), and every one of them calls `mount()`
+from `src/entries/mount.ts`, which is the single place the stylesheet is
+imported:
+
+```ts
+import '../styles/index.css'
 ```
+
+The three static pages (impressum, privacy, style guide) never mount Vue;
+they link `/src/styles/index.css` directly from their `<head>`, followed by
+their own `legal.scss` or `styleguide.scss`.
 
 The SCSS mixins are injected into every SFC style block via
 `css.preprocessorOptions.scss.additionalData` in `vite.config.js` —
@@ -421,8 +535,9 @@ approach.
 | `xl`  | 80em  | 1280px            |
 | `xxl` | 96em  | 1536px            |
 
-To change values, edit `$breakpoints` in `_breakpoints.scss` and mirror the
-change in the `--bp-*` tokens in `tokens.css`.
+To change values, edit `$breakpoints` in `_breakpoints.scss`; the map is the
+only source (the `--bp-*` custom properties are the blueprint skin's tokens,
+not breakpoints).
 
 ---
 
@@ -669,6 +784,11 @@ color token once with `light-dark(lightValue, darkValue)`:
   palettes.
 - `color-scheme` also switches **native UI** (form controls, scrollbars)
   with the theme, which a custom-property-only approach misses.
+- The presets (`data-preset` on `<html>`, set by `ThemeToggle`) are data in
+  `theming/presets.css`: two seeds each, from which `theming/engine.css`
+  derives the whole `--color-*` palette. `theming/blueprint.css` maps that
+  palette onto the blueprint skin's `--bp-*` tokens, so a preset re-inks the
+  page with no rules of its own.
 
 ### Motion tokens
 
@@ -720,37 +840,164 @@ it from drifting into a random demo dump:
 ### Browser support policy
 
 Current versions of Chrome, Firefox, and Safari — roughly the last two
-years. No fallbacks for anything older. Two status tiers, based on the
-[Interop dashboard](https://wpt.fyi/interop-2026) and
-[Baseline](https://web-platform-dx.github.io/web-features-explorer/):
+years. No fallbacks for anything older. Three tiers, and none of them is
+hand-maintained: `scripts/gen-baseline.mjs` runs in `prebuild`, reads the
+`web-features` package and writes `src/showcases/baseline-data.json`
+(committed, so `npm run dev` needs no generate step); `tierOf()` at the tail
+of `src/showcases/registry.ts` derives every showcase's tier from that file.
+Entries carry no tier field, and `ShowcasePage` groups them by the derived
+one:
 
-| Status     | Meaning                                            | Allowed where?       |
-|------------|----------------------------------------------------|----------------------|
-| `stable`   | Interoperable in all three engines                 | Foundation + demos   |
-| `emerging` | Active Interop focus area / partial support        | Demos only, behind `@supports` |
+| Tier                   | Baseline status              | Allowed where?                          |
+|------------------------|------------------------------|-----------------------------------------|
+| `widely-available`     | high                         | Foundation + demos                      |
+| `newly-available`      | low                          | Demos, behind `@supports`, fallback kept |
+| `limited-availability` | not Baseline, or no mapping  | Demos only, behind `@supports`          |
 
-When an `emerging` feature ships everywhere, promote its registry entry to
-`stable` — and only then consider using it in the foundation itself.
+A showcase changes tier when the data does: a `web-features` bump (the
+Monday bot, see "What changed") regenerates the JSON and the next build
+regroups the page. Nothing is promoted by hand. The references behind the
+data are the [web-features explorer](https://web-platform-dx.github.io/web-features-explorer/)
+and the current year's Interop dashboard on wpt.fyi, which the registry
+header links.
 
 ### Adding a showcase
 
-1. Create a small component in `src/showcases/demos/` — one feature per
-   demo, real-UI context preferred (a card, a form, a popover — not an
-   abstract box).
-2. Register it in `src/showcases/registry.js` with a `supports` condition
-   (`CSS.supports()` syntax). `ShowcaseFrame` uses it to tell visitors
-   whether they're seeing the feature or the fallback.
+1. Create a folder `src/showcases/demos/XDemo/` holding `XDemo.vue` (one
+   feature per demo, real-UI context preferred: a card, a form, a popover,
+   not an abstract box) and at least one portable excerpt,
+   `XDemo.snippet.html`, `.css` or `.js`, for the "Show the code" panel.
+   Snippets are plain copy-paste CSS and markup, no `@layer`, no tokens, and
+   both linters skip them. `tests/unit/showcaseSnippets.test.ts` fails a
+   folder that has no snippet.
+2. In `src/showcases/registry.ts`, import the component and the snippets
+   (`?raw`) and add an entry to `entries` with a `supports` condition
+   (`CSS.supports()` syntax) or, for a JS API that CSS cannot express, a
+   `detect` function. `ShowcaseFrame` uses it to tell visitors whether they
+   see the feature or the fallback. File order only sets the order within a
+   tier group.
+3. Map the entry's id to its `web-features` id in `SHOWCASE_FEATURES` in
+   `scripts/gen-baseline.mjs`. An unmapped id gets no badge and lands in
+   limited availability; an id `web-features` does not know fails the
+   script. `polygon-round` is the one deliberate omission, with the reason
+   noted beside the map: there is no upstream id for the `round` keyword
+   yet, and the nearest one would claim the wrong tier.
+4. If the demo ships a fallback that should go once the feature is
+   interoperable (an `@supports` branch, or JavaScript), add an entry to the
+   `MANIFEST` in `scripts/baseline-watch.js` naming the kind and the files
+   it lives in. The vitest gate fails the day the feature reaches its
+   removal bar, and the message says what to delete.
+5. Run `npm run build` (the prebuild rewrites `baseline-data.json`) and
+   `npm run skill:gen`, and commit the generated files with the demo; CI
+   checks that they match.
 
-`registry.js` ends with a commented backlog of candidate features and
-their `supports` strings.
+The `entries` array in `registry.ts` ends with a two-line note of further
+candidates. After it come `tierOf()`, the mapping from each demo component
+to its source folder on GitHub (an `import.meta.glob` over `demos/`), and
+the exported `showcases` list that adds `tier` and `sourceHref` to every
+entry.
+
+---
+
+## What changed: the revisions registry, the feed, the Monday bot
+
+One registry, `src/site/HubRevisions/revisions.ts`, drives two outputs:
+
+- The hub block. `HubRevisions.vue` renders `<section id="what-changed">`
+  with the newest `revisionsShown` entries (currently six), sorted by date.
+- The Atom feed. `scripts/gen-feed.mjs` writes `public/feed.xml` in
+  `prebuild`, or alone with `npm run feed:gen`. Every Vue page shell links
+  the feed from its `<head>` (`rel="alternate"`,
+  `type="application/atom+xml"`), `.htaccess` forces the MIME type, and
+  `llms.txt` lists it under Optional.
+
+The editorial rule: the block is what moved in the platform and the
+standards, and what it changed here. A line goes in only if a reader can act
+on it: a platform or standards fact with its consequence on the site, or a
+new thing here to try. Never plumbing; prerendering, the 404 page and
+transition durations belong in git history. One sentence, exactly one link,
+to the primary source or to the place on the site. Each entry is `lead`,
+`linkText`, `href` and `tail`, and the template renders them as text, link,
+text, which is what makes "one link" structural. Dates are hand-set. Ids
+are feed slugs and must stay stable once published: the feed's `<id>` embeds
+the id and the date, so a renamed id or a moved date is a new entry to every
+reader. Settle both before the line ships.
+
+The Monday bot (`baseline-moves.yml`) proposes lines from `web-features`
+data through `scripts/gen-moves.mjs`. The script diffs the freshly generated
+`baseline-data.json` against the committed one (`--new` and `--old` take
+explicit files; by default the new side is the working file and the old side
+is `git show HEAD:` of it), and for each showcase writes a
+line when an engine newly ships it, when it becomes Baseline newly
+available, and when it becomes widely available; `--dry-run` prints without
+touching the registry, otherwise the lines are inserted at the top of
+`revisions`. It dedupes twice: by id, and by "an existing line already links
+the same `href` within 60 days either side and names the same engine, or
+the same Baseline tier". So a hand-written line, such as
+`firefox-155-typed-attr` or a Safari 27 customizable-select line written the
+week it ships, suppresses the bot's duplicate as long as it links the
+showcase anchor and names the engine, while a further engine arriving on
+the same showcase still gets its own line. A person reviews the proposal against the release notes
+and merges. `tests/unit/revisions.test.ts` is the guard the PR must pass:
+unique ids, valid ISO dates that are today or earlier, no markup in `lead`
+or `tail`, non-empty `linkText`, a site-relative or https `href`, and a
+showcase anchor that resolves to a registry id. `tests/e2e/feed.spec.ts`
+checks the served feed carries one entry per revision, and
+`prerender.spec.ts` checks the hub's block and the standard page's map are
+in the prerendered HTML.
 
 ---
 
 ## Adding new breakpoints
 
 1. Add the key/value to `$breakpoints` in `_breakpoints.scss` (em units)
-2. Add a matching `--bp-{key}` token in `tokens.css`
-3. Document it in the breakpoints table in this guide
+2. Document it in the breakpoints table in this guide
+
+---
+
+## Continuous integration and deployment
+
+Three workflows under `.github/workflows/`; the deploy secrets are referred
+to by name only (`DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_REPO`,
+`DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `BOT_TOKEN`) and are configured in
+GitHub, never in the tree.
+
+**`ci.yml`** runs on push and pull_request to `main`, on Node 22 with
+`npm ci`. The `verify` job runs each gate as its own step so a failure points
+at the exact check: `typecheck`, `lint:css`, `lint:js`, `baseline:check`
+(informational, never fails), `test:unit`, `build`, then "Generated files
+are committed", which runs `skill:gen` and `git diff --exit-code` over
+`skills/`, `public/llms/`, `public/feed.xml` and
+`src/showcases/baseline-data.json`. The `e2e` job installs the Playwright
+browsers and runs the suite in Chromium, Firefox and WebKit, uploading the
+report on failure. There is no cron: `npm ci` installs the locked
+`web-features`, so a scheduled run could never see new Baseline data. The
+bot below is the mechanism for that.
+
+**`deploy.yml`** does not run beside CI. It triggers on `workflow_run` of the
+CI workflow completing on `main` and proceeds only when that run's
+conclusion is success (manual dispatch still works). It checks out the CI
+run's head sha, builds, pushes `dist/` to the `deploy` branch of the
+production repository over SSH, pulls on the server, confirms the live index
+carries the new hashed asset, writes the live feed's top six entries to the
+job summary, and comments the same summary on the pull request associated
+with that sha.
+
+**`baseline-moves.yml`** is the Monday bot: 09:30 UTC and on dispatch, bash
+with pipefail, one concurrency group. It bumps `web-features` to the latest
+exact version, regenerates `baseline-data.json`, regenerates the agent skill
+and the llms mirror, runs `gen-moves` to propose what-changed lines,
+regenerates the feed, and opens a pull request on `chore/baseline-moves`
+with the `baseline` label. The title says whether anything moved. It needs
+the `BOT_TOKEN` secret: a PR opened with the default token triggers no
+workflows, so CI would never run on it.
+
+Staging is not in CI. The staging host serves an idle placeholder from the
+`gh-pages` branch written by `deploy-staging-idle.sh`; `deploy-staging.sh`
+mirrors a full build to the production server's `deploy-staging` branch and
+is kept for the next design round. A build with `STAGING=1` carries a
+`noindex` meta tag (`vite.config.js`), so the staging subdomain is never
+crawled.
 
 ---
 
@@ -761,3 +1008,19 @@ Stylelint is wired in (`npm run lint:css`) with:
 - `stylelint-config-standard-scss` + the Vue SCSS config, covering
   `.css`, `.scss`, and `<style>` blocks in `.vue` files
 - `stylelint-order` enforcing the mixin order defined in this guide
+- `stylelint-value-no-unknown-custom-properties`, which fails a `var(--x)`
+  whose property is defined nowhere (a typo'd token would otherwise collapse
+  silently to the initial value). `.stylelintrc.json` names the global
+  token files in `importFrom`: `tokens.css`, `theming/engine.css`,
+  `theming/presets.css`, `theming/blueprint.css` and `preferences.css`; add
+  a new global stylesheet there or its tokens read as unknown. Properties a
+  component defines in its own style block are recognised automatically.
+  The `customProperties` allow-list beside it holds the properties set only
+  from templates via `:style` bindings (`--swatch-bg`, `--pick-h`, and so
+  on); extend it when a template injects a property that CSS then reads.
+
+`*.snippet.*` files are excluded from both linters: `.stylelintignore` skips
+`src/**/*.snippet.css`, and `eslint.config.js` ignores
+`src/showcases/**/*.snippet.*` (together with `dist/`, `node_modules/` and
+`public/`). They are portable excerpts, plain on purpose, and must not
+follow this repository's rules.

@@ -26,7 +26,7 @@ pages. Its previous single-page design is preserved under the
 
 <a href="https://accessible-by-default.dev/"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/hub-dark.png">
-  <img alt="Visit the live site — the hub page: four chapter plates, indexed" src="docs/screenshots/hub-light.png" width="1080">
+  <img alt="Visit the live site: the hub page, its claim and the four numbered chapter plates" src="docs/screenshots/hub-light.png" width="1080">
 </picture></a>
 
 <sub>The banner and this screenshot follow your color-scheme preference
@@ -45,12 +45,13 @@ Every feature the site teaches is doing real work *in* the site — each behind
 | `@layer` cascade layers | the entire stylesheet — user preferences beat components without `!important` |
 | `light-dark()` + `color-scheme` | every color token, native controls included |
 | OKLCH + `color-mix()` | the seed-driven theming engine — 8 presets derived from two seeds each |
-| Container queries + `cqi` | the WCAG timeline reflows by its own width, not the viewport's |
+| Container queries | the standards map and the what-changed block reflow by their own width, not the viewport's |
 | Scroll-driven animations | reading-position nav highlight, the timeline's era strata pouring in |
 | Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
 | `@starting-style` + `allow-discrete` | dialog and popover entry/exit transitions |
 | Subgrid | the hub plates align rows across cards |
+| `<details name>` + `::details-content` | the standards map: an exclusive accordion whose open card grows to span the row, with no script |
 | Cross-document view transitions | the page-to-page content fade — an MPA with zero routing JS |
 
 ## What's inside
@@ -66,6 +67,10 @@ Every feature the site teaches is doing real work *in* the site — each behind
 - **WCAG, live** — eleven criteria demos on the standard's timeline, each
   with a **"break this rule"** toggle so you can feel what the criterion
   prevents.
+- **A standards map**: six laws, from Section 508 to the UK's public sector
+  regulations, filed in the row of the WCAG version each one cites. Open a
+  law and the layers between it and the criterion you test unfold, with no
+  JavaScript: an exclusive `<details name>` accordion.
 - **A CSS showcase catalog** — 36 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
@@ -75,6 +80,10 @@ Every feature the site teaches is doing real work *in* the site — each behind
 - **Reference sheets** — a screen reader's first fifteen minutes, the
   DevTools accessibility inventory, a linkable glossary, and the style guide
   the site is drawn with.
+- **What changed**: six dated lines at the foot of the hub, one link each, for
+  what moved in the platform and the standards and what it changed here. The
+  same registry writes an Atom feed at
+  [/feed.xml](https://accessible-by-default.dev/feed.xml) at build time.
 - **Preference & interaction mixins** — `reduced-motion()`, `forced-colors()`,
   `high-contrast()`, `can-hover()`, `touch-primary()` and friends —
   enhancement only, never gating.
@@ -98,7 +107,8 @@ cp -r skills/accessible-by-default ~/.claude/skills/
 ```
 
 The reference files are generated from the same registries the site renders
-(`npm run skill:gen`), so the skill can't drift from the live demos. The idea
+(`npm run skill:gen`), and CI fails when the committed copy falls behind, so
+the skill can't drift from the live demos. The idea
 came from [Jakub Andrzejewski](https://x.com/jacobandrewsky), alongside Chrome's
 [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance).
 
@@ -128,27 +138,41 @@ screen-reader passes — and that a scanner alone is never the whole story.
 The repo's suite is that model, runnable:
 
 ```sh
-npm run test:unit   # contrast-clamp guarantee + Baseline fallback watch (Vitest)
-npm run test:e2e    # axe sweep of every page + keyboard/focus specs, on Chromium, Firefox, and WebKit
+npm run test:unit   # contrast-clamp guarantee, snippet guard, Baseline fallback watch, revisions registry (Vitest)
+npm run test:e2e    # axe sweep of every content page + keyboard/focus specs + the standards map and the feed, on Chromium, Firefox, and WebKit
 ```
 
-The e2e suite runs the `axe` scan across all pages in three engines, pins
-keyboard behaviour (skip link, dialog focus, popovers, theme persistence),
-and fetches every page's raw HTML to assert the content is there before any
+The e2e suite runs the `axe` scan across every content page in three
+engines, pins keyboard behaviour (skip link, dialog focus, popovers, theme
+persistence, the standards map's exclusive accordion), and fetches each
+content page's raw HTML to assert the content is there before any
 JavaScript runs — the pages are prerendered at build time and hydrated on
 the client.
 It has caught real WCAG failures on this very site before they shipped —
 which is the strongest argument for the layered model the site makes.
 
+## Kept current
+
+Baseline moves without anyone touching the repo, so a workflow watches it.
+Every Monday it bumps `web-features`, regenerates the Baseline data, the
+agent skill and the feed, and opens a pull request that proposes a
+what-changed line for any showcase that gained an engine or reached
+Baseline; a person reads it against the release notes and merges. Merging
+to `main` deploys: after a green CI run the build goes to production, the
+live site is checked for the new build, and the pull request gets a comment
+saying so. CI also fails when a generated file, the skill, the llms mirror,
+the feed or the Baseline data, falls behind its registry.
+
 ## Getting started
 
 ```sh
-npm install
+npm install         # Node 22.18 or newer: gen-feed in prebuild imports revisions.ts directly
 npm run dev         # playground at http://localhost:5173
 npm run typecheck   # vue-tsc
 npm run lint:css    # stylelint, including mixin-order enforcement
 npm run lint:js     # eslint (vue + typescript), zero warnings tolerated
-npm run build       # client build, then every page's HTML is prerendered
+npm run build       # regenerates Baseline data and the feed, builds, then prerenders every page
+npm run skill:gen   # regenerates the agent skill and the llms mirror from the registries
 ```
 
 Conventions live in [GUIDE.md](./GUIDE.md) — the layer rules, mixin ordering,
@@ -160,7 +184,8 @@ visitor feedback and what became of it, is [ROADMAP.md](./ROADMAP.md).
 This project targets **WCAG 2.2 AA**, works with a keyboard and a screen
 reader, and never relies on color alone. It is a **demo and playground**, not
 a production dependency — built to be explored and learned from. The full
-statement lives on the site. Found a barrier?
+[statement lives on the hub](https://accessible-by-default.dev/#a11y-statement).
+Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues) — that
 feedback is welcome and acted on.
 
