@@ -29,7 +29,7 @@ const entries = sorted
 const feed = `<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Accessible by default: what changed</title>
-  <subtitle>Dated changes to accessible-by-default.dev, newest first.</subtitle>
+  <subtitle>What moved in the platform and the standards, and what it changed on accessible-by-default.dev. Newest first.</subtitle>
   <id>${site}/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="${site}/feed.xml"/>
   <link rel="alternate" type="text/html" href="${site}/#what-changed"/>

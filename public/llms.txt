@@ -28,7 +28,10 @@ same registries that render the pages, so it cannot drift from the live demos.
 ## Pages
 
 - [The standard](https://accessible-by-default.dev/standard.html): WCAG on an
-  explorable timeline, with break-this-rule demos per criterion
+  explorable timeline, with break-this-rule demos per criterion, and a
+  standards map that files each law (Section 508, AODA, EAA, ADA Title II,
+  ACA, PSBAR) under the WCAG version it cites and opens the layers between
+  them
 - [The craft](https://accessible-by-default.dev/craft.html): the
   accessible-default decisions in modern CSS and native HTML
 - [CSS showcase](https://accessible-by-default.dev/showcase.html): modern CSS
@@ -37,6 +40,9 @@ same registries that render the pages, so it cannot drift from the live demos.
   automation's limits, the accessibility tree, filing what you find
 - [Glossary](https://accessible-by-default.dev/glossary.html): short, honest
   definitions of the vocabulary the site leans on
+- [Agent skill](https://accessible-by-default.dev/agent-skill.html): the
+  argument as an installable skill, with the install commands, the eight
+  swaps it asks for, what is in each file, and a note on shelf life
 - [Screen reader basics](https://accessible-by-default.dev/screen-reader.html):
   the keystrokes that matter and a fifteen-minute plan for hearing a page
 - [DevTools for accessibility](https://accessible-by-default.dev/devtools.html):
@@ -48,9 +54,9 @@ same registries that render the pages, so it cannot drift from the live demos.
 
 ## Optional
 
-- [What changed](https://accessible-by-default.dev/feed.xml): an Atom feed of
-  dated changes to the site, newest first; the same six lines sit at the
-  bottom of the hub
+- [What changed](https://accessible-by-default.dev/feed.xml): an Atom feed
+  of what moved in the platform and the standards, and what it changed here,
+  newest first; the same six lines sit at the bottom of the hub
 - [GitHub repository](https://github.com/ThomasSweet/a11y-foundation): source
   for everything above, including the installable agent skill
 - [Style guide](https://accessible-by-default.dev/styleguide.html): the design

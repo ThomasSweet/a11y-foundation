@@ -1,24 +1,25 @@
-name: Design feedback — two designs, help pick one
-description: The live site and the staging redesign are both up. Which lands better for you, and why?
+name: Design feedback
+description: Something about the look, the flow, or the motion that could land better. One line is plenty.
 title: "[design]: "
 labels: ["design-feedback"]
 body:
   - type: dropdown
-    id: preference
+    id: area
     attributes:
-      label: Which direction works better for you?
+      label: What is it about?
       options:
-        - The current design (one page, soft wash)
-        - The blueprint redesign (hub + chapters, drawing sheet)
-        - Mixed — parts of each (say which below)
-        - No preference yet
+        - Readability
+        - Flow and structure
+        - Look and feel
+        - Motion
+        - Something else (say what below)
     validations:
       required: true
   - type: textarea
-    id: why
+    id: what
     attributes:
-      label: What drove that?
-      description: Readability, the flow/structure, the look, motion — whatever you noticed. One line is plenty.
+      label: What did you notice?
+      description: Where it was, what happened, and what would have landed better.
     validations:
       required: true
   - type: dropdown
@@ -29,3 +30,8 @@ body:
         - Light
         - Dark
         - Both
+  - type: input
+    id: env
+    attributes:
+      label: Browser / OS
+      placeholder: e.g. Firefox 143 on Windows 11

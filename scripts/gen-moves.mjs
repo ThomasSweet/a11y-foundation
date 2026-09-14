@@ -58,6 +58,7 @@ for (const [id, now] of Object.entries(current)) {
       linkText: now.name,
       href,
       tail,
+      mentions: names,
     })
   }
 
@@ -71,6 +72,7 @@ for (const [id, now] of Object.entries(current)) {
       linkText: now.name,
       href,
       tail: ' is Baseline newly available: every current engine ships it.',
+      mentions: ['newly available'],
     })
   }
 
@@ -84,12 +86,23 @@ for (const [id, now] of Object.entries(current)) {
       linkText: now.name,
       href,
       tail: ' is Baseline widely available: safe to use without a fallback.',
+      mentions: ['widely available'],
     })
   }
 }
 
 const known = new Set(revisions.map((revision) => revision.id))
-const fresh = moves.filter((move) => !known.has(move.id)).sort((a, b) => b.date.localeCompare(a.date))
+const daysApart = (a, b) => Math.abs(Date.parse(a) - Date.parse(b)) / 86_400_000
+const mentioned = (revision, move) => {
+  const text = `${revision.title} ${revision.lead}${revision.linkText}${revision.tail}`.toLowerCase()
+  return move.mentions.some((mention) => text.includes(mention.toLowerCase()))
+}
+const covered = (move) =>
+  known.has(move.id) ||
+  revisions.some(
+    (revision) => revision.href === move.href && daysApart(revision.date, move.date) <= 60 && mentioned(revision, move),
+  )
+const fresh = moves.filter((move) => !covered(move)).sort((a, b) => b.date.localeCompare(a.date))
 
 if (fresh.length === 0) {
   console.log('gen-moves: nothing moved')

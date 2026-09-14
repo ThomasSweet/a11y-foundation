@@ -100,10 +100,10 @@
               explored and learned from, not installed into a production app.
             </p>
             <p>
-              <strong>Some showcases want a recent browser.</strong> The
-              “arriving next” demos use features still landing across engines. On an
-              older browser they quietly fall back to a simpler, still-usable form —
-              that degradation is the design, not a defect.
+              <strong>Some showcases want a recent browser.</strong> The demos
+              under “Limited availability” use features still landing across
+              engines. On an older browser they quietly fall back to a simpler,
+              still-usable form — that degradation is the design, not a defect.
             </p>
             <p>
               <strong>Tested where it counts.</strong> Verified against current

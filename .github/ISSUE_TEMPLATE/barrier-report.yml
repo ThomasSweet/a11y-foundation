@@ -7,16 +7,6 @@ body:
     attributes:
       value: |
         Thank you — reports like this are acted on. No report is too small.
-  - type: dropdown
-    id: version
-    attributes:
-      label: Which version?
-      options:
-        - Live site (accessible-by-default.dev)
-        - Redesign staging (staging.accessible-by-default.dev)
-        - Both
-    validations:
-      required: true
   - type: input
     id: page
     attributes:

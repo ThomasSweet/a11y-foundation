@@ -9,7 +9,7 @@
       Everything is written as a progressive enhancement, so unsupported
       demos degrade instead of breaking. Every snippet here also ships in
       <a href="/agent-skill.html">the agent skill</a>, generated from the
-      same registry — so the two can't drift apart.
+      same registry, with a check in CI that fails when the two disagree.
     </p>
 
     <div class="demo" data-reveal="off">

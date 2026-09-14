@@ -1,7 +1,9 @@
 name: Deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [main]
   workflow_dispatch:
 
@@ -15,12 +17,15 @@ permissions:
 
 jobs:
   production:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     environment:
       name: production
       url: https://accessible-by-default.dev
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - uses: actions/setup-node@v4
         with:
@@ -52,6 +57,7 @@ jobs:
       - name: Push the build to the deploy branch
         env:
           DEPLOY_REPO: ${{ secrets.DEPLOY_REPO }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: |
           set -e
           git config --global user.name 'deploy'
@@ -70,7 +76,7 @@ jobs:
           if git diff --cached --quiet; then
             echo 'Nothing changed, pushing the existing deploy branch.'
           else
-            git commit -q -m "Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ) from ${GITHUB_SHA::7}"
+            git commit -q -m "Deploy $(date -u +%Y-%m-%dT%H:%M:%SZ) from ${BUILD_SHA::7}"
           fi
           git push -q production deploy
 
@@ -102,10 +108,11 @@ jobs:
         with:
           script: |
             const fs = require('fs')
+            const sha = context.payload.workflow_run?.head_sha ?? context.sha
             const { data: prs } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: context.sha,
+              commit_sha: sha,
             })
             if (prs.length === 0) return
             const summary = fs.readFileSync('deploy-summary.md', 'utf8')
@@ -113,5 +120,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prs[0].number,
-              body: `Deployed to production: https://accessible-by-default.dev (build ${context.sha.slice(0, 7)}).\n\n${summary}`,
+              body: `Deployed to production: https://accessible-by-default.dev (build ${sha.slice(0, 7)}).\n\n${summary}`,
             })

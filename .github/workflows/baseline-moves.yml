@@ -5,6 +5,10 @@ on:
     - cron: '30 9 * * 1'
   workflow_dispatch:
 
+concurrency:
+  group: baseline-moves
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pull-requests: write
@@ -12,6 +16,9 @@ permissions:
 jobs:
   propose:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
 
@@ -29,8 +36,20 @@ jobs:
       - name: Regenerate Baseline data
         run: node scripts/gen-baseline.mjs
 
+      - name: Regenerate the agent skill and llms mirror
+        run: node scripts/gen-skill.mjs
+
       - name: Propose what-changed lines
         run: node scripts/gen-moves.mjs | tee moves.md
+
+      - name: Did anything move
+        id: moves
+        run: |
+          if grep -q 'nothing moved' moves.md; then
+            echo 'moved=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'moved=true' >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Regenerate the feed
         run: node scripts/gen-feed.mjs
@@ -41,13 +60,15 @@ jobs:
           token: ${{ secrets.BOT_TOKEN || github.token }}
           branch: chore/baseline-moves
           delete-branch: true
-          commit-message: 'chore: bump web-features and propose what-changed lines'
-          title: 'chore: Baseline moved, what-changed lines proposed'
+          commit-message: "${{ steps.moves.outputs.moved == 'true' && 'chore: Baseline moved, what-changed lines proposed' || 'chore: web-features bumped, nothing moved' }}"
+          title: "${{ steps.moves.outputs.moved == 'true' && 'chore: Baseline moved, what-changed lines proposed' || 'chore: web-features bumped, nothing moved' }}"
           body-path: moves.md
           labels: baseline
           add-paths: |
             package.json
             package-lock.json
             src/showcases/baseline-data.json
+            skills/accessible-by-default/references
+            public/llms
             src/site/HubRevisions/revisions.ts
             public/feed.xml

@@ -58,8 +58,9 @@
       </dl>
       <p class="agent-skill-p">
         The three reference files are generated from the same registries this
-        site renders, so the skill cannot quietly drift from the demos you can
-        click here.
+        site renders, and a check in CI fails when the committed copy falls
+        behind, so the skill cannot quietly drift from the demos you can click
+        here.
       </p>
     </section>
 
