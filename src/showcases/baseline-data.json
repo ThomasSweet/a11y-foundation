@@ -253,9 +253,9 @@
     "lowDate": null,
     "highDate": null,
     "support": {
-      "chrome": null,
-      "edge": null,
-      "firefox": null,
+      "chrome": "133",
+      "edge": "133",
+      "firefox": "155",
       "safari": null
     }
   },
