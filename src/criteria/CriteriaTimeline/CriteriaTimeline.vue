@@ -36,7 +36,17 @@
               <component :is="c.component" :broken="broken" />
             </CriterionFrame>
           </div>
-          <p v-else class="timeline-era-note">{{ era.note }}</p>
+          <div v-else class="timeline-era-note">
+            <p class="timeline-era-note-text">{{ era.note }}</p>
+            <ul v-if="era.links?.length" class="timeline-era-links">
+              <li v-for="link in era.links" :key="link.href">
+                <a :href="link.href" target="_blank" rel="noreferrer">
+                  {{ link.label }}
+                  <span class="visually-hidden">(opens in a new tab)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </li>
       <li v-if="era.id === 'wcag22'" class="timeline-now">
