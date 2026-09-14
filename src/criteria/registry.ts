@@ -376,6 +376,7 @@ export interface WcagEra {
   version: string | null
   /** Shown when the era has no demo criteria of its own. */
   note?: string
+  links?: { label: string; href: string }[]
 }
 
 export const wcagTimeline: WcagEra[] = [
@@ -414,6 +415,19 @@ export const wcagTimeline: WcagEra[] = [
       'The next chapter — a new conformance model: one bar of core ' +
       'requirements, with supplemental requirements and assertions as ' +
       'extras you report, not higher levels.',
-    note: 'Still a working draft: a different model, not just more criteria.',
+    note:
+      'Still a working draft, years from done, and it will not replace WCAG 2: ' +
+      'pages that meet 2.2 AA are expected to meet most of its core bar, so ' +
+      '2.2 AA stays the target here.',
+    links: [
+      {
+        label: 'W3C: WCAG 3.0 working draft, September 2026',
+        href: 'https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/',
+      },
+      {
+        label: 'Alastair Campbell, draft editor: the conformance model explained',
+        href: 'https://alastairc.uk/blog/2026/09/wcag3-update-conformance/',
+      },
+    ],
   },
 ]

@@ -164,6 +164,7 @@ export const glossaryTerms: GlossaryEntry[] = [
     def:
       'The Web Content Accessibility Guidelines — the W3C standard (2.2 is ' +
       'current) that most accessibility law worldwide points at. Chapter 01 ' +
-      'walks its timeline.',
+      'walks its timeline. WCAG 3.0 is a working draft, years from done, and ' +
+      'will not replace 2.2.',
   },
 ]
