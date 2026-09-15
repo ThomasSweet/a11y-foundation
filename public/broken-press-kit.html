@@ -1,0 +1,553 @@
+<!doctype html>
+<!-- This page is broken on purpose: eleven planted accessibility barriers.
+     It is the broken page for the listening room at /listening-room.html, where
+     the answers live. It is deliberately NOT built with this site's styles or
+     safety nets, so what you catch here behaves like it would in the wild. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Fitis press kit (a page broken on purpose)</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #fff;
+        color: #23262b;
+        font-family: system-ui, sans-serif;
+        line-height: 1.55;
+      }
+
+      .press-kit {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 24px 28px 28px;
+      }
+
+      .press-kit-header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 24px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #e4e6ea;
+      }
+
+      .press-kit-wordmark {
+        margin: 0;
+        line-height: 0;
+      }
+
+      .press-kit-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .press-kit-nav a {
+        color: #23262b;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .press-kit-intro {
+        margin: 22px 0 0;
+        font-size: 17px;
+      }
+
+      .press-kit-divider {
+        display: block;
+        width: 100%;
+        height: 16px;
+        margin: 26px 0;
+      }
+
+      .press-kit-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 36px;
+      }
+
+      .press-kit-facts {
+        order: 2;
+        flex: 1 1 13rem;
+        align-self: flex-start;
+        padding: 14px 18px 18px;
+        background-color: #f4f6f8;
+        border-radius: 4px;
+      }
+
+      .press-kit-column {
+        order: 1;
+        flex: 3 1 22rem;
+      }
+
+      .press-kit-facts h2 {
+        margin: 0 0 8px;
+        font-size: 15px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .press-kit-facts dl {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .press-kit-facts dt {
+        margin-top: 10px;
+        font-weight: 700;
+      }
+
+      .press-kit-facts dd {
+        margin: 0;
+      }
+
+      .press-kit-facts a {
+        color: #23507f;
+      }
+
+      .press-kit-column h2,
+      .press-kit-column h4,
+      .press-kit-footer h2 {
+        margin: 0 0 8px;
+        font-size: 21px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .press-kit-column p {
+        margin: 0 0 10px;
+      }
+
+      .press-kit-quotes {
+        margin: 0;
+        padding: 0;
+      }
+
+      .press-kit-quotes blockquote {
+        margin: 0 0 14px;
+        padding-left: 16px;
+        border-left: 3px solid #d9dde3;
+        font-size: 16px;
+      }
+
+      .press-kit-quotes blockquote p {
+        margin: 0 0 4px;
+      }
+
+      .press-kit-quote-source {
+        color: #5f646b;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .press-kit-hero-photo {
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        object-position: 50% 22%;
+        border-radius: 4px;
+      }
+
+      .press-kit-hero-credit {
+        margin: 6px 0 0;
+        color: #5f646b;
+        font-size: 13px;
+      }
+
+      .press-kit-photo-grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .press-kit-photo figure {
+        margin: 0;
+      }
+
+      .press-kit-photo img {
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        border-radius: 3px;
+      }
+
+      .press-kit-photo figcaption {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+
+      .press-kit-photo-download {
+        display: inline-block;
+        margin-top: 4px;
+        color: #23507f;
+        font-size: 13px;
+      }
+
+      .press-kit-rider {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .press-kit-rider th,
+      .press-kit-rider td {
+        padding: 7px 10px;
+        border-bottom: 1px solid #eceef1;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .press-kit-rider thead th {
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .press-kit-setlist {
+        font-size: 15px;
+      }
+
+      .press-kit-tour {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 14px;
+      }
+
+      .press-kit-tour li {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        justify-content: space-between;
+        padding: 7px 0;
+        border-bottom: 1px solid #eceef1;
+      }
+
+      .press-kit-rating::after {
+        content: "★★★★☆";
+        color: #8a6d00;
+        font-size: 17px;
+        letter-spacing: 2px;
+      }
+
+      .press-kit-social {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .press-kit-social a {
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+        color: #23507f;
+        font-size: 15px;
+      }
+
+      .press-kit-footer {
+        margin-top: 26px;
+        padding-top: 16px;
+        border-top: 1px solid #e4e6ea;
+        font-size: 14px;
+      }
+
+      .press-kit-footer p {
+        margin: 0 0 8px;
+      }
+
+      .press-kit-footer a {
+        color: #23507f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="press-kit">
+      <header class="press-kit-header">
+        <h1 class="press-kit-wordmark">
+          <svg viewBox="0 0 200 44" width="180" height="40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="22" cy="22" r="18" fill="#23262b" />
+            <path d="M14 22 L22 12 L30 22 L22 32 Z" fill="#fff" />
+            <rect x="52" y="10" width="8" height="24" fill="#23262b" />
+            <rect x="68" y="4" width="8" height="36" fill="#23262b" />
+            <rect x="84" y="14" width="8" height="20" fill="#23262b" />
+            <rect x="100" y="8" width="8" height="28" fill="#23262b" />
+            <rect x="116" y="16" width="8" height="16" fill="#23262b" />
+            <rect x="132" y="6" width="8" height="32" fill="#23262b" />
+          </svg>
+        </h1>
+        <nav class="press-kit-nav">
+          <a href="#">Band</a>
+          <a href="#">Photos</a>
+          <a href="#">Rider</a>
+          <a href="#">Press contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <p class="press-kit-intro">
+          Fitis are a four-piece from Berlin. Their debut EP
+          <span lang="de">Alles auf Anfang</span> came out in July 2025. This
+          press kit collects the facts, photos and stage requirements a venue
+          or a journalist usually asks for.
+        </p>
+
+        <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+        <div class="press-kit-columns">
+          <section class="press-kit-facts">
+            <h2>Facts</h2>
+            <dl>
+              <dt>Line-up</dt>
+              <dd>Richard Boden, vocals and guitar. Thomas Sweet, keys and vocals. Phillip Daduna, drums. Sebastian Hartwig, guitar.</dd>
+              <dt>Sound</dt>
+              <dd>Postpunk, alternative rock, German lyrics</dd>
+              <dt>Release date</dt>
+              <dd>1 July 2025</dd>
+              <dt>Press contact</dt>
+              <dd>Press and booking. <a href="#">Email the press contact</a></dd>
+            </dl>
+          </section>
+
+          <div class="press-kit-column">
+            <section>
+              <h4>Biography</h4>
+              <p>
+                Fitis sind vier Musiker aus Berlin. Ihre Musik bewegt sich
+                zwischen Postpunk, Alternative Rock, Rap-Anleihen und
+                elektronischen Texturen. Die Texte sind deutschsprachig, roh
+                und direkt, aber niemals simpel. Ihre Debüt-EP Alles auf
+                Anfang erschien im Juli 2025.
+              </p>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Press quotes</h2>
+              <div class="press-kit-quotes" lang="fr">
+                <blockquote>
+                  <p>Four people, one room, no safety net. The EP sounds like it was recorded with the door open.</p>
+                  <p class="press-kit-quote-source">Kellerpost</p>
+                </blockquote>
+                <blockquote>
+                  <p>Too layered, too open, too edgy to categorise, and all the better for it.</p>
+                  <p class="press-kit-quote-source">Nachtlärm</p>
+                </blockquote>
+                <blockquote>
+                  <p>The rare debut that trusts its quiet parts.</p>
+                  <p class="press-kit-quote-source">Zwischenruf</p>
+                </blockquote>
+              </div>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Press photos</h2>
+              <img
+                class="press-kit-hero-photo"
+                src="/audit/fitis-band.jpg"
+                alt="Image of the band Fitis, four members, one reaching toward the camera"
+              />
+              <p class="press-kit-hero-credit">Cleared for editorial use with a credit line.</p>
+              <ul class="press-kit-photo-grid">
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/fitis-band.jpg" alt="The band on a concrete stairwell landing" />
+                    <figcaption>The band in the stairwell, Berlin</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 1</a>
+                </li>
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/fitis-cover.jpg" alt="Cover artwork, a pale sunrise over a flat horizon" />
+                    <figcaption>EP cover, Alles auf Anfang</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 2</a>
+                </li>
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/press-placeholder-1.svg" alt="The band mid-song under a single white spotlight" />
+                    <figcaption>Fitis live at the release show</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 3</a>
+                </li>
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/press-placeholder-2.svg" alt="A singer leaning into a microphone, eyes closed" />
+                    <figcaption>During the live session</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 4</a>
+                </li>
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/press-placeholder-3.svg" alt="A guitarist seated beside a stack of amplifiers" />
+                    <figcaption>In the rehearsal room</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 5</a>
+                </li>
+                <li class="press-kit-photo">
+                  <figure>
+                    <img src="/audit/press-placeholder-4.svg" alt="A drummer behind a four-piece kit, sticks raised" />
+                    <figcaption>At soundcheck</figcaption>
+                  </figure>
+                  <a class="press-kit-photo-download" href="#">Download press photo 6</a>
+                </li>
+              </ul>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Technical rider</h2>
+              <table class="press-kit-rider" role="presentation">
+                <thead>
+                  <tr>
+                    <th scope="col">Position</th>
+                    <th scope="col">Requirement</th>
+                    <th scope="col">Provided by</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Vocals</th>
+                    <td>Two dynamic vocal microphones with boom stands</td>
+                    <td>Venue</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Guitar</th>
+                    <td>One combo amplifier, one microphone, one DI box</td>
+                    <td>Band brings the amplifier</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Bass</th>
+                    <td>One bass cabinet, one DI box</td>
+                    <td>Venue</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Drums</th>
+                    <td>Four-piece kit, cymbal stands, drum rug</td>
+                    <td>Band brings cymbals and snare</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Monitoring</th>
+                    <td>Three wedges on two separate mixes</td>
+                    <td>Venue</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Power</th>
+                    <td>Two sockets stage left, two stage right</td>
+                    <td>Venue</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Setlist</h2>
+              <p class="press-kit-setlist">
+                01 - Im Radio<br />
+                02 - Lauf<br />
+                03 - Schatten der Vergangenheit<br />
+                04 - Fallen<br />
+                05 - Abgrund<br />
+                06 - Treibgut
+              </p>
+              <p>The EP in order. The last two can be dropped for a short slot.</p>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section aria-hidden="true">
+              <h2>Tour dates</h2>
+              <ul class="press-kit-tour">
+                <li>
+                  <span>12.09.2026, Berlin, Kellerklub Anfang</span>
+                  <span>sold out</span>
+                </li>
+                <li>
+                  <span>26.09.2026, Leipzig, Halle Drei</span>
+                  <span>tickets at the door</span>
+                </li>
+                <li>
+                  <span>10.10.2026, Hamburg, Werfthalle Nord</span>
+                  <span>sold out</span>
+                </li>
+                <li>
+                  <span>24.10.2026, Dresden, Haus Vorwärts</span>
+                  <span>tickets at the door</span>
+                </li>
+              </ul>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Press review</h2>
+              <p>Kellerpost, August 2025: <span class="press-kit-rating"></span></p>
+            </section>
+
+            <img class="press-kit-divider" src="/audit/press-divider.svg" alt="divider ornament" />
+
+            <section>
+              <h2>Follow</h2>
+              <ul class="press-kit-social">
+                <li>
+                  <a href="#">
+                    <svg aria-label="Instagram" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#23507f" stroke-width="2" />
+                      <circle cx="12" cy="12" r="4" fill="none" stroke="#23507f" stroke-width="2" />
+                      <circle cx="17.5" cy="6.5" r="1.3" fill="#23507f" />
+                    </svg>
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg aria-label="Bandcamp" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 17 L9 7 H21 L15 17 Z" fill="#23507f" />
+                    </svg>
+                    Bandcamp
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <svg aria-label="Spotify" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" fill="#23507f" />
+                      <path d="M7 10.5c3.2-1 6.6-.7 9.4.9M7.6 13.4c2.6-.8 5.4-.5 7.7.8M8.3 16c2-.6 4.1-.4 5.9.6" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    Spotify
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      <footer class="press-kit-footer">
+        <h2>Press contact</h2>
+        <p>
+          The band handles press and booking directly, and answers within two
+          working days. Photos in this kit are cleared for editorial use with a
+          credit line, print at full page only after asking.
+        </p>
+        <p>
+          <a href="#">Email the press office</a> · <a href="#">Download the whole kit, ZIP, 48 MB</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

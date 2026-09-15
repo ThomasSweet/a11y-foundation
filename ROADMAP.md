@@ -96,6 +96,10 @@ efficiently" — the chapter argues the model, these teach the practice):
 
 - **The audit room** — BUILT 2026-08-01 (see Done); the scope that
   drove it stays in [docs/audit-room-scope.md](docs/audit-room-scope.md).
+- **The listening room** — BUILT 2026-09-15 (see Done); the other half of
+  the coverage matrix, a page a scanner passes with eleven barriers you
+  hear first. Scope in
+  [docs/listening-room-scope.md](docs/listening-room-scope.md).
 Structure: nothing above needs a fifth pillar. Understandable items feed
 the timeline, the hiding/stress work feeds craft, audit practice feeds
 proof, and cheat-sheet material extends the title-block reference sheets
@@ -105,6 +109,26 @@ Out of lane — now stated on the site ("Where this argument stops", end of
 proof): captions/media (no media on the site), 4.1.3 live regions, ARIA
 authoring patterns, focus management — JS mechanisms; the section points
 at the ARIA APG.
+
+### Practice rooms
+
+Decided 2026-09-15: the P-series varies **the type of thing under test**,
+not the story around it. A press kit, a shop, a component library, a form
+flow: each type carries its own natural barriers, and a room that repeats
+a type teaches the same lesson twice. The band fiction is a convenience,
+never a constraint; it stays only where it saves inventing a world, and
+any room is free to leave it. Rooms that force the theme onto a type it
+does not fit get rejected on that ground alone.
+
+Planned, in build order, each still a candidate until its scope is
+written and reviewed:
+
+- **P·03 settings room**: a settings page, and the state-and-preference
+  barriers a static page cannot host.
+- **P·04 booking form**: a multi-step form flow, where errors,
+  instructions and grouping do the damage.
+- **P·05 review desk**: a component library sheet read as an auditor
+  would read it, one component at a time.
 
 ### Watchlist (too early / conditional — revisit)
 
@@ -230,6 +254,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-09** The listening room (P·02, the second practice room): a fictional Fitis press kit on its own standalone page (`/broken-press-kit.html`, previewed inert as in P·01) with eleven planted barriers, built so a scanner passes it outright. Measured, not hoped: under axe's WCAG tags the page reports nothing at all, and with the best-practice tags added it reports exactly two findings, `empty-heading` and `heading-order`, both tracing back to the same barrier, an SVG wordmark used as an unnamed `h1`. Everything else is heard before it can be seen: a German biography with no `lang`, a stale `lang="fr"` on English quotes, the facts sidebar first in the DOM and moved right with `order`, a rider table wearing `role="presentation"`, a setlist built from `<br>` instead of a list, tour dates left `aria-hidden="true"`, a star rating drawn in `::after`, an icon `aria-label` that doubles the social link's name, a divider image announced between every section, and a hero alt that starts with "Image of". Two of the scope's four predicted best-practice hits turned out to be impossible against axe 4.12's own checks, which is why the pin is two and not four. The room chrome moved to `src/site/PracticeRoom`, shared with the audit room. Scope and the barrier table: [docs/listening-room-scope.md](docs/listening-room-scope.md).
 
 - **2026-09** Kept current by machine: a Monday workflow bumps `web-features`, regenerates the Baseline data, the agent skill and the feed, and opens a pull request proposing what-changed lines for showcases that gained an engine or reached Baseline (`scripts/gen-moves.mjs`, deduped against hand-written lines by id, or by the same showcase link naming the same engine or tier within 60 days); a deploy workflow runs after a green CI run on main, pushes the build to production, confirms the live site serves it, and comments on the merged pull request; CI gained a gate that fails when the committed skill, llms mirror, feed or Baseline data fall behind their registries. The Monday CI cron went: on a locked package it could never see new Baseline data.
 

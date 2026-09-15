@@ -1,7 +1,15 @@
 <template>
-  <SiteFrame sheet="P·01" sheet-title="Audit room">
-    <h1 class="audit-room-title">The audit room</h1>
-    <p class="audit-room-lede">
+  <PracticeRoom
+    sheet="P·01"
+    sheet-title="Audit room"
+    title="The audit room"
+    broken-href="/broken-page.html"
+    broken-tag="Broken on purpose · barriers 1–12 · preview at 1:2"
+    preview-title="Preview of the broken page"
+    :prev="{ href: '/proof.html', kicker: '← Previous', title: '04 · The proof' }"
+    :next="{ href: '/listening-room.html', kicker: 'Next →', title: 'P·02 · Listening room' }"
+  >
+    <template #lede>
       A page broken on purpose. Below sits the release page for a band's
       debut EP — and hidden in it are <strong>twelve accessibility
       barriers</strong>, planted deliberately. Your job is the hunt: the
@@ -9,8 +17,9 @@
       everything <a href="/proof.html">the proof chapter</a> and the
       reference sheets taught. A scanner finds two of the twelve — this
       site's own suite measured it. The other ten need you.
-    </p>
-    <p class="audit-room-contract">
+    </template>
+
+    <template #contract>
       The contract: every barrier lives inside the framed page below,
       nothing outside the frame is broken, none of its links or buttons do
       anything real, and the answers wait at the end. The broken page is a
@@ -22,110 +31,45 @@
       that's harmful for you,
       <a href="#audit-room-answers">skip past the broken page, straight to
       the answers.</a>
-    </p>
+    </template>
 
-    <section id="broken-page" class="audit-room-broken-page" aria-label="The broken page, previewed at half scale">
-      <p class="audit-room-broken-page-tag">Broken on purpose · barriers 1–12 · preview at 1:2</p>
-      <a class="audit-room-preview" href="/broken-page.html" target="_blank" rel="noopener">
-        <iframe
-          class="audit-room-preview-frame"
-          src="/broken-page.html"
-          title="Preview of the broken page"
-          aria-hidden="true"
-          tabindex="-1"
-          inert
-          loading="lazy"
-        ></iframe>
-        <span class="audit-room-preview-open">Open the broken page at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
-      </a>
-      <p class="audit-room-broken-page-note">
-        Full-page DevTools, your own Lighthouse run — the hunt happens at
-        full scale.
-      </p>
-    </section>
+    <template #note>
+      Full-page DevTools, your own Lighthouse run — the hunt happens at
+      full scale.
+    </template>
 
-    <p class="audit-room-end">
-      End of the broken page. Everything from here on is compliant again.
-    </p>
-
-    <section class="audit-room-section" aria-labelledby="audit-room-answers">
-      <h2 id="audit-room-answers" class="audit-room-h2">Answers</h2>
-      <p class="audit-room-p">
+    <PracticeAnswers id="audit-room-answers" :answers="barriers">
+      <p>
         Each barrier below opens to a hint first; the answer hides one level
         deeper. Honest scoring is your own business — that's why there is no
         counter.
       </p>
-      <ol class="audit-room-answers">
-        <li v-for="b in barriers" :key="b.n" class="audit-room-answer">
-          <details>
-            <summary class="audit-room-hint">
-              Barrier {{ b.n }} — {{ b.hint }}
-            </summary>
-            <details class="audit-room-reveal">
-              <summary>Reveal the answer</summary>
-              <div class="audit-room-reveal-body">
-                <p>{{ b.what }}</p>
-                <p class="audit-room-meta">
-                  <a :href="b.criterionHref">WCAG {{ b.criterion }}</a>
-                  · Caught by: {{ b.caught }}
-                </p>
-                <p>
-                  {{ b.fix }}
-                  <a v-if="b.fixLink" :href="b.fixLink.href">{{ b.fixLink.label }}</a>
-                </p>
-              </div>
-            </details>
-          </details>
-        </li>
-      </ol>
-    </section>
+    </PracticeAnswers>
 
-    <section class="audit-room-section" aria-labelledby="audit-room-about">
-      <h2 id="audit-room-about" class="audit-room-h2">About this page</h2>
-      <p class="audit-room-p">
+    <PracticeSection id="audit-room-about" title="About this page">
+      <p>
         The band is real; this page is not its website. Fitis exists, the EP
         exists, and the actual site — which is not broken on purpose — lives
         at <a href="https://fitis-band.de">fitis-band.de</a>. Everything
         else here is fiction in service of the exercise.
       </p>
-      <p class="audit-room-p">
+      <p>
         Found barriers like these on a page you work on? The proof chapter
         ends with <a href="/proof.html#testing-filing">how to file what you
         find</a> — impact first, one barrier per ticket, and the fix is
         usually a swap.
       </p>
-    </section>
-
-    <template #prevnext>
-      <nav class="audit-room-prevnext" aria-label="Adjacent pages">
-        <a class="audit-room-nav" href="/proof.html">
-          <span class="audit-room-nav-k">← Previous</span>
-          <span class="audit-room-nav-t">04 · The proof</span>
-        </a>
-        <a class="audit-room-nav audit-room-nav-next" href="/#reference-sheets">
-          <span class="audit-room-nav-k">Next →</span>
-          <span class="audit-room-nav-t">A · Reference sheets</span>
-        </a>
-      </nav>
-    </template>
-  </SiteFrame>
+    </PracticeSection>
+  </PracticeRoom>
 </template>
 
 <script setup lang="ts">
-import SiteFrame from '../SiteFrame/SiteFrame.vue'
+import PracticeAnswers from '../PracticeRoom/PracticeAnswers.vue'
+import PracticeRoom from '../PracticeRoom/PracticeRoom.vue'
+import PracticeSection from '../PracticeRoom/PracticeSection.vue'
+import type { Answer } from '../PracticeRoom/practiceAnswers'
 
-interface Barrier {
-  n: number
-  hint: string
-  what: string
-  criterion: string
-  criterionHref: string
-  caught: string
-  fix: string
-  fixLink?: { label: string; href: string }
-}
-
-const barriers: Barrier[] = [
+const barriers: Answer[] = [
   {
     n: 1,
     hint: 'try to press the most important thing on the page',
@@ -240,285 +184,3 @@ const barriers: Barrier[] = [
   },
 ]
 </script>
-
-<style scoped lang="scss">
-@layer components {
-  .audit-room-title {
-    margin: 0;
-    max-inline-size: 24ch;
-    font-size: var(--text-display-sm);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    text-wrap: balance;
-    color: var(--bp-ink);
-  }
-
-  .audit-room-lede {
-    max-inline-size: 58ch;
-    margin-block: var(--space-4) 0;
-    font-size: var(--text-lg);
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-lede strong {
-    color: var(--bp-ink);
-  }
-
-  .audit-room-contract {
-    max-inline-size: 62ch;
-    margin-block: var(--space-4) 0;
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-broken-page {
-    max-inline-size: 68ch;
-    margin-block-start: var(--space-8);
-    padding: var(--space-4);
-    border: 2px dashed var(--bp-redline);
-    border-radius: var(--radius-md);
-    scroll-margin-block-start: var(--space-8);
-
-    @include high-contrast {
-      border-color: currentcolor;
-    }
-  }
-
-  .audit-room-broken-page-tag {
-    margin: 0 0 var(--space-3);
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-redline);
-  }
-
-  .audit-room-preview {
-    position: relative;
-    display: block;
-    block-size: 24rem;
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    background-color: #fff;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      inset-block-end: 0;
-      block-size: 7rem;
-      background: linear-gradient(transparent, #fff 80%);
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-  }
-
-  .audit-room-preview-frame {
-    inline-size: 200%;
-    block-size: 48rem;
-    border: 0;
-    transform: scale(0.5);
-    transform-origin: top left;
-    pointer-events: none;
-  }
-
-  .audit-room-preview-open {
-    position: absolute;
-    inset-block-end: var(--space-4);
-    inset-inline-start: 50%;
-    translate: -50% 0;
-    z-index: 1;
-    padding: var(--space-2) var(--space-4);
-    border: 1px solid var(--bp-line-strong);
-    border-radius: var(--radius-md);
-    background-color: var(--bp-sheet);
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-accent);
-    white-space: nowrap;
-
-    @include high-contrast {
-      border-color: currentcolor;
-    }
-  }
-
-  .audit-room-preview:hover .audit-room-preview-open {
-    border-color: var(--bp-accent);
-  }
-
-  .audit-room-broken-page-note {
-    margin: var(--space-3) 0 0;
-    font-size: var(--text-sm);
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-end {
-    max-inline-size: 62ch;
-    margin-block: var(--space-4) 0;
-    font-family: var(--bp-mono);
-    font-size: var(--text-sm);
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-section {
-    margin-block-start: var(--space-16);
-    max-inline-size: 68ch;
-  }
-
-  .audit-room-h2 {
-    margin: 0 0 var(--space-4);
-    font-size: var(--text-2xl);
-    letter-spacing: -0.01em;
-    color: var(--bp-ink);
-    scroll-margin-block-start: var(--space-8);
-  }
-
-  .audit-room-p {
-    margin-block: var(--space-4) 0;
-    max-inline-size: 62ch;
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-answers {
-    display: grid;
-    gap: var(--space-2);
-    margin-block: var(--space-6) 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .audit-room-answer > details {
-    padding: var(--space-3) var(--space-4);
-    border: 1px solid var(--bp-line-strong);
-    border-radius: var(--radius-md);
-    background-color: var(--bp-sheet);
-
-    @include high-contrast {
-      border-color: currentcolor;
-    }
-  }
-
-  .audit-room-hint {
-    font-weight: 600;
-    color: var(--bp-ink);
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-  }
-
-  .audit-room-reveal {
-    margin-block-start: var(--space-3);
-
-    summary {
-      inline-size: fit-content;
-      font-family: var(--bp-mono);
-      font-size: 0.6875rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--bp-accent);
-      cursor: pointer;
-
-      &:focus-visible {
-        outline: var(--focus-ring-width) solid var(--focus-ring-color);
-        outline-offset: 2px;
-      }
-    }
-  }
-
-  .audit-room-reveal-body {
-    display: grid;
-    gap: var(--space-2);
-    padding-block-start: var(--space-2);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-
-    p {
-      margin: 0;
-    }
-  }
-
-  .audit-room-meta {
-    font-family: var(--bp-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.02em;
-  }
-
-  .audit-room-prevnext {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-    margin-block-start: clamp(var(--space-8), 5vw, var(--space-16));
-  }
-
-  @media (width <= 40rem) {
-    .audit-room-prevnext {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .audit-room-nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    border: 1px solid var(--bp-line-strong);
-    color: var(--bp-ink-2);
-    text-decoration: none;
-    transition:
-      border-color var(--duration-fast) var(--easing-standard),
-      background-color var(--duration-fast) var(--easing-standard);
-
-    @include can-hover {
-      &:hover {
-        border-color: var(--bp-accent);
-        background: var(--bp-accent-soft);
-      }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
-    @include high-contrast {
-      border-color: currentcolor;
-    }
-  }
-
-  .audit-room-nav-next {
-    grid-column: -2 / -1;
-    text-align: end;
-  }
-
-  .audit-room-nav-k {
-    font-family: var(--bp-mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-ink-2);
-  }
-
-  .audit-room-nav-t {
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--bp-ink);
-    transition: color var(--duration-fast) var(--easing-standard);
-  }
-
-  .audit-room-nav:hover .audit-room-nav-t,
-  .audit-room-nav:focus-visible .audit-room-nav-t {
-    color: var(--bp-accent);
-  }
-}
-</style>

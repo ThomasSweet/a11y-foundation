@@ -93,6 +93,11 @@
         it run out.
       </p>
       <CoverageMatrix />
+      <p>
+        The <a href="/listening-room.html">listening room</a> is that column as
+        a whole page: eleven planted barriers, and a scanner that reports the
+        page clean.
+      </p>
     </ChapterSection>
 
     <ChapterSection v-bind="sections.auditCss">

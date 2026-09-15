@@ -15,6 +15,16 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'listening-room',
+    date: '2026-09-15',
+    area: 'Proof',
+    title: 'The listening room',
+    lead: 'The ',
+    linkText: 'listening room',
+    href: '/listening-room.html',
+    tail: ': a press kit a scanner passes, eleven barriers you hear before you see, answers included.',
+  },
+  {
     id: 'standards-map',
     date: '2026-09-13',
     area: 'Standard',

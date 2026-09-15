@@ -44,6 +44,13 @@
             <span class="hub-sheet-desc">A page broken on purpose: twelve barriers, your tools, answers included.</span>
           </a>
         </li>
+        <li>
+          <a class="hub-sheet" href="/listening-room.html">
+            <span class="hub-sheet-no">P·02</span>
+            <span class="hub-sheet-name">Listening room</span>
+            <span class="hub-sheet-desc">A page a scanner passes. Eleven barriers you hear before you see, answers included.</span>
+          </a>
+        </li>
       </ul>
     </nav>
 

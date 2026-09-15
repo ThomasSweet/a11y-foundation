@@ -74,9 +74,11 @@ Every feature the site teaches is doing real work *in* the site — each behind
 - **A CSS showcase catalog** — 36 accessible demos of modern platform
   features, grouped into Baseline's own tiers from `web-features` data at
   build time, each with its a11y payoff spelled out and its code one click away.
-- **The audit room** — a page broken on purpose: twelve planted barriers to
-  hunt with the tools the site teaches, answers behind `<details>`, and a
-  test suite that asserts the page stays exactly that broken.
+- **Practice rooms** — two pages broken on purpose, each with its answers
+  behind `<details>` and a test suite that asserts the page stays exactly that
+  broken. The **audit room** plants twelve barriers to hunt with the tools the
+  site teaches; the **listening room** plants eleven that a scanner passes
+  over, every one of them audible before it is visible.
 - **Reference sheets** — a screen reader's first fifteen minutes, the
   DevTools accessibility inventory, a linkable glossary, and the style guide
   the site is drawn with.

@@ -42,8 +42,14 @@ src/
 │   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark;
 │   │                         chapterSections.ts holds the section registry
 │   ├── ChapterSection/     — one chapter section; registers itself with the rail
-│   ├── AgentSkillView/, AuditRoomView/, DevToolsView/, GlossaryView/,
-│   │   ScreenReaderView/   — the five reference sheets, each a SiteFrame page
+│   ├── AgentSkillView/, DevToolsView/, GlossaryView/,
+│   │   ScreenReaderView/   — the four reference sheets, each a SiteFrame page
+│   ├── AuditRoomView/, ListeningRoomView/
+│   │                       — the practice rooms P·01 and P·02, each a
+│   │                         SiteFrame page built on PracticeRoom
+│   ├── PracticeRoom/       — the room chrome both practice rooms share:
+│   │                         contract and skip link, the inert preview of the
+│   │                         broken page, the two-tier answers list
 │   └── pillars.ts          — the four chapters (order, titles, hrefs, icons)
 ├── pages/                  — one thin root per chapter: StandardPage, CraftPage,
 │                             ShowcasePage, ProofPage (ChapterLayout plus sections)
@@ -101,7 +107,10 @@ public/                     — copied verbatim into dist/; the parts that are g
 ├── llms/                   — SKILL.md and the three references, mirrored by gen-skill.mjs
 ├── favicon.svg, icon-192.png, icon-512.png, apple-touch-icon.png, og-image.png
 │                           — from gen-icons.mjs
-└── sitemap.xml             — hand-maintained: add a page here when you add an HTML file
+├── sitemap.xml             — hand-maintained: add a page here when you add an HTML file
+└── broken-page.html, broken-press-kit.html
+                            — hand-written, noindex: the practice rooms' broken
+                              pages, built without this site's styles or layers
 ```
 
 ---
@@ -274,9 +283,9 @@ Every chapter page (`standard`, `craft`, `proof`, `showcase`) is the same
 four-layer composition. Each layer has one job:
 
 - **`SiteFrame`** — the paper: sheet outline, grid, registration marks, the
-  header and the title-block footer. Knows nothing about chapters; the hub
-  and the five reference sheets (glossary, agent skill, screen reader,
-  devtools, audit room) use it too. The impressum, privacy and style-guide
+  header and the title-block footer. Knows nothing about chapters; the hub,
+  the four reference sheets (glossary, agent skill, screen reader, devtools)
+  and the two practice rooms (audit room, listening room) use it too. The impressum, privacy and style-guide
   pages do not: they are static HTML styled by `legal.scss` and
   `styleguide.scss`, and never mount Vue.
 - **`ChapterLayout`** — one chapter's chrome: the legend rail (chapter
