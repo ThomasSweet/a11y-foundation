@@ -10,18 +10,22 @@
 
     <section id="broken-page" class="practice-room-broken-page" :aria-label="previewLabel">
       <p class="practice-room-broken-page-tag">{{ brokenTag }}</p>
-      <a class="practice-room-preview" :href="brokenHref" target="_blank" rel="noopener">
-        <iframe
-          class="practice-room-preview-frame"
-          :src="brokenHref"
-          :title="previewTitle"
-          aria-hidden="true"
-          tabindex="-1"
-          inert
-          loading="lazy"
-        ></iframe>
-        <span class="practice-room-preview-open">Open the broken page at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
-      </a>
+      <div class="practice-room-preview">
+        <div class="practice-room-preview-clip">
+          <iframe
+            class="practice-room-preview-frame"
+            :src="brokenHref"
+            :title="previewTitle"
+            aria-hidden="true"
+            tabindex="-1"
+            inert
+            loading="lazy"
+          ></iframe>
+        </div>
+        <a class="practice-room-preview-link" :href="brokenHref" target="_blank" rel="noopener">
+          <span class="practice-room-preview-open">Open the broken page at 1:1<span class="visually-hidden"> (opens in a new tab)</span> →</span>
+        </a>
+      </div>
       <p class="practice-room-broken-page-note">
         <slot name="note" />
       </p>
@@ -36,12 +40,12 @@
     <template #prevnext>
       <nav class="practice-room-prevnext" aria-label="Adjacent pages">
         <a class="practice-room-nav" :href="prev.href">
-          <span class="practice-room-nav-k">{{ prev.kicker }}</span>
-          <span class="practice-room-nav-t">{{ prev.title }}</span>
+          <span class="practice-room-nav-kicker">{{ prev.kicker }}</span>
+          <span class="practice-room-nav-title">{{ prev.title }}</span>
         </a>
         <a class="practice-room-nav practice-room-nav-next" :href="next.href">
-          <span class="practice-room-nav-k">{{ next.kicker }}</span>
-          <span class="practice-room-nav-t">{{ next.title }}</span>
+          <span class="practice-room-nav-kicker">{{ next.kicker }}</span>
+          <span class="practice-room-nav-title">{{ next.title }}</span>
         </a>
       </nav>
     </template>
@@ -134,6 +138,10 @@ withDefaults(
     position: relative;
     display: block;
     block-size: 24rem;
+  }
+
+  .practice-room-preview-clip {
+    block-size: 100%;
     overflow: hidden;
     border-radius: var(--radius-sm);
     background-color: #fff;
@@ -146,6 +154,13 @@ withDefaults(
       block-size: 7rem;
       background: linear-gradient(transparent, #fff 80%);
     }
+  }
+
+  .practice-room-preview-link {
+    position: absolute;
+    inset: 0;
+    display: block;
+    border-radius: var(--radius-sm);
 
     &:focus-visible {
       outline: var(--focus-ring-width) solid var(--focus-ring-color);
@@ -184,7 +199,7 @@ withDefaults(
     }
   }
 
-  .practice-room-preview:hover .practice-room-preview-open {
+  .practice-room-preview-link:hover .practice-room-preview-open {
     border-color: var(--bp-accent);
   }
 
@@ -249,7 +264,7 @@ withDefaults(
     text-align: end;
   }
 
-  .practice-room-nav-k {
+  .practice-room-nav-kicker {
     font-family: var(--bp-mono);
     font-size: 0.625rem;
     letter-spacing: 0.08em;
@@ -257,15 +272,15 @@ withDefaults(
     color: var(--bp-ink-2);
   }
 
-  .practice-room-nav-t {
+  .practice-room-nav-title {
     font-size: var(--text-lg);
     font-weight: 600;
     color: var(--bp-ink);
     transition: color var(--duration-fast) var(--easing-standard);
   }
 
-  .practice-room-nav:hover .practice-room-nav-t,
-  .practice-room-nav:focus-visible .practice-room-nav-t {
+  .practice-room-nav:hover .practice-room-nav-title,
+  .practice-room-nav:focus-visible .practice-room-nav-title {
     color: var(--bp-accent);
   }
 }

@@ -24,7 +24,7 @@ defineProps<{ id: string; title: string }>()
     scroll-margin-block-start: var(--space-8);
   }
 
-  .practice-section :slotted(p) {
+  .practice-section > :slotted(p) {
     margin-block: var(--space-4) 0;
     max-inline-size: 62ch;
     line-height: var(--leading-normal);

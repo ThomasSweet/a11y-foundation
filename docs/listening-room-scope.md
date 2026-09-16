@@ -76,7 +76,7 @@ teaches the same lesson twice. The band fiction is a convenience, it
 saves inventing a world for every room, and it is never a constraint.
 The day a type does not fit the band, the band goes and the type stays.
 
-## The barrier list (draft eleven)
+## The barrier list (eleven, as shipped, in DOM order)
 
 Chosen so that a scanner's default rule set finds none, a screen reader
 finds all, and the tree pane confirms what the ear caught. Spread across
@@ -85,25 +85,24 @@ Parts and 1.3.2 Meaningful Sequence their first home on the site.
 
 | # | Barrier | Criterion | Caught by |
 |---|---------|-----------|-----------|
-| 1 | Hero photo alt begins "Image of the band Fitis standing…", so the reader announces "image, Image of the band" | 1.1.1 | ear (the double word); tree; scanner passes, image-redundant-alt is best-practice |
-| 2 | Six press photos with alt identical to their visible captions, each announced twice | 1.1.1 | ear; scanner silent |
-| 3 | A decorative divider `<img alt="divider ornament">` between every section, read five times where `alt=""` would silence it | 1.1.1 | ear (noise between sections); tree; scanner silent |
+| 1 | The h1 is an inline SVG wordmark with no `<title>` and no role, so the heading list opens with an empty level-one heading; the first body heading is an h4 after the sidebar’s h2, because h4 had the right size in the design | 1.3.1 (and 1.1.1 for the wordmark) | rotor heading list; the one barrier a scanner half-sees: empty-heading and heading-order, best-practice only |
+| 2 | A decorative divider `<img alt="divider ornament">` between every section, eight of them, read aloud where `alt=""` would silence it | 1.1.1 | ear (noise between sections); tree; scanner silent |
+| 3 | The facts sidebar (line-up, sound, release date, contact) first in the DOM and moved to the right with CSS `order`, so continuous reading hears the facts before the page has said who the band is | 1.3.2 | continuous reading; the source-order viewer in the accessibility pane (A·04); scanner silent |
 | 4 | The German biography with no `lang="de"` on a page whose `html` is `lang="en"`, so the synthesizer reads German with English phonemes; the EP title in the intro is tagged correctly as the control | 3.1.2 | ear only; valid-lang passes, nothing is invalid |
 | 5 | A stale `lang="fr"` copied from a template onto the English press quotes: a valid code, the wrong language | 3.1.2 | ear; tree shows the inherited language; scanner silent |
-| 6 | The h1 is an inline SVG wordmark with no `<title>` and no role, so the heading list opens with an empty level-one heading; the next headings jump to h4 because h4 had the right size in the design | 1.3.1 (and 1.1.1 for the wordmark) | rotor heading list; empty-heading and heading-order are best-practice; svg-img-alt stays silent because there is no role |
-| 7 | The facts sidebar (line-up, label, release date) first in the DOM and moved to the right with CSS `order`, so continuous reading hears the facts before the page has said who the band is | 1.3.2 | continuous reading; the source-order viewer in the accessibility pane (A·04); scanner silent |
-| 8 | The setlist as a paragraph with `<br>` and typed dashes instead of a list, so no "list, 8 items" is announced and the rotor cannot jump by list | 1.3.1 | ear (no list semantics); tree; scanner silent, nothing is a list |
-| 9 | The technical rider table with `role="presentation"` added to lose the borders, so cells are read as loose text with no row or column context | 1.3.1 | ear (table navigation goes dead); tree; presentation-role-conflict is best-practice |
-| 10 | The tour dates block left `aria-hidden="true"` from a demo where it "cluttered VoiceOver": sighted visitors see four dates, screen reader users hear none; nothing inside is focusable, so aria-hidden-focus stays quiet | 1.3.1 / 4.1.2 | ear (silence where the eye sees content); tree; scanner silent |
-| 11 | The press-review rating drawn as `::after { content: "★★★★☆" }`, read as "black star black star…" by some engines and skipped by others | 1.1.1 / 1.3.1 | ear (inconsistent across engines, which is the lesson); tree shows generated text; scanner silent |
-| 12 | Social links whose icon SVG carries its own `aria-label="Instagram"` next to the visible word, so the computed name is "Instagram Instagram" | 1.1.1 / 4.1.2 | ear (the stutter); the name-computation chain in the tree; link-name passes, a name exists |
+| 6 | Hero photo alt begins "Image of the band Fitis…", so the reader announces the word image twice; the six thumbnails under it carry distinct, correct alt text as the control | 1.1.1 | ear (the double word); tree; image-redundant-alt cannot fire here |
+| 7 | The technical rider table with `role="presentation"` added to lose the borders, proper `th` cells underneath, so cells are read as loose text with no row or column context | 1.3.1 | ear (table navigation goes dead); tree; presentation-role-conflict cannot fire here |
+| 8 | The setlist as a paragraph with `<br>` and typed dashes instead of a list, so no "list, 6 items" is announced and the rotor cannot jump by list | 1.3.1 | ear (no list semantics); tree; scanner silent, nothing is a list |
+| 9 | The tour dates block left `aria-hidden="true"` from a demo where it "cluttered VoiceOver": sighted visitors see four dates, screen reader users hear none; nothing inside is focusable, so aria-hidden-focus stays quiet | 1.3.1 / 4.1.2 | ear (silence where the eye sees content); tree; scanner silent |
+| 10 | The press-review rating drawn as `::after { content: "★★★★☆" }` on an empty span; all three browser engines expose the glyphs in the tree, and what a screen reader makes of them depends on its symbol handling | 1.1.1 / 1.3.1 | ear (engine-dependent, which is the lesson); tree shows generated text; scanner silent |
+| 11 | Social links whose icon SVG carries its own `aria-label="Instagram"` next to the visible word, so the computed name is "Instagram Instagram" | 1.1.1 / 4.1.2 | ear (the stutter); the name-computation chain in the tree; link-name passes, a name exists |
 
 Twelve slots drafted; eleven shipped. **Cut: the six press photos whose
-alt repeated their captions** (draft #2), a third repetition of the
+alt repeated their captions**, a third repetition of the
 doubling theme already carried by the hero alt and the social links,
 with the same fix as the first. Those six photos now carry correct,
 distinct alt text and serve as a second control, so the ear hears good
-alt and bad alt in the same section. The star rating (draft #11) stayed:
+alt and bad alt in the same section. The star rating (#10) stayed:
 it is the only generated-content barrier and the only one whose answer
 differs per engine, which is worth teaching.
 
@@ -158,7 +157,7 @@ order and one new line per answer:
    criterion linked to the timeline, the layer that catches it linked
    to proof, and the fix, linked to craft or the agent skill. The heard
    line is what lets a visitor without a screen reader on hand still
-   learn the room, and it is why the transcripts are measured, not
+   learn the room, and it is why the transcripts must be measured, not
    imagined.
 
 ⚑ Which engines to transcribe. VoiceOver with Safari on macOS is
@@ -206,14 +205,21 @@ with three parts:
 The heard transcripts themselves are not pinned; they are measured by
 hand and dated in the answers, like the map's sources-read stamp.
 
+**Status 2026-09-16:** the transcripts shipped as predictions read from
+the accessibility tree in VoiceOver's phrasing, and the answers intro
+says exactly that. The recorded VoiceOver pass (NVDA when a Windows
+machine is at hand) is still owed; when it lands, the intro drops the
+caveat and the answers gain a dated stamp.
+
 ## Wiring
 
 - **Shared frame first.** ⚑ Factor the room chrome out of
   `AuditRoomView` into `src/site/PracticeRoom/`: one component for the
   frame (title, lede, contract with skip link, the inert preview and its
   tag, the end marker, the outro pager) and one for the two-tier answers
-  list. The audit room re-mounts on it with no visible change, which its
-  existing spec proves before this room is started. Two rooms on one
+  list. The audit room re-mounts on it with no visible change beyond the hint
+  separator, which moves from an em dash to a colon under the house rule,
+  and its existing spec proves that before this room is started. Two rooms on one
   frame is the point where a third copy would be a mistake.
 - Own entry: `listening-room.html` + `src/entries/listening-room.ts` +
   `ListeningRoomView` on the shared frame. Sheet number `P·02`,
@@ -238,7 +244,7 @@ hand and dated in the answers, like the map's sources-read stamp.
    built page and fix the list until the numbers are exactly as
    documented. Cut to eleven.
 4. **The transcripts**: the VoiceOver pass, one heard line per barrier,
-   dated; NVDA if available.
+   dated; NVDA if available. Owed as of 2026-09-16.
 5. **Answers**: hints, reveals with heard and should-say lines,
    cross-links.
 6. **Test rig**: the two-rule-set spec, the tree assertions, the

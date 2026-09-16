@@ -91,7 +91,8 @@ tests/
 ├── unit/                   — vitest, node environment: themePickerMath, showcaseSnippets,
 │                             baseline, revisions
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
-                              inversion, audit-room, prerender, feed, standards-map
+                              inversion, audit-room, listening-room, prerender, feed,
+                              standards-map
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -285,9 +286,9 @@ four-layer composition. Each layer has one job:
 - **`SiteFrame`** — the paper: sheet outline, grid, registration marks, the
   header and the title-block footer. Knows nothing about chapters; the hub,
   the four reference sheets (glossary, agent skill, screen reader, devtools)
-  and the two practice rooms (audit room, listening room) use it too. The impressum, privacy and style-guide
-  pages do not: they are static HTML styled by `legal.scss` and
-  `styleguide.scss`, and never mount Vue.
+  and the two practice rooms (audit room, listening room) use it too. The
+  impressum, privacy and style-guide pages do not: they are static HTML
+  styled by `legal.scss` and `styleguide.scss`, and never mount Vue.
 - **`ChapterLayout`** — one chapter's chrome: the legend rail (chapter
   switcher + section scroll-spy), the chapter header, the mobile bottom bar,
   prev/next. Renders into `SiteFrame` and **provides the section registry**.

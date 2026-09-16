@@ -16,7 +16,7 @@
       The instrument changes here: the hunt is a screen reader, running
       <a href="/screen-reader.html">A·03’s fifteen-minute plan</a> first and
       DevTools second, to confirm in the tree what your ears already caught.
-      Under the WCAG rule set a scanner reports nothing on this page at all.
+      Under the WCAG rule set a scanner reports nothing on the press kit at all.
       This site’s own suite measured that.
     </template>
 
@@ -27,8 +27,8 @@
       own, deliberately outside this site’s styles and safety nets, so what you
       catch behaves the way it would in the wild. What sits below is only a
       half-scale preview; the hunt happens at full scale in its own tab. Two of
-      the eleven leave no visual trace whatsoever: the page looks right, the
-      voice is wrong, and no amount of looking will find them. Your tools will
+      the eleven live in pronunciation alone: the page looks right, the
+      tree’s structure is untouched, and only the voice gives them away. Your tools will
       tell you the page is fine, which is the lesson: zero WCAG violations, two
       best-practice hits that both trace back to a single barrier. If you would
       rather read than hunt,
@@ -58,9 +58,9 @@
         The band is real; the press kit is not. Fitis exists, and the actual
         site, which is not broken on purpose, lives at
         <a href="https://fitis-band.de">fitis-band.de</a>. The line-up, the
-        sound, the EP and its tracks are accurate. The quotes, the review, the
-        photo captions and every date in the frame are invented for the
-        exercise, as are the barriers.
+        sound, the EP and its tracks are accurate. The press quotes, the review
+        and the outlets they are credited to, the photo captions, the venues
+        and the tour dates are invented for the exercise, as are the barriers.
       </p>
       <p>
         The plan this room is built around is
@@ -85,20 +85,20 @@ const barriers: Answer[] = [
   {
     n: 1,
     hint: 'pull the heading list and read the first row',
-    what: 'The h1 is an inline SVG wordmark with no title element and no role, so the level-one heading has no accessible name: the outline opens with a blank row. The next heading is an h4, because h4 happened to be the right size in the design, so the outline also skips two levels at the first step.',
-    heard: '"heading level 1", and then nothing. The rotor’s heading list opens with an empty row, and the row under it reads "Biography, heading level 4".',
-    shouldSay: '"Fitis, heading level 1", then "Biography, heading level 2".',
+    what: 'The h1 is an inline SVG wordmark with no title element and no role, so the level-one heading has no accessible name: the outline opens with a blank row. The heading after the sidebar’s h2 is an h4, because h4 happened to be the right size in the design, so the outline also jumps from level 2 to level 4 at its second step.',
+    heard: '"heading level 1", then either nothing or a bare "image", which the VoiceOver pass will settle. The rotor’s heading list opens with an empty row; under it come "Facts, heading level 2" and then "Biography, heading level 4".',
+    shouldSay: '"Fitis, heading level 1", then "Facts, heading level 2", then "Biography, heading level 2".',
     criterion: '1.3.1 Info and Relationships',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html',
     caught: 'the heading list, and the tree; this is the one barrier a scanner half-sees, as two best-practice hits',
-    fix: 'Put the band name in the h1 as text and let CSS draw the wordmark, or give the SVG a title element and role="img". Then size the headings with CSS and let the levels run 1, 2, 2,',
-    fixLink: { label: 'the fifteen-minute plan, step two.', href: '/screen-reader.html' },
+    fix: 'Put the band name in the h1 as text and let CSS draw the wordmark, or give the SVG a title element and role="img". Then size the headings with CSS and let the levels run 1, 2, 2. Pulling the heading list is',
+    fixLink: { label: 'step two of the fifteen-minute plan.', href: '/screen-reader.html' },
   },
   {
     n: 2,
     hint: 'listen to the gap between two sections',
     what: 'The ornament between sections is an img with alt="divider ornament". It is pure decoration and it is announced eight times, once after the intro and once between every pair of body sections.',
-    heard: '"image, divider ornament", eight times over: it lands between the biography and "Press quotes, heading level 2", and again before every heading after that.',
+    heard: '"divider ornament, image", eight times over: it lands after the intro, before "Facts, heading level 2", and again ahead of each section in the main column after the biography, including the one whose heading you never hear.',
     shouldSay: 'Nothing at all. The biography ends and "Press quotes, heading level 2" follows it directly.',
     criterion: '1.1.1 Non-text Content',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html',
@@ -109,8 +109,8 @@ const barriers: Answer[] = [
   {
     n: 3,
     hint: 'read the page top to bottom without looking at it',
-    what: 'The facts sidebar sits first in the DOM and is moved to the right column with CSS order. The eye reads the biography first and the facts second; continuous reading gets line-up, label, release date and press contact before the page has said who the band is.',
-    heard: '"Facts, heading level 2. Line-up, Richard Boden, vocals and guitar. Thomas Sweet, keys and vocals. Phillip Daduna, drums. Sebastian Hartwig, guitar. Sound, postpunk, alternative records…", and only after all of it, "Biography, heading level 4".',
+    what: 'The facts sidebar sits first in the DOM and is moved to the right column with CSS order. The eye reads the biography first and the facts second; continuous reading gets line-up, sound, release date and press contact before the page has said who the band is.',
+    heard: '"Facts, heading level 2. Line-up, Richard Boden, vocals and guitar. Thomas Sweet, keys and vocals. Phillip Daduna, drums. Sebastian Hartwig, guitar. Sound, postpunk, alternative rock, German lyrics…", and only after all of it, "Biography, heading level 4".',
     shouldSay: '"Biography, heading level 2. Fitis sind vier Musiker aus Berlin…", with the facts panel read after the band has been introduced, in the order the eye takes them.',
     criterion: '1.3.2 Meaningful Sequence',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html',
@@ -121,7 +121,7 @@ const barriers: Answer[] = [
     n: 4,
     hint: 'something in the biography sounds wrong',
     what: 'The four German biography sentences carry no lang attribute, so they inherit lang="en" from the document and the synthesizer applies English phonemes to German. Nothing is invalid, so every language rule passes. The EP title in the intro is tagged lang="de" correctly, on purpose, as the control.',
-    heard: 'The intro says "Alles auf Anfang" in a German voice, and then the biography arrives as "Fitis ist ain trio ows Berlin, guh-GROON-det zwei-thousand-twenty-three", English phonemes all the way through.',
+    heard: 'The intro says "Alles auf Anfang" in a German voice, and then the biography arrives as "Fitis sind veer Moo-zicker ows Berlin", English vowels on every German word, all the way to "roh und direkt".',
     shouldSay: 'The same four sentences in the German voice, the way the EP title already sounds.',
     criterion: '3.1.2 Language of Parts',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts.html',
@@ -142,9 +142,9 @@ const barriers: Answer[] = [
   {
     n: 6,
     hint: 'the press photo announces itself twice',
-    what: 'The hero photo’s alt begins "Image of the band Fitis standing…". The role already says image, so the words are doubled: alt text describes what is shown, it never says what the element is.',
-    heard: '"image, Image of the band Fitis, four members, one reaching toward the camera". The word image, twice, half a second apart.',
-    shouldSay: '"image, The band Fitis, four members, one reaching toward the camera".',
+    what: 'The hero photo’s alt begins "Image of the band Fitis…". The role already says image, so the words are doubled: alt text describes what is shown, it never says what the element is.',
+    heard: '"Image of the band Fitis, four members, one reaching toward the camera, image". The word image at both ends of one announcement.',
+    shouldSay: '"The band Fitis, four members, one reaching toward the camera, image".',
     criterion: '1.1.1 Non-text Content',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html',
     caught: 'the ear; axe’s rule for this ships as best-practice and needs the alt to equal its surrounding text, which it does not here, so nothing fires',
@@ -155,7 +155,7 @@ const barriers: Answer[] = [
     n: 7,
     hint: 'try to navigate the technical rider by row and column',
     what: 'The rider is a real table with th scope="col" and th scope="row" underneath, and role="presentation" on top, added once to lose the default borders. The role wins: the semantics are stripped and the cells arrive as loose text.',
-    heard: 'One flat run: "Position Requirement Provided by Vocals Two dynamic vocal microphones with boom stands Venue Guitar One combo amplifier…". No "table, seven rows, three columns", and table navigation with Control Option and the arrow keys does nothing.',
+    heard: 'One flat run: "Position Requirement Provided by Vocals Two dynamic vocal microphones with boom stands Venue Guitar Two combo amplifiers…". No "table, seven rows, three columns", and table navigation with Control Option and the arrow keys does nothing.',
     shouldSay: '"table, seven rows, three columns", then, on entering a cell, "Vocals, row 2 of 7. Provided by, column 3 of 3: Venue."',
     criterion: '1.3.1 Info and Relationships',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html',
@@ -165,19 +165,19 @@ const barriers: Answer[] = [
   {
     n: 8,
     hint: 'ask the rotor to jump you to the setlist',
-    what: 'The eight songs are one paragraph of br elements and typed dashes. It looks like a list and carries none of the semantics, so there is no item count, no per-item position and nothing for the rotor’s list menu to land on.',
+    what: 'The six songs are one paragraph of br elements and typed dashes. It looks like a list and carries none of the semantics, so there is no item count, no per-item position and nothing for the rotor’s list menu to land on.',
     heard: '"01 - Im Radio 02 - Lauf 03 - Schatten der Vergangenheit 04 - Fallen…", one long paragraph, and the rotor’s list menu never offers the setlist at all.',
-    shouldSay: '"list, 6 items", then "01, Im Radio, 1 of 6", with the arrow keys walking the songs.',
+    shouldSay: '"list, 6 items", then "1, Im Radio, 1 of 6", with the arrow keys walking the songs.',
     criterion: '1.3.1 Info and Relationships',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html',
     caught: 'the ear, and the tree; a scanner is silent because nothing here claims to be a list',
-    fix: 'An ol with eight li elements. The count and the position come free, and the numbering is the list’s job rather than typed text.',
+    fix: 'An ol with six li elements. The count and the position come free, and the numbering is the list’s job rather than typed text.',
   },
   {
     n: 9,
     hint: 'four dates are on the screen; count how many you hear',
     what: 'The tour dates section was left aria-hidden="true" after a demo where it "cluttered VoiceOver". Sighted visitors see a heading and four dates; screen reader users get silence. Nothing inside is focusable, so the rule that catches aria-hidden over a focusable element has nothing to fire on.',
-    heard: 'Nothing. Continuous reading goes from "The last two can be dropped for a short slot" straight into "Press review, heading level 2". The heading and all four dates are simply not there.',
+    heard: 'Nothing. Continuous reading leaves "The last two can be dropped for a short slot", passes "divider ornament, image" twice back to back, and arrives at "Press review, heading level 2". The heading and all four dates are simply not there, and that doubled ornament is the one audible clue.',
     shouldSay: '"Tour dates, heading level 2. list, 4 items. 12.09.2026, Berlin, Kellerklub Anfang, sold out."',
     criterion: '1.3.1 Info and Relationships',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html',
@@ -188,8 +188,8 @@ const barriers: Answer[] = [
   {
     n: 10,
     hint: 'the press review scored the EP; how well?',
-    what: 'The star rating is drawn entirely in CSS, as ::after { content: "★★★★☆" } on an empty span. The element’s text content is the empty string. Whether the rating exists for a screen reader user depends on whether the engine exposes generated content, and engines disagree.',
-    heard: '"Kellerpost, August 2025: black star black star black star black star white star". Chromium folds the generated glyphs into the paragraph, so this is what the tree shows and roughly what you hear; engines that drop generated content leave the sentence ending on the colon and say nothing more.',
+    what: 'The star rating is drawn entirely in CSS, as ::after { content: "★★★★☆" } on an empty span. The element’s text content is the empty string. The browser exposes the glyphs in the accessibility tree, but they are symbols, not a number, and whether a screen reader reads them, spells them or skips them is its own setting.',
+    heard: '"Kellerpost, August 2025: black star black star black star black star white star". Chromium, Firefox and WebKit all fold the generated glyphs into the paragraph in the tree, so the words are there for the reader to find; what you hear then depends on the screen reader’s symbol handling, and one that skips symbols leaves the sentence ending on the colon.',
     shouldSay: '"Kellerpost, August 2025: 4 out of 5 stars." Say the rating, not the glyphs.',
     criterion: '1.1.1 Non-text Content',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html',

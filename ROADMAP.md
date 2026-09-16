@@ -100,6 +100,7 @@ efficiently" — the chapter argues the model, these teach the practice):
   the coverage matrix, a page a scanner passes with eleven barriers you
   hear first. Scope in
   [docs/listening-room-scope.md](docs/listening-room-scope.md).
+
 Structure: nothing above needs a fifth pillar. Understandable items feed
 the timeline, the hiding/stress work feeds craft, audit practice feeds
 proof, and cheat-sheet material extends the title-block reference sheets

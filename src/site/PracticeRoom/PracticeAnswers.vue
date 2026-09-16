@@ -1,7 +1,7 @@
 <template>
   <PracticeSection :id="id" title="Answers">
     <slot />
-    <ol class="practice-answers">
+    <ol class="practice-answers" role="list">
       <li v-for="a in answers" :key="a.n" class="practice-answers-item">
         <details>
           <summary class="practice-answers-hint">
@@ -46,8 +46,6 @@ defineProps<{ id: string; answers: Answer[] }>()
     display: grid;
     gap: var(--space-2);
     margin-block: var(--space-6) 0;
-    padding: 0;
-    list-style: none;
   }
 
   .practice-answers-item > details {
@@ -101,7 +99,6 @@ defineProps<{ id: string; answers: Answer[] }>()
 
     p {
       margin: 0;
-      max-inline-size: none;
     }
   }
 
