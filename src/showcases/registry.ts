@@ -810,12 +810,12 @@ const entries: Omit<Showcase, 'tier'>[] = [
     title: 'Scroll-state queries',
     supports: 'container-type: scroll-state',
     summary:
-      'Container queries that react to how an element sits in a scroller — ' +
-      'scroll-state(snapped) and scroll-state(stuck). A card knows when it’s ' +
-      'the snapped one and a header knows when it’s pinned, with no scroll ' +
-      'listeners and no JS — the clean fix for the “highlight the current ' +
-      'item / detect stuck” problems. Currently Chromium-only (Chrome and ' +
-      'Edge 133+).',
+      'Container queries that react to how an element sits in a scroller: ' +
+      'scroll-state(snapped), scroll-state(stuck) and scroll-state(scrollable). ' +
+      'A card knows when it’s the snapped one, a header knows when it’s ' +
+      'pinned, and a strip shades its edges only while there is more to ' +
+      'scroll that way, with no scroll listeners and no JS. Currently ' +
+      'Chromium-only (Chrome and Edge 133+).',
     links: [
       {
         label: 'MDN: scroll-state queries',
@@ -823,7 +823,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       },
     ],
     payoff:
-      'The bar reacts to scrolling via CSS state, not scroll listeners — the main thread stays free, so assistive tech stays responsive.',
+      'Edge hints that show only while there is more to scroll give overlay-scrollbar and zoomed-in readers a cue that never lies, with no scroll listener holding up assistive tech.',
     tags: ['scroll'],
     component: ScrollStateDemo,
     snippetCss: scrollStateSnippetCss,

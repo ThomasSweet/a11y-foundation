@@ -995,6 +995,31 @@ check its tier in `modern-css.md` first.
     }
   }
 }
+
+/* The scroller is a container too; two sticky markers inside it carry
+   the edge shades, and the query switches each one on only while there
+   is more to scroll that way: a hint that never lies at the end. */
+.strip {
+  display: flex;
+  overflow-x: auto;
+  container-type: scroll-state;
+}
+
+.hint {
+  position: sticky;
+  flex: 0 0 0;
+  opacity: 0;
+}
+
+.hint-end {
+  inset-inline-end: 0;
+}
+
+@supports (container-type: scroll-state) {
+  @container scroll-state(scrollable: inline-end) {
+    .hint-end { opacity: 1; }
+  }
+}
 ```
 
 ## Pure-CSS carousel

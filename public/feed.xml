@@ -5,8 +5,24 @@
   <id>https://accessible-by-default.dev/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://accessible-by-default.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://accessible-by-default.dev/#what-changed"/>
-  <updated>2026-09-13T00:00:00Z</updated>
+  <updated>2026-09-16T00:00:00Z</updated>
   <author><name>Thomas Sweet</name></author>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-16:scrollbar-tint</id>
+    <title>Craft: Scrollbars tinted, never thinned</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-scrollbar"/>
+    <published>2026-09-16T00:00:00Z</published>
+    <updated>2026-09-16T00:00:00Z</updated>
+    <summary>The craft chapter’s scrollbar section now tints every thumb on the site from the page’s own tokens at 3:1 and turns it to the accent while keyboard focus is inside, so the thumb says which region the arrow keys will scroll.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-16:scroll-state-scrollable</id>
+    <title>Showcase: Scroll-state queries gain the scrollable state</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-scroll-state"/>
+    <published>2026-09-16T00:00:00Z</published>
+    <updated>2026-09-16T00:00:00Z</updated>
+    <summary>The scroll-state showcase gained its third state: a strip shades its edges only while there is more to scroll that way, a hint that never lies at the end.</summary>
+  </entry>
   <entry>
     <id>tag:accessible-by-default.dev,2026-09-13:standards-map</id>
     <title>Standard: The legal map became a standards map</title>

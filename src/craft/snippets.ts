@@ -137,20 +137,30 @@ details:not([open])::details-content {
 }`,
   },
 
-  // Mirrors ScrollbarDemo — reserve the gutter, leave the rest alone.
+  // Mirrors ScrollbarDemo: reserve the gutter, tint the thumb, never thin it.
   scrollbar: {
     language: 'CSS',
-    mistake: `/* Restyled scrollbars: invisible in Firefox (different
-   syntax), often low-contrast, thinner than any touch
-   target — and overlay-scrollbar users see none of it. */
+    mistake: `/* Thinned to 4px and tinted #ddd: non-standard syntax
+   (Firefox never read it, Chromium ignores it once the
+   standard properties are set), a thumb at 1.3:1 against
+   white, and a target the author shrank below 24px. */
 .panel::-webkit-scrollbar { width: 4px; }
 .panel::-webkit-scrollbar-thumb { background: #ddd; }`,
-    craft: `/* Reserve the scrollbar's lane so content doesn't reflow
-   when it appears, and keep the native bar. (The region
-   itself gets tabindex="0" and a label for keyboard use.) */
+    craft: `/* Reserve the lane so content doesn't reflow when a classic
+   scrollbar appears. Tint the thumb from a system colour at
+   half strength (3:1, and it follows light and dark), and
+   switch it to the link colour while keyboard focus is inside,
+   so the thumb says which region the arrow keys move. Width
+   stays auto: people grab thumbs. (The region itself gets
+   tabindex="0" and a label for keyboard use.) */
 .panel {
   overflow-y: auto;
   scrollbar-gutter: stable;
+  scrollbar-color: color-mix(in oklab, CanvasText 50%, transparent) transparent;
+}
+
+.panel:focus-within {
+  scrollbar-color: LinkText transparent;
 }`,
   },
 

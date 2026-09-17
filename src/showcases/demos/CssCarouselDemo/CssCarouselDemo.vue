@@ -52,6 +52,7 @@ const slides = [
   .css-carousel {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
     padding-block-end: var(--space-2);
     border-radius: var(--radius-md);
     anchor-name: --css-carousel;

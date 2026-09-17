@@ -201,19 +201,31 @@
 
     <ChapterSection v-bind="sections.scrollbar">
       <p>
-        Scrollbars are OS territory the page only borrows. On macOS they
-        float above content by default and take no space; on Windows and
-        for anyone who sets "always show", they claim a lane — and when one
-        appears mid-interaction, every line of text re-wraps around it.
-        <code>scrollbar-gutter: stable</code> reserves the lane before it's
-        needed, which is the one scrollbar property worth adopting. The
-        rest is restraint: restyled scrollbars use syntax Firefox ignores,
-        tend toward thin low-contrast thumbs that hurt exactly the people
-        scrollbars serve most, and are invisible to overlay users anyway —
-        while the native bar already follows <code>color-scheme</code> into
-        dark mode. What a scrollable region does need is
+        Scrollbars are OS territory the page only borrows, and
+        <code>overflow: auto</code> alone ships more than most custom
+        widgets: a thumb whose presence says "this scrolls" and whose size
+        says how much, click-to-jump, the arrow keys, Home, End and Page
+        Down, wheel, trackpad and touch, and a contrast the browser
+        maintains. The craft is to add to that without taking any of it
+        away, and two additions earn their place. On macOS the bar floats
+        above content by default; on Windows, and for anyone who sets
+        "always show", it claims a lane, and when it arrives mid-interaction
+        every line re-wraps around it. <code>scrollbar-gutter: stable</code>
+        reserves that lane up front. And <code>scrollbar-color</code>,
+        standard in all three engines since Safari 26.2, tints the thumb
+        from the page's own tokens instead of the OS grey and turns it to
+        the accent while keyboard focus is inside the region, so the thumb
+        now says which scroller the arrow keys will move. Tinting it comes
+        with a bill: 1.4.11 and 2.5.8 exempt a control only while the
+        browser draws it. A thumb the author colours must clear 3:1, so it
+        is the ink at half strength here, not the frame tint. A thumb the
+        author thins is a target shrunk below 24 pixels that people grab
+        all day, so the width stays <code>auto</code>. The prefixed
+        <code>::-webkit-scrollbar</code> stays out: non-standard, and
+        Chromium ignores it once the standard properties are set. What a
+        scrollable region needs before any of this is
         <code>tabindex="0"</code> and a label, so keyboard users can reach
-        and scroll it at all.
+        it at all.
       </p>
       <ScrollbarDemo />
       <CodeCompare v-bind="craftSnippets.scrollbar" />
@@ -300,7 +312,7 @@ const sections = {
   contentStress: { id: 'craft-content-stress', title: 'Break it with content', railLabel: 'Content stress test' },
   loading: { id: 'craft-loading', title: 'Loading states the accessibility tree can see', railLabel: 'Loading states' },
   truncation: { id: 'craft-truncation', title: 'Truncation that keeps a way in', railLabel: 'Truncating text' },
-  scrollbar: { id: 'craft-scrollbar', title: 'The scrollbar you leave alone', railLabel: 'Scrollbars' },
+  scrollbar: { id: 'craft-scrollbar', title: 'The scrollbar you tint, never thin', railLabel: 'Scrollbars' },
   hiding: { id: 'craft-hiding', title: 'Four ways to hide, and whom they hide from', railLabel: 'Four ways to hide' },
   textSpacing: { id: 'craft-text-spacing', title: "Text spacing is the reader's setting", railLabel: 'Text spacing' },
 } satisfies Record<string, ChapterSectionEntry>

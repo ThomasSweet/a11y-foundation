@@ -401,9 +401,9 @@ A native <select> opted into full CSS styling with appearance: base-select — t
 
 ### Scroll-state queries
 
-Container queries that react to how an element sits in a scroller — scroll-state(snapped) and scroll-state(stuck).
+Container queries that react to how an element sits in a scroller: scroll-state(snapped), scroll-state(stuck) and scroll-state(scrollable).
 
-**Accessibility payoff:** The bar reacts to scrolling via CSS state, not scroll listeners — the main thread stays free, so assistive tech stays responsive.
+**Accessibility payoff:** Edge hints that show only while there is more to scroll give overlay-scrollbar and zoomed-in readers a cue that never lies, with no scroll listener holding up assistive tech.
 
 **Guard:** `@supports (container-type: scroll-state)`
 
