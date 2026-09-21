@@ -15,6 +15,26 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'scrollbar-tint',
+    date: '2026-09-16',
+    area: 'Craft',
+    title: 'Scrollbars tinted, never thinned',
+    lead: 'The craft chapter’s ',
+    linkText: 'scrollbar section',
+    href: '/craft.html#craft-scrollbar',
+    tail: ' now tints every thumb on the site from the page’s own tokens at 3:1 and turns it to the accent while keyboard focus is inside, so the thumb says which region the arrow keys will scroll.',
+  },
+  {
+    id: 'scroll-state-scrollable',
+    date: '2026-09-16',
+    area: 'Showcase',
+    title: 'Scroll-state queries gain the scrollable state',
+    lead: 'The ',
+    linkText: 'scroll-state showcase',
+    href: '/showcase.html#showcase-scroll-state',
+    tail: ' gained its third state: a strip shades its edges only while there is more to scroll that way, a hint that never lies at the end.',
+  },
+  {
     id: 'listening-room',
     date: '2026-09-15',
     area: 'Proof',
@@ -33,6 +53,16 @@ export const revisions: Revision[] = [
     linkText: 'standards map',
     href: '/standard.html#demo-legal',
     tail: ': laws sit in the row of the WCAG version they cite, and each opens to show how many layers sit between it and the criterion you test.',
+  },
+  {
+    id: 'scroll-reveal-motion-gate',
+    date: '2026-09-18',
+    area: 'Showcase',
+    title: 'Scroll-driven reveals carry their own motion gate',
+    lead: 'The ',
+    linkText: 'scroll-driven animations showcase',
+    href: '/showcase.html#showcase-scroll-driven-animations',
+    tail: ' gained a reveal and the rule behind it: a global duration reset never reaches a scroll timeline, so every reveal needs its own prefers-reduced-motion gate.',
   },
   {
     id: 'wcag-3-september-draft',

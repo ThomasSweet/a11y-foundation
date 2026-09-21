@@ -340,15 +340,16 @@ A hover/focus hint tethered to its trigger with anchor positioning, flipping sid
 
 ### Scroll-driven animations
 
-Animations driven by scroll position instead of time — no scroll listeners, runs off the main thread.
+Animations driven by scroll position instead of time: no scroll listeners, off the main thread.
 
-**Accessibility payoff:** Scroll effects run off the main thread and collapse under prefers-reduced-motion — vestibular safety without losing the flourish.
+**Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
 
 **Guard:** `@supports (animation-timeline: scroll())`
 
 **Topics:** scroll, motion
 
 - [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+- [WCAG 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
 
 ### Rounded polygon()
 
@@ -401,9 +402,9 @@ A native <select> opted into full CSS styling with appearance: base-select — t
 
 ### Scroll-state queries
 
-Container queries that react to how an element sits in a scroller — scroll-state(snapped) and scroll-state(stuck).
+Container queries that react to how an element sits in a scroller: scroll-state(snapped), scroll-state(stuck) and scroll-state(scrollable).
 
-**Accessibility payoff:** The bar reacts to scrolling via CSS state, not scroll listeners — the main thread stays free, so assistive tech stays responsive.
+**Accessibility payoff:** Edge hints that show only while there is more to scroll give overlay-scrollbar and zoomed-in readers a cue that never lies, with no scroll listener holding up assistive tech.
 
 **Guard:** `@supports (container-type: scroll-state)`
 

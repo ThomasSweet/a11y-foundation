@@ -265,8 +265,12 @@ section. The interest-invoker toolbar behaviour comes from a trick by
 [Bramus Van Damme](https://www.bram.us/) is why the scroll-driven animation
 work is here at all — the reading-position rail, the section reveals, the
 timeline's strata — along with the cross-document view transitions that carry
-navigation between chapters with no routing JavaScript. The implementations and
-the accessibility argument are mine; the insight was theirs.
+navigation between chapters with no routing JavaScript. The scrollbar rules,
+tinted from the page's tokens and never thinned, the thumb that takes the accent
+while keyboard focus is inside a region, and the edge hints that show only while
+there is more to scroll follow [Adam Argyle](https://nerdy.dev/)'s CSS Day 2025
+talk on scrollers, layered onto what `overflow: auto` already ships. The
+implementations and the accessibility argument are mine; the insight was theirs.
 
 The small decorative glyphs — the payoff figure on the showcase cards among
 them — are

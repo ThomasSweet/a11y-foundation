@@ -536,18 +536,26 @@ const entries: Omit<Showcase, 'tier'>[] = [
     title: 'Scroll-driven animations',
     supports: 'animation-timeline: scroll()',
     summary:
-      'Animations driven by scroll position instead of time — no scroll ' +
-      'listeners, runs off the main thread. Because the motion mirrors ' +
-      'the user’s own gesture, a progress bar like this one needs no ' +
-      'reduced-motion override. Interop 2026 focus area.',
+      'Animations driven by scroll position instead of time: no scroll ' +
+      'listeners, off the main thread. Two cases, two rules. A thin progress ' +
+      'bar tracks the reader’s own gesture one to one, like the scrollbar ' +
+      'thumb, and this site leaves it running under reduced motion as a ' +
+      'judgement call. A reveal moves content, and a timeline ignores ' +
+      'animation-duration, so the usual global duration reset never reaches ' +
+      'it: the reveal carries its own prefers-reduced-motion gate. Interop ' +
+      '2026 focus area.',
     links: [
       {
         label: 'MDN: scroll-driven animations',
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations',
       },
+      {
+        label: 'WCAG 2.3.3 Animation from Interactions',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
+      },
     ],
     payoff:
-      'Scroll effects run off the main thread and collapse under prefers-reduced-motion — vestibular safety without losing the flourish.',
+      'A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).',
     tags: ['scroll', 'motion'],
     component: ScrollProgressDemo,
     snippetCss: scrollProgressSnippetCss,
@@ -810,12 +818,12 @@ const entries: Omit<Showcase, 'tier'>[] = [
     title: 'Scroll-state queries',
     supports: 'container-type: scroll-state',
     summary:
-      'Container queries that react to how an element sits in a scroller — ' +
-      'scroll-state(snapped) and scroll-state(stuck). A card knows when it’s ' +
-      'the snapped one and a header knows when it’s pinned, with no scroll ' +
-      'listeners and no JS — the clean fix for the “highlight the current ' +
-      'item / detect stuck” problems. Currently Chromium-only (Chrome and ' +
-      'Edge 133+).',
+      'Container queries that react to how an element sits in a scroller: ' +
+      'scroll-state(snapped), scroll-state(stuck) and scroll-state(scrollable). ' +
+      'A card knows when it’s the snapped one, a header knows when it’s ' +
+      'pinned, and a strip shades its edges only while there is more to ' +
+      'scroll that way, with no scroll listeners and no JS. Currently ' +
+      'Chromium-only (Chrome and Edge 133+).',
     links: [
       {
         label: 'MDN: scroll-state queries',
@@ -823,7 +831,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       },
     ],
     payoff:
-      'The bar reacts to scrolling via CSS state, not scroll listeners — the main thread stays free, so assistive tech stays responsive.',
+      'Edge hints that show only while there is more to scroll give overlay-scrollbar and zoomed-in readers a cue that never lies, with no scroll listener holding up assistive tech.',
     tags: ['scroll'],
     component: ScrollStateDemo,
     snippetCss: scrollStateSnippetCss,

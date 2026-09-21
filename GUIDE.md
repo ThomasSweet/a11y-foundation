@@ -794,6 +794,12 @@ color token once with `light-dark(lightValue, darkValue)`:
   palettes.
 - `color-scheme` also switches **native UI** (form controls, scrollbars)
   with the theme, which a custom-property-only approach misses.
+- Scrollbars: `base.css` tints every thumb from `--color-text` at half
+  strength (`scrollbar-color` is inherited, so setting it on `html` reaches
+  nested scrollers) and switches it to `--color-primary` while focus is
+  inside a `[tabindex="0"]` region; the width stays `auto`, never `thin`. A
+  scrollable region always carries `tabindex="0"` and a label, and that
+  attribute is what the focus rule keys off.
 - The presets (`data-preset` on `<html>`, set by `ThemeToggle`) are data in
   `theming/presets.css`: two seeds each, from which `theming/engine.css`
   derives the whole `--color-*` palette. `theming/blueprint.css` maps that

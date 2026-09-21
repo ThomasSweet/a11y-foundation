@@ -8,6 +8,27 @@
      where unused or unsupported. */
   html {
     container-type: scroll-state;
+    scrollbar-color: color-mix(in oklab, var(--color-text) 50%, transparent) transparent;
+  }
+
+  [tabindex="0"] {
+    transition: scrollbar-color var(--duration-normal) var(--easing-standard);
+  }
+
+  @media (hover: hover) {
+    [tabindex="0"]:hover {
+      scrollbar-color: color-mix(in oklab, var(--color-text) 70%, transparent) transparent;
+    }
+  }
+
+  [tabindex="0"]:focus-within {
+    scrollbar-color: var(--color-primary) transparent;
+  }
+
+  @media (prefers-contrast: more) {
+    html {
+      scrollbar-color: color-mix(in oklab, var(--color-text) 85%, transparent) transparent;
+    }
   }
 
   body {
