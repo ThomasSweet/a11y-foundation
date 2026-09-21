@@ -822,8 +822,13 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'scroll-state(snapped), scroll-state(stuck) and scroll-state(scrollable). ' +
       'A card knows when it’s the snapped one, a header knows when it’s ' +
       'pinned, and a strip shades its edges only while there is more to ' +
-      'scroll that way, with no scroll listeners and no JS. Currently ' +
-      'Chromium-only (Chrome and Edge 133+).',
+      'scroll that way, with no scroll listeners and no JS. A newer ' +
+      'query, scroll-state(scrolled), can hide a bar while the reader ' +
+      'scrolls down, as this site’s mobile chapter bar does (Chrome and ' +
+      'Edge 144+). Such a bar owes a :focus-within ' +
+      'exit, because its links stay in the tab order and keyboard focus ' +
+      'would otherwise land off screen (2.4.7). The three states in the ' +
+      'demo are Chromium-only (Chrome and Edge 133+).',
     links: [
       {
         label: 'MDN: scroll-state queries',

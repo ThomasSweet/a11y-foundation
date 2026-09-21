@@ -95,9 +95,11 @@ library that publishes runtime state as custom properties. About two thirds
 of the list was already on the site. Every candidate went through three
 refuters (site fit, the accessibility claim, buildability); the claims below
 are the narrowed versions that survived, and the criteria named are the ones
-that held. Three shipped (see Done): the chapter bar's `:focus-within` exit,
-the slide-away that keeps it off a focused control, and the gated `view()`
-reveal. Still open, in order:
+that held. Shipped in two changes (see Done): the chapter bar's
+`:focus-within` exit, the slide-away that keeps it off a focused control and
+the gated `view()` reveal; then the JavaScript paragraph in proof, the live
+submit button in the validation section and the scroll-state sentence about
+the focus exit. Still open, in order:
 
 1. "Reduced, not removed": under reduced motion the craft spinner and the
    loading shimmer freeze and stop saying busy. Where the animation is the
@@ -108,29 +110,7 @@ reveal. Still open, in order:
    message. Needs an opt-out from the 0.01ms sweep in `preferences.css`,
    which no component can take today although the file's own comment
    promises one. The mechanism is a deliberate choice, not a detail.
-2. One paragraph in proof's "Where this argument stops": JavaScript is the
-   second question. First ask whether the platform already knows the state
-   (touched and invalid, open, still empty); where it does, a script copy is
-   a second source of truth and the two drift. Where it does not, characters
-   remaining being the one example, the script writes into the document (an
-   output element, an attribute, a status message, focus), never only into a
-   custom property, because a custom property is not in the accessibility
-   tree (4.1.2, 4.1.3, failure F87). Never claim screen readers cannot read
-   generated content: current engines expose it. No library name, no demo,
-   no CodeCompare, no credit line. A three-lens panel split two to one for a
-   paragraph over a craft section; the judge ruled on the standing decisions
-   above (a script write would be the mechanism taught; 4.1.3 stays out of
-   lane, named and not half-covered).
-3. "Keep the submit button alive", a second pair in the validation section:
-   the talk's `form:has(:invalid) button { opacity: .5 }` dims from first
-   paint, because an untouched required field already matches `:invalid`,
-   the same premature judgement the section already argues against, moved
-   from the field to the form. A truly disabled submit is the worse variant:
-   it leaves the focus order and removes the one action that makes the
-   browser focus and name the first invalid field. Say honestly that native
-   bubbles are transient, report one field at a time and are announced
-   inconsistently, which is why the persistent hint stays. Ships with 2.
-4. Craft "Glass that keeps its contrast": the tint alpha is the contrast
+2. Craft "Glass that keeps its contrast": the tint alpha is the contrast
    budget, blur is decoration, the preference query is a courtesy.
    `--color-surface-glass` measured 2026-09-18 over the worst-case backdrop:
    primary text 9.52:1 light and 4.81:1 dark, subtle text 3.76:1 and 2.1:1,
@@ -138,18 +118,18 @@ reveal. Still open, in order:
    `prefers-reduced-transparency` is Chromium-only, so the base tint must
    pass without it. By-product: `CssCarouselDemo` uses the token with no
    reduced-transparency guard.
-5. Craft "More contrast, on request": `prefers-contrast` is honoured
+3. Craft "More contrast, on request": `prefers-contrast` is honoured
    site-wide and taught nowhere. Audience is Increase Contrast on macOS and
    iOS; Windows contrast themes arrive as `forced-colors`. Serves the intent
    of 1.4.6 without producing conformance; 1.4.11 only for a real control
    and the ring.
-6. Containment clips the focus ring: `contain: paint | content | strict` and
+4. Containment clips the focus ring: `contain: paint | content | strict` and
    `content-visibility: auto` clip a focused child's outline at the padding
    edge, so a contained box needs padding of at least ring width plus
    offset. 2.4.13, and 2.4.7 only when the ring is clipped entirely. Its own
    small figure beside the defensive layouts demo, plus one sentence in the
    content-visibility entry.
-7. The 1.3.4 demo on a real orientation query: `container-type: size` on the
+5. The 1.3.4 demo on a real orientation query: `container-type: size` on the
    device frame and `@container (orientation: …)`, so the copy's "the
    content simply adapts" becomes true. Say that the container query stands
    in for the page-level media query, keep the "unless essential" exception
@@ -167,10 +147,7 @@ on specificity, so inherited custom properties remain the stronger fix. Fun
 only: a `sibling-count()` footnote on quantity queries, inside the cap the
 watchlist already sets.
 
-Waiting on the scroll affordances change: one sentence and a snippet block in
-the scroll-state showcase saying that a bar hidden on scroll direction owes a
-`:focus-within` exit, with the chapter bar as the live example. Waiting on an
-asset: the media state showcase (see the watchlist) needs a short clip with
+Waiting on an asset: the media state showcase (see the watchlist) needs a short clip with
 captions and a transcript, and Playwright 1.63 or later, because the bundled
 Chromium 149 predates `:playing`.
 
@@ -356,7 +333,16 @@ source before touching the wording or the sources-read stamp in
   group names; mono-caps never marks a bare link in text flow. (Klara's
   wayfinding round.)
 - **Form validation demo stays CSS/native-only** — the JS layer (validation
-  message wiring, submit gating) is deliberately out of scope.
+  message wiring, submit gating) is deliberately out of scope. Since 2026-09
+  the two fields sit in a real form with a live submit button and a simulated
+  "nothing was sent" response: that is the external context the first rule
+  allows, and the opposite of gating.
+- **Runtime state published as custom properties: not doing.** A custom
+  property is not in the accessibility tree, and most of the states such
+  libraries publish mirror pseudo-classes that already exist. Where a script
+  is the right tool it writes into the document (an element, an attribute, a
+  status message, focus) and CSS styles from that. Stated on the site in
+  proof's "Where this argument stops".
 - **Scroll-driven custom-property color: rejected** for performance; don't
   re-propose custom-property scroll animations.
 - **Style queries are reserved for non-color cues** — the theming core uses
@@ -384,6 +370,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-09** JavaScript as the second question, and a submit button that stays alive (the second change from the Contextualism pass, above). Proof's "Where this argument stops" gained a middle paragraph: first ask whether the platform already knows the state; where it does, a script copy is a second source of truth and the two drift; where it does not, characters remaining being the example, the script writes into the document (an output element, an attribute such as `aria-pressed`, a status message, focus), never only into a custom property, because a custom property is not in the accessibility tree: it can change how something looks, but it is not a name, a state or a message (4.1.2, 4.1.3, failure F87). The example attribute is `aria-pressed` on purpose: `aria-invalid` and `aria-expanded` would be the second source of truth the paragraph warns about, and `aria-busy` is barely announced. No library is named, nothing is demoed, and the claim stays clear of "screen readers cannot read generated content", which current engines disprove. The validation section's two fields now sit in a real form with a live Save button, and a second pair names the talk's `form:has(:invalid) button { opacity: .5 }` for what it is: the premature judgement the section already argues against, moved from the field to the form, since an untouched required field matches `:invalid` from first paint. A truly disabled submit is the harsher variant: it leaves the focus order and removes the one action that makes the browser focus and name the first invalid field. Verified in three engines: an empty submit focuses the name field, which then matches `:user-invalid`; a valid one reports that nothing was sent and does not navigate. The copy says plainly what holds in every engine (Roselli, linked): the native message appears only on submit and for one field at a time, does not rescale if the page is zoomed while it is up, and tells a screen reader that the field is invalid more reliably than why, which is why the hint stays. The five second self-dismissal people remember was Chrome only and went away around Chrome 120, so the copy does not claim it. The form carries `method="dialog"` outside any dialog, which the HTML submission algorithm defines as doing nothing, so a valid Save cannot navigate or lose what was typed even before the script has woken up; the status line counts repeat presses so that a second Save is still announced. The scroll-state showcase now says that a bar hidden on scroll direction owes a `:focus-within` exit, with the site's own chapter bar as the live example (the `scrolled` query is Chrome 144, the three demoed states 133), and its snippet shows the rule with the page scroller as its container. One keyboard spec pins the live button, the browser finding the first invalid field, and the status clearing on edit.
 
 - **2026-09** Scroll affordances, from Adam Argyle's CSS Day 2025 scroller talk: every scroller on the site tints its thumb from the ink token at half strength (3:1 in both schemes; `scrollbar-color` set once on `html` and inherited, width never thin) and turns it to the accent while keyboard focus is inside (`[tabindex="0"]:focus-within` in `base.css`); the craft scrollbar section rewritten around the 1.4.11 and 2.5.8 exemptions an author forfeits by restyling; the scroll-state showcase gained the scrollable state (sticky edge markers shaded only while there is more that way); both snap strips keep their inline-end padding in all three engines (padding moved onto a `max-content` list with `cqi` card widths, because Firefox and WebKit size a flex container's intrinsic width from item content, not `flex-basis`); overscroll containment on every horizontal strip and the coverage matrix.
 

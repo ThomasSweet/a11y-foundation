@@ -15,6 +15,16 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'submit-button-alive',
+    date: '2026-09-21',
+    area: 'Craft',
+    title: 'Keep the submit button alive',
+    lead: 'The ',
+    linkText: 'validation section',
+    href: '/craft.html#craft-validation',
+    tail: ' now keeps its submit button live: dimmed while the form is invalid, a button looks dead from first paint, and disabled, it also takes away the browser’s own report of what is wrong.',
+  },
+  {
     id: 'scrollbar-tint',
     date: '2026-09-16',
     area: 'Craft',

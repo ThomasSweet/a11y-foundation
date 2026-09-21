@@ -14,6 +14,10 @@ export const craftLinks = {
       label: 'WCAG 3.3.1 Error Identification',
       href: 'https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html',
     },
+    {
+      label: 'Adrian Roselli: Avoid Default Field Validation',
+      href: 'https://adrianroselli.com/2019/02/avoid-default-field-validation.html',
+    },
   ],
   lightDark: [
     {

@@ -27,6 +27,28 @@ input:user-invalid {
 }`,
   },
 
+  validationSubmit: {
+    language: 'HTML',
+    mistake: `<!-- Disabled until every field is valid: the button leaves
+     the focus order, and nothing can trigger the browser's
+     report of what is wrong. Its CSS-only cousin,
+     form:has(:invalid) button { opacity: .5 }, looks dead
+     from first paint, because an untouched required field
+     already matches :invalid. -->
+<button type="submit" disabled>Save</button>`,
+    craft: `<!-- Always live. Pressing it makes the browser focus the
+     first invalid field and say why, and :user-invalid marks
+     every field that needs work from then on. The hint stays
+     on screen because the native message appears only on
+     submit, one field at a time. -->
+<form>
+  <label for="name">Display name</label>
+  <p id="name-hint">Required. Shown publicly.</p>
+  <input id="name" required aria-describedby="name-hint" />
+  <button type="submit">Save</button>
+</form>`,
+  },
+
   // Mirrors AppDialog — native <dialog> + showModal().
   dialog: {
     language: 'HTML',
