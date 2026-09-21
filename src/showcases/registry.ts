@@ -536,18 +536,26 @@ const entries: Omit<Showcase, 'tier'>[] = [
     title: 'Scroll-driven animations',
     supports: 'animation-timeline: scroll()',
     summary:
-      'Animations driven by scroll position instead of time — no scroll ' +
-      'listeners, runs off the main thread. Because the motion mirrors ' +
-      'the user’s own gesture, a progress bar like this one needs no ' +
-      'reduced-motion override. Interop 2026 focus area.',
+      'Animations driven by scroll position instead of time: no scroll ' +
+      'listeners, off the main thread. Two cases, two rules. A thin progress ' +
+      'bar tracks the reader’s own gesture one to one, like the scrollbar ' +
+      'thumb, and this site leaves it running under reduced motion as a ' +
+      'judgement call. A reveal moves content, and a timeline ignores ' +
+      'animation-duration, so the usual global duration reset never reaches ' +
+      'it: the reveal carries its own prefers-reduced-motion gate. Interop ' +
+      '2026 focus area.',
     links: [
       {
         label: 'MDN: scroll-driven animations',
         href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations',
       },
+      {
+        label: 'WCAG 2.3.3 Animation from Interactions',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
+      },
     ],
     payoff:
-      'Scroll effects run off the main thread and collapse under prefers-reduced-motion — vestibular safety without losing the flourish.',
+      'A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).',
     tags: ['scroll', 'motion'],
     component: ScrollProgressDemo,
     snippetCss: scrollProgressSnippetCss,
