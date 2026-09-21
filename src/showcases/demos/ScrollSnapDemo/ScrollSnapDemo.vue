@@ -50,7 +50,7 @@ const cards = [
   }
 
   .snap-track {
-    padding: var(--space-2);
+    container-type: inline-size;
     overflow-x: auto;
     min-inline-size: 0;
     scroll-snap-type: x mandatory;
@@ -71,14 +71,16 @@ const cards = [
   .snap-list {
     display: flex;
     gap: var(--space-4);
+    inline-size: max-content;
     margin: 0;
-    padding: 0;
+    padding: var(--space-2);
     list-style: none;
   }
 
   .snap-card {
     display: grid;
-    flex: 0 0 min(70%, 16rem);
+    flex: none;
+    inline-size: min(16rem, 70cqi);
     gap: var(--space-2);
     align-content: center;
     block-size: 9rem;

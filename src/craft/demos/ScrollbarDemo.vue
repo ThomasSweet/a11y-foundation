@@ -26,10 +26,13 @@
     <p class="scrollbar-demo-note">
       What you see depends on your OS: classic scrollbars (Windows, or macOS
       with "always show") take layout space, so the left pane's text reflows
-      the moment the scrollbar arrives — the right pane reserved the space
-      up front. Overlay scrollbars occupy no space, and no CSS can change
-      which kind your visitor has. Both panes are keyboard-scrollable via
-      <code>tabindex="0"</code> and a label.
+      the moment the scrollbar arrives, while the right pane reserved the
+      space up front. Overlay scrollbars occupy no space, and no CSS can
+      change which kind your visitor has. Both thumbs are tinted from the
+      page's ink token at half strength, which clears 3:1 in both schemes.
+      Tab into a pane and its thumb takes the accent, so a keyboard user can
+      see which region the arrow keys will scroll. Both panes are
+      keyboard-scrollable via <code>tabindex="0"</code> and a label.
     </p>
   </div>
 </template>

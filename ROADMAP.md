@@ -40,6 +40,25 @@ git history and the PRs, not here.
   showcased feature can do real chrome work with personality. Playfulness is
   a feature, not a garnish.
 
+### Scroll affordances (Argyle pass, 2026-09-16)
+
+Mined from Adam Argyle's CSS Day 2025 talk and its CodePen collection; the
+first three items shipped (see Done). Still open, in order: a scroll-shadow
+scroll hint built on scroll-driven animations (`@property` percentages
+animated on `scroll(self inline)` with `animation-range`), dogfooded on the
+code blocks and the coverage matrix, which overflow sideways at phone widths
+where the scrollbar is overlay and invisible until touched; no static shadow
+as the fallback, because a shadow that stays at the end claims more than
+there is. The carousel's buttons placed outside the strip when the container
+has room and inside when it does not (his container-query trick), with the
+pressed scale and flat disabled state as polish. A staggered entrance with
+`@starting-style` plus `sibling-index()`, Baseline since 2026-08-18, as a
+third block in the starting-style showcase or its own entry. The peek-a-boo
+overscroll pseudo-element only as an easter egg, reduced-motion gated.
+Rejected for this site: `::-webkit-scrollbar`, `scrollbar-width: thin` on
+anything a hand grabs, dropping the scroller outline in favour of the thumb
+colour, and the Switch demo's sounds, haptics and `scrollTo`.
+
 ### Positioning & wayfinding (review 2026-08-31)
 
 Full findings and the tiered work program live in
@@ -340,6 +359,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-09** Scroll affordances, from Adam Argyle's CSS Day 2025 scroller talk: every scroller on the site tints its thumb from the ink token at half strength (3:1 in both schemes; `scrollbar-color` set once on `html` and inherited, width never thin) and turns it to the accent while keyboard focus is inside (`[tabindex="0"]:focus-within` in `base.css`); the craft scrollbar section rewritten around the 1.4.11 and 2.5.8 exemptions an author forfeits by restyling; the scroll-state showcase gained the scrollable state (sticky edge markers shaded only while there is more that way); both snap strips keep their inline-end padding in all three engines (padding moved onto a `max-content` list with `cqi` card widths, because Firefox and WebKit size a flex container's intrinsic width from item content, not `flex-basis`); overscroll containment on every horizontal strip and the coverage matrix.
 
 - **2026-09** Kept current by machine: a Monday workflow bumps `web-features`, regenerates the Baseline data, the agent skill and the feed, and opens a pull request proposing what-changed lines for showcases that gained an engine or reached Baseline (`scripts/gen-moves.mjs`, deduped against hand-written lines by id, or by the same showcase link naming the same engine or tier within 60 days); a deploy workflow runs after a green CI run on main, pushes the build to production, confirms the live site serves it, and comments on the merged pull request; CI gained a gate that fails when the committed skill, llms mirror, feed or Baseline data fall behind their registries. The Monday CI cron went: on a locked package it could never see new Baseline data.
 

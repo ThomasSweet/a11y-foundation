@@ -85,6 +85,18 @@ export const craftLinks = {
       href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter',
     },
     {
+      label: 'MDN: scrollbar-color',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color',
+    },
+    {
+      label: 'WCAG 1.4.11 Non-text Contrast',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html',
+    },
+    {
+      label: 'WCAG 2.5.8 Target Size (Minimum)',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html',
+    },
+    {
       label: 'WCAG 2.1.1 Keyboard',
       href: 'https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html',
     },
