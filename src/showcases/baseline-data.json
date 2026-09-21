@@ -139,7 +139,7 @@
       "chrome": null,
       "edge": null,
       "firefox": null,
-      "safari": null
+      "safari": "27"
     }
   },
   "anchor-tooltip": {
@@ -152,7 +152,7 @@
       "chrome": null,
       "edge": null,
       "firefox": null,
-      "safari": null
+      "safari": "27"
     }
   },
   "contrast-color": {
@@ -295,7 +295,7 @@
       "chrome": "135",
       "edge": "135",
       "firefox": null,
-      "safari": null
+      "safari": "27"
     }
   },
   "scroll-state": {

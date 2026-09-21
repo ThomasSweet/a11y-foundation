@@ -48,6 +48,30 @@
     <summary>The listening room: a press kit a scanner passes, eleven barriers you hear before you see, answers included.</summary>
   </entry>
   <entry>
+    <id>tag:accessible-by-default.dev,2026-09-14:anchor-positioning-safari-27</id>
+    <title>Showcase: Safari 27 ships Anchor positioning</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-anchor-positioning"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary>Safari 27 ships Anchor positioning, the first engine to ship it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-14:anchor-tooltip-safari-27</id>
+    <title>Showcase: Safari 27 ships Anchor positioning</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-anchor-tooltip"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary>Safari 27 ships Anchor positioning, the first engine to ship it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-14:customizable-select-safari-27</id>
+    <title>Showcase: Safari 27 ships Customizable &lt;select&gt;</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-customizable-select"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary>Safari 27 ships Customizable &lt;select&gt;, so that showcase now runs in two engines.</summary>
+  </entry>
+  <entry>
     <id>tag:accessible-by-default.dev,2026-09-13:standards-map</id>
     <title>Standard: The legal map became a standards map</title>
     <link rel="alternate" href="https://accessible-by-default.dev/standard.html#demo-legal"/>
