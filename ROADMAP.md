@@ -68,6 +68,116 @@ becomes its IA. Explicitly rejected: quizzes, progress marks, time
 estimates, search, newsletter capture (see the doc's "deliberately not
 doing" list).
 
+### Contextualism pass (Argyle, 2026-09-18)
+
+Mined from Adam Argyle's CSS Day 2026 talk "Contextualism", a list of about
+seventy things a component can know, ending in prop-for-that, a JavaScript
+library that publishes runtime state as custom properties. About two thirds
+of the list was already on the site. Every candidate went through three
+refuters (site fit, the accessibility claim, buildability); the claims below
+are the narrowed versions that survived, and the criteria named are the ones
+that held. Three shipped (see Done): the chapter bar's `:focus-within` exit,
+the slide-away that keeps it off a focused control, and the gated `view()`
+reveal. Still open, in order:
+
+1. "Reduced, not removed": under reduced motion the craft spinner and the
+   loading shimmer freeze and stop saying busy. Where the animation is the
+   status, swap motion for a slow opacity cue (WCAG's definition of motion
+   animation excludes opacity), bounded or tied to a real loading state
+   (2.2.2), floor around 0.4, cycle of 2s or slower. Spinner and shimmer
+   only; pulse and progress stay frozen so freeze-by-default remains the
+   message. Needs an opt-out from the 0.01ms sweep in `preferences.css`,
+   which no component can take today although the file's own comment
+   promises one. The mechanism is a deliberate choice, not a detail.
+2. One paragraph in proof's "Where this argument stops": JavaScript is the
+   second question. First ask whether the platform already knows the state
+   (touched and invalid, open, still empty); where it does, a script copy is
+   a second source of truth and the two drift. Where it does not, characters
+   remaining being the one example, the script writes into the document (an
+   output element, an attribute, a status message, focus), never only into a
+   custom property, because a custom property is not in the accessibility
+   tree (4.1.2, 4.1.3, failure F87). Never claim screen readers cannot read
+   generated content: current engines expose it. No library name, no demo,
+   no CodeCompare, no credit line. A three-lens panel split two to one for a
+   paragraph over a craft section; the judge ruled on the standing decisions
+   above (a script write would be the mechanism taught; 4.1.3 stays out of
+   lane, named and not half-covered).
+3. "Keep the submit button alive", a second pair in the validation section:
+   the talk's `form:has(:invalid) button { opacity: .5 }` dims from first
+   paint, because an untouched required field already matches `:invalid`,
+   the same premature judgement the section already argues against, moved
+   from the field to the form. A truly disabled submit is the worse variant:
+   it leaves the focus order and removes the one action that makes the
+   browser focus and name the first invalid field. Say honestly that native
+   bubbles are transient, report one field at a time and are announced
+   inconsistently, which is why the persistent hint stays. Ships with 2.
+4. Craft "Glass that keeps its contrast": the tint alpha is the contrast
+   budget, blur is decoration, the preference query is a courtesy.
+   `--color-surface-glass` measured 2026-09-18 over the worst-case backdrop:
+   primary text 9.52:1 light and 4.81:1 dark, subtle text 3.76:1 and 2.1:1,
+   both failing; about 85% alpha passes. 1.4.3 only.
+   `prefers-reduced-transparency` is Chromium-only, so the base tint must
+   pass without it. By-product: `CssCarouselDemo` uses the token with no
+   reduced-transparency guard.
+5. Craft "More contrast, on request": `prefers-contrast` is honoured
+   site-wide and taught nowhere. Audience is Increase Contrast on macOS and
+   iOS; Windows contrast themes arrive as `forced-colors`. Serves the intent
+   of 1.4.6 without producing conformance; 1.4.11 only for a real control
+   and the ring.
+6. Containment clips the focus ring: `contain: paint | content | strict` and
+   `content-visibility: auto` clip a focused child's outline at the padding
+   edge, so a contained box needs padding of at least ring width plus
+   offset. 2.4.13, and 2.4.7 only when the ring is clipped entirely. Its own
+   small figure beside the defensive layouts demo, plus one sentence in the
+   content-visibility entry.
+7. The 1.3.4 demo on a real orientation query: `container-type: size` on the
+   device frame and `@container (orientation: …)`, so the copy's "the
+   content simply adapts" becomes true. Say that the container query stands
+   in for the page-level media query, keep the "unless essential" exception
+   (failure F97), and take `role="alert"` off the CSS-toggled notice.
+
+Weak but honest, in this order: print styles as a parallel to WCAG and not a
+conformance target (the repo has none; no forced backgrounds, no `attr(href)`
+on every link); "the label that stays", with `:placeholder-shown` as an
+emptiness guard being the un-obvious correct use of the talk's floating-label
+selector; a dark island set with `color-scheme` beside a hand-painted twin
+(the one real failure is inherited light text inside a light-scheme control);
+readonly versus disabled as a craft note (bare `:read-only` also matches a
+paragraph); `@scope`, where proximity only decides between selectors that tie
+on specificity, so inherited custom properties remain the stronger fix. Fun
+only: a `sibling-count()` footnote on quantity queries, inside the cap the
+watchlist already sets.
+
+Waiting on the scroll affordances change: one sentence and a snippet block in
+the scroll-state showcase saying that a bar hidden on scroll direction owes a
+`:focus-within` exit, with the chapter bar as the live example. Waiting on an
+asset: the media state showcase (see the watchlist) needs a short clip with
+captions and a transcript, and Playwright 1.63 or later, because the bundled
+Chromium 149 predates `:playing`.
+
+Housekeeping found on the way, none of it a user-facing defect:
+`SiteFrame.scss` still says `100vh` where the reset says `100svh`; the
+`env(safe-area-inset-bottom)` on the chapter bar resolves to 0 because the
+viewport meta has no `viewport-fit=cover`; the cq-units clamps have no rem
+term in their preferred value, so that snippet teaches a zoom-resistant form
+(1.4.4).
+
+Rejected, with the reason worth keeping: prop-for-that as a dependency or a
+named recommendation (global providers rewrite `:root` on every pointer move
+and scroll frame, and its docs carry no reduced-motion or announcement
+guidance); pointer tilt, parallax and the following eye (2.3.3, pointer-only
+state); the reveal-once latch held at opacity 0 (focusable content nobody can
+see); a slider value or words painted with `counter()` and `content` (the
+visible and the accessible value diverge, F87); battery, network and frame
+rate tiles (no cross-engine support and no fallback, and the `prefers-*`
+features already carry the person's intent); the GRAD axis (no font on the
+site has one and `@supports` cannot detect axes); the anchor interpolated
+morph (no accessibility benefit, Chromium-only, and a hover morph was already
+tried and cut); colour fonts (the site's first web font, nothing in Safari);
+`::selection` styling (the default highlight is the reader's own OS setting);
+concentric corners (the tokens resolve to 0); counters for the testing
+layers (the markup does not match).
+
 ### The masterclass sweep (July 2026) — specialist-lens gap analysis
 
 The exercise: what would an accessibility specialist and a senior
@@ -232,6 +342,8 @@ source before touching the wording or the sources-read stamp in
 One line per item, newest first; details in git history / PRs.
 
 - **2026-09** Kept current by machine: a Monday workflow bumps `web-features`, regenerates the Baseline data, the agent skill and the feed, and opens a pull request proposing what-changed lines for showcases that gained an engine or reached Baseline (`scripts/gen-moves.mjs`, deduped against hand-written lines by id, or by the same showcase link naming the same engine or tier within 60 days); a deploy workflow runs after a green CI run on main, pushes the build to production, confirms the live site serves it, and comments on the merged pull request; CI gained a gate that fails when the committed skill, llms mirror, feed or Baseline data fall behind their registries. The Monday CI cron went: on a locked package it could never see new Baseline data.
+
+- **2026-09** Chapter bar focus, and scroll-driven reveals taught: three items from the Contextualism pass, above. Two defects in the mobile chapter bar, measured before and after in three engines at 375 by 700. In Chromium the scroll-state queries hide the bar at scroll zero, at the end of the page and after any downward scroll while its links stay in the tab order, and a focused bar link sat at y=701 in a 700px viewport (2.4.7); `.chapter-bar:focus-within` brings it back. In Firefox and WebKit the bar is always fixed, and focused controls scrolled underneath it: of 60 tab stops on craft, 7 were covered in part or in full in Firefox and 9 in WebKit, 2 of them wholly hidden in each (2.4.11 and failure F110 for the wholly hidden ones, 2.4.12 for the rest). The fix is one rule: while `:focus-visible` matches anywhere outside the bar, the bar slides away, so nothing can cover a visibly focused control in any engine, by construction. It leaves pointer users alone except in a text field, which matches `:focus-visible` however focus arrived; there the bar steps aside while typing and returns on blur. After the change, 0 of 60 stops are covered in all three engines. The textbook fix, root `scroll-padding-block-end` (technique C43), was tried first and dropped for two measured reasons: WebKit ignores both `scroll-padding` and `scroll-margin` when it reveals a focused element, and `view-timeline-inset: auto` resolves to the scroller's scroll-padding, so every anonymous `view()` reveal on the page started 64px late and popped (at rest for its first 60px, then opacity 0.04). Under 30em of height the bar returns to the flow: the query is height, not orientation, because 400% zoom on a desktop lands there as often as a phone on its side. Three keyboard specs pin the focused bar link staying on screen, the first 40 tab stops on craft staying uncovered (before the fix the first covered stop was the 25th, so a shorter walk passes vacuously) and the short-viewport fallback; the 60-stop sweep and the pointer check were one-off measurements. The scroll-driven animations showcase gained a `view()` reveal and lost a false payoff line: a timeline ignores `animation-duration`, so the global reduced-motion reset never reaches it (measured: the progress bar still runs under emulated reduce). A reveal moves content and carries its own `prefers-reduced-motion: no-preference` gate, fill mode none, range ended once the row is fully in view. The progress bar is left running as a stated judgement call, a one-to-one mirror of the gesture like the scrollbar thumb, not as an exemption 2.3.3 grants.
 
 - **2026-09** What changed: a dated block at the foot of the hub (`src/site/HubRevisions`, six rows from a hand-kept `revisions.ts` registry, one sentence and exactly one link each) and an Atom feed from the same registry (`scripts/gen-feed.mjs` in prebuild writes `public/feed.xml`; every Vue page shell carries the alternate link, `.htaccess` forces the Atom type, llms.txt lists it). Closes positioning Tier 2 items 1 and 2. What earns a line is a standing decision, above.
 

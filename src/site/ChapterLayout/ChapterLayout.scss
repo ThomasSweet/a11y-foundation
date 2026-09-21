@@ -371,6 +371,7 @@
       padding-block-end: env(safe-area-inset-bottom, 0);
       border-block-start: 1px solid var(--bp-frame);
       background-color: var(--bp-sheet);
+      transition: translate var(--duration-normal) var(--easing-standard);
 
       @include forced-colors {
         border-block-start-color: CanvasText;
@@ -385,7 +386,6 @@
     @supports (container-type: scroll-state) {
       .chapter-bar {
         translate: 0 100%;
-        transition: translate var(--duration-normal) var(--easing-standard);
       }
 
       @container scroll-state(scrollable: top) {
@@ -417,6 +417,29 @@
         .chapter-bar {
           translate: 0 100%;
         }
+      }
+
+      .chapter-bar:focus-within {
+        translate: 0 0;
+      }
+    }
+
+    @media (height >= 30em) {
+      .site-stage:has(:focus-visible) .chapter-bar:not(:focus-within) {
+        translate: 0 100%;
+      }
+    }
+
+    @media (height < 30em) {
+      .chapter-bar,
+      .chapter-bar:focus-within {
+        position: static;
+        translate: none;
+        transition: none;
+      }
+
+      :global(body) {
+        padding-block-end: 0;
       }
     }
 

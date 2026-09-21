@@ -70,6 +70,50 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(bar).toBeHidden()
   })
 
+  test('a focused chapter bar link is on screen after scrolling down', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 700 })
+    await page.goto('/craft.html')
+    for (let i = 0; i < 8; i++) await page.mouse.wheel(0, 400)
+
+    const link = page.getByRole('navigation', { name: 'Chapter shortcuts' }).getByRole('link').first()
+    await link.focus()
+    await expect
+      .poll(async () => {
+        const box = await link.boundingBox()
+        return box !== null && box.y >= 0 && box.y + box.height <= 700
+      })
+      .toBe(true)
+  })
+
+  test('the chapter bar never covers a keyboard-focused control', async ({ page, browserName }) => {
+    await page.setViewportSize({ width: 375, height: 700 })
+    await page.goto('/craft.html')
+    const key = browserName === 'webkit' ? 'Alt+Tab' : 'Tab'
+
+    const coveredPixels = () =>
+      page.evaluate(() => {
+        const focused = document.activeElement
+        const bar = document.querySelector('.chapter-bar')
+        if (!focused || !bar || focused === document.body || bar.contains(focused)) return 0
+        const f = focused.getBoundingClientRect()
+        const b = bar.getBoundingClientRect()
+        return Math.max(0, Math.min(f.bottom, b.bottom, innerHeight) - Math.max(f.top, b.top, 0))
+      })
+
+    for (let i = 0; i < 40; i++) {
+      await page.keyboard.press(key)
+      await expect.poll(coveredPixels).toBeLessThanOrEqual(1)
+    }
+  })
+
+  test('the chapter bar leaves the fixed layer in a short viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 256 })
+    await page.goto('/craft.html')
+    const bar = page.getByRole('navigation', { name: 'Chapter shortcuts' })
+    await expect(bar).toHaveCSS('position', 'static')
+    await expect(page.locator('body')).toHaveCSS('padding-bottom', '0px')
+  })
+
   test('native dialog traps focus and closes on Escape', async ({ page }) => {
     await page.goto('/craft.html')
     await page.getByRole('button', { name: /open dialog/i }).click()
