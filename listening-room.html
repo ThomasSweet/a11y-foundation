@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Lock the @layer order before any bundled CSS parses (see index.html). -->
+    <style>
+      @layer reset, tokens, themes, base, layout, components, utilities, preferences;
+      /* Pre-CSS ground so a raw frame in the view-transition handoff paints
+         desk-colored, not UA-white. The literal mirrors --color-bg-subtle
+         (tokens.css); once the bundle loads, var(--bp-ground) takes over and
+         the canvas re-inks per theme. */
+      @layer base {
+        :root {
+          --boot-ground: light-dark(#f5f5f5, #1a1a1a);
+        }
+
+        html {
+          background-color: var(--bp-ground, var(--boot-ground));
+        }
+      }
+    </style>
+
+    <!-- View-transition opt-in, inline: it must be in BOTH documents' static
+         CSSOM at navigation time (bundled CSS arrives too late in dev). -->
+    <style>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+
+        ::view-transition {
+          background-color: var(--bp-ground, var(--boot-ground));
+        }
+      }
+    </style>
+
+    <!-- Apply the saved theme before first paint. Must stay in sync with ThemeToggle. -->
+    <script>
+      try {
+        var savedTheme = localStorage.getItem('abd-theme')
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.dataset.theme = savedTheme
+        } else if (/^(ocean|midnight|sunset|cobalt|teal|amber|contrast-light|contrast-dark)$/.test(savedTheme)) {
+          document.documentElement.dataset.preset = savedTheme
+        }
+      } catch (e) {}
+    </script>
+
+    <title>The listening room — Accessible by default</title>
+    <link rel="canonical" href="https://accessible-by-default.dev/listening-room.html" />
+    <meta
+      name="description"
+      content="A page a scanner passes: eleven accessibility barriers planted in a fictional band press kit, every one of them something you hear before you see. Hunt them with a screen reader, answers included."
+    />
+
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/atom+xml" title="Accessible by default: what changed" href="/feed.xml" />
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Accessible by default" />
+    <meta property="og:url" content="https://accessible-by-default.dev/listening-room.html" />
+    <meta property="og:title" content="The listening room" />
+    <meta property="og:description" content="A page a scanner passes: eleven accessibility barriers planted in a fictional band press kit, every one of them something you hear before you see. Hunt them with a screen reader, answers included." />
+    <meta property="og:image" content="https://accessible-by-default.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The a11y mark and the words Accessible by default on a drafting sheet, with the line: how much of accessibility the web platform handles natively, with little to no JavaScript." />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" blocking="render" src="/src/entries/listening-room.ts"></script>
+  </body>
+</html>

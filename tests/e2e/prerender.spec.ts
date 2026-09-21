@@ -11,6 +11,7 @@ const pages = [
   { path: '/screen-reader.html', texts: ['The phone in your pocket'] },
   { path: '/devtools.html', texts: ['Emulate a focused page'] },
   { path: '/audit-room.html', texts: ['Broken on purpose'] },
+  { path: '/listening-room.html', texts: ['The listening room', 'Answers'] },
 ]
 
 test.describe('prerendered HTML', () => {

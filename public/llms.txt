@@ -51,6 +51,9 @@ same registries that render the pages, so it cannot drift from the live demos.
 - [The audit room](https://accessible-by-default.dev/audit-room.html): a page
   broken on purpose — twelve barriers to find with the tools above, answers
   included
+- [The listening room](https://accessible-by-default.dev/listening-room.html):
+  a page a scanner passes clean, with eleven barriers you hear before you see
+  them, each answer carrying the announcement it produces and the fix
 
 ## Optional
 

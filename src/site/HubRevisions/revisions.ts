@@ -35,6 +35,16 @@ export const revisions: Revision[] = [
     tail: ' gained its third state: a strip shades its edges only while there is more to scroll that way, a hint that never lies at the end.',
   },
   {
+    id: 'listening-room',
+    date: '2026-09-15',
+    area: 'Proof',
+    title: 'The listening room',
+    lead: 'The ',
+    linkText: 'listening room',
+    href: '/listening-room.html',
+    tail: ': a press kit a scanner passes, eleven barriers you hear before you see, answers included.',
+  },
+  {
     id: 'standards-map',
     date: '2026-09-13',
     area: 'Standard',

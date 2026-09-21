@@ -130,6 +130,12 @@
         <a href="/proof.html#testing-layers">the layered model</a> — and,
         eventually, feedback from people who use this software every day.
       </p>
+      <p class="screen-reader-p">
+        To spend the plan on a page built for it, the
+        <a href="/listening-room.html">listening room</a> is where you can hear
+        all of this: eleven barriers a scanner passes over, every one of them
+        audible before it is visible, answers included.
+      </p>
     </section>
   </SiteFrame>
 </template>

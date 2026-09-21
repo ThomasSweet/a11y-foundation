@@ -32,6 +32,14 @@
     <summary>The scroll-state showcase gained its third state: a strip shades its edges only while there is more to scroll that way, a hint that never lies at the end.</summary>
   </entry>
   <entry>
+    <id>tag:accessible-by-default.dev,2026-09-15:listening-room</id>
+    <title>Proof: The listening room</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/listening-room.html"/>
+    <published>2026-09-15T00:00:00Z</published>
+    <updated>2026-09-15T00:00:00Z</updated>
+    <summary>The listening room: a press kit a scanner passes, eleven barriers you hear before you see, answers included.</summary>
+  </entry>
+  <entry>
     <id>tag:accessible-by-default.dev,2026-09-13:standards-map</id>
     <title>Standard: The legal map became a standards map</title>
     <link rel="alternate" href="https://accessible-by-default.dev/standard.html#demo-legal"/>
