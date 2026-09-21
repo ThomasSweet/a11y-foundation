@@ -45,6 +45,16 @@ export const revisions: Revision[] = [
     tail: ': laws sit in the row of the WCAG version they cite, and each opens to show how many layers sit between it and the criterion you test.',
   },
   {
+    id: 'scroll-reveal-motion-gate',
+    date: '2026-09-18',
+    area: 'Showcase',
+    title: 'Scroll-driven reveals carry their own motion gate',
+    lead: 'The ',
+    linkText: 'scroll-driven animations showcase',
+    href: '/showcase.html#showcase-scroll-driven-animations',
+    tail: ' gained a reveal and the rule behind it: a global duration reset never reaches a scroll timeline, so every reveal needs its own prefers-reduced-motion gate.',
+  },
+  {
     id: 'wcag-3-september-draft',
     date: '2026-09-10',
     area: 'Standard',

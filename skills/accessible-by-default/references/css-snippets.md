@@ -508,7 +508,9 @@ check its tier in `modern-css.md` first.
     transform-origin: 0 50%;
     animation: grow linear both;
     /* Driven by the nearest scroll container, not by time. Runs off the main
-       thread, and mirrors the user's gesture — so no reduced-motion override. */
+       thread. It tracks the user's gesture one to one, like the scrollbar
+       thumb, so it is left running under reduced motion: a judgement call,
+       not an exemption. */
     animation-timeline: scroll(nearest);
   }
 }
@@ -516,6 +518,25 @@ check its tier in `modern-css.md` first.
 @keyframes grow {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+
+/* A reveal is different: it moves content. A timeline ignores
+   animation-duration, so a global "every duration to 0.01ms" reset never
+   reaches it. The reveal therefore carries its own motion gate. Fill mode
+   none keeps the resting state visible, and the range ends once the row is
+   fully in view. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .row {
+      animation: reveal linear none;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from { opacity: 0; translate: 0 1.5rem; }
 }
 ```
 
