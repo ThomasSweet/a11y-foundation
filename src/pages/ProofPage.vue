@@ -176,7 +176,25 @@
         route change or a deletion. Those are JavaScript's territory,
         harder to get right than anything shown here, and claiming CSS
         covers them would be exactly the kind of overclaim this site
-        argues against. When you cross the line, the
+        argues against.
+      </p>
+      <p>
+        Crossing the line is not the mistake; skipping the first question
+        is. Ask whether the platform already knows the state:
+        <a href="/craft.html#craft-validation">a field that was touched and
+        is invalid</a>, a dialog that is open, an input that is still
+        empty. Where an element or a selector already carries it, a script
+        that publishes the same state again is a second source of truth,
+        and the two drift. Where the platform has no element for the job,
+        such as counting the characters that remain, the script is the
+        right tool, and what matters is where it writes: text in an
+        <code>output</code> element, an attribute such as
+        <code>aria-pressed</code>, a status message, focus. A custom
+        property is not in the accessibility tree: it can change how
+        something looks, but it is not a name, a state or a message.
+      </p>
+      <p>
+        When you cross the line, the
         <a href="https://www.w3.org/WAI/ARIA/apg/">ARIA Authoring Practices
         Guide</a> is the map — and the habit from this chapter still
         applies: test what you build, in layers, with the people and tools

@@ -1041,6 +1041,22 @@ check its tier in `modern-css.md` first.
     .hint-end { opacity: 1; }
   }
 }
+
+/* scroll-state(scrolled: …), Chrome 144+, can slide a bar away while the
+   reader scrolls down. The page scroller is the container here. The bar's
+   links stay in the tab order, so give it a way back: without the last
+   rule, keyboard focus lands on a link that is off screen. */
+html {
+  container-type: scroll-state;
+}
+
+@supports (container-type: scroll-state) {
+  @container scroll-state(scrolled: bottom) {
+    .bar { translate: 0 100%; }
+  }
+
+  .bar:focus-within { translate: 0 0; }
+}
 ```
 
 ## Pure-CSS carousel

@@ -114,6 +114,30 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(page.locator('body')).toHaveCSS('padding-bottom', '0px')
   })
 
+  test('the craft form keeps its submit live and the browser finds the first invalid field', async ({
+    page,
+  }) => {
+    await page.goto('/craft.html')
+    const form = page.locator('form.demo-stack')
+    const save = form.getByRole('button', { name: 'Save' })
+    const name = form.getByLabel(/Display name/)
+    const status = form.getByRole('status')
+
+    await expect(save).toBeEnabled()
+    await expect(save).toHaveCSS('opacity', '1')
+    await save.click()
+    await expect(name).toBeFocused()
+    await expect(status).toBeEmpty()
+    await expect(page).toHaveURL(/\/craft\.html$/)
+
+    await name.fill('Thomas')
+    await save.click()
+    await expect(status).toContainText('Nothing was sent')
+
+    await name.fill('Thomas S')
+    await expect(status).toBeEmpty()
+  })
+
   test('native dialog traps focus and closes on Escape', async ({ page }) => {
     await page.goto('/craft.html')
     await page.getByRole('button', { name: /open dialog/i }).click()

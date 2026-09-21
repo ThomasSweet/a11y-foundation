@@ -23,7 +23,24 @@
         Hints and errors are linked via <code>aria-describedby</code> and
         never rely on color alone (the invalid border also thickens).
       </p>
-      <div class="demo-stack">
+      <p>
+        The same patience applies to the form as a whole.
+        <code>form:has(:invalid) button { opacity: .5 }</code> reads like a
+        form that knows itself, but an untouched required field already
+        matches <code>:invalid</code>, so the button looks unavailable from
+        first paint, before anyone has done anything: the premature
+        judgement again, moved from the field to the form. A truly
+        <code>disabled</code> submit is the harsher variant. It leaves the
+        focus order, and it takes away the one action that makes the browser
+        focus the first invalid field and say what is wrong with it. So the
+        button here stays live: press Save with the name empty. The
+        browser's message is a supplement, not the plan. It appears only on
+        submit and for one field at a time, it does not rescale if the page
+        is zoomed while it is up, and a screen reader hears that the field
+        is invalid more reliably than it hears why. That is why the hint
+        under each label stays on screen.
+      </p>
+      <form class="demo-stack" method="dialog" @submit.prevent="saves += 1" @input="saves = 0">
         <TextField
           v-model="name"
           label="Display name"
@@ -38,8 +55,13 @@
           title="Enter an address with a domain, e.g. name@example.com"
           hint="Optional — include a domain, e.g. name@example.com."
         />
-      </div>
+        <div class="craft-page-submit-row">
+          <AppButton type="submit">Save</AppButton>
+          <p class="craft-page-submit-status" role="status">{{ savedStatus }}</p>
+        </div>
+      </form>
       <CodeCompare v-bind="craftSnippets.validation" />
+      <CodeCompare v-bind="craftSnippets.validationSubmit" />
       <CraftLinks :links="craftLinks.validation" />
     </ChapterSection>
 
@@ -274,7 +296,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import ChapterLayout from '../site/ChapterLayout/ChapterLayout.vue'
 import ChapterSection from '../site/ChapterSection/ChapterSection.vue'
@@ -300,6 +322,12 @@ import { railFrom, type ChapterSectionEntry } from '../site/ChapterLayout/chapte
 
 const name = ref('')
 const email = ref('')
+const saves = ref(0)
+const savedStatus = computed(() => {
+  if (saves.value === 0) return ''
+  const message = 'Both fields are valid. Nothing was sent: this form has nowhere to go.'
+  return saves.value === 1 ? message : `${message} Checked ${saves.value} times.`
+})
 const dialog = ref<InstanceType<typeof AppDialog> | null>(null)
 
 const sections = {
@@ -318,3 +346,20 @@ const sections = {
 } satisfies Record<string, ChapterSectionEntry>
 const rail = railFrom(Object.values(sections))
 </script>
+
+<style scoped lang="scss">
+@layer components {
+  .craft-page-submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .craft-page-submit-status {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+}
+</style>
