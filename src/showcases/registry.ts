@@ -413,7 +413,10 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'Tether a popover to the element that opened it, in pure CSS. ' +
       'Combined with the popover attribute (which gives keyboard ' +
       'dismissal and focus behavior for free), this replaces JS ' +
-      'positioning libraries. Interop 2026 focus area.',
+      'positioning libraries. Interop 2026 focus area. The badge reads ' +
+      'limited because Baseline counts every part of anchor positioning, ' +
+      'including two position-visibility values that only Safari 27 ships ' +
+      'so far. The parts this demo uses run in all three engines.',
     links: [
       {
         label: 'MDN: anchor positioning',
@@ -441,7 +444,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'no positioning JS. It also nails the parts of WCAG 1.4.13 most tooltips ' +
       'miss: keyboard-focus reveal, hoverable, and persistent. The one leg CSS ' +
       'can’t reach (Esc-to-dismiss) is called out honestly. Without anchor ' +
-      'support it falls back to a fixed above-the-trigger placement.',
+      'support it falls back to a fixed above-the-trigger placement. The ' +
+      'badge reads limited for the same reason as the anchor positioning ' +
+      'entry; the anchoring itself runs in all three engines.',
     links: [
       {
         label: 'MDN: anchor positioning',
