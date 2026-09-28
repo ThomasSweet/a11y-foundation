@@ -15,6 +15,16 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'customizable-select-safari-27',
+    date: '2026-09-14',
+    area: 'Showcase',
+    title: 'Safari 27 ships Customizable <select>',
+    lead: 'Safari 27 ships ',
+    linkText: 'Customizable <select>',
+    href: '/showcase.html#showcase-customizable-select',
+    tail: ', so that showcase now runs in two engines.',
+  },
+  {
     id: 'submit-button-alive',
     date: '2026-09-21',
     area: 'Craft',
