@@ -112,7 +112,7 @@ const files = [
   },
   {
     name: 'references/modern-css.md',
-    desc: 'Every feature in the showcase, grouped by Baseline tier, with its @supports condition and the accessibility problem it solves.',
+    desc: 'Every feature in the showcase, grouped by Baseline tier, with the guard it needs, if any, and the accessibility problem it solves.',
   },
   {
     name: 'references/css-snippets.md',

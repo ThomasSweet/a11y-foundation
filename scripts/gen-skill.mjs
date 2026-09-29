@@ -133,8 +133,9 @@ const snippetsDoc =
   banner('Accessible implementations, feature by feature', 'src/showcases/registry.ts') +
   'Every excerpt keeps semantics, honours user preferences, and degrades to\n' +
   'something usable. They are free of this project’s tokens and mixins, so they\n' +
-  'are copy-paste ready. Never copy one without the guard named beneath it —\n' +
-  `check its tier in \`modern-css.md\` first.\n\n` +
+  'are copy-paste ready. Where an entry names a guard, copy it with the guard.\n' +
+  'An entry marked "Feature test (not needed to ship)" is widely available and\n' +
+  `safe without one; check its tier in \`modern-css.md\`.\n\n` +
   withCode
     .map((s) =>
       [

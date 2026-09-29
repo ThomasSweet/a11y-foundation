@@ -98,7 +98,7 @@ The fallback is not a degraded mode — it is the page. Build it first, then let
 the guard add to it.
 
 `references/modern-css.md` lists what is safe to ship right now, grouped by
-Baseline tier, each with its `@supports` condition and the accessibility
+Baseline tier, each with the guard it needs, if any, and the accessibility
 problem it solves. Read it before reaching for a JS library to do layout,
 positioning, theming, or transitions.
 
@@ -142,7 +142,7 @@ Load these when the task calls for them, not up front:
   hand-built components, each with the requirement and who pays when it's
   missed. Use when reviewing for conformance or justifying a decision.
 - **`references/modern-css.md`** — modern CSS and HTML features grouped by
-  Baseline tier, with the `@supports` guard and accessibility payoff of each.
+  Baseline tier, with the guard each needs, if any, and its accessibility payoff.
   Use when choosing an approach.
 - **`references/css-snippets.md`** — the accessible implementation of every
   feature in the catalog, free of framework and token plumbing. Use when

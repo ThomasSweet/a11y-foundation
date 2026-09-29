@@ -37,9 +37,10 @@ thesis too.</sub>
 
 ## The site practises what it shows
 
-Every feature the site teaches is doing real work *in* the site. Features not
-yet widely available sit behind `@supports` and degrade to an accessible
-fallback, never a broken page. Widely available ones are used directly:
+Every feature in this table is doing real work *in* the site. Where an
+engine still lacks one, it sits behind `@supports`, or is skipped harmlessly
+where CSS cannot test for it (an at-rule, an HTML attribute), so that engine
+gets an accessible fallback, never a broken page:
 
 | Platform feature | Where it runs |
 | --- | --- |
@@ -50,7 +51,7 @@ fallback, never a broken page. Widely available ones are used directly:
 | Scroll-driven animations | reading-position nav highlight, the timeline's era strata pouring in |
 | Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
-| `@starting-style` + `allow-discrete` | dialog and popover entry/exit transitions |
+| `@starting-style` + `allow-discrete` | the theme panel popover's entry and exit |
 | Subgrid | the hub plates align rows across cards |
 | `<details name>` + `::details-content` | the standards map: an exclusive accordion whose open card grows to span the row, with no script |
 | Cross-document view transitions | the page-to-page content fade — an MPA with zero routing JS |

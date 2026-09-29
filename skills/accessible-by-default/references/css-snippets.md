@@ -4,8 +4,9 @@
 
 Every excerpt keeps semantics, honours user preferences, and degrades to
 something usable. They are free of this project’s tokens and mixins, so they
-are copy-paste ready. Never copy one without the guard named beneath it —
-check its tier in `modern-css.md` first.
+are copy-paste ready. Where an entry names a guard, copy it with the guard.
+An entry marked "Feature test (not needed to ship)" is widely available and
+safe without one; check its tier in `modern-css.md`.
 
 ## Container queries
 
@@ -184,14 +185,19 @@ check its tier in `modern-css.md` first.
   grid-template-columns: repeat(var(--n), 1fr);
 }
 
-/* One pill, one cell wide; it slides between options in whole steps. The
-   transition rides a motion token, so reduced motion makes it an instant jump. */
+/* One pill, one cell wide; it slides between options in whole steps, and only
+   when the reader has not asked for reduced motion. Otherwise it jumps. */
 .indicator {
   position: absolute;
   inset-block: 4px;
   inline-size: calc(100% / var(--n));
   transform: translateX(calc(var(--i, 0) * 100%));
-  transition: transform 200ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .indicator {
+    transition: transform 200ms;
+  }
 }
 
 /* :has() maps the checked radio to the pill's slot. */

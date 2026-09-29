@@ -19,8 +19,8 @@ same registries that render the pages, so it cannot drift from the live demos.
   the success criteria most often broken by hand-built components, each with
   its requirement and who pays when it is missed
 - [modern-css.md](https://accessible-by-default.dev/llms/modern-css.md): every
-  showcased feature grouped by Baseline tier, with its @supports condition and
-  the accessibility problem it solves
+  showcased feature grouped by Baseline tier, with the guard it needs, if any,
+  and the accessibility problem it solves
 - [css-snippets.md](https://accessible-by-default.dev/llms/css-snippets.md):
   the accessible implementation of each feature, dependency-free and
   copy-paste ready
