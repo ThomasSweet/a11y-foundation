@@ -1,12 +1,16 @@
 <template>
-  <div class="anchor-tooltip-demo">
+  <div class="anchor-tooltip-demo" data-reveal="off">
     <p class="anchor-tooltip-caption">
       Each hint is anchored to its <code>?</code> button with
-      <code>anchor-name</code> / <code>position-anchor</code> — no measuring, no
-      positioning JS. <code>position-try-fallbacks</code> flips it to the other
-      side when it would collide with an edge (scroll the page with one open to
-      see it flip). It opens on <strong>hover and keyboard focus</strong>, and
-      you can move the pointer onto the hint without it vanishing — the parts of
+      <code>anchor-name</code> and <code>position-anchor</code>: no measuring, no
+      positioning JS. <code>position-try-fallbacks: flip-block</code> moves it
+      below the button when the top of the viewport would cut it off (focus a
+      <code>?</code> with <kbd>Tab</kbd> and scroll it to the top edge to see it
+      flip). The area is <code>block-start span-all</code> on purpose: a
+      <code>center</code> column is only as wide as the button, so a wider hint
+      overflows every option and never flips. It opens on
+      <strong>hover and keyboard focus</strong>, and you can move the pointer
+      onto the hint without it vanishing: the parts of
       <abbr title="WCAG 2.1 Success Criterion 1.4.13">1.4.13</abbr> most tooltips
       get wrong.
     </p>
@@ -189,11 +193,15 @@
     font-weight: 400;
     text-align: start;
 
+    display: none;
     opacity: 0;
-    visibility: hidden;
     transition:
       opacity var(--duration-fast) var(--easing-standard),
-      visibility var(--duration-fast) var(--easing-standard);
+      display var(--duration-fast) allow-discrete;
+
+    @include reduced-motion {
+      transition-property: none;
+    }
 
     @include high-contrast {
       border-color: currentcolor;
@@ -203,16 +211,20 @@
   .anchor-tooltip-bubble::before {
     content: '';
     position: absolute;
-    inset-block-start: 100%;
+    inset-block: calc(var(--space-2) * -1);
     inset-inline: 0;
-    block-size: var(--space-2);
+    z-index: -1;
   }
 
   .anchor-tooltip-trigger:hover ~ .anchor-tooltip-bubble,
   .anchor-tooltip-trigger:focus-visible ~ .anchor-tooltip-bubble,
   .anchor-tooltip-bubble:hover {
+    display: block;
     opacity: 1;
-    visibility: visible;
+
+    @starting-style {
+      opacity: 0;
+    }
   }
 
   @supports (anchor-name: --a) {
@@ -228,9 +240,9 @@
       position: fixed;
       inset: auto;
       translate: none;
-      position-area: top center;
+      position-area: block-start span-all;
       margin-block-end: var(--space-2);
-      position-try-fallbacks: flip-block, flip-inline;
+      position-try-fallbacks: flip-block;
     }
     /* stylelint-enable property-no-unknown */
   }

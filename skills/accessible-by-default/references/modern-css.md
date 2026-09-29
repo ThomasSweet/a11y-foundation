@@ -327,9 +327,9 @@ Tether a popover to the element that opened it, in pure CSS.
 
 ### Anchor-positioned tooltip
 
-A hover/focus hint tethered to its trigger with anchor positioning, flipping sides via position-try-fallbacks when it would hit an edge — no positioning JS.
+A hover/focus hint tethered to its trigger with anchor positioning, flipped below it by position-try-fallbacks when the top of the viewport would cut it off, with no positioning JS.
 
-**Accessibility payoff:** Position fallbacks flip the tooltip into view at any zoom, and the pattern stays hoverable and dismissible (1.4.13).
+**Accessibility payoff:** Position fallbacks flip the tooltip below its trigger when the top of the viewport would clip it, and it opens on keyboard focus and stays hoverable and persistent (1.4.13).
 
 **Guard:** `@supports (anchor-name: --a)`
 

@@ -389,9 +389,11 @@ check its tier in `modern-css.md` first.
 ```css
 /* Hidden until hover or keyboard focus. */
 .hint-bubble {
+  display: none;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 150ms, visibility 150ms;
+  transition:
+    opacity 150ms,
+    display 150ms allow-discrete;
 }
 
 /* Reveal on hover, on keyboard focus, and while the bubble itself is hovered
@@ -399,8 +401,12 @@ check its tier in `modern-css.md` first.
 .hint button:hover ~ .hint-bubble,
 .hint button:focus-visible ~ .hint-bubble,
 .hint-bubble:hover {
+  display: block;
   opacity: 1;
-  visibility: visible;
+
+  @starting-style {
+    opacity: 0;
+  }
 }
 
 /* The enhancement: anchor the bubble to its trigger and let it flip to stay
@@ -413,9 +419,9 @@ check its tier in `modern-css.md` first.
   .hint-bubble {
     position: fixed;
     position-anchor: --hint;
-    position-area: top center;
+    position-area: block-start span-all;
     margin-block-end: 8px;
-    position-try-fallbacks: flip-block, flip-inline;
+    position-try-fallbacks: flip-block;
   }
 }
 ```
