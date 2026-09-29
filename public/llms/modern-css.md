@@ -16,7 +16,7 @@ Components respond to the space they actually get instead of the viewport.
 
 **Accessibility payoff:** Layouts that adapt to their space survive 400% zoom and squeezed sidebars alike — low-vision users get reflow (1.4.10) for free.
 
-**Guard:** `@supports (container-type: inline-size)`
+**Feature test (not needed to ship):** `@supports (container-type: inline-size)`
 
 **Topics:** layout
 
@@ -28,7 +28,7 @@ The other half of container queries: cqi units inside clamp() scale type and spa
 
 **Accessibility payoff:** The rem bounds in every clamp() keep the user’s font-size preference in charge at any container width — no breakpoint ever overrides it.
 
-**Guard:** `@supports (width: 1cqi)`
+**Feature test (not needed to ship):** `@supports (width: 1cqi)`
 
 **Topics:** layout, typography
 
@@ -40,7 +40,7 @@ Style an element from its descendants’ state — something no upward selector 
 
 **Accessibility payoff:** :has() styles states the DOM already knows — no JS class-toggling that can drift from the real, announced state.
 
-**Guard:** `@supports (selector(:has(a)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(a)))`
 
 **Topics:** interaction
 
@@ -52,7 +52,7 @@ The chat-app photo bundle, in pure CSS: the grid counts its own children with ex
 
 **Accessibility payoff:** Count-aware layout keeps items at usable sizes however many a CMS delivers — target size (2.5.8) survives real content.
 
-**Guard:** `@supports (selector(:has(> :nth-child(2))))`
+**Feature test (not needed to ship):** `@supports (selector(:has(> :nth-child(2))))`
 
 **Topics:** layout
 
@@ -65,7 +65,7 @@ Nested grids adopt their parent’s tracks, so card internals align across sibli
 
 **Accessibility payoff:** Aligned tracks across cards keep visual order and reading order identical — what a screen reader announces matches what eyes scan.
 
-**Guard:** `@supports (grid-template-rows: subgrid)`
+**Feature test (not needed to ship):** `@supports (grid-template-rows: subgrid)`
 
 **Topics:** layout
 
@@ -77,7 +77,7 @@ A modern way to visualize selection: one pill that travels between options inste
 
 **Accessibility payoff:** The moving highlight is a native radio group underneath — arrow keys, focus, and announcements come from the platform; only the paint animates.
 
-**Guard:** `@supports (selector(:has(*)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(*)))`
 
 **Topics:** interaction, motion
 
@@ -89,7 +89,7 @@ A horizontal strip where each card locks to centre as you scroll — scroll-snap
 
 **Accessibility payoff:** Snap points give wheel, touch, and keyboard scrolling the same stopping places — no JS carousel intercepting arrow keys.
 
-**Guard:** `@supports (scroll-snap-type: x mandatory)`
+**Feature test (not needed to ship):** `@supports (scroll-snap-type: x mandatory)`
 
 **Topics:** scroll
 
@@ -101,7 +101,7 @@ Validation styling with manners — these pseudo-classes match only after the us
 
 **Accessibility payoff:** Errors wait until someone has actually been in the field — no red flags shouting at screen-magnifier users before they’ve typed a character.
 
-**Guard:** `@supports (selector(:user-valid))`
+**Feature test (not needed to ship):** `@supports (selector(:user-valid))`
 
 **Topics:** forms
 

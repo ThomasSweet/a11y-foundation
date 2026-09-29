@@ -9,7 +9,7 @@ check its tier in `modern-css.md` first.
 
 ## Container queries
 
-**Guard:** `@supports (container-type: inline-size)`
+**Feature test (not needed to ship):** `@supports (container-type: inline-size)`
 
 ```html
 <!-- The wrapper is the container; the card inside responds to it.
@@ -40,7 +40,7 @@ check its tier in `modern-css.md` first.
 
 ## Container query units
 
-**Guard:** `@supports (width: 1cqi)`
+**Feature test (not needed to ship):** `@supports (width: 1cqi)`
 
 ```css
 .stage {
@@ -63,7 +63,7 @@ check its tier in `modern-css.md` first.
 
 ## :has() relational selector
 
-**Guard:** `@supports (selector(:has(a)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(a)))`
 
 ```html
 <li class="row">
@@ -90,7 +90,7 @@ check its tier in `modern-css.md` first.
 
 ## Count-aware layouts (quantity queries)
 
-**Guard:** `@supports (selector(:has(> :nth-child(2))))`
+**Feature test (not needed to ship):** `@supports (selector(:has(> :nth-child(2))))`
 
 ```html
 <ul class="gallery">
@@ -143,7 +143,7 @@ check its tier in `modern-css.md` first.
 
 ## Subgrid
 
-**Guard:** `@supports (grid-template-rows: subgrid)`
+**Feature test (not needed to ship):** `@supports (grid-template-rows: subgrid)`
 
 ```css
 .card-grid {
@@ -162,7 +162,7 @@ check its tier in `modern-css.md` first.
 
 ## Sliding selection indicator
 
-**Guard:** `@supports (selector(:has(*)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(*)))`
 
 ```html
 <!-- Real radios underneath — arrow-key navigable, announced as a group. -->
@@ -219,7 +219,7 @@ check its tier in `modern-css.md` first.
 
 ## Scroll snap
 
-**Guard:** `@supports (scroll-snap-type: x mandatory)`
+**Feature test (not needed to ship):** `@supports (scroll-snap-type: x mandatory)`
 
 ```html
 <!-- A focusable region, so arrow keys / Page / Home-End scroll it too. The
@@ -265,7 +265,7 @@ check its tier in `modern-css.md` first.
 
 ## :user-valid / :user-invalid
 
-**Guard:** `@supports (selector(:user-valid))`
+**Feature test (not needed to ship):** `@supports (selector(:user-valid))`
 
 ```css
 /* :invalid fires immediately — an empty required field is

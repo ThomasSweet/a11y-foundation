@@ -37,8 +37,9 @@ thesis too.</sub>
 
 ## The site practises what it shows
 
-Every feature the site teaches is doing real work *in* the site — each behind
-`@supports`, degrading to an accessible fallback, never a broken page:
+Every feature the site teaches is doing real work *in* the site. Features not
+yet widely available sit behind `@supports` and degrade to an accessible
+fallback, never a broken page. Widely available ones are used directly:
 
 | Platform feature | Where it runs |
 | --- | --- |
