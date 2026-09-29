@@ -951,19 +951,32 @@ The Monday bot (`baseline-moves.yml`) proposes lines from `web-features`
 data through `scripts/gen-moves.mjs`. The script diffs the freshly generated
 `baseline-data.json` against the committed one (`--new` and `--old` take
 explicit files; by default the new side is the working file and the old side
-is `git show HEAD:` of it), and for each showcase writes a
+is `git show HEAD:` of it), and for each `web-features` feature writes a
 line when an engine newly ships it, when it becomes Baseline newly
 available, and when it becomes widely available; `--dry-run` prints without
 touching the registry, otherwise the lines are inserted at the top of
-`revisions`. It dedupes twice: by id, and by "an existing line already links
-the same `href` within 60 days either side and names the same engine, or
-the same Baseline tier". So a hand-written line, such as
-`firefox-155-typed-attr` or a Safari 27 customizable-select line written the
-week it ships, suppresses the bot's duplicate as long as it links the
-showcase anchor and names the engine, while a further engine arriving on
-the same showcase still gets its own line. A person reviews the proposal against the release notes
-and merges. `tests/unit/revisions.test.ts` is the guard the PR must pass:
-unique ids, valid ISO dates that are today or earlier, no markup in `lead`
+`revisions`. Several showcases can share one feature (the two anchor
+showcases, the three `:has()` ones), so a move is reported once, linked to
+the first of them in `SHOWCASE_FEATURES` order. The wording follows what the
+data can prove. A feature's engine version in `web-features` is the first
+release that supports every one of its compat keys, so the script reads the
+per-key data too: an engine that already shipped some keys "completes" the
+feature and is "the first engine to ship all of it", and only an engine with
+no earlier keys "ships" it. The "that showcase now runs in two engines"
+tails are kept for the case where no other engine has any part of it. A
+"completes" that changes no Baseline tier goes into the pull request body
+under its own heading and not into the registry: the showcases already ran
+there, so a reader has nothing to act on. It dedupes twice: by id, and by
+"an existing line already links one of that feature's showcases within 60
+days either side and names the same engine, or the same Baseline tier",
+matched on word boundaries so that "Safari 26.2" does not count as "Safari
+26". So a hand-written line, such as
+`firefox-155-typed-attr`, suppresses the bot's duplicate as long as it links
+a showcase anchor for that feature and names the engine, while a further
+engine arriving on the same feature still gets its own line. A person
+reviews the proposal against the release notes and merges.
+`tests/unit/revisions.test.ts` is the guard the PR must pass: unique ids and
+titles, valid ISO dates that are today or earlier, no markup in `lead`
 or `tail`, non-empty `linkText`, a site-relative or https `href`, and a
 showcase anchor that resolves to a registry id. `tests/e2e/feed.spec.ts`
 checks the served feed carries one entry per revision, and

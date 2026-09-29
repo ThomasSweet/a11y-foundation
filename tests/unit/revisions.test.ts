@@ -24,6 +24,11 @@ describe('revisions registry', () => {
     expect(new Set(ids).size).toBe(ids.length)
   })
 
+  it('keeps titles unique', () => {
+    const titles = revisions.map((r) => r.title)
+    expect(new Set(titles).size).toBe(titles.length)
+  })
+
   it('shows no more entries than it has', () => {
     expect(revisions.length).toBeGreaterThanOrEqual(revisionsShown)
   })
