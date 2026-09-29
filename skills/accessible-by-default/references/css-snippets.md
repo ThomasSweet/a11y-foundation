@@ -4,12 +4,13 @@
 
 Every excerpt keeps semantics, honours user preferences, and degrades to
 something usable. They are free of this project’s tokens and mixins, so they
-are copy-paste ready. Never copy one without the guard named beneath it —
-check its tier in `modern-css.md` first.
+are copy-paste ready. Where an entry names a guard, copy it with the guard.
+An entry marked "Feature test (not needed to ship)" is widely available and
+safe without one; check its tier in `modern-css.md`.
 
 ## Container queries
 
-**Guard:** `@supports (container-type: inline-size)`
+**Feature test (not needed to ship):** `@supports (container-type: inline-size)`
 
 ```html
 <!-- The wrapper is the container; the card inside responds to it.
@@ -40,7 +41,7 @@ check its tier in `modern-css.md` first.
 
 ## Container query units
 
-**Guard:** `@supports (width: 1cqi)`
+**Feature test (not needed to ship):** `@supports (width: 1cqi)`
 
 ```css
 .stage {
@@ -63,7 +64,7 @@ check its tier in `modern-css.md` first.
 
 ## :has() relational selector
 
-**Guard:** `@supports (selector(:has(a)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(a)))`
 
 ```html
 <li class="row">
@@ -90,7 +91,7 @@ check its tier in `modern-css.md` first.
 
 ## Count-aware layouts (quantity queries)
 
-**Guard:** `@supports (selector(:has(> :nth-child(2))))`
+**Feature test (not needed to ship):** `@supports (selector(:has(> :nth-child(2))))`
 
 ```html
 <ul class="gallery">
@@ -143,7 +144,7 @@ check its tier in `modern-css.md` first.
 
 ## Subgrid
 
-**Guard:** `@supports (grid-template-rows: subgrid)`
+**Feature test (not needed to ship):** `@supports (grid-template-rows: subgrid)`
 
 ```css
 .card-grid {
@@ -162,7 +163,7 @@ check its tier in `modern-css.md` first.
 
 ## Sliding selection indicator
 
-**Guard:** `@supports (selector(:has(*)))`
+**Feature test (not needed to ship):** `@supports (selector(:has(*)))`
 
 ```html
 <!-- Real radios underneath — arrow-key navigable, announced as a group. -->
@@ -184,14 +185,19 @@ check its tier in `modern-css.md` first.
   grid-template-columns: repeat(var(--n), 1fr);
 }
 
-/* One pill, one cell wide; it slides between options in whole steps. The
-   transition rides a motion token, so reduced motion makes it an instant jump. */
+/* One pill, one cell wide; it slides between options in whole steps, and only
+   when the reader has not asked for reduced motion. Otherwise it jumps. */
 .indicator {
   position: absolute;
   inset-block: 4px;
   inline-size: calc(100% / var(--n));
   transform: translateX(calc(var(--i, 0) * 100%));
-  transition: transform 200ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .indicator {
+    transition: transform 200ms;
+  }
 }
 
 /* :has() maps the checked radio to the pill's slot. */
@@ -219,7 +225,7 @@ check its tier in `modern-css.md` first.
 
 ## Scroll snap
 
-**Guard:** `@supports (scroll-snap-type: x mandatory)`
+**Feature test (not needed to ship):** `@supports (scroll-snap-type: x mandatory)`
 
 ```html
 <!-- A focusable region, so arrow keys / Page / Home-End scroll it too. The
@@ -265,7 +271,7 @@ check its tier in `modern-css.md` first.
 
 ## :user-valid / :user-invalid
 
-**Guard:** `@supports (selector(:user-valid))`
+**Feature test (not needed to ship):** `@supports (selector(:user-valid))`
 
 ```css
 /* :invalid fires immediately — an empty required field is

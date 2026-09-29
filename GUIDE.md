@@ -864,11 +864,17 @@ of `src/showcases/registry.ts` derives every showcase's tier from that file.
 Entries carry no tier field, and `ShowcasePage` groups them by the derived
 one:
 
-| Tier                   | Baseline status              | Allowed where?                          |
-|------------------------|------------------------------|-----------------------------------------|
-| `widely-available`     | high                         | Foundation + demos                      |
-| `newly-available`      | low                          | Demos, behind `@supports`, fallback kept |
-| `limited-availability` | not Baseline, or no mapping  | Demos only, behind `@supports`          |
+| Tier                   | Baseline status              | Allowed where?                                                         |
+|------------------------|------------------------------|------------------------------------------------------------------------|
+| `widely-available`     | high                         | Foundation, site chrome and demos                                      |
+| `newly-available`      | low                          | Foundation and chrome unguarded; demos behind `@supports`, fallback kept |
+| `limited-availability` | not Baseline, or no mapping  | Demos and chrome, behind `@supports` or skipped harmlessly where CSS cannot test for it, with an accessible fallback |
+
+The site chrome uses showcased features on purpose ("does the site dogfood
+this?" is a standing design test in the roadmap): the theme panel is
+anchor-positioned, the chapter reveals are scroll-driven, and pages cross-fade
+with cross-document view transitions. Each of those degrades to a working
+page in an engine without it.
 
 A showcase changes tier when the data does: a `web-features` bump (the
 Monday bot, see "What changed") regenerates the JSON and the next build
