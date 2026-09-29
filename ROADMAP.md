@@ -318,6 +318,16 @@ source before touching the wording or the sources-read stamp in
 - A real-Chrome check of the cross-document transitions and the theme
   no-flash on the live site after a deploy, still owed from
   [docs/prerender-scope.md](docs/prerender-scope.md).
+- The anchor tooltip's three engine workarounds, measured 2026-09-28 in
+  Chromium 149, Firefox 151 and WebKit 26.5: `data-reveal="off"` on the
+  demo (Chromium keeps a card with a finished scroll-driven `transform`
+  as the fixed hint's containing block), `display` toggled instead of
+  `visibility` (Firefox stops restyling an element with a position-try
+  fallback applied) and no transition under reduced motion (WebKit never
+  finishes a near-zero `display` exit on an anchored element). Re-test on
+  each engine release and drop a workaround once its bug is fixed. Side
+  effects meanwhile: Firefox skips the fade-out, and WebKit shows a flipped
+  hint back above its trigger for the length of the fade-out.
 
 ---
 
@@ -376,6 +386,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-09** The anchor tooltip's flip made real. The caption promised the hint would flip at an edge, and it never did, in any engine, even at first layout: `position-area: top center` limits the hint to the button's own column, a wider hint overflows every option, and the spec then keeps the base position and shifts it over its trigger. `block-start span-all` flips it in all three engines, at first layout and on scroll. Three engine traps came with it, each worked around and listed under owed checks for re-testing: Firefox stops restyling an element with a fallback applied (so show and hide now toggle `display` with `allow-discrete` and `@starting-style`), WebKit never finishes a near-zero `display` exit on an anchored element (so no transition under reduced motion, in the demo and in the portable snippet), and Chromium makes a card with a scroll-driven `transform` the fixed hint's containing block (so the card skips its reveal, `data-reveal="off"`, now in GUIDE). The hover bridge covers both sides and the border, so the pointer keeps hover across the gap in 0.5px steps. The copy claims only what is measured and names its criteria: keyboard reveal is 2.1.1, hoverable and persistent are 1.4.13, and dismissible stays the honest gap. `anchor-tooltip.spec.ts` runs in three engines with and without reduced motion; 27 of its 36 tests fail on the old code.
 
 - **2026-09** The Monday bot's first real move, and what review caught: `web-features` 3.39 moved Safari 27 into anchor positioning and customizable select, and the bot proposed the anchor line twice, once per anchor showcase, both claiming Safari 27 was "the first engine to ship it". Both anchor showcases map to one feature, and a feature's engine version in `web-features` is the first release with every compat key: Chrome, Firefox and Safari have shipped the core since Firefox 147 in January 2026, and Safari 27 is only the first with the two `position-visibility` values the feature also counts. `gen-moves.mjs` now reports a move once per feature, reads the per-key data to choose between "ships" and "completes", lists a "completes" that changes no Baseline tier in the pull request body instead of on the site (nobody can act on it), matches a hand-written line's engine on word boundaries (Safari 26.2 no longer covers Safari 26) and dedupes against a hand-written line on any showcase of that feature; the unit guard rejects duplicate titles; the summaries of both anchor showcases explain their limited badge. The bot's own pull request was replaced by this change, which carries `web-features` 3.40 and the one line that held: customizable select in Safari 27.
 

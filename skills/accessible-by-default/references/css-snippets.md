@@ -395,18 +395,33 @@ safe without one; check its tier in `modern-css.md`.
 ```css
 /* Hidden until hover or keyboard focus. */
 .hint-bubble {
+  display: none;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 150ms, visibility 150ms;
+  transition:
+    opacity 150ms,
+    display 150ms allow-discrete;
 }
 
-/* Reveal on hover, on keyboard focus, and while the bubble itself is hovered
-   — so it stays put when you move onto it (the hoverable half of 1.4.13). */
+/* Reveal on hover, on keyboard focus, and while the bubble itself is hovered,
+   so it stays put when you move onto it (the hoverable part of 1.4.13). */
 .hint button:hover ~ .hint-bubble,
 .hint button:focus-visible ~ .hint-bubble,
 .hint-bubble:hover {
+  display: block;
   opacity: 1;
-  visibility: visible;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+/* No fade under reduced motion. A near-instant display exit never finishes
+   on an anchored element in WebKit (measured in 26.5), so a page with a
+   0.01ms reduced-motion reset would leave the hint open. */
+@media (prefers-reduced-motion: reduce) {
+  .hint-bubble {
+    transition-property: none;
+  }
 }
 
 /* The enhancement: anchor the bubble to its trigger and let it flip to stay
@@ -419,9 +434,19 @@ safe without one; check its tier in `modern-css.md`.
   .hint-bubble {
     position: fixed;
     position-anchor: --hint;
-    position-area: top center;
+    position-area: block-start span-all;
     margin-block-end: 8px;
-    position-try-fallbacks: flip-block, flip-inline;
+    position-try-fallbacks: flip-block;
+  }
+
+  /* A bridge over the 8px gap on both sides, so the pointer can cross to a
+     flipped hint as well as to one above. */
+  .hint-bubble::before {
+    content: '';
+    position: absolute;
+    inset-block: -8px;
+    inset-inline: 0;
+    z-index: -1;
   }
 }
 ```
