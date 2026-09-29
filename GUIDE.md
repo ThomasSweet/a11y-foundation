@@ -92,7 +92,7 @@ tests/
 │                             baseline, revisions
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
-                              standards-map
+                              standards-map, anchor-tooltip
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -903,7 +903,15 @@ header links.
    `MANIFEST` in `scripts/baseline-watch.js` naming the kind and the files
    it lives in. The vitest gate fails the day the feature reaches its
    removal bar, and the message says what to delete.
-5. Run `npm run build` (the prebuild rewrites `baseline-data.json`) and
+5. If the demo holds a `position: fixed` element outside the top layer (an
+   anchored hint, say), put `data-reveal="off"` on the demo's root. The
+   showcase page reveals each card with a scroll-driven `transform`, and
+   Chromium makes such a card the containing block of its fixed
+   descendants, even after the animation has ended, so the element would be
+   placed against the card instead of the viewport. The page skips the
+   reveal for any card that contains the attribute. On a chapter's `.demo`
+   wrapper the same attribute switches off the chapter reveal.
+6. Run `npm run build` (the prebuild rewrites `baseline-data.json`) and
    `npm run skill:gen`, and commit the generated files with the demo; CI
    checks that they match.
 

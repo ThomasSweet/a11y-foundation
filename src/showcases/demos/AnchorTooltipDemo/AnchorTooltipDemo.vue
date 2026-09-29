@@ -9,8 +9,8 @@
       flip). The area is <code>block-start span-all</code> on purpose: a
       <code>center</code> column is only as wide as the button, so a wider hint
       overflows every option and never flips. It opens on
-      <strong>hover and keyboard focus</strong>, and you can move the pointer
-      onto the hint without it vanishing: the parts of
+      <strong>hover and keyboard focus</strong>, and it stays open while you
+      move the pointer onto it: the hoverable and persistent parts of
       <abbr title="WCAG 2.1 Success Criterion 1.4.13">1.4.13</abbr> most tooltips
       get wrong.
     </p>
@@ -211,7 +211,7 @@
   .anchor-tooltip-bubble::before {
     content: '';
     position: absolute;
-    inset-block: calc(var(--space-2) * -1);
+    inset-block: calc(var(--space-2) * -1 - 1px);
     inset-inline: 0;
     z-index: -1;
   }

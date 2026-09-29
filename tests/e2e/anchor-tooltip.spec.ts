@@ -80,24 +80,34 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
       await expect(hint(page)).toBeHidden()
     })
 
-    test('stays open while the pointer moves onto the flipped hint', async ({ page }) => {
-      await placeTrigger(page, 4)
-      const button = (await trigger(page).boundingBox())!
-      const x = button.x + button.width / 2
-      await page.mouse.move(x, button.y + button.height / 2)
-      await expect.poll(() => placement(page)).toBe('below')
+    for (const [where, top] of [
+      ['above', 360],
+      ['below', 4],
+    ] as const) {
+      test(`keeps hover while the pointer crosses to the hint ${where} its trigger`, async ({ page }) => {
+        await placeTrigger(page, top)
+        const button = (await trigger(page).boundingBox())!
+        const x = button.x + button.width / 2
+        await page.mouse.move(x, button.y + button.height / 2)
+        await expect.poll(() => placement(page)).toBe(where)
 
-      const bubble = (await hint(page).boundingBox())!
-      const start = button.y + button.height / 2
-      const end = bubble.y + bubble.height / 2
-      for (let step = 1; step <= 8; step++) {
-        await page.mouse.move(x, start + ((end - start) * step) / 8)
-        await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)))
-        expect(await hint(page).isVisible(), `hidden at step ${step} of 8`).toBe(true)
-      }
+        const bubble = (await hint(page).boundingBox())!
+        const start = Math.round(button.y + button.height / 2)
+        const end = Math.round(bubble.y + bubble.height / 2)
+        const direction = Math.sign(end - start)
+        expect(direction, 'the hint and its trigger share a centre').not.toBe(0)
+        for (let y = start; y !== end; y += direction / 2) {
+          await page.mouse.move(x, y)
+          const hovered = await page.evaluate(
+            (id) => document.querySelector(`#${id}:hover, [aria-describedby="${id}"]:hover`) !== null,
+            hintId,
+          )
+          expect(hovered, `hover lost at y=${y.toFixed(1)}`).toBe(true)
+        }
 
-      await page.mouse.move(4, 400)
-      await expect(hint(page)).toBeHidden()
-    })
+        await page.mouse.move(4, 400)
+        await expect(hint(page)).toBeHidden()
+      })
+    }
   })
 }

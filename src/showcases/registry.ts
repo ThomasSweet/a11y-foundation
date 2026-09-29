@@ -438,9 +438,9 @@ const entries: Omit<Showcase, 'tier'>[] = [
     summary:
       'A hover/focus hint tethered to its trigger with anchor positioning, ' +
       'flipped below it by position-try-fallbacks when the top of the viewport ' +
-      'would cut it off, with no positioning JS. It also nails the parts of ' +
-      'WCAG 1.4.13 most tooltips ' +
-      'miss: keyboard-focus reveal, hoverable, and persistent. The one leg CSS ' +
+      'would cut it off, with no positioning JS. It opens on keyboard focus, ' +
+      'not only hover, and meets the two 1.4.13 conditions most tooltips ' +
+      'miss: hoverable and persistent. The one leg CSS ' +
       'can’t reach (Esc-to-dismiss) is called out honestly. Without anchor ' +
       'support it falls back to a fixed above-the-trigger placement.',
     links: [
@@ -454,7 +454,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       },
     ],
     payoff:
-      'Position fallbacks flip the tooltip below its trigger when the top of the viewport would clip it, and it opens on keyboard focus and stays hoverable and persistent (1.4.13).',
+      'Position fallbacks flip the tooltip below its trigger when the top of the viewport would clip it; it opens on keyboard focus as well as hover (2.1.1) and stays hoverable and persistent (1.4.13).',
     tags: ['interaction'],
     component: AnchorTooltipDemo,
     snippetHtml: anchorTooltipSnippetHtml,
