@@ -22,12 +22,13 @@
   .standards-map-row {
     display: grid;
     container: standards-map-row / inline-size;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
     padding-block: var(--space-4);
     border-block-start: 1px dashed var(--bp-frame);
 
     @include from('md') {
-      grid-template-columns: 9rem 1fr;
+      grid-template-columns: 9rem minmax(0, 1fr);
     }
   }
 

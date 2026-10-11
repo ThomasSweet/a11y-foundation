@@ -87,6 +87,7 @@
 @layer components {
   .custom-select-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -97,6 +98,7 @@
 
   .custom-select-field {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     max-inline-size: 22rem;
   }
@@ -145,6 +147,7 @@
       gap: var(--space-3);
       box-sizing: border-box;
       inline-size: 100%;
+      min-inline-size: 0;
       min-block-size: 44px;
       padding: var(--space-2) var(--space-3);
       border: 1px solid var(--color-border);
@@ -171,6 +174,8 @@
       flex: 1;
       align-items: center;
       gap: var(--space-3);
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
 
       .custom-select-desc {
         display: none;

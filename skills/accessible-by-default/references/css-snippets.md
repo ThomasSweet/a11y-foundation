@@ -28,7 +28,7 @@ safe without one; check its tier in `modern-css.md`.
 /* The card reflows based on its container's width, not the viewport. */
 @container (min-width: 20rem) {
   .card {
-    grid-template-columns: 3rem 1fr;
+    grid-template-columns: 3rem minmax(0, 1fr);
   }
 }
 
@@ -182,7 +182,7 @@ safe without one; check its tier in `modern-css.md`.
 .track {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(var(--n), 1fr);
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
 }
 
 /* One pill, one cell wide; it slides between options in whole steps, and only

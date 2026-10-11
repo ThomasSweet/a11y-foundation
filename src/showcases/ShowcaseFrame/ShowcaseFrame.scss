@@ -3,9 +3,11 @@
   .showcase {
     position: relative;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
     min-inline-size: 0;
-    padding: var(--space-6);
+    padding: clamp(var(--space-3), 0.25rem + 5vw, var(--space-6));
+    overflow-wrap: break-word;
     border: 1px solid var(--bp-line-strong);
     background-color: var(--bp-sheet);
     transition: border-color var(--duration-normal) var(--easing-standard);
@@ -127,7 +129,7 @@
 
   .showcase-demo {
     min-inline-size: 0;
-    padding: var(--space-4);
+    padding: clamp(var(--space-2), 5vw - 0.25rem, var(--space-4));
     border: 1px dashed var(--color-border);
     border-radius: var(--radius-md);
     scroll-margin-block: var(--space-8);

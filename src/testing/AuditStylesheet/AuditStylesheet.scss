@@ -1,6 +1,7 @@
 @layer components {
   .audit-css {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -18,6 +19,7 @@
 
   .audit-css-frame {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     padding: var(--space-3);
     border: 1px dashed var(--color-border);
@@ -35,6 +37,7 @@
 
   .audit-css-example {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
     align-items: start;
     padding: var(--space-4);
@@ -57,6 +60,7 @@
 
   .audit-css-field-labeled {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     font-size: var(--text-sm);
     font-weight: 600;

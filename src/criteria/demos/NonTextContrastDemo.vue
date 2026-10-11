@@ -35,6 +35,7 @@ const chips = ['Unread', 'Starred']
     --demo-border: light-dark(#8a8a8a, #8f8f8f);
 
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -80,6 +81,7 @@ const chips = ['Unread', 'Starred']
 
   .non-text-contrast-chips {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2);
     margin: 0;
     padding: 0;

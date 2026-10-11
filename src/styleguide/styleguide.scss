@@ -185,9 +185,16 @@
     color: var(--color-text-subtle);
   }
 
+  .guide-note code,
+  .principles code {
+    display: inline-block;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+
   .swatches {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
     gap: var(--space-4);
     margin: 0;
     padding: 0;
@@ -234,16 +241,22 @@
   }
 
   .type-families {
+    container-type: inline-size;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     margin-block-end: var(--space-6);
   }
 
   .type-families div {
     display: grid;
-    grid-template-columns: 4rem 1fr;
-    gap: var(--space-3);
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1) var(--space-3);
     align-items: baseline;
+
+    @include cq-from('xs') {
+      grid-template-columns: 4rem minmax(0, 1fr);
+    }
   }
 
   .type-families dt {
@@ -255,10 +268,13 @@
   .type-families dd {
     margin: 0;
     font-size: var(--text-lg);
+    overflow-wrap: break-word;
   }
 
   .type-scale {
+    container-type: inline-size;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
     margin: 0;
     padding: 0;
@@ -267,12 +283,17 @@
 
   .type-scale li {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
+    flex-direction: column;
     gap: var(--space-2) var(--space-4);
+
+    @include cq-from('sm') {
+      flex-flow: row wrap;
+      align-items: baseline;
+    }
   }
 
   .type-spec {
+    overflow-wrap: break-word;
     color: var(--color-text);
   }
 
@@ -292,11 +313,13 @@
 
   .space-scale li {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-1) var(--space-4);
   }
 
   .space-bar {
+    flex: none;
     block-size: 1rem;
     border-radius: var(--radius-sm);
     background: var(--gradient-accent);
@@ -383,8 +406,13 @@
     display: inline-flex;
     flex-direction: column;
     gap: var(--space-1);
+    max-inline-size: 100%;
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
+  }
+
+  .element-field input {
+    font-size: var(--text-base);
   }
 
   .principles {

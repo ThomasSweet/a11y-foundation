@@ -39,6 +39,7 @@
   .reading-flow-demo {
     display: grid;
     gap: var(--space-4);
+    container-type: inline-size;
   }
 
   .reading-flow-caption,
@@ -81,6 +82,16 @@
     list-style: none;
   }
 
+  .reading-flow-item {
+    display: grid;
+    flex: 1 1 5.5rem;
+
+    @include cq-from('md') {
+      flex: none;
+      align-self: start;
+    }
+  }
+
   .reading-flow-item:last-child {
     order: -1;
 
@@ -100,6 +111,7 @@
     display: grid;
     justify-items: start;
     gap: var(--space-1);
+    inline-size: 100%;
     padding: var(--space-3) var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);

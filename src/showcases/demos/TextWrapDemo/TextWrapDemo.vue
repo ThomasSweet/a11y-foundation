@@ -47,6 +47,7 @@ const body =
 @layer components {
   .text-wrap-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -59,7 +60,7 @@ const body =
 
     input {
       flex: 1;
-      min-inline-size: 8rem;
+      min-inline-size: min(8rem, 100%);
     }
   }
 

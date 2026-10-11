@@ -60,7 +60,8 @@
     gap: var(--space-3);
   }
 
-  .spelling-error-invite {
+  .spelling-error-invite,
+  .spelling-error-note {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
 

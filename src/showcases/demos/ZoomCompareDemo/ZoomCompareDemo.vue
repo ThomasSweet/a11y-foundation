@@ -60,6 +60,7 @@
   .zoom-compare {
     --factor: 1;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
 
     &:has(input[value='1.5']:checked) {
@@ -113,20 +114,24 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
+    min-block-size: var(--space-6);
+    padding-inline-end: var(--space-2);
     font-size: var(--text-sm);
   }
 
   .zoom-compare-panels {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
 
     @include from('sm') {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   .zoom-compare-panel {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     align-content: start;
   }

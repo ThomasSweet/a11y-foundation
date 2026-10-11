@@ -9,38 +9,24 @@
       <article class="text-spacing-card">
         <p class="text-spacing-tag">lets the text grow</p>
         <div class="text-spacing-content">
-          <p class="text-spacing-heading">Shipping update</p>
-          <p>
-            Orders placed before noon leave the same day, and every parcel
-            gets a tracking link the moment the label prints.
-          </p>
-          <p>
-            During launch weeks the cut-off moves an hour earlier, and the
-            status page carries the current one.
-          </p>
-          <p>
-            Returns ride the same tracking link, and a refund starts the
-            moment the carrier scans the parcel back in.
-          </p>
+          <p class="text-spacing-heading">{{ update.heading }}</p>
+          <p v-for="paragraph in update.paragraphs" :key="paragraph">{{ paragraph }}</p>
         </div>
       </article>
 
       <article class="text-spacing-card text-spacing-card-frozen">
         <p class="text-spacing-tag">a fixed block-size, clipped</p>
-        <div class="text-spacing-content">
-          <p class="text-spacing-heading">Shipping update</p>
-          <p>
-            Orders placed before noon leave the same day, and every parcel
-            gets a tracking link the moment the label prints.
-          </p>
-          <p>
-            During launch weeks the cut-off moves an hour earlier, and the
-            status page carries the current one.
-          </p>
-          <p>
-            Returns ride the same tracking link, and a refund starts the
-            moment the carrier scans the parcel back in.
-          </p>
+        <div class="text-spacing-frozen-box">
+          <div
+            v-for="layer in frozenLayers"
+            :key="layer"
+            class="text-spacing-content"
+            :class="{ 'text-spacing-sizer': layer === 'sizer' }"
+            :aria-hidden="layer === 'sizer' ? 'true' : undefined"
+          >
+            <p class="text-spacing-heading">{{ update.heading }}</p>
+            <p v-for="paragraph in update.paragraphs" :key="paragraph">{{ paragraph }}</p>
+          </div>
         </div>
       </article>
     </div>
@@ -53,6 +39,18 @@
     </p>
   </div>
 </template>
+
+<script setup lang="ts">
+const update = {
+  heading: 'Shipping update',
+  paragraphs: [
+    'Orders placed before noon leave the same day, and every parcel gets a tracking link the moment the label prints.',
+    'During launch weeks the cut-off moves an hour earlier, and the status page carries the current one.',
+    'Returns ride the same tracking link, and a refund starts the moment the carrier scans the parcel back in.',
+  ],
+}
+const frozenLayers = ['sizer', 'text'] as const
+</script>
 
 <style scoped lang="scss">
 @layer components {
@@ -89,9 +87,18 @@
     }
   }
 
-  .text-spacing-card-frozen {
-    block-size: 15rem;
+  .text-spacing-frozen-box {
+    position: relative;
     overflow: clip;
+  }
+
+  .text-spacing-sizer {
+    visibility: hidden;
+  }
+
+  .text-spacing-sizer + .text-spacing-content {
+    position: absolute;
+    inset: 0;
   }
 
   .text-spacing-tag {
@@ -117,7 +124,7 @@
     font-weight: 600;
   }
 
-  .text-spacing-demo:has(.text-spacing-input:checked) .text-spacing-content {
+  .text-spacing-demo:has(.text-spacing-input:checked) .text-spacing-content:not(.text-spacing-sizer) {
     line-height: 1.5;
     letter-spacing: 0.12em;
     word-spacing: 0.16em;

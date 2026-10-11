@@ -21,6 +21,7 @@ const bg = ref('#2563eb')
 @layer components {
   .contrast-color-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     justify-items: start;
   }

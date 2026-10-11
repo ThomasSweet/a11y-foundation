@@ -54,6 +54,7 @@ const services: { name: string; state: State }[] = [
     --cues: off;
 
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
 
     &:has(.cues-toggle input:checked) {

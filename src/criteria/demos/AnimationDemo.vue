@@ -42,6 +42,7 @@ const playId = ref(0)
     --rm: 0;
 
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
 
     @include reduced-motion {

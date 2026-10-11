@@ -42,6 +42,10 @@
     max-inline-size: 100%;
   }
 
+  fieldset {
+    min-inline-size: 0;
+  }
+
   input,
   button,
   textarea,

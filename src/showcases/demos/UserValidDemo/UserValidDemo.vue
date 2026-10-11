@@ -47,6 +47,7 @@ const patientId = useId()
 @layer components {
   .user-valid-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -63,6 +64,7 @@ const patientId = useId()
 
   .user-valid-field {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     align-content: start;
   }

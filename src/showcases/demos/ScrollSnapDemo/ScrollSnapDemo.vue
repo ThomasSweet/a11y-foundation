@@ -41,6 +41,7 @@ const cards = [
 @layer components {
   .snap-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 

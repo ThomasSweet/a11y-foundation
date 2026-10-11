@@ -87,6 +87,7 @@ function setView(next: View) {
 @layer components {
   .view-transition-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
