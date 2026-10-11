@@ -20,11 +20,15 @@ const pages = [
 const textSpacing =
   '* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-block-end: 2em !important; }'
 const doubleText = 'html { font-size: 200% !important; }'
+const wideFont =
+  '* { font-family: Verdana, "DejaVu Sans", sans-serif !important; } code, kbd, samp, pre { font-family: "Courier New", monospace !important; }'
 
 const settings = [
   { name: 'at 320 CSS pixels', width: 320, height: 568, css: '' },
   { name: 'at 320 CSS pixels with WCAG text spacing', width: 320, height: 568, css: textSpacing },
   { name: 'at 1280 CSS pixels with 200% text', width: 1280, height: 800, css: doubleText },
+  { name: 'at 320 CSS pixels with a wide font and WCAG text spacing', width: 320, height: 568, css: wideFont + textSpacing },
+  { name: 'at 1280 CSS pixels with a wide font and 200% text', width: 1280, height: 800, css: wideFont + doubleText },
 ]
 
 function cutOffContent(page: Page) {

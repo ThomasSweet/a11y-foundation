@@ -143,9 +143,10 @@
 
   .zoom-compare-stage {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     justify-items: start;
     gap: var(--space-2);
-    block-size: 13rem;
+    min-block-size: 13rem;
     padding: var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -172,7 +173,6 @@
     background-color: var(--color-primary);
     color: var(--color-primary-text);
     font-weight: 700;
-    white-space: nowrap;
   }
 
   .zoom-compare-card-zoom {
