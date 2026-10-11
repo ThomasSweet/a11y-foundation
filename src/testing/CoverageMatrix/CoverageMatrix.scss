@@ -1,12 +1,14 @@
 @layer components {
   .coverage-matrix {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
   }
 
   .coverage-matrix-scroll {
     overflow-x: auto;
     min-inline-size: 0;
+    container-type: inline-size;
     overscroll-behavior-x: contain;
 
     &:focus-visible {
@@ -18,10 +20,12 @@
   .coverage-matrix-table {
     inline-size: 100%;
     border-collapse: collapse;
-    min-inline-size: max-content;
   }
 
   .coverage-matrix-caption {
+    position: sticky;
+    inset-inline-start: 0;
+    max-inline-size: 100cqi;
     margin-block-end: var(--space-4);
     color: var(--color-text-subtle);
     font-size: var(--text-sm);
@@ -55,6 +59,7 @@
   }
 
   .coverage-matrix-issue {
+    min-inline-size: 11rem;
     font-weight: 600;
   }
 

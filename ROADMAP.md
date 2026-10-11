@@ -318,6 +318,10 @@ source before touching the wording or the sources-read stamp in
 - A real-Chrome check of the cross-document transitions and the theme
   no-flash on the live site after a deploy, still owed from
   [docs/prerender-scope.md](docs/prerender-scope.md).
+- After the October responsiveness sweep: a look on a real iPhone at the
+  hero strike, the "Content source", "Theme" and "Filter by topic" rows, and
+  proof's "A layered job" section. Playwright's WebKit reproduced all
+  three before the fix, but it is not iOS Safari.
 - The anchor tooltip's three engine workarounds, measured 2026-09-28 in
   Chromium 149, Firefox 151 and WebKit 26.5: `data-reveal="off"` on the
   demo (Chromium keeps a card with a finished scroll-driven `transform`
@@ -386,6 +390,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-10** Responsiveness sweep. The hero strike sat a line too low and up to 2.45 times too wide in WebKit, so on every iPhone: the SVG was absolutely positioned in an inline span with no size of its own, and WebKit sized it against the heading. A sweep of all 14 pages at nine viewport sizes in three engines, with WCAG text spacing and 200% text, then found one root cause behind nearly everything else: a `display: grid` stack has an auto column that cannot be narrower than its widest child, so one long code path or one text input widened a whole section, and the page frame's `overflow: clip` cut it off without a scrollbar (proof's test layers below about 420px in Chromium and WebKit, eight demos at 320, the open standards-map card under 390px). Fixed at the hops with `minmax(0, 1fr)`, `overflow-wrap: anywhere` on inline code, and `min-inline-size: 0` on inputs and fieldsets. Also: three legends floated inside flex fieldsets, which WebKit keeps on the border, became block fieldsets; chapter titles wrap under their number; the contents rail is capped to the viewport, so its last link no longer takes focus below the fold on a short window (2.4.7); the container-queries demo lost its half-size zoom on phones; the attr() bars no longer collapse to nothing. `responsive.spec.ts` fails CI when any page scrolls sideways or cuts off text at 320, at 320 with text spacing, or at 1280 with 200% text. The three rules are in GUIDE, "Layout that cannot be widened".
 
 - **2026-09** The anchor tooltip's flip made real. The caption promised the hint would flip at an edge, and it never did, in any engine, even at first layout: `position-area: top center` limits the hint to the button's own column, a wider hint overflows every option, and the spec then keeps the base position and shifts it over its trigger. `block-start span-all` flips it in all three engines, at first layout and on scroll. Three engine traps came with it, each worked around and listed under owed checks for re-testing: Firefox stops restyling an element with a fallback applied (so show and hide now toggle `display` with `allow-discrete` and `@starting-style`), WebKit never finishes a near-zero `display` exit on an anchored element (so no transition under reduced motion, in the demo and in the portable snippet), and Chromium makes a card with a scroll-driven `transform` the fixed hint's containing block (so the card skips its reveal, `data-reveal="off"`, now in GUIDE). The hover bridge covers both sides and the border, so the pointer keeps hover across the gap in 0.5px steps. The copy claims only what is measured and names its criteria: keyboard reveal is 2.1.1, hoverable and persistent are 1.4.13, and dismissible stays the honest gap. `anchor-tooltip.spec.ts` runs in three engines with and without reduced motion; 27 of its 36 tests fail on the old code.
 

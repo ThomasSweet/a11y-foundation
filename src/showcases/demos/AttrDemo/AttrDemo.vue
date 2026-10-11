@@ -51,24 +51,37 @@ const metrics = [
     margin: 0;
     padding: 0;
     list-style: none;
+    container-type: inline-size;
   }
 
   .attr-row {
     display: grid;
-    grid-template-columns: minmax(6rem, 10rem) 1fr 3rem;
+    grid-template-columns: minmax(0, 1fr) 3rem;
     align-items: center;
     gap: var(--space-3);
+
+    @include cq-from('sm') {
+      grid-template-columns: minmax(6rem, 10rem) minmax(0, 1fr) 3rem;
+    }
   }
 
   .attr-label {
     font-size: var(--text-sm);
+    overflow-wrap: anywhere;
   }
 
   .attr-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
     block-size: 0.75rem;
     border-radius: var(--radius-full);
     background-color: var(--color-bg-subtle);
     overflow: hidden;
+
+    @include cq-from('sm') {
+      grid-column: auto;
+      grid-row: auto;
+    }
 
     @include high-contrast {
       border: 1px solid currentcolor;

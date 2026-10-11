@@ -92,7 +92,7 @@ tests/
 │                             baseline, revisions
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
-                              standards-map, anchor-tooltip
+                              standards-map, anchor-tooltip, responsive
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -616,6 +616,42 @@ are component-scale, so the steps start smaller and stop earlier.
 Sizes are em-based for the same reason as the breakpoints: in a container
 query, `em` resolves against the container's font size, so layouts adapt
 when users raise their base font size.
+
+---
+
+## Layout that cannot be widened
+
+Three rules, each from a bug the October 2026 sweep found on this site, and
+each guarded by `tests/e2e/responsive.spec.ts`:
+
+1. **A grid used as a vertical stack names its column.** `display: grid`
+   with no columns has one implicit `auto` track, and an auto track is never
+   narrower than the min-content of its widest child. One long code path or
+   one text input (20 characters by default, a different pixel width in
+   every engine) then widens the whole stack, and `.site-sheet` clips what
+   sticks out. Write `grid-template-columns: minmax(0, 1fr)` on every
+   single-column grid, and `minmax(0, 1fr)` instead of `1fr` in
+   multi-column ones. `min-inline-size: 0` on the grid itself is not enough:
+   it frees the box, not the track.
+2. **A token that cannot break needs `overflow-wrap: anywhere`.** The
+   reset's `break-word` wraps a long word only once its box is already
+   narrow; it does not lower min-content. `base.css` applies `anywhere` to
+   inline `code`, `kbd` and `samp` inside prose. Add it yourself to a
+   label, name or path set in its own element.
+3. **Do not ask an engine to guess.** An absolutely positioned SVG or image
+   with no size, inside an inline containing block, is sized differently by
+   WebKit: give it `inline-size` and `aspect-ratio`, and make the
+   containing block `inline-block`. A `<legend>` floated inside a flex or
+   grid fieldset is a flex item in Chromium and Firefox and stays on the
+   border in WebKit: keep the fieldset a block, float the legend, and let
+   the options flow as `inline-flex`. `justify-self` on a block child of a
+   block container works only in Chromium: use `inline-size: fit-content`.
+
+The spec loads every page at 320 CSS pixels, at 320 with WCAG 1.4.12 text
+spacing and at 1280 with 200% text, and fails on sideways scroll or on any
+text or control cut off by an ancestor that clips. A new page goes in its
+`pages` list. Playwright's WebKit is not iOS Safari, so a layout change
+to the chrome still wants a look on a real iPhone.
 
 ---
 

@@ -104,20 +104,19 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
   }
 
   .content-stress-control {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-    align-items: center;
     margin: 0;
-    padding: var(--space-2) var(--space-4);
+    padding-block: calc(var(--space-2) / 2);
+    padding-inline: var(--space-4) 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
+    font-size: var(--text-sm);
   }
 
   .content-stress-legend {
     float: inline-start;
+    margin-block: calc(var(--space-2) / 2);
+    margin-inline-end: var(--space-4);
     padding-inline-end: var(--space-2);
-    font-size: var(--text-sm);
     font-weight: 600;
   }
 
@@ -125,7 +124,8 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
-    font-size: var(--text-sm);
+    margin-block: calc(var(--space-2) / 2);
+    margin-inline-end: var(--space-4);
   }
 
   .content-stress-stage {
@@ -146,6 +146,10 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
     @include high-contrast {
       border-color: currentcolor;
     }
+
+    @container (inline-size < 26rem) {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
   }
 
   .content-stress-avatar {
@@ -162,6 +166,7 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
 
   .content-stress-body {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     min-inline-size: 0;
   }
@@ -172,6 +177,7 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-text-subtle);
+    overflow-wrap: anywhere;
   }
 
   .content-stress-title {
@@ -188,6 +194,7 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
   .content-stress-byline {
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
+    overflow-wrap: anywhere;
   }
 
   .content-stress-action {
@@ -205,6 +212,11 @@ const active = computed(() => variants.find((v) => v.id === activeId.value) ?? v
       &:hover {
         border-color: var(--color-text-subtle);
       }
+    }
+
+    @container (inline-size < 26rem) {
+      grid-column: 2;
+      justify-self: start;
     }
   }
 

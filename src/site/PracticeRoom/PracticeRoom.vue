@@ -180,9 +180,10 @@ withDefaults(
   .practice-room-preview-open {
     position: absolute;
     inset-block-end: var(--space-4);
-    inset-inline-start: 50%;
-    translate: -50% 0;
+    inset-inline: 0;
     z-index: 1;
+    inline-size: fit-content;
+    margin-inline: auto;
     padding: var(--space-2) var(--space-4);
     border: 1px solid var(--bp-line-strong);
     border-radius: var(--radius-md);
@@ -192,7 +193,8 @@ withDefaults(
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--bp-accent);
-    white-space: nowrap;
+    text-align: center;
+    text-wrap: balance;
 
     @include high-contrast {
       border-color: currentcolor;

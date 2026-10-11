@@ -1,10 +1,11 @@
 <template>
   <div class="dialog-demo">
     <p class="dialog-caption">
-      Two newer platform niceties for overlays. A <code>popover="hint"</code>
-      <strong>toggletip</strong> — click the “?”, and showing, dismissing, and
-      top-layer rendering are free. And a <code>&lt;dialog closedby="none"&gt;</code>
-      <strong>takeover</strong> that Esc and outside-clicks can’t close, for the
+      Two newer platform niceties for overlays. A
+      <code>popover="hint"</code> <strong>toggletip</strong> — click the “?”,
+      and showing, dismissing, and top-layer rendering are free. And a
+      <code>&lt;dialog closedby="none"&gt;</code> <strong>takeover</strong>
+      that Esc and outside-clicks can’t close, for the
       rare must-decide moment (use sparingly — trapping people is normally a
       trap to avoid). Styling reacts to the new <code>:open</code> pseudo-class.
     </p>
@@ -59,6 +60,7 @@ const dlg = ref<HTMLDialogElement | null>(null)
 @layer components {
   .dialog-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 

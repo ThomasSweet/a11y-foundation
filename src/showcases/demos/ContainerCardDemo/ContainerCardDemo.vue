@@ -54,6 +54,7 @@ const cards = [
 @layer components {
   .container-query {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -66,7 +67,7 @@ const cards = [
 
     input {
       flex: 1;
-      min-inline-size: 8rem;
+      min-inline-size: min(8rem, 100%);
     }
   }
 
@@ -74,15 +75,10 @@ const cards = [
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
     gap: var(--space-3);
+    min-inline-size: min(100%, 11rem);
     padding: var(--space-3);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-  }
-
-  @media (width < 30em) {
-    .container-query-stage {
-      zoom: 0.5;
-    }
   }
 
   .card-cell {
@@ -91,6 +87,7 @@ const cards = [
 
   .card {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     block-size: 100%;
     padding: var(--space-3);
@@ -99,7 +96,7 @@ const cards = [
     background-color: var(--color-bg-subtle);
 
     @include cq-from('xs') {
-      grid-template-columns: var(--space-12) 1fr;
+      grid-template-columns: var(--space-12) minmax(0, 1fr);
     }
   }
 
@@ -117,14 +114,17 @@ const cards = [
     display: grid;
     gap: var(--space-1);
     align-content: start;
+    min-inline-size: 0;
   }
 
   .card-title {
     font-size: var(--text-base);
+    overflow-wrap: break-word;
   }
 
   .card-text {
     font-size: var(--text-sm);
+    overflow-wrap: break-word;
     color: var(--color-text-subtle);
   }
 }

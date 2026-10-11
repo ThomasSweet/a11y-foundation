@@ -6,7 +6,7 @@
     line-height: 0.98;
     letter-spacing: -0.02em;
     max-inline-size: 15ch;
-    text-wrap: balance;
+    text-wrap: wrap;
     color: var(--bp-ink);
     margin: 0;
   }
@@ -31,6 +31,7 @@
     --scribble-play: paused;
 
     position: relative;
+    display: inline-block;
     white-space: nowrap;
     animation: hub-scribble-arm 0.01s linear 2.2s forwards;
 
@@ -51,8 +52,10 @@
 
   .hub-strike-scribble {
     position: absolute;
-    inset-block: 0;
-    inset-inline: -0.02em -0.12em;
+    inset-block-start: -0.1em;
+    inset-inline-start: -0.02em;
+    inline-size: calc(100% + 0.14em);
+    aspect-ratio: 200 / 44;
     overflow: visible;
     color: var(--bp-redline);
     pointer-events: none;
@@ -447,6 +450,7 @@
 
   .hub-author {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-4);
     align-items: center;
     margin-block-end: var(--space-6);
@@ -481,6 +485,7 @@
 
   .hub-author-body {
     display: grid;
+    flex: 1 1 14rem;
     gap: var(--space-2);
   }
 

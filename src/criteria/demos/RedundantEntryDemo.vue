@@ -59,6 +59,7 @@ defineProps({
 @layer components {
   .redundant-entry-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -69,6 +70,7 @@ defineProps({
 
   .redundant-entry-step {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
     padding: var(--space-3) var(--space-4);
     border: 1px solid var(--color-border);
@@ -86,7 +88,9 @@ defineProps({
   }
 
   .redundant-entry-summary {
+    container-type: inline-size;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     margin: 0;
     font-size: var(--text-sm);
@@ -105,6 +109,11 @@ defineProps({
       margin: 0;
       font-weight: 600;
     }
+
+    @container (inline-size < 12rem) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   .redundant-entry-same {
@@ -117,11 +126,13 @@ defineProps({
 
   .redundant-entry-refill {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
   }
 
   .redundant-entry-field {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     font-size: var(--text-sm);
     font-weight: 600;

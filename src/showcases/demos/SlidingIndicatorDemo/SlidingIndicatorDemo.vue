@@ -39,6 +39,7 @@ const view = ref(options[0])
 @layer components {
   .slide-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -56,8 +57,9 @@ const view = ref(options[0])
   .segmented-track {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(var(--n), 1fr);
-    justify-self: start;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    inline-size: fit-content;
+    max-inline-size: 100%;
     padding: var(--space-1);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
@@ -95,8 +97,9 @@ const view = ref(options[0])
     z-index: 1;
     display: grid;
     place-items: center;
+    place-content: center;
     min-block-size: 40px;
-    padding-inline: var(--space-4);
+    padding-inline: clamp(var(--space-2), 5vw - 0.25rem, var(--space-4));
     border-radius: var(--radius-full);
     cursor: pointer;
 

@@ -107,21 +107,20 @@ const theme = useSiteTheme()
   }
 
   .light-dark-switch {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-    align-items: center;
     justify-self: start;
     margin: 0;
-    padding: var(--space-2) var(--space-4);
+    padding-block: calc(var(--space-2) / 2);
+    padding-inline: var(--space-4) 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
+    font-size: var(--text-sm);
   }
 
   .light-dark-switch-legend {
     float: inline-start;
+    margin-block: calc(var(--space-2) / 2);
+    margin-inline-end: var(--space-4);
     padding-inline-end: var(--space-2);
-    font-size: var(--text-sm);
     font-weight: 600;
   }
 
@@ -129,7 +128,8 @@ const theme = useSiteTheme()
     display: inline-flex;
     align-items: center;
     gap: var(--space-1);
-    font-size: var(--text-sm);
+    margin-block: calc(var(--space-2) / 2);
+    margin-inline-end: var(--space-4);
     text-transform: capitalize;
   }
 

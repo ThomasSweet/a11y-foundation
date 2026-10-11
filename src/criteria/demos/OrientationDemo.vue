@@ -43,6 +43,7 @@ const landscape = ref(false)
 @layer components {
   .orientation-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
   }
 
@@ -54,14 +55,15 @@ const landscape = ref(false)
   .orientation-stage {
     display: flex;
     justify-content: center;
+    align-items: start;
     padding: var(--space-2);
   }
 
   .orientation-device {
     position: relative;
     display: grid;
-    inline-size: 11rem;
-    block-size: 17rem;
+    inline-size: min(11rem, 100%);
+    aspect-ratio: 11 / 17;
     padding: var(--space-3);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -73,8 +75,8 @@ const landscape = ref(false)
   }
 
   .is-landscape .orientation-device {
-    inline-size: 17rem;
-    block-size: 11rem;
+    inline-size: min(17rem, 100%);
+    aspect-ratio: 17 / 11;
   }
 
   .orientation-screen {

@@ -55,6 +55,18 @@
     }
   }
 
+  @media (width > 52rem) {
+    .chapter-rail {
+      inset-block-start: calc(var(--space-6) - var(--space-2));
+      max-block-size: calc(100svh - 2 * var(--space-6) + 2 * var(--space-2));
+      margin: calc(-1 * var(--space-2));
+      padding: var(--space-2);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-padding-block: var(--space-2);
+    }
+  }
+
   .chapter-rail-title {
     margin: 0 0 var(--space-3);
     padding-block-end: var(--space-2);
@@ -202,12 +214,14 @@
 
   .chapter-headrow-wrap {
     inline-size: fit-content;
+    max-inline-size: 100%;
   }
 
   .chapter-headrow {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-2) var(--space-4);
   }
 
   .chapter-dim {
@@ -228,6 +242,7 @@
   }
 
   .chapter-no {
+    flex: none;
     font-family: var(--bp-mono);
     font-size: clamp(1.75rem, 4.6vw, 2.75rem);
     line-height: 1;
@@ -235,6 +250,7 @@
   }
 
   .chapter-mark {
+    flex: none;
     inline-size: clamp(2rem, 4.2vw, 2.75rem);
     block-size: clamp(2rem, 4.2vw, 2.75rem);
     color: var(--bp-ink);
@@ -247,7 +263,10 @@
   }
 
   .chapter-title {
+    flex: 1 1 min-content;
+    min-inline-size: 0;
     margin: 0;
+    overflow-wrap: break-word;
     font-size: var(--text-4xl);
     line-height: 1;
     letter-spacing: -0.02em;
@@ -262,6 +281,7 @@
 
   .chapter-content :deep(.demo) {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
     min-inline-size: 0;
   }

@@ -134,6 +134,7 @@ const actions = [
     justify-content: center;
     min-inline-size: 24px;
     min-block-size: 24px;
+    padding: 0;
     border: none;
     border-radius: var(--radius-full);
     background: none;

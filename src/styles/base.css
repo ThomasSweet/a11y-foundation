@@ -75,6 +75,17 @@
     min-block-size: 24px;
   }
 
+  select,
+  textarea,
+  input:where(:not([type="checkbox"], [type="radio"])) {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  :where(p, li, dd, figcaption) > :where(code, kbd, samp) {
+    overflow-wrap: anywhere;
+  }
+
   :target {
     scroll-margin-block-start: var(--space-16);
   }

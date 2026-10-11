@@ -162,6 +162,7 @@ const files = [
 
   .agent-skill-swaps {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
     margin-block: var(--space-6) 0;
     padding: 0;
@@ -170,6 +171,7 @@ const files = [
 
   .agent-skill-swap {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
     padding: var(--space-3) var(--space-4);
     border: 1px solid var(--bp-line-strong);
@@ -189,14 +191,21 @@ const files = [
   .agent-skill-swap-line {
     display: flex;
     gap: var(--space-2);
+    align-items: baseline;
     line-height: var(--leading-normal);
     color: var(--bp-ink-2);
   }
 
   .agent-skill-swap-mark {
     flex: none;
+    inline-size: 1em;
     font-weight: 700;
+    text-align: center;
     color: var(--color-success);
+  }
+
+  .agent-skill-swap-line code {
+    overflow-wrap: anywhere;
   }
 
   .agent-skill-swap-line-not .agent-skill-swap-mark {

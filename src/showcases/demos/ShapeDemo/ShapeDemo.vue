@@ -88,6 +88,7 @@ const width = ref(100)
 @layer components {
   .shape-demo {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
@@ -100,7 +101,7 @@ const width = ref(100)
 
     input {
       flex: 1;
-      min-inline-size: 8rem;
+      min-inline-size: min(8rem, 100%);
     }
   }
 

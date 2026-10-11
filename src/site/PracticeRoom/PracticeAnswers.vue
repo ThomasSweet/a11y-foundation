@@ -75,6 +75,7 @@ defineProps<{ id: string; answers: Answer[] }>()
 
     summary {
       inline-size: fit-content;
+      padding-block: var(--space-1);
       font-family: var(--bp-mono);
       font-size: 0.6875rem;
       letter-spacing: 0.08em;

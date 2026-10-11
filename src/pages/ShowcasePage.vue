@@ -126,20 +126,19 @@ const sections = [
   }
 
   .showcase-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    align-items: center;
-    margin: 0;
+    margin-block: calc(var(--space-2) / -2);
+    margin-inline: 0;
     padding: 0;
     border: none;
+    font-size: var(--text-sm);
   }
 
   .showcase-filter-legend {
     float: inline-start;
+    margin-block: calc(var(--space-2) / 2 + var(--space-1) + 1px);
+    margin-inline-end: var(--space-2);
     padding: 0;
     padding-inline-end: var(--space-2);
-    font-size: var(--text-sm);
     font-weight: 600;
   }
 
@@ -147,9 +146,10 @@ const sections = [
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    margin-block: calc(var(--space-2) / 2);
+    margin-inline-end: var(--space-2);
     padding: var(--space-1) var(--space-3);
     border: 1px solid var(--bp-line-strong);
-    font-size: var(--text-sm);
     text-transform: capitalize;
     cursor: pointer;
 

@@ -67,7 +67,7 @@ const slides = [
   .css-carousel-track {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: min(100%, 22rem);
+    grid-auto-columns: min(85%, 22rem);
     gap: var(--space-3);
     margin: 0;
     padding: 0;

@@ -65,13 +65,14 @@ const readout = computed(() =>
   }
 
   .motion-stage {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-4);
   }
 
   .motion-item {
     display: grid;
+    flex: 1 1 8rem;
     gap: var(--space-2);
     justify-items: center;
     align-content: start;
