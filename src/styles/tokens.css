@@ -67,7 +67,7 @@
       var(--color-primary),
       var(--color-accent)
     );
-    --color-surface-glass: light-dark(rgb(255 255 255 / 72%), rgb(20 20 22 / 64%));
+    --color-surface-glass: light-dark(rgb(255 255 255 / 90%), rgb(20 20 22 / 90%));
     --page-glow: radial-gradient(
         60rem 40rem at 15% -10%,
         color-mix(in oklab, var(--color-primary) 22%, transparent),

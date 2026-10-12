@@ -49,7 +49,7 @@ const items = [
 
   .focus-obscured-viewport {
     position: relative;
-    max-block-size: 12rem;
+    max-block-size: 12.5rem;
     overflow-y: auto;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -71,10 +71,14 @@ const items = [
 
   .focus-obscured-list {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
   }
 
   .focus-obscured-link {
-    scroll-margin-block-start: var(--space-12);
+    scroll-margin-block:
+      calc(var(--space-12) + var(--focus-ring-width) + var(--focus-ring-offset))
+      calc(var(--focus-ring-width) + var(--focus-ring-offset));
     padding: var(--space-3);
     border-block-end: 1px solid var(--color-border);
     color: var(--color-text);

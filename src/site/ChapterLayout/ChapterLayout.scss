@@ -387,8 +387,9 @@
       inset-block-end: 0;
       inset-inline: 0;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      padding-block-end: env(safe-area-inset-bottom, 0);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      padding-inline: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+      padding-block-end: calc(env(safe-area-inset-bottom, 0px) + var(--focus-ring-width) + var(--focus-ring-offset));
       border-block-start: 1px solid var(--bp-frame);
       background-color: var(--bp-sheet);
       transition: translate var(--duration-normal) var(--easing-standard);
@@ -465,26 +466,24 @@
 
     .chapter-bar-link {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 2px;
       justify-items: center;
       align-content: center;
       min-block-size: 52px;
-      padding: var(--space-1);
+      padding: var(--space-1) 0;
       font-family: var(--bp-mono);
       font-size: 0.5625rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       text-decoration: none;
+      text-align: center;
+      overflow-wrap: anywhere;
       color: var(--bp-ink-2);
 
       &.is-current {
         color: var(--bp-ink);
         box-shadow: inset 0 2px 0 var(--bp-accent);
-      }
-
-      &:focus-visible {
-        outline: var(--focus-ring-width) solid var(--focus-ring-color);
-        outline-offset: -2px;
       }
 
       @include high-contrast {

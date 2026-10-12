@@ -4,7 +4,6 @@
     min-inline-size: 0;
     border: 1px solid var(--bp-line-strong);
     background-color: var(--color-bg-subtle);
-    overflow: clip;
 
     @include high-contrast {
       border-color: currentcolor;
@@ -13,6 +12,7 @@
 
   .code-block-bar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-3);
@@ -47,11 +47,6 @@
       }
     }
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     @include high-contrast {
       border-color: currentcolor;
     }
@@ -67,11 +62,6 @@
     line-height: var(--leading-normal);
     color: var(--color-text);
     tab-size: 2;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: -2px;
-    }
   }
 
   /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Vue :deep(); recognised in .vue but not a standalone .scss */

@@ -41,6 +41,38 @@ export const craftLinks = {
       href: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
     },
   ],
+  moreContrast: [
+    {
+      label: 'MDN: prefers-contrast',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast',
+    },
+    {
+      label: 'WCAG 1.4.6 Contrast (Enhanced)',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced.html',
+    },
+    {
+      label: 'WCAG 1.4.11 Non-text Contrast',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html',
+    },
+    {
+      label: 'Firefox source docs: which OS setting sets which query',
+      href: 'https://firefox-source-docs.mozilla.org/accessible/HCMMediaQueries.html',
+    },
+  ],
+  glass: [
+    {
+      label: 'WCAG 1.4.3 Contrast (Minimum)',
+      href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',
+    },
+    {
+      label: 'MDN: prefers-reduced-transparency',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-transparency',
+    },
+    {
+      label: 'MDN: backdrop-filter',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter',
+    },
+  ],
   targets: [
     {
       label: 'WCAG 2.5.8 Target Size',
@@ -55,6 +87,14 @@ export const craftLinks = {
     {
       label: 'Defensive CSS (Ahmad Shadeed)',
       href: 'https://defensivecss.dev/',
+    },
+    {
+      label: 'MDN: contain',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/contain',
+    },
+    {
+      label: 'MDN: overflow-clip-margin',
+      href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-clip-margin',
     },
   ],
   contentStress: [

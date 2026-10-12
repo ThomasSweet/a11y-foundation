@@ -5,8 +5,32 @@
   <id>https://accessible-by-default.dev/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://accessible-by-default.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://accessible-by-default.dev/#what-changed"/>
-  <updated>2026-09-21T00:00:00Z</updated>
+  <updated>2026-10-12T00:00:00Z</updated>
   <author><name>Thomas Sweet</name></author>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:glass-contrast</id>
+    <title>Craft: Glass that keeps its contrast</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-glass"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>A new craft section on glass surfaces: the alpha of the tint decides whether text on a translucent bar stays readable, and the site’s own glass token went up to 90% after it was measured.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:more-contrast</id>
+    <title>Craft: More contrast, on request</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-more-contrast"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>A new craft section on prefers-contrast: tick one box to see what Increase Contrast on macOS and iOS changes here, and copy the token overrides that do it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:contained-focus-ring</id>
+    <title>Craft: Containment clips the focus ring</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-defensive"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>The defensive layouts section gained a figure: paint containment, content-visibility and overflow all cut a focus ring at the padding edge, and padding of ring width plus offset keeps it whole.</summary>
+  </entry>
   <entry>
     <id>tag:accessible-by-default.dev,2026-09-21:submit-button-alive</id>
     <title>Craft: Keep the submit button alive</title>

@@ -136,6 +136,10 @@ const slides = [
     &:hover:not(:disabled) {
       border-color: var(--color-text-subtle);
     }
+
+    @include reduced-transparency {
+      background-color: var(--color-surface);
+    }
   }
 
   .css-carousel::scroll-button(inline-start) {

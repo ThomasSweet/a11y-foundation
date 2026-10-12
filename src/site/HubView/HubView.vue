@@ -179,7 +179,7 @@ interface Plate {
 
 const plates: Plate[] = [
   { no: '01', href: '/standard.html', icon: 'standard', title: 'The standard', sub: 'The requirement', desc: 'Eleven criteria as working demos — flip each one off and feel what it prevents, on the timeline WCAG grew along.', cta: 'Open the standard' },
-  { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Twelve default decisions where native HTML and CSS clear the bar, each shown against the hand-rolled version it replaces.', cta: 'Open the craft' },
+  { no: '02', href: '/craft.html', icon: 'craft', title: 'The craft', sub: 'Shipping today', desc: 'Fourteen default decisions where native HTML and CSS clear the bar, each shown against the hand-rolled version it replaces.', cta: 'Open the craft' },
   { no: '03', href: '/showcase.html', icon: 'next', title: 'CSS showcase', sub: 'Shipping and next', desc: 'Thirty-six modern CSS features with their accessibility payoff, sorted by how safely you can ship each today.', cta: 'Open the showcase' },
   { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'The layered testing that checks this site\'s claim — what scanners catch, what only a person can, and how to file what you find.', cta: 'Open the proof' },
 ]
