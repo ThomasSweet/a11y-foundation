@@ -74,14 +74,19 @@ Applied 2026-08-31 (review in the diff):
    ("shape() responsive clipping", "Typed attr()", "Dialog & popover
    dismissal"). Genuine proper names stay as they are.
 
-Tier-1 remainder, not yet applied:
+Tier-1 remainder, applied 2026-10-12:
 
 - One contract sentence at the end of each chapter intro stating what the
-  reader leaves with (Proof's model: "By the end: the layers, what each
-  catches, and the template for filing it.").
-- Craft's closing loop: echo the agent-skill pointer after the twelfth
-  section ("Twelve decisions; the portable copy is the agent skill") so it
-  reads as the takeaway it already is.
+  reader leaves with (Proof's: "By the end: the layers, what each catches,
+  and the template for filing what you find."). None of the four carries a
+  count, so they cannot drift.
+- Craft's closing loop: the agent-skill pointer after the last section
+  ("Fourteen decisions. The portable copy is the agent skill."). The count
+  is a word in two places, the hub plate and this line, and
+  `tests/e2e/prerender.spec.ts` holds both to the number of craft sections.
+
+Still open from Tier 1:
+
 - Optionally, a compact hub method block between lede and plates
   ("Everything runs — no claim here is prose alone. Break it to feel it.
   The site is its own proof — chapter 04's tests audit these very pages.")

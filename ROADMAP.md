@@ -71,8 +71,9 @@ September, nothing user-facing said the site changed. Tier 1 (copy) largely appl
 2026-08-31: hub lede states claim + mechanic + audience, plate descs became
 outcome contracts with counts, coverage-policy sentence on the Standard
 intro (the 2.4.7 trap), boring-prose rail labels, three syntax-only
-showcase titles renamed, standard→craft bridge line. Tier-1 remainder:
-per-chapter intro contract sentences, craft's closing agent-skill echo.
+showcase titles renamed, standard→craft bridge line. The Tier 1 remainder
+went in on 2026-10-12: a "By the end" contract sentence closes each chapter
+intro, and craft ends on its count and the agent skill.
 Tier 2 items 1 and 2, the what's-new block and the Atom feed, shipped
 2026-09-13 (see Done). Tier 2 remainder, each its own change: task-index
 sheet (A·05), criterion cards registered in the Standard rail, glossary as
@@ -95,45 +96,24 @@ library that publishes runtime state as custom properties. About two thirds
 of the list was already on the site. Every candidate went through three
 refuters (site fit, the accessibility claim, buildability); the claims below
 are the narrowed versions that survived, and the criteria named are the ones
-that held. Shipped in two changes (see Done): the chapter bar's
+that held. Shipped in three changes (see Done): the chapter bar's
 `:focus-within` exit, the slide-away that keeps it off a focused control and
 the gated `view()` reveal; then the JavaScript paragraph in proof, the live
 submit button in the validation section and the scroll-state sentence about
-the focus exit. Still open, in order:
+the focus exit; then, in October, the glass and more-contrast sections, the
+contained focus ring and the 1.3.4 demo on a real orientation query. Still
+open:
 
-1. "Reduced, not removed": under reduced motion the craft spinner and the
-   loading shimmer freeze and stop saying busy. Where the animation is the
-   status, swap motion for a slow opacity cue (WCAG's definition of motion
-   animation excludes opacity), bounded or tied to a real loading state
-   (2.2.2), floor around 0.4, cycle of 2s or slower. Spinner and shimmer
-   only; pulse and progress stay frozen so freeze-by-default remains the
-   message. Needs an opt-out from the 0.01ms sweep in `preferences.css`,
-   which no component can take today although the file's own comment
-   promises one. The mechanism is a deliberate choice, not a detail.
-2. Craft "Glass that keeps its contrast": the tint alpha is the contrast
-   budget, blur is decoration, the preference query is a courtesy.
-   `--color-surface-glass` measured 2026-09-18 over the worst-case backdrop:
-   primary text 9.52:1 light and 4.81:1 dark, subtle text 3.76:1 and 2.1:1,
-   both failing; about 85% alpha passes. 1.4.3 only.
-   `prefers-reduced-transparency` is Chromium-only, so the base tint must
-   pass without it. By-product: `CssCarouselDemo` uses the token with no
-   reduced-transparency guard.
-3. Craft "More contrast, on request": `prefers-contrast` is honoured
-   site-wide and taught nowhere. Audience is Increase Contrast on macOS and
-   iOS; Windows contrast themes arrive as `forced-colors`. Serves the intent
-   of 1.4.6 without producing conformance; 1.4.11 only for a real control
-   and the ring.
-4. Containment clips the focus ring: `contain: paint | content | strict` and
-   `content-visibility: auto` clip a focused child's outline at the padding
-   edge, so a contained box needs padding of at least ring width plus
-   offset. 2.4.13, and 2.4.7 only when the ring is clipped entirely. Its own
-   small figure beside the defensive layouts demo, plus one sentence in the
-   content-visibility entry.
-5. The 1.3.4 demo on a real orientation query: `container-type: size` on the
-   device frame and `@container (orientation: …)`, so the copy's "the
-   content simply adapts" becomes true. Say that the container query stands
-   in for the page-level media query, keep the "unless essential" exception
-   (failure F97), and take `role="alert"` off the CSS-toggled notice.
+- "Reduced, not removed": under reduced motion the craft spinner and the
+  loading shimmer freeze and stop saying busy. Where the animation is the
+  status, swap motion for a slow opacity cue (WCAG's definition of motion
+  animation excludes opacity), bounded or tied to a real loading state
+  (2.2.2), floor around 0.4, cycle of 2s or slower. Spinner and shimmer
+  only; pulse and progress stay frozen so freeze-by-default remains the
+  message. Needs an opt-out from the 0.01ms sweep in `preferences.css`,
+  which no component can take today although the file's own comment
+  promises one. The mechanism is a deliberate choice, not a detail, and it
+  is waiting on that choice.
 
 Weak but honest, in this order: print styles as a parallel to WCAG and not a
 conformance target (the repo has none; no forced backgrounds, no `attr(href)`
@@ -150,6 +130,40 @@ watchlist already sets.
 Waiting on an asset: the media state showcase (see the watchlist) needs a short clip with
 captions and a transcript, and Playwright 1.63 or later, because the bundled
 Chromium 149 predates `:playing`.
+
+Found while building the October change and left alone. Of about 130
+`@include high-contrast` blocks, about 115 only set
+`border-color: currentcolor`. Roughly 85 of those sit on borders that already
+use `--color-border`, which the preferences layer turns to `CanvasText` by
+itself: they are redundant, and they land on the text colour where the token
+lands on the system one. The other 30 or so sit on `--bp-line-strong`,
+`--bp-frame`, `--color-primary` or transparent borders and are needed, so
+check each one before removing any. About 36 component `:focus-visible`
+blocks still declare an `outline` that the preferences layer overrides, and
+the `forced-colors` block in `preferences.css` has a ring rule that is dead
+for the same reason (it sits before the general rule), so the ring under
+forced colours is not the 3px `ButtonText` ring that block describes. A
+`.surface` derives its own palette on the element, so the
+`prefers-contrast` token overrides on `:root` do not reach inside it. Glass
+at 90% is close to opaque because the Midnight preset needs 87%; lightening
+Midnight's subtle text would let every scheme drop to about 85%, and a
+second, lower token for surfaces that carry no text is the other way to get
+visible translucency back.
+
+Two defects the October review found on the standard page, both older than
+that change and both about the criterion the page teaches. First, the sticky
+era header ("WCAG 2.1 2018", 50px tall) completely covers a focused control
+reached with Shift+Tab from below, the "Rotate to landscape" button for one:
+no focus indicator is visible anywhere, which is 2.4.11 Focus Not Obscured
+(Minimum). A root `scroll-padding-block-start` of 3.5rem cleared it in a
+reviewer's test in all three engines; September's note that WebKit ignores
+scroll-padding when it reveals a focused element, and that
+`view-timeline-inset: auto` follows scroll-padding, needs re-checking for the
+block-start side before that goes in. Second, the 2.4.11 demo's broken state
+says "Failing 2.4.11", but its sticky bar is 41px tall and a link is 49px, so
+a focused link is never entirely hidden: that is a 2.4.12 failure (AAA), not
+a 2.4.11 one. Either the text says so, or the bar grows in the broken state
+until it can hide a link.
 
 Housekeeping found on the way, none of it a user-facing defect:
 `SiteFrame.scss` still says `100vh` where the reset says `100svh`; the
@@ -322,6 +336,11 @@ source before touching the wording or the sources-read stamp in
   hero strike, the "Content source", "Theme" and "Filter by topic" rows, and
   proof's "A layered job" section. Playwright's WebKit reproduced all
   three before the fix, but it is not iOS Safari.
+- After the October contrast change: Increase Contrast on a real iPhone and
+  a real Mac, with the craft page open. The mapping to
+  `prefers-contrast: more` is confirmed from WebKit's source, not by hand.
+  Also the 1.3.4 device screen in real Safari: focus lands on it in
+  Playwright's WebKit, but the arrow keys did not scroll it there.
 - The anchor tooltip's three engine workarounds, measured 2026-09-28 in
   Chromium 149, Firefox 151 and WebKit 26.5: `data-reveal="off"` on the
   demo (Chromium keeps a card with a finished scroll-driven `transform`
@@ -390,6 +409,8 @@ source before touching the wording or the sources-read stamp in
 ## Done
 
 One line per item, newest first; details in git history / PRs.
+
+- **2026-10** Contrast on request, glass that passes, and rings that are not clipped: the four remaining buildable items from the Contextualism pass, above. Craft has two new sections and one new figure, so fourteen decisions, and the hub plate and craft's closing line say so (one prerender spec holds both to the section count). "More contrast, on request" teaches what the site already did: under `prefers-contrast: more` the border token becomes `CanvasText`, subtle text takes the text colour, shadows drop. Measured in three engines, a card border goes from 1.32:1 to 21:1 in light and subtle text from 7.46:1 to 18.88:1. The fourth promise, a 4px focus ring, had never applied: the `outline-width` rule sat before the `outline` shorthand in the same layer, so the ring measured 3px with and without the preference. It is now a token (`--focus-ring-width: 4px` in that query). The copy says what the preference is not: W3C's sufficient techniques for 1.4.6 are a palette that passes by default (G17, G148) or a control on the page (G174), an OS setting is not among them, so the site does not count the preference as conformance. That is this site's reading, stated as such, not a W3C ruling. 1.4.11 does not wait for the preference, so the demo's field edge is at 3:1 from the start. Increase Contrast on macOS and iOS is the audience (confirmed in WebKit's source: ThemeMac and ThemeIOS read the system setting); Windows contrast themes arrive as `forced-colors`, usually with `prefers-contrast: more` matching as well, and Safari parses `forced-colors` but never matches it as active. The demo simulates the preference with `:has(:checked)`, no script. "Glass that keeps its contrast": `--color-surface-glass` went from 72% (light), 64% (dark) and 78% (presets) to 90% everywhere. Over solid black and solid white, the old values left subtle text at 3.76:1, 2.10:1 and about 3.3:1 (Midnight, which the September measurement missed; the last digit differs by engine); the lowest passing alpha is 87%, set by Midnight, and at 90% the lowest figure is about 5:1. Nothing on the site had put subtle text on the token; the two uses carry body text, which passed before and now has room. WCAG has no procedure for content scrolling under a bar; the copy says the extreme backdrop is this site's extrapolation from failure F83, and that it is the worst case only for a tint strong enough to pass (at 40% in dark, a backdrop just short of white is 0.01 worse than white). `prefers-reduced-transparency` is Chromium only (118), so it is taught as a courtesy; `CssCarouselDemo` gained the guard it lacked. The contained focus ring: `contain: paint | content | strict`, `content-visibility: auto` and `overflow: clip | hidden | auto` all cut a focused child's ring at the padding edge in all three engines; padding of ring width plus offset keeps it. `overflow-clip-margin` rescues it in Chromium and Firefox for containment and `overflow: clip` only, never for `hidden` or `auto`, and Safari does not support it, 27 included. The audit behind the figure found the bug on this site: every code block cut the ring of its own scrolling `pre` on three sides (`overflow: clip` on the figure, and component `outline-offset` rules that the preferences layer had always overridden), the 2.4.11 demo's links lost theirs left and right and the first one lost its top line under the sticky bar, and the first and last chapter bar links lost 3px at the viewport edge at 320. All are fixed with room, not with a restyled ring, and the three dead outline rules on those components are gone. Two things moved with the fixes: the 2.4.11 scroller is half a rem taller, because the new padding had shifted its end position and Firefox, which does not scroll a partly visible element into view on focus, then left a link under the sticky bar when tabbing back; and the chapter bar labels wrap inside their links, because equal columns made STANDARD run over CRAFT at 200% text. Known and left: in Firefox a focused 2.4.11 link can still sit 3px past the scroller's bottom edge and lose the bottom line of its ring. The 1.3.4 demo runs on a real query: the device frame is `container-type: size`, the app is styled with `@container (orientation: …)`, and the button only changes the frame's shape; the copy says the container query stands in for the page-level media query. The frame is a grid, not a percentage height: WebKit resolved `block-size: 100%` against the frame's border box and let the screen stick out 20px. In landscape the list flows into columns and the layout label sits beside the title, so at 320 the proof that the query matched is in view without scrolling. The broken state shows the rotate notice in the starting orientation, which is failure F100 by title; F97 is the locked view, and the card links both. `role="alert"` is gone from the notice, and the frame's screen is a labelled tab stop because WebKit does not focus a scroller by itself. Three new specs: `contrast` (the token contract in light, dark and every preset read from presets.css, the figures printed on the page compared with measured ones, both demos, the real preferences), `focus-ring` (the figure by geometry and by painted pixels, every code block, the 2.4.11 demo, the chapter bar) and `orientation`. The ring specs fail against the site as it was before the change. The Tier 1 copy remainder from the positioning review went in with it.
 
 - **2026-10** Responsiveness sweep. The hero strike sat a line too low and up to 2.45 times too wide in WebKit, so on every iPhone: the SVG was absolutely positioned in an inline span with no size of its own, and WebKit sized it against the heading. A sweep of all 14 pages at nine viewport sizes in three engines, with WCAG text spacing and 200% text, then found one root cause behind nearly everything else: a `display: grid` stack has an auto column that cannot be narrower than its widest child, so one long code path or one text input widened a whole section, and the page frame's `overflow: clip` cut it off without a scrollbar (proof's test layers below about 420px in Chromium and WebKit, eight demos at 320, the open standards-map card under 390px). Fixed at the hops with `minmax(0, 1fr)`, `overflow-wrap: anywhere` on inline code, and `min-inline-size: 0` on inputs and fieldsets. Also: three legends floated inside flex fieldsets, which WebKit keeps on the border, became block fieldsets; chapter titles wrap under their number; the contents rail is capped to the viewport, so its last link no longer takes focus below the fold on a short window (2.4.7); the container-queries demo lost its half-size zoom on phones; the attr() bars no longer collapse to nothing. `responsive.spec.ts` fails CI when any page scrolls sideways or cuts off text at 320, at 320 with text spacing, or at 1280 with 200% text. The three rules are in GUIDE, "Layout that cannot be widened".
 

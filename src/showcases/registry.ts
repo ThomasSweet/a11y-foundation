@@ -626,7 +626,10 @@ const entries: Omit<Showcase, 'tier'>[] = [
       'browser — search the pane for “cardamom” and the browser finds it ' +
       'inside a section it never rendered; search “saffron” and the ' +
       'display:none appendix stays invisible. contain-intrinsic-block-size ' +
-      'keeps the scrollbar honest while sections are skipped.',
+      'keeps the scrollbar honest while sections are skipped. One cost to ' +
+      'plan for: the same containment clips a focus ring at the section’s ' +
+      'padding edge, so a section with focusable children needs padding of ' +
+      'at least the ring width plus its offset.',
     links: [
       {
         label: 'MDN: content-visibility',

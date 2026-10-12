@@ -92,7 +92,8 @@ tests/
 │                             baseline, revisions
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
-                              standards-map, anchor-tooltip, responsive
+                              standards-map, anchor-tooltip, responsive, contrast,
+                              focus-ring, orientation
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -729,12 +730,16 @@ replacing a spinner).
 
 ### `reduced-transparency()`
 
-Replace translucent or blurred surfaces with opaque ones. Translucency can
-make text illegible for low-vision users depending on what scrolls beneath.
+Replace translucent or blurred surfaces with opaque ones. This is a courtesy
+on top of a tint that already passes: `prefers-reduced-transparency` ships
+in Chromium only, so the base color has to reach 4.5:1 without it. Use
+`--color-surface-glass` (90% alpha) instead of a hand-picked alpha:
+`tests/e2e/contrast.spec.ts` holds it to 4.5:1 for body and subtle text over
+solid black and solid white, in light, dark and every preset.
 
 ```scss
 .sticky-header {
-  background-color: rgb(255 255 255 / 0.7);
+  background-color: var(--color-surface-glass);
   backdrop-filter: blur(8px);
 
   @include reduced-transparency {
@@ -762,6 +767,32 @@ Strengthen borders, remove decorative shadows, increase text contrast.
 Inside `prefers-contrast: more` blocks, prefer `currentColor` or system
 colors (`CanvasText`) over hardcoded values — a hardcoded `#000` border is
 invisible for users who combine high contrast with dark mode.
+
+Most components need no override at all. `preferences.css` answers the
+preference once, at the tokens: `--color-border` becomes `CanvasText`,
+`--color-text-subtle` becomes `--color-text`, the three shadows become
+`none` and `--focus-ring-width` becomes 4px. Reach for the mixin only for an
+edge that does not use `--color-border`. One exception: a `.surface` derives
+its own palette on the element itself, so the `:root` override does not
+reach inside it.
+
+### Room for the focus ring
+
+The focus ring is drawn by the `preferences` layer on every element, 3px
+wide at a 2px offset (4px wide under `prefers-contrast: more` and in the two
+contrast presets), so it sits outside the element's own box. A component
+cannot restyle it without `!important`: a normal `outline` rule in the
+`components` layer loses to the layer above. What a component can do is
+leave room. Any ancestor that clips
+(`overflow` other than `visible`, `contain: paint | content | strict`,
+`content-visibility: auto`) cuts the ring at its padding edge, in all three
+engines, and so does the edge of the viewport for a fixed bar. Give that
+ancestor padding of
+`calc(var(--focus-ring-width) + var(--focus-ring-offset))` on every side a
+focusable child can touch. `overflow-clip-margin` is not a substitute: it
+only helps containment and `overflow: clip`, never a scroll container, and
+Safari does not support it. `tests/e2e/focus-ring.spec.ts` checks the code
+blocks, the 2.4.11 demo and the chapter bar this way.
 
 ### `forced-colors()`
 

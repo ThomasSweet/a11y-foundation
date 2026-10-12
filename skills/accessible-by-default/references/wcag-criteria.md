@@ -66,9 +66,11 @@ Motion animation triggered by interaction can be turned off, unless the motion i
 
 **Level AA · WCAG 2.1 · Perceivable**
 
-Content does not lock to a single display orientation — portrait or landscape — unless essential. Added in WCAG 2.1 (2018) — people whose device is mounted in a fixed orientation (e.g. on a wheelchair) can’t just rotate it.
+Content does not lock to one display orientation, portrait or landscape, unless a specific orientation is essential: a piano keyboard, a bank cheque, slides for a projector. Added in WCAG 2.1 (2018). A device mounted in a fixed orientation, on a wheelchair for example, cannot be rotated.
 
 - [WCAG: Understanding 1.3.4](https://www.w3.org/WAI/WCAG22/Understanding/orientation.html)
+- [WCAG: Failure F97](https://www.w3.org/WAI/WCAG22/Techniques/failures/F97)
+- [WCAG: Failure F100](https://www.w3.org/WAI/WCAG22/Techniques/failures/F100)
 
 ## 1.3.5 Identify Input Purpose
 

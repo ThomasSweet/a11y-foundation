@@ -80,6 +80,81 @@ input:user-invalid {
 }`,
   },
 
+  moreContrast: {
+    language: 'CSS',
+    mistake: `/* Answered per component, with a hard-coded colour.
+   Black is the strongest edge in a light scheme and no
+   edge at all in a dark one, and the next component
+   has to remember the query too. */
+@media (prefers-contrast: more) {
+  .card {
+    border-color: #000;
+    box-shadow: none;
+  }
+
+  .card-meta {
+    color: #000;
+  }
+}`,
+    craft: `/* Answered once, at the tokens, so every component
+   follows. CanvasText is the system text colour: right
+   in light and in dark. Forced colours need no palette
+   from you, the system brings its own. There, only
+   restore an edge that a background used to carry. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-border: CanvasText;
+    --color-text-subtle: var(--color-text);
+    --shadow-md: none;
+    --focus-ring-width: 4px;
+  }
+}
+
+@media (forced-colors: active) {
+  .button {
+    border: 1px solid ButtonText;
+  }
+}`,
+  },
+
+  glass: {
+    language: 'CSS',
+    mistake: `/* 40% tint: the text sits on whatever scrolls beneath.
+   Over black, this site's body text drops to 3.29:1 and
+   its subtle text to 1.30:1. Blur cannot lift a large
+   dark area, and only Chromium reads the query below. */
+.bar {
+  background-color: rgb(255 255 255 / 40%);
+  backdrop-filter: blur(12px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bar {
+    background-color: white;
+  }
+}`,
+    craft: `/* The alpha is the contrast budget. At 90% both text
+   colours clear 4.5:1 over the opposite extreme: black
+   under the light tint, white under the dark one. Blur
+   is decoration on top. The query is a courtesy: it
+   removes the translucency, it is not what makes the
+   text readable. */
+.bar {
+  background-color: light-dark(
+    rgb(255 255 255 / 90%),
+    rgb(20 20 22 / 90%)
+  );
+  backdrop-filter: blur(8px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bar {
+    background-color: Canvas;
+    backdrop-filter: none;
+  }
+}`,
+  },
+
   // Mirrors TargetsDemo — .targets-fc-fill vs .targets-fc-border.
   targets: {
     language: 'CSS',
@@ -114,6 +189,27 @@ input:user-invalid {
 }
 .url {
   overflow-x: auto;
+}`,
+  },
+
+  containedRing: {
+    language: 'CSS',
+    mistake: `/* Paint containment clips at the padding edge, and a
+   focus ring is paint. The button touches the edge, so
+   its ring is cut there. content-visibility: auto and
+   overflow: clip do the same. */
+.card {
+  contain: paint;
+  padding: 0;
+}`,
+    craft: `/* Leave room for the ring: its width plus its offset.
+   Written with the two custom properties the ring itself
+   uses, so the guard follows any theme that changes them. */
+.card {
+  contain: paint;
+  padding: calc(
+    var(--focus-ring-width) + var(--focus-ring-offset)
+  );
 }`,
   },
 

@@ -10,6 +10,8 @@
       demos degrade instead of breaking. Every snippet here also ships in
       <a href="/agent-skill.html">the agent skill</a>, generated from the
       same registry, with a check in CI that fails when the two disagree.
+      By the end: which modern CSS features carry an accessibility payoff,
+      and how safely each one ships today.
     </p>
 
     <div class="demo" data-reveal="off">

@@ -40,7 +40,12 @@ overrides what the element correctly reported.
 - **Never remove focus visibility.** `outline: none` is only acceptable when
   the same rule paints a visible replacement. Style `:focus-visible`, keep it
   at least 3:1 against what surrounds it, and never let sticky headers cover
-  the focused element (WCAG 2.2 adds 2.4.11 for exactly this).
+  the focused element (WCAG 2.2 adds 2.4.11 for exactly this). An outline
+  is drawn outside its element, further out with a positive
+  `outline-offset`, and any ancestor that clips (`overflow` other than
+  `visible`, `contain: paint`, `content-visibility: auto`) cuts it at the
+  padding edge: give that ancestor padding of at least the ring's width
+  plus its offset.
 - **Keyboard reaches everything, in a sensible order.** Reading order is DOM
   order; CSS reordering (`order`, `grid-area`, `flex-direction: row-reverse`)
   desyncs the two. Never use `tabindex` greater than 0.
@@ -68,7 +73,7 @@ constraints, not enhancements:
 @media (prefers-reduced-transparency: reduce) { /* make translucent surfaces opaque */ }
 ```
 
-Two things that follow:
+Four things that follow:
 
 - **Motion is the enhancement, not the baseline.** Anything that moves on its
   own must stop, or be finite and short. If reduced motion is set, the end
@@ -76,6 +81,16 @@ Two things that follow:
 - **In forced-colors mode, backgrounds and shadows disappear.** Anything whose
   meaning was carried by a background needs a real `border` there. Test it;
   it breaks silently.
+- **Answer `prefers-contrast: more` once, at the tokens.** Point the border
+  token at `CanvasText`, give muted text the full text color, drop
+  decorative shadows, thicken the focus ring. A hard-coded `#000` in that
+  query is the strongest edge in a light scheme and invisible in a dark one.
+- **A translucent surface carries its own contrast.** Text on a tinted bar
+  sits on whatever scrolls beneath it, so the tint's alpha is the contrast
+  budget: check the text at 4.5:1 with solid black and with solid white
+  behind the tint. Blur does not rescue a tint that fails, and
+  `prefers-reduced-transparency` is read by Chromium only, so it is a
+  courtesy on top of a tint that already passes.
 
 Use `light-dark()` with `color-scheme` so both schemes come from one token, and
 put user-preference rules in a **cascade layer that sits above components**, so

@@ -15,6 +15,36 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'glass-contrast',
+    date: '2026-10-12',
+    area: 'Craft',
+    title: 'Glass that keeps its contrast',
+    lead: 'A new craft section on ',
+    linkText: 'glass surfaces',
+    href: '/craft.html#craft-glass',
+    tail: ': the alpha of the tint decides whether text on a translucent bar stays readable, and the site’s own glass token went up to 90% after it was measured.',
+  },
+  {
+    id: 'more-contrast',
+    date: '2026-10-12',
+    area: 'Craft',
+    title: 'More contrast, on request',
+    lead: 'A new craft section on ',
+    linkText: 'prefers-contrast',
+    href: '/craft.html#craft-more-contrast',
+    tail: ': tick one box to see what Increase Contrast on macOS and iOS changes here, and copy the token overrides that do it.',
+  },
+  {
+    id: 'contained-focus-ring',
+    date: '2026-10-12',
+    area: 'Craft',
+    title: 'Containment clips the focus ring',
+    lead: 'The ',
+    linkText: 'defensive layouts section',
+    href: '/craft.html#craft-defensive',
+    tail: ' gained a figure: paint containment, content-visibility and overflow all cut a focus ring at the padding edge, and padding of ring width plus offset keeps it whole.',
+  },
+  {
     id: 'customizable-select-safari-27',
     date: '2026-09-14',
     area: 'Showcase',

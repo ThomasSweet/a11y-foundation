@@ -1,30 +1,44 @@
 <template>
   <div class="orientation-demo" :class="{ 'is-broken': broken, 'is-landscape': landscape }">
     <p class="orientation-caption">
-      A little app inside a device frame. Rotate it. Compliant works either
-      way; broken demands landscape and walls off portrait — locking out
-      anyone whose device is fixed in one orientation (a tablet mounted to
-      a wheelchair, say).
+      A small app in a device frame. The frame is a size container, and the
+      app is styled with <code>@container (orientation: portrait)</code> and
+      <code>(orientation: landscape)</code>. That stands in for the page-level
+      <code>@media (orientation: …)</code>, because you cannot rotate your
+      real screen on request. The button changes the shape of the frame and
+      nothing else.
     </p>
 
     <div class="orientation-stage">
       <div class="orientation-device">
-        <!-- Both states stay in the DOM; CSS shows the right one per orientation + rule state. -->
-        <div class="orientation-screen">
-          <p class="orientation-screen-title">Today</p>
-          <p class="orientation-screen-row">7,204 steps</p>
-          <p class="orientation-screen-row">3 reminders</p>
-          <p class="orientation-screen-row">2 messages</p>
-        </div>
-        <div class="orientation-rotate-notice" role="alert">
-          <span class="orientation-rotate-icon" aria-hidden="true">⟳</span>
-          <p>Please rotate your device to landscape to continue.</p>
+        <div
+          class="orientation-screen"
+          tabindex="0"
+          role="group"
+          aria-label="Device screen"
+        >
+          <div class="orientation-app">
+            <div class="orientation-app-head">
+              <p class="orientation-app-title">Today</p>
+              <p class="orientation-app-layout orientation-app-layout-portrait">Portrait layout</p>
+              <p class="orientation-app-layout orientation-app-layout-landscape">Landscape layout</p>
+            </div>
+            <ul class="orientation-app-list">
+              <li>7,204 steps</li>
+              <li>3 reminders</li>
+              <li>2 messages</li>
+            </ul>
+          </div>
+          <p class="orientation-notice">
+            <span class="orientation-notice-icon" aria-hidden="true">⟳</span>
+            Rotate your device to landscape to continue.
+          </p>
         </div>
       </div>
     </div>
 
-    <button class="orientation-rotate-btn" type="button" @click="landscape = !landscape">
-      Rotate device ({{ landscape ? 'landscape' : 'portrait' }})
+    <button class="orientation-rotate" type="button" @click="landscape = !landscape">
+      {{ landscape ? 'Rotate to portrait' : 'Rotate to landscape' }}
     </button>
   </div>
 </template>
@@ -60,11 +74,12 @@ const landscape = ref(false)
   }
 
   .orientation-device {
-    position: relative;
+    container-type: size;
     display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
     inline-size: min(11rem, 100%);
     aspect-ratio: 11 / 17;
-    padding: var(--space-3);
+    padding: var(--space-2);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-bg-subtle);
@@ -81,49 +96,105 @@ const landscape = ref(false)
 
   .orientation-screen {
     display: grid;
-    gap: var(--space-2);
-    align-content: start;
-    padding: var(--space-3);
+    grid-template-columns: minmax(0, 1fr);
+    min-block-size: 0;
+    overflow: auto;
+    padding: var(--space-2);
+    border: 1px solid transparent;
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
   }
 
-  .orientation-screen-title {
+  .orientation-app {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  .orientation-app-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .orientation-app-title {
     font-size: var(--text-lg);
     font-weight: 600;
+    overflow-wrap: anywhere;
   }
 
-  .orientation-screen-row {
+  .orientation-app-layout {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .orientation-app-layout-landscape {
+    display: none;
+  }
+
+  .orientation-app-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+    margin: 0;
+    padding: var(--space-2) 0 0;
+    border-block-start: 1px solid var(--color-border);
+    list-style: none;
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
+    overflow-wrap: anywhere;
   }
 
-  .orientation-rotate-notice {
+  .orientation-notice {
     display: none;
-    place-content: center;
+    grid-template-columns: minmax(0, 1fr);
     justify-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    text-align: center;
+    align-content: center;
+    gap: var(--space-1);
     font-size: var(--text-sm);
+    text-align: center;
+    overflow-wrap: anywhere;
   }
 
-  .orientation-rotate-icon {
-    font-size: var(--text-3xl);
+  .orientation-notice-icon {
+    font-size: var(--text-2xl);
+    line-height: 1;
   }
 
-  .is-broken:not(.is-landscape) {
-    .orientation-screen {
-      display: none;
+  .orientation-demo {
+    @container (orientation: landscape) {
+      .orientation-app-layout-portrait {
+        display: none;
+      }
+
+      .orientation-app-layout-landscape {
+        display: block;
+      }
+
+      .orientation-app-list {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 4.5rem), 1fr));
+      }
     }
+  }
 
-    .orientation-rotate-notice {
-      display: grid;
+  .orientation-demo.is-broken {
+    @container (orientation: portrait) {
+      .orientation-app {
+        display: none;
+      }
+
+      .orientation-notice {
+        display: grid;
+      }
     }
   }
 
-  .orientation-rotate-btn {
+  .orientation-rotate {
     justify-self: start;
+    max-inline-size: 100%;
     min-block-size: 44px;
     padding: var(--space-2) var(--space-4);
     border: 1px solid var(--color-border);
@@ -131,6 +202,7 @@ const landscape = ref(false)
     background-color: var(--color-surface);
     color: var(--color-text);
     font-weight: 600;
+    overflow-wrap: anywhere;
     cursor: pointer;
 
     @include can-hover {

@@ -7,6 +7,8 @@
       each one is the accessible default. These decisions also ship as
       <a href="/agent-skill.html">an agent skill</a> — the same swaps,
       packaged for the coding agents that increasingly write this markup.
+      By the end: a set of defaults to take with you, each shown beside the
+      hand-rolled version it replaces.
     </p>
 
     <ChapterSection v-bind="sections.validation">
@@ -115,6 +117,75 @@
       <CraftLinks :links="craftLinks.motion" />
     </ChapterSection>
 
+    <ChapterSection v-bind="sections.moreContrast">
+      <p>
+        Some people need stronger edges than a default palette gives, and
+        the operating system already has the switch: Increase Contrast on
+        macOS and iOS. The browser passes it on as
+        <code>prefers-contrast: more</code>. Windows contrast themes are a
+        different mechanism: they replace the whole palette and arrive as
+        <code>forced-colors: active</code>, usually with
+        <code>prefers-contrast: more</code> matching as well, and the forced
+        palette wins. This site answers the preference once, at the tokens
+        in <code>preferences.css</code>: the border token becomes the system
+        text colour, subtle text goes to full strength, shadows drop, and
+        the focus ring thickens to four pixels. In the light scheme a card
+        border goes from 1.32:1 to 21:1 against its surface and subtle text
+        from 7.46:1 to 18.88:1. Tick the box to see it without touching a
+        system setting.
+      </p>
+      <p>
+        What this does not do, on its own, is produce conformance. 1.4.6
+        Contrast (Enhanced), AAA, asks for 7:1 text. W3C's sufficient
+        techniques for it are a palette that passes by default, or a
+        control on the page that switches to one that does. An operating
+        system setting is not among them, so this site does not count the
+        preference as conformance. It serves the same intent for the people
+        who asked. 1.4.11 Non-text Contrast, AA, does not wait for the
+        preference at all: it covers what you need to see to find a control
+        and its state. So the field's edge in the demo is strong from the
+        start, and only the card border, which is decoration, waits for the
+        request.
+      </p>
+      <MoreContrastDemo />
+      <CodeCompare v-bind="craftSnippets.moreContrast" />
+      <CraftLinks :links="craftLinks.moreContrast" />
+    </ChapterSection>
+
+    <ChapterSection v-bind="sections.glass">
+      <p>
+        A translucent bar does not choose its background. Whatever scrolls
+        beneath it becomes the background for a moment: a photo, a code
+        block, a banner in the opposite scheme. So the contrast of the text
+        on the bar is decided by one number, the alpha of the tint. Blur
+        softens shapes, but it only averages what is behind the bar, so a
+        large dark area stays dark. WCAG has no procedure for content that
+        scrolls under a bar. The nearest is
+        <a href="https://www.w3.org/WAI/WCAG22/Techniques/failures/F83">failure
+        F83</a>, which tests text over an image against the part of the
+        image most like the text. Under a bar that part can be anything, so
+        this site measures the opposite extreme, solid black under a light
+        tint and solid white under a dark one: the worst case for any tint
+        strong enough to pass. Its own glass token was 72% in light and 64%
+        in dark. Body text passed. Subtle text would have reached 3.76:1
+        and 2.10:1, and about 3.3:1 in the Midnight theme, all short of the
+        4.5:1 that 1.4.3 Contrast (Minimum), AA, asks for. Nothing here had
+        put subtle text on the token yet, but the token allowed it. At 90%
+        both text colours clear 4.5:1 in every theme. The lowest figure is
+        about 5:1, in Midnight.
+      </p>
+      <p>
+        <code>prefers-reduced-transparency</code> is worth honouring: one
+        block swaps the tint for an opaque surface and drops the blur. It is
+        a courtesy, not the fix. Only Chromium reads the setting today, and
+        a setting is no help to someone who has not found it. The base tint
+        has to pass without it.
+      </p>
+      <GlassContrastDemo />
+      <CodeCompare v-bind="craftSnippets.glass" />
+      <CraftLinks :links="craftLinks.glass" />
+    </ChapterSection>
+
     <ChapterSection v-bind="sections.targets">
       <p>
         Hover styles only apply on devices that can actually hover; touch
@@ -146,6 +217,33 @@
       </p>
       <DefensiveCssDemo />
       <CodeCompare v-bind="craftSnippets.defensive" />
+      <p>
+        Containment needs the same suspicion.
+        <code>contain: paint</code>, <code>content</code> and
+        <code>strict</code>, and <code>content-visibility: auto</code>, clip
+        everything inside a box at its padding edge, and a child's focus
+        ring is inside. A focusable child that touches the edge loses its
+        ring there, in all three engines. <code>overflow: clip</code>,
+        <code>hidden</code> and <code>auto</code> do the same. The guard is
+        padding of at least the ring width plus its offset: five pixels with
+        this site's default ring, six where the ring is four pixels wide. A
+        partly clipped ring can fall short of
+        <a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html">2.4.13
+        Focus Appearance (AAA)</a>, which counts the area of the indicator.
+        <a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html">2.4.7
+        Focus Visible (AA)</a> sets no minimum size, so what is left can
+        still pass while it shows which element has focus. A ring clipped
+        away entirely does not. For containment and
+        <code>overflow: clip</code>, <code>overflow-clip-margin</code> lets
+        the ring through in Chromium and Firefox. It does nothing for
+        <code>hidden</code> or <code>auto</code>, and Safari does not
+        support it, so padding is the guard that holds everywhere. This site
+        had the bug too: every code
+        block here cut the ring around its own scrolling code on three
+        sides.
+      </p>
+      <ContainedRingDemo />
+      <CodeCompare v-bind="craftSnippets.containedRing" />
       <CraftLinks :links="craftLinks.defensive" />
     </ChapterSection>
 
@@ -292,6 +390,11 @@
       <CodeCompare v-bind="craftSnippets.textSpacing" />
       <CraftLinks :links="craftLinks.textSpacing" />
     </ChapterSection>
+
+    <p>
+      Fourteen decisions. The portable copy is
+      <a href="/agent-skill.html">the agent skill</a>.
+    </p>
   </ChapterLayout>
 </template>
 
@@ -306,8 +409,11 @@ import AppButton from '../components/AppButton/AppButton.vue'
 import AppDialog from '../components/AppDialog/AppDialog.vue'
 import LightDarkDemo from '../craft/demos/LightDarkDemo.vue'
 import MotionDemo from '../craft/demos/MotionDemo.vue'
+import MoreContrastDemo from '../craft/demos/MoreContrastDemo.vue'
+import GlassContrastDemo from '../craft/demos/GlassContrastDemo.vue'
 import TargetsDemo from '../craft/demos/TargetsDemo.vue'
 import DefensiveCssDemo from '../craft/demos/DefensiveCssDemo.vue'
+import ContainedRingDemo from '../craft/demos/ContainedRingDemo.vue'
 import ContentStressDemo from '../craft/demos/ContentStressDemo.vue'
 import LoadingStateDemo from '../craft/demos/LoadingStateDemo.vue'
 import TruncationDemo from '../craft/demos/TruncationDemo.vue'
@@ -335,6 +441,8 @@ const sections = {
   lightDark: { id: 'craft-light-dark', title: 'Dark mode from one source of truth', railLabel: 'Dark mode from one source' },
   dialog: { id: 'craft-dialog', title: 'Native dialog, zero trapping code', railLabel: 'Native dialog, zero trapping' },
   motion: { id: 'craft-motion', title: 'Motion that bows out on request', railLabel: 'Reduced motion' },
+  moreContrast: { id: 'craft-more-contrast', title: 'More contrast, on request', railLabel: 'More contrast' },
+  glass: { id: 'craft-glass', title: 'Glass that keeps its contrast', railLabel: 'Glass surfaces' },
   targets: { id: 'craft-targets', title: 'Targets that survive touch and forced colors', railLabel: 'Targets that survive touch' },
   defensive: { id: 'craft-defensive', title: 'Layouts that expect the worst', railLabel: 'Defensive layouts' },
   contentStress: { id: 'craft-content-stress', title: 'Break it with content', railLabel: 'Content stress test' },

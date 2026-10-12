@@ -22,4 +22,15 @@ test.describe('prerendered HTML', () => {
       expect(html).not.toContain('<div id="app"></div>')
     })
   }
+
+  test('the craft count on the hub and in the closing line matches the sections', async ({ request }) => {
+    const words = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen']
+    const craft = await (await request.get('/craft.html')).text()
+    const hub = await (await request.get('/')).text()
+    const sections = new Set([...craft.matchAll(/<h3[^>]* id="(craft-[a-z-]+)"/g)].map((m) => m[1])).size
+    const word = words[sections - 10]
+    expect(word, `no word for ${sections} sections`).toBeTruthy()
+    expect(hub).toContain(`${word} default decisions`)
+    expect(craft).toContain(`${word} decisions.`)
+  })
 })

@@ -6,7 +6,8 @@
       run an automated scanner, see green, and call it accessible. The honest
       picture is layered, and most of it isn't a scanner's job. (Writing these
       very tests turned up two real barriers on this site — proof the layers
-      earn their place.)
+      earn their place.) By the end: the layers, what each catches, and
+      the template for filing what you find.
     </p>
 
     <ChapterSection v-bind="sections.layers">

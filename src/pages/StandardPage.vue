@@ -4,7 +4,9 @@
       Accessibility begins as a requirement, not a feature.
       <GlossaryRef id="wcag">WCAG</GlossaryRef> is the
       standard the rest of the web is measured against — and it has grown
-      right alongside the platform.
+      right alongside the platform. By the end: a set of criteria you
+      have broken and restored yourself, and the laws that point at the
+      standard.
     </p>
 
     <ChapterSection v-bind="sections.criteria" data-reveal="off">

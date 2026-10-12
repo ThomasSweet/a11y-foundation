@@ -241,22 +241,35 @@ export const criteria: Criterion[] = [
     version: 'WCAG 2.1',
     principle: 'Perceivable',
     requirement:
-      'Content does not lock to a single display orientation — portrait or ' +
-      'landscape — unless essential. Added in WCAG 2.1 (2018) — people whose ' +
-      'device is mounted in a fixed orientation (e.g. on a wheelchair) can’t ' +
-      'just rotate it.',
+      'Content does not lock to one display orientation, portrait or ' +
+      'landscape, unless a specific orientation is essential: a piano ' +
+      'keyboard, a bank cheque, slides for a projector. Added in WCAG 2.1 ' +
+      '(2018). A device mounted in a fixed orientation, on a wheelchair for ' +
+      'example, cannot be rotated.',
     breakLabel: 'Break this rule',
     restoreLabel: 'Restore compliance',
     passText:
-      'Meets 1.3.4 — the app works in both portrait and landscape. Rotate ' +
-      'the device and the content simply adapts.',
+      'Meets 1.3.4: the app works in both orientations. Rotate the frame ' +
+      'and the orientation query matches its new shape, so the layout ' +
+      'adapts with no script.',
     failText:
-      '⚠ Failing 1.3.4 — in portrait the app blocks you with “rotate your ' +
-      'device”. Anyone whose device is fixed in portrait is locked out.',
+      '⚠ Failing 1.3.4: the app only works in landscape. In a portrait ' +
+      'frame it shows “rotate your device” in place of the content ' +
+      '(failure F100). Locking the view so it never turns fails the ' +
+      'same criterion by another route (F97). Anyone whose device is ' +
+      'fixed in portrait is locked out.',
     links: [
       {
         label: 'WCAG: Understanding 1.3.4',
         href: 'https://www.w3.org/WAI/WCAG22/Understanding/orientation.html',
+      },
+      {
+        label: 'WCAG: Failure F97',
+        href: 'https://www.w3.org/WAI/WCAG22/Techniques/failures/F97',
+      },
+      {
+        label: 'WCAG: Failure F100',
+        href: 'https://www.w3.org/WAI/WCAG22/Techniques/failures/F100',
       },
     ],
     component: OrientationDemo,

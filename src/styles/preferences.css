@@ -34,10 +34,7 @@
       --shadow-sm:         none;
       --shadow-md:         none;
       --shadow-lg:         none;
-    }
-
-    *:focus-visible {
-      outline-width: 4px;
+      --focus-ring-width:  4px;
     }
   }
 

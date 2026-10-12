@@ -55,7 +55,7 @@
 
   :root[data-preset] {
     --color-accent: oklch(from var(--seed-accent) l c calc(h + 40));
-    --color-surface-glass: color-mix(in oklab, var(--seed-surface) 78%, transparent);
+    --color-surface-glass: color-mix(in oklab, var(--seed-surface) 90%, transparent);
   }
 
   .surface {
