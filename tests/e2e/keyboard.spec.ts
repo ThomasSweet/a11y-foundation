@@ -1,4 +1,22 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
+
+async function focusSettled(page: Page) {
+  let last = ''
+  await expect
+    .poll(
+      async () => {
+        const now = await page.evaluate(() => {
+          const box = document.activeElement?.getBoundingClientRect()
+          return `${scrollY} ${box?.top} ${box?.left}`
+        })
+        const still = now === last
+        last = now
+        return still
+      },
+      { intervals: [50] },
+    )
+    .toBe(true)
+}
 
 // The accessibility *behaviours* that silently regress — these are exactly the
 // things the project leans on the platform for, so they're worth pinning.
@@ -104,6 +122,85 @@ test.describe('keyboard & focus behaviour', () => {
       await page.keyboard.press(key)
       await expect.poll(coveredPixels).toBeLessThanOrEqual(1)
     }
+  })
+
+  for (const width of [320, 1280]) {
+    test(`an era header never covers a keyboard-focused control at ${width}`, async ({ page, browserName }) => {
+      await page.setViewportSize({ width, height: 700 })
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.goto('/standard.html')
+      const key = browserName === 'webkit' ? 'Alt+Shift+Tab' : 'Shift+Tab'
+
+      const coveredPixels = () =>
+        page.evaluate(() => {
+          const focused = document.activeElement
+          const header = focused?.closest('.timeline-era')?.querySelector('.timeline-era-header')
+          if (!focused || !header) return 0
+          const f = focused.getBoundingClientRect()
+          const h = header.getBoundingClientRect()
+          return Math.max(0, Math.min(f.bottom, h.bottom, innerHeight) - Math.max(f.top, h.top, 0))
+        })
+
+      await page.locator('.timeline a').last().focus()
+      let stops = 0
+      for (let i = 0; i < 120; i++) {
+        await page.keyboard.press(key)
+        await focusSettled(page)
+        if (!(await page.evaluate(() => !!document.activeElement?.closest('.timeline')))) break
+        expect(await coveredPixels()).toBeLessThanOrEqual(1)
+        stops++
+      }
+      expect(stops).toBeGreaterThan(60)
+    })
+  }
+
+  test('the 2.4.11 demo hides a focused link entirely when its rule is broken, and never before', async ({
+    page,
+    browserName,
+  }) => {
+    await page.goto('/standard.html')
+    const key = browserName === 'webkit' ? 'Alt+Shift+Tab' : 'Shift+Tab'
+    const card = page.locator('.criterion', { has: page.locator('.focus-obscured-demo') })
+    const links = card.locator('.focus-obscured-link')
+    const status = card.getByRole('status')
+    await expect(links).toHaveCount(8)
+
+    const heightOf = (selector: string) =>
+      card.locator(selector).first().evaluate((el) => el.getBoundingClientRect().height)
+
+    const visiblePixels = () =>
+      page.evaluate(() => {
+        const focused = document.activeElement
+        const scroller = focused?.closest('.focus-obscured-viewport')
+        const bar = scroller?.querySelector('.focus-obscured-bar')
+        if (!focused || !scroller || !bar) throw new Error('focus left the demo')
+        const box = focused.getBoundingClientRect()
+        const floor = scroller.getBoundingClientRect().top + scroller.clientTop + scroller.clientHeight
+        return Math.max(0, Math.min(box.bottom, floor) - Math.max(box.top, bar.getBoundingClientRect().bottom))
+      })
+
+    const leastVisibleGoingUp = async () => {
+      await links.last().focus()
+      await focusSettled(page)
+      let least = Infinity
+      for (let i = 0; i < 7; i++) {
+        await page.keyboard.press(key)
+        await focusSettled(page)
+        least = Math.min(least, await visiblePixels())
+      }
+      await expect(links.first()).toBeFocused()
+      return least
+    }
+
+    const linkHeight = await heightOf('.focus-obscured-link')
+    await expect(status).toContainText('Meets 2.4.11')
+    expect(await heightOf('.focus-obscured-bar')).toBeLessThan(linkHeight)
+    expect(await leastVisibleGoingUp()).toBeGreaterThanOrEqual(linkHeight - 1)
+
+    await card.getByRole('checkbox').check()
+    await expect(status).toContainText('Failing 2.4.11')
+    expect(await heightOf('.focus-obscured-bar')).toBeGreaterThan(linkHeight)
+    expect(await leastVisibleGoingUp()).toBe(0)
   })
 
   test('the chapter bar leaves the fixed layer in a short viewport', async ({ page }) => {
