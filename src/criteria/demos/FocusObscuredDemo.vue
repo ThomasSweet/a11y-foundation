@@ -76,6 +76,8 @@ const items = [
   }
 
   .focus-obscured-link {
+    --focus-ring-offset: var(--focus-ring-offset-inset);
+
     scroll-margin-block:
       calc(var(--space-12) + var(--focus-ring-width) + var(--focus-ring-offset))
       calc(var(--focus-ring-width) + var(--focus-ring-offset));

@@ -82,6 +82,7 @@
     /* Focus ring — used globally; never remove outlines entirely. */
     --focus-ring-width:  3px;
     --focus-ring-offset: 2px;
+    --focus-ring-offset-inset: calc(var(--focus-ring-offset) * -1);
     --focus-ring-color:  light-dark(#2563eb, #60a5fa);
 
     /* Motion tokens — reference these so preferences.css can override motion

@@ -728,6 +728,15 @@ animations/transitions are force-shortened to 0.01ms (which keeps
 enough and you want a simplified alternative (e.g. a static icon
 replacing a spinner).
 
+One consequence for tests. The reset gives every element a 0.01ms transition
+on every property, so under reduced motion a computed value read right after
+a state change is still the old one until the next frame. A focused element
+reports `outline-offset: 0px` for that frame, in all three engines. On the CI
+runner WebKit can take seconds to produce a frame for an idle page. A spec
+that emulates reduced motion must not read a transitionable computed value
+straight after focus, hover or a class change: read the token, or the
+pseudo-class (`:focus-visible`), or leave reduced motion off for that test.
+
 ### `reduced-transparency()`
 
 Replace translucent or blurred surfaces with opaque ones. This is a courtesy
@@ -791,7 +800,15 @@ ancestor padding of
 `calc(var(--focus-ring-width) + var(--focus-ring-offset))` on every side a
 focusable child can touch. `overflow-clip-margin` is not a substitute: it
 only helps containment and `overflow: clip`, never a scroll container, and
-Safari does not support it. `tests/e2e/focus-ring.spec.ts` checks the code
+Safari does not support it.
+
+Where room is tight, pull the ring inside instead. The ring's geometry is a
+token, so a component may set it on the focusable element:
+`--focus-ring-offset: var(--focus-ring-offset-inset)` turns the 2px offset
+inwards, and the 3px ring then reaches only 1px past the element's edge. The
+2.4.11 demo's links do this, because they sit in a small scroller under a
+sticky bar. An `outline-offset` declaration in the component would lose to
+the preferences layer; the token does not. `tests/e2e/focus-ring.spec.ts` checks the code
 blocks, the 2.4.11 demo and the chapter bar this way.
 
 ### `forced-colors()`

@@ -20,6 +20,7 @@ const pages = [
 const textSpacing =
   '* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-block-end: 2em !important; }'
 const doubleText = 'html { font-size: 200% !important; }'
+const appliedAtOnce = '*, *::before, *::after { transition-property: none !important; }'
 const wideFont =
   '* { font-family: Verdana, "DejaVu Sans", sans-serif !important; } code, kbd, samp, pre { font-family: "Courier New", monospace !important; }'
 
@@ -162,7 +163,7 @@ test.describe('nothing overflows or is cut off', () => {
         await page.setViewportSize({ width: setting.width, height: setting.height })
         await page.emulateMedia({ reducedMotion: 'reduce' })
         await page.goto(path)
-        if (setting.css) await page.addStyleTag({ content: setting.css })
+        if (setting.css) await page.addStyleTag({ content: appliedAtOnce + setting.css })
 
         await expect
           .poll(() => page.evaluate(() => document.documentElement.scrollWidth), 'the page scrolls sideways')
