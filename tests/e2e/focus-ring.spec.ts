@@ -20,6 +20,12 @@ function ringCuts(page: Page, selector: string) {
     for (const target of targets) {
       const box = target.getBoundingClientRect()
       if (box.width === 0 || box.height === 0) continue
+      const own = document.createElement('span')
+      own.style.cssText =
+        'position: absolute; visibility: hidden; inline-size: calc(var(--focus-ring-width) + var(--focus-ring-offset));'
+      target.append(own)
+      const outside = own.getBoundingClientRect().width
+      own.remove()
       const cut = { top: 0, right: 0, bottom: 0, left: 0 }
       for (let ancestor = target.parentElement; ancestor && ancestor !== document.body; ancestor = ancestor.parentElement) {
         const style = getComputedStyle(ancestor)
@@ -33,14 +39,14 @@ function ringCuts(page: Page, selector: string) {
         if (clipsInline) {
           const start = scrolls(style.overflowX) ? left + ancestor.scrollLeft : left
           const room = scrolls(style.overflowX) ? ancestor.scrollWidth : ancestor.clientWidth
-          cut.left = Math.max(cut.left, reach - start)
-          cut.right = Math.max(cut.right, start + box.width + reach - room)
+          cut.left = Math.max(cut.left, outside - start)
+          cut.right = Math.max(cut.right, start + box.width + outside - room)
         }
         if (clipsBlock) {
           const start = scrolls(style.overflowY) ? top + ancestor.scrollTop : top
           const room = scrolls(style.overflowY) ? ancestor.scrollHeight : ancestor.clientHeight
-          cut.top = Math.max(cut.top, reach - start)
-          cut.bottom = Math.max(cut.bottom, start + box.height + reach - room)
+          cut.top = Math.max(cut.top, outside - start)
+          cut.bottom = Math.max(cut.bottom, start + box.height + outside - room)
         }
       }
       const sides = Object.entries(cut)
@@ -88,9 +94,27 @@ async function paintedSides(page: Page, button: Locator) {
   return Object.keys(strips).filter((side) => !atRest[side].equals(focused[side]))
 }
 
-test.describe('focus rings and the boxes that clip them', () => {
-  test.use({ contextOptions: { reducedMotion: 'reduce' } })
+function ringRoom(link: Locator, reveal: boolean) {
+  return link.evaluate((el, scrollFirst) => {
+    if (scrollFirst) el.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' })
+    const scroller = el.closest('.focus-obscured-viewport')
+    const bar = scroller?.querySelector('.focus-obscured-bar')
+    if (!scroller || !bar) throw new Error('demo not found')
+    const probe = document.createElement('span')
+    probe.style.cssText =
+      'position: absolute; visibility: hidden; inline-size: calc(var(--focus-ring-width) + var(--focus-ring-offset));'
+    el.append(probe)
+    const reach = probe.getBoundingClientRect().width
+    probe.remove()
+    const box = el.getBoundingClientRect()
+    const frame = scroller.getBoundingClientRect()
+    const above = box.top - bar.getBoundingClientRect().bottom
+    const below = frame.top + scroller.clientTop + scroller.clientHeight - box.bottom
+    return { focusVisible: el.matches(':focus-visible'), reach, spare: Math.min(above, below) - reach }
+  }, reveal)
+}
 
+test.describe('the global focus ring', () => {
   test('a focused text field gets the global ring, not a component one', async ({ page }) => {
     await page.goto('/craft.html')
     const field = page.getByRole('textbox', { name: 'Display name' })
@@ -99,6 +123,25 @@ test.describe('focus rings and the boxes that clip them', () => {
     await expect(field).toHaveCSS('outline-offset', '2px')
     await expect(field).toHaveCSS('outline-style', 'solid')
   })
+
+  test.describe('with reduced motion', () => {
+    test.use({ contextOptions: { reducedMotion: 'reduce' } })
+
+    test('the ring is drawn in the same frame as the focus', async ({ page }) => {
+      await page.goto('/craft.html')
+      const field = page.getByRole('textbox', { name: 'Display name' })
+      const atOnce = await field.evaluate((el) => {
+        ;(el as HTMLElement).focus()
+        const style = getComputedStyle(el)
+        return { focusVisible: el.matches(':focus-visible'), style: style.outlineStyle, width: style.outlineWidth }
+      })
+      expect(atOnce).toEqual({ focusVisible: true, style: 'solid', width: '3px' })
+    })
+  })
+})
+
+test.describe('focus rings and the boxes that clip them', () => {
+  test.use({ contextOptions: { reducedMotion: 'reduce' } })
 
   test('paint containment cuts the ring, and padding of ring width plus offset keeps it', async ({ page }) => {
     await page.goto('/craft.html')
@@ -153,44 +196,39 @@ test.describe('focus rings and the boxes that clip them', () => {
       expect(cuts.count).toBe(8)
       expect(cuts.found).toEqual([])
 
-      const gap = await page.evaluate(() => {
-        const bar = document.querySelector('.focus-obscured-bar')
-        const first = document.querySelector('.focus-obscured-link')
-        if (!bar || !first) throw new Error('demo not found')
-        return first.getBoundingClientRect().top - bar.getBoundingClientRect().bottom
-      })
-      expect(gap).toBeGreaterThanOrEqual(cuts.reach - 0.5)
+      const atRest = await ringRoom(page.locator('.focus-obscured-link').first(), false)
+      expect(atRest.reach).toBe(1)
+      expect(atRest.spare).toBeGreaterThanOrEqual(-0.5)
     })
   }
 
-  test('no focused 2.4.11 link sits under the sticky bar or past the scroller, forwards and back', async ({
+  test('revealed at the nearest edge, every 2.4.11 link keeps its ring clear of the sticky bar and the scroller', async ({
     page,
-    browserName,
   }) => {
-    test.skip(browserName === 'firefox', 'Firefox does not scroll a partly visible element into view on focus')
     await page.goto('/standard.html')
     const links = page.locator('.focus-obscured-link')
     await expect(links).toHaveCount(8)
 
     for (const index of [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0]) {
-      const link = links.nth(index)
-      await link.focus()
-      await expect
-        .poll(() =>
-          link.evaluate((el) => {
-            const scroller = el.closest('.focus-obscured-viewport')
-            const bar = scroller?.querySelector('.focus-obscured-bar')
-            if (!scroller || !bar) throw new Error('demo not found')
-            const style = getComputedStyle(el)
-            const reach = parseFloat(style.outlineWidth) + parseFloat(style.outlineOffset)
-            const box = el.getBoundingClientRect()
-            const frame = scroller.getBoundingClientRect()
-            const above = box.top - bar.getBoundingClientRect().bottom
-            const below = frame.top + scroller.clientTop + scroller.clientHeight - box.bottom
-            return reach === 5 && Math.min(above, below) >= reach - 0.5
-          }),
-        )
-        .toBe(true)
+      const room = await ringRoom(links.nth(index), true)
+      expect(room.reach, `link ${index}: ring reach outside the link`).toBe(1)
+      expect(room.spare, `link ${index}: room beyond the ring`).toBeGreaterThanOrEqual(-0.5)
+    }
+  })
+
+  test('focus reveals every 2.4.11 link clear of the sticky bar and the scroller, forwards and back', async ({
+    page,
+  }) => {
+    await page.goto('/standard.html')
+    const links = page.locator('.focus-obscured-link')
+    await expect(links).toHaveCount(8)
+
+    for (const index of [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0]) {
+      await links.nth(index).focus()
+      const room = await ringRoom(links.nth(index), false)
+      expect(room.focusVisible, `link ${index}: shows a focus ring`).toBe(true)
+      expect(room.reach, `link ${index}: ring reach outside the link`).toBe(1)
+      expect(room.spare, `link ${index}: room beyond the ring`).toBeGreaterThanOrEqual(-0.5)
     }
   })
 
@@ -205,10 +243,15 @@ test.describe('focus rings and the boxes that clip them', () => {
       await expect
         .poll(() =>
           link.evaluate((el) => {
-            const style = getComputedStyle(el)
-            const reach = parseFloat(style.outlineWidth) + parseFloat(style.outlineOffset)
+            const probe = document.createElement('span')
+            probe.style.cssText =
+              'position: absolute; visibility: hidden; inline-size: calc(var(--focus-ring-width) + var(--focus-ring-offset));'
+            el.append(probe)
+            const reach = probe.getBoundingClientRect().width
+            probe.remove()
             const box = el.getBoundingClientRect()
             return (
+              el.matches(':focus-visible') &&
               reach === 5 &&
               box.left - reach >= -0.5 &&
               box.right + reach <= document.documentElement.clientWidth + 0.5 &&
@@ -224,7 +267,9 @@ test.describe('focus rings and the boxes that clip them', () => {
   test('chapter bar labels stay inside their links when text is enlarged', async ({ page }) => {
     await page.setViewportSize({ width: 402, height: 800 })
     await page.goto('/standard.html')
-    await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
+    await page.addStyleTag({
+      content: '*, *::before, *::after { transition-property: none !important; } html { font-size: 200% !important; }',
+    })
     const overhang = await page.evaluate(() =>
       [...document.querySelectorAll('.chapter-bar-link')].map((link) => {
         const frame = link.getBoundingClientRect()
