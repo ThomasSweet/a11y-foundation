@@ -42,9 +42,11 @@ The visual boundaries and states of UI components (and meaningful graphics) need
 
 **Level AA · WCAG 2.2 · Operable**
 
-When an element receives keyboard focus, it is not entirely hidden by author-created content like a sticky header. Added in WCAG 2.2 (2023) — sticky bars routinely swallow the focused control, stranding keyboard users.
+When an element receives keyboard focus, it is not entirely hidden by author-created content such as a sticky header. Added in WCAG 2.2 (2023): sticky bars routinely swallow the focused control and strand keyboard users. An element that is only partly covered passes; keeping every part of it clear is 2.4.12 Focus Not Obscured (Enhanced), level AAA.
 
 - [WCAG: Understanding 2.4.11](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+- [WCAG: Understanding 2.4.12](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html)
+- [WCAG: Failure F110](https://www.w3.org/WAI/WCAG22/Techniques/failures/F110)
 
 ## 2.4.13 Focus Appearance
 

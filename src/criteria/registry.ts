@@ -160,22 +160,35 @@ export const criteria: Criterion[] = [
     principle: 'Operable',
     requirement:
       'When an element receives keyboard focus, it is not entirely hidden ' +
-      'by author-created content like a sticky header. Added in WCAG 2.2 ' +
-      '(2023) — sticky bars routinely swallow the focused control, ' +
-      'stranding keyboard users.',
+      'by author-created content such as a sticky header. Added in WCAG ' +
+      '2.2 (2023): sticky bars routinely swallow the focused control and ' +
+      'strand keyboard users. An element that is only partly covered ' +
+      'passes; keeping every part of it clear is 2.4.12 Focus Not Obscured ' +
+      '(Enhanced), level AAA.',
     breakLabel: 'Break this rule',
     restoreLabel: 'Restore compliance',
     passText:
-      'Meets 2.4.11 — scroll-margin keeps each focused link clear of the ' +
-      'sticky bar, so the focus ring is always visible.',
+      'Meets 2.4.11: scroll-margin on each link reserves room for the bar ' +
+      'above it, so when the browser scrolls a link into view it lands ' +
+      'below the bar, not under it.',
     failText:
-      '⚠ Failing 2.4.11 — links tabbed to near the top scroll flush under ' +
-      'the sticky bar, hiding the focus ring. Tab through and watch your ' +
-      'focus disappear behind it.',
+      '⚠ Failing 2.4.11: the bar is now taller than a link and no ' +
+      'scroll-margin holds the links clear of it. Tab to the last link, ' +
+      'then Shift+Tab back up: some links take focus with nothing of them ' +
+      'left to see (failure F110). The ones that keep a strip showing ' +
+      'pass this criterion and fail 2.4.12.',
     links: [
       {
         label: 'WCAG: Understanding 2.4.11',
         href: 'https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html',
+      },
+      {
+        label: 'WCAG: Understanding 2.4.12',
+        href: 'https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html',
+      },
+      {
+        label: 'WCAG: Failure F110',
+        href: 'https://www.w3.org/WAI/WCAG22/Techniques/failures/F110',
       },
     ],
     component: FocusObscuredDemo,

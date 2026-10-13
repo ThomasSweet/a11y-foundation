@@ -1,9 +1,9 @@
 <template>
   <div class="focus-obscured-demo" :class="{ 'is-broken': broken }">
     <p class="focus-obscured-caption">
-      Tab through the links below. A sticky bar sits at the top of this
-      scrolling panel — when the rule is broken it overlaps whatever you
-      tab to near the top, so keyboard users lose sight of their own focus.
+      A sticky bar sits at the top of this scrolling panel. Tab down to the
+      last link, then Shift+Tab back up: the links you return to come from
+      above, from behind the bar.
     </p>
 
     <div class="focus-obscured-viewport">
@@ -98,6 +98,10 @@ const items = [
   }
 
   .is-broken {
+    .focus-obscured-bar {
+      padding-block: var(--space-4);
+    }
+
     .focus-obscured-link {
       scroll-margin-block-start: 0;
     }

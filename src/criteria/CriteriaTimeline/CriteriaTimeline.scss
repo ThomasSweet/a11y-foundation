@@ -70,6 +70,10 @@
     }
   }
 
+  .timeline-era:has(:focus-visible) .timeline-era-header {
+    position: static;
+  }
+
   .timeline-era-headrow {
     display: flex;
     align-items: flex-start;
