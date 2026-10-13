@@ -2,12 +2,16 @@ import { test, expect, type Locator, type Page } from '@playwright/test'
 
 function ringCuts(page: Page, selector: string) {
   return page.evaluate((query) => {
-    const probe = document.createElement('div')
-    probe.style.cssText =
-      'position: absolute; visibility: hidden; inline-size: var(--focus-ring-width); block-size: var(--focus-ring-offset);'
-    document.body.append(probe)
-    const reach = probe.getBoundingClientRect().width + probe.getBoundingClientRect().height
-    probe.remove()
+    const ringProbe = () => {
+      const probe = document.createElement('span')
+      probe.style.cssText =
+        'position: absolute; visibility: hidden; inline-size: calc(var(--focus-ring-width) + var(--focus-ring-offset));'
+      return probe
+    }
+    const pageProbe = ringProbe()
+    document.body.append(pageProbe)
+    const reach = pageProbe.getBoundingClientRect().width
+    pageProbe.remove()
 
     const nameOf = (el: Element) =>
       `${el.tagName.toLowerCase()}.${String(el.className).split(/\s+/)[0]} "${(el.textContent ?? '').trim().slice(0, 24)}"`
@@ -17,15 +21,18 @@ function ringCuts(page: Page, selector: string) {
       (target) => !target.parentElement?.closest('details:not([open])'),
     )
 
-    for (const target of targets) {
+    const probes = targets.map((target) => {
+      const own = ringProbe()
+      target.append(own)
+      return own
+    })
+    const outsides = probes.map((own) => own.getBoundingClientRect().width)
+    for (const own of probes) own.remove()
+
+    for (const [index, target] of targets.entries()) {
       const box = target.getBoundingClientRect()
       if (box.width === 0 || box.height === 0) continue
-      const own = document.createElement('span')
-      own.style.cssText =
-        'position: absolute; visibility: hidden; inline-size: calc(var(--focus-ring-width) + var(--focus-ring-offset));'
-      target.append(own)
-      const outside = own.getBoundingClientRect().width
-      own.remove()
+      const outside = outsides[index]
       const cut = { top: 0, right: 0, bottom: 0, left: 0 }
       for (let ancestor = target.parentElement; ancestor && ancestor !== document.body; ancestor = ancestor.parentElement) {
         const style = getComputedStyle(ancestor)
@@ -225,6 +232,9 @@ test.describe('focus rings and the boxes that clip them', () => {
 
     for (const index of [0, 1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1, 0]) {
       await links.nth(index).focus()
+      await expect
+        .poll(async () => (await ringRoom(links.nth(index), false)).spare, `link ${index}: room beyond the ring`)
+        .toBeGreaterThanOrEqual(-0.5)
       const room = await ringRoom(links.nth(index), false)
       expect(room.focusVisible, `link ${index}: shows a focus ring`).toBe(true)
       expect(room.reach, `link ${index}: ring reach outside the link`).toBe(1)
