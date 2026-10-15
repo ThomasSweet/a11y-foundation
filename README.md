@@ -50,6 +50,7 @@ gets an accessible fallback, never a broken page:
 | Container queries | the standards map and the what-changed block reflow by their own width, not the viewport's |
 | Scroll-driven animations | reading-position nav highlight, the timeline's era strata pouring in |
 | Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
+| Scroll-state queries | the mobile chapter bar hides while you scroll down and comes back when you scroll up, or the moment it takes focus |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
 | `@starting-style` + `allow-discrete` | the theme panel popover's entry and exit |
 | Subgrid | the hub plates align rows across cards |
@@ -66,6 +67,9 @@ gets an accessible fallback, never a broken page:
 - **A seed-driven theming engine** — a theme is two OKLCH seeds plus optional
   contrast strengths; the full contrast-safe palette is derived in CSS. Eight
   presets: visual themes, a color-vision-friendly trio, high-contrast pair.
+- **The craft**: the default decisions where native HTML and CSS clear the
+  bar, from validation that waits its turn to glass that keeps its contrast,
+  each with a working demo beside the hand-rolled version it replaces.
 - **WCAG, live** — eleven criteria demos on the standard's timeline, each
   with a **"break this rule"** toggle so you can feel what the criterion
   prevents.
@@ -126,7 +130,10 @@ The site responds live to OS settings — no reload needed:
 - **Reduced motion** → page transitions, reveals, and spinners bow out
 - **Dark mode / theme panel** → all tokens and native controls flip; presets
   re-derive the whole palette from two seeds
-- **Increased contrast** → borders strengthen, decorative shadows drop
+- **Increased contrast** → borders take the text color, muted text goes to
+  full strength, decorative shadows drop, the focus ring thickens
+- **Reduced transparency** → the demos’ glass surfaces turn opaque (only
+  Chromium reads this setting, so the glass is dense enough to pass without it)
 - **Forced colors (Windows)** → buttons, dialogs, and charts keep visible boundaries
 - **Keyboard only** → skip link on first Tab, consistent focus rings throughout
 
@@ -143,7 +150,7 @@ The repo's suite is that model, runnable:
 
 ```sh
 npm run test:unit   # contrast-clamp guarantee, snippet guard, Baseline fallback watch, revisions registry (Vitest)
-npm run test:e2e    # axe sweep of every content page + keyboard/focus specs + the standards map and the feed, on Chromium, Firefox, and WebKit
+npm run test:e2e    # axe sweep, keyboard and focus specs, layout at 320px with text spacing and 200% text, contrast and focus-ring contracts, on Chromium, Firefox, and WebKit
 ```
 
 The e2e suite runs the `axe` scan across every content page in three
@@ -151,14 +158,19 @@ engines, pins keyboard behaviour (skip link, dialog focus, popovers, theme
 persistence, the standards map's exclusive accordion), and fetches each
 content page's raw HTML to assert the content is there before any
 JavaScript runs — the pages are prerendered at build time and hydrated on
-the client.
+the client. It loads every page at 320 CSS pixels, with WCAG text spacing and
+at 200% text, and fails on sideways scrolling or on anything cut off. It holds
+the glass token to 4.5:1 in every theme, and checks that the focus rings in
+code blocks, demos and the mobile chapter bar are not clipped by the boxes
+they sit in.
 It has caught real WCAG failures on this very site before they shipped —
 which is the strongest argument for the layered model the site makes.
 
 ## Kept current
 
 Baseline moves without anyone touching the repo, so a workflow watches it.
-Every Monday it bumps `web-features`, regenerates the Baseline data, the
+Every Monday it bumps `web-features` to the newest release that has been
+public for at least three days, regenerates the Baseline data, the
 agent skill and the feed, and opens a pull request that proposes a
 what-changed line for any showcase that gained an engine or reached
 Baseline; a person reads it against the release notes and merges. Merging
@@ -170,7 +182,7 @@ the feed or the Baseline data, falls behind its registry.
 ## Getting started
 
 ```sh
-npm install         # Node 22.18 or newer: gen-feed in prebuild imports revisions.ts directly
+npm install         # Node 24+ and npm 11.16+; see .npmrc and devEngines
 npm run dev         # playground at http://localhost:5173
 npm run typecheck   # vue-tsc
 npm run lint:css    # stylelint, including mixin-order enforcement
@@ -271,8 +283,12 @@ navigation between chapters with no routing JavaScript. The scrollbar rules,
 tinted from the page's tokens and never thinned, the thumb that takes the accent
 while keyboard focus is inside a region, and the edge hints that show only while
 there is more to scroll follow [Adam Argyle](https://nerdy.dev/)'s CSS Day 2025
-talk on scrollers, layered onto what `overflow: auto` already ships. The
-implementations and the accessibility argument are mine; the insight was theirs.
+talk on scrollers, layered onto what `overflow: auto` already ships. His CSS
+Day 2026 talk, "Contextualism", started a second pass: the chapter bar's focus
+fixes, the submit button that stays live, the glass and more-contrast
+sections, the contained focus ring and the 1.3.4 demo's real orientation query
+all began as items on its list. The implementations and the accessibility
+argument are mine; the insight was theirs.
 
 The small decorative glyphs — the payoff figure on the showcase cards among
 them — are

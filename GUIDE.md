@@ -402,9 +402,29 @@ What that demands of every component:
 
 ## Setup
 
-Node 22.18 or newer (`engines` in `package.json`): `gen-feed` (part of
-`prebuild`) and `gen-moves` import `revisions.ts` directly, which relies on
-Node's type stripping.
+Node 24 or newer (`engines` in `package.json`), the version CI runs.
+`gen-feed` (part of `prebuild`) and `gen-moves` import `revisions.ts`
+directly, which relies on Node's type stripping.
+
+npm 11.16 or newer, enforced by `devEngines` in `package.json`: an older npm
+stops with `EBADDEVENGINES` instead of quietly ignoring the install rules in
+the project `.npmrc`. There are two:
+
+- `min-release-age=3` installs only versions published at least three days
+  ago, the window in which a compromised release is usually noticed and
+  pulled. `npm ci` from the lockfile is unaffected, and `@latest` resolves to
+  the newest version that is old enough. For an urgent fix, lift it for one
+  command: `npm update <pkg> --min-release-age=0`.
+- `strict-allow-scripts=true` fails an install when a dependency brings an
+  install script nobody has reviewed. `allowScripts` in `package.json`
+  records the decisions. It denies the only two today, `@parcel/watcher`
+  and `fsevents`, which ship prebuilt binaries and work without their
+  scripts. Review a new one with `npm install-scripts ls`, then
+  `npm install-scripts approve <pkg>` or `deny <pkg>`.
+
+Never set `ignore-scripts=true` in `.npmrc`: npm would also skip the
+project's own `prebuild`, and the build would ship stale Baseline data and
+a stale feed.
 
 There is no `main` module. Each HTML file loads one module from `src/entries/`
 (`hub.ts`, `standard.ts`, and so on), and every one of them calls `mount()`
@@ -1089,7 +1109,7 @@ to by name only (`DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_REPO`,
 `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `BOT_TOKEN`) and are configured in
 GitHub, never in the tree.
 
-**`ci.yml`** runs on push and pull_request to `main`, on Node 22 with
+**`ci.yml`** runs on push and pull_request to `main`, on Node 24 with
 `npm ci`. The `verify` job runs each gate as its own step so a failure points
 at the exact check: `typecheck`, `lint:css`, `lint:js`, `baseline:check`
 (informational, never fails), `test:unit`, `build`, then "Generated files
@@ -1112,7 +1132,8 @@ with that sha.
 
 **`baseline-moves.yml`** is the Monday bot: 09:30 UTC and on dispatch, bash
 with pipefail, one concurrency group. It bumps `web-features` to the latest
-exact version, regenerates `baseline-data.json`, regenerates the agent skill
+exact version that is at least three days old (the `.npmrc` cooldown),
+regenerates `baseline-data.json`, regenerates the agent skill
 and the llms mirror, runs `gen-moves` to propose what-changed lines,
 regenerates the feed, and opens a pull request on `chore/baseline-moves`
 with the `baseline` label. The title says whether anything moved. It needs

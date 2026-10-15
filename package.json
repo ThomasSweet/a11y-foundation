@@ -5,7 +5,14 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=24"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "^11.16.0",
+      "onFail": "error"
+    }
   },
   "description": "How much of accessibility the modern web platform handles natively: an interactive argument in four chapters, with a Baseline-tiered CSS showcase, an installable agent skill and an Atom feed of platform and standards moves. Vue 3, prerendered MPA.",
   "scripts": {
@@ -49,5 +56,9 @@
     "vitest": "^4.1.9",
     "vue-tsc": "^3.3.6",
     "web-features": "3.42.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher": false,
+    "fsevents": false
   }
 }
