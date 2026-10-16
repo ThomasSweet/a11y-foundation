@@ -21,7 +21,7 @@ test.describe('the Atom feed', () => {
       expect(href).toMatch(/^https:\/\//)
     }
 
-    const firstId = entries[0].match(/<id>([^<]+)<\/id>/)?.[1] ?? ''
+    const firstId = entries[0]?.match(/<id>([^<]+)<\/id>/)?.[1] ?? ''
     expect(firstId).toContain(newest.id)
   })
 })

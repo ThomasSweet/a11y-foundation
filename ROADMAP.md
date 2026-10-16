@@ -1,283 +1,152 @@
-# Roadmap & ideas
+# Roadmap
 
-A running list of things to explore. Not a backlog with deadlines — a place
-to capture intent so decisions stay consistent.
+What comes next for accessible-by-default.dev, what is owed, what is being
+watched, and what has been decided. The site argues, in four chapters with
+practice rooms, an agent skill and a feed, how much of accessibility the web
+platform handles natively. Every item here keeps three constraints:
 
-The guiding constraints for everything here (from the project's character):
+- **Platform first.** A native element or a CSS feature before JavaScript; a
+  little Vue before a library.
+- **Use what ships.** Current evergreen browsers, no heavy dependencies.
+- **Accessibility is the point.** Every idea has to survive keyboard, screen
+  reader, reduced motion and forced colours.
 
-- **CSS/SCSS-first.** This is a styling showcase. Reach for a platform
-  feature before JavaScript; reach for a tiny bit of Vue before a library.
-- **Use what ships.** Current evergreen browsers only (~2 years back).
-  No heavy dependencies, no complicated scripts.
-- **Accessibility is the point**, not a checkbox — every idea below has to
-  survive keyboard, screen reader, reduced-motion, and forced-colors.
+Code rules live in [GUIDE.md](GUIDE.md).
 
-Everything completed lives as one line under **Done** — the detail is in
-git history and the PRs, not here.
+How to edit this file:
+
+- Open holds only what is still open. When something ships, it leaves Open in
+  the same change and gets one line under Recently done.
+- Recently done keeps at most 15 lines of at most 25 words, newest first,
+  each ending with its PR number. When a sixteenth arrives, delete the
+  oldest: its PR keeps it. [docs/history/2026.md](docs/history/2026.md) is the
+  old Done section as it stood on 2026-10-16.
+- Measurements and test notes go in the PR description. Lessons for future
+  code go in GUIDE.md. A longer record of why goes in `docs/history/` only
+  when a later reader will ask.
+- Visitor feedback goes into Now, Next or Ideas, or into Rejected with the
+  reason. Credit the finder only if they are named in README's Thanks.
+- Point with a heading name or a PR number, never "above" or "below".
+- The monthly cloud routine "Standards and browser freshness sweep" reads,
+  under Open, the sections "Standards re-checks (dated)", "Owed checks" and
+  "Watchlist", and under Standing decisions the entry "What earns a
+  what-changed line". Keep those names and that nesting, or change the
+  routine's prompt in the same change. GUIDE's "What changed" states the same
+  rule: change both together.
+- Budget: about 3,000 words, never more than 3,500.
 
 ---
 
 ## Open
 
-### Feedback inbox
+### Now
 
-- Distribution (Anthony's push): get the project into curated lists —
-  the accessibility side (brunopulis/awesome-a11y, The A11y Project's
-  resources page, an A11y Weekly link suggestion) and the agent side,
-  where "a11y for AI agents" is a near-empty niche (VoltAgent/
-  awesome-agent-skills and the awesome-claude-skills lists). Also worth
-  a shot: CSS/frontend newsletters for the showcase itself. Draft the
-  PR/blurb texts once, submit by hand.
-
-- The project itself as a showcase (open, directional) — my worry after the
-  restructure: some playfulness got lost, and the site chrome should *itself*
-  employ the CSS it showcases, visibly. Partly addressed already (cross-doc
-  view-transition morphs, subgrid hub, scroll-driven scroll-spy + reveals,
-  chapter watermarks, anchor-positioned theme panel, :has() legal wash, the
-  rounded-polygon "You are here" tag, the standards map's exclusive details,
-  ::details-content and :has() bubble) — but treat "does the site dogfood
-  this?" as a standing design test, and keep hunting for places where a
-  showcased feature can do real chrome work with personality. Playfulness is
-  a feature, not a garnish.
-
-### Scroll affordances (Argyle pass, 2026-09-16)
-
-Mined from Adam Argyle's CSS Day 2025 talk and its CodePen collection; the
-first three items shipped (see Done). Still open, in order: a scroll-shadow
-scroll hint built on scroll-driven animations (`@property` percentages
-animated on `scroll(self inline)` with `animation-range`), dogfooded on the
-code blocks and the coverage matrix, which overflow sideways at phone widths
-where the scrollbar is overlay and invisible until touched; no static shadow
-as the fallback, because a shadow that stays at the end claims more than
-there is. The carousel's buttons placed outside the strip when the container
-has room and inside when it does not (his container-query trick), with the
-pressed scale and flat disabled state as polish. A staggered entrance with
-`@starting-style` plus `sibling-index()`, Baseline since 2026-08-18, as a
-third block in the starting-style showcase or its own entry. The peek-a-boo
-overscroll pseudo-element only as an easter egg, reduced-motion gated.
-Rejected for this site: `::-webkit-scrollbar`, `scrollbar-width: thin` on
-anything a hand grabs, dropping the scroller outline in favour of the thumb
-colour, and the Switch demo's sounds, haptics and `scrollTo`.
-
-### Positioning & wayfinding (review 2026-08-31)
-
-Full findings and the tiered work program live in
-[docs/positioning-review.md](docs/positioning-review.md). Verdict: the
-argument and the destinations are strong, but the site under-states its own
-identity
-(llms.txt describes it to machines better than the hub describes it to
-humans), the routing layer above the chapters lacks task words, and, until
-September, nothing user-facing said the site changed. Tier 1 (copy) largely applied
-2026-08-31: hub lede states claim + mechanic + audience, plate descs became
-outcome contracts with counts, coverage-policy sentence on the Standard
-intro (the 2.4.7 trap), boring-prose rail labels, three syntax-only
-showcase titles renamed, standard→craft bridge line. The Tier 1 remainder
-went in on 2026-10-12: a "By the end" contract sentence closes each chapter
-intro, and craft ends on its count and the agent skill.
-Tier 2 items 1 and 2, the what's-new block and the Atom feed, shipped
-2026-09-13 (see Done). Tier 2 remainder, each its own change: task-index
-sheet (A·05), criterion cards registered in the Standard rail, glossary as
-concept router, error-cluster cross-links, Baseline-movement sentence in the
-showcase intro (the Monday bot feeds the what-changed block, the intro still
-says nothing), agent-skill date stamp, bug-template llms mirror, and a
-chapter-level "last changed" stamp in each chapter's title block, derived
-from the newest revisions.ts line for that area (no second registry, no
-counts, no unread badges). Tier 3 is the deferred
-per-section-pages split, which these findings strengthen — the task index
-becomes its IA. Explicitly rejected: quizzes, progress marks, time
-estimates, search, newsletter capture (see the doc's "deliberately not
-doing" list).
-
-### Contextualism pass (Argyle, 2026-09-18)
-
-Mined from Adam Argyle's CSS Day 2026 talk "Contextualism", a list of about
-seventy things a component can know, ending in prop-for-that, a JavaScript
-library that publishes runtime state as custom properties. About two thirds
-of the list was already on the site. Every candidate went through three
-refuters (site fit, the accessibility claim, buildability); the claims below
-are the narrowed versions that survived, and the criteria named are the ones
-that held. Shipped in three changes (see Done): the chapter bar's
-`:focus-within` exit, the slide-away that keeps it off a focused control and
-the gated `view()` reveal; then the JavaScript paragraph in proof, the live
-submit button in the validation section and the scroll-state sentence about
-the focus exit; then, in October, the glass and more-contrast sections, the
-contained focus ring and the 1.3.4 demo on a real orientation query. Still
-open:
-
-- "Reduced, not removed": under reduced motion the craft spinner and the
-  loading shimmer freeze and stop saying busy. Where the animation is the
-  status, swap motion for a slow opacity cue (WCAG's definition of motion
+- **Withdraw or correct the media state pseudo-classes line.**
+  `media-pseudo-classes-baseline` in `revisions.ts` (2026-08-25, now only in
+  the feed, since the hub shows the six newest) says Chrome 152 shipped them
+  and they reached Baseline. web-features 3.42, MDN's compat data and Chrome's
+  status page show no shipped Chrome version; the Chrome 152 beta post had
+  listed them. Correct it in place (same id and date) or withdraw it.
+- **Fix the principle tag on 1.3.5.** `src/criteria/registry.ts` tags 1.3.5
+  Identify Input Purpose as Understandable; WCAG files it under 1.3
+  Adaptable, in Perceivable. The card and the generated skill reference show
+  it. Fix it and run `skill:gen`.
+- **Refresh the WebAIM figures.** WebAIM published Survey 11 on 2026-09-29;
+  proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
+  Survey 10. The freshness routine checks the same page on 2026-11-01: if it
+  opens a draft PR first, review that instead.
+- **Bump Playwright to 1.64.** 1.61.1 is installed; 1.64.1 bundles Chromium
+  156, Firefox 157 and WebKit 27.2. Then run the re-checks under Owed checks.
+- **Bump `axe-core` and `@axe-core/playwright` together.** 4.12.1 is pinned;
+  4.13 changed rule behaviour and 4.14 is out. GUIDE's CI section says why
+  both move at once. Re-run the audit-room and listening-room specs, which pin
+  exact findings, and re-check the axe column of proof's coverage matrix.
+- **Decide the mechanism for "reduced, not removed".** Under reduced motion
+  the craft spinner and the loading shimmer freeze and stop saying busy. The
+  plan, for those two only: a slow opacity cue (WCAG's definition of motion
   animation excludes opacity), bounded or tied to a real loading state
-  (2.2.2), floor around 0.4, cycle of 2s or slower. Spinner and shimmer
-  only; pulse and progress stay frozen so freeze-by-default remains the
-  message. Needs an opt-out from the 0.01ms sweep in `preferences.css`,
-  which no component can take today although the file's own comment
-  promises one. The mechanism is a deliberate choice, not a detail, and it
-  is waiting on that choice.
+  (2.2.2), floor about 0.4, cycle 2s or slower. Pulse and progress stay
+  frozen, so freeze-by-default stays the message. It needs a sanctioned way
+  out of the 0.01ms sweep in `preferences.css`, which promises a mixin for
+  this in a comment. The options: `!important` inside `reduced-motion()`,
+  which already wins by layer order (recommended); an opt-out attribute; or
+  no opt-out and a static busy cue.
 
-Weak but honest, in this order: print styles as a parallel to WCAG and not a
-conformance target (the repo has none; no forced backgrounds, no `attr(href)`
-on every link); "the label that stays", with `:placeholder-shown` as an
-emptiness guard being the un-obvious correct use of the talk's floating-label
-selector; a dark island set with `color-scheme` beside a hand-painted twin
-(the one real failure is inherited light text inside a light-scheme control);
-readonly versus disabled as a craft note (bare `:read-only` also matches a
-paragraph); `@scope`, where proximity only decides between selectors that tie
-on specificity, so inherited custom properties remain the stronger fix. Fun
-only: a `sibling-count()` footnote on quantity queries, inside the cap the
-watchlist already sets.
+### Next
 
-Waiting on an asset: the media state showcase (see the watchlist) needs a short clip with
-captions and a transcript, and Playwright 1.63 or later, because the bundled
-Chromium 149 predates `:playing`.
+- **Node 26 in CI**, once it becomes LTS on 2026-10-28 (noted in #87).
+- **Distribution.** Draft the blurbs once, then submit by hand:
+  [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
+  A11y Project's resources page, VoltAgent/awesome-agent-skills and the
+  awesome-claude-skills lists (the agent side is a near-empty niche), and CSS
+  newsletters for the showcase. A11y Weekly already has it queued.
+- **Positioning, Tier 2**, each its own change: items 3 to 10 in
+  [docs/positioning-review.md](docs/positioning-review.md), plus a "last
+  changed" stamp per chapter, derived from `revisions.ts`. Optional, from
+  Tier 1: the hub method block.
+- **A scroll-shadow hint** on scroll-driven animations (`@property`
+  percentages on `scroll(self inline)`), for the code blocks and the coverage
+  matrix, which scroll sideways on phones with a hidden scrollbar. No static
+  shadow as a fallback: one that stays claims more than there is.
+- **Carousel buttons by container query**: outside the strip when there is
+  room, inside when not, with a pressed scale and a flat disabled state.
+- **Practice rooms**, in build order, each a candidate until its scope is
+  written and reviewed: P·03 settings room (state and preference barriers a
+  static page cannot host); P·04 booking form (a multi-step flow where
+  errors, instructions and grouping do the damage); P·05 review desk (a
+  component library read one component at a time).
 
-Found while building the October change and left alone. Of about 130
-`@include high-contrast` blocks, about 115 only set
-`border-color: currentcolor`. Roughly 85 of those sit on borders that already
-use `--color-border`, which the preferences layer turns to `CanvasText` by
-itself: they are redundant, and they land on the text colour where the token
-lands on the system one. The other 30 or so sit on `--bp-line-strong`,
-`--bp-frame`, `--color-primary` or transparent borders and are needed, so
-check each one before removing any. About 36 component `:focus-visible`
-blocks still declare an `outline` that the preferences layer overrides, and
-the `forced-colors` block in `preferences.css` has a ring rule that is dead
-for the same reason (it sits before the general rule), so the ring under
-forced colours is not the 3px `ButtonText` ring that block describes. A
-`.surface` derives its own palette on the element, so the
-`prefers-contrast` token overrides on `:root` do not reach inside it. Glass
-at 90% is close to opaque because the Midnight preset needs 87%; lightening
-Midnight's subtle text would let every scheme drop to about 85%, and a
-second, lower token for surfaces that carry no text is the other way to get
-visible translucency back.
+### Ideas
 
-Housekeeping found on the way, none of it a user-facing defect:
-`SiteFrame.scss` still says `100vh` where the reset says `100svh`; the
-`env(safe-area-inset-bottom)` on the chapter bar resolves to 0 because the
-viewport meta has no `viewport-fit=cover`; the cq-units clamps have no rem
-term in their preferred value, so that snippet teaches a zoom-resistant form
-(1.4.4).
+- **`sibling-index()` and `sibling-count()`**, Baseline since 2026-08-18. The
+  payoff is aesthetic: a staggered `@starting-style` entrance or a footnote on
+  quantity queries, not a showcase of its own. When: either showcase next
+  changes.
+- **The peek-a-boo overscroll pseudo-element**, an easter egg gated on reduced
+  motion. When: the scroll items in Next are done.
+- **Print styles** as a parallel to WCAG, not a conformance target: no forced
+  backgrounds, no `attr(href)` on every link. When: craft has room.
+- **"The label that stays"**: `:placeholder-shown` as an emptiness guard, as
+  `TextField.scss` already uses it. When: craft's form sections change.
+- **A region set to the dark scheme with `color-scheme`**, beside a
+  hand-painted copy; the real failure is inherited light text in a
+  light-scheme control. When: the theming demos change.
+- **Readonly versus disabled** as a craft note (bare `:read-only` also
+  matches a paragraph). When: craft's form sections change.
+- **`@scope`**: proximity only breaks specificity ties, so inherited custom
+  properties stay the stronger fix. When: a showcase gap.
+- **Understandable is the thinnest principle on the timeline**: 3.2.6 and
+  3.3.7 only, once 1.3.5 is tagged Perceivable. 3.1.2 lives in the listening
+  room; 3.1.1 is named nowhere. When: the next timeline criterion, or P·03's
+  scope.
+- **`text-box` trim** (Chrome and Safari): alignment with a modest
+  accessibility angle. When: a showcase gap.
+- **`text-fit`**, Chrome 150 only, ready for a limited-tier slot. It would
+  retire images of text and SVG `textLength` hacks for display headlines
+  (1.4.5). Display type only, never body or functional text, and lead with
+  the caveat that shrinking per line can undo a reader's larger text (1.4.4).
+  When: a limited-tier slot is wanted.
+- **Translucent glass again.** Glass sits at 90% because Midnight needs 87%.
+  Lighter subtle text in Midnight, or a lower token for surfaces without
+  text, would bring it back. When: a design reason to want it.
+- **Per-section pages**, the deferred Tier 3 split; the task index would
+  become its structure. Deferred, no trigger yet.
 
-Rejected, with the reason worth keeping: prop-for-that as a dependency or a
-named recommendation (global providers rewrite `:root` on every pointer move
-and scroll frame, and its docs carry no reduced-motion or announcement
-guidance); pointer tilt, parallax and the following eye (2.3.3, pointer-only
-state); the reveal-once latch held at opacity 0 (focusable content nobody can
-see); a slider value or words painted with `counter()` and `content` (the
-visible and the accessible value diverge, F87); battery, network and frame
-rate tiles (no cross-engine support and no fallback, and the `prefers-*`
-features already carry the person's intent); the GRAD axis (no font on the
-site has one and `@supports` cannot detect axes); the anchor interpolated
-morph (no accessibility benefit, Chromium-only, and a hover morph was already
-tried and cut); colour fonts (the site's first web font, nothing in Safari);
-`::selection` styling (the default highlight is the reader's own OS setting);
-concentric corners (the tokens resolve to 0); counters for the testing
-layers (the markup does not match).
+### Watchlist
 
-### The masterclass sweep (July 2026) — specialist-lens gap analysis
-
-The exercise: what would an accessibility specialist and a senior
-accessibility engineer say is missing, if this site is meant to go past
-"what is a11y" into building solid foundations and auditing well? Verdict
-first: the four pillars hold. The real gaps cluster in three places — the
-**Understandable** principle is the thinnest pillar, **layout under user
-stress** (zoom, spacing, translation) is practised everywhere but taught
-nowhere, and the proof chapter argues the layered model without teaching
-the *practice* of auditing (screen-reader literacy, triage, reporting).
-Every candidate below keeps the house rules: interaction only when it IS
-the lesson, pure CSS/HTML mechanisms, JS-territory named as out of lane
-rather than half-covered.
-
-**POUR, honestly scored.** Perceivable: strong (contrast engine, theming,
-forced colors, reduced motion/transparency) — missing 1.4.12 and 1.4.13.
-Operable: strong (targets, focus appearance, bypass, and 2.4.11's sticky-bar
-break-it already exists). Understandable: was thinnest — 3.3.7, 3.2.6, and
-now 1.3.5 cover it; 3.1.1/3.1.2 remain absent or unnamed. Robust: the site
-*is* the demo (landmarks, headings, native elements) but never teaches the
-hiding-technique decisions every dev gets wrong; status messages (4.1.3)
-are JS and should be named as out of lane, not skipped silently.
-
-Proof-chapter candidates (the premise says "audit effectively and
-efficiently" — the chapter argues the model, these teach the practice):
-
-- **The audit room** — BUILT 2026-08-01 (see Done); the scope that
-  drove it stays in [docs/audit-room-scope.md](docs/audit-room-scope.md).
-- **The listening room** — BUILT 2026-09-15 (see Done); the other half of
-  the coverage matrix, a page a scanner passes with eleven barriers you
-  hear first. Scope in
-  [docs/listening-room-scope.md](docs/listening-room-scope.md).
-
-Structure: nothing above needs a fifth pillar. Understandable items feed
-the timeline, the hiding/stress work feeds craft, audit practice feeds
-proof, and cheat-sheet material extends the title-block reference sheets
-(A·03, A·04…) the way glossary and agent-skill already do.
-
-Out of lane — now stated on the site ("Where this argument stops", end of
-proof): captions/media (no media on the site), 4.1.3 live regions, ARIA
-authoring patterns, focus management — JS mechanisms; the section points
-at the ARIA APG.
-
-### Practice rooms
-
-Decided 2026-09-15: the P-series varies **the type of thing under test**,
-not the story around it. A press kit, a shop, a component library, a form
-flow: each type carries its own natural barriers, and a room that repeats
-a type teaches the same lesson twice. The band fiction is a convenience,
-never a constraint; it stays only where it saves inventing a world, and
-any room is free to leave it. Rooms that force the theme onto a type it
-does not fit get rejected on that ground alone.
-
-Planned, in build order, each still a candidate until its scope is
-written and reviewed:
-
-- **P·03 settings room**: a settings page, and the state-and-preference
-  barriers a static page cannot host.
-- **P·04 booking form**: a multi-step form flow, where errors,
-  instructions and grouping do the damage.
-- **P·05 review desk**: a component library sheet read as an auditor
-  would read it, one component at a time.
-
-### Watchlist (too early / conditional — revisit)
-
-- WCAG 2.2 timeline coverage — settled at 5 of the 9 new criteria (2.5.8,
-  2.4.11, 2.4.13, 3.2.6, 3.3.7); the rest assessed July 2026 and skipped on
-  purpose: 2.4.12 near-duplicates the 2.4.11 demo at AAA, 2.5.7 and 3.3.8
-  need JS mechanisms to break honestly.
-- `text-box` (trim) — Chrome + Safari; typographic alignment with only a
-  modest a11y angle; take it only if a showcase gap needs filling.
-- Subgrid card alignment — only if criteria/showcase cards ever sit side by
-  side; verify the layout before building.
-- Media state pseudo-classes (`:playing` etc.) — re-checked Sep 2026: Chrome 152
-  (25 Aug 2026) shipped all seven, so they are Baseline newly available
-  (Firefox 150, Safari 15.4). No longer blocked: a demo can style state on a
-  native `<video controls>` without script. Ready whenever a slot wants it.
-- `text-fit` (a.k.a. the `text-grow`/`text-shrink` proposals) — assessed
-  July 2026: no engine ships it, so it can't be demoed honestly. The a11y
-  case is real but double-edged: *grow/fit* would retire images-of-text and
-  SVG `textLength` hacks for display headlines (real text that translates
-  and reads aloud), but *shrink per-line* can quietly fight the user — bump
-  your font size and the algorithm shrinks it back to fit, a 1.4.4 failure
-  mode with the same flavour as `maximum-scale=1`. If it ships: demo it as
-  display-type-only, never body or functional text, and lead with the
-  shrink caveat. Update Aug 2026: Chrome 150 shipped it, so the condition is
-  met and the framing above is the build spec; passed over for wave 11 while
-  single-engine, ready whenever a limited-tier slot wants it.
-- `sibling-index()` / `sibling-count()` — re-checked Sep 2026: Baseline newly
-  available since Firefox 154 (18 Aug 2026), but the payoff is still
-  aesthetic; at most a footnote on the quantity-queries showcase.
-- `border-shape` — spec still in flux; candidate for the anchor-tooltip
-  arrow. Its corner cousin `corner-shape` shipped in Chrome 139 and joined
-  the showcase in wave 11.
-- Overscroll areas / built-in gestures — early spec discussion.
-- Scoped view transitions (`element.startViewTransition`) — Chrome-only JS API.
-- Interop 2027: proposals close 23 Sep 2026, the scope is published 4 Feb
-  2027. When it lands, re-check the seven "Interop 2026 focus area" labels on
-  the cards, the showcase intro's Interop link and the two wpt.fyi links in
-  src/showcases/registry.ts (the header and the Interop entry), and see
-  whether any feature above made the cut.
-- Standards map, neighbour glide: when the open card spans the row, the
-  displaced card hops instead of gliding; pure CSS cannot animate a reflow.
-  A same-document View Transition around the toggle would, but that is
-  script. Parked as a deliberate call, not forgotten.
+- **Media state pseudo-classes** (`:playing`, `:paused` and five more):
+  web-features 3.42 has Firefox 150 and Safari 15.4, no Chrome. Trigger:
+  web-features lists a Chrome version; the monthly routine checks this, since
+  the Monday bot only reports features that already have a showcase. A
+  showcase then needs a short clip with captions and a transcript, and a
+  Playwright whose Chromium has them.
+- **Anchor positioning's badge** stays limited until Chrome and Firefox ship
+  the `position-visibility` values `anchor-valid` and `anchor-visible`,
+  although every engine ships the parts both anchor demos use. Chrome is
+  expected in 157 (web-features issue #3558). Trigger: Chrome's tick; then
+  reword "only Safari 27" in the anchor positioning summary in `registry.ts`.
+- **`border-shape`**, Chrome 147 only, for the anchor tooltip's arrow.
+  Trigger: a second engine; the monthly routine checks.
 
 ### Standards re-checks (dated)
 
@@ -285,234 +154,189 @@ The map and the timeline carry claims with expiry dates. Re-read the primary
 source before touching the wording or the sources-read stamp in
 `standardsMapData.ts`.
 
-- EN 301 549 V4.1.1 (WCAG 2.2 AA): published by ETSI, not yet cited in the
-  Official Journal. Re-check December 2026; when cited, the EAA chain moves
-  to the 2.2 row and the "arriving" note goes. Canada's ACA cites the 2024
-  Canadian adoption of V3.2.1, so it stays at 2.1 AA regardless.
-- WCAG 3.0: next working draft expected Q4 2026 (the 3.0 row note says
-  "late 2026" and must follow it); Candidate Recommendation snapshot targeted
-  Q4 2027.
-- WebAIM Screen Reader Survey 11: closed 31 Aug 2026, results pending.
-  When published, refresh the Survey 10 numbers in A·03 and proof in one pass.
-- ADA Title II: the April 2026 interim final rule (26 Apr 2027 and 26 Apr
-  2028) is challenged in court, no ruling yet; the phase-in wording holds
-  until one lands.
-- axe-core 4.13 changes rule behaviour; when bumping, re-run the audit-room
-  spec that pins exactly two findings, and bump `@axe-core/playwright` in
-  the same change, or it nests its own axe-core and the pin stops governing.
+- **EN 301 549 V4.1.1** (WCAG 2.2 AA): published by ETSI, not yet cited in
+  the Official Journal. Re-check December 2026. When cited, the EAA chain
+  moves to the 2.2 row and the "arriving" note goes. Canada's ACA cites the
+  2024 Canadian adoption of V3.2.1, so it stays at 2.1 AA regardless.
+- **WCAG 3.0**: next working draft expected Q4 2026; none since September as
+  of 2026-10-16. The 3.0 row note says "late 2026" and must follow it.
+  Candidate Recommendation snapshot targeted Q4 2027.
+- **ADA Title II**: the April 2026 interim final rule (26 Apr 2027 and 26 Apr
+  2028) is challenged in court, with no ruling as of 2026-10-16. The phase-in
+  wording holds until one lands.
+- **Interop 2027**: the scope is published 2027-02-04. Then re-check the
+  eight "Interop 2026" labels in `src/showcases/registry.ts` and its
+  dashboard link, the showcase intro's Interop link, and the Interop 2026
+  link and preview card in `InterestInvokerDemo.vue`, and see whether a
+  watched feature made the cut.
 
 ### Owed checks
 
-- Safari 27 (14 Sep 2026): re-test the StyleQueryCuesDemo claim that Safari
-  skips pseudo-element rules inside style queries and qualify it with the
-  last affected version if fixed; the sample bug report in proof names
-  Safari 26. The customizable select line is in (see Done).
-- Anchor positioning's badge: `web-features` keeps the feature limited
-  until Chrome and Firefox also ship the `position-visibility` values
-  `anchor-valid` and `anchor-visible`, although every engine ships the parts
-  the two anchor demos use. The registry summaries of both anchor showcases
-  say so. Chrome is expected to ship them in 157 (web-features issue #3558);
-  when its tick arrives, "only Safari 27" in those sentences needs
-  rewording, and when Firefox follows, the sentences go.
-- A real-Chrome check of the cross-document transitions and the theme
-  no-flash on the live site after a deploy, still owed from
-  [docs/prerender-scope.md](docs/prerender-scope.md).
-- After the October responsiveness sweep: a look on a real iPhone at the
+- **VoiceOver pass for the listening room**, owed since 2026-09-16. Record
+  what VoiceOver says for each of the eleven barriers (NVDA too, given a
+  Windows machine), then drop the "predictions" caveat and date the answers.
+  When: the next screen reader session. See
+  [docs/listening-room-scope.md](docs/listening-room-scope.md).
+- **Engine workarounds**, due with the Playwright bump. Run each re-check in
+  GUIDE's "Engine behaviours we work around" in the new engines, starting
+  with "Anchored elements" (measured 2026-09-28).
+- **Safari 27 and style queries**, owed since 2026-09-14. Does real Safari 27
+  apply pseudo-element rules inside a style query? If so, qualify
+  `StyleQueryCuesDemo.snippet.css` with the last affected version, and recheck
+  the `::after` moon glyph in `LightDarkDemo.vue`. When: with the iPhone
+  check.
+- **Proof's sample bug report** names Safari 26 in its setup line; move it to
+  Safari 27, whatever the style-query result.
+- **Real Chrome after a deploy**, owed since 2026-09-05: cross-document
+  transitions and the theme no-flash on the live site, per
+  [docs/prerender-scope.md](docs/prerender-scope.md). When: the next deploy.
+- **Real iPhone after the responsiveness sweep**, owed since 2026-10-11: the
   hero strike, the "Content source", "Theme" and "Filter by topic" rows, and
-  proof's "A layered job" section. Playwright's WebKit reproduced all
-  three before the fix, but it is not iOS Safari.
-- After the October contrast change: Increase Contrast on a real iPhone and
-  a real Mac, with the craft page open. The mapping to
-  `prefers-contrast: more` is confirmed from WebKit's source, not by hand.
-  Also the 1.3.4 device screen in real Safari: focus lands on it in
-  Playwright's WebKit, but the arrow keys did not scroll it there.
-- The anchor tooltip's three engine workarounds, measured 2026-09-28 in
-  Chromium 149, Firefox 151 and WebKit 26.5: `data-reveal="off"` on the
-  demo (Chromium keeps a card with a finished scroll-driven `transform`
-  as the fixed hint's containing block), `display` toggled instead of
-  `visibility` (Firefox stops restyling an element with a position-try
-  fallback applied) and no transition under reduced motion (WebKit never
-  finishes a near-zero `display` exit on an anchored element). Re-test on
-  each engine release and drop a workaround once its bug is fixed. Side
-  effects meanwhile: Firefox skips the fade-out, and WebKit shows a flipped
-  hint back above its trigger for the length of the fade-out.
+  proof's "A layered job". Playwright's WebKit is not iOS Safari. When: the
+  next look on the phone.
+- **Increase Contrast and 1.3.4 in real Safari**, owed since 2026-10-13:
+  Increase Contrast on an iPhone and a Mac with craft open (its mapping to
+  `prefers-contrast: more` was read in WebKit's source, never tried), and
+  whether the arrow keys scroll the 1.3.4 device screen. When: with the
+  iPhone check.
+
+### Known debt
+
+- **Content defect: the cq-units clamps.** The clamps in `CqUnitsDemo.vue`
+  and `CqUnitsDemo.snippet.css` have no rem term in the preferred value, so
+  between their bounds the size does not grow with zoom (1.4.4).
+- **Unlabelled scroll regions.** `CodeBlock`'s `<pre>` and the three `<pre>`
+  blocks in `LightDarkDemo.vue` are Tab stops with no label, against GUIDE's
+  rule for scrollable regions.
+- **Timeline reveals hold their start state.** `CriteriaTimeline.scss` runs
+  the strata layers and each card's slide-in with `fill: both`, against
+  GUIDE's scroll-driven rule 3. Switch them to `none` and re-run the timeline
+  specs.
+- **Forced-colours ring.** In `preferences.css` the ring rule in the
+  `forced-colors` block sits before the general `:focus-visible` rule and
+  never applies. What shows is the general ring (3px, 4px when more contrast
+  also matches) in whatever colour forced colours pick. Check in forced
+  colours, then fix or delete.
+- **High-contrast blocks.** Of 130 `@include high-contrast` blocks, 117 only
+  set `border-color: currentcolor`; 86 of those sit on `--color-border`,
+  which the preferences layer already turns to `CanvasText`. Check each before
+  removing any.
+- **Dead outline rules.** 38 component `:focus-visible` blocks declare an
+  `outline` that the preferences layer overrides.
+- **`.surface` and more contrast.** A `.surface` derives its palette on the
+  element (`theming/engine.css`), so the `prefers-contrast` overrides on
+  `:root` do not reach inside it. GUIDE notes it; nothing fixes it.
+- **`100vh`.** `SiteFrame.scss` says `100vh` where `reset.css` says `100svh`.
+- **Safe-area inset.** `env(safe-area-inset-bottom)` in `ChapterLayout.scss`
+  resolves to 0, because no page's viewport meta sets `viewport-fit=cover`.
+- **Comments in CSS.** 28 CSS and SCSS files outside the snippets still carry
+  comments, among them `preferences.css`, `layers.css` and `tokens.css`, and
+  two Vue `<style>` blocks (`FocusAppearanceDemo`, `CustomSelectDemo`) carry
+  prose comments, against GUIDE's zero-comments rule. Remove them file by
+  file.
 
 ---
 
 ## Standing decisions
 
-- **No JS in demos** — if pure CSS/HTML can't do it, drop the idea; tiny Vue
-  state is acceptable only to simulate external context (a CMS, a fetch),
-  never the mechanism being taught.
-- **Interaction earns its place only when it IS the lesson** — as in the
-  break-it toggles. "Make X more interactive" is a trap framing; two
-  additions built on that framing were rejected the same day they were
-  tried (breakage tally: reads as surveillance; the old legal map's
-  jurisdiction picker: the eye filtered four cards faster than any control).
-- **No learned-affordance features** — mechanisms a visitor must first
-  learn (keyboard shortcuts, custom gestures) are the opposite of
-  invisible/native accessibility; a pull toward nav conveniences is a flow
-  problem to fix structurally. Leaves 2.1.4 uncovered by choice.
-- **Metaphor lives in ornament and prose** — never in labels, link text, or
-  group names; mono-caps never marks a bare link in text flow. (Klara's
-  wayfinding round.)
-- **Form validation demo stays CSS/native-only** — the JS layer (validation
-  message wiring, submit gating) is deliberately out of scope. Since 2026-09
-  the two fields sit in a real form with a live submit button and a simulated
-  "nothing was sent" response: that is the external context the first rule
-  allows, and the opposite of gating.
-- **Runtime state published as custom properties: not doing.** A custom
-  property is not in the accessibility tree, and most of the states such
-  libraries publish mirror pseudo-classes that already exist. Where a script
-  is the right tool it writes into the document (an element, an attribute, a
-  status message, focus) and CSS styles from that. Stated on the site in
-  proof's "Where this argument stops".
-- **Scroll-driven custom-property color: rejected** for performance; don't
-  re-propose custom-property scroll animations.
-- **Style queries are reserved for non-color cues** — the theming core uses
-  plain custom-property inheritance on purpose.
-- **CodeBlock `<pre>` keeps its permanent tabindex** — conditional focus
-  needs JS; accepted trade-off, mitigated by closed-by-default `<details>`.
-- **View-transition scrubbing / FLIP keyframe optimization: not doing** —
-  deep JS, against the house rules.
-- **Comments: zero by default.** The code says what; the reasoning lives in
-  commit messages, this file, or GUIDE.md. A comment that seems load-bearing
-  is proposed in review first (see GUIDE.md).
+- **Does the site dogfood this?** A standing design test: the site's own
+  chrome uses the CSS it shows, visibly and with personality, and degrades to
+  a working page without it. Keep looking for chrome a showcased feature
+  could do.
+- **No JavaScript in demos.** If CSS and HTML cannot do it, the idea is
+  dropped; a little Vue state may simulate outside context (a CMS, a fetch),
+  never the mechanism taught. Two older showcases are exceptions:
+  same-document view transitions (`document.startViewTransition`) and the
+  Custom Highlight API, whose only way in is JavaScript.
+- **Interaction earns its place only when it is the lesson**, as in the
+  break-it toggles; "make X more interactive" is a trap framing. A breakage
+  tally (it read as surveillance) and the old legal map's jurisdiction picker
+  (scanning four cards was faster) were cut the day they were tried.
+- **No learned-affordance features.** Shortcuts and custom gestures must be
+  learned first, the opposite of native accessibility; a pull toward them is
+  a flow problem to fix in the structure. This leaves 2.1.4 uncovered on
+  purpose.
+- **Metaphor lives in ornament and prose**, never in labels, link text or
+  group names, and mono-caps never marks a bare link. From Klara Schmitt's
+  wayfinding review.
+- **Form validation stays CSS and native.** JavaScript message wiring and
+  submit gating are out of scope. The live submit button with a simulated
+  "nothing was sent" is outside context, the opposite of gating.
 - **What earns a what-changed line.** What moved in the platform and the
   standards, and what it changed here. A line goes in only if a reader can
   act on it: a platform or standards fact with its consequence on the site,
-  or a new thing here to try. Never plumbing (prerender, the 404 page,
+  or a new thing here to try. Never plumbing (prerendering, the 404 page,
   durations belong in git). One sentence, exactly one link, to the primary
-  source or the place on the site.
-- **Automation lives in CI, not in the site.** The weekly Baseline-moves bot
-  and the deploy workflow are repository tooling like the build-time
-  generators in `scripts/`: no runtime dependency, no site JavaScript,
-  nothing the served pages execute. The bot proposes, a person merges.
+  source or the place on the site. GUIDE's "What changed" has the mechanics.
+- **Practice rooms vary the type under test** (2026-09-15): a press kit, a
+  shop, a component library, a form flow, each with its own barriers. A room
+  that repeats a type teaches the same lesson twice. The band fiction stays
+  only where it saves inventing a world, and a room that forces it onto a
+  type it does not fit is rejected on that ground alone.
+- **WCAG 2.2 coverage is settled at 5 of the 9 new criteria** (2.5.8,
+  2.4.11, 2.4.13, 3.2.6, 3.3.7). Skipped in July 2026: 2.4.12 near-duplicates
+  the 2.4.11 demo at AAA; 2.5.7 and 3.3.8 need JavaScript to break honestly.
+  3.3.9 (the AAA form of 3.3.8) is not in the July record.
+- **Four chapters, no fifth.** New material feeds an existing chapter or a
+  reference sheet.
+- **Out of lane, said on the site.** Proof's "Where this argument stops"
+  names ARIA widget patterns, live regions and focus management as
+  JavaScript territory and points at the APG, instead of half-covering them.
+
+### Rejected, with reasons
+
+- Runtime state as custom properties, and prop-for-that as a dependency: its
+  providers rewrite `:root` on every pointer move. The rule is GUIDE's
+  "Script writes state into the document".
+- Scroll-driven colour through custom properties: built, then dropped for
+  jitter (GUIDE, "Scroll-driven animations").
+- View-transition scrubbing and FLIP keyframe tuning: deep JavaScript.
+- A glide for the standards map's displaced card: parked, the owner's call.
+  CSS cannot animate the reflow, and a View Transition around the toggle is
+  script.
+- Watching built-in gestures and scoped view transitions: a learned
+  affordance, and a JavaScript API.
+- `::-webkit-scrollbar`, and `scrollbar-width: thin` on anything a hand
+  grabs: `scrollbar-color` already tints the thumb, and thin shrinks a target.
+- Dropping the scroller outline for the thumb colour: the outline is the focus
+  indicator, and the tint only adds to it.
+- Sounds, haptics and `scrollTo` from the scroller talk's Switch demo:
+  script, and not the lesson.
+- Quizzes, progress marks, time estimates, search, newsletter capture: course
+  apparatus, per the positioning review.
+- Pointer tilt, parallax and a following eye: 2.3.3, and pointer-only state.
+- A reveal-once latch held at opacity 0: focusable content nobody can see.
+- A value painted with `counter()` and `content`: the visible and the
+  accessible value diverge (F87).
+- Battery, network and frame-rate tiles: no cross-engine support, and the
+  `prefers-*` features already carry the person's intent.
+- The GRAD axis: no font here has one, and `@supports` cannot detect axes.
+- The interpolated anchor morph: no accessibility benefit, Chromium only, and
+  a hover morph was already cut.
+- COLRv1 colour fonts: the site's first web font, and not in Safari.
+- `::selection` styling: the default highlight is the reader's OS setting.
+- Concentric corners: the tokens resolve to 0.
+- Counters for the testing layers: the markup does not match.
 
 ---
 
-## Done
+## Recently done
 
-One line per item, newest first; details in git history / PRs.
+- 2026-10-16: Node 24 in CI; installs skip releases under three days old and stop on unreviewed install scripts. #87
+- 2026-10-14: Coverage matrix: a faint focus ring cites 1.4.11, and axe is partial on colour alone. #86
+- 2026-10-13: The standard page stops failing 2.4.11: era headers step aside for focus, and the demo's bar can hide a link. #85
+- 2026-10-13: Showcase ring check fixed in CI: probes measured in one pass, 0.3 seconds instead of over 30. #84
+- 2026-10-13: Flaky 2.4.11 test fixed: specs stop reading transitioning values, and the demo's links get an inset ring. #83
+- 2026-10-13: More contrast and glass contrast: two craft sections, unclipped focus rings and a real orientation query. #82
+- 2026-10-11: Responsiveness sweep: nothing scrolls sideways or clips from 320px up, in three engines. #80
+- 2026-09-29: The anchor tooltip flips for real, with three engine workarounds and a new spec. #78
+- 2026-09-29: @supports claims scoped: the README and the skill's guard lines follow the tier rules. #77
+- 2026-09-28: Baseline bot lines: one per feature, and no false "first engine". #76
+- 2026-09-21: JavaScript as the second question: a proof paragraph and a submit button that stays live. #74
+- 2026-09-21: Chapter bar focus: the bar never hides or covers a focused control; reveals carry their own motion gate. #73
+- 2026-09-21: Scrollbars tinted, never thinned: the thumb shows focus, plus a scroll-state scrollable block. #72
+- 2026-09-21: The listening room (P·02): a press kit a scanner passes, with eleven barriers you hear first. #71
+- 2026-09-14: WCAG 3.0 note: the timeline says what the draft means for the 2.2 AA target. #70
 
-- **2026-10** The coverage matrix on proof cited the wrong criterion for "Focus indicator too faint to see": 2.4.11, which in WCAG 2.2 as published is Focus Not Obscured (Minimum) and judges whether the focused component is hidden by author-created content, not how its indicator looks. The number was left over from the 2.2 drafts, where 2.4.11 was Focus Appearance (Minimum). The row now cites 1.4.11 Non-text Contrast (AA), decided from the four Understanding pages as read on 2026-10-13: Understanding 2.4.7 states that focus indicators fall under 1.4.11, and Understanding 1.4.11 has its own failing example, an author-styled gray ring at 2.3:1 on white. 2.4.13 Focus Appearance stays out of the row because it is AAA, and citing it alone would say a faint ring is optional at AA when an author-styled one already fails there. 2.4.7 Focus Visible sets no threshold, so it only applies once the indicator cannot be seen at all. The one limit of the new citation: 1.4.11 exempts a browser default ring the author has not touched. The three verdicts stand. axe-core 4.12.1 has no rule tagged for 1.4.11 or 2.4.7 and never puts an element in its focused state, and a keyboard pass is where a faint ring gets noticed. No test, generated skill reference or other copy repeated the pairing. One verdict in another row changed in the same pass: "Meaning carried by colour alone" (1.4.1) goes from missed to partial for axe, because axe-core's `link-in-text-block` rule is tagged for 1.4.1 and flags a link told apart from the text around it by colour alone, and nothing else under the criterion. The row moved up to sit with the other two partials, so the axe column still reads as a slope.
-
-- **2026-10** The standard page stops failing the criterion it teaches: the two 2.4.11 defects the October review found, both older than that change. First, the sticky era header. Measured with real key presses through every tab stop on standard (104 to 110, by engine and width) in Chromium 149, Firefox 151 and WebKit 26.5, at 1280 by 800 and 320 by 700. Tab never put a control under a header, because controls arrive from below. Shift+Tab did: 9, 7 and 7 stops wholly covered at 1280 and 6, 2 and 3 at 320, with 14, 1 and 14 more covered in part at 1280 and 10, 4 and 9 at 320 (2.4.11 and failure F110 for the wholly hidden ones, 2.4.12 for the rest). Parking each control inside an era 2px under the top edge and pressing Shift+Tab onto it hid 61 to 64 of the 74 or 75 in every engine, so one wheel scroll between two key presses was enough. The fix is one rule: while `:focus-visible` matches inside an era, that era's header is `position: static`. It goes back to the top of its era, nothing below it moves, and it cannot cover a visibly focused control in any engine, at any header height, by construction. After it, 0 stops are covered in part or in full in all three engines at both widths, in the walk and in the parked test. It leaves pointer users alone except in a text field, the same trade the chapter bar made. Root `scroll-padding-block-start` (technique C43) was measured first, because September's note asked for it. WebKit 26.5 honoured root scroll-padding when it revealed a focused element here, at the start side and at the end side, so that observation did not reproduce on this page. `view-timeline-inset: auto` does follow it, but at the start side the entry reveals are untouched (the same opacity at every sampled scroll position in Chromium and WebKit) and only `cover` ranges end a little sooner (0.08 of opacity apart at most); the 64px late start and the pop at the end side reproduced in both. It was dropped for three other reasons. The reviewer's 3.5rem is 1px short of the tallest header (57px in Chromium, because the strata mark grows with each era), which left five buttons 1.5px under it and their ring without its top line. At 4rem Chromium and WebKit had no covered stop, but Firefox does not move a focused element whose box already lies inside the scrolling area, and still left 20 of 66px of a button and 49 of 240px of a scrolling panel under the header at 320. And a length on the root has to keep up with a header whose height nothing fixes. Second, the 2.4.11 demo. Its broken state said "Failing 2.4.11" with a 41px bar over 49px links. In Chromium and WebKit a focused link always kept 6px or more showing, which passes 2.4.11 and fails 2.4.12 (W3C: the criterion is failed when the component is entirely hidden, and it judges the component, not the ring). In Firefox one link on the way back up was already invisible, 24px past the panel's top edge and the other 25px under the bar, so neither "failing" nor "a sliver remains" would have been true in all three engines. The broken state now grows the bar to 57px (`padding-block: var(--space-4)`), taller than a link. Tab to the last link and Shift+Tab back up: 3 of the 7 steps in Chromium, 2 in Firefox and 5 in WebKit land on a link with nothing of it visible, at 1280 and at 320, and 2, 2 and 1 steps keep a strip. Scrolling the panel by hand first makes it plainer: a link parked under the bar and then reached with Shift+Tab stayed wholly hidden in 12 of 42 placements in each engine, and in 0 of 42 with the rule restored. The fail text says that, names F110 and says the strip cases pass this criterion and fail 2.4.12; the requirement now says that partly covered passes; the caption sends the reader down and back up, because forwards never shows the failure. The pass text promised that scroll-margin keeps the ring always visible. Since the inset ring the walk bears that out inside the panel, but scroll-margin only decides where a scroll lands, and Firefox does not always scroll: in the parked test it left up to 11px of a link under the bar in 4 of 42 placements, and at 320 by 700 a link low in the panel took focus 21 to 24px below the window. The text now claims what all three engines do, a link that lands below the bar when the browser scrolls it into view. Two keyboard specs pin this. The Shift+Tab walk through the eras at 320 and 1280 fails on the old build in all three engines at both widths. The demo spec needs every link whole on the way up while compliant, a bar taller than a link when broken and at least one link wholly hidden, and fails on the old build in all three. The walk waits for the scroll position to hold still before each key press: Firefox mis-scrolls when synthetic presses arrive with no gap between them, on the old build too and with no sticky header at all, and a 30ms pause was enough to stop it. The demo spec leaves reduced motion off, because it reads the bar's height straight after a class change.
-
-- **2026-10** A red main, and what it taught. The WebKit run of the new 2.4.11 focus walk had already failed once on the pull request, where the automatic retry passed and hid it, and then timed out on main, twice. Read from the run's trace: scrolling was instant and landed where it does locally, but each step waited one to four seconds. Cause: under reduced motion the reset in `preferences.css` gives every element a 0.01ms transition on every property, so a just-focused element reports `outline-offset: 0px` until the next frame, in all three engines, and the spec polled that computed value on each of 15 steps. Locally a frame is 16ms; WebKit on the runner drew one every few seconds for an idle page. No spec reads a transitionable computed value after a state change under reduced motion any more: they read the tokens and `:focus-visible`. The same lag had a second, quieter effect. The responsive spec emulates reduced motion and injects its text-spacing and 200% text settings, and those had not taken effect when the first measurement ran (in Firefox not at all, in Chromium and WebKit only part of the way down the tree), so the spec could pass on a layout that never had the setting. It now injects them with `transition-property: none`, they apply in the same task, and run that way it still passes on all 14 pages in three engines: nothing was hiding. The 2.4.11 demo's ring also moved inside its links, through a new token, `--focus-ring-offset-inset`: the ring reaches 1px past the link, and the whole ring shows on every step, forwards and back, in all three engines. For a Tab walk the Firefox caveat in the line below no longer applies, and the focus walk runs in Firefox too; a panel scrolled by hand is another matter (see the line above). GUIDE has both lessons: the frame of lag under reduced motion, and the token as the supported way to pull a ring inside. A second red followed from the fix itself: to measure the inset ring, the showcase ring check inserted, measured and removed a probe element per target, and 108 forced restyles took that one call past the 30 second limit on the runner, after it had passed on the pull request. The probes are now inserted, measured and removed in one pass each (0.3 seconds in Chromium, 2 seconds at eight times CPU throttling). Since then, a change to a spec is not ready until the suite has run with the JSON reporter and the slowest tests have been read.
-
-- **2026-10** Contrast on request, glass that passes, and rings that are not clipped: the four remaining buildable items from the Contextualism pass, above. Craft has two new sections and one new figure, so fourteen decisions, and the hub plate and craft's closing line say so (one prerender spec holds both to the section count). "More contrast, on request" teaches what the site already did: under `prefers-contrast: more` the border token becomes `CanvasText`, subtle text takes the text colour, shadows drop. Measured in three engines, a card border goes from 1.32:1 to 21:1 in light and subtle text from 7.46:1 to 18.88:1. The fourth promise, a 4px focus ring, had never applied: the `outline-width` rule sat before the `outline` shorthand in the same layer, so the ring measured 3px with and without the preference. It is now a token (`--focus-ring-width: 4px` in that query). The copy says what the preference is not: W3C's sufficient techniques for 1.4.6 are a palette that passes by default (G17, G148) or a control on the page (G174), an OS setting is not among them, so the site does not count the preference as conformance. That is this site's reading, stated as such, not a W3C ruling. 1.4.11 does not wait for the preference, so the demo's field edge is at 3:1 from the start. Increase Contrast on macOS and iOS is the audience (confirmed in WebKit's source: ThemeMac and ThemeIOS read the system setting); Windows contrast themes arrive as `forced-colors`, usually with `prefers-contrast: more` matching as well, and Safari parses `forced-colors` but never matches it as active. The demo simulates the preference with `:has(:checked)`, no script. "Glass that keeps its contrast": `--color-surface-glass` went from 72% (light), 64% (dark) and 78% (presets) to 90% everywhere. Over solid black and solid white, the old values left subtle text at 3.76:1, 2.10:1 and about 3.3:1 (Midnight, which the September measurement missed; the last digit differs by engine); the lowest passing alpha is 87%, set by Midnight, and at 90% the lowest figure is about 5:1. Nothing on the site had put subtle text on the token; the two uses carry body text, which passed before and now has room. WCAG has no procedure for content scrolling under a bar; the copy says the extreme backdrop is this site's extrapolation from failure F83, and that it is the worst case only for a tint strong enough to pass (at 40% in dark, a backdrop just short of white is 0.01 worse than white). `prefers-reduced-transparency` is Chromium only (118), so it is taught as a courtesy; `CssCarouselDemo` gained the guard it lacked. The contained focus ring: `contain: paint | content | strict`, `content-visibility: auto` and `overflow: clip | hidden | auto` all cut a focused child's ring at the padding edge in all three engines; padding of ring width plus offset keeps it. `overflow-clip-margin` rescues it in Chromium and Firefox for containment and `overflow: clip` only, never for `hidden` or `auto`, and Safari does not support it, 27 included. The audit behind the figure found the bug on this site: every code block cut the ring of its own scrolling `pre` on three sides (`overflow: clip` on the figure, and component `outline-offset` rules that the preferences layer had always overridden), the 2.4.11 demo's links lost theirs left and right and the first one lost its top line under the sticky bar, and the first and last chapter bar links lost 3px at the viewport edge at 320. All are fixed with room, not with a restyled ring, and the three dead outline rules on those components are gone. Two things moved with the fixes: the 2.4.11 scroller is half a rem taller, because the new padding had shifted its end position and Firefox, which on focus does not move an element whose box already lies inside the scroller, whatever its scroll margin, then left a link under the sticky bar when tabbing back; and the chapter bar labels wrap inside their links, because equal columns made STANDARD run over CRAFT at 200% text. Known and left: in Firefox a focused 2.4.11 link can still sit 3px past the scroller's bottom edge and lose the bottom line of its ring. The 1.3.4 demo runs on a real query: the device frame is `container-type: size`, the app is styled with `@container (orientation: …)`, and the button only changes the frame's shape; the copy says the container query stands in for the page-level media query. The frame is a grid, not a percentage height: WebKit resolved `block-size: 100%` against the frame's border box and let the screen stick out 20px. In landscape the list flows into columns and the layout label sits beside the title, so at 320 the proof that the query matched is in view without scrolling. The broken state shows the rotate notice in the starting orientation, which is failure F100 by title; F97 is the locked view, and the card links both. `role="alert"` is gone from the notice, and the frame's screen is a labelled tab stop because WebKit does not focus a scroller by itself. Three new specs: `contrast` (the token contract in light, dark and every preset read from presets.css, the figures printed on the page compared with measured ones, both demos, the real preferences), `focus-ring` (the figure by geometry and by painted pixels, every code block, the 2.4.11 demo, the chapter bar) and `orientation`. The ring specs fail against the site as it was before the change. The Tier 1 copy remainder from the positioning review went in with it.
-
-- **2026-10** Responsiveness sweep. The hero strike sat a line too low and up to 2.45 times too wide in WebKit, so on every iPhone: the SVG was absolutely positioned in an inline span with no size of its own, and WebKit sized it against the heading. A sweep of all 14 pages at nine viewport sizes in three engines, with WCAG text spacing and 200% text, then found one root cause behind nearly everything else: a `display: grid` stack has an auto column that cannot be narrower than its widest child, so one long code path or one text input widened a whole section, and the page frame's `overflow: clip` cut it off without a scrollbar (proof's test layers below about 420px in Chromium and WebKit, eight demos at 320, the open standards-map card under 390px). Fixed at the hops with `minmax(0, 1fr)`, `overflow-wrap: anywhere` on inline code, and `min-inline-size: 0` on inputs and fieldsets. Also: three legends floated inside flex fieldsets, which WebKit keeps on the border, became block fieldsets; chapter titles wrap under their number; the contents rail is capped to the viewport, so its last link no longer takes focus below the fold on a short window (2.4.7); the container-queries demo lost its half-size zoom on phones; the attr() bars no longer collapse to nothing. `responsive.spec.ts` fails CI when any page scrolls sideways or cuts off text at 320, at 320 with text spacing, or at 1280 with 200% text. The three rules are in GUIDE, "Layout that cannot be widened".
-
-- **2026-09** The anchor tooltip's flip made real. The caption promised the hint would flip at an edge, and it never did, in any engine, even at first layout: `position-area: top center` limits the hint to the button's own column, a wider hint overflows every option, and the spec then keeps the base position and shifts it over its trigger. `block-start span-all` flips it in all three engines, at first layout and on scroll. Three engine traps came with it, each worked around and listed under owed checks for re-testing: Firefox stops restyling an element with a fallback applied (so show and hide now toggle `display` with `allow-discrete` and `@starting-style`), WebKit never finishes a near-zero `display` exit on an anchored element (so no transition under reduced motion, in the demo and in the portable snippet), and Chromium makes a card with a scroll-driven `transform` the fixed hint's containing block (so the card skips its reveal, `data-reveal="off"`, now in GUIDE). The hover bridge covers both sides and the border, so the pointer keeps hover across the gap in 0.5px steps. The copy claims only what is measured and names its criteria: keyboard reveal is 2.1.1, hoverable and persistent are 1.4.13, and dismissible stays the honest gap. `anchor-tooltip.spec.ts` runs in three engines with and without reduced motion; 27 of its 36 tests fail on the old code.
-
-- **2026-09** The Monday bot's first real move, and what review caught: `web-features` 3.39 moved Safari 27 into anchor positioning and customizable select, and the bot proposed the anchor line twice, once per anchor showcase, both claiming Safari 27 was "the first engine to ship it". Both anchor showcases map to one feature, and a feature's engine version in `web-features` is the first release with every compat key: Chrome, Firefox and Safari have shipped the core since Firefox 147 in January 2026, and Safari 27 is only the first with the two `position-visibility` values the feature also counts. `gen-moves.mjs` now reports a move once per feature, reads the per-key data to choose between "ships" and "completes", lists a "completes" that changes no Baseline tier in the pull request body instead of on the site (nobody can act on it), matches a hand-written line's engine on word boundaries (Safari 26.2 no longer covers Safari 26) and dedupes against a hand-written line on any showcase of that feature; the unit guard rejects duplicate titles; the summaries of both anchor showcases explain their limited badge. The bot's own pull request was replaced by this change, which carries `web-features` 3.40 and the one line that held: customizable select in Safari 27.
-
-- **2026-09** JavaScript as the second question, and a submit button that stays alive (the second change from the Contextualism pass, above). Proof's "Where this argument stops" gained a middle paragraph: first ask whether the platform already knows the state; where it does, a script copy is a second source of truth and the two drift; where it does not, characters remaining being the example, the script writes into the document (an output element, an attribute such as `aria-pressed`, a status message, focus), never only into a custom property, because a custom property is not in the accessibility tree: it can change how something looks, but it is not a name, a state or a message (4.1.2, 4.1.3, failure F87). The example attribute is `aria-pressed` on purpose: `aria-invalid` and `aria-expanded` would be the second source of truth the paragraph warns about, and `aria-busy` is barely announced. No library is named, nothing is demoed, and the claim stays clear of "screen readers cannot read generated content", which current engines disprove. The validation section's two fields now sit in a real form with a live Save button, and a second pair names the talk's `form:has(:invalid) button { opacity: .5 }` for what it is: the premature judgement the section already argues against, moved from the field to the form, since an untouched required field matches `:invalid` from first paint. A truly disabled submit is the harsher variant: it leaves the focus order and removes the one action that makes the browser focus and name the first invalid field. Verified in three engines: an empty submit focuses the name field, which then matches `:user-invalid`; a valid one reports that nothing was sent and does not navigate. The copy says plainly what holds in every engine (Roselli, linked): the native message appears only on submit and for one field at a time, does not rescale if the page is zoomed while it is up, and tells a screen reader that the field is invalid more reliably than why, which is why the hint stays. The five second self-dismissal people remember was Chrome only and went away around Chrome 120, so the copy does not claim it. The form carries `method="dialog"` outside any dialog, which the HTML submission algorithm defines as doing nothing, so a valid Save cannot navigate or lose what was typed even before the script has woken up; the status line counts repeat presses so that a second Save is still announced. The scroll-state showcase now says that a bar hidden on scroll direction owes a `:focus-within` exit, with the site's own chapter bar as the live example (the `scrolled` query is Chrome 144, the three demoed states 133), and its snippet shows the rule with the page scroller as its container. One keyboard spec pins the live button, the browser finding the first invalid field, and the status clearing on edit.
-
-- **2026-09** Scroll affordances, from Adam Argyle's CSS Day 2025 scroller talk: every scroller on the site tints its thumb from the ink token at half strength (3:1 in both schemes; `scrollbar-color` set once on `html` and inherited, width never thin) and turns it to the accent while keyboard focus is inside (`[tabindex="0"]:focus-within` in `base.css`); the craft scrollbar section rewritten around the 1.4.11 and 2.5.8 exemptions an author forfeits by restyling; the scroll-state showcase gained the scrollable state (sticky edge markers shaded only while there is more that way); both snap strips keep their inline-end padding in all three engines (padding moved onto a `max-content` list with `cqi` card widths, because Firefox and WebKit size a flex container's intrinsic width from item content, not `flex-basis`); overscroll containment on every horizontal strip and the coverage matrix.
-
-- **2026-09** The listening room (P·02, the second practice room): a fictional Fitis press kit on its own standalone page (`/broken-press-kit.html`, previewed inert as in P·01) with eleven planted barriers, built so a scanner passes it outright. Measured, not hoped: under axe's WCAG tags the page reports nothing at all, and with the best-practice tags added it reports exactly two findings, `empty-heading` and `heading-order`, both tracing back to the same barrier, an SVG wordmark used as an unnamed `h1`. Everything else is heard before it can be seen: a German biography with no `lang`, a stale `lang="fr"` on English quotes, the facts sidebar first in the DOM and moved right with `order`, a rider table wearing `role="presentation"`, a setlist built from `<br>` instead of a list, tour dates left `aria-hidden="true"`, a star rating drawn in `::after`, an icon `aria-label` that doubles the social link's name, a divider image announced between every section, and a hero alt that starts with "Image of". Two of the scope's four predicted best-practice hits turned out to be impossible against axe 4.12's own checks, which is why the pin is two and not four. The room chrome moved to `src/site/PracticeRoom`, shared with the audit room. Scope and the barrier table: [docs/listening-room-scope.md](docs/listening-room-scope.md).
-
-- **2026-09** Kept current by machine: a Monday workflow bumps `web-features`, regenerates the Baseline data, the agent skill and the feed, and opens a pull request proposing what-changed lines for showcases that gained an engine or reached Baseline (`scripts/gen-moves.mjs`, deduped against hand-written lines by id, or by the same showcase link naming the same engine or tier within 60 days); a deploy workflow runs after a green CI run on main, pushes the build to production, confirms the live site serves it, and comments on the merged pull request; CI gained a gate that fails when the committed skill, llms mirror, feed or Baseline data fall behind their registries. The Monday CI cron went: on a locked package it could never see new Baseline data.
-
-- **2026-09** Chapter bar focus, and scroll-driven reveals taught: three items from the Contextualism pass, above. Two defects in the mobile chapter bar, measured before and after in three engines at 375 by 700. In Chromium the scroll-state queries hide the bar at scroll zero, at the end of the page and after any downward scroll while its links stay in the tab order, and a focused bar link sat at y=701 in a 700px viewport (2.4.7); `.chapter-bar:focus-within` brings it back. In Firefox and WebKit the bar is always fixed, and focused controls scrolled underneath it: of 60 tab stops on craft, 7 were covered in part or in full in Firefox and 9 in WebKit, 2 of them wholly hidden in each (2.4.11 and failure F110 for the wholly hidden ones, 2.4.12 for the rest). The fix is one rule: while `:focus-visible` matches anywhere outside the bar, the bar slides away, so nothing can cover a visibly focused control in any engine, by construction. It leaves pointer users alone except in a text field, which matches `:focus-visible` however focus arrived; there the bar steps aside while typing and returns on blur. After the change, 0 of 60 stops are covered in all three engines. The textbook fix, root `scroll-padding-block-end` (technique C43), was tried first and dropped for two measured reasons: WebKit ignores both `scroll-padding` and `scroll-margin` when it reveals a focused element, and `view-timeline-inset: auto` resolves to the scroller's scroll-padding, so every anonymous `view()` reveal on the page started 64px late and popped (at rest for its first 60px, then opacity 0.04). Under 30em of height the bar returns to the flow: the query is height, not orientation, because 400% zoom on a desktop lands there as often as a phone on its side. Three keyboard specs pin the focused bar link staying on screen, the first 40 tab stops on craft staying uncovered (before the fix the first covered stop was the 25th, so a shorter walk passes vacuously) and the short-viewport fallback; the 60-stop sweep and the pointer check were one-off measurements. The scroll-driven animations showcase gained a `view()` reveal and lost a false payoff line: a timeline ignores `animation-duration`, so the global reduced-motion reset never reaches it (measured: the progress bar still runs under emulated reduce). A reveal moves content and carries its own `prefers-reduced-motion: no-preference` gate, fill mode none, range ended once the row is fully in view. The progress bar is left running as a stated judgement call, a one-to-one mirror of the gesture like the scrollbar thumb, not as an exemption 2.3.3 grants.
-
-- **2026-09** What changed: a dated block at the foot of the hub (`src/site/HubRevisions`, six rows from a hand-kept `revisions.ts` registry, one sentence and exactly one link each) and an Atom feed from the same registry (`scripts/gen-feed.mjs` in prebuild writes `public/feed.xml`; every Vue page shell carries the alternate link, `.htaccess` forces the Atom type, llms.txt lists it). Closes positioning Tier 2 items 1 and 2. What earns a line is a standing decision, above.
-
-- **2026-09** The standards map replaced the flat legal map on the standard page (`src/criteria/StandardsMap`): rows are WCAG versions, each law sits in the row of the version it cites, so the lag is visible (the 3.0 row is empty), and opening a law unfolds the layers between it and the criterion you test (Germany's BFSG ⊃ the EAA ⊃ EN 301 549 ⊃ WCAG 2.1 AA is four; the ADA rule ⊃ WCAG 2.1 AA is two). Zero script: an exclusive `<details name>` accordion, `::details-content` height transitions with `interpolate-size` where supported, a `:has()` bubble that grows the open card to span the row (a flex-basis transition) and eases the siblings back, `corner-shape: squircle` behind `@supports`. Six laws: Section 508, AODA, EAA, ADA Title II, ACA, PSBAR; each links its official text with a hand-set sources-read date. Axe clean after two contrast fixes; the displaced neighbour still hops (see the watchlist).
-
-- **2026-09** Freshness audit (mid-September): the WCAG 3.0 timeline entry reworded for the 10 Sep working draft (one bar of core requirements; supplemental requirements and assertions are extras you report, not higher levels); customizable select copy updated for Safari 27 (14 Sep); legal map (the standards map since the same commit) re-read against ETSI, the Commission, the Federal Register and the Canada Gazette (EN 301 549 V4.1.1 published with WCAG 2.2 AA but its Official Journal citation is pending, so 2.1 AA stays the cited bar; Canada split into the ACA via CAN/ASC-EN 301 549 and AODA at 2.0 AA); two moved MDN links repointed. Confirmed unchanged: ADA Title II's 2027–2028 phase-in under the April interim rule (challenged in court, no ruling), Section 508 at 2.0 AA, all seven Interop 2026 labels, the Survey 10 attributions (Survey 11 still unpublished). web-features 3.35 to 3.38 changes no badge tier.
-
-- **2026-09** Prerendered: every Vue page's served HTML now carries its content (a vite SSR build renders each entry at build time and the client hydrates; the dev server renders the same way through ssrLoadModule, so hydration mismatches surface in development where Vue reports them). SSR-safety pass: the theme composable no longer touches the document at import, ShowcaseFrame's support check and two demos moved browser-API reads to onMounted, chapter pages declare their sections as data so the Contents rail is server-rendered, SVG `use` hrefs bind as attributes. `blocking="render"` retired from production output (it only ever hid an empty mount point; measured hub first paint 956 → 588 ms on a throttled connection) but kept in the source shells for the dev server, where Vite injects CSS via JS and the prerendered page would otherwise paint unstyled — the build strips it by itself. A permanent spec fetches every page's raw HTML and asserts the content. Scope and rationale: [docs/prerender-scope.md](docs/prerender-scope.md).
-
-- **2026-08** The 404 page: a standalone zero-JavaScript blueprint sheet ("Sheet 404 · not in this set") — the "You are here" tag cut with corner-shape bevels pointing at an empty dashed frame, a home button in a quiet corner-shape squircle (a hover morph was tried and cut as ugly; the whimsy moved to ghost numerals that draft themselves via SVG stroke animation, hub-scribble style, plus a ::details-content eased disclosure), light-dark() theming, an @starting-style entrance carrying its own reduced-motion guard, and a native details explaining what the page just did for the visitor. Error pages are where accessibility usually gets forgotten; this one is in the axe suite. Wired via ErrorDocument in .htaccess.
-
-- **2026-08** Search-index hygiene: host-variant 301s (www strips and upgrades in one hop, TLS forced host-preserving so the staging host keeps its own name) plus X-Robots-Tag noindex on the llms mirrors — text duplicates of page content can't carry a canonical, so they're kept fetchable for agents but out of the index. Closes the GSC "duplicate without user-selected canonical" report.
-
-- **2026-08** Wave 11: invoker commands (command/commandfor — dialogs and popovers driven from markup with zero script; Baseline newly available Dec 2025), native error squiggles (text-decoration-line: spelling-error/grammar-error vs the inline-block gradient hack — backgrounds mark boxes, not text), and corner-shape (squircle/scoop/notch as real border geometry the default focus ring traces; the rounded polygon() demo's mirror lesson). Catalog 33 → 36; keyboard specs pin the script-free dialog cycle and the surviving rings. Scouted from a 56-candidate sweep; runners-up and the refuted media-pseudos Chrome rumour recorded in the watchlist. Follow-up from Thomas's testing notes: every showcase card gained a "Focus the demo" skip link (the 2.4.1 pattern doing local work — fragment navigation to a tabindex="-1" demo mount, zero JS), and the corner demo grew per-corner longhands cutting the site's own "You are here" pointer tag with borders and ring intact, plus an animated morph (the keywords are superellipse() curves — interpolation verified in Chromium, computed values sweep squircle through bevel to scoop), with both shape showcases now naming when to reach for which tool.
-
-- **2026-08** Site-wide accuracy audit (five-agent verify pass against primary sources): five bogus "Interop 2026 focus area" labels corrected, vision deficiencies five→six, WebAIM attribution pinned to Survey 10 (2024), anchor positioning's badge lost Firefox 151 when `web-features` added two `position-visibility` values no engine shipped yet (a feature's engine version needs every key; Firefox retracted nothing), axe-core pinned exactly (web-features stays a caret range, held by the lockfile until the Monday bot writes it exact). The big one: WCAG 3.0's March 2026 draft dropped graded scoring for binary core requirements + supplemental levels, so the ConformanceShift demo was rebuilt honest — and then retired, because at the base level the new model behaves like AA and a slider demonstrating "same" teaches nothing; the timeline's era entry now carries 3.0 alone. Dated re-checks live in the watchlist above.
-
-- **2026-08** The audit room (P·01, the practice capstone): a fictional Fitis EP release page with twelve planted barriers on a standalone broken page (`/broken-page.html`, previewed inert at 1:2 in a red-dashed frame), hint-then-answer via nested `<details>`, and the inverted spec pinning axe to exactly two findings (`image-alt`, `color-contrast`) — label-in-name turned out to be experimental-off in axe, so "two of twelve" became the coverage lesson. Hub gained the "Practice" section; proof's pager now ends there; the room hands off to the reference sheets.
-
-- **2026-07** Wave 10: 1.3.5 Identify Input Purpose joined the timeline as break-it criterion eleven (token-less twin form — CSS can't remove attributes, so the break swaps twins; captions honest about depending on the visitor's saved autofill), and `content-visibility` became showcase 33 (find-in-page as the interactive proof: "cardamom" findable inside a skipped section, "saffron" invisible in a display:none appendix). Understandable is no longer the thinnest principle.
-
-- **2026-07** `/llms.txt` shipped: the skill's four markdown files (SKILL.md + the three generated references) are mirrored to `public/llms/` by gen-skill.mjs, and a hand-written index at `public/llms.txt` points agents at them plus the pages. The "needs page-level markdown" blocker had quietly dissolved — the skill already emitted it.
-
-- **2026-07** Reference sheet A·04, "DevTools for accessibility": the built-in inventory (accessibility pane, color-picker contrast, inspect tooltip, Rendering emulations, emulate-a-focused-page, live expressions with document.activeElement, Lighthouse-is-axe, Firefox's inspector) and the three add-ons that pass the "does something the panels can't" test (axe DevTools, Accessibility Insights, WAVE). The thesis transposed to tooling: built in, not bolted on. Idea from a conversation about extensions rebuilding native features.
-
-- **2026-07** Proof gained "Filing what you find" (first titled with "triage" — renamed for plain words): severity as user impact (blocked? how often? workaround?) instead of conformance level, one barrier per ticket, and a copyable bug template filled in for a fictional checkout — barrier headline, AT+browser pair, criterion once as reference, suspected fix as the swap.
-
-- **2026-07** Proof gained "Reading the accessibility tree": four live examples (styled div vs native button vs `<label>` vs `aria-label`) with role/name/source readouts, DevTools directions per browser, and the name-computation precedence; new glossary term "Accessibility tree". The demo's captions invite verification in DevTools instead of asking to be believed.
-
-- **2026-07** Reference sheet A·03, "A screen reader's first fifteen minutes": VoiceOver/NVDA/phone keystroke cards, the fifteen-minute plan, and a "what this doesn't prove" close; linked from the title block on every page and from proof's human layer.
-
-- **2026-07** Craft wave: the hiding matrix (four techniques × visible/tree/tab-order, live inert example, the aria-hidden + `tabindex="-1"` pairing shown) and the 1.4.12 text-spacing stress test (toggle applies the reader's override values; the fixed-height card clips, the flexible one breathes). Craft is at twelve sections; rail scope extended to match.
-
-- **2026-07** Quick-wins content sweep: truncation craft demo (a clamped `<details>` preview via `::details-content` — the clamp IS the disclosure), "the scrollbar you leave alone" demo (`scrollbar-gutter: stable` + keyboard-reachable regions), the `display: contents` subgrid gotcha pair, reference links on all ten craft demos, WebAIM Survey 10 numbers + reader-mode smoke test in proof, and a "Where this argument stops" scope section pointing at the ARIA APG.
-
-- **2026-07** Stage wash pinned to the viewport (fixed pseudo-element) — the showcase filter used to re-stretch the page-length gradient behind the sheet.
-- **2026-07** Wave 9 showcase: rounded `polygon()` — real text vs an exported image of text (1.4.5), a break-it that clips the focus ring off the link, a drop-shadow focus ring that follows the shape, and the timeline's "You are here" label re-cut as a pointer tag (dogfood). Idea via Temani Afif's CSS Tip.
-- **2026-07** Sidebar rail scroll-spy rebuilt on an opacity-only overlay after four defects in the colour-animation mechanism; theme flips re-ink via plain declarations.
-- **2026-07** Timeline redesign II: ghost years removed, era rules + spine, sticky era heading with a `scroll-state(stuck)` border (Josi/Imad/Klara feedback).
-- **2026-07** LegalMap: every law links to its official text with a hand-set "last read" date; "Orientation, not legal advice", at a reviewer's suggestion.
-- **2026-07** README Thanks/Credits: contributors credited by what they found, with permission; Ahmad Shadeed, Una Kravets, Bramus Van Damme credited for reused ideas.
-- **2026-07** July feedback round cleared (details in git history):
-  theme switcher reachable inside the dark-mode craft demo; iOS phantom
-  focus ring after dialog close fixed; WebKit style-query pseudo cue moved
-  to a `--cue` custom property (snippet teaches the gotcha); showcase topic
-  filter (7 tags, `:has()` radio chips) + a11y payoff line on every card;
-  style guide revived with a live theming section; `shape()` and
-  `text-wrap` demos made interactive; ghost/spinner contrast re-derived
-  from `--color-text`; theme panel anchored to its toggle on wide screens;
-  "back to navigation" skip links (pinned by e2e); `:target` reveal beats
-  the filter (pinned by e2e); motion + targets demos rebuilt interactive;
-  "View source" links on every showcase + CodeCompare mistake→craft pairs
-  on 7 craft demos; avatar/bio footer; hero strike-through hover;
-  Space-vs-Enter closed as not-a-bug (native link behaviour);
-  keyboard shortcuts dropped on purpose; "make the standard pillar more
-  interactive" closed after break-it criteria grew 7→9; wayfinding
-  subtraction + the ruled title block from Klara's review, and the
-  end-of-chapter pager grown into plate cards after my wife caught how
-  hidden it was.
-- **2026-07** Agent Skill published (`skills/accessible-by-default`): hand-written decisions plus three reference files generated from the criteria and showcase registries (`npm run skill:gen`), so agents get the platform-first argument without the skill drifting from the demos. Suggested by Jakub Andrzejewski, after Chrome's Modern Web Guidance.
-- **2026-07** Launched: the multi-page redesign replaced the one-page site in production (old design kept at the `design-classic` tag), with a new brand mark, regenerated icons/OG image, and the style guide reskinned to match.
-- **2026-07** Timeline: 3.2.6 Consistent Help break-it demo — three page mock-ups whose help link either holds its slot or wanders; the first criterion the multi-page structure made demoable.
-- **2026-07** ESLint added (flat config, vue + typescript, `--max-warnings 0`, wired into CI) — the JS/TS gate that stylelint and vue-tsc never covered.
-- **2026-07** Canonical URLs on all nine entry pages — the site answers on four host/scheme variants, so the canonical tag names the one true URL.
-- **2026-07** Timeline: 3.3.7 Redundant Entry break-it demo — a two-step checkout whose reuse shortcut disappears when broken; first Understandable-principle criterion.
-- **2026-07** Wave 8 showcases: `reading-flow` (focus order follows the visual layout, tab order pinned by e2e) + `::details-content` with `interpolate-size` (animated native disclosure, reduced-motion gated).
-- **2026-07** SEO hygiene: robots.txt on main (crawl open, noindex gatekeeps); five-page sitemap prepared on the restructure branch; Search Console setup pending.
-- **2026-07** README relaunch: adaptive SVG banner (color-scheme + reduced-motion aware, finite strike animation), scheme-swapping screenshots, badges, MIT license, issue forms — plus the "your browser reports the scheme, not your OS" correction.
-- **2026-07** LegalMap: ADA Title II corrected to the 2027–2028 phase-in (community catch, applied to both designs).
-- **2026-07** Wave 7: showcase grouping derived from Baseline data — three tiers in Baseline's own vocabulary (widely / newly / limited availability), computed at build time; hand-maintained `status` field removed.
-- **2026-07** Wave 6: pure-CSS carousel showcase — `::scroll-button` (anchor-positioned) + `::scroll-marker` dots with slash-alt accessible names; honest SR caveats; plain snap scroller everywhere else.
-- **2026-07** Wave 5: proof pillar pass — "CSS that audits" diagnostic-stylesheet demo (inert example), "performance is accessibility" prose, responsive-reveal card on @starting-style (with the reduced-motion guard the viral snippet skips).
-- **2026-07** Wave 4: "Break it with content" craft block — one card vs. long titles, German compounds (hyphens + lang), Arabic RTL (:dir(), logical properties).
-- **2026-07** Toolbar glyphs replaced with inline SVGs (font-metric-proof centering).
-- **2026-07** Wave 3: high-contrast presets via engine `--mix-*` contrast knob; theming split into engine + presets files.
-- **2026-07** Wave 2: container query units showcase (`clamp(rem, cqi, rem)` fluid card).
-- **2026-07** Wave 1: `:user-valid` showcase, light-dark() style-query card, CoverageMatrix loading row; media pseudos parked (no Chromium).
-- **2026-07** Timeline content pass — Bypass Blocks (2.4.1) skip-link demo fills the WCAG 2.0 era; era summaries tightened.
-- **2026-07** Theme presets site-wide — seed engine promoted to `:root[data-preset]`, header popover panel (mode + presets + CVD trio), no-flash localStorage persistence; popover display trap fixed and pinned by e2e; `src` now 100% TypeScript.
-- **2026-07** Timeline redesign — ghost-year watermarks (in-flow on narrow columns, sticky rail on wide), cumulative strata era markers, "you are here — 2026" divider; per-era named view timelines fix the scroll mistiming; wider section gaps site-wide.
-- **2026-07** Dogfooding: site-wide `text-wrap` (balance/pretty) + interest-invoker preview popovers on the sidebar showcase links.
-- **2026-07** Loading-states craft block — `aria-busy` + hidden text vs. visual-only skeletons; zero layout shift via `1lh` placeholders.
-- **2026-07** Customizable `<select>` polish — optgroups, disabled option (+ reachable hint), status-tinted trigger, picker entrance, animated `::checkmark`; earlier: `<selectedcontent>` dot bugfix.
-- **2026-07** Quantity-queries showcase — chat-app photo bundle, exact-count `:has()` compositions, self-filling gapless mosaic.
-- **2026-07** Defensive-CSS craft block — mockup-vs-reality frames, min-content trap, guards toggle.
-- **2026-07** Sidebar: per-showcase links in collapsible clusters; fixed smooth-anchor overshoot (reveal animation `fill: none`).
-- **2026-07** Baseline badges — build-time `web-features` extraction + official icon sprite; per-card status chips removed.
-- **2026-07** Interest-invokers showcase (`interestfor` link previews + delay-tuned toolbar hints).
-- **2026-07** Quick wins: AppButton press feedback; cross-document view transitions home ↔ legal (closes the old page-transitions item); `scroll-state(scrolled:)` hidey tier for the bottom nav.
-- **2026-07** A11y audit (axe clean ×3 engines + manual): GitHub-link hint, POUR spelled out, `color-scheme` meta; repo About metadata + README live-site link.
-- **2026-07** iOS WebKit min-content overflow fixed (`min-inline-size: 0` guards everywhere); deterministic cache headers; hero `text-wrap: balance`.
-- **2026-07** Bottom mobile nav — glass pill, scroll-state reveal; LightDark demo colors un-inverted; per-card feature detection (`detect`).
-- **2026-06** Restructure: tabs → single narrative scroll, two pillars, pure-CSS scroll-spy; deep-linking.
-- **2026-06** Theming: seed-driven contrast-safe engine, 4 themes, CVD presets, contrast-clamped picker; non-color cues via style queries.
-- **2026-06** "Guidelines, alive": 7 break-it criteria (2.5.8, 1.4.10, 1.4.11, 2.4.11, 2.4.13, 2.3.3, 1.3.4) on the WCAG timeline; ConformanceShift; LegalMap.
-- **2026-06** Modern design-language pass (hero, type scale, depth, glow, section reveals, timeline spine).
-- **2026-06** Showcase catalog built out: container queries, `:has()`, subgrid, sliding indicator, text-wrap, scroll snap, popover, anchor positioning + tooltip, contrast-color, scroll-driven animations, style queries, `shape()`, `@starting-style`, typed `attr()`, field-sizing, zoom, customizable select, scroll-state, custom highlight, dialog polish, view transitions.
-- **2026-06** Foundation & tooling: TypeScript adoption, per-component folders, test suite (axe e2e ×3 engines, keyboard specs, unit), `baseline-watch`, dialog centering + popover-flip fixes, `:user-valid` TextField.
+Older work is in the merged pull requests and, up to 2026-10-16, in
+[docs/history/2026.md](docs/history/2026.md).

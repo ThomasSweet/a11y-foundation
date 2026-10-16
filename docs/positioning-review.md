@@ -105,8 +105,7 @@ from the newest registry line for that area, so there is no second
 registry.
 
 1. **What's-new block on the hub**: 5–8 dated one-liners from a tiny
-   hand-maintained registry (the ROADMAP Done lines are already written in
-   this shape). The site ships constantly — audit room, two sheets,
+   hand-maintained registry. The site ships constantly — audit room, two sheets,
    criterion 11, three showcase waves, all post-launch — and nothing
    user-facing says so: no dates, no changelog, no feed. This one change
    fixes both the returning-visitor diff problem and the first-visit

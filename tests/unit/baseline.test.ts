@@ -4,7 +4,13 @@ import { evaluateBaseline } from '../../scripts/baseline-watch.js'
 
 // See scripts/baseline-watch.js for the manifest and the removal-bar policy
 // (CSS @supports fallbacks go at 'high', JS fallbacks at 'low').
-const { removable, newlyAvailable, unknown } = evaluateBaseline()
+type BaselineEntry = { name: string; status: string; bar: string; date: string; used: string[] }
+
+const { removable, newlyAvailable, unknown } = evaluateBaseline() as {
+  removable: BaselineEntry[]
+  newlyAvailable: BaselineEntry[]
+  unknown: string[]
+}
 
 describe('baseline-watch', () => {
   beforeAll(() => {

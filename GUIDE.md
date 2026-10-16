@@ -268,14 +268,30 @@ exactly like inline blocks did.
   the selector rather than trusting the warning. They will disappear on their
   own as lightningcss catches up with the specs.
 
+### Script writes state into the document
+
+Where script is the right tool, it writes what it knows into the document: an
+element's text, an attribute such as `aria-pressed`, a status message, or
+focus. CSS then styles from that. A custom property is not in the
+accessibility tree, so it never holds the only copy of a state; it may carry a
+value for styling, such as a hue or a count (`--pick-h`, `--n`). Ask first
+whether the platform already exposes the state as a pseudo-class or an
+attribute: if it does, a script copy is a second source of truth, and the two
+drift.
+
 ---
 
 ## Comments
 
-Zero by default. The code says what; the reasoning belongs in the commit
-message, in `ROADMAP.md`, or in this guide. If a comment ever seems
-load-bearing, propose its exact text in review and wait for a yes before
-adding it. CSS, SCSS and Vue `<style>` blocks carry none, ever.
+Zero by default. The code says what. The reasoning belongs in the commit
+message and the pull request. A rule the next change has to follow belongs in
+this guide, and an engine bug you work around goes in "Engine behaviours we
+work around". A decision about what the site will or will not do goes under
+"Standing decisions" in `ROADMAP.md`, in one sentence with its reason. A
+longer record of why goes in `docs/history/` only when a later reader will
+ask. If a comment ever seems load-bearing, propose its exact text in review
+and wait for a yes before adding it. CSS, SCSS and Vue `<style>` blocks carry
+none, ever.
 
 ---
 
@@ -676,6 +692,101 @@ to the chrome still wants a look on a real iPhone.
 
 ---
 
+## Engine behaviours we work around
+
+Each entry is an engine behaviour measured on this site: what happens, what
+the site does, and when to look again. Unless an entry says otherwise, the
+versions are the ones Playwright 1.61.1 runs: Chromium 149, Firefox 151 and
+WebKit 26.5. Playwright's WebKit is not iOS Safari. After a Playwright bump,
+run each entry's re-check, write the fixing version into the entry, and drop
+the workaround when it can go. A change that adds a workaround adds its entry
+here.
+
+### Anchored elements
+
+Measured on 2026-09-28 on the anchor tooltip demo. `anchor-tooltip.spec.ts`
+covers each one in three engines; to re-check one, undo its workaround and run
+the spec.
+
+- **All engines, by spec: a `center` column never flips a wide box.**
+  `position-area: top center` limits the box to its anchor's column, so a box
+  wider than the anchor overflows every fallback and keeps its base position.
+  Use `block-start span-all`.
+- **Firefox: an element with a `position-try` fallback applied stops
+  restyling.** Show and hide by toggling `display` with `allow-discrete` and
+  `@starting-style`, not with `visibility` or `opacity` alone. Firefox then
+  skips the fade-out.
+- **WebKit: a near-zero `display` exit on an anchored element never
+  finishes.** At the 0.01ms the reduced-motion safety net forces, the hint
+  stays open. Set `transition-property: none` under reduced motion, in the
+  demo and in its snippet.
+- **Chromium, as Web Animations defines it: a scroll-driven `transform`
+  keeps a card the containing block of a fixed element inside it**, even after
+  the range ends. WebKit 26.5 did not do this on 2026-09-28. Keep
+  `data-reveal="off"` on such a demo ("Adding a showcase"). Nothing to
+  re-check.
+
+### Focus and scrolling
+
+- **Firefox does not scroll a focused element whose box already lies inside
+  the scrolling area, whatever its scroll margin**, even when a sticky or
+  fixed bar covers it. Do not rely on `scroll-padding` or `scroll-margin` to
+  clear a bar for focus: move the bar. The chapter bar slides away while
+  `:focus-visible` matches outside it, and an era header turns
+  `position: static` while `:focus-visible` matches inside its era.
+- **WebKit and root `scroll-padding` on focus: two readings that disagree.**
+  In September, on craft, focused controls still went under the fixed chapter
+  bar with root `scroll-padding-block-end` set. In October, on standard, the
+  same WebKit 26.5 honoured root `scroll-padding`. Neither page relies on it
+  now. Before a change does, measure on that page with real key presses,
+  after the scroll settles.
+- **`view-timeline-inset: auto` takes the scroller's `scroll-padding`**, as
+  specified. A root `scroll-padding-block-end` of 64px made every anonymous
+  `view()` reveal start 64px late and then pop. The site sets no root
+  `scroll-padding`; any future one has to be checked against the reveals.
+- **iOS WebKit 26: a `tabindex="-1"` element focused by script matches
+  `:focus-visible`** (July 2026), so the whole content column drew the ring
+  after a dialog closed. `preferences.css` removes the outline from
+  `[tabindex='-1']:focus-visible` in every engine, so the skip-link target
+  shows no ring after the jump either. That is accepted, because it is not a
+  Tab stop. Re-check on an iPhone after a major iOS release.
+
+### Layout and styling
+
+- **Firefox and WebKit take a flex container's max-content width from its
+  items' content, not their `flex-basis`**, so a scrolling strip lost its end
+  padding (September 2026). The pattern that works in all three: the scroller
+  is an inline-size container, the list inside it is
+  `inline-size: max-content` and carries the padding, and each card has
+  `flex: none` and an `inline-size` in `cqi` (`ScrollSnapDemo`,
+  `ScrollStateDemo`).
+- **WebKit resolves `block-size: 100%` inside a `container-type: size`
+  parent against the parent's border box**, so the 1.3.4 demo's screen stuck
+  out 20px (October 2026). Make the parent a grid,
+  `grid-template: minmax(0, 1fr) / minmax(0, 1fr)`, instead of using a
+  percentage height. Re-check in `orientation.spec.ts` with the percentage
+  restored.
+- **iOS Safari 26 did not apply pseudo-element rules written inside a style
+  query** (July 2026), so the non-colour state cues vanished. Set a custom
+  property in the query and render it from a `::before` rule outside it
+  (`StyleQueryCuesDemo`). Playwright's WebKit 26.5 does apply them, so only a
+  real device shows whether Safari 27 fixed it. `LightDarkDemo`'s moon glyph
+  still uses `::after` inside a query.
+
+### In tests
+
+- **WebKit: Tab skips links, buttons and checkboxes.** Playwright's WebKit
+  follows Safari's default, where Tab reaches text fields and pop-up menus.
+  Keyboard specs press `Alt+Tab` and `Alt+Shift+Tab` in WebKit, as
+  Option+Tab does in Safari. This is a default, not a bug.
+- **Focus scrolling is not instant.** WebKit scrolls a focused element into
+  view on a timer after `focus()`, and Firefox mis-scrolls when synthetic key
+  presses arrive with no gap between them (October 2026). A spec that
+  measures where focus lands waits with the `focusSettled()` helper in
+  `keyboard.spec.ts`, or polls.
+
+---
+
 ## Interaction mixins
 
 ### Target sizes come first — and not from these mixins
@@ -756,6 +867,11 @@ runner WebKit can take seconds to produce a frame for an idle page. A spec
 that emulates reduced motion must not read a transitionable computed value
 straight after focus, hover or a class change: read the token, or the
 pseudo-class (`:focus-visible`), or leave reduced motion off for that test.
+
+The same frame delays a stylesheet that a spec injects: the responsive spec's
+text-spacing and 200% text settings had not applied when its first
+measurement ran (in Firefox not at all). Inject such a stylesheet with
+`transition-property: none` and it applies in the same task.
 
 ### `reduced-transparency()`
 
@@ -904,17 +1020,45 @@ color token once with `light-dark(lightValue, darkValue)`:
   inside a `[tabindex="0"]` region; the width stays `auto`, never `thin`. A
   scrollable region always carries `tabindex="0"` and a label, and that
   attribute is what the focus rule keys off.
+  `CodeBlock`'s `<pre>` keeps `tabindex="0"` even when its code fits: a stop
+  that exists only while the code overflows would need script to measure it.
 - The presets (`data-preset` on `<html>`, set by `ThemeToggle`) are data in
   `theming/presets.css`: two seeds each, from which `theming/engine.css`
   derives the whole `--color-*` palette. `theming/blueprint.css` maps that
   palette onto the blueprint skin's `--bp-*` tokens, so a preset re-inks the
   page with no rules of its own.
+- The theming core never uses a style query: colour reaches every element
+  through custom-property inheritance and `light-dark()`. A style query is
+  for a cue colour cannot carry, such as a glyph or a border style per state
+  (`StyleQueryCuesDemo`). Keep pseudo-element rules out of the query (see
+  "Engine behaviours we work around").
 
 ### Motion tokens
 
 Motion tokens are reset to `0.01ms` in `preferences.css` when the user has
 requested reduced motion, so transitions using `var(--duration-*)`
 automatically respect that preference with no extra component code.
+
+### Scroll-driven animations
+
+A scroll or view timeline ignores `animation-duration`, so neither the motion
+tokens nor the 0.01ms override reach it: under emulated `reduce` the
+scroll-driven showcase's progress bar still runs. Three rules follow.
+
+1. **Anything that moves content carries its own gate**,
+   `@media (prefers-reduced-motion: no-preference)`, as the chapter, card and
+   era reveals do. The progress bar runs ungated on purpose, a one-to-one
+   mirror of the scroll like the scrollbar thumb: a judgement call, not an
+   exemption 2.3.3 grants.
+2. **Animate `opacity`, `transform` or `translate`, nothing else.** A colour
+   or a custom property on a scroll timeline restyles everything that reads
+   it on every frame; a scroll-driven palette built that way jittered and was
+   dropped.
+3. **A reveal uses `fill: none`, and its range ends by the time the element
+   is fully in view.** With `both`, the start state holds before the element
+   enters, so boxes below the fold report shifted positions and a jump to an
+   anchor overshoots. The timeline's strata and card slide-in still use
+   `both` (Known debt in `ROADMAP.md`).
 
 ---
 
@@ -975,7 +1119,7 @@ one:
 | `limited-availability` | not Baseline, or no mapping  | Demos and chrome, behind `@supports` or skipped harmlessly where CSS cannot test for it, with an accessible fallback |
 
 The site chrome uses showcased features on purpose ("does the site dogfood
-this?" is a standing design test in the roadmap): the theme panel is
+this?" is one of the standing decisions in `ROADMAP.md`): the theme panel is
 anchor-positioned, the chapter reveals are scroll-driven, and pages cross-fade
 with cross-document view transitions. Each of those degrades to a working
 page in an engine without it.
@@ -1109,6 +1253,9 @@ to by name only (`DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_REPO`,
 `DEPLOY_SSH_KEY`, `DEPLOY_KNOWN_HOSTS`, `BOT_TOKEN`) and are configured in
 GitHub, never in the tree.
 
+All three are repository tooling, like the generators in `scripts/`: none of
+them adds a runtime dependency or anything the served pages execute.
+
 **`ci.yml`** runs on push and pull_request to `main`, on Node 24 with
 `npm ci`. The `verify` job runs each gate as its own step so a failure points
 at the exact check: `typecheck`, `lint:css`, `lint:js`, `baseline:check`
@@ -1120,6 +1267,26 @@ browsers and runs the suite in Chromium, Firefox and WebKit, uploading the
 report on failure. There is no cron: `npm ci` installs the locked
 `web-features`, so a scheduled run could never see new Baseline data. The
 bot below is the mechanism for that.
+
+`axe-core` is pinned to an exact version, because the audit-room and
+listening-room specs pin exact findings. Bump it and `@axe-core/playwright` in
+the same change: the wrapper wants a matching `axe-core` minor, so bumping
+one alone installs a second copy and the pin stops governing the specs.
+
+**Before a change to a spec is ready**, run the whole suite with the JSON
+reporter and read the slowest tests:
+
+```sh
+PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/e2e.json npm run test:e2e -- --reporter=list,json
+jq -r '[.. | .specs? // empty | .[] | .title as $t | .file as $f | .tests[] | {d: ([.results[].duration] | max), n: "\($f): \($t) [\(.projectName)]"}] | sort_by(-.d) | .[:10][] | "\(.d / 1000)s  \(.n)"' /tmp/e2e.json
+```
+
+The runner can be several times slower than a laptop, and every test has
+Playwright's default 30 second limit: in October a check that took 10 seconds
+locally passed on its pull request and then timed out on main. A green
+pull-request run can also hide a flake, because CI retries a failed test
+once. Read the job's annotations and the "flaky" count in the run summary;
+the report is uploaded only when the job fails.
 
 **`deploy.yml`** does not run beside CI. It triggers on `workflow_run` of the
 CI workflow completing on `main` and proceeds only when that run's
