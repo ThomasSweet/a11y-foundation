@@ -192,8 +192,10 @@ npm run skill:gen   # regenerates the agent skill and the llms mirror from the r
 ```
 
 Conventions live in [GUIDE.md](./GUIDE.md) — the layer rules, mixin ordering,
-theming, and how component styles are written. The public backlog, including
-visitor feedback and what became of it, is [ROADMAP.md](./ROADMAP.md).
+theming, and how component styles are written. The public backlog, with what
+is owed, watched and decided, is [ROADMAP.md](./ROADMAP.md); what was built
+before 16 October 2026, and why, is in
+[docs/history/2026.md](./docs/history/2026.md).
 
 ## Accessibility statement
 
@@ -216,9 +218,10 @@ every page passes the axe sweep in three engines and the keyboard specs,
 and I put my own hands on a keyboard and a screen reader before anything
 goes live. Where the site states a number, the number was measured; the
 claims that matter are pinned in CI precisely so they cannot drift,
-however they were written. [ROADMAP.md](./ROADMAP.md) keeps the honest
-record, including ideas the agent proposed that I rejected and things we
-built and then cut.
+however they were written. [ROADMAP.md](./ROADMAP.md) keeps the decisions,
+including ideas the agent proposed that I rejected, and
+[docs/history/2026.md](./docs/history/2026.md) keeps the record of what we
+built, measured and cut.
 
 That isn't a caveat — it's the site's argument, applied to itself. This
 project packages its guidance as an agent skill because coding agents
