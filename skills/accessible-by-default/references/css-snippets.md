@@ -419,9 +419,9 @@ safe without one; check its tier in `modern-css.md`.
   }
 }
 
-/* No fade under reduced motion. A near-instant display exit never finishes
-   on an anchored element in WebKit (measured in 26.5), so a page with a
-   0.01ms reduced-motion reset would leave the hint open. */
+/* No fade under reduced motion. Up to WebKit 26.5 a near-instant display
+   exit never finished on an anchored element (fixed in 27.2), so a page with
+   a 0.01ms reduced-motion reset would leave the hint open in Safari 26. */
 @media (prefers-reduced-motion: reduce) {
   .hint-bubble {
     transition-property: none;
@@ -1019,6 +1019,12 @@ safe without one; check its tier in `modern-css.md`.
   .status-select option::checkmark {
     color: royalblue;
     transition: opacity 0.15s, scale 0.15s;
+  }
+
+  /* WebKit keeps the chosen value on one line and clips it;
+     let a long value wrap, as Chromium does. */
+  .status-select selectedcontent {
+    white-space: normal;
   }
 
   /* The closed control reflects the selection — reinforcement only;

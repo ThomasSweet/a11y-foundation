@@ -45,8 +45,6 @@ How to edit this file:
   proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
   Survey 10. The freshness routine checks the same page on 2026-11-01: if it
   opens a draft PR first, review that instead.
-- **Bump Playwright to 1.64.** 1.61.1 is installed; 1.64.1 bundles Chromium
-  156, Firefox 157 and WebKit 27.2. Then run the re-checks under Owed checks.
 - **Bump `axe-core` and `@axe-core/playwright` together.** 4.12.1 is pinned;
   4.13 changed rule behaviour and 4.14 is out. GUIDE's CI section says why
   both move at once. Re-run the audit-room and listening-room specs, which pin
@@ -157,16 +155,11 @@ source before touching the wording or the sources-read stamp in
   Windows machine), then drop the "predictions" caveat and date the answers.
   When: the next screen reader session. See
   [docs/listening-room-scope.md](docs/listening-room-scope.md).
-- **Engine workarounds**, due with the Playwright bump. Run each re-check in
-  GUIDE's "Engine behaviours we work around" in the new engines, starting
-  with "Anchored elements" (measured 2026-09-28).
 - **Safari 27 and style queries**, owed since 2026-09-14. Does real Safari 27
   apply pseudo-element rules inside a style query? If so, qualify
   `StyleQueryCuesDemo.snippet.css` with the last affected version, and recheck
   the `::after` moon glyph in `LightDarkDemo.vue`. When: with the iPhone
   check.
-- **Proof's sample bug report** names Safari 26 in its setup line; move it to
-  Safari 27, whatever the style-query result.
 - **Real Chrome after a deploy**, owed since 2026-09-05: cross-document
   transitions and the theme no-flash on the live site, per
   [docs/prerender-scope.md](docs/prerender-scope.md). When: the next deploy.
@@ -298,6 +291,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 - 2026-10-17: Reduced, not removed: under reduced motion a busy skeleton fades instead of freezing, and the sweep lets aria-busy regions through. #90
 - 2026-10-16: Accuracy pass: false feed line withdrawn, 1.3.5 tagged Perceivable, code blocks named, fluid type that zooms, reveals that end in view, more contrast on surfaces. #89
 - 2026-10-16: Node 24 in CI; installs skip releases under three days old and stop on unreviewed install scripts. #87
@@ -312,7 +306,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-09-28: Baseline bot lines: one per feature, and no false "first engine". #76
 - 2026-09-21: JavaScript as the second question: a proof paragraph and a submit button that stays live. #74
 - 2026-09-21: Chapter bar focus: the bar never hides or covers a focused control; reveals carry their own motion gate. #73
-- 2026-09-21: Scrollbars tinted, never thinned: the thumb shows focus, plus a scroll-state scrollable block. #72
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

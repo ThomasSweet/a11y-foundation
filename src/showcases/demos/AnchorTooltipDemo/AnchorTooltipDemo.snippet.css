@@ -20,9 +20,9 @@
   }
 }
 
-/* No fade under reduced motion. A near-instant display exit never finishes
-   on an anchored element in WebKit (measured in 26.5), so a page with a
-   0.01ms reduced-motion reset would leave the hint open. */
+/* No fade under reduced motion. Up to WebKit 26.5 a near-instant display
+   exit never finished on an anchored element (fixed in 27.2), so a page with
+   a 0.01ms reduced-motion reset would leave the hint open in Safari 26. */
 @media (prefers-reduced-motion: reduce) {
   .hint-bubble {
     transition-property: none;

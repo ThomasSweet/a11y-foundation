@@ -49,6 +49,12 @@
     transition: opacity 0.15s, scale 0.15s;
   }
 
+  /* WebKit keeps the chosen value on one line and clips it;
+     let a long value wrap, as Chromium does. */
+  .status-select selectedcontent {
+    white-space: normal;
+  }
+
   /* The closed control reflects the selection — reinforcement only;
      <selectedcontent> mirrors the option's own text. */
   .status-select:has(option[value='done']:checked) button {
