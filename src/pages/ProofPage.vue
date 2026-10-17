@@ -231,7 +231,7 @@ const bugTemplate = `## Barrier: payment method can't be chosen with a keyboard
 
 **Impact**: Blocker — checkout cannot be completed
 **Where**: /checkout, the payment method cards
-**Setup**: VoiceOver + Safari 26 (also reproduced: NVDA + Firefox)
+**Setup**: VoiceOver + Safari 27 (also reproduced: NVDA + Firefox)
 
 **Steps**
 1. Tab through the checkout form

@@ -176,6 +176,7 @@
       gap: var(--space-3);
       min-inline-size: 0;
       overflow-wrap: anywhere;
+      white-space: normal;
 
       .custom-select-desc {
         display: none;

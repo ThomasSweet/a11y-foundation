@@ -695,9 +695,10 @@ to the chrome still wants a look on a real iPhone.
 ## Engine behaviours we work around
 
 Each entry is an engine behaviour measured on this site: what happens, what
-the site does, and when to look again. Unless an entry says otherwise, the
-versions are the ones Playwright 1.61.1 runs: Chromium 149, Firefox 151 and
-WebKit 26.5. Playwright's WebKit is not iOS Safari. After a Playwright bump,
+the site does, and when to look again. Unless an entry says otherwise, each
+was last checked on 2026-10-17 with the engines Playwright 1.64.1 runs:
+Chromium 156, Firefox 157 and WebKit 27.2. Playwright's WebKit is not iOS
+Safari. After a Playwright bump,
 run each entry's re-check, write the fixing version into the entry, and drop
 the workaround when it can go. A change that adds a workaround adds its entry
 here.
@@ -712,14 +713,20 @@ the spec.
   `position-area: top center` limits the box to its anchor's column, so a box
   wider than the anchor overflows every fallback and keeps its base position.
   Use `block-start span-all`.
-- **Firefox: an element with a `position-try` fallback applied stops
-  restyling.** Show and hide by toggling `display` with `allow-discrete` and
-  `@starting-style`, not with `visibility` or `opacity` alone. Firefox then
-  skips the fade-out.
-- **WebKit: a near-zero `display` exit on an anchored element never
-  finishes.** At the 0.01ms the reduced-motion safety net forces, the hint
-  stays open. Set `transition-property: none` under reduced motion, in the
-  demo and in its snippet.
+- **Firefox: an element with a `position-try` fallback applied reports stale
+  computed style.** `getComputedStyle`, and with it Playwright's visibility
+  checks, keeps old `visibility` and `opacity` values (even an inline style),
+  while Firefox 157 repaints the element correctly. Show and hide by toggling
+  `display` with `allow-discrete` and `@starting-style`, not with
+  `visibility` or `opacity` alone: `display: none` removes the box, so the
+  checks hold. Firefox skips the `display` fade-out on any element, anchored
+  or not.
+- **WebKit up to 26.5: a near-zero `display` exit on an anchored element
+  never finished.** At the 0.01ms the reduced-motion safety net forces, the
+  hint stayed open. Fixed in WebKit 27.2: with the workaround removed, the
+  spec passed 60 of 60 runs. The workaround, `transition-property: none`
+  under reduced motion in the demo and in its snippet, stays while Safari 26
+  is in use; it costs nothing, because the net already removes the fade.
 - **Chromium, as Web Animations defines it: a scroll-driven `transform`
   keeps a card the containing block of a fixed element inside it**, even after
   the range ends. WebKit 26.5 did not do this on 2026-09-28. Keep
@@ -728,17 +735,22 @@ the spec.
 
 ### Focus and scrolling
 
-- **Firefox does not scroll a focused element whose box already lies inside
-  the scrolling area, whatever its scroll margin**, even when a sticky or
-  fixed bar covers it. Do not rely on `scroll-padding` or `scroll-margin` to
-  clear a bar for focus: move the bar. The chapter bar slides away while
+- **Firefox scrolls a focused element only when less than about one line of
+  it is left inside the scrolling area**, after `scroll-padding` and
+  `scroll-margin` are taken off the edge, and no engine takes a sticky or
+  fixed bar into account. A margin moves that threshold but does not
+  guarantee clearance: on the 2.4.11 demo, 5 of 10 hand-scrolled placements
+  stayed up to 20px under the sticky bar in Firefox, none in Chromium or
+  WebKit. Do not rely on `scroll-padding` or `scroll-margin` to clear a bar
+  for focus: move the bar. The chapter bar slides away while
   `:focus-visible` matches outside it, and an era header turns
   `position: static` while `:focus-visible` matches inside its era.
-- **WebKit and root `scroll-padding` on focus: two readings that disagree.**
-  In September, on craft, focused controls still went under the fixed chapter
-  bar with root `scroll-padding-block-end` set. In October, on standard, the
-  same WebKit 26.5 honoured root `scroll-padding`. Neither page relies on it
-  now. Before a change does, measure on that page with real key presses,
+- **WebKit 27.2 honours root `scroll-padding` on keyboard focus, start and
+  end side, except for text fields**: it brings a field in only as far as its
+  text line, so on craft a 44px field stayed about 6.5px under the bar. The
+  September reading, focused controls under the chapter bar with root
+  `scroll-padding-block-end` set, did not reproduce. Neither page relies on
+  it now. Before a change does, measure on that page with real key presses,
   after the scroll settles.
 - **`view-timeline-inset: auto` takes the scroller's `scroll-padding`**, as
   specified. A root `scroll-padding-block-end` of 64px made every anonymous
@@ -754,18 +766,30 @@ the spec.
 ### Layout and styling
 
 - **Firefox and WebKit take a flex container's max-content width from its
-  items' content, not their `flex-basis`**, so a scrolling strip lost its end
-  padding (September 2026). The pattern that works in all three: the scroller
+  items' content, not a definite `flex-basis`** (all three do it when the
+  basis is a percentage), so a padded max-content list of flex-basis cards
+  loses its end padding, or gains extra space when the content is wider than
+  the basis. The strip first lost its padding to padding on the scroller
+  itself, which fails in all three (September 2026). The pattern that works
+  in all three: the scroller
   is an inline-size container, the list inside it is
   `inline-size: max-content` and carries the padding, and each card has
   `flex: none` and an `inline-size` in `cqi` (`ScrollSnapDemo`,
   `ScrollStateDemo`).
-- **WebKit resolves `block-size: 100%` inside a `container-type: size`
-  parent against the parent's border box**, so the 1.3.4 demo's screen stuck
-  out 20px (October 2026). Make the parent a grid,
-  `grid-template: minmax(0, 1fr) / minmax(0, 1fr)`, instead of using a
-  percentage height. Re-check in `orientation.spec.ts` with the percentage
-  restored.
+- **WebKit resolves `block-size: 100%` inside a block or flex parent whose
+  height comes from `aspect-ratio` against the parent's border box**, so the
+  1.3.4 demo's screen stuck out 20px (October 2026); without size
+  containment the parent grows instead and its ratio breaks. Any grid parent
+  avoids it; the demo's frame is a grid,
+  `grid-template: minmax(0, 1fr) / minmax(0, 1fr)`, with no percentage
+  height. Re-check in `orientation.spec.ts` with the percentage restored and
+  the frame set to `display: block`.
+- **WebKit 27.2: a customizable select's `<selectedcontent>` gets
+  `white-space: nowrap` and `overflow: clip` from the built-in stylesheet**,
+  where Chromium 156 lets it wrap, so at 320px with a wide font and WCAG text
+  spacing the chosen value was cut off (October 2026). Set
+  `white-space: normal` on it (`CustomSelectDemo` and its snippet). Re-check
+  by removing it and running the showcase's responsive spec.
 - **iOS Safari 26 did not apply pseudo-element rules written inside a style
   query** (July 2026), so the non-colour state cues vanished. Set a custom
   property in the query and render it from a `::before` rule outside it
