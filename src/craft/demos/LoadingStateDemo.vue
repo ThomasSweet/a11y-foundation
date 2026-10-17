@@ -4,6 +4,10 @@
       <input v-model="loading" type="checkbox" />
       <span>Show the loading state</span>
     </label>
+    <label class="loading-toggle">
+      <input class="loading-simulate" type="checkbox" />
+      <span>Simulate reduced motion</span>
+    </label>
 
     <div class="loading-frames">
       <figure class="loading-frame">
@@ -175,7 +179,7 @@ const feed = [
     animation: loading-shimmer 1.4s linear infinite;
 
     @include reduced-motion {
-      animation: none;
+      animation: loading-breathe 2s ease-in-out infinite alternate;
     }
 
     @include forced-colors {
@@ -204,9 +208,23 @@ const feed = [
     display: contents;
   }
 
+  .loading-demo:has(.loading-simulate:checked) .loading-shape {
+    animation: none;
+  }
+
+  .loading-demo:has(.loading-simulate:checked) [aria-busy='true'] .loading-shape {
+    animation: loading-breathe 2s ease-in-out infinite alternate;
+  }
+
   @keyframes loading-shimmer {
     to {
       background-position: -200% 0;
+    }
+  }
+
+  @keyframes loading-breathe {
+    to {
+      opacity: 0.4;
     }
   }
 

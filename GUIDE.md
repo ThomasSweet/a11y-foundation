@@ -859,6 +859,17 @@ animations/transitions are force-shortened to 0.01ms (which keeps
 enough and you want a simplified alternative (e.g. a static icon
 replacing a spinner).
 
+The mixin can restyle anything except an animation's running time: the
+net's `!important` fixes every duration at 0.01ms and every iteration count
+at 1. Motion that has to keep running under reduced motion lives inside a
+region marked `aria-busy="true"`, which the net skips for animations
+(transitions and smooth scrolling stay swept). Only the loading skeleton
+uses it: under reduced motion it swaps its shimmer for a slow opacity fade,
+which WCAG does not count as motion animation, and the fade ends when the
+region stops being busy. Never add `aria-busy` just to get motion: it tells
+screen readers the region is loading. In a project without a blanket net,
+the mixin alone does this.
+
 One consequence for tests. The reset gives every element a 0.01ms transition
 on every property, so under reduced motion a computed value read right after
 a state change is still the old one until the next frame. A focused element
