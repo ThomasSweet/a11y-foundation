@@ -293,8 +293,31 @@
         content lands trades one jank for another — that shift is what
         CLS (Cumulative Layout Shift) measures.
       </p>
+      <p>
+        Reduced motion needs one exception here. This site's safety net
+        freezes every animation for anyone whose system asks for less
+        motion, and a frozen skeleton no longer tells the eye that anything
+        is loading. So the net lets one thing through: a region marked
+        <code>aria-busy="true"</code>. Inside it the shimmer becomes a slow
+        fade. A change of opacity is not motion animation in WCAG's terms,
+        and 2.2.2 lets a loading animation count as essential when nothing
+        can happen until it ends and the page could otherwise look frozen.
+        The fade ends when loading does. Tick "Simulate reduced motion" to
+        compare the two frames.
+      </p>
+      <p>
+        There is no single right way to carve out that exception. A data
+        attribute of your own does the same job, and so does
+        <code>!important</code> inside a component, because important
+        declarations reverse the order of cascade layers. Keying it to
+        <code>aria-busy</code> keeps what a screen reader hears and what the
+        eye sees in step. Without a global safety net, a reduced-motion media
+        query in the component, or a mixin that wraps one, is all it takes,
+        as the CSS below shows.
+      </p>
       <LoadingStateDemo />
       <CodeCompare v-bind="craftSnippets.loading" />
+      <CodeCompare v-bind="craftSnippets.loadingMotion" />
       <CraftLinks :links="craftLinks.loading" />
     </ChapterSection>
 

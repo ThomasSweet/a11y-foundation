@@ -353,4 +353,49 @@ ul.cards {
   <div class="skeleton-row" aria-hidden="true"></div>
 </div>`,
   },
+
+  loadingMotion: {
+    language: 'CSS',
+    mistake: `/* Freezing the shimmer under reduced motion freezes
+   the only visible sign that anything is loading. */
+.skeleton {
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}`,
+    craft: `/* While the region is busy, swap the shimmer for a
+   slow fade: opacity is not motion animation in WCAG's
+   terms, and the fade ends when aria-busy does. A
+   reduced-motion() mixin that wraps this media query
+   works the same way. */
+.skeleton {
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [aria-busy='true'] .skeleton {
+    animation: breathe 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes breathe {
+  to { opacity: 0.4; }
+}
+
+/* A global net that freezes every animation with
+   !important would beat the fade, so it lets busy
+   regions through. */
+@media (prefers-reduced-motion: reduce) {
+  :not([aria-busy='true'], [aria-busy='true'] *),
+  :not([aria-busy='true'], [aria-busy='true'] *)::before,
+  :not([aria-busy='true'], [aria-busy='true'] *)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}`,
+  },
 } satisfies Record<string, CraftCompareSnippet>

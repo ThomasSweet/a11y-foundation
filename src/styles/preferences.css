@@ -7,17 +7,19 @@
 ============================================================================= */
 
 @layer preferences {
-  /* Reduced motion — global safety net. 0.01ms (not `none`) keeps
-     animationend/transitionend firing, so JS waiting on them doesn't break.
-     Components needing a simplified (not removed) animation use the mixin. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
+      transition-duration: 0.01ms !important;
+      scroll-behavior:     auto   !important;
+    }
+
+    :not([aria-busy='true'], [aria-busy='true'] *),
+    :not([aria-busy='true'], [aria-busy='true'] *)::before,
+    :not([aria-busy='true'], [aria-busy='true'] *)::after {
       animation-duration:        0.01ms !important;
       animation-iteration-count: 1      !important;
-      transition-duration:       0.01ms !important;
-      scroll-behavior:           auto   !important;
     }
 
     :root {
