@@ -11,8 +11,9 @@
         <p class="cq-units-label">Uptime this quarter</p>
         <p class="cq-units-stat">99.98%</p>
         <p class="cq-units-note">
-          Every size in here is <code>clamp(rem, cqi, rem)</code> — type,
-          spacing, the swatch. Drag the slider: nothing snaps, it scales.
+          The spacing is <code>clamp(rem, cqi, rem)</code> and the number is
+          <code>clamp(rem, rem + cqi, rem)</code>. Drag the slider: nothing
+          snaps, it scales. Zoom in: the number still grows.
         </p>
       </article>
     </div>
@@ -65,7 +66,7 @@ const width = ref(100)
   }
 
   .cq-units-label {
-    font-size: clamp(0.75rem, 3.5cqi, 1rem);
+    font-size: var(--text-sm);
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -73,7 +74,7 @@ const width = ref(100)
   }
 
   .cq-units-stat {
-    font-size: clamp(1.75rem, 14cqi, 4.5rem);
+    font-size: clamp(2.25rem, 1.75rem + 4.25cqi, 3.25rem);
     font-weight: 800;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -82,7 +83,7 @@ const width = ref(100)
 
   .cq-units-note {
     max-inline-size: 40ch;
-    font-size: clamp(0.8rem, 3cqi, 0.95rem);
+    font-size: var(--text-sm);
     color: var(--color-text-subtle);
   }
 }

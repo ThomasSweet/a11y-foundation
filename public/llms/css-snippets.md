@@ -48,17 +48,21 @@ safe without one; check its tier in `modern-css.md`.
   container-type: inline-size;
 }
 
-/* 1cqi = 1% of the container's inline size. Everything scales in
-   proportion to the component's own space — no breakpoints, no
-   viewport units, no "in-between" states to break. */
+/* 1cqi = 1% of the container's inline size. Spacing scales with the
+   component's own space, so a narrow container, even one made narrow
+   by zoom, leaves more room for the text. */
 .card {
   padding: clamp(0.75rem, 6cqi, 2.5rem);
 }
 
+/* Fluid type needs two rules. A rem term in the middle value: with cqi
+   alone, whether zoom or the user's font size makes the text bigger
+   depends on the browser and the layout, and the rem term makes sure
+   both always do. And a maximum within 1.5 times the minimum: the floor
+   is in rem, so by 300% zoom, Safari's limit, the floor alone doubles
+   the text. Body text stays on plain rem sizes. */
 .card-stat {
-  /* rem floor and ceiling: fluid in the middle, but the user's
-     font-size preference always sets the limits. */
-  font-size: clamp(1.75rem, 14cqi, 4.5rem);
+  font-size: clamp(2.25rem, 1.75rem + 4.25cqi, 3.25rem);
 }
 ```
 

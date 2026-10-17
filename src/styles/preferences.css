@@ -36,6 +36,11 @@
       --shadow-lg:         none;
       --focus-ring-width:  4px;
     }
+
+    .surface {
+      --mix-border:      100%;
+      --mix-text-subtle: 100%;
+    }
   }
 
   @media (forced-colors: active) {

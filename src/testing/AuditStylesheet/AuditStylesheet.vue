@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <pre class="audit-css-code" tabindex="0"><code>img:not([alt]),
+    <pre class="audit-css-code" tabindex="0" role="group" aria-label="Debug stylesheet code"><code>img:not([alt]),
 button:empty,
 input:not(label input, [aria-label], [aria-labelledby]),
 a[target="_blank"]:not(:has(.visually-hidden)) {

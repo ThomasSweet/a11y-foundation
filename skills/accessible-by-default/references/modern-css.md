@@ -24,9 +24,9 @@ Components respond to the space they actually get instead of the viewport.
 
 ### Container query units
 
-The other half of container queries: cqi units inside clamp() scale type and spacing in proportion to the component’s own space — no breakpoints, no broken in-between states, and rem bounds keep the user’s font-size preference in charge.
+The other half of container queries: cqi units inside clamp() scale type and spacing in proportion to the component’s own space, with no breakpoints and no broken in-between states.
 
-**Accessibility payoff:** The rem bounds in every clamp() keep the user’s font-size preference in charge at any container width — no breakpoint ever overrides it.
+**Accessibility payoff:** Spacing in cqi gives text more room in a narrow container, even at 400% zoom; for type, a rem term in the middle and a maximum within 1.5 times the minimum let zoom double the text in every engine.
 
 **Feature test (not needed to ship):** `@supports (width: 1cqi)`
 

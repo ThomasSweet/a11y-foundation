@@ -36,7 +36,7 @@
             <div class="defensive-content">
               <p class="defensive-title">Deploy finished</p>
               <!-- tabindex keeps the scrolling line keyboard-reachable (guards on = it scrolls). -->
-              <pre class="defensive-code" tabindex="0">https://accessible-by-default.dev/deploys/2026-07-02/a1b2c3d4e5f6a7b8c9d0</pre>
+              <pre class="defensive-code" tabindex="0" role="group" aria-label="Deploy URL">https://accessible-by-default.dev/deploys/2026-07-02/a1b2c3d4e5f6a7b8c9d0</pre>
               <p class="defensive-note">Production is live. The build took 42 seconds.</p>
             </div>
           </article>

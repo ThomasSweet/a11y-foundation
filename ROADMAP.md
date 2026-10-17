@@ -41,16 +41,6 @@ How to edit this file:
 
 ### Now
 
-- **Withdraw or correct the media state pseudo-classes line.**
-  `media-pseudo-classes-baseline` in `revisions.ts` (2026-08-25, now only in
-  the feed, since the hub shows the six newest) says Chrome 152 shipped them
-  and they reached Baseline. web-features 3.42, MDN's compat data and Chrome's
-  status page show no shipped Chrome version; the Chrome 152 beta post had
-  listed them. Correct it in place (same id and date) or withdraw it.
-- **Fix the principle tag on 1.3.5.** `src/criteria/registry.ts` tags 1.3.5
-  Identify Input Purpose as Understandable; WCAG files it under 1.3
-  Adaptable, in Perceivable. The card and the generated skill reference show
-  it. Fix it and run `skill:gen`.
 - **Refresh the WebAIM figures.** WebAIM published Survey 11 on 2026-09-29;
   proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
   Survey 10. The freshness routine checks the same page on 2026-11-01: if it
@@ -115,10 +105,10 @@ How to edit this file:
   matches a paragraph). When: craft's form sections change.
 - **`@scope`**: proximity only breaks specificity ties, so inherited custom
   properties stay the stronger fix. When: a showcase gap.
-- **Understandable is the thinnest principle on the timeline**: 3.2.6 and
-  3.3.7 only, once 1.3.5 is tagged Perceivable. 3.1.2 lives in the listening
-  room; 3.1.1 is named nowhere. When: the next timeline criterion, or P·03's
-  scope.
+- **Understandable is the thinnest of the three principles on the
+  timeline** (Robust has none): 3.2.6 and 3.3.7 only. 3.1.2 lives in the
+  listening room; 3.1.1 is named nowhere. When: the next timeline
+  criterion, or P·03's scope.
 - **`text-box` trim** (Chrome and Safari): alignment with a modest
   accessibility angle. When: a showcase gap.
 - **`text-fit`**, Chrome 150 only, ready for a limited-tier slot. It would
@@ -202,16 +192,6 @@ source before touching the wording or the sources-read stamp in
 
 ### Known debt
 
-- **Content defect: the cq-units clamps.** The clamps in `CqUnitsDemo.vue`
-  and `CqUnitsDemo.snippet.css` have no rem term in the preferred value, so
-  between their bounds the size does not grow with zoom (1.4.4).
-- **Unlabelled scroll regions.** `CodeBlock`'s `<pre>` and the three `<pre>`
-  blocks in `LightDarkDemo.vue` are Tab stops with no label, against GUIDE's
-  rule for scrollable regions.
-- **Timeline reveals hold their start state.** `CriteriaTimeline.scss` runs
-  the strata layers and each card's slide-in with `fill: both`, against
-  GUIDE's scroll-driven rule 3. Switch them to `none` and re-run the timeline
-  specs.
 - **Forced-colours ring.** In `preferences.css` the ring rule in the
   `forced-colors` block sits before the general `:focus-visible` rule and
   never applies. What shows is the general ring (3px, 4px when more contrast
@@ -223,9 +203,15 @@ source before touching the wording or the sources-read stamp in
   removing any.
 - **Dead outline rules.** 38 component `:focus-visible` blocks declare an
   `outline` that the preferences layer overrides.
-- **`.surface` and more contrast.** A `.surface` derives its palette on the
-  element (`theming/engine.css`), so the `prefers-contrast` overrides on
-  `:root` do not reach inside it. GUIDE notes it; nothing fixes it.
+- **Two fluid sizes outside GUIDE's rule.** The hub headline
+  (`--text-display`, a cap 1.8 times its floor) and `.chapter-no` (`4.6vw`,
+  no `rem` term, 1.57 times) break the fluid-type rule. Shipping engines
+  still double them: Chrome and Firefox by 400%, and Safari's zoom scales
+  the computed size (WebKit bug 253540, 2023; not tried in Safari 27). An
+  engine that narrowed the viewport under zoom, as Chrome does, but stopped
+  at 300%, as Safari does, would reach 181% and 191% on a 1280px screen
+  (computed). The rule narrows both ranges, the headline's most: a design
+  call.
 - **`100vh`.** `SiteFrame.scss` says `100vh` where `reset.css` says `100svh`.
 - **Safe-area inset.** `env(safe-area-inset-bottom)` in `ChapterLayout.scss`
   resolves to 0, because no page's viewport meta sets `viewport-fit=cover`.
@@ -322,6 +308,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-16: Accuracy pass: false feed line withdrawn, 1.3.5 tagged Perceivable, code blocks named, fluid type that zooms, reveals that end in view, more contrast on surfaces. #89
 - 2026-10-16: Node 24 in CI; installs skip releases under three days old and stop on unreviewed install scripts. #87
 - 2026-10-14: Coverage matrix: a faint focus ring cites 1.4.11, and axe is partial on colour alone. #86
 - 2026-10-13: The standard page stops failing 2.4.11: era headers step aside for focus, and the demo's bar can hide a link. #85
@@ -336,7 +323,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-09-21: Chapter bar focus: the bar never hides or covers a focused control; reveals carry their own motion gate. #73
 - 2026-09-21: Scrollbars tinted, never thinned: the thumb shows focus, plus a scroll-state scrollable block. #72
 - 2026-09-21: The listening room (P·02): a press kit a scanner passes, with eleven barriers you hear first. #71
-- 2026-09-14: WCAG 3.0 note: the timeline says what the draft means for the 2.2 AA target. #70
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

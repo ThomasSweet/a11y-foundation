@@ -196,6 +196,7 @@
         animation: chapter-demo-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;
+        animation-range: entry 0% entry min(100%, 160px);
       }
 
       @keyframes chapter-demo-reveal {

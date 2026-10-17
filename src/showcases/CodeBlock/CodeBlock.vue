@@ -6,7 +6,7 @@
         v-if="copyable"
         type="button"
         class="code-block-copy"
-        :aria-label="`Copy ${label} snippet to clipboard`"
+        :aria-label="`Copy ${spokenLabel} snippet to clipboard`"
         @click="copy"
       >
         <span aria-hidden="true">{{ copied ? 'Copied' : 'Copy' }}</span>
@@ -16,7 +16,7 @@
     <!-- tabindex makes overflowing code keyboard-scrollable. v-html is safe:
          the source is our own escaped text, with <span>s only around comments. -->
     <!-- eslint-disable-next-line vue/no-v-html -- see above -->
-    <pre class="code-block-pre" tabindex="0"><code v-html="highlighted" /></pre>
+    <pre class="code-block-pre" tabindex="0" role="group" :aria-label="`${spokenLabel} code`"><code v-html="highlighted" /></pre>
 
     <!-- Announces the copy result to screen readers without moving focus. -->
     <span v-if="copyable" role="status" class="visually-hidden">{{ status }}</span>
@@ -38,6 +38,9 @@ const props = withDefaults(
   }>(),
   { copyable: true },
 )
+
+const spokenNames: Record<string, string> = { sh: 'Shell', md: 'Markdown' }
+const spokenLabel = computed(() => spokenNames[props.label] ?? props.label)
 
 const trimmed = computed(() => props.code.replace(/\s+$/, ''))
 
@@ -68,7 +71,7 @@ async function copy() {
   try {
     await navigator.clipboard.writeText(trimmed.value)
     copied.value = true
-    status.value = `${props.label} snippet copied to clipboard`
+    status.value = `${spokenLabel.value} snippet copied to clipboard`
   } catch {
     status.value = 'Copy failed — select the code and copy it manually'
   }

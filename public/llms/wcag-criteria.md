@@ -76,7 +76,7 @@ Content does not lock to one display orientation, portrait or landscape, unless 
 
 ## 1.3.5 Identify Input Purpose
 
-**Level AA · WCAG 2.1 · Understandable**
+**Level AA · WCAG 2.1 · Perceivable**
 
 Fields that collect information about the user — name, email, address — expose their purpose programmatically, in practice through autocomplete tokens. Added in WCAG 2.1 (2018): it turns autofill from a guess into a guarantee, for people for whom every keystroke is expensive and every transcription is a chance to get it wrong.
 
