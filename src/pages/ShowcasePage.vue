@@ -185,6 +185,7 @@ const sections = [
         animation: showcase-card-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;
+        animation-range: entry 0% entry min(100%, 160px);
       }
 
       @keyframes showcase-card-reveal {

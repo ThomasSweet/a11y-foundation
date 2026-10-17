@@ -145,16 +145,6 @@ export const revisions: Revision[] = [
     tail: ', so that showcase now runs in two engines; Safari has it in Technology Preview.',
   },
   {
-    id: 'media-pseudo-classes-baseline',
-    date: '2026-08-25',
-    area: 'Showcase',
-    title: 'Media state pseudo-classes reach Baseline',
-    lead: 'Chrome 152 shipped the ',
-    linkText: 'media state pseudo-classes',
-    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:playing',
-    tail: ', the third engine, so :playing and :paused now work everywhere without script.',
-  },
-  {
     id: 'audit-room',
     date: '2026-08-01',
     area: 'Proof',

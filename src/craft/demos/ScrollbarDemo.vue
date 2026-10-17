@@ -31,8 +31,9 @@
       change which kind your visitor has. Both thumbs are tinted from the
       page's ink token at half strength, which clears 3:1 in both schemes.
       Tab into a pane and its thumb takes the accent, so a keyboard user can
-      see which region the arrow keys will scroll. Both panes are
-      keyboard-scrollable via <code>tabindex="0"</code> and a label.
+      see which region the arrow keys will scroll. Both panes are named
+      sections with <code>tabindex="0"</code>, so a keyboard can scroll them
+      and a screen reader can name them.
     </p>
   </div>
 </template>

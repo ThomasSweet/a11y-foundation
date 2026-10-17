@@ -25,7 +25,7 @@
           <code>light-dark()</code> — follows the toggle
         </h4>
         <div class="light-dark-swatch light-dark-swatch-modern" aria-hidden="true"></div>
-        <pre class="light-dark-code" tabindex="0"><code>background-color: light-dark(#e6e6fa, #1a1a2e);</code></pre>
+        <pre class="light-dark-code" tabindex="0" role="group" aria-label="light-dark() code"><code>background-color: light-dark(#e6e6fa, #1a1a2e);</code></pre>
         <p class="light-dark-note">
           One line, both values together so they can’t drift — and because it
           resolves against <code>color-scheme</code>, it honours the user’s
@@ -39,7 +39,7 @@
           <code>@media</code> — only hears the OS
         </h4>
         <div class="light-dark-swatch light-dark-swatch-legacy" aria-hidden="true"></div>
-        <pre class="light-dark-code" tabindex="0"><code>background-color: #e6e6fa;
+        <pre class="light-dark-code" tabindex="0" role="group" aria-label="@media code"><code>background-color: #e6e6fa;
 
 @media (prefers-color-scheme: dark) {
   background-color: #1a1a2e;
@@ -57,7 +57,7 @@
           Beyond color — the style-query trick
         </h4>
         <div class="light-dark-swatch light-dark-swatch-probe" aria-hidden="true"></div>
-        <pre class="light-dark-code" tabindex="0"><code>@property --scheme-probe {
+        <pre class="light-dark-code" tabindex="0" role="group" aria-label="Style query code"><code>@property --scheme-probe {
   syntax: '&lt;color&gt;';
   inherits: true;
   initial-value: white;

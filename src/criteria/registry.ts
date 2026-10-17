@@ -292,7 +292,7 @@ export const criteria: Criterion[] = [
     name: 'Identify Input Purpose',
     level: 'AA',
     version: 'WCAG 2.1',
-    principle: 'Understandable',
+    principle: 'Perceivable',
     requirement:
       'Fields that collect information about the user — name, email, ' +
       'address — expose their purpose programmatically, in practice through ' +

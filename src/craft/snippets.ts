@@ -270,7 +270,7 @@ details:not([open])::details-content {
    switch it to the link colour while keyboard focus is inside,
    so the thumb says which region the arrow keys move. Width
    stays auto: people grab thumbs. (The region itself gets
-   tabindex="0" and a label for keyboard use.) */
+   tabindex="0" for the keyboard, plus a role and a label.) */
 .panel {
   overflow-y: auto;
   scrollbar-gutter: stable;

@@ -34,6 +34,7 @@
         animation: timeline-era-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;
+        animation-range: entry 0% entry min(100%, 160px);
       }
 
       @keyframes timeline-era-reveal {
@@ -231,7 +232,7 @@
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .timeline-strata-layer {
-        animation: layer-pour linear both;
+        animation: layer-pour linear backwards;
         animation-timeline: view();
 
         &:nth-child(1) {
@@ -248,16 +249,17 @@
       }
 
       .timeline-now-label {
-        animation: layer-pour linear both;
+        animation: layer-pour linear none;
         animation-timeline: view();
-        animation-range: cover 0% cover 40%;
+        animation-range: entry 0% entry 100%;
       }
 
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :deep(.criterion) {
-        animation: era-slide-in linear both;
+        animation: era-slide-in linear none;
         animation-timeline: view();
-        animation-range: entry 0% entry 65%;
+        animation-range: entry 0% entry 160px;
+        animation-range: entry 0% entry min(100%, 160px);
       }
 
       @keyframes layer-pour {

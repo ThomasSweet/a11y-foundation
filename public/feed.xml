@@ -112,14 +112,6 @@
     <summary>Firefox 155 ships typed attr(), so that showcase now runs in two engines; Safari has it in Technology Preview.</summary>
   </entry>
   <entry>
-    <id>tag:accessible-by-default.dev,2026-08-25:media-pseudo-classes-baseline</id>
-    <title>Showcase: Media state pseudo-classes reach Baseline</title>
-    <link rel="alternate" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:playing"/>
-    <published>2026-08-25T00:00:00Z</published>
-    <updated>2026-08-25T00:00:00Z</updated>
-    <summary>Chrome 152 shipped the media state pseudo-classes, the third engine, so :playing and :paused now work everywhere without script.</summary>
-  </entry>
-  <entry>
     <id>tag:accessible-by-default.dev,2026-08-01:audit-room</id>
     <title>Proof: The audit room</title>
     <link rel="alternate" href="https://accessible-by-default.dev/audit-room.html"/>

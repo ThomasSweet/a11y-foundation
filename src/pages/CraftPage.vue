@@ -344,8 +344,9 @@
         <code>::-webkit-scrollbar</code> stays out: non-standard, and
         Chromium ignores it once the standard properties are set. What a
         scrollable region needs before any of this is
-        <code>tabindex="0"</code> and a label, so keyboard users can reach
-        it at all.
+        <code>tabindex="0"</code>, so keyboard users can reach it in every
+        engine, Safari included, and a role with a label, so a screen reader
+        can say what it is.
       </p>
       <ScrollbarDemo />
       <CodeCompare v-bind="craftSnippets.scrollbar" />

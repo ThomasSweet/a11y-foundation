@@ -917,9 +917,13 @@ Most components need no override at all. `preferences.css` answers the
 preference once, at the tokens: `--color-border` becomes `CanvasText`,
 `--color-text-subtle` becomes `--color-text`, the three shadows become
 `none` and `--focus-ring-width` becomes 4px. Reach for the mixin only for an
-edge that does not use `--color-border`. One exception: a `.surface` derives
-its own palette on the element itself, so the `:root` override does not
-reach inside it.
+edge that does not use `--color-border`. A `.surface` derives its own
+palette on the element, so the `:root` override cannot reach inside it;
+`preferences.css` sets its `--mix-border` and `--mix-text-subtle` to 100%
+instead. That mixes both all the way to the surface's own text colour, which
+stays visible where `CanvasText` would not: a surface without a
+`color-scheme` of its own takes the page's, so a light surface on a dark
+page would get white on near-white.
 
 ### Room for the focus ring
 
@@ -999,6 +1003,18 @@ color: #111111;
 transition: color 250ms ease;
 ```
 
+### Fluid type
+
+Body text stays on the fixed `--text-*` steps. A font size that tracks the
+viewport or a container (`vw`, `cqi`) keeps a `rem` term in its middle
+value: engines and layouts differ in what zoom does to `vw` and `cqi`, but a
+`rem` term always grows with zoom and with the reader's font size. Its cap
+stays within 1.5 times its floor: the floor is in `rem`, so by 300% zoom,
+Safari's limit, the floor alone doubles the text, as 1.4.4 asks.
+`--text-display-sm` meets this; `--text-display` (1.8 times) and
+`.chapter-no` (1.57 times, and no `rem` term) do not yet (Known debt in
+`ROADMAP.md`).
+
 ### How theming works
 
 `tokens.css` sets `color-scheme: light dark` on `:root` and declares every
@@ -1018,8 +1034,13 @@ color token once with `light-dark(lightValue, darkValue)`:
   strength (`scrollbar-color` is inherited, so setting it on `html` reaches
   nested scrollers) and switches it to `--color-primary` while focus is
   inside a `[tabindex="0"]` region; the width stays `auto`, never `thin`. A
-  scrollable region always carries `tabindex="0"` and a label, and that
-  attribute is what the focus rule keys off.
+  scrollable region always carries `tabindex="0"`, a role and a label, and
+  the `tabindex` is what the focus rule keys off. The role comes first: a
+  `<div>` or `<pre>` maps to the generic role, which ARIA does not allow to
+  carry a name. Every named region is a landmark, so `role="region"` suits a
+  scroller worth a stop in the landmark list, and `role="group"` suits one
+  that would only crowd it, such as a code block: craft's comparisons alone
+  hold 32.
   `CodeBlock`'s `<pre>` keeps `tabindex="0"` even when its code fits: a stop
   that exists only while the code overflows would need script to measure it.
 - The presets (`data-preset` on `<html>`, set by `ThemeToggle`) are data in
@@ -1057,8 +1078,16 @@ scroll-driven showcase's progress bar still runs. Three rules follow.
 3. **A reveal uses `fill: none`, and its range ends by the time the element
    is fully in view.** With `both`, the start state holds before the element
    enters, so boxes below the fold report shifted positions and a jump to an
-   anchor overshoots. The timeline's strata and card slide-in still use
-   `both` (Known debt in `ROADMAP.md`).
+   anchor overshoots. A range that runs past "fully in view" leaves text
+   faded if the reader stops scrolling inside it. An element taller than the
+   viewport is never fully in view, so its range ends within 160px, or as it
+   fills the viewport if that comes first:
+   `entry 0% entry min(100%, 160px)`, after a plain `160px` line for an
+   engine that rejects `min()` there. The chapter, showcase card, era and
+   criterion reveals all do this. The one exception is the timeline's
+   strata: textless bars, hidden from assistive technology, that pour in one
+   after another while in view, so each holds its start state until its
+   turn (`backwards`).
 
 ---
 

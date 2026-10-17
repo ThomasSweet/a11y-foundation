@@ -186,10 +186,10 @@ const entries: Omit<Showcase, 'tier'>[] = [
     supports: 'width: 1cqi',
     summary:
       'The other half of container queries: cqi units inside clamp() scale ' +
-      'type and spacing in proportion to the component’s own space — no ' +
-      'breakpoints, no broken in-between states, and rem bounds keep the ' +
-      'user’s font-size preference in charge. The timeline’s ghost years ' +
-      'run on this.',
+      'type and spacing in proportion to the component’s own space, with no ' +
+      'breakpoints and no broken in-between states. Type needs a rem term in ' +
+      'the middle value: with cqi alone, zoom and the reader’s font size may ' +
+      'not make the text any bigger.',
     links: [
       {
         label: 'MDN: container query length units',
@@ -197,7 +197,7 @@ const entries: Omit<Showcase, 'tier'>[] = [
       },
     ],
     payoff:
-      'The rem bounds in every clamp() keep the user’s font-size preference in charge at any container width — no breakpoint ever overrides it.',
+      'Spacing in cqi gives text more room in a narrow container, even at 400% zoom; for type, a rem term in the middle and a maximum within 1.5 times the minimum let zoom double the text in every engine.',
     tags: ['layout', 'typography'],
     component: CqUnitsDemo,
     snippetCss: cqUnitsSnippetCss,
