@@ -13,6 +13,7 @@ test('the broken page is exactly as broken as documented', async ({ page }) => {
   expect(results.violations.map((v) => v.id).sort()).toEqual([
     'color-contrast',
     'image-alt',
+    'label-content-name-mismatch',
   ])
 })
 

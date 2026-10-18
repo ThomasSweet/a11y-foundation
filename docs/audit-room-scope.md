@@ -100,6 +100,10 @@ copy says two and the inverted spec pins exactly that pair. The
 placeholder-only label (#6) and td-only table (#10) pass silently, as
 predicted.
 
+**Re-measured (2026-10-18): axe finds three of twelve.** axe 4.14.0 turned
+`label-content-name-mismatch` on by default, so #12 is caught too. The
+room's copy and the spec moved to three.
+
 Rejected: keyboard trap (JS), autoplaying video (no media on this
 site), `lang` mix-ups (real harm is pronunciation — hearable but
 invisible, weak for a mixed audience; candidate for a future round).
