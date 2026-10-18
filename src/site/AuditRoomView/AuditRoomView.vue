@@ -15,8 +15,8 @@
       barriers</strong>, planted deliberately. Your job is the hunt: the
       heading list, the tab key, the accessibility pane, the emulations —
       everything <a href="/proof.html">the proof chapter</a> and the
-      reference sheets taught. A scanner finds two of the twelve — this
-      site's own suite measured it. The other ten need you.
+      reference sheets taught. A scanner finds three of the twelve — this
+      site's own suite measured it, with axe 4.14. The other nine need you.
     </template>
 
     <template #contract>
@@ -178,7 +178,7 @@ const barriers: Answer[] = [
     what: 'The button shows "Join the mailing list" but carries aria-label="subscribe". Voice-control users say what they see — "click join the mailing list" — and nothing happens, because the visible words are not in the accessible name.',
     criterion: '2.5.3 Label in Name',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html',
-    caught: 'the accessibility pane — axe’s rule for this exists but ships off by default (experimental)',
+    caught: 'a scanner, since axe 4.14 turned its rule on by default, or the accessibility pane',
     fix: 'Let the content name it — or if ARIA must add context, start with the visible words,',
     fixLink: { label: 'as the tree section showed.', href: '/proof.html#testing-tree' },
   },

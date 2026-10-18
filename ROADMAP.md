@@ -45,10 +45,6 @@ How to edit this file:
   proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
   Survey 10. The freshness routine checks the same page on 2026-11-01: if it
   opens a draft PR first, review that instead.
-- **Bump `axe-core` and `@axe-core/playwright` together.** 4.12.1 is pinned;
-  4.13 changed rule behaviour and 4.14 is out. GUIDE's CI section says why
-  both move at once. Re-run the audit-room and listening-room specs, which pin
-  exact findings, and re-check the axe column of proof's coverage matrix.
 
 ### Next
 
@@ -291,6 +287,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
 - 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 - 2026-10-17: Reduced, not removed: under reduced motion a busy skeleton fades instead of freezing, and the sweep lets aria-busy regions through. #90
 - 2026-10-16: Accuracy pass: false feed line withdrawn, 1.3.5 tagged Perceivable, code blocks named, fluid type that zooms, reveals that end in view, more contrast on surfaces. #89
@@ -305,7 +302,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-09-29: @supports claims scoped: the README and the skill's guard lines follow the tier rules. #77
 - 2026-09-28: Baseline bot lines: one per feature, and no false "first engine". #76
 - 2026-09-21: JavaScript as the second question: a proof paragraph and a submit button that stays live. #74
-- 2026-09-21: Chapter bar focus: the bar never hides or covers a focused control; reveals carry their own motion gate. #73
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).
