@@ -56,7 +56,7 @@
     "vite": "^8.0.16",
     "vitest": "^4.1.9",
     "vue-tsc": "^3.3.6",
-    "web-features": "3.43.0"
+    "web-features": "3.44.0"
   },
   "allowScripts": {
     "@parcel/watcher": false,
