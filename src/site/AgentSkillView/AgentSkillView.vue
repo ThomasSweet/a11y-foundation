@@ -62,6 +62,11 @@
         behind, so the skill cannot quietly drift from the demos you can click
         here.
       </p>
+      <p class="agent-skill-p">
+        Every file can be read here before you install anything:
+        <a href="/llms.txt">llms.txt</a> lists them all as plain text, for
+        people and for agents that fetch rather than install.
+      </p>
     </section>
 
     <section class="agent-skill-section">
