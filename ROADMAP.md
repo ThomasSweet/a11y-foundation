@@ -45,10 +45,27 @@ How to edit this file:
   proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
   Survey 10. The freshness routine checks the same page on 2026-11-01: if it
   opens a draft PR first, review that instead.
+- **Clicks during the page transition.** `base.css` runs a 0.5s
+  cross-document fade with no `pointer-events: none` on `::view-transition`,
+  so the transition layer probably swallows clicks on a freshly loaded page
+  (Coyier, 7 Aug 2026; csswg-drafts #11596). Measure a click mid-transition
+  in Chromium and WebKit, then fix.
 
 ### Next
 
 - **Node 26 in CI**, once it becomes LTS on 2026-10-28 (noted in #87).
+- **Sass before Dart Sass 2**, targeted for December 2026: move to 1.106 and
+  confirm the build still shows no deprecation warnings (1.101 shows none).
+- **3.3.8 Accessible Authentication (Minimum)**, the next criterion demo and
+  an Understandable one, the thinnest principle on the timeline (3.2.6 and
+  3.3.7 only; Robust has none). Compliant: login fields with `autocomplete`,
+  paste allowed. Broken: a transcribe-the-code check with no alternative.
+- **An accessibility statement with evidence.** The hub's statement claims
+  keyboard and screen reader support without saying what was tested. After
+  the owed checks, date it with the combinations tried and the known gaps,
+  and add `ACCESSIBILITY.md`, which GitHub has shown on the repository
+  overview since 2026-10-01; README's section then points to it. Later, a
+  WCAG-EM self-evaluation with W3C's report tool.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -68,7 +85,10 @@ How to edit this file:
   written and reviewed: P·03 settings room (state and preference barriers a
   static page cannot host); P·04 booking form (a multi-step flow where
   errors, instructions and grouping do the damage); P·05 review desk (a
-  component library read one component at a time).
+  component library read one component at a time). Barriers collected for
+  them: an icon button named only by its tooltip's `aria-describedby`
+  (Archibald), spanned table headers wired with `headers` (Roselli), a card
+  list built as a `listbox` (Higley).
 
 ### Ideas
 
@@ -84,15 +104,13 @@ How to edit this file:
   `TextField.scss` already uses it. When: craft's form sections change.
 - **A region set to the dark scheme with `color-scheme`**, beside a
   hand-painted copy; the real failure is inherited light text in a
-  light-scheme control. When: the theming demos change.
+  light-scheme control. With it, `light-dark()` on images (Baseline since
+  2026-09-14) for the blueprint paper: it follows `color-scheme`, where
+  `<picture media>` only hears the OS. When: the theming demos change.
 - **Readonly versus disabled** as a craft note (bare `:read-only` also
   matches a paragraph). When: craft's form sections change.
 - **`@scope`**: proximity only breaks specificity ties, so inherited custom
   properties stay the stronger fix. When: a showcase gap.
-- **Understandable is the thinnest of the three principles on the
-  timeline** (Robust has none): 3.2.6 and 3.3.7 only. 3.1.2 lives in the
-  listening room; 3.1.1 is named nowhere. When: the next timeline
-  criterion, or P·03's scope.
 - **`text-box` trim** (Chrome and Safari): alignment with a modest
   accessibility angle. When: a showcase gap.
 - **`text-fit`**, Chrome 150 only, ready for a limited-tier slot. It would
@@ -103,6 +121,18 @@ How to edit this file:
 - **Translucent glass again.** Glass sits at 90% because Midnight needs 87%.
   Lighter subtle text in Midnight, or a lower token for surfaces without
   text, would bring it back. When: a design reason to want it.
+- **Icons in forced colours**: test icons drawn with `mask-image` and
+  `currentColor` (Verou's icon tokens) against the site's inline SVG. When:
+  craft has room.
+- **Bidirectional content** in the content-stress demo: `dir="auto"` on user
+  content and `<bdi>` (Seyedi). When: that section changes.
+- **Small copy additions**, each when its section next changes. Dialog: it
+  already uses `closedby="any"`; add Roselli's rule, light dismiss only
+  where closing loses nothing. Dark mode: the two-versus-three-state debate
+  (Verou, Bramus Van Damme) and why the Mode control keeps System. DevTools
+  sheet: Firefox 155's `@` panel emulates reduced motion. Scrollbars:
+  Firefox 153 honoured `::-webkit-scrollbar` everywhere, 155 cut it back to
+  a short site list.
 - **Per-section pages**, the deferred Tier 3 split; the task index would
   become its structure. Deferred, no trigger yet.
 
@@ -121,6 +151,12 @@ How to edit this file:
   reword "only Safari 27" in the anchor positioning summary in `registry.ts`.
 - **`border-shape`**, Chrome 147 only, for the anchor tooltip's arrow.
   Trigger: a second engine; the monthly routine checks.
+- **The OS text size on the web**: `<meta name="text-scale">` (Chrome 146)
+  and `env(preferred-text-scale)` (Chrome on Android). Trigger: a second
+  engine, Safari above all, where iOS Text Size would finally reach pages.
+- **`focusgroup`** (Chrome 150): arrow keys within a toolbar or tab list
+  without a hand-rolled roving `tabindex`. Trigger: a second engine, or an
+  Interop 2027 pick.
 
 ### Standards re-checks (dated)
 
@@ -129,7 +165,8 @@ source before touching the wording or the sources-read stamp in
 `standardsMapData.ts`.
 
 - **EN 301 549 V4.1.1** (WCAG 2.2 AA): published by ETSI, not yet cited in
-  the Official Journal. Re-check December 2026. When cited, the EAA chain
+  the Official Journal; Ireland's NDA expects the citation on 16 December
+  2026. Re-check then. When cited, the EAA chain
   moves to the 2.2 row and the "arriving" note goes. Canada's ACA cites the
   2024 Canadian adoption of V3.2.1, so it stays at 2.1 AA regardless.
 - **WCAG 3.0**: next working draft expected Q4 2026; none since September as
@@ -182,6 +219,9 @@ source before touching the wording or the sources-read stamp in
   removing any.
 - **Dead outline rules.** 38 component `:focus-visible` blocks declare an
   `outline` that the preferences layer overrides.
+- **The dialog spec never presses Tab.** "native dialog traps focus" in
+  `keyboard.spec.ts` checks that focus starts inside and that Escape closes
+  it. Walk Tab and Shift+Tab inside, and check focus returns to the opener.
 - **Two fluid sizes outside GUIDE's rule.** The hub headline
   (`--text-display`, a cap 1.8 times its floor) and `.chapter-no` (`4.6vw`,
   no `rem` term, 1.57 times) break the fluid-type rule. Shipping engines
@@ -287,6 +327,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #93
 - 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
 - 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 - 2026-10-17: Reduced, not removed: under reduced motion a busy skeleton fades instead of freezing, and the sweep lets aria-busy regions through. #90
@@ -301,7 +342,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-09-29: The anchor tooltip flips for real, with three engine workarounds and a new spec. #78
 - 2026-09-29: @supports claims scoped: the README and the skill's guard lines follow the tier rules. #77
 - 2026-09-28: Baseline bot lines: one per feature, and no false "first engine". #76
-- 2026-09-21: JavaScript as the second question: a proof paragraph and a submit button that stays live. #74
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

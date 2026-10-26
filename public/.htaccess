@@ -6,6 +6,7 @@
 # every filename, so a change always yields a new name — is then allowed to
 # cache for a year; static media for a day.
 ErrorDocument 404 /404.html
+AddCharset utf-8 .md .txt
 
 # One canonical origin: strip www (forcing TLS in the same hop), then force
 # TLS on any remaining host — staging keeps its own hostname.
@@ -15,6 +16,7 @@ ErrorDocument 404 /404.html
   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  RewriteRule ^llms/?$ /llms.txt [R=302,L]
 </IfModule>
 
 <IfModule mod_headers.c>
