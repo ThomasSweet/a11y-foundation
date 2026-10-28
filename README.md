@@ -182,7 +182,7 @@ the feed or the Baseline data, falls behind its registry.
 ## Getting started
 
 ```sh
-npm install         # Node 24+ and npm 11.16+; see .npmrc and devEngines
+npm install         # Node 26+ and npm 11.16+; see .npmrc and devEngines
 npm run dev         # playground at http://localhost:5173
 npm run typecheck   # vue-tsc
 npm run lint:css    # stylelint, including mixin-order enforcement

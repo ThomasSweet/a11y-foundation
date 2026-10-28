@@ -12,7 +12,7 @@ import globals from 'globals'
 
 export default ts.config(
   {
-    ignores: ['dist/**', 'node_modules/**', 'src/showcases/**/*.snippet.*', 'public/**'],
+    ignores: ['dist/**', 'node_modules/**', 'src/showcases/**/*.snippet.*', 'public/**', '.claude/**'],
   },
 
   js.configs.recommended,

@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "devEngines": {
     "packageManager": {
@@ -38,7 +38,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.5",
     "@vitejs/plugin-vue": "^6.0.7",
     "axe-core": "4.14.0",
     "eslint": "^10.8.0",
