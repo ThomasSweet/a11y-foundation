@@ -2,8 +2,8 @@
 
 Written 28 October 2026, before any code. It works from the brief the package
 session handed over and from the package's README, which is the single source
-for what the checks do. Nothing below is built until Thomas has reviewed the
-decisions at the end.
+for what the checks do. Thomas took the decisions at the end on 29 October
+2026.
 
 ---
 
@@ -125,15 +125,28 @@ behaviours, not keyboard testing in general. A fourth column would read as
     screen reader caught.
   - "Focus escapes an open modal" (2.4.3): axe missed, keyboard caught,
     screen reader caught.
-  - "An error not tied to its field" (1.3.1, 3.3.1): axe missed, keyboard
-    missed, screen reader caught.
+  - "Error text tied to no field" (1.3.1, as the package's
+    `error-association/visible-error-is-not-tied` gives it): axe missed,
+    keyboard missed, screen reader caught.
 - **One sentence under the matrix:** these three can be scripted. The
   package presses the widget in three engines and reports when it lies. Link
   to `/checks/`.
 
-Every "missed" for axe is measured before it is printed: run axe 4.14 on the
-package's failing fixtures (`fixtures/` in the package repository) and record
-that it reports nothing for each defect.
+Every "missed" for axe is measured before it is printed. **Measured on 29
+October 2026** with axe 4.14.0 in Chromium 156, Firefox 157 and WebKit 27.2,
+on the package's failing fixtures at 85c0a0f, both with the site's WCAG tags
+and with axe's defaults:
+
+- `expanded-state/fail.html`, at rest and with "Stale state" opened: nothing
+  about any expanded state. The only violation is `target-size` on two
+  unstyled controls, with the WCAG tags.
+- `modal/fail-leaky.html`, at rest and with the dialog open: nothing about
+  focus. The only violation is `target-size`, with the WCAG tags.
+- `errors/fail.html`: nothing about the visible error texts tied to no field
+  (email, name, the size group, the promo dialog). axe does flag
+  `aria-valid-attr-value` on the postcode field, whose `aria-errormessage`
+  points at an empty element: a broken tie, not a missing one. So the row
+  names the missing tie only.
 
 ## 4. The site as the package's first user
 
@@ -201,14 +214,20 @@ All within the word budget: about 120 words net.
 
 1. Use the package on the site, once 0.2.0 is three days old. Smallest, and
    it proves the matchers on real pages first.
-2. The proof rows, with the axe measurements behind them.
-3. The `/checks/` page, the Tools group, the sitemap and `llms.txt`; then
-   Thomas updates the npm homepage and the repository's website field.
-4. The rooms, inside P·03's and P·04's own scopes.
+2. In one change, so the proof sentence's link resolves: the proof rows with
+   the axe measurements behind them, the `/checks/` page, the Tools group,
+   the sitemap, `llms.txt` and the what-changed line. Then Thomas updates
+   the npm homepage and the repository's website field.
+3. The rooms, inside P·03's and P·04's own scopes.
 
 ---
 
-## Decisions for Thomas
+## Decisions
+
+Taken on 29 October 2026: every recommendation below. Decision 9 stands for
+now and is revisited when the package's agent skill is scoped. The Tools
+group ships with the `/checks/` page, not before it: a group holding only the
+agent skill would be a group of one.
 
 1. **Own domain or a page here?** Recommendation: a page here, at `/checks/`.
    A domain can redirect to it later.

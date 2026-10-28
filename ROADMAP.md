@@ -57,11 +57,20 @@ How to edit this file:
   and add `ACCESSIBILITY.md`, which GitHub has shown on the repository
   overview since 2026-10-01; README's section then points to it. Later, a
   WCAG-EM self-evaluation with W3C's report tool.
+- **The checks package on the site**, as decided on 2026-10-29 in
+  [docs/checks-scope.md](docs/checks-scope.md). First, from 31 October: 0.2.0
+  as a pinned devDependency, `behaviour.spec.ts`, and the dialog test in Known
+  debt replaced. Then, in one change: the three proof rows with axe's misses
+  measured, the `/checks/` page, and a Tools group on the hub (T·01 agent
+  skill, T·02 checks, the reference sheets closing up to A·03), plus one
+  what-changed line. Then the npm homepage and the repository's website field
+  point at `/checks/`.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
   awesome-claude-skills lists (the agent side is a near-empty niche), and CSS
   newsletters for the showcase. A11y Weekly's issue 522 ran it on 19 October.
+  Once `/checks/` ships, add the checks package, its npm page and repository.
 - **Positioning, Tier 2**, each its own change: items 3 to 10 in
   [docs/positioning-review.md](docs/positioning-review.md), plus a "last
   changed" stamp per chapter, derived from `revisions.ts`. Optional, from
@@ -81,7 +90,9 @@ How to edit this file:
   component library read one component at a time). Barriers collected for
   them: an icon button named only by its tooltip's `aria-describedby`
   (Archibald), spanned table headers wired with `headers` (Roselli), a card
-  list built as a `listbox` (Higley).
+  list built as a `listbox` (Higley). From the checks scope: a disclosure
+  whose `aria-expanded` never changes and a popover "modal" that Tab escapes
+  (P·03), and visible error text tied to no field (P·04).
 
 ### Ideas
 
@@ -135,6 +146,9 @@ How to edit this file:
 
 ### Watchlist
 
+- **Playwright 1.65**: role queries skip inert content and the page behind a
+  modal, and clicks wait on inert elements. Trigger: the release; re-run the
+  suite and the checks, and fix specs that query or click behind a dialog.
 - **Media state pseudo-classes** (`:playing`, `:paused` and five more):
   web-features 3.42 has Firefox 150 and Safari 15.4, no Chrome. Trigger:
   web-features lists a Chrome version; the monthly routine checks this, since
@@ -280,8 +294,9 @@ source before touching the wording or the sources-read stamp in
   2.4.11, 2.4.13, 3.2.6, 3.3.7). Skipped in July 2026: 2.4.12 near-duplicates
   the 2.4.11 demo at AAA; 2.5.7 and 3.3.8 need JavaScript to break honestly.
   3.3.9 (the AAA form of 3.3.8) is not in the July record.
-- **Four chapters, no fifth.** New material feeds an existing chapter or a
-  reference sheet.
+- **Four chapters, no fifth.** New material feeds an existing chapter, a
+  reference sheet, or a tool's own page (2026-10-29: a Tools group on the hub
+  holds the agent skill and the checks).
 - **Out of lane, said on the site.** Proof's "Where this argument stops"
   names ARIA widget patterns, live regions and focus management as
   JavaScript territory and points at the APG, instead of half-covering them.
