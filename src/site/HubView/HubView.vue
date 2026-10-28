@@ -113,9 +113,14 @@
               still-usable form — that degradation is the design, not a defect.
             </p>
             <p>
-              <strong>Tested where it counts.</strong> Verified against current
-              Chrome, Firefox, and Safari, with a keyboard, forced-colours mode, and
-              the reduced-motion and reduced-transparency preferences.
+              <strong>Tested where it counts.</strong> Every change runs
+              automated checks in the engines behind Chrome, Firefox and
+              Safari: keyboard paths, axe, and emulated forced colours and
+              reduced motion, plus reduced transparency in Chromium, the only
+              engine that reads it. Real browsers, phones and screen readers
+              need checks by hand, and the ones still owed are
+              <a href="https://github.com/ThomasSweet/a11y-foundation/blob/main/ROADMAP.md#owed-checks">listed
+              in the roadmap</a>.
             </p>
             <p>
               <strong>Found a barrier?</strong> Accessibility work is never

@@ -97,37 +97,31 @@
   }
 }
 
-/* Cross-document view transitions. Outside @layer: an opt-in, not a
-   cascading style. */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
     navigation: auto;
+    types: page;
   }
 
-  ::view-transition-new(root) {
-    animation: none;
+  :root:active-view-transition-type(page) {
+    view-transition-name: none;
   }
 
-  ::view-transition-old(root) {
-    z-index: 1;
-    animation: 0.5s ease both vt-content-fade;
+  :root:active-view-transition-type(page)::view-transition {
+    pointer-events: none;
+    animation: 0.2s site-content-in;
   }
 
-  /* The UA applies plus-lighter blending to the snapshots (correct for its
-     default cross-fade, where opacities sum to 1). Ours is an opaque page
-     under a fading one — plus-lighter ADDS the colors and reads as a
-     brightness flash. Restore normal painting. */
-  ::view-transition-image-pair(root) {
-    isolation: auto;
+  :root:active-view-transition-type(page) body {
+    visibility: visible;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    mix-blend-mode: normal;
+  :root:active-view-transition-type(page) .site-content {
+    animation: 0.2s ease-out both site-content-in;
   }
 
-  @keyframes vt-content-fade {
-    to {
+  @keyframes site-content-in {
+    from {
       opacity: 0;
     }
   }
