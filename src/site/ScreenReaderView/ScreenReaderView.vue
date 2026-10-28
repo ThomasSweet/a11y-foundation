@@ -68,9 +68,9 @@
     <section class="screen-reader-section">
       <h2 class="screen-reader-h2">The phone in your pocket</h2>
       <p class="screen-reader-p">
-        In WebAIM&rsquo;s tenth screen-reader survey (2024), 91.3% of screen
-        reader users reported using one on a mobile device — the phone pass is the majority
-        experience, not extra credit. On an iPhone: Settings → Accessibility →
+        In WebAIM&rsquo;s eleventh screen-reader survey (2026), 91.8% of
+        screen reader users reported using one on a mobile device. The phone
+        pass is the majority experience, not extra credit. On an iPhone: Settings → Accessibility →
         VoiceOver, and set the side-button triple-press shortcut while
         you&rsquo;re there. On Android the same job is TalkBack.
       </p>

@@ -19,13 +19,16 @@
       </p>
       <p>
         The layers also answer a fair question: tested for <em>whom</em>? In
-        <a href="https://webaim.org/projects/screenreadersurvey10/">WebAIM's
-        tenth screen-reader survey</a> (1,539 respondents, early 2024),
-        91.3% reported using a screen reader on a mobile device — while most
-        testing happens at a desktop. And the frustrations they ranked
-        highest — CAPTCHA, interactive elements behaving unexpectedly,
-        unclear links and buttons — are judgment calls no scanner flags.
-        Only about a third felt the web had become more accessible. The
+        <a href="https://webaim.org/projects/screenreadersurvey11/">WebAIM's
+        eleventh screen-reader survey</a> (1,780 respondents, July and August
+        2026), 91.8% reported using a screen reader on a mobile device, while
+        most testing happens at a desktop. Only about a third felt the web
+        had become more accessible over the past year, and more than one in
+        five felt it had become less so. The
+        <a href="https://webaim.org/projects/screenreadersurvey10/">tenth
+        survey</a> (early 2024) was the last to ask what frustrates people
+        most: CAPTCHA, interactive elements behaving unexpectedly, unclear
+        links and buttons. Those are judgment calls no scanner flags. The
         layered model exists because the failures that matter most live
         where automation isn't looking.
       </p>

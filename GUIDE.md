@@ -361,10 +361,12 @@ The rules that keep it sound:
   hot reload from double-counting), so a duplicated id silently merges.
 - **Pages without `ChapterSection`** — the showcase's tier groups — pass
   `sections` directly and own their `view-timeline-name` numbering.
-- **The rail's `timeline-scope` has a ceiling** — `ChapterLayout.scss`
-  currently declares `--chapter-sec-1` through `-12`. A chapter that
-  outgrows it needs that list extended, or its scroll-spy quietly stops
-  at the ceiling.
+- **The rail's `timeline-scope` follows the rail.** `ChapterLayout` writes
+  one `--chapter-sec-N` per rail entry into `--chapter-timelines`, so a
+  section's number is its position in the rail. A fixed list in the
+  stylesheet once stopped at twelve, and in Chromium craft's thirteenth and
+  fourteenth links never lit up (WebKit and Firefox resolve the names
+  without `timeline-scope`).
 
 ## Prerendering and SSR safety
 
@@ -1124,6 +1126,45 @@ scroll-driven showcase's progress bar still runs. Three rules follow.
    after another while in view, so each holds its start state until its
    turn (`backwards`).
 
+### Cross-document view transitions
+
+Pages change with `@view-transition` in `base.css`, inside the
+reduced-motion gate: the header and the title block stay put while the
+content fades in over 0.2s, and every link stays live. Four rules shape it.
+
+1. **Capture nothing.** A captured element takes no clicks while the
+   transition runs, and `pointer-events: none` on `::view-transition`
+   cannot change that (csswg-drafts #11596): a whole-page fade of 0.5s
+   swallowed every click for half a second in Chromium and WebKit. A
+   captured `.site-content` failed too: on a long page restored far down,
+   Chromium's snapshot came out blank, and a popover opened during the fade
+   sat under the snapshot. So the root is unnamed, the live `.site-content`
+   runs an ordinary opacity animation while the type matches, and
+   `::view-transition`, which has nothing in it, runs the same keyframes
+   only to keep the transition, and with it the type, alive until the fade
+   ends.
+2. **Nothing on a page joins a page change.** An element with a permanent
+   `view-transition-name` is captured on every navigation and drawn over
+   the next page. The showcase's view-transition demo sets its card names
+   through `--view-transition-item-name` and drops them while
+   `:active-view-transition-type(page)` matches. Its own same-document
+   morph has no type, so it keeps the browser's defaults, as its snippet
+   shows.
+3. **The opt-in in each page's head carries the type.** Chrome reads the
+   inline `@view-transition` in the head before the bundled one: without
+   `types: page` there, Chrome 156 dropped the type on 11 of 15 navigations
+   and fell back to its own whole-page cross-fade. The inline style no
+   longer paints `::view-transition` either: an opaque overlay hides the
+   live page beneath it.
+4. **The page stays hidden until its styles arrive.** The dev server
+   injects CSS by script after the first frame, and with nothing captured
+   there is no old snapshot to cover that: each page change showed three to
+   five unstyled frames. So the inline style also unnames the root, hides
+   the body while the type matches and holds the transition for up to 0.5s,
+   and `base.css` shows the body again. A production build has its
+   stylesheet before the first frame, so the body is never hidden there,
+   and a stylesheet that fails to load costs half a second, not the page.
+
 ---
 
 ## Utility classes
@@ -1184,8 +1225,8 @@ one:
 
 The site chrome uses showcased features on purpose ("does the site dogfood
 this?" is one of the standing decisions in `ROADMAP.md`): the theme panel is
-anchor-positioned, the chapter reveals are scroll-driven, and pages cross-fade
-with cross-document view transitions. Each of those degrades to a working
+anchor-positioned, the chapter reveals are scroll-driven, and page content
+fades in with cross-document view transitions. Each of those degrades to a working
 page in an engine without it.
 
 A showcase changes tier when the data does: a `web-features` bump (the

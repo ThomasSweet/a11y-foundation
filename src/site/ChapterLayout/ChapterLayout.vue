@@ -1,6 +1,6 @@
 <template>
   <SiteFrame :sheet="sheetNo" :sheet-title="pillar.title">
-    <div class="chapter">
+    <div class="chapter" :style="timelines ? { '--chapter-timelines': timelines } : undefined">
       <aside class="chapter-rail">
         <p class="chapter-rail-title">Contents</p>
         <nav class="chapter-switch" aria-label="Chapters">
@@ -116,6 +116,7 @@ const sections = computed(() =>
     ? props.sections
     : registered.value.map((e) => ({ id: e.id, label: e.railLabel ?? e.title })),
 )
+const timelines = computed(() => sections.value.map((_, i) => `--chapter-sec-${i + 1}`).join(', '))
 const index = computed(() => pillars.findIndex((p) => p.id === props.id))
 const pillar = computed(() => pillars[index.value])
 const prev = computed(() => pillars[index.value - 1])

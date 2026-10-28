@@ -41,28 +41,22 @@ How to edit this file:
 
 ### Now
 
-- **Refresh the WebAIM figures.** WebAIM published Survey 11 on 2026-09-29;
-  proof (`ProofPage.vue`) and A·03 (`ScreenReaderView.vue`) still quote
-  Survey 10. The freshness routine checks the same page on 2026-11-01: if it
-  opens a draft PR first, review that instead.
-- **Clicks during the page transition.** `base.css` runs a 0.5s
-  cross-document fade with no `pointer-events: none` on `::view-transition`,
-  so the transition layer probably swallows clicks on a freshly loaded page
-  (Coyier, 7 Aug 2026; csswg-drafts #11596). Measure a click mid-transition
-  in Chromium and WebKit, then fix.
+- **The site's scroll-driven chrome in Firefox 159**, which turned
+  scroll-driven animations on by default on 2026-10-27. The rail highlight,
+  the reveals and the timeline strata now run there, and the suite has only
+  ever exercised Firefox's fallbacks (Playwright 1.64 bundles Firefox 157).
+  Check them when Playwright bundles Firefox 159 or later, or by hand first.
+  The badge, tier and agent files follow web-features by themselves, through
+  the Monday bot.
 
 ### Next
 
 - **Node 26 in CI**, once it becomes LTS on 2026-10-28 (noted in #87).
 - **Sass before Dart Sass 2**, targeted for December 2026: move to 1.106 and
   confirm the build still shows no deprecation warnings (1.101 shows none).
-- **3.3.8 Accessible Authentication (Minimum)**, the next criterion demo and
-  an Understandable one, the thinnest principle on the timeline (3.2.6 and
-  3.3.7 only; Robust has none). Compliant: login fields with `autocomplete`,
-  paste allowed. Broken: a transcribe-the-code check with no alternative.
-- **An accessibility statement with evidence.** The hub's statement claims
-  keyboard and screen reader support without saying what was tested. After
-  the owed checks, date it with the combinations tried and the known gaps,
+- **An accessibility statement with evidence.** The hub's statement now says
+  what is automated and links the owed checks. After those checks, date it
+  with the combinations tried by hand and the known gaps,
   and add `ACCESSIBILITY.md`, which GitHub has shown on the repository
   overview since 2026-10-01; README's section then points to it. Later, a
   WCAG-EM self-evaluation with W3C's report tool.
@@ -70,15 +64,17 @@ How to edit this file:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
   awesome-claude-skills lists (the agent side is a near-empty niche), and CSS
-  newsletters for the showcase. A11y Weekly already has it queued.
+  newsletters for the showcase. A11y Weekly's issue 522 ran it on 19 October.
 - **Positioning, Tier 2**, each its own change: items 3 to 10 in
   [docs/positioning-review.md](docs/positioning-review.md), plus a "last
   changed" stamp per chapter, derived from `revisions.ts`. Optional, from
   Tier 1: the hub method block.
-- **A scroll-shadow hint** on scroll-driven animations (`@property`
-  percentages on `scroll(self inline)`), for the code blocks and the coverage
-  matrix, which scroll sideways on phones with a hidden scrollbar. No static
-  shadow as a fallback: one that stays claims more than there is.
+- **A scroll-shadow hint** for the code blocks and the coverage matrix, which
+  scroll sideways on phones whose overlay scrollbar shows only while
+  scrolling: two shadow overlays faded by `opacity` on the scroller's named
+  scroll timeline, never a custom property on it (GUIDE, "Scroll-driven
+  animations", rule 2). No static shadow as a fallback: one that stays claims
+  more than there is.
 - **Carousel buttons by container query**: outside the strip when there is
   room, inside when not, with a pressed scale and a flat disabled state.
 - **Practice rooms**, in build order, each a candidate until its scope is
@@ -111,6 +107,10 @@ How to edit this file:
   matches a paragraph). When: craft's form sections change.
 - **`@scope`**: proximity only breaks specificity ties, so inherited custom
   properties stay the stronger fix. When: a showcase gap.
+- **Understandable is the thinnest of the three principles on the
+  timeline** (Robust has none): 3.2.6 and 3.3.7 only. 3.1.2 lives in the
+  listening room; 3.1.1 is named nowhere. When: the next timeline
+  criterion, or P·03's scope.
 - **`text-box` trim** (Chrome and Safari): alignment with a modest
   accessibility angle. When: a showcase gap.
 - **`text-fit`**, Chrome 150 only, ready for a limited-tier slot. It would
@@ -218,7 +218,8 @@ source before touching the wording or the sources-read stamp in
   which the preferences layer already turns to `CanvasText`. Check each before
   removing any.
 - **Dead outline rules.** 38 component `:focus-visible` blocks declare an
-  `outline` that the preferences layer overrides.
+  `outline`; 36 lose to the preferences layer. `FocusAppearanceDemo`'s
+  `!important` and `SlidingIndicatorDemo`'s `:has()` label ring are live.
 - **The dialog spec never presses Tab.** "native dialog traps focus" in
   `keyboard.spec.ts` checks that focus starts inside and that Escape closes
   it. Walk Tab and Shift+Tab inside, and check focus returns to the opener.
@@ -327,7 +328,8 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
-- 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #93
+- 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
+- 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
 - 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
 - 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 - 2026-10-17: Reduced, not removed: under reduced motion a busy skeleton fades instead of freezing, and the sweep lets aria-busy regions through. #90
@@ -341,7 +343,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-11: Responsiveness sweep: nothing scrolls sideways or clips from 320px up, in three engines. #80
 - 2026-09-29: The anchor tooltip flips for real, with three engine workarounds and a new spec. #78
 - 2026-09-29: @supports claims scoped: the README and the skill's guard lines follow the tier rules. #77
-- 2026-09-28: Baseline bot lines: one per feature, and no false "first engine". #76
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

@@ -35,7 +35,7 @@
         v-for="item in items"
         :key="item.id"
         class="view-transition-item"
-        :style="{ viewTransitionName: `view-transition-${item.id}` }"
+        :style="{ '--view-transition-item-name': `view-transition-${item.id}` }"
       >
         <span class="view-transition-item-icon" aria-hidden="true">{{ item.icon }}</span>
         <span class="view-transition-item-label">{{ item.label }}</span>
@@ -158,10 +158,15 @@ function setView(next: View) {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
+    view-transition-name: var(--view-transition-item-name, none);
 
     @include high-contrast {
       border-color: currentcolor;
     }
+  }
+
+  :root:active-view-transition-type(page) .view-transition-item {
+    view-transition-name: none;
   }
 
   .view-transition-items-grid .view-transition-item {

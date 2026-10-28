@@ -34,3 +34,26 @@ test('the simulate toggle shows the same exception without the OS setting', asyn
   await expect.poll(() => shapeAnimation(page, 0)).toBe('none 0s')
   await expect.poll(() => shapeAnimation(page, 1)).toBe('loading-breathe 2s')
 })
+
+for (const path of ['/standard.html', '/craft.html', '/showcase.html', '/proof.html']) {
+  test(`every rail link on ${path} follows its own section`, async ({ page }) => {
+    await page.goto(path)
+    test.skip(!(await page.evaluate(() => CSS.supports('animation-timeline: view()'))), 'no scroll-driven animations')
+
+    const links = await page.locator('.chapter-section-link').count()
+    expect(links).toBeGreaterThan(0)
+
+    const unlit = await page.evaluate(() =>
+      [...document.querySelectorAll('.chapter-section-link')]
+        .filter((link) => {
+          const section = document.querySelector(link.getAttribute('href') ?? '')
+          return !document.getAnimations().some((animation) => {
+            const subject = (animation.timeline as { subject?: Element } | null)?.subject
+            return (animation.effect as KeyframeEffect | null)?.target === link && !!section && !!subject?.contains(section)
+          })
+        })
+        .map((link) => link.textContent?.trim()),
+    )
+    expect(unlit).toEqual([])
+  })
+}
