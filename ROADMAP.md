@@ -51,9 +51,6 @@ How to edit this file:
 
 ### Next
 
-- **Node 26 in CI**, once it becomes LTS on 2026-10-28 (noted in #87).
-- **Sass before Dart Sass 2**, targeted for December 2026: move to 1.106 and
-  confirm the build still shows no deprecation warnings (1.101 shows none).
 - **An accessibility statement with evidence.** The hub's statement now says
   what is automated and links the owed checks. After those checks, date it
   with the combinations tried by hand and the known gaps,
@@ -157,6 +154,9 @@ How to edit this file:
 - **`focusgroup`** (Chrome 150): arrow keys within a toolbar or tab list
   without a hand-rolled roving `tabindex`. Trigger: a second engine, or an
   Interop 2027 pick.
+- **Dart Sass 2**, targeted for December 2026. Sass 1.106.1 builds with no
+  deprecation warnings and the same CSS as 1.101, so it should be a version
+  bump. Trigger: the release; read its breaking changes first.
 
 ### Standards re-checks (dated)
 
@@ -193,9 +193,6 @@ source before touching the wording or the sources-read stamp in
   `StyleQueryCuesDemo.snippet.css` with the last affected version, and recheck
   the `::after` moon glyph in `LightDarkDemo.vue`. When: with the iPhone
   check.
-- **Real Chrome after a deploy**, owed since 2026-09-05: cross-document
-  transitions and the theme no-flash on the live site, per
-  [docs/prerender-scope.md](docs/prerender-scope.md). When: the next deploy.
 - **Real iPhone after the responsiveness sweep**, owed since 2026-10-11: the
   hero strike, the "Content source", "Theme" and "Filter by topic" rows, and
   proof's "A layered job". Playwright's WebKit is not iOS Safari. When: the
@@ -328,6 +325,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
 - 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
 - 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
@@ -342,7 +340,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-13: More contrast and glass contrast: two craft sections, unclipped focus rings and a real orientation query. #82
 - 2026-10-11: Responsiveness sweep: nothing scrolls sideways or clips from 320px up, in three engines. #80
 - 2026-09-29: The anchor tooltip flips for real, with three engine workarounds and a new spec. #78
-- 2026-09-29: @supports claims scoped: the README and the skill's guard lines follow the tier rules. #77
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

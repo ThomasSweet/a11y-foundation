@@ -102,5 +102,8 @@ Handlers are already safe. The ones that run during render:
   unstyled and snapped into place (worst in dark mode). The build strips it
   on its own, so this costs production nothing; the plugin that used to
   re-add it after the build is gone.
-- Still owed to the bar: a real-Chrome check of the cross-document
-  transitions and the theme no-flash after deploy.
+- The real-Chrome check of the cross-document transitions and the theme
+  no-flash after deploy was done on 2026-10-28, after #96, with installed
+  Chrome 156 and WebKit 27.2 on the live site: every page change kept its
+  type and captured nothing, links worked mid-fade, and a saved theme or
+  preset was applied at the first frame against the opposite OS scheme.

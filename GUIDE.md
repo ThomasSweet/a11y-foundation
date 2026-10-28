@@ -420,7 +420,7 @@ What that demands of every component:
 
 ## Setup
 
-Node 24 or newer (`engines` in `package.json`), the version CI runs.
+Node 26 or newer (`engines` in `package.json`), the version CI runs.
 `gen-feed` (part of `prebuild`) and `gen-moves` import `revisions.ts`
 directly, which relies on Node's type stripping.
 
@@ -1361,7 +1361,7 @@ GitHub, never in the tree.
 All three are repository tooling, like the generators in `scripts/`: none of
 them adds a runtime dependency or anything the served pages execute.
 
-**`ci.yml`** runs on push and pull_request to `main`, on Node 24 with
+**`ci.yml`** runs on push and pull_request to `main`, on Node 26 with
 `npm ci`. The `verify` job runs each gate as its own step so a failure points
 at the exact check: `typecheck`, `lint:css`, `lint:js`, `baseline:check`
 (informational, never fails), `test:unit`, `build`, then "Generated files
