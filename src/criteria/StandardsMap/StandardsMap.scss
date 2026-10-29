@@ -148,6 +148,10 @@
     list-style: none;
     cursor: pointer;
 
+    &::-webkit-details-marker {
+      display: none;
+    }
+
     &::after {
       content: '';
       grid-row: 1 / span 3;

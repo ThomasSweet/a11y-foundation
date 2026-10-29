@@ -700,11 +700,11 @@ each guarded by `tests/e2e/responsive.spec.ts`:
    grid, and `minmax(0, 1fr)` instead of `1fr` in multi-column ones.
    `min-inline-size: 0` on the grid itself is not enough: it frees the box,
    not the track. On a grid item it does free the track, which then takes
-   the item's minimum of 0 as its floor instead of the item's min-content
-   (`.code-compare-item` in `CodeCompare.scss`), but naming the column stays
-   the rule. A flex item has the same automatic minimum, its min-content
-   width, so a flex item that holds a scrolling block takes
-   `min-inline-size: 0`, or holds the block in a `minmax(0, 1fr)` column.
+   the item's minimum of 0 as its floor instead of the item's min-content,
+   but naming the column stays the rule. A flex item has the same automatic
+   minimum, its min-content width, so a flex item that holds a scrolling
+   block takes `min-inline-size: 0`, or holds the block in a
+   `minmax(0, 1fr)` column.
 2. **A token that cannot break needs `overflow-wrap: anywhere`.** The
    reset's `break-word` wraps a long word only once its box is already
    narrow; it does not lower min-content. `base.css` applies `anywhere` to
@@ -857,13 +857,18 @@ the spec.
   styled list would show whether current Safari still does it.
 - **Older WebKit draws the `<summary>` disclosure triangle as
   `::-webkit-details-marker`, which `list-style: none` does not remove.**
-  `.showcase-code-summary` in `ShowcaseFrame.scss` hides it with
-  `display: none` on that pseudo-element. Firefox and Chromium give a
-  summary a `::marker` only while it is `display: list-item`, as CSS Lists
-  defines it, so an `inline-flex` or `grid` summary needs no
-  `list-style: none`. Not measured on this site, and the Safari release
-  that made `<summary>` a `list-item` is not confirmed: drop the prefixed
-  rule when no Safari inside the support window draws the triangle.
+  On a summary that draws its own marker it would be a second one, and on a
+  summary meant to show none an unwanted one. Those summaries set
+  `list-style: none` and hide the pseudo-element with a nested
+  `&::-webkit-details-marker { display: none; }` (`ShowcaseFrame.scss`,
+  `StandardsMap.scss`), which Stylelint accepts without an exemption. A
+  summary that shows the native marker on purpose gets neither. Chromium,
+  Firefox and WebKit 27.2 give a summary a `::marker` only while it is
+  `display: list-item`, as CSS Lists defines it, so an `inline-flex` or `grid`
+  summary draws none there and the prefixed rule changes nothing (2026-10-29).
+  Older Safari is not measured on this site, and the Safari release that made
+  `<summary>` a `list-item` is not confirmed: drop the prefixed rules when no
+  Safari inside the support window draws the triangle.
 
 ### In tests
 
@@ -947,6 +952,19 @@ or spacing.
   }
 }
 ```
+
+Targets that sit side by side take one size, or the coarse step raises one
+and leaves the other short. Set the size once as a custom property on their
+container, raise it there under `touch-primary()`, and give each target its
+`min-block-size` from it, as `.showcase-code-actions` in `ShowcaseFrame.scss`
+does for the code summary and the source link: `max(44px, 2.75rem)`, and
+`max(52px, 3.25rem)` on coarse pointers. The rem term keeps them level when
+the reader sets a larger default font size. A minimum levels them only
+while both contents fit inside it, and the summary's content fills it
+exactly at a 16px default, so a size in px alone lets any larger default
+make the summary taller than the link. Stretching both to one row height
+is no substitute: beside an open `<details>`, the link would grow to the
+height of the code panel.
 
 **Note:** A user may switch input modes mid-session (e.g. connecting a mouse
 to a tablet). Design so base styles work for both, and use these mixins only
