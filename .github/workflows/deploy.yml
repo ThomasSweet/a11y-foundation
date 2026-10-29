@@ -65,10 +65,18 @@ jobs:
           rm -rf /tmp/deploy && mkdir /tmp/deploy && cd /tmp/deploy
           git init -q
           git remote add production "$DEPLOY_REPO"
-          if git fetch -q production deploy; then
+          found=0
+          git ls-remote --exit-code production refs/heads/deploy > /dev/null || found=$?
+          if [ "$found" -eq 0 ]; then
+            git fetch -q production deploy
             git checkout -q -b deploy production/deploy
-          else
+            echo "Building on the deploy branch at $(git rev-parse --short HEAD)."
+          elif [ "$found" -eq 2 ]; then
+            echo 'The production repository has no deploy branch yet, starting one.'
             git checkout -q --orphan deploy
+          else
+            echo "Could not read the production repository (git ls-remote exited with $found)." >&2
+            exit 1
           fi
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -r "$GITHUB_WORKSPACE/dist/." .
