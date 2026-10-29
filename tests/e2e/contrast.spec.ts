@@ -345,3 +345,91 @@ test.describe('more contrast', () => {
     })
   })
 })
+
+test.describe('text field', () => {
+  function fieldEdge(field: Locator, scheme: { theme: string; preset: string }, invalid: boolean) {
+    return field.evaluate(
+      (input, { theme, preset, invalid }) => {
+        const root = document.documentElement
+        if (theme) root.dataset.theme = theme
+        else delete root.dataset.theme
+        if (preset) root.dataset.preset = preset
+        else delete root.dataset.preset
+
+        if (invalid) input.setAttribute('aria-invalid', 'true')
+        else input.removeAttribute('aria-invalid')
+
+        const canvas = document.createElement('canvas')
+        canvas.width = 1
+        canvas.height = 1
+        const context = canvas.getContext('2d', { willReadFrequently: true })
+        if (!context) throw new Error('no 2d context')
+        const paint = (colour: string) => {
+          context.clearRect(0, 0, 1, 1)
+          context.fillStyle = colour
+          context.fillRect(0, 0, 1, 1)
+          return [...context.getImageData(0, 0, 1, 1).data]
+        }
+        const luminance = (pixel: number[]) => {
+          const [r, g, b] = pixel.slice(0, 3).map((value) => {
+            const channel = value / 255
+            return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+          })
+          return 0.2126 * r + 0.7152 * g + 0.0722 * b
+        }
+        const ratio = (a: number[], b: number[]) => {
+          const [lighter, darker] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+          return (lighter + 0.05) / (darker + 0.05)
+        }
+
+        let backdrop = input.parentElement
+        while (backdrop && paint(getComputedStyle(backdrop).backgroundColor)[3] < 255) {
+          backdrop = backdrop.parentElement
+        }
+        if (!backdrop) throw new Error('no opaque backdrop')
+
+        const style = getComputedStyle(input)
+        const edge = paint(style.borderTopColor)
+        const result = {
+          colour: style.borderTopColor,
+          width: style.borderTopWidth,
+          fill: ratio(edge, paint(style.backgroundColor)),
+          backdrop: ratio(edge, paint(getComputedStyle(backdrop).backgroundColor)),
+        }
+        input.removeAttribute('aria-invalid')
+        return result
+      },
+      { ...scheme, invalid },
+    )
+  }
+
+  test('the resting, invalid and valid edges reach 3:1 against the fill and the backdrop in every scheme', async ({
+    page,
+  }) => {
+    await page.goto('/craft.html')
+    const field = page.getByRole('textbox', { name: 'Display name' })
+    const resting = new Map<string, string>()
+
+    for (const scheme of schemes) {
+      const edge = await fieldEdge(field, scheme, false)
+      resting.set(scheme.name, edge.colour)
+      expect(edge.width, `${scheme.name}: resting edge`).toBe('1px')
+      expect(Math.min(edge.fill, edge.backdrop), `${scheme.name}: resting edge`).toBeGreaterThanOrEqual(3)
+
+      const invalid = await fieldEdge(field, scheme, true)
+      expect(invalid.width, `${scheme.name}: invalid edge`).toBe('2px')
+      expect(Math.min(invalid.fill, invalid.backdrop), `${scheme.name}: invalid edge`).toBeGreaterThanOrEqual(3)
+    }
+
+    await field.pressSequentially('Ada')
+    await page.keyboard.press('Tab')
+    expect(await field.evaluate((el) => el.matches(':user-valid'))).toBe(true)
+
+    for (const scheme of schemes) {
+      const valid = await fieldEdge(field, scheme, false)
+      expect(valid.width, `${scheme.name}: valid edge`).toBe('1px')
+      expect(valid.colour, `${scheme.name}: valid edge`).not.toBe(resting.get(scheme.name))
+      expect(Math.min(valid.fill, valid.backdrop), `${scheme.name}: valid edge`).toBeGreaterThanOrEqual(3)
+    }
+  })
+})
