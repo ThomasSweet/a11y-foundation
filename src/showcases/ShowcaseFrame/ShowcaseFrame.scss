@@ -120,11 +120,6 @@
     justify-self: start;
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .showcase-demo {
@@ -167,8 +162,6 @@
     }
 
     &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
       border-radius: var(--radius-sm);
     }
   }
@@ -209,11 +202,6 @@
       &:hover {
         background-color: var(--color-primary-hover);
       }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
     }
 
     @include touch-primary {

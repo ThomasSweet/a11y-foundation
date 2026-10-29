@@ -161,11 +161,6 @@ withDefaults(
     inset: 0;
     display: block;
     border-radius: var(--radius-sm);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .practice-room-preview-frame {
@@ -249,11 +244,6 @@ withDefaults(
         border-color: var(--bp-accent);
         background: var(--bp-accent-soft);
       }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
     }
 
     @include high-contrast {

@@ -80,11 +80,6 @@
     justify-self: start;
     font-size: var(--text-sm);
     color: var(--color-text-subtle);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .criterion-demo {

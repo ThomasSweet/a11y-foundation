@@ -121,11 +121,6 @@ function setView(next: View) {
       box-shadow: var(--shadow-sm);
     }
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     @include forced-colors {
       &[aria-pressed='true'] {
         border: 1px solid Highlight;

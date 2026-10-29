@@ -104,11 +104,6 @@
       }
     }
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     &.is-current {
       border-inline-start-color: var(--bp-accent);
       background: var(--bp-accent-soft);
@@ -171,11 +166,6 @@
       &:hover {
         color: var(--bp-accent);
       }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
     }
   }
 
@@ -337,11 +327,6 @@
         border-color: var(--bp-accent);
         background: var(--bp-accent-soft);
       }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
     }
 
     @include high-contrast {

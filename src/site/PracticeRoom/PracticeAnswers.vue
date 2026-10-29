@@ -63,11 +63,6 @@ defineProps<{ id: string; answers: Answer[] }>()
     font-weight: 600;
     color: var(--bp-ink);
     cursor: pointer;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .practice-answers-reveal {
@@ -82,11 +77,6 @@ defineProps<{ id: string; answers: Answer[] }>()
       text-transform: uppercase;
       color: var(--bp-accent);
       cursor: pointer;
-
-      &:focus-visible {
-        outline: var(--focus-ring-width) solid var(--focus-ring-color);
-        outline-offset: 2px;
-      }
     }
   }
 

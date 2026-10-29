@@ -145,6 +145,31 @@ test.describe('the global focus ring', () => {
       expect(atOnce).toEqual({ focusVisible: true, style: 'solid', width: '3px' })
     })
   })
+
+  for (const [contrast, width] of [['no-preference', '3px'], ['more', '4px']] as const) {
+    test.describe(`in forced colours, with contrast ${contrast}`, () => {
+      test.use({ contextOptions: { forcedColors: 'active', contrast } })
+
+      test(`a focused link gets the ring in ButtonText, ${width} wide`, async ({ page, browserName }) => {
+        test.skip(browserName === 'webkit', 'Playwright cannot emulate forced colours in WebKit')
+        await page.goto('/craft.html')
+        const buttonText = await page.evaluate(() => {
+          const probe = document.createElement('span')
+          probe.style.color = 'ButtonText'
+          document.body.append(probe)
+          const color = getComputedStyle(probe).color
+          probe.remove()
+          return color
+        })
+        await page.keyboard.press('Tab')
+        const link = page.locator('a:focus-visible')
+        await expect(link).toHaveCount(1)
+        await expect(link).toHaveCSS('outline-color', buttonText)
+        await expect(link).toHaveCSS('outline-width', width)
+        await expect(link).toHaveCSS('outline-style', 'solid')
+      })
+    })
+  }
 })
 
 test.describe('focus rings and the boxes that clip them', () => {
