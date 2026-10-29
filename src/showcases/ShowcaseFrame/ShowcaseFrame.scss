@@ -130,10 +130,16 @@
   }
 
   .showcase-code-actions {
+    --showcase-target-size: max(44px, 2.75rem);
+
     display: flex;
     flex-wrap: wrap;
     align-items: start;
     gap: var(--space-2) var(--space-4);
+
+    @include touch-primary {
+      --showcase-target-size: max(52px, 3.25rem);
+    }
   }
 
   .showcase-code {
@@ -144,7 +150,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    min-block-size: 44px;
+    min-block-size: var(--showcase-target-size);
     padding: var(--space-2);
     font-size: var(--text-sm);
     font-weight: 600;
@@ -176,7 +182,7 @@
     align-items: center;
     gap: var(--space-2);
     inline-size: fit-content;
-    min-block-size: 44px;
+    min-block-size: var(--showcase-target-size);
     padding: var(--space-2) var(--space-4);
     border: 2px solid transparent;
     border-radius: var(--radius-md);
@@ -204,7 +210,6 @@
     }
 
     @include touch-primary {
-      min-block-size: 48px;
       padding-block: var(--space-3);
     }
 
