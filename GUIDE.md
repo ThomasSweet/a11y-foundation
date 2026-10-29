@@ -1401,11 +1401,14 @@ the report is uploaded only when the job fails.
 **`deploy.yml`** does not run beside CI. It triggers on `workflow_run` of the
 CI workflow completing on `main` and proceeds only when that run's
 conclusion is success (manual dispatch still works). It checks out the CI
-run's head sha, builds, pushes `dist/` to the `deploy` branch of the
-production repository over SSH, pulls on the server, confirms the live index
-carries the new hashed asset, writes the live feed's top six entries to the
-job summary, and comments the same summary on the pull request associated
-with that sha.
+run's head sha, builds, pushes `dist/` over SSH as a new commit on the
+production repository's `deploy` branch, pulls on the server, confirms the
+live index carries the new hashed asset, writes the live feed's top six
+entries to the job summary, and comments the same summary on the pull
+request associated with that sha. It starts a fresh `deploy` branch only
+when `git ls-remote` finds none in the repository; any other failure to
+read the repository stops the deploy, and the log names the commit the new
+build is added to.
 
 **`baseline-moves.yml`** is the Monday bot: 09:30 UTC and on dispatch, bash
 with pipefail, one concurrency group. It bumps `web-features` to the latest
