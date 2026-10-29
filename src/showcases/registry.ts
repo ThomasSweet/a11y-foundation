@@ -542,8 +542,8 @@ const entries: Omit<Showcase, 'tier'>[] = [
     title: 'Scroll-driven animations',
     supports: 'animation-timeline: scroll()',
     summary:
-      'Animations driven by scroll position instead of time: no scroll ' +
-      'listeners, off the main thread. Two cases, two rules. A thin progress ' +
+      'Animations driven by scroll position instead of time, with no scroll ' +
+      'listeners. Two cases, two rules. A thin progress ' +
       'bar tracks the reader’s own gesture one to one, like the scrollbar ' +
       'thumb, and this site leaves it running under reduced motion as a ' +
       'judgement call. A reveal moves content, and a timeline ignores ' +

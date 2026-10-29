@@ -175,11 +175,9 @@
     min-inline-size: 0;
   }
 
-  /* fill none, not both: a held pre-entry transform inflates below-viewport
-     rects and anchor scrolls overshoot. data-reveal="off" opts a container out. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .chapter-content :deep(.demo:not([data-reveal='off'])) {
+      .chapter-content :deep(.demo:not([data-reveal='off'], :target, :has(:target, :focus-visible))) {
         animation: chapter-demo-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;

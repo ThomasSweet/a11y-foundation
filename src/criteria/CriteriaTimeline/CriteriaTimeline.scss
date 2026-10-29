@@ -30,7 +30,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .timeline-era {
+      .timeline-era:not(:target, :has(:target, :focus-visible)) {
         animation: timeline-era-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;
@@ -255,7 +255,7 @@
       }
 
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-      :deep(.criterion) {
+      :deep(.criterion:not(:target, :has(:target, :focus-visible))) {
         animation: era-slide-in linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;
