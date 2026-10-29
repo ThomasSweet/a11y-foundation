@@ -2,7 +2,7 @@
 @layer components {
   .site-stage {
     isolation: isolate;
-    min-block-size: 100vh;
+    min-block-size: 100svh;
     padding: clamp(14px, 3vw, 34px);
     background-color: var(--bp-ground);
 
