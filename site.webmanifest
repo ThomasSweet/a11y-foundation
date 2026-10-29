@@ -1,0 +1,13 @@
+{
+  "name": "Accessible by default",
+  "short_name": "Accessible",
+  "description": "How much of accessibility the web platform handles natively, with little to no JavaScript. An interactive argument in four chapters, running live.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

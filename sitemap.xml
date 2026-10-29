@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://accessible-by-default.dev/</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/standard.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/craft.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/showcase.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/proof.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/glossary.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/agent-skill.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/screen-reader.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/devtools.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/audit-room.html</loc>
+  </url>
+  <url>
+    <loc>https://accessible-by-default.dev/listening-room.html</loc>
+  </url>
+</urlset>

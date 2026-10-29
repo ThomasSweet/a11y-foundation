@@ -1,0 +1,298 @@
+<!doctype html>
+<!-- This page is broken on purpose: twelve planted accessibility barriers.
+     It is the broken page for the audit room at /audit-room.html — the answers
+     live there. It is deliberately NOT built with this site's styles or
+     safety nets, so what you catch here behaves like it would in the wild. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Alles auf Anfang — Fitis (a page broken on purpose)</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #fff;
+        color: #23262b;
+        font-family: system-ui, sans-serif;
+      }
+
+      .broken-page {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 24px 28px 20px;
+      }
+
+      .broken-page-header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #e4e6ea;
+      }
+
+      .broken-page-logo {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 6px;
+      }
+
+      .broken-page-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .broken-page-nav a {
+        color: #23262b;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .broken-page-hero {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: center;
+        margin-top: 22px;
+      }
+
+      .broken-page-cover {
+        width: 200px;
+        max-width: 100%;
+        border-radius: 4px;
+      }
+
+      .broken-page-hero-text {
+        flex: 1 1 16rem;
+      }
+
+      .broken-page-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background-color: #e0554a;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        animation: broken-page-bounce 0.9s ease-in-out infinite alternate;
+      }
+
+      @keyframes broken-page-bounce {
+        from {
+          translate: 0 0;
+        }
+
+        to {
+          translate: 0 -7px;
+        }
+      }
+
+      .broken-page-title {
+        margin: 10px 0 4px;
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .broken-page-tagline {
+        margin: 0 0 16px;
+        color: #a7a7a7;
+        font-size: 15px;
+      }
+
+      .broken-page-listen {
+        display: inline-block;
+        padding: 10px 22px;
+        border-radius: 6px;
+        background-color: #23262b;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .broken-page-section-title {
+        margin: 26px 0 10px;
+        font-size: 19px;
+        font-weight: 800;
+      }
+
+      .broken-page-tracklist {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .broken-page-tracklist td {
+        padding: 7px 10px;
+        border-bottom: 1px solid #eceef1;
+        font-size: 14px;
+      }
+
+      .broken-page-track-n {
+        width: 2rem;
+        color: #6c7076;
+      }
+
+      .broken-page-track-time {
+        text-align: right;
+        color: #6c7076;
+      }
+
+      .broken-page-tour {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .broken-page-tour li {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eceef1;
+        font-size: 14px;
+      }
+
+      .broken-page-soldout {
+        color: #c03428;
+        font-weight: 700;
+      }
+
+      .broken-page-tickets {
+        font-weight: 700;
+      }
+
+      .broken-page-streaming {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .broken-page-streaming a {
+        color: #2456c8;
+      }
+
+      .broken-page-signup {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .broken-page-signup input {
+        flex: 1 1 14rem;
+        padding: 10px 12px;
+        border: 1px solid #cfd3d9;
+        border-radius: 6px;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .broken-page-signup button {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        outline: none;
+        background-color: #23262b;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .broken-page-band {
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        object-fit: cover;
+        object-position: 50% 22%;
+        border-radius: 4px;
+      }
+
+      .broken-page-footer {
+        display: flex;
+        gap: 18px;
+        margin-top: 20px;
+        padding: 14px 0 0;
+        border-top: 1px solid #e4e6ea;
+        font-size: 13px;
+        color: #6c7076;
+      }
+
+      .broken-page-footer a {
+        color: #6c7076;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="broken-page">
+      <header class="broken-page-header">
+        <span class="broken-page-logo">FITIS</span>
+        <div class="broken-page-nav">
+          <a href="#">Start</a>
+          <a href="#">Musik</a>
+          <a href="#">Tour</a>
+          <a href="#">Kontakt</a>
+        </div>
+      </header>
+
+      <div class="broken-page-hero">
+        <img class="broken-page-cover" src="/audit/fitis-cover.jpg" />
+        <div class="broken-page-hero-text">
+          <span class="broken-page-badge">OUT NOW</span>
+          <p class="broken-page-title"><span lang="de">Alles auf Anfang</span></p>
+          <p class="broken-page-tagline">Too layered, too open, too edgy to categorize.</p>
+          <div class="broken-page-listen">Listen now</div>
+        </div>
+      </div>
+
+      <p class="broken-page-section-title">Tracklist</p>
+      <table class="broken-page-tracklist">
+        <tr><td class="broken-page-track-n">1</td><td>Im Radio</td><td class="broken-page-track-time">3:19</td></tr>
+        <tr><td class="broken-page-track-n">2</td><td>Schatten der Vergangenheit</td><td class="broken-page-track-time">3:28</td></tr>
+        <tr><td class="broken-page-track-n">3</td><td>Lauf</td><td class="broken-page-track-time">3:32</td></tr>
+        <tr><td class="broken-page-track-n">4</td><td>Fallen</td><td class="broken-page-track-time">4:39</td></tr>
+        <tr><td class="broken-page-track-n">5</td><td>Abgrund</td><td class="broken-page-track-time">3:17</td></tr>
+        <tr><td class="broken-page-track-n">6</td><td>Treibgut</td><td class="broken-page-track-time">3:33</td></tr>
+      </table>
+
+      <p class="broken-page-section-title">Tour</p>
+      <ul class="broken-page-tour">
+        <li>
+          <span>12.09.2026 · Berlin, Kellerklub Anfang</span>
+          <span class="broken-page-soldout">ausverkauft</span>
+        </li>
+        <li>
+          <span>26.09.2026 · Leipzig, Halle Drei</span>
+          <span class="broken-page-tickets">Tickets</span>
+        </li>
+        <li>
+          <span>10.10.2026 · Hamburg, Pudel Provisorium</span>
+          <span class="broken-page-soldout">ausverkauft</span>
+        </li>
+      </ul>
+
+      <p class="broken-page-section-title">Listen</p>
+      <p class="broken-page-streaming">
+        On Spotify: <a href="#">click here</a>. On Apple Music:
+        <a href="#">click here</a>. On Bandcamp: <a href="#">click here</a>.
+      </p>
+
+      <p class="broken-page-section-title">Mailing list</p>
+      <div class="broken-page-signup">
+        <input type="email" placeholder="Your email address" />
+        <button type="button" aria-label="subscribe">Join the mailing list</button>
+      </div>
+
+      <p class="broken-page-section-title">The band</p>
+      <img class="broken-page-band" src="/audit/fitis-band.jpg" alt="IMG_2047.jpg" />
+
+      <footer class="broken-page-footer">
+        <span>© Fitis</span>
+        <a href="#">Impressum</a>
+      </footer>
+    </div>
+  </body>
+</html>

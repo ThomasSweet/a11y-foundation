@@ -1,0 +1,1 @@
+import{E as e,V as t,b as n,g as r,k as i,r as a}from"./mount-VtzSmMhY.js";var o=a(n({__name:`AppButton`,props:{variant:{default:`primary`}},setup(n){return(a,o)=>(e(),r(`button`,{type:`button`,class:t([`button`,`button--${n.variant}`])},[i(a.$slots,`default`,{},void 0,!0)],2))}}),[[`__scopeId`,`data-v-5bfadbe8`]]);export{o as t};

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Accessible by default: what changed</title>
+  <subtitle>What moved in the platform and the standards, and what it changed on accessible-by-default.dev. Newest first.</subtitle>
+  <id>https://accessible-by-default.dev/feed.xml</id>
+  <link rel="self" type="application/atom+xml" href="https://accessible-by-default.dev/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://accessible-by-default.dev/#what-changed"/>
+  <updated>2026-10-12T00:00:00Z</updated>
+  <author><name>Thomas Sweet</name></author>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:glass-contrast</id>
+    <title>Craft: Glass that keeps its contrast</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-glass"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>A new craft section on glass surfaces: the alpha of the tint decides whether text on a translucent bar stays readable, and the site’s own glass token went up to 90% after it was measured.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:more-contrast</id>
+    <title>Craft: More contrast, on request</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-more-contrast"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>A new craft section on prefers-contrast: tick one box to see what Increase Contrast on macOS and iOS changes here, and copy the token overrides that do it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-12:contained-focus-ring</id>
+    <title>Craft: Containment clips the focus ring</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-defensive"/>
+    <published>2026-10-12T00:00:00Z</published>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>The defensive layouts section gained a figure: paint containment, content-visibility and overflow all cut a focus ring at the padding edge, and padding of ring width plus offset keeps it whole.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-21:submit-button-alive</id>
+    <title>Craft: Keep the submit button alive</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-validation"/>
+    <published>2026-09-21T00:00:00Z</published>
+    <updated>2026-09-21T00:00:00Z</updated>
+    <summary>The validation section now keeps its submit button live: dimmed while the form is invalid, a button looks dead from first paint, and disabled, it also takes away the browser’s own report of what is wrong.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-18:scroll-reveal-motion-gate</id>
+    <title>Showcase: Scroll-driven reveals carry their own motion gate</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-scroll-driven-animations"/>
+    <published>2026-09-18T00:00:00Z</published>
+    <updated>2026-09-18T00:00:00Z</updated>
+    <summary>The scroll-driven animations showcase gained a reveal and the rule behind it: a global duration reset never reaches a scroll timeline, so every reveal needs its own prefers-reduced-motion gate.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-16:scrollbar-tint</id>
+    <title>Craft: Scrollbars tinted, never thinned</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-scrollbar"/>
+    <published>2026-09-16T00:00:00Z</published>
+    <updated>2026-09-16T00:00:00Z</updated>
+    <summary>The craft chapter’s scrollbar section now tints every thumb on the site from the page’s own tokens at 3:1 and turns it to the accent while keyboard focus is inside, so the thumb says which region the arrow keys will scroll.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-16:scroll-state-scrollable</id>
+    <title>Showcase: Scroll-state queries gain the scrollable state</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-scroll-state"/>
+    <published>2026-09-16T00:00:00Z</published>
+    <updated>2026-09-16T00:00:00Z</updated>
+    <summary>The scroll-state showcase gained its third state: a strip shades its edges only while there is more to scroll that way, a hint that never lies at the end.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-15:listening-room</id>
+    <title>Proof: The listening room</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/listening-room.html"/>
+    <published>2026-09-15T00:00:00Z</published>
+    <updated>2026-09-15T00:00:00Z</updated>
+    <summary>The listening room: a press kit a scanner passes, eleven barriers you hear before you see, answers included.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-14:customizable-select-safari-27</id>
+    <title>Showcase: Safari 27 ships Customizable &lt;select&gt;</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-customizable-select"/>
+    <published>2026-09-14T00:00:00Z</published>
+    <updated>2026-09-14T00:00:00Z</updated>
+    <summary>Safari 27 ships Customizable &lt;select&gt;, so that showcase now runs in two engines.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-13:standards-map</id>
+    <title>Standard: The legal map became a standards map</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/standard.html#demo-legal"/>
+    <published>2026-09-13T00:00:00Z</published>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <summary>The legal map became a standards map: laws sit in the row of the WCAG version they cite, and each opens to show how many layers sit between it and the criterion you test.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-10:wcag-3-september-draft</id>
+    <title>Standard: A new WCAG 3.0 working draft</title>
+    <link rel="alternate" href="https://www.w3.org/TR/2026/WD-wcag-3.0-20260910/"/>
+    <published>2026-09-10T00:00:00Z</published>
+    <updated>2026-09-10T00:00:00Z</updated>
+    <summary>A new WCAG 3.0 working draft: one bar of core requirements, with supplemental requirements and assertions as extras you report. The timeline entry follows it.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-07:en-301-549-v4</id>
+    <title>Standard: EN 301 549 V4.1.1 is published</title>
+    <link rel="alternate" href="https://accessible-eu-centre.ec.europa.eu/content-corner/news/european-accessibility-standard-en-301-549-has-been-updated-2026-09-07_en"/>
+    <published>2026-09-07T00:00:00Z</published>
+    <updated>2026-09-07T00:00:00Z</updated>
+    <summary>ETSI published EN 301 549 V4.1.1, quoting WCAG 2.2 AA. Until the Official Journal cites it, 2.1 AA stays the bar on the map.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-09-01:firefox-155-typed-attr</id>
+    <title>Showcase: Firefox 155 ships typed attr()</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-advanced-attr"/>
+    <published>2026-09-01T00:00:00Z</published>
+    <updated>2026-09-01T00:00:00Z</updated>
+    <summary>Firefox 155 ships typed attr(), so that showcase now runs in two engines; Safari has it in Technology Preview.</summary>
+  </entry>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-08-01:audit-room</id>
+    <title>Proof: The audit room</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/audit-room.html"/>
+    <published>2026-08-01T00:00:00Z</published>
+    <updated>2026-08-01T00:00:00Z</updated>
+    <summary>The audit room: a page broken on purpose, twelve barriers, answers included.</summary>
+  </entry>
+</feed>
