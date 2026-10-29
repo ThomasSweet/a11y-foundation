@@ -1,4 +1,3 @@
-/* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .showcase {
     position: relative;
@@ -138,14 +137,14 @@
   }
 
   .showcase-code {
-    min-inline-size: 0; // let a wide code block scroll instead of stretching the row
+    min-inline-size: 0;
   }
 
   .showcase-source {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    min-block-size: 44px; // match the summary button's height so they sit level
+    min-block-size: 44px;
     padding: var(--space-2);
     font-size: var(--text-sm);
     font-weight: 600;
@@ -185,13 +184,13 @@
     font-weight: 600;
     color: var(--color-primary-text);
     cursor: pointer;
-    list-style: none; // strip Firefox's default disclosure marker
+    list-style: none;
     transition:
       background-color var(--duration-fast) var(--easing-standard),
       scale var(--duration-fast) var(--easing-standard);
 
     &::-webkit-details-marker {
-      display: none; // and the WebKit/Chrome one
+      display: none;
     }
 
     &:active {

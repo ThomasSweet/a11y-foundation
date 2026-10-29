@@ -1,5 +1,3 @@
-/* blueprint.css — the blueprint skin's tokens, derived from --color-* so every
-   mode / preset / CVD / contrast setting re-inks the page with no rules here. */
 @layer themes {
   :root {
     --bp-ground: var(--color-bg-subtle);
@@ -14,9 +12,6 @@
       color-mix(in oklab, var(--color-primary) 5%, transparent),
       color-mix(in oklab, var(--color-primary) 9%, transparent)
     );
-    /* On the dark sheet the accent is tinted toward the ink first: 22% of a
-       saturated blue over near-black lands on navy, which reads as a dark
-       stripe even though it measures lighter than the sheet. */
     --bp-line-strong: light-dark(
       color-mix(in oklab, var(--color-primary) 22%, transparent),
       color-mix(in oklab, color-mix(in oklab, var(--color-text) 78%, var(--color-primary)) 26%, transparent)

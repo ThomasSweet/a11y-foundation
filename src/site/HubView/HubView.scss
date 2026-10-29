@@ -1,5 +1,3 @@
-/* Library mixins are injected via Vite's additionalData, so no @use here. */
-
 @layer components {
   .hub-title {
     font-size: var(--text-display);
@@ -75,8 +73,6 @@
     animation: hub-scribble-draw 0.18s cubic-bezier(0.3, 0.1, 0.3, 1) forwards;
     animation-play-state: var(--scribble-play);
 
-    /* The global reduced-motion kill zeroes durations but not delays or
-       play-state, so the scribble gates itself: no draw, already struck. */
     @include reduced-motion {
       animation: none;
       stroke-dashoffset: 0;

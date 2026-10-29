@@ -1,8 +1,3 @@
-/* =============================================================================
-   utilities.css — single-purpose helpers. The `utilities` layer sits above
-   `components`, so a utility reliably wins over component styles, no !important.
-============================================================================= */
-
 @layer utilities {
   .visually-hidden,
   .visually-hidden-focusable:not(:focus, :focus-within) {
@@ -17,17 +12,11 @@
     border: 0;
   }
 
-  /* A fragment link to a showcase the topic filter has hidden must still land:
-     :target reveals the card (and its tier group) regardless of the filter.
-     Works purely because utilities > components in the layer order — no
-     specificity battle, no JS to reset the filter. */
   .showcase:target,
   .showcase-group:has(.showcase:target) {
     display: grid;
   }
 
-  /* Fixed, not absolute, so the link appears in the viewport when focused
-     deep in the page, not at its container's top. Pairs with -focusable. */
   .skip-link {
     position: fixed;
     inset-block-start: var(--space-2);

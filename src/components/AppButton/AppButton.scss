@@ -1,5 +1,3 @@
-/* SFC styles go in the components layer so utilities/preferences can override
-   them (see layers.css). Mixins come from Vite's additionalData, so no @use. */
 @layer components {
   .button {
     display: inline-flex;

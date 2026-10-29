@@ -1,5 +1,3 @@
-/* Library mixins are injected via Vite's additionalData, so no @use here. */
-
 @layer components {
   .chapter {
     display: grid;
@@ -12,8 +10,6 @@
       timeline-scope: var(--chapter-timelines, none);
     }
 
-    /* Animate only opacity here — colour-keyed versions cached keyframe var()s
-       across theme flips and lagged paint under real scrolling. */
     .chapter-section-link::after {
       animation: chapter-section-active linear both;
       animation-timeline: var(--section-timeline, none);
@@ -171,7 +167,7 @@
 
   .chapter-body {
     position: relative;
-    isolation: isolate; /* anchors the z-index:-1 watermark below the content */
+    isolation: isolate;
     min-inline-size: 0;
   }
 
@@ -408,7 +404,6 @@
         }
       }
 
-      /* Last, so the hard positions beat a stale scroll direction. */
       @container (not scroll-state(scrollable: bottom)) {
         .chapter-bar {
           translate: 0 100%;

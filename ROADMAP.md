@@ -142,6 +142,8 @@ How to edit this file:
 - **Playwright 1.65**: role queries skip inert content and the page behind a
   modal, and clicks wait on inert elements. Trigger: the release; re-run the
   suite and the checks, and fix specs that query or click behind a dialog.
+  If its Firefox is 158 or later, drop `CFFIXED_USER_HOME` from
+  `playwright.config.ts` and its bullet in GUIDE's "In tests".
 - **Media state pseudo-classes** (`:playing`, `:paused` and five more):
   web-features 3.42 has Firefox 150 and Safari 15.4, no Chrome. Trigger:
   web-features lists a Chrome version; the monthly routine checks this, since
@@ -236,11 +238,6 @@ source before touching the wording or the sources-read stamp in
   went dark after a jump to proof's short "Performance is accessibility"
   at 1440x1000. Untried: a band pinned in `rem` just below the landing line.
   Visual only; the links carry no `aria-current`.
-- **Comments in CSS.** 27 CSS and SCSS files outside the snippets still carry
-  comments, among them `layers.css` and `tokens.css`, and
-  two Vue `<style>` blocks (`FocusAppearanceDemo`, `CustomSelectDemo`) carry
-  prose comments, against GUIDE's zero-comments rule. Remove them file by
-  file.
 
 ---
 
@@ -330,6 +327,8 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-29: The site's CSS has no comments left: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #104
+- 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
 - 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
 - 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
 - 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
@@ -343,8 +342,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-16: Accuracy pass: false feed line withdrawn, 1.3.5 tagged Perceivable, code blocks named, fluid type that zooms, reveals that end in view, more contrast on surfaces. #89
 - 2026-10-16: Node 24 in CI; installs skip releases under three days old and stop on unreviewed install scripts. #87
 - 2026-10-14: Coverage matrix: a faint focus ring cites 1.4.11, and axe is partial on colour alone. #86
-- 2026-10-13: The standard page stops failing 2.4.11: era headers step aside for focus, and the demo's bar can hide a link. #85
-- 2026-10-13: Showcase ring check fixed in CI: probes measured in one pass, 0.3 seconds instead of over 30. #84
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

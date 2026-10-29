@@ -1,25 +1,8 @@
-// =============================================================================
-// _interaction.scss — pointer / hover capability mixins.
-//
-// Enhance, never gate: a user may switch input modes mid-session. And don't
-// rely on touch-primary() for target size — base.css already applies the WCAG
-// 2.5.8 (AA) 24px minimum to all interactive elements; touch-primary() only
-// raises that toward the 44px best practice (WCAG 2.5.5, AAA) on coarse pointers.
-// Order in a block: base → from()/between() → can-hover() → touch-primary().
-// =============================================================================
-
-
-// can-hover() — primary input supports hover with fine pointer (mouse/trackpad).
-
 @mixin can-hover {
   @media (hover: hover) and (pointer: fine) {
     @content;
   }
 }
-
-
-// touch-primary() — primary input is a coarse pointer (touch). Enlarge targets
-// beyond the 24px base, drop hover-only affordances, add spacing.
 
 @mixin touch-primary {
   @media (pointer: coarse) {

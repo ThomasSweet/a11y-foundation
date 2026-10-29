@@ -1,24 +1,12 @@
-// =============================================================================
-// _breakpoints.scss — mobile-first breakpoint mixins.
-//
-// Em-based: em media queries respond to the user's default font size (not just
-// zoom), so layouts adapt when users raise their base size — px queries don't.
-// Use from()/between() smallest to largest, after base styles.
-// =============================================================================
-
 @use 'sass:map';
 
-// Breakpoint token map — edit here, never hardcode at call sites.
 $breakpoints: (
-  'sm':  30em,   // 480px
-  'md':  48em,   // 768px
-  'lg':  64em,   // 1024px
-  'xl':  80em,   // 1280px
-  'xxl': 96em,   // 1536px
+  'sm':  30em,
+  'md':  48em,
+  'lg':  64em,
+  'xl':  80em,
+  'xxl': 96em,
 ) !default;
-
-
-// from($key) — styles from the given breakpoint upward.
 
 @mixin from($key) {
   $value: map.get($breakpoints, $key);
@@ -31,11 +19,6 @@ $breakpoints: (
     @content;
   }
 }
-
-
-// between($lower, $upper) — inclusive lower, exclusive upper. Range syntax
-// (`width < $max`) is genuinely exclusive, avoiding the fractional-width dead
-// zone the old `max-width: $max - 1px` left at some zoom levels.
 
 @mixin between($lower, $upper) {
   $min: map.get($breakpoints, $lower);

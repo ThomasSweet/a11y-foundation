@@ -1,26 +1,3 @@
-/* =============================================================================
-   theming/engine.css — seed-driven, contrast-safe palette derivation.
-
-   A theme is two seeds (--seed-surface, --seed-accent) plus optional
-   --mix-* strengths; the whole --color-* palette every component reads is
-   derived from them here, so adding a theme is data (theming/presets.css),
-   not code.
-
-   Two scopes share the engine: `.surface` re-themes a demo card in place;
-   `:root[data-preset]` applies the same derivation site-wide (set by the
-   header ThemeToggle, persisted in localStorage, applied pre-paint by the
-   inline script in index.html).
-
-   Contrast-safe by construction: text flips to black/white against its
-   background via the seed's OKLCH lightness; greys mix toward the text colour
-   at the --mix-* strengths, so they gain contrast in the same direction for
-   light and dark themes alike — and a preset can raise the strengths to
-   become a high-contrast theme without new palette code.
-
-   Caveat: assumes seeds in sensible lightness ranges — a mid-lightness accent
-   can't reach 4.5:1 with either black or white text.
-============================================================================= */
-
 @layer themes {
   :root[data-preset],
   .surface {
@@ -29,8 +6,6 @@
     --mix-border: 44%;
     --mix-text-subtle: 62%;
 
-    /* Text: black on light surfaces, white on dark. clamp(0, (0.62 - l) *
-       infinity, 1) resolves the seed's lightness to 0 or 1 — no JS, no query. */
     --color-text:
       oklch(from var(--seed-surface) clamp(0, (0.62 - l) * infinity, 1) 0 0deg);
 

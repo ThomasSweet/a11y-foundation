@@ -1,27 +1,8 @@
-// =============================================================================
-// _preferences.scss — user-preference / accessibility media-query mixins.
-//
-// These sit at the end of a selector block; user preferences win, so nothing
-// (breakpoint or interaction mixins) should override them. Order in a block:
-// base → from()/between() → can-hover()/touch-primary() → the preference
-// mixins below (reduced-motion, reduced-transparency, high-contrast,
-// forced-colors, dark-mode/light-mode).
-// =============================================================================
-
-
-// reduced-motion() — when the user has requested reduced motion.
-// WCAG 2.1 SC 2.3.3 (AAA); worth supporting at AA too.
-
 @mixin reduced-motion {
   @media (prefers-reduced-motion: reduce) {
     @content;
   }
 }
-
-
-// reduced-transparency() — swap translucent/blurred surfaces for opaque ones.
-// Translucency can hurt readability for low-vision users. Progressive
-// enhancement: unsupported browsers keep the base style.
 
 @mixin reduced-transparency {
   @media (prefers-reduced-transparency: reduce) {
@@ -29,20 +10,11 @@
   }
 }
 
-
-// high-contrast() — when the user has requested more contrast (strengthen
-// borders, drop low-contrast decoration).
-
 @mixin high-contrast {
   @media (prefers-contrast: more) {
     @content;
   }
 }
-
-
-// forced-colors() — Windows High Contrast / Forced Colors Mode, where the
-// browser replaces colours with system values. Restore meaning lost when
-// colour alone carried it (e.g. borders on background-only differentiation).
 
 @mixin forced-colors {
   @media (forced-colors: active) {
@@ -50,18 +22,11 @@
   }
 }
 
-
-// dark-mode() — prefers-color-scheme: dark. Often unnecessary at the component
-// level (the token system handles theming); use for cases it doesn't cover.
-
 @mixin dark-mode {
   @media (prefers-color-scheme: dark) {
     @content;
   }
 }
-
-
-// light-mode() — prefers-color-scheme: light. Included for symmetry.
 
 @mixin light-mode {
   @media (prefers-color-scheme: light) {

@@ -1,9 +1,16 @@
+import { mkdirSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+
 import { defineConfig, devices } from '@playwright/test'
 
 // Tests run against a production build served by `vite preview` — the same CSS
 // users get, so the cutting-edge features actually render (jsdom can't).
 const PORT = 4173
 const BASE_URL = `http://localhost:${PORT}`
+
+const firefoxHome = process.platform === 'darwin' ? join(tmpdir(), 'playwright-firefox-home') : null
+if (firefoxHome) mkdirSync(firefoxHome, { recursive: true })
 
 export default defineConfig({
   testDir: 'tests/e2e',
@@ -19,7 +26,13 @@ export default defineConfig({
   // progressive enhancement, so the suite should exercise more than Chromium.
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        launchOptions: firefoxHome ? { env: { ...process.env, CFFIXED_USER_HOME: firefoxHome } } : {},
+      },
+    },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {

@@ -1,8 +1,3 @@
-// =============================================================================
-// _mixins.scss — barrel file; @use this one file (`@use '…/mixins' as *`).
-// Forward order mirrors the cascade: breakpoints → containers → interaction → preferences.
-// =============================================================================
-
 @forward 'breakpoints';
 @forward 'containers';
 @forward 'interaction';
