@@ -235,9 +235,6 @@ source before touching the wording or the sources-read stamp in
   at 300%, as Safari does, would reach 181% and 191% on a 1280px screen
   (computed). The rule narrows both ranges, the headline's most: a design
   call.
-- **`100vh`.** `SiteFrame.scss` says `100vh` where `reset.css` says `100svh`.
-- **Safe-area inset.** `env(safe-area-inset-bottom)` in `ChapterLayout.scss`
-  resolves to 0, because no page's viewport meta sets `viewport-fit=cover`.
 - **Comments in CSS.** 27 CSS and SCSS files outside the snippets still carry
   comments, among them `layers.css` and `tokens.css`, and
   two Vue `<style>` blocks (`FocusAppearanceDemo`, `CustomSelectDemo`) carry
@@ -332,6 +329,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
 - 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
 - 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
@@ -346,7 +344,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-13: Showcase ring check fixed in CI: probes measured in one pass, 0.3 seconds instead of over 30. #84
 - 2026-10-13: Flaky 2.4.11 test fixed: specs stop reading transitioning values, and the demo's links get an inset ring. #83
 - 2026-10-13: More contrast and glass contrast: two craft sections, unclipped focus rings and a real orientation query. #82
-- 2026-10-11: Responsiveness sweep: nothing scrolls sideways or clips from 320px up, in three engines. #80
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

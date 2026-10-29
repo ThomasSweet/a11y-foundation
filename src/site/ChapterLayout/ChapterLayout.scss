@@ -372,7 +372,7 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       padding-inline: calc(var(--focus-ring-width) + var(--focus-ring-offset));
-      padding-block-end: calc(env(safe-area-inset-bottom, 0px) + var(--focus-ring-width) + var(--focus-ring-offset));
+      padding-block-end: calc(var(--focus-ring-width) + var(--focus-ring-offset));
       border-block-start: 1px solid var(--bp-frame);
       background-color: var(--bp-sheet);
       transition: translate var(--duration-normal) var(--easing-standard);
