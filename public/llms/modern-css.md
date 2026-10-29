@@ -340,7 +340,7 @@ A hover/focus hint tethered to its trigger with anchor positioning, flipped belo
 
 ### Scroll-driven animations
 
-Animations driven by scroll position instead of time: no scroll listeners, off the main thread.
+Animations driven by scroll position instead of time, with no scroll listeners.
 
 **Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
 

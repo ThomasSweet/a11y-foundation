@@ -365,8 +365,10 @@ The rules that keep it sound:
   one `--chapter-sec-N` per rail entry into `--chapter-timelines`, so a
   section's number is its position in the rail. A fixed list in the
   stylesheet once stopped at twelve, and in Chromium craft's thirteenth and
-  fourteenth links never lit up (WebKit and Firefox resolve the names
-  without `timeline-scope`).
+  fourteenth links never lit up. WebKit and Firefox 159 resolve the names
+  without `timeline-scope` (Firefox measured on 2026-10-29), so only the
+  rail test's Chromium run in `motion.spec.ts` catches a list that falls
+  short.
 
 ## Prerendering and SSR safety
 
@@ -731,9 +733,11 @@ the spec.
   is in use; it costs nothing, because the net already removes the fade.
 - **Chromium, as Web Animations defines it: a scroll-driven `transform`
   keeps a card the containing block of a fixed element inside it**, even after
-  the range ends. WebKit 26.5 did not do this on 2026-09-28. Keep
-  `data-reveal="off"` on such a demo ("Adding a showcase"). Nothing to
-  re-check.
+  the range ends. WebKit 26.5 did not do this on 2026-09-28. Firefox 159 does
+  it only while the range runs (2026-10-29): before and after, the fixed
+  element is placed against the viewport, so it would jump on the way in and
+  on the way out. Keep `data-reveal="off"` on such a demo in every engine
+  ("Adding a showcase"). Nothing to re-check.
 
 ### Focus and scrolling
 
@@ -747,6 +751,11 @@ the spec.
   for focus: move the bar. The chapter bar slides away while
   `:focus-visible` matches outside it, and an era header turns
   `position: static` while `:focus-visible` matches inside its era.
+- **When Firefox 159 does scroll to a focused element, it centres it, at
+  once**, even under `scroll-behavior: smooth`. Chromium scrolls the least
+  it can unless the element is entirely off screen, and animates. Every
+  engine judges from the transformed box, so a reveal in progress moves
+  where focus lands (2026-10-29).
 - **WebKit 27.2 honours root `scroll-padding` on keyboard focus, start and
   end side, except for text fields**: it brings a field in only as far as its
   text line, so on craft a 44px field stayed about 6.5px under the bar. The
@@ -810,6 +819,15 @@ the spec.
   presses arrive with no gap between them (October 2026). A spec that
   measures where focus lands waits with the `focusSettled()` helper in
   `keyboard.spec.ts`, or polls.
+- **A newer Firefox than Playwright bundles**: `firefox.launch({ channel:
+  'moz-firefox' })` drives the installed Firefox over WebDriver BiDi. It
+  ignores every media emulation and takes the system's appearance, so set
+  Firefox preferences in `firefoxUserPrefs` instead:
+  `layout.css.prefers-color-scheme.content-override: 1` for light,
+  `ui.prefersReducedMotion: 1`, `browser.display.document_color_use: 2` for
+  forced colours, `ui.useAccessibilityTheme: 1` for more contrast. Firefox
+  has no Typed OM, so a scroll timeline's `currentTime` is a bare number:
+  read `getComputedTiming().progress`. Used on 2026-10-29 for Firefox 159.
 
 ---
 
@@ -1106,7 +1124,7 @@ automatically respect that preference with no extra component code.
 
 A scroll or view timeline ignores `animation-duration`, so neither the motion
 tokens nor the 0.01ms override reach it: under emulated `reduce` the
-scroll-driven showcase's progress bar still runs. Three rules follow.
+scroll-driven showcase's progress bar still runs. Four rules follow.
 
 1. **Anything that moves content carries its own gate**,
    `@media (prefers-reduced-motion: no-preference)`, as the chapter, card and
@@ -1116,7 +1134,9 @@ scroll-driven showcase's progress bar still runs. Three rules follow.
 2. **Animate `opacity`, `transform` or `translate`, nothing else.** A colour
    or a custom property on a scroll timeline restyles everything that reads
    it on every frame; a scroll-driven palette built that way jittered and was
-   dropped.
+   dropped. The rule matters more in Firefox: version 159 runs every
+   `view()` animation on the main thread (bug 1818346), and only a `scroll()`
+   timeline can move to the compositor, once its scroller has been scrolled.
 3. **A reveal uses `fill: none`, and its range ends by the time the element
    is fully in view.** With `both`, the start state holds before the element
    enters, so boxes below the fold report shifted positions and a jump to an
@@ -1130,6 +1150,14 @@ scroll-driven showcase's progress bar still runs. Three rules follow.
    strata: textless bars, hidden from assistive technology, that pour in one
    after another while in view, so each holds its start state until its
    turn (`backwards`).
+4. **A reveal steps aside for the reader's target and focus.** Each reveal
+   rule carries `:not(:target, :has(:target, :focus-visible))`. A scroll aims
+   at the transformed box, so `fill: none` alone let a rail jump into a
+   section that was still revealing overshoot by up to 68px in all three
+   engines, and a Tab into one left the focus ring faded to 2.5:1 until the
+   next scroll in Chromium and Firefox (2026-10-29). Stopping the reveal
+   snaps the element into place, at most 2.5rem, with no animation.
+   `motion.spec.ts` covers both.
 
 ### Cross-document view transitions
 

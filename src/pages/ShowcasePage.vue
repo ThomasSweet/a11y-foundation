@@ -181,7 +181,7 @@ const sections = [
 
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .showcase-list :deep(.showcase:not(:has([data-reveal='off']))) {
+      .showcase-list :deep(.showcase:not(:target, :has([data-reveal='off'], :target, :focus-visible))) {
         animation: showcase-card-reveal linear none;
         animation-timeline: view();
         animation-range: entry 0% entry 160px;

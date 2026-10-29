@@ -57,3 +57,63 @@ for (const path of ['/standard.html', '/craft.html', '/showcase.html', '/proof.h
     expect(unlit).toEqual([])
   })
 }
+
+test.describe('a reveal never stands between the reader and where they were sent', () => {
+  const open = async (page: Page, path: string) => {
+    await page.goto(path)
+    test.skip(!(await page.evaluate(() => CSS.supports('animation-timeline: view()'))), 'no scroll-driven animations')
+    await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' })
+  }
+
+  const peek = (page: Page, heading: string, pixels: number) =>
+    page.evaluate(
+      async ([selector, pixels]) => {
+        let el = document.querySelector(selector)?.closest<HTMLElement>('.demo') ?? null
+        let top = 0
+        for (; el; el = el.offsetParent as HTMLElement | null) top += el.offsetTop
+        scrollTo({ top: top - innerHeight + pixels, behavior: 'instant' })
+        await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
+      },
+      [heading, pixels] as const,
+    )
+
+  test('a rail jump into a section that is still revealing lands under the scroll margin', async ({ page }) => {
+    await open(page, '/craft.html')
+    const ids = await page
+      .locator('.chapter-section-link')
+      .evaluateAll((links) => links.slice(1).map((link) => link.getAttribute('href')?.slice(1) ?? ''))
+    expect(ids.length).toBeGreaterThan(0)
+
+    for (const id of ids) {
+      await peek(page, `#${id}`, 30)
+      await page.locator(`.chapter-section-link[href="#${id}"]`).click()
+      const miss = await page.locator(`#${id}`).evaluate(async (heading) => {
+        await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
+        return heading.getBoundingClientRect().top - parseFloat(getComputedStyle(heading).scrollMarginBlockStart)
+      })
+      expect(Math.abs(miss), `#${id} lands ${miss}px from its scroll margin`).toBeLessThan(2)
+    }
+  })
+
+  test('a link reached by Tab inside a section that is still revealing is fully opaque', async ({ page, browserName }) => {
+    await open(page, '/proof.html')
+    const link = page.locator('.demo', { has: page.locator('#testing-coverage') }).locator('a[href]').first()
+    await peek(page, '#testing-coverage', 96)
+    await link.evaluate((target) => {
+      const stops = [...document.querySelectorAll<HTMLElement>('a[href], button, input, select, textarea, summary')].filter(
+        (el) => el.tabIndex >= 0 && el.getClientRects().length > 0,
+      )
+      stops[stops.indexOf(target as HTMLElement) - 1]?.focus({ preventScroll: true })
+    })
+    await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab')
+    await expect(link).toBeFocused()
+
+    const opacity = await link.evaluate(async (target) => {
+      await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
+      let product = 1
+      for (let el: Element | null = target; el; el = el.parentElement) product *= Number(getComputedStyle(el).opacity)
+      return product
+    })
+    expect(opacity).toBeGreaterThan(0.99)
+  })
+})

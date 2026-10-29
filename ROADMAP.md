@@ -41,13 +41,14 @@ How to edit this file:
 
 ### Now
 
-- **The site's scroll-driven chrome in Firefox 159**, which turned
-  scroll-driven animations on by default on 2026-10-27. The rail highlight,
-  the reveals and the timeline strata now run there, and the suite has only
-  ever exercised Firefox's fallbacks (Playwright 1.64 bundles Firefox 157).
-  Check them when Playwright bundles Firefox 159 or later, or by hand first.
-  The badge, tier and agent files follow web-features by themselves, through
-  the Monday bot.
+- **The checks package on the site**, as decided on 2026-10-29 in
+  [docs/checks-scope.md](docs/checks-scope.md). First, from 31 October: 0.2.0
+  as a pinned devDependency, `behaviour.spec.ts`, and the dialog test in Known
+  debt replaced. Then, in one change: the three proof rows with axe's misses
+  measured, the `/checks/` page, and a Tools group on the hub (T·01 agent
+  skill, T·02 checks, the reference sheets closing up to A·03), plus one
+  what-changed line. Then the npm homepage and the repository's website field
+  point at `/checks/`.
 
 ### Next
 
@@ -57,14 +58,6 @@ How to edit this file:
   and add `ACCESSIBILITY.md`, which GitHub has shown on the repository
   overview since 2026-10-01; README's section then points to it. Later, a
   WCAG-EM self-evaluation with W3C's report tool.
-- **The checks package on the site**, as decided on 2026-10-29 in
-  [docs/checks-scope.md](docs/checks-scope.md). First, from 31 October: 0.2.0
-  as a pinned devDependency, `behaviour.spec.ts`, and the dialog test in Known
-  debt replaced. Then, in one change: the three proof rows with axe's misses
-  measured, the `/checks/` page, and a Tools group on the hub (T·01 agent
-  skill, T·02 checks, the reference sheets closing up to A·03), plus one
-  what-changed line. Then the npm homepage and the repository's website field
-  point at `/checks/`.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -235,6 +228,14 @@ source before touching the wording or the sources-read stamp in
   at 300%, as Safari does, would reach 181% and 191% on a 1280px screen
   (computed). The rule narrows both ranges, the headline's most: a design
   call.
+- **Rail highlight after a jump to a tall section.** The clicked link lands
+  at 0.19 to 0.61 opacity on showcase's tier groups and standard's criteria,
+  and the last link is faint at the bottom of craft, standard and showcase
+  (all three engines, 2026-10-29). A reading-line band
+  (`view-timeline-inset: 30% 65%`) fixed both and never lit two links, but
+  went dark after a jump to proof's short "Performance is accessibility"
+  at 1440x1000. Untried: a band pinned in `rem` just below the landing line.
+  Visual only; the links carry no `aria-current`.
 - **Comments in CSS.** 27 CSS and SCSS files outside the snippets still carry
   comments, among them `layers.css` and `tokens.css`, and
   two Vue `<style>` blocks (`FocusAppearanceDemo`, `CustomSelectDemo`) carry
@@ -329,6 +330,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
 - 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
 - 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
 - 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
@@ -343,7 +345,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-14: Coverage matrix: a faint focus ring cites 1.4.11, and axe is partial on colour alone. #86
 - 2026-10-13: The standard page stops failing 2.4.11: era headers step aside for focus, and the demo's bar can hide a link. #85
 - 2026-10-13: Showcase ring check fixed in CI: probes measured in one pass, 0.3 seconds instead of over 30. #84
-- 2026-10-13: Flaky 2.4.11 test fixed: specs stop reading transitioning values, and the demo's links get an inset ring. #83
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).
