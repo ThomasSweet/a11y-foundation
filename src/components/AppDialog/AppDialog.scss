@@ -1,4 +1,3 @@
-/* Library mixins are injected via Vite's additionalData, so no @use here. */
 @layer components {
   .dialog {
     max-inline-size: min(60ch, calc(100% - var(--space-8)));

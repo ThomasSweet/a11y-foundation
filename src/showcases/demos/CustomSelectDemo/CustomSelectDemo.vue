@@ -131,7 +131,7 @@
     .custom-select {
       display: block;
       inline-size: 100%;
-      padding: 0; // the trigger button owns the padding now
+      padding: 0;
       border: none;
       background: none;
       cursor: pointer;
@@ -259,7 +259,7 @@
     }
 
     .custom-select option::checkmark {
-      order: 1; // push it to the end, opposite the dot
+      order: 1;
       margin-inline-start: auto;
       color: var(--color-primary);
       transition:

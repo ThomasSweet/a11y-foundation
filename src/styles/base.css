@@ -1,11 +1,4 @@
-/* =============================================================================
-   base.css — bare-element defaults: typography, colours, links, target sizes.
-============================================================================= */
-
 @layer base {
-  /* The page scroller as a scroll-state container: the chapter bottom bar
-     reacts to scroll position in pure CSS — no scroll listeners. Harmless
-     where unused or unsupported. */
   html {
     container-type: scroll-state;
     scrollbar-color: color-mix(in oklab, var(--color-text) 50%, transparent) transparent;

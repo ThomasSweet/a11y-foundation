@@ -1,8 +1,3 @@
-/* =============================================================================
-   reset.css — minimal modern reset in the lowest-priority `reset` layer, so
-   anything elsewhere overrides it without specificity games.
-============================================================================= */
-
 @layer reset {
   *,
   *::before,
@@ -20,12 +15,9 @@
   }
 
   html {
-    /* Prevent iOS Safari inflating text in landscape (prefixed form only). */
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* `clip` (not `hidden`) so an over-wide child can't scroll the page
-       sideways, without becoming a scroll container (sticky keeps working). */
     overflow-x: clip;
   }
 
@@ -64,8 +56,6 @@
     overflow-wrap: break-word;
   }
 
-  /* Safari drops list semantics from AT when list-style is none; keying off
-     role="list" restores them, so only strip styling where it's present. */
   ul[role="list"],
   ol[role="list"] {
     list-style: none;

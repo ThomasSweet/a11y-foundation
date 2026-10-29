@@ -51,9 +51,6 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
     font-weight: 600;
     cursor: pointer;
 
-    /* Compliant: nothing here — the foundation's global *:focus-visible ring
-       (preferences layer) already applies and meets 2.4.13. */
-
     @include high-contrast {
       border-color: currentcolor;
     }

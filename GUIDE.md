@@ -39,8 +39,9 @@ src/
 │   ├── SiteFrame/          — page frame, grid, header, title-block footer
 │   ├── HubView/            — the overview hub (index page)
 │   ├── HubRevisions/       — the hub's "What changed" block; revisions.ts is the registry
-│   ├── ChapterLayout/      — chapter chrome: legend rail, header, watermark;
-│   │                         chapterSections.ts holds the section registry
+│   ├── ChapterLayout/      — chapter chrome: legend rail, header, mobile bar,
+│   │                         prev/next; chapterSections.ts holds the section
+│   │                         registry
 │   ├── ChapterSection/     — one chapter section; registers itself with the rail
 │   ├── AgentSkillView/, DevToolsView/, GlossaryView/,
 │   │   ScreenReaderView/   — the four reference sheets, each a SiteFrame page
@@ -89,7 +90,7 @@ scripts/
 
 tests/
 ├── unit/                   — vitest, node environment: themePickerMath, showcaseSnippets,
-│                             baseline, revisions
+│                             baseline, revisions, bootGround
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
                               standards-map, anchor-tooltip, responsive, contrast,
@@ -127,6 +128,12 @@ public/                     — copied verbatim into dist/; the parts that are g
 
 Later layers beat earlier layers regardless of specificity or source order.
 That's what lets `preferences` win without `!important`.
+
+Layers settle most of the cascade, not all of it: inside one layer, source
+order still decides between rules of equal specificity. `theming/presets.css`
+overrides `theming/engine.css` that way (`.theme-ocean` over `.surface`,
+`:root[data-preset='contrast-light']` over `:root[data-preset]`), so
+`index.css` imports the engine before the presets.
 
 **The rule: no unlayered CSS, ever.**
 Unlayered styles beat *all* layered styles — a single unlayered
@@ -236,10 +243,12 @@ exactly like inline blocks did.
   (`themePickerMath.test.ts`), the snippet guard that fails a showcase folder
   without a `*.snippet.*` file (`showcaseSnippets.test.ts`), the Baseline gate
   that fails when a fallback in the `MANIFEST` of `scripts/baseline-watch.js`
-  has reached its removal bar (`baseline.test.ts`), and the revisions guard
-  (`revisions.test.ts`, see "What changed"). `npm run test:e2e` builds, serves
-  and runs the Playwright suite in three engines; `npm run baseline:check`
-  prints the Baseline report the gate is built on. CI runs all of it.
+  has reached its removal bar (`baseline.test.ts`), the revisions guard
+  (`revisions.test.ts`, see "What changed"), and the boot-ground check
+  (`bootGround.test.ts`, see "How theming works"). `npm run test:e2e`
+  builds, serves and runs the Playwright suite in three engines;
+  `npm run baseline:check` prints the Baseline report the gate is built on.
+  CI runs all of it.
 - `npm run lint:js` is ESLint (flat config, `eslint.config.js`) over JS/TS/Vue,
   at `--max-warnings 0`. It is deliberately lean: types belong to vue-tsc and
   formatting rules are switched off, so what remains flags real defects. The
@@ -314,6 +323,19 @@ four-layer composition. Each layer has one job:
   below) and receives its position back.
 - **Leaf content** — demos, `CodeCompare`, `CraftLinks`, prose. Composed
   freely in the section's slot; the wrapper imposes nothing on it.
+
+The mobile bottom bar (`.chapter-bar`) shows while the reader scrolls up and
+hides while they scroll down, with no scroll listener. `base.css` makes
+`html` a `scroll-state` container, and the bar's `scroll-state()` container
+queries in `ChapterLayout.scss` read it. They sit inside an `@supports`
+block for `container-type: scroll-state`, so an engine without scroll-state
+queries keeps the bar in view. A container query adds no specificity, so
+source order decides between those rules. The two
+`not scroll-state(scrollable: …)` blocks come after the `scrolled:` ones, so
+at the top and at the bottom of the page the bar stays hidden whatever
+direction the reader last scrolled. Keep them after the `scrolled:` blocks;
+only `.chapter-bar:focus-within`, which outranks them on specificity,
+follows them in that block.
 
 ### Sections — declared once, registered too
 
@@ -459,10 +481,11 @@ The three static pages (impressum, privacy, style guide) never mount Vue;
 they link `/src/styles/index.css` directly from their `<head>`, followed by
 their own `legal.scss` or `styleguide.scss`.
 
-The SCSS mixins are injected into every SFC style block via
-`css.preprocessorOptions.scss.additionalData` in `vite.config.js` —
-**do not** `@use` the barrel again inside components. In plain `.scss`
-files outside Vite, import it yourself:
+`css.preprocessorOptions.scss.additionalData` in `vite.config.js` injects
+the SCSS mixins into every `.scss` file Vite compiles: SFC style blocks, the
+components' sibling `.scss` files, and `legal.scss` and `styleguide.scss`,
+which the static pages link. **Do not** `@use` the barrel again in any of
+them. In a `.scss` file compiled outside Vite, import it yourself:
 
 ```scss
 @use 'path/to/styles/scss/mixins' as *;
@@ -586,9 +609,11 @@ approach.
 | `xl`  | 80em  | 1280px            |
 | `xxl` | 96em  | 1536px            |
 
-To change values, edit `$breakpoints` in `_breakpoints.scss`; the map is the
-only source (the `--bp-*` custom properties are the blueprint skin's tokens,
-not breakpoints).
+To change values, edit `$breakpoints` in `_breakpoints.scss`. The map feeds
+only `from()` and `between()`: the shell's `52rem` switch, where the chapter
+rail gives way to the mobile bar, is a raw `@media (width ...)` query
+repeated in several files, so changing it is a search for `52rem`. The
+`--bp-*` custom properties are the blueprint skin's tokens, not breakpoints.
 
 ---
 
@@ -666,14 +691,20 @@ Three rules, each from a bug the October 2026 sweep found on this site, and
 each guarded by `tests/e2e/responsive.spec.ts`:
 
 1. **A grid used as a vertical stack names its column.** `display: grid`
-   with no columns has one implicit `auto` track, and an auto track is never
-   narrower than the min-content of its widest child. One long code path or
-   one text input (20 characters by default, a different pixel width in
-   every engine) then widens the whole stack, and `.site-sheet` clips what
-   sticks out. Write `grid-template-columns: minmax(0, 1fr)` on every
-   single-column grid, and `minmax(0, 1fr)` instead of `1fr` in
-   multi-column ones. `min-inline-size: 0` on the grid itself is not enough:
-   it frees the box, not the track.
+   with no columns has one implicit `auto` track, and while a child that is
+   not a scroll container keeps its automatic minimum, the track is never
+   narrower than that child's min-content. One long code path or one text
+   input (20 characters by default, a different pixel width in every
+   engine) then widens the whole stack, and `.site-sheet` clips what sticks
+   out. Write `grid-template-columns: minmax(0, 1fr)` on every single-column
+   grid, and `minmax(0, 1fr)` instead of `1fr` in multi-column ones.
+   `min-inline-size: 0` on the grid itself is not enough: it frees the box,
+   not the track. On a grid item it does free the track, which then takes
+   the item's minimum of 0 as its floor instead of the item's min-content
+   (`.code-compare-item` in `CodeCompare.scss`), but naming the column stays
+   the rule. A flex item has the same automatic minimum, its min-content
+   width, so a flex item that holds a scrolling block takes
+   `min-inline-size: 0`, or holds the block in a `minmax(0, 1fr)` column.
 2. **A token that cannot break needs `overflow-wrap: anywhere`.** The
    reset's `break-word` wraps a long word only once its box is already
    narrow; it does not lower min-content. `base.css` applies `anywhere` to
@@ -694,13 +725,20 @@ text or control cut off by an ancestor that clips. A new page goes in its
 `pages` list. Playwright's WebKit is not iOS Safari, so a layout change
 to the chrome still wants a look on a real iPhone.
 
+`reset.css` sets `overflow-x: clip` on `html`, so content that sticks out
+cannot scroll the page sideways, and `.site-sheet` in `SiteFrame.scss` clips
+with `overflow: clip`. Below the root, clip with `clip`, never `hidden`:
+`hidden` makes the box a scroll container, and every sticky element inside
+it then sticks to a box that never scrolls. In the sheet that would be the
+chapter rail and the timeline's era headers.
+
 ---
 
 ## Engine behaviours we work around
 
-Each entry is an engine behaviour measured on this site: what happens, what
-the site does, and when to look again. Unless an entry says otherwise, each
-was last checked on 2026-10-17 with the engines Playwright 1.64.1 runs:
+Each entry is an engine behaviour: what happens, what the site does, and
+when to look again. Unless an entry says otherwise, it was measured on this
+site and last checked on 2026-10-17 with the engines Playwright 1.64.1 runs:
 Chromium 156, Firefox 157 and WebKit 27.2. Playwright's WebKit is not iOS
 Safari. After a Playwright bump,
 run each entry's re-check, write the fixing version into the entry, and drop
@@ -807,6 +845,25 @@ the spec.
   (`StyleQueryCuesDemo`). Playwright's WebKit 26.5 does apply them, so only a
   real device shows whether Safari 27 fixed it. `LightDarkDemo`'s moon glyph
   still uses `::after` inside a query.
+- **iOS Safari enlarges text in landscape unless `text-size-adjust` says
+  not to, and reads only the `-webkit-` form.** `reset.css` sets both forms
+  to `100%` on `html`, the prefixed one under a stylelint exemption. Not
+  measured on this site: re-check when `web-features` lists Safari support
+  for the unprefixed property, and drop the prefixed line then.
+- **Safari can drop a list's semantics from the accessibility tree when its
+  `list-style` is `none`, and `role="list"` restores them.** So `reset.css`
+  strips bullets and padding only from `ul[role="list"]` and
+  `ol[role="list"]`. Not measured on this site: a VoiceOver pass over a
+  styled list would show whether current Safari still does it.
+- **Older WebKit draws the `<summary>` disclosure triangle as
+  `::-webkit-details-marker`, which `list-style: none` does not remove.**
+  `.showcase-code-summary` in `ShowcaseFrame.scss` hides it with
+  `display: none` on that pseudo-element. Firefox and Chromium give a
+  summary a `::marker` only while it is `display: list-item`, as CSS Lists
+  defines it, so an `inline-flex` or `grid` summary needs no
+  `list-style: none`. Not measured on this site, and the Safari release
+  that made `<summary>` a `list-item` is not confirmed: drop the prefixed
+  rule when no Safari inside the support window draws the triangle.
 
 ### In tests
 
@@ -828,6 +885,20 @@ the spec.
   forced colours, `ui.useAccessibilityTheme: 1` for more contrast. Firefox
   has no Typed OM, so a scroll timeline's `currentTime` is a bare number:
   read `getComputedTiming().progress`. Used on 2026-10-29 for Firefox 159.
+- **Playwright's own Firefox stops at launch on macOS 27** with "Could not
+  find profile folder" when Firefox is installed (microsoft/playwright#42768).
+  Its build names itself Firefox from Mozilla, so it looks in the installed
+  Firefox's `~/Library/Application Support/Firefox`, which macOS 27 protects.
+  On macOS, `playwright.config.ts` sets `CFFIXED_USER_HOME` to a
+  `playwright-firefox-home` folder in the temp directory, so it looks there
+  instead. The folder is reused, not made per run, because macOS gives the
+  `Library`, `Documents` and `Downloads` folders created in it a deny-delete
+  ACL, as in a real home: removing it takes `chmod -RN` first. A browser kept
+  open between runs (Show browser in the VS Code extension, the reuse toggle
+  in `--watch`) is launched by a server that drops `env`, so Firefox still
+  fails there: turn it off for Firefox. CI runs Linux and never sets it.
+  Firefox 158 fixes this upstream; drop the setting once Playwright bundles
+  158 or later, expected in 1.65.
 
 ---
 
@@ -836,10 +907,14 @@ the spec.
 ### Target sizes come first — and not from these mixins
 
 Small targets hurt mouse users with motor impairments too, so minimum
-target size is a **base style** (`base.css` applies the WCAG 2.5.8 AA
-minimum of 24×24px to interactive elements), not a touch-only adjustment.
-Use `touch-primary()` to raise targets toward 44×44px — the WCAG 2.5.5
-(AAA) / platform-guideline best practice — on coarse pointers.
+target size is a **base style**, not a touch-only adjustment: `base.css`
+sets `min-block-size: 24px` on `button`, `[role="button"]`, `select`,
+`textarea` and every `input` except checkboxes and radios, which keep their
+user-agent size. That covers only the block axis of the WCAG 2.5.8 (AA)
+24×24px minimum. A narrow icon button gets no inline minimum, and a
+standalone link or a `summary` gets neither, so the component supplies the
+size or the spacing. Use `touch-primary()` to raise targets toward 44×44px,
+the WCAG 2.5.5 (AAA) and platform-guideline size, on coarse pointers.
 
 ### `can-hover()`
 
@@ -883,7 +958,10 @@ for enhancement.
 
 ### `reduced-motion()`
 
-Disable or simplify animations and transitions.
+Disable or simplify animations and transitions. The mixin and the safety
+nets in `preferences.css` serve WCAG 2.3.3 Animation from Interactions. The
+criterion is level AAA, and the preference is still worth honouring on a
+project that targets AA.
 
 ```scss
 .spinner {
@@ -914,6 +992,13 @@ region stops being busy. Never add `aria-busy` just to get motion: it tells
 screen readers the region is loading. In a project without a blanket net,
 the mixin alone does this.
 
+The net leaves `animation-delay` and `animation-play-state` alone, so an
+animation that waits on a delay or a paused play-state still waits under
+reduced motion, then jumps to its end. Such an animation gates itself. The
+hub's strike-through does: `.hub-strike` and `.hub-strike-scribble path` in
+`HubView.scss` drop their animations under the mixin, and the paths set
+`stroke-dashoffset: 0`, so the words are struck from the first frame.
+
 One consequence for tests. The reset gives every element a 0.01ms transition
 on every property, so under reduced motion a computed value read right after
 a state change is still the old one until the next frame. A focused element
@@ -930,12 +1015,14 @@ measurement ran (in Firefox not at all). Inject such a stylesheet with
 
 ### `reduced-transparency()`
 
-Replace translucent or blurred surfaces with opaque ones. This is a courtesy
-on top of a tint that already passes: `prefers-reduced-transparency` ships
-in Chromium only, so the base color has to reach 4.5:1 without it. Use
-`--color-surface-glass` (90% alpha) instead of a hand-picked alpha:
-`tests/e2e/contrast.spec.ts` holds it to 4.5:1 for body and subtle text over
-solid black and solid white, in light, dark and every preset.
+Replace translucent or blurred surfaces with opaque ones: text on them
+competes with whatever shows through, which can hurt readability for
+low-vision users. This is a courtesy on top of a tint that already passes:
+`prefers-reduced-transparency` ships in Chromium only, so the base color has
+to reach 4.5:1 without it. Use `--color-surface-glass` (90% alpha) instead
+of a hand-picked alpha: `tests/e2e/contrast.spec.ts` holds it to 4.5:1 for
+body and subtle text over solid black and solid white, in light, dark and
+every preset.
 
 ```scss
 .sticky-header {
@@ -1105,14 +1192,56 @@ color token once with `light-dark(lightValue, darkValue)`:
   that exists only while the code overflows would need script to measure it.
 - The presets (`data-preset` on `<html>`, set by `ThemeToggle`) are data in
   `theming/presets.css`: two seeds each, from which `theming/engine.css`
-  derives the whole `--color-*` palette. `theming/blueprint.css` maps that
-  palette onto the blueprint skin's `--bp-*` tokens, so a preset re-inks the
-  page with no rules of its own.
+  derives the palette (see below). `theming/blueprint.css` maps that palette
+  onto the blueprint skin's `--bp-*` tokens, so a preset re-inks the page
+  with no rules of its own.
+- `--bp-line-strong` in `theming/blueprint.css` mixes differently on the
+  dark side: the accent is first mixed 22% into the text colour, and that is
+  laid over the sheet at 26%. A plain 22% of a saturated blue over
+  near-black comes out navy, which reads as a dark stripe although it
+  measures lighter than the sheet.
 - The theming core never uses a style query: colour reaches every element
   through custom-property inheritance and `light-dark()`. A style query is
   for a cue colour cannot carry, such as a glyph or a border style per state
   (`StyleQueryCuesDemo`). Keep pseudo-element rules out of the query (see
   "Engine behaviours we work around").
+
+`theming/engine.css` runs one derivation in two scopes: `:root[data-preset]`
+for the whole site, and `.surface` for a demo card, re-themed in place by a
+`.theme-*` class or by a seed the component sets itself, as
+`ThemePickerDemo` does. The greys mix from the surface seed toward the text
+colour at the `--mix-*` strengths, so they gain contrast in light and dark
+alike, and the two contrast presets raise those strengths with no palette
+code of their own. The engine derives the surface, text, grey, primary and
+focus-ring colours in both scopes, and `--color-accent` and
+`--color-surface-glass` only on `:root[data-preset]`, so a `.surface` takes
+those two from the page. The status colours and the shadows keep their
+`light-dark()` values from `tokens.css`, so each preset also sets
+`color-scheme`, which picks the side.
+
+`--color-text` and `--color-primary-text` are black or white, picked by
+`clamp(0, (0.62 - l) * infinity, 1)` on the seed's OKLCH lightness, with no
+script and no media query; where `contrast-color()` is supported, an
+`@supports` block in the same rule takes over. The 0.62 cut does not
+guarantee 4.5:1: just below it the engine picks white, and white falls
+short. For a grey seed that band runs from about 57% to 62% (a grey at 60%
+gets 3.95:1), and it moves with hue and chroma. These figures are computed
+with the WCAG 2 formula, not measured. Keep seeds out of that band.
+`ThemePickerDemo` keeps its picked accent out of it with a clamp in its
+stylesheet, unless the reader bypasses the clamp to see the failure: a pick
+below 62% is capped at 45%, and any other is raised to at least 78%.
+`themePickerMath.ts` mirrors those numbers, and `themePickerMath.test.ts`
+sweeps them over hue and lightness.
+
+The head of every HTML file that loads a module from `src/entries/` holds
+two theming pieces that act before the stylesheet arrives. An inline script
+applies the saved theme or preset, so the stylesheet's first paint already
+uses it, not the default palette. An inline style sets `--boot-ground` to a
+copy of `--color-bg-subtle` from `tokens.css` and paints `html` with it
+until `--bp-ground` arrives with the bundle, so a frame drawn before the
+stylesheet has the default ground colour, not white.
+`tests/unit/bootGround.test.ts` fails when a copy differs from
+`tokens.css`; change them together.
 
 ### Motion tokens
 
@@ -1134,9 +1263,14 @@ scroll-driven showcase's progress bar still runs. Four rules follow.
 2. **Animate `opacity`, `transform` or `translate`, nothing else.** A colour
    or a custom property on a scroll timeline restyles everything that reads
    it on every frame; a scroll-driven palette built that way jittered and was
-   dropped. The rule matters more in Firefox: version 159 runs every
-   `view()` animation on the main thread (bug 1818346), and only a `scroll()`
-   timeline can move to the compositor, once its scroller has been scrolled.
+   dropped. The rail's scroll-spy once animated colour keyframes: its links
+   kept the previous theme's colours after a theme switch, and on some
+   machines the painted text lagged the scroll (July 2026). Its
+   `.chapter-section-link::after` overlay in `ChapterLayout.scss` animates
+   only `opacity`, and every colour on it is a plain declaration. The rule
+   matters more in Firefox: version 159 runs every `view()` animation on the
+   main thread (bug 1818346), and only a `scroll()` timeline can move to the
+   compositor, once its scroller has been scrolled.
 3. **A reveal uses `fill: none`, and its range ends by the time the element
    is fully in view.** With `both`, the start state holds before the element
    enters, so boxes below the fold report shifted positions and a jump to an
@@ -1227,6 +1361,11 @@ skip links. Place the skip link as the first focusable element in `<body>`:
 <main id="main" tabindex="-1">…</main>
 ```
 
+`.skip-link` is `position: fixed`, not `absolute`, so when it takes focus it
+appears in the viewport wherever the page is scrolled, not at the top of the
+page. It relies on `.visually-hidden-focusable` to stay hidden until then,
+so the two classes always go together.
+
 ---
 
 ## CSS showcases
@@ -1238,6 +1377,13 @@ it from drifting into a random demo dump:
    resilient UI — not just visually novel.
 2. **Every showcase is a progressive enhancement.** New syntax goes behind
    `@supports`, and the fallback must stay usable.
+
+The showcase page's topic filter, radio buttons read by `:has()` in
+`ShowcasePage.vue`, hides cards and empty tier groups with `display: none`
+in the `components` layer. A link to a hidden card still lands:
+`utilities.css` gives `.showcase:target` and its `.showcase-group`
+`display: grid`, and the `utilities` layer wins with no script to reset the
+filter.
 
 ### Browser support policy
 

@@ -1,9 +1,3 @@
-/* =============================================================================
-   index.css — single entry point for global styles (import once in main.js).
-   layers.css must come first to establish the layer order; after that, import
-   order is informational (the cascade is governed by layers, not source order).
-============================================================================= */
-
 @import './layers.css';
 @import './reset.css';
 @import './tokens.css';

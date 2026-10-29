@@ -1,5 +1,3 @@
-/* Layout for the living style-guide page. In the components layer (the project's
-   "no unlayered CSS" rule); mixins come from Vite's additionalData. */
 @layer components {
   body {
     padding: clamp(14px, 3vw, 34px);
