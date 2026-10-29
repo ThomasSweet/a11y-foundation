@@ -64,11 +64,6 @@ const stats = [
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
-
     @include high-contrast {
       border-color: currentcolor;
     }

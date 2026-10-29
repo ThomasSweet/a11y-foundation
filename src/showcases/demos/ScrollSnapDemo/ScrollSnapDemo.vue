@@ -59,11 +59,6 @@ const cards = [
 
     border-radius: var(--radius-md);
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
-
     @include high-contrast {
       outline: 1px solid currentcolor;
     }

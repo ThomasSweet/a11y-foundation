@@ -219,18 +219,10 @@ source before touching the wording or the sources-read stamp in
 
 ### Known debt
 
-- **Forced-colours ring.** In `preferences.css` the ring rule in the
-  `forced-colors` block sits before the general `:focus-visible` rule and
-  never applies. What shows is the general ring (3px, 4px when more contrast
-  also matches) in whatever colour forced colours pick. Check in forced
-  colours, then fix or delete.
 - **High-contrast blocks.** Of 130 `@include high-contrast` blocks, 117 only
   set `border-color: currentcolor`; 86 of those sit on `--color-border`,
   which the preferences layer already turns to `CanvasText`. Check each before
   removing any.
-- **Dead outline rules.** 38 component `:focus-visible` blocks declare an
-  `outline`; 36 lose to the preferences layer. `FocusAppearanceDemo`'s
-  `!important` and `SlidingIndicatorDemo`'s `:has()` label ring are live.
 - **The dialog spec never presses Tab.** "native dialog traps focus" in
   `keyboard.spec.ts` checks that focus starts inside and that Escape closes
   it. Walk Tab and Shift+Tab inside, and check focus returns to the opener.
@@ -246,8 +238,8 @@ source before touching the wording or the sources-read stamp in
 - **`100vh`.** `SiteFrame.scss` says `100vh` where `reset.css` says `100svh`.
 - **Safe-area inset.** `env(safe-area-inset-bottom)` in `ChapterLayout.scss`
   resolves to 0, because no page's viewport meta sets `viewport-fit=cover`.
-- **Comments in CSS.** 28 CSS and SCSS files outside the snippets still carry
-  comments, among them `preferences.css`, `layers.css` and `tokens.css`, and
+- **Comments in CSS.** 27 CSS and SCSS files outside the snippets still carry
+  comments, among them `layers.css` and `tokens.css`, and
   two Vue `<style>` blocks (`FocusAppearanceDemo`, `CustomSelectDemo`) carry
   prose comments, against GUIDE's zero-comments rule. Remove them file by
   file.
@@ -340,6 +332,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
 - 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
 - 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
@@ -354,7 +347,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-13: Flaky 2.4.11 test fixed: specs stop reading transitioning values, and the demo's links get an inset ring. #83
 - 2026-10-13: More contrast and glass contrast: two craft sections, unclipped focus rings and a real orientation query. #82
 - 2026-10-11: Responsiveness sweep: nothing scrolls sideways or clips from 320px up, in three engines. #80
-- 2026-09-29: The anchor tooltip flips for real, with three engine workarounds and a new spec. #78
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

@@ -155,11 +155,6 @@
     font-size: var(--text-sm);
     white-space: nowrap;
     overflow-x: auto;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .defensive-note {

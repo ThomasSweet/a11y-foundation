@@ -10,11 +10,6 @@
     min-inline-size: 0;
     container-type: inline-size;
     overscroll-behavior-x: contain;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .coverage-matrix-table {

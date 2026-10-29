@@ -1,11 +1,3 @@
-/* =============================================================================
-   preferences.css — global user-preference overrides.
-
-   Lives in the highest-priority `preferences` layer (see layers.css), so these
-   defaults can't be overridden by component or layout styles. Component-level
-   preference overrides belong in the component's own file via the SCSS mixins.
-============================================================================= */
-
 @layer preferences {
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -46,11 +38,6 @@
   }
 
   @media (forced-colors: active) {
-    *:focus-visible {
-      outline: 3px solid ButtonText;
-      outline-offset: var(--focus-ring-offset);
-    }
-
     button,
     [role="button"],
     input,
@@ -61,7 +48,7 @@
   }
 
   *:focus {
-    outline: none; /* replaced by :focus-visible below */
+    outline: none;
   }
 
   *:focus-visible {
@@ -69,9 +56,12 @@
     outline-offset: var(--focus-ring-offset);
   }
 
-  /* tabindex="-1" containers (skip target, dialog-close fallback) only ever
-     receive focus programmatically — WebKit still ring-lights them, outlining
-     the whole column. Never reachable by Tab, so no indicator is lost. */
+  @media (forced-colors: active) {
+    *:focus-visible {
+      outline-color: ButtonText;
+    }
+  }
+
   [tabindex='-1']:focus-visible {
     outline: none;
   }

@@ -81,11 +81,6 @@ const overflow =
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     @include high-contrast {
       border-color: currentcolor;
     }

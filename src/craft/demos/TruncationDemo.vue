@@ -92,11 +92,6 @@ const description =
     font-size: var(--text-sm);
     font-weight: 600;
     cursor: pointer;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   @supports selector(::details-content) {

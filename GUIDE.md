@@ -968,7 +968,12 @@ The focus ring is drawn by the `preferences` layer on every element, 3px
 wide at a 2px offset (4px wide under `prefers-contrast: more` and in the two
 contrast presets), so it sits outside the element's own box. A component
 cannot restyle it without `!important`: a normal `outline` rule in the
-`components` layer loses to the layer above. What a component can do is
+`components` layer loses to the layer above, so components declare none.
+Under forced colours the layer swaps only the ring's colour for
+`ButtonText`, in a block after the general rule, so the width and offset
+hold, 4px included. An earlier block before the general rule never applied:
+Chromium drew the ring in a translucent forced colour, and Firefox drew it
+in each element's own colour, `LinkText` on links. What a component can do is
 leave room. Any ancestor that clips
 (`overflow` other than `visible`, `contain: paint | content | strict`,
 `content-visibility: auto`) cuts the ring at its padding edge, in all three

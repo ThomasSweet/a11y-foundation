@@ -129,11 +129,6 @@ const methods = [
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
     border-radius: var(--radius-md);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
   }
 
   .scroll-state-cards {
@@ -211,11 +206,6 @@ const methods = [
     overflow-y: auto;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
   }
 
   .scroll-state-stick {
@@ -286,11 +276,6 @@ const methods = [
     overscroll-behavior-x: contain;
     container-type: scroll-state;
     border-radius: var(--radius-md);
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: var(--focus-ring-offset);
-    }
   }
 
   .scroll-state-chips {

@@ -206,11 +206,6 @@
       }
     }
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     &:hover::before,
     &:hover::after,
     &:focus-visible::before,
@@ -339,11 +334,6 @@
       }
     }
 
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
     @include high-contrast {
       border-color: currentcolor;
     }
@@ -405,11 +395,6 @@
     text-transform: uppercase;
     color: var(--bp-accent);
     cursor: pointer;
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
   }
 
   .hub-statement-details::details-content {
@@ -530,11 +515,6 @@
         border-color: var(--bp-accent);
         color: var(--bp-accent);
       }
-    }
-
-    &:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 2px;
     }
 
     @include high-contrast {
