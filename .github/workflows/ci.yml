@@ -53,7 +53,7 @@ jobs:
           git diff --exit-code -- skills public/llms public/feed.xml src/showcases/baseline-data.json
 
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
 
@@ -65,13 +65,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Runner release
+        id: runner-release
+        run: echo "name=$(. /etc/os-release && echo "$ID-$VERSION_ID")" >> "$GITHUB_OUTPUT"
+
       # Cache the browser binaries across runs (keyed on the Playwright version
       # pinned in the lockfile).
       - name: Cache Playwright browsers
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: playwright-${{ runner.os }}-${{ steps.runner-release.outputs.name }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
