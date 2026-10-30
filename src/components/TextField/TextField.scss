@@ -23,13 +23,13 @@
   .field-input {
     min-block-size: 44px;
     padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-text-subtle);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
     color: var(--color-text);
 
     &:user-valid:not(:where(:placeholder-shown)) {
-      border-color: var(--color-success);
+      border-color: color-mix(in oklab, var(--color-success), var(--color-text) 16%);
     }
 
     &:user-invalid {
