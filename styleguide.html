@@ -1,10 +1,4 @@
 <!doctype html>
-<!--
-  Living style guide — renders the real design tokens straight from the shared
-  stylesheet, so it can never drift from the system it documents. Zero runtime
-  JS; colours follow the OS light/dark preference (and any [data-theme]).
-  Logo + naming section is intentionally deferred until the brand name lands.
--->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -169,6 +163,11 @@
           </p>
           <ul class="swatches" role="list">
             <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--bp-ground)"></span>
+              <span class="swatch-name">--bp-ground</span>
+              <span class="swatch-hex">= --color-bg-subtle</span>
+            </li>
+            <li class="swatch">
               <span class="swatch-chip swatch-chip-bordered" style="background: var(--bp-sheet)"></span>
               <span class="swatch-name">--bp-sheet</span>
               <span class="swatch-hex">= --color-surface</span>
@@ -179,9 +178,29 @@
               <span class="swatch-hex">= --color-text</span>
             </li>
             <li class="swatch">
+              <span class="swatch-chip" style="background: var(--bp-ink-2)"></span>
+              <span class="swatch-name">--bp-ink-2</span>
+              <span class="swatch-hex">= --color-text-subtle</span>
+            </li>
+            <li class="swatch">
               <span class="swatch-chip" style="background: var(--bp-accent)"></span>
               <span class="swatch-name">--bp-accent</span>
               <span class="swatch-hex">= --color-primary</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--bp-accent-soft)"></span>
+              <span class="swatch-name">--bp-accent-soft</span>
+              <span class="swatch-hex">primary 12% mix</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--bp-line)"></span>
+              <span class="swatch-name">--bp-line</span>
+              <span class="swatch-hex">primary 5% · 9% mix</span>
+            </li>
+            <li class="swatch">
+              <span class="swatch-chip swatch-chip-bordered" style="background: var(--bp-line-strong)"></span>
+              <span class="swatch-name">--bp-line-strong</span>
+              <span class="swatch-hex">primary 22% · tinted 26% mix</span>
             </li>
             <li class="swatch">
               <span class="swatch-chip" style="background: var(--bp-frame)"></span>
@@ -271,9 +290,11 @@
         <section class="guide-section" aria-labelledby="sg-type">
           <h2 id="sg-type">Typography</h2>
           <p class="guide-note">
-            System sans for prose, JetBrains Mono for code and labels. Display
-            sizes are fluid (<code>clamp()</code>) so headings scale with the
-            viewport — no breakpoints.
+            System sans for prose, a system mono for code and the chrome's
+            labels. No font file ships: the mono stack asks for JetBrains Mono,
+            Fira Code or Cascadia Code and otherwise falls back to the
+            platform's own. Display sizes are fluid (<code>clamp()</code>)
+            with a rem term, so headings scale with the viewport and with zoom.
           </p>
 
           <dl class="type-families">
@@ -286,13 +307,14 @@
             <div>
               <dt>Mono</dt>
               <dd style="font-family: var(--font-mono)">
-                JetBrains&nbsp;Mono — code, tokens, eyebrows
+                system mono — code, tokens, labels
               </dd>
             </div>
           </dl>
 
           <ul class="type-scale" role="list">
-            <li><span class="type-spec" style="font-size: var(--text-display); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: 800">Display</span><span class="type-label">--text-display · 800</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-display); line-height: 0.98; letter-spacing: var(--tracking-tight); font-weight: 700">Display</span><span class="type-label">--text-display · hub title</span></li>
+            <li><span class="type-spec" style="font-size: var(--text-display-sm); line-height: 1.05; letter-spacing: var(--tracking-tight); font-weight: 700">Display small</span><span class="type-label">--text-display-sm · page titles</span></li>
             <li><span class="type-spec" style="font-size: var(--text-4xl); line-height: var(--leading-tight); font-weight: 700">Heading 4xl</span><span class="type-label">--text-4xl · 2.25rem</span></li>
             <li><span class="type-spec" style="font-size: var(--text-3xl); font-weight: 700">Heading 3xl</span><span class="type-label">--text-3xl · 1.875rem</span></li>
             <li><span class="type-spec" style="font-size: var(--text-2xl); font-weight: 600">Heading 2xl</span><span class="type-label">--text-2xl · 1.5rem</span></li>
@@ -300,6 +322,19 @@
             <li><span class="type-spec" style="font-size: var(--text-lg)">Large body</span><span class="type-label">--text-lg · 1.125rem</span></li>
             <li><span class="type-spec" style="font-size: var(--text-base)">Base body</span><span class="type-label">--text-base · 1rem</span></li>
             <li><span class="type-spec" style="font-size: var(--text-sm); color: var(--color-text-subtle)">Small / captions</span><span class="type-label">--text-sm · 0.875rem</span></li>
+          </ul>
+
+          <h3>Mono labels</h3>
+          <p class="guide-note">
+            The chrome's small uppercase labels: header buttons, sheet numbers,
+            legends and the title block. The capitals come from
+            <code>text-transform</code>, never typed, and the style never lands
+            on a bare inline link.
+          </p>
+          <ul class="type-scale" role="list">
+            <li><span class="type-spec" style="font-family: var(--bp-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bp-ink-2)">Theme · GitHub · Index</span><span class="type-label">0.6875rem · 0.08em · chrome</span></li>
+            <li><span class="type-spec" style="font-family: var(--bp-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bp-ink-2)">High contrast</span><span class="type-label">0.625rem · 0.08em · legends</span></li>
+            <li><span class="type-spec" style="font-family: var(--bp-mono); font-size: 0.5625rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bp-ink-2)">Drawn by</span><span class="type-label">0.5625rem · 0.08em · title-block captions</span></li>
           </ul>
         </section>
 
@@ -319,6 +354,7 @@
             <li><span class="space-bar" style="inline-size: var(--space-8)"></span><span class="space-label">--space-8 · 2rem</span></li>
             <li><span class="space-bar" style="inline-size: var(--space-12)"></span><span class="space-label">--space-12 · 3rem</span></li>
             <li><span class="space-bar" style="inline-size: var(--space-16)"></span><span class="space-label">--space-16 · 4rem</span></li>
+            <li><span class="space-bar" style="inline-size: var(--space-20)"></span><span class="space-label">--space-20 · 5rem</span></li>
             <li><span class="space-bar" style="inline-size: var(--space-24)"></span><span class="space-label">--space-24 · 6rem</span></li>
           </ul>
         </section>

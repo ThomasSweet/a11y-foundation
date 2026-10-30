@@ -163,6 +163,9 @@ How to edit this file:
 - **`focusgroup`** (Chrome 150): arrow keys within a toolbar or tab list
   without a hand-rolled roving `tabindex`. Trigger: a second engine, or an
   Interop 2027 pick.
+- **Ubuntu 26.04 for e2e**: the job stays on `ubuntu-24.04` while
+  `ubuntu-latest` moves. Trigger: GitHub dates the 24.04 image's retirement;
+  then switch in a pull request of its own and read the font-dependent specs.
 - **Dart Sass 2**, targeted for December 2026. Sass 1.106.1 builds with no
   deprecation warnings and the same CSS as 1.101, so it should be a version
   bump. Trigger: the release; read its breaking changes first.
@@ -327,6 +330,8 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
+- 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
 - 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
 - 2026-10-29: The site's CSS has no comments left: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
 - 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
@@ -340,8 +345,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
 - 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 - 2026-10-17: Reduced, not removed: under reduced motion a busy skeleton fades instead of freezing, and the sweep lets aria-busy regions through. #90
-- 2026-10-16: Accuracy pass: false feed line withdrawn, 1.3.5 tagged Perceivable, code blocks named, fluid type that zooms, reveals that end in view, more contrast on surfaces. #89
-- 2026-10-16: Node 24 in CI; installs skip releases under three days old and stop on unreviewed install scripts. #87
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

@@ -1570,6 +1570,11 @@ report on failure. There is no cron: `npm ci` installs the locked
 `web-features`, so a scheduled run could never see new Baseline data. The
 bot below is the mechanism for that.
 
+The `e2e` job runs on `ubuntu-24.04`, not `ubuntu-latest`, and its browser
+cache key names the runner's Ubuntu release, read from `/etc/os-release`. In
+October 2026 GitHub began moving `ubuntu-latest` to Ubuntu 26.04, and a 26.04
+runner restored the cached WebKit built for 24.04, which could not start.
+
 `axe-core` is pinned to an exact version, because the audit-room and
 listening-room specs pin exact findings. Bump it and `@axe-core/playwright` in
 the same change: the wrapper wants a matching `axe-core` minor, so bumping
