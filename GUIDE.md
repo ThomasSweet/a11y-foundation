@@ -722,8 +722,8 @@ each guarded by `tests/e2e/responsive.spec.ts`:
 The spec loads every page at 320 CSS pixels, at 320 with WCAG 1.4.12 text
 spacing and at 1280 with 200% text, and fails on sideways scroll or on any
 text or control cut off by an ancestor that clips. A new page goes in its
-`pages` list. Playwright's WebKit is not iOS Safari, so a layout change
-to the chrome still wants a look on a real iPhone.
+`pages` list. Playwright's WebKit is not iOS Safari, so a green run says
+nothing certain about a real iPhone.
 
 `reset.css` sets `overflow-x: clip` on `html`, so content that sticks out
 cannot scroll the page sideways, and `.site-sheet` in `SiteFrame.scss` clips
