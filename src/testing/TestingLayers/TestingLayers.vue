@@ -50,7 +50,7 @@ const layers: Layer[] = [
     kind: 'Static',
     name: 'Lint & types',
     catches:
-      'Mechanical mistakes before the app even runs — unlayered CSS, mixin order, a mistyped token, a type error.',
+      'Mechanical mistakes before the app even runs — an unknown property, mixin order, a mistyped token, a type error.',
     misses: 'Knows nothing about the rendered page or a real user.',
     tool: 'Stylelint · vue-tsc',
     here: ['npm run lint:css', 'npm run typecheck'],

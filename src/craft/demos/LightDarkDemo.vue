@@ -89,13 +89,13 @@ const theme = useSiteTheme()
 </script>
 
 <style scoped lang="scss">
-@property --scheme-probe {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: white;
-}
-
 @layer components {
+  @property --scheme-probe {
+    syntax: '<color>';
+    inherits: true;
+    initial-value: white;
+  }
+
   .light-dark-demo {
     display: grid;
     gap: var(--space-4);

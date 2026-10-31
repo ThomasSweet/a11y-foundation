@@ -56,8 +56,11 @@ const slides = [
     padding-block-end: var(--space-2);
     border-radius: var(--radius-md);
     anchor-name: --css-carousel;
-    /* stylelint-disable-next-line property-no-unknown */
     scroll-marker-group: after;
+
+    :root:has(dialog:modal) & {
+      scroll-marker-group: none;
+    }
 
     @media (prefers-reduced-motion: no-preference) {
       scroll-behavior: smooth;
@@ -113,7 +116,7 @@ const slides = [
     text-wrap: balance;
   }
 
-  /* stylelint-disable selector-pseudo-element-no-unknown, selector-pseudo-class-no-unknown, property-no-unknown */
+  /* stylelint-disable selector-pseudo-class-no-unknown */
   .css-carousel::scroll-button(inline-start),
   .css-carousel::scroll-button(inline-end) {
     position: fixed;
@@ -174,7 +177,7 @@ const slides = [
     background-color: var(--color-primary);
     border-color: var(--color-primary);
   }
-  /* stylelint-enable selector-pseudo-element-no-unknown, selector-pseudo-class-no-unknown, property-no-unknown */
+  /* stylelint-enable selector-pseudo-class-no-unknown */
 
   .css-carousel-note {
     font-size: var(--text-sm);

@@ -87,35 +87,33 @@
     html {
       scroll-behavior: smooth;
     }
-  }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition {
-    navigation: auto;
-    types: page;
-  }
+    @view-transition {
+      navigation: auto;
+      types: page;
+    }
 
-  :root:active-view-transition-type(page) {
-    view-transition-name: none;
-  }
+    :root:active-view-transition-type(page) {
+      view-transition-name: none;
+    }
 
-  :root:active-view-transition-type(page)::view-transition {
-    pointer-events: none;
-    animation: 0.2s site-content-in;
-  }
+    :root:active-view-transition-type(page)::view-transition {
+      pointer-events: none;
+      animation: 0.2s site-content-in;
+    }
 
-  :root:active-view-transition-type(page) body {
-    visibility: visible;
-  }
+    :root:active-view-transition-type(page) body {
+      visibility: visible;
+    }
 
-  :root:active-view-transition-type(page) .site-content {
-    animation: 0.2s ease-out both site-content-in;
-  }
+    :root:active-view-transition-type(page) .site-content {
+      animation: 0.2s ease-out both site-content-in;
+    }
 
-  @keyframes site-content-in {
-    from {
-      opacity: 0;
+    @keyframes site-content-in {
+      from {
+        opacity: 0;
+      }
     }
   }
 }

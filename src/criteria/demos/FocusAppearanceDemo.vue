@@ -62,10 +62,8 @@ const actions = ['Save', 'Duplicate', 'Archive', 'Delete']
 
   .is-broken {
     .focus-appearance-btn:focus-visible {
-      /* stylelint-disable declaration-no-important -- deliberately simulating the anti-pattern */
       outline: 1px solid var(--color-border) !important;
       outline-offset: 0 !important;
-      /* stylelint-enable declaration-no-important */
     }
   }
 }

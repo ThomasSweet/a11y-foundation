@@ -64,7 +64,6 @@
     tab-size: 2;
   }
 
-  /* stylelint-disable-next-line selector-pseudo-class-no-unknown -- Vue :deep(); recognised in .vue but not a standalone .scss */
   .code-block-pre :deep(.code-comment) {
     color: var(--color-text-subtle);
     font-style: italic;

@@ -62,7 +62,6 @@ const description =
     line-height: 1.55;
   }
 
-  /* stylelint-disable value-no-vendor-prefix, property-no-vendor-prefix */
   .truncation-clamped {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -79,7 +78,6 @@ const description =
       overflow: hidden;
     }
   }
-  /* stylelint-enable value-no-vendor-prefix, property-no-vendor-prefix */
 
   .truncation-details {
     display: grid;

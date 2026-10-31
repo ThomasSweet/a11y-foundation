@@ -90,11 +90,12 @@ scripts/
 
 tests/
 ├── unit/                   — vitest, node environment: themePickerMath, showcaseSnippets,
-│                             baseline, revisions, bootGround
+│                             baseline, revisions, bootGround, htaccess, viewTransition,
+│                             roadmap
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
                               standards-map, anchor-tooltip, responsive, contrast,
-                              focus-ring, orientation
+                              focus-ring, orientation, motion, llms
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -129,6 +130,14 @@ public/                     — copied verbatim into dist/; the parts that are g
 Later layers beat earlier layers regardless of specificity or source order.
 That's what lets `preferences` win without `!important`.
 
+A layer ranks where it is first named, and the build does not keep this
+statement first: it splits the CSS into one file per chunk, and a built
+head can link a component file first (`craft.html` links `mount-*.css`,
+which holds only `components`, before the global stylesheet). So the first
+`<style>` in the head of every page that loads the stylesheet repeats the
+statement before any other CSS. Keep it first in each head, and keep it
+the same as `layers.css`.
+
 Layers settle most of the cascade, not all of it: inside one layer, source
 order still decides between rules of equal specificity. `theming/presets.css`
 overrides `theming/engine.css` that way (`.theme-ocean` over `.surface`,
@@ -149,6 +158,11 @@ the `preferences` layer. Every rule you write must be inside a layer:
 | Component styles (all Vue SFCs)      | `components` |
 | Single-purpose helper classes        | `utilities`  |
 | User preference overrides            | `preferences`|
+
+That includes the `<style>` blocks in the heads of the pages that load the
+stylesheet, and at-rules. `@view-transition` and `@property` work inside a
+layer and cascade by it: an unlayered `@view-transition { navigation: none }`
+would beat the layered opt-in on every page.
 
 ### In Vue single-file components
 
@@ -244,8 +258,13 @@ exactly like inline blocks did.
   without a `*.snippet.*` file (`showcaseSnippets.test.ts`), the Baseline gate
   that fails when a fallback in the `MANIFEST` of `scripts/baseline-watch.js`
   has reached its removal bar (`baseline.test.ts`), the revisions guard
-  (`revisions.test.ts`, see "What changed"), and the boot-ground check
-  (`bootGround.test.ts`, see "How theming works"). `npm run test:e2e`
+  (`revisions.test.ts`, see "What changed"), the boot-ground check
+  (`bootGround.test.ts`, see "How theming works"), the `.htaccess` rules
+  that serve the agent files as UTF-8 and send `/llms` to `llms.txt`
+  (`htaccess.test.ts`), the page-change opt-in in each page head and the
+  `base.css` rule that answers it (`viewTransition.test.ts`, see
+  "Cross-document view transitions"), and the ROADMAP's word budget and
+  the shape the monthly routine reads (`roadmap.test.ts`). `npm run test:e2e`
   builds, serves and runs the Playwright suite in three engines;
   `npm run baseline:check` prints the Baseline report the gate is built on.
   CI runs all of it.
@@ -292,15 +311,24 @@ drift.
 
 ## Comments
 
-Zero by default. The code says what. The reasoning belongs in the commit
-message and the pull request. A rule the next change has to follow belongs in
-this guide, and an engine bug you work around goes in "Engine behaviours we
-work around". A decision about what the site will or will not do goes under
-"Standing decisions" in `ROADMAP.md`, in one sentence with its reason. A
-longer record of why goes in `docs/history/` only when a later reader will
-ask. If a comment ever seems load-bearing, propose its exact text in review
-and wait for a yes before adding it. CSS, SCSS and Vue `<style>` blocks carry
-none, ever.
+The code says what. The reasoning belongs in the commit message and the pull
+request. A rule the next change has to follow belongs in this guide, and an
+engine bug you work around goes in "Engine behaviours we work around". A
+decision about what the site will or will not do goes under "Standing
+decisions" in `ROADMAP.md`, in one sentence with its reason. A longer record
+of why goes in `docs/history/` only when a later reader will ask.
+
+One kind of comment is allowed, in any language: one line at the spot where
+the code deliberately breaks something, saying what it breaks and why. What
+it breaks must be something you can point to: a lint rule, a rule in this
+guide, or what the platform or an engine does by default. A reason that
+applies in more than one place is a rule, and goes in this guide. The test:
+can you finish "this breaks X on purpose, because Y"? If not, leave the
+comment out.
+
+Existing comments stay, with no clean-up passes. A change that edits a
+commented line checks that comment against this rule. `*.snippet.*` files
+are teaching copy and keep their explanations.
 
 ---
 
@@ -805,6 +833,16 @@ the spec.
   specified. A root `scroll-padding-block-end` of 64px made every anonymous
   `view()` reveal start 64px late and then pop. The site sets no root
   `scroll-padding`; any future one has to be checked against the reveals.
+- **Chromium 156: a `::scroll-marker` takes Tab focus behind a modal
+  dialog and drops it at once**, so a press lands on nothing visible, and
+  after the dialog closes the first lap skips the markers (2026-10-29). On
+  showcase it showed under reduced motion only: six walks over its two
+  dialogs each stopped 1 to 5 times on the carousel. `CssCarouselDemo` sets
+  `scroll-marker-group: none` under `:root:has(dialog:modal)`, so no marker
+  exists while a modal is open and each comes back fresh. The dot row's
+  20px goes with it; scroll anchoring holds the view when the carousel is
+  above it. Re-check: remove the rule, open a showcase dialog under reduced
+  motion and press Tab; drop the rule once no marker takes focus.
 - **iOS WebKit 26: a `tabindex="-1"` element focused by script matches
   `:focus-visible`** (July 2026), so the whole content column drew the ring
   after a dialog closed. `preferences.css` removes the outline from
@@ -1256,9 +1294,11 @@ two theming pieces that act before the stylesheet arrives. An inline script
 applies the saved theme or preset, so the stylesheet's first paint already
 uses it, not the default palette. An inline style sets `--boot-ground` to a
 copy of `--color-bg-subtle` from `tokens.css` and paints `html` with it
-until `--bp-ground` arrives with the bundle, so a frame drawn before the
-stylesheet has the default ground colour, not white.
-`tests/unit/bootGround.test.ts` fails when a copy differs from
+until `--bp-ground` arrives with the bundle. On the dev server, where CSS
+arrives after the first frames, those frames have the default ground colour,
+not white. A production page draws nothing before its stylesheets, which
+block rendering, and there the ground does not work (Known debt in
+`ROADMAP.md`). `tests/unit/bootGround.test.ts` fails when a copy differs from
 `tokens.css`; change them together.
 
 ### Motion tokens
@@ -1288,7 +1328,12 @@ scroll-driven showcase's progress bar still runs. Four rules follow.
    only `opacity`, and every colour on it is a plain declaration. The rule
    matters more in Firefox: version 159 runs every `view()` animation on the
    main thread (bug 1818346), and only a `scroll()` timeline can move to the
-   compositor, once its scroller has been scrolled.
+   compositor, once its scroller has been scrolled. Measured 2026-10-29 in
+   headless Firefox 159 on an M3: every `view()` animation costs main-thread
+   time on each scroll frame, about 0.05ms per element in its range and half
+   that outside it, and keyframes do not change it. Showcase's 35 card
+   reveals add about 1.2ms to its 2.7ms per frame; the rest is a fixed cost
+   any `view()` animation on screen brings, the rail's included.
 3. **A reveal uses `fill: none`, and its range ends by the time the element
    is fully in view.** With `both`, the start state holds before the element
    enters, so boxes below the fold report shifted positions and a jump to an
@@ -1302,14 +1347,21 @@ scroll-driven showcase's progress bar still runs. Four rules follow.
    strata: textless bars, hidden from assistive technology, that pour in one
    after another while in view, so each holds its start state until its
    turn (`backwards`).
-4. **A reveal steps aside for the reader's target and focus.** Each reveal
-   rule carries `:not(:target, :has(:target, :focus-visible))`. A scroll aims
-   at the transformed box, so `fill: none` alone let a rail jump into a
-   section that was still revealing overshoot by up to 68px in all three
-   engines, and a Tab into one left the focus ring faded to 2.5:1 until the
-   next scroll in Chromium and Firefox (2026-10-29). Stopping the reveal
-   snaps the element into place, at most 2.5rem, with no animation.
-   `motion.spec.ts` covers both.
+4. **A reveal steps aside for the reader's target and focus.** The chapter,
+   showcase card, era and criterion reveals carry
+   `:not(:target, :has(:target, :focus-visible))`. A scroll aims at the
+   transformed box, so `fill: none` alone let a rail jump into a section
+   that was still revealing overshoot by up to 68px in all three engines,
+   and a Tab into one left the focus ring at about 0.6 opacity until the
+   next scroll in Chromium and Firefox (2026-10-29): about 2.6:1 against
+   the white behind it, sampled from Chromium's pixels. Stopping the reveal
+   snaps the element into place with no animation. A chapter section, card
+   or era starts 2.5rem low at 97% scale, so its top edge can jump 2.5rem
+   plus 1.5% of its height; a criterion starts 5rem to the side. The
+   strata, the "You are here" label and the rows in the scroll-driven
+   showcase carry no guard: they hold no link, control or id, so nothing
+   in them can be a target or take focus. `motion.spec.ts` covers the jump
+   and the Tab on chapter reveals.
 
 ### Cross-document view transitions
 
@@ -1349,6 +1401,12 @@ content fades in over 0.2s, and every link stays live. Four rules shape it.
    and `base.css` shows the body again. A production build has its
    stylesheet before the first frame, so the body is never hidden there,
    and a stylesheet that fails to load costs half a second, not the page.
+   The rule that hides the body and the one that shows it both sit in
+   `@layer base`, so source order decides and `base.css`, which loads
+   after the head, wins. Move them together: with the hide rule in a later
+   layer, or in none, every page change would stay blank until the
+   transition ended. `tests/unit/viewTransition.test.ts` fails when either
+   leaves `base`.
 
 ---
 
@@ -1643,6 +1701,9 @@ Stylelint is wired in (`npm run lint:css`) with:
   The `customProperties` allow-list beside it holds the properties set only
   from templates via `:style` bindings (`--swatch-bg`, `--pick-h`, and so
   on); extend it when a template injects a property that CSS then reads.
+- `reportNeedlessDisables`, which fails a `stylelint-disable` directive that
+  switches nothing off. Lint without the directive first, and add it only
+  for an error you have seen.
 
 `*.snippet.*` files are excluded from both linters: `.stylelintignore` skips
 `src/**/*.snippet.css`, and `eslint.config.js` ignores
