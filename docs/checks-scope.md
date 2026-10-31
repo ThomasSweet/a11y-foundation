@@ -93,7 +93,8 @@ What it says, in this order:
 It copies none of the README's tables or engine notes: the README ships with
 each version, and a second copy would drift. A static page in `SiteFrame`,
 with no script for its mechanism. It joins the sitemap, `llms.txt`'s page list
-and the hub (section 2). After it ships, Thomas points the package's
+and the hub (section 2), and the page lists in the specs and unit tests that
+read one folder level only, so it must be added to them by name. After it ships, Thomas points the package's
 `homepage` and the repository's website field at it.
 
 **Its own domain?** Not now. The package name already carries this domain's
@@ -164,7 +165,7 @@ Once 0.2.0 is three days old:
 - Add the package as a devDependency, pinned to an exact version: the
   README's "Versions" says a 0.x minor can change what a check reports.
 - Replace "native dialog traps focus and closes on Escape" in
-  `keyboard.spec.ts`, which never presses Tab (ROADMAP Known debt), with
+  `keyboard.spec.ts`, which never presses Tab, with
   `toOpenADialogThatHoldsFocus`.
 - Add `tests/e2e/behaviour.spec.ts`, adapted from the package's
   `tests/site.spec.ts`:
@@ -182,6 +183,19 @@ Once 0.2.0 is three days old:
 - Measure the added time with the JSON reporter. The expanded-state check
   presses every widget on every page in three engines, and the package's
   site run allows 180 seconds per test.
+
+**Done on 31 October 2026.** 0.2.0 is pinned, `behaviour.spec.ts` replaces the
+dialog test, and every page runs in all three engines at the desktop default,
+1280 wide. Before the spec, a scratch run of the same checks at 1280 and 390
+wide covered 17 pages, three dialogs and the craft form, and found only the
+takeover dialog's Escape warning. Locally the spec adds about 20 seconds to a
+full run, and its slowest test takes 1.8 seconds. Those are Mac figures, so
+decision 6's Chromium-only fallback stays open until a CI run has been read.
+
+The sample is small. Each engine makes 16 presses on 6 distinct widgets, and
+no page has page-authored error text or `aria-invalid` yet, so the error check
+guards against future errors. Say "found nothing untied" on the page, not that
+the site's errors are tied.
 
 **Playwright 1.65**, when it ships, hides inert content and the page behind a
 modal from role queries and makes clicks wait on inert elements. The site's
@@ -221,8 +235,7 @@ All within the word budget: about 120 words net.
 
 ## Phases
 
-1. Use the package on the site, once 0.2.0 is three days old. Smallest, and
-   it proves the matchers on real pages first.
+1. Use the package on the site. Done on 31 October 2026: section 4.
 2. In one change, so the proof sentence's link resolves: the proof rows with
    the axe measurements behind them, the `/checks/` page, the Tools group,
    the sitemap, `llms.txt` and the what-changed line. Then Thomas updates
