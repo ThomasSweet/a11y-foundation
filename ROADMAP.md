@@ -42,13 +42,11 @@ How to edit this file:
 ### Now
 
 - **The checks package on the site**, as decided on 2026-10-29 in
-  [docs/checks-scope.md](docs/checks-scope.md). First, from 31 October: 0.2.0
-  as a pinned devDependency, `behaviour.spec.ts`, and the dialog test in Known
-  debt replaced. Then, in one change: the three proof rows with axe's misses
-  measured, the `/checks/` page, and a Tools group on the hub (T·01 agent
-  skill, T·02 checks, the reference sheets closing up to A·03), plus one
-  what-changed line. Then the npm homepage and the repository's website field
-  point at `/checks/`.
+  [docs/checks-scope.md](docs/checks-scope.md). In one change: the three proof
+  rows with axe's misses measured, the `/checks/` page, and a Tools group on
+  the hub (T·01 agent skill, T·02 checks, the reference sheets closing up to
+  A·03), plus one what-changed line. Then the npm homepage and the
+  repository's website field point at `/checks/`.
 
 ### Next
 
@@ -203,9 +201,6 @@ source before touching the wording or the sources-read stamp in
   set `border-color: currentcolor`; 86 of those sit on `--color-border`,
   which the preferences layer already turns to `CanvasText`. Check each before
   removing any.
-- **The dialog spec never presses Tab.** "native dialog traps focus" in
-  `keyboard.spec.ts` checks that focus starts inside and that Escape closes
-  it. Walk Tab and Shift+Tab inside, and check focus returns to the opener.
 - **Two fluid sizes outside GUIDE's rule.** The hub headline
   (`--text-display`, a cap 1.8 times its floor) and `.chapter-no` (`4.6vw`,
   no `rem` term, 1.57 times) break the fluid-type rule. Shipping engines
@@ -339,6 +334,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-31: The site runs its own checks package: 0.2.0 pinned, every page swept in three engines, and the dialog test presses Tab now. #111
 - 2026-10-31: Test gaps closed: card and era jumps, coarse-pointer targets, live links mid-transition, shipped layers, carousel dialogs, and Recently done numbers in CI. #110
 - 2026-10-31: Back to the brief: head and page-change rules sit in layers, head comments and dead lint directives go, and GUIDE gets one comment rule. #109
 - 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
@@ -353,7 +349,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
 - 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
 - 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
-- 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

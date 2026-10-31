@@ -97,7 +97,7 @@ tests/
                               inversion, audit-room, listening-room, prerender, feed,
                               standards-map, anchor-tooltip, responsive, contrast,
                               focus-ring, orientation, motion, llms, coarse-pointer,
-                              layers
+                              layers, behaviour
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -1647,6 +1647,14 @@ runner restored the cached WebKit built for 24.04, which could not start.
 listening-room specs pin exact findings. Bump it and `@axe-core/playwright` in
 the same change: the wrapper wants a matching `axe-core` minor, so bumping
 one alone installs a second copy and the pin stops governing the specs.
+
+`@accessible-by-default/checks` is pinned exactly too, because a 0.x minor can
+change what a check reports. `behaviour.spec.ts` runs it on every page and the
+three showcase and craft dialogs, in three engines: it presses widgets and
+reports when they lie, which axe cannot. Warnings fail the run, so a new
+finding cannot pass as a note; the takeover dialog's Escape warning is the one
+exception, asserted by code. A defect in a check is fixed in the package's
+repository, not worked around here.
 
 **Before a change to a spec is ready**, run the whole suite with the JSON
 reporter and read the slowest tests:

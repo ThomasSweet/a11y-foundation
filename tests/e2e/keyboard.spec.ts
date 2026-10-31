@@ -235,19 +235,6 @@ test.describe('keyboard & focus behaviour', () => {
     await expect(status).toBeEmpty()
   })
 
-  test('native dialog traps focus and closes on Escape', async ({ page }) => {
-    await page.goto('/craft.html')
-    await page.getByRole('button', { name: /open dialog/i }).click()
-
-    const dialog = page.getByRole('dialog')
-    await expect(dialog).toBeVisible()
-    // showModal() should move focus into the dialog.
-    expect(await dialog.evaluate((d) => d.contains(document.activeElement))).toBe(true)
-
-    await page.keyboard.press('Escape')
-    await expect(dialog).toBeHidden()
-  })
-
   test('popover menu opens and light-dismisses with Escape', async ({ page }) => {
     await page.goto('/showcase.html')
     const trigger = page.getByRole('button', { name: /actions/i })
