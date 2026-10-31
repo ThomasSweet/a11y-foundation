@@ -122,7 +122,6 @@
   }
 
   @supports (appearance: base-select) {
-    /* stylelint-disable property-no-unknown -- emerging customizable-select syntax */
     .custom-select,
     .custom-select::picker(select) {
       appearance: base-select;
@@ -320,7 +319,6 @@
         scale: 0.4;
       }
     }
-    /* stylelint-enable property-no-unknown */
   }
 
   .custom-select-dot {

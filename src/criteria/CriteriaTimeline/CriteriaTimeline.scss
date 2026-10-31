@@ -253,7 +253,6 @@
         animation-range: entry 0% entry 100%;
       }
 
-      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :deep(.criterion:not(:target, :has(:target, :focus-visible))) {
         animation: era-slide-in linear none;
         animation-timeline: view();

@@ -7,6 +7,7 @@
     "stylelint-order",
     "stylelint-value-no-unknown-custom-properties"
   ],
+  "reportNeedlessDisables": true,
   "rules": {
     "csstools/value-no-unknown-custom-properties": [
       true,

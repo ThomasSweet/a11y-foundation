@@ -177,7 +177,6 @@
 
   .zoom-compare-card-zoom {
     @supports (zoom: 2) {
-      /* stylelint-disable-next-line property-no-unknown -- interoperable, linter lags */
       zoom: var(--factor);
     }
   }

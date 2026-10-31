@@ -102,7 +102,6 @@
 
   @supports (reading-flow: flex-visual) {
     .reading-flow-demo:has(.reading-flow-toggle input:checked) .reading-flow-gallery {
-      /* stylelint-disable-next-line property-no-unknown -- Chrome-only, linter lags */
       reading-flow: flex-visual;
     }
   }

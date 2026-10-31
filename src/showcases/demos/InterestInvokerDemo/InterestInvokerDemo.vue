@@ -148,7 +148,6 @@
     color: var(--color-text);
   }
 
-  /* stylelint-disable-next-line property-no-unknown -- transition of display/overlay */
   .interest-card {
     opacity: 0;
     translate: 0 4px;
@@ -170,8 +169,6 @@
       }
     }
   }
-
-  /* stylelint-disable property-no-unknown -- interest invokers + anchor positioning */
 
   [interestfor] {
     interest-delay: 0.4s 0.2s;
@@ -200,7 +197,5 @@
     margin-block-end: var(--space-2);
     position-try-fallbacks: flip-block;
   }
-
-  /* stylelint-enable property-no-unknown */
 }
 </style>

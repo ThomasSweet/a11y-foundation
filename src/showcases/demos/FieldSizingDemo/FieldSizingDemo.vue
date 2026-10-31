@@ -64,7 +64,6 @@ const text = ref('')
     resize: vertical;
 
     @supports (field-sizing: content) {
-      /* stylelint-disable-next-line property-no-unknown -- emerging feature */
       field-sizing: content;
       min-block-size: calc(2lh + 2 * var(--space-3) + 2px);
       max-block-size: 8lh;

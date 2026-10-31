@@ -44,6 +44,15 @@ conformance. Repository: https://github.com/ThomasSweet/behaviour-checks.
   its repository holds a Chromium bug draft with a minimal page
   (`docs/upstream/chromium-scroll-marker-inert.md`), not yet filed. A browser
   bug, not the site's.
+- **The site now steps around it in CSS.** `CssCarouselDemo` sets
+  `scroll-marker-group: none` under `:root:has(dialog:modal)`, so the markers
+  are not rendered while a modal dialog is open. The package's walk, under
+  reduced motion in Chromium 156, found 1 to 5 blank stops in each of six
+  walks over the two showcase dialogs before the rule and none after it.
+  Without reduced motion none were found either way. The markers still work
+  with the dialog closed, and Firefox 157 and WebKit 27.2, which have no
+  scroll markers, render the page as before (29 October 2026). The rule goes
+  once Chromium fixes the bug: GUIDE, "Engine behaviours we work around".
 
 ## Standing decisions this touches
 
@@ -164,12 +173,12 @@ Once 0.2.0 is three days old:
   - the showcase's `closedby="none"` takeover dialog, expecting exactly one
     code, `modal-walk/escape-does-not-close`, which is by design;
   - the craft form after an empty submit.
-- Chromium's `modal-walk/blank-stop-behind-dialog` warning on the showcase is
-  set aside by its code, as the package's own site spec does, until Chromium
-  fixes it.
+- Chromium's `modal-walk/blank-stop-behind-dialog` warning on the showcase
+  needs no setting aside now that the carousel steps around it: a walk that
+  reports it means the rule stopped working.
 - The package's site runs before 0.2.0 found only the Escape warning, and
   0.2.0 added the blank-stop check. Re-run after install and treat anything
-  beyond those two warnings as a finding.
+  beyond the Escape warning as a finding.
 - Measure the added time with the JSON reporter. The expanded-state check
   presses every widget on every page in three engines, and the package's
   site run allows 180 seconds per test.

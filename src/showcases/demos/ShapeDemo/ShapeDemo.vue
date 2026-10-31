@@ -79,13 +79,13 @@ const width = ref(100)
 </script>
 
 <style scoped lang="scss">
-@property --shape-wave {
-  syntax: '<percentage>';
-  inherits: true;
-  initial-value: 78%;
-}
-
 @layer components {
+  @property --shape-wave {
+    syntax: '<percentage>';
+    inherits: true;
+    initial-value: 78%;
+  }
+
   .shape-demo {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

@@ -144,6 +144,10 @@ How to edit this file:
   suite and the checks, and fix specs that query or click behind a dialog.
   If its Firefox is 158 or later, drop `CFFIXED_USER_HOME` from
   `playwright.config.ts` and its bullet in GUIDE's "In tests".
+- **Firefox and `view()` on the compositor**: version 159 runs every `view()`
+  animation on the main thread (bug 1818346). Trigger: the bug ships in a
+  release; re-measure showcase's scroll cost and update GUIDE's scroll-driven
+  rule 2.
 - **Media state pseudo-classes** (`:playing`, `:paused` and five more):
   web-features 3.42 has Firefox 150 and Safari 15.4, no Chrome. Trigger:
   web-features lists a Chrome version; the monthly routine checks this, since
@@ -219,6 +223,33 @@ source before touching the wording or the sources-read stamp in
   went dark after a jump to proof's short "Performance is accessibility"
   at 1440x1000. Untried: a band pinned in `rem` just below the landing line.
   Visual only; the links carry no `aria-current`.
+- **Lists without `role="list"`.** Lists in 16 components set
+  `list-style: none` without it, against the `reset.css` convention:
+  CraftLinks, HubRevisions, HasSelectorDemo, HidingMatrixDemo, StandardsMap,
+  the timeline and ten more. Safari may drop their list semantics; not
+  measured.
+- **Carousel slides follow the OS.** `CssCarouselDemo` colours them under
+  `@include dark-mode`, a `prefers-color-scheme` query, so they ignore the
+  reader's theme choice. `light-dark()` would follow it.
+- **Grids that name no column.** About 115 `display: grid` rules in 61
+  files, `.code-compare-item` among them, break GUIDE's "Layout that cannot
+  be widened" rule 1.
+- **The details demo's marker colour.** `DetailsContentDemo` colours the
+  native marker through `::marker`, which an older Safari that draws
+  `::-webkit-details-marker` ignores. Not measured.
+- **Forced colours flatten control states.** In forced colours, the
+  `preferences` layer gives every `button`, `input`, `select` and `textarea`
+  a `1px solid ButtonText` border over the components' own: the text field's
+  2px invalid edge, `ViewTransitionDemo`'s `Highlight` pressed edge and
+  disabled controls' `GrayText` edge all go (Chromium and Firefox,
+  2026-10-29). A field's `error` message keeps its ⚠, but no page passes
+  one. Setting only `border-style: solid` kept all three in Chromium;
+  controls written with `border: none` or `0` would then need a pass.
+- **The boot ground works on dev only.** Production lowers the entry heads'
+  `light-dark()` to `--lightningcss-*` fallbacks that no head defines, so
+  with CSS blocked `html` is transparent (2026-10-29). Stylesheets block
+  rendering, so readers meet this only if one fails. `color-scheme` in the
+  heads' `tokens` layer, as the static pages have, should fix it; not built.
 
 ---
 
@@ -308,12 +339,13 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-31: Back to the brief: head and page-change rules sit in layers, head comments and dead lint directives go, and GUIDE gets one comment rule. #109
 - 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
 - 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
 - 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
 - 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
 - 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
-- 2026-10-29: The site's CSS has no comments left: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
+- 2026-10-29: The site's stylesheets lost their comments, directives aside: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
 - 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
 - 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
 - 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
@@ -322,7 +354,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
 - 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
-- 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

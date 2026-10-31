@@ -224,7 +224,6 @@
   }
 
   @supports (anchor-name: --a) {
-    /* stylelint-disable property-no-unknown -- anchor positioning */
     .anchor-tooltip-row:nth-child(1) .anchor-tooltip-trigger { anchor-name: --anchor-tooltip-1; }
     .anchor-tooltip-row:nth-child(1) .anchor-tooltip-bubble { position-anchor: --anchor-tooltip-1; }
     .anchor-tooltip-row:nth-child(2) .anchor-tooltip-trigger { anchor-name: --anchor-tooltip-2; }
@@ -240,7 +239,6 @@
       margin-block-end: var(--space-2);
       position-try-fallbacks: flip-block;
     }
-    /* stylelint-enable property-no-unknown */
   }
 }
 </style>
