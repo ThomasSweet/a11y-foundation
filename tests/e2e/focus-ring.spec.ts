@@ -151,7 +151,6 @@ test.describe('the global focus ring', () => {
       test.use({ contextOptions: { forcedColors: 'active', contrast } })
 
       test(`a focused link gets the ring in ButtonText, ${width} wide`, async ({ page, browserName }) => {
-        test.skip(browserName === 'webkit', 'Playwright cannot emulate forced colours in WebKit')
         await page.goto('/craft.html')
         const buttonText = await page.evaluate(() => {
           const probe = document.createElement('span')
@@ -161,7 +160,7 @@ test.describe('the global focus ring', () => {
           probe.remove()
           return color
         })
-        await page.keyboard.press('Tab')
+        await page.keyboard.press(browserName === 'webkit' ? 'Alt+Tab' : 'Tab')
         const link = page.locator('a:focus-visible')
         await expect(link).toHaveCount(1)
         await expect(link).toHaveCSS('outline-color', buttonText)

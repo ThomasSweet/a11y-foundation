@@ -339,6 +339,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-31: Test gaps closed: card and era jumps, coarse-pointer targets, live links mid-transition, shipped layers, carousel dialogs, and Recently done numbers in CI. #110
 - 2026-10-31: Back to the brief: head and page-change rules sit in layers, head comments and dead lint directives go, and GUIDE gets one comment rule. #109
 - 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
 - 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
@@ -353,7 +354,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
 - 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
-- 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

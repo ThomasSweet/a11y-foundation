@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - uses: actions/setup-node@v7
         with:
@@ -51,6 +53,12 @@ jobs:
         run: |
           npm run skill:gen
           git diff --exit-code -- skills public/llms public/feed.xml src/showcases/baseline-data.json
+
+      - name: Recently done lines carry this pull request's number
+        if: github.event_name == 'pull_request'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: node scripts/check-recently-done.mjs --pr "$PR_NUMBER" --base HEAD^1
 
   e2e:
     runs-on: ubuntu-24.04
