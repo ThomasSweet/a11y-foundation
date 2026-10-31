@@ -406,3 +406,60 @@ test.describe('keyboard & focus behaviour', () => {
     }
   })
 })
+
+test.describe('carousel markers while a modal dialog is open', () => {
+  test.use({ contextOptions: { reducedMotion: 'reduce' } })
+
+  const walk = async (page: Page, presses: number, key: 'Tab' | 'Shift+Tab') => {
+    for (let press = 0; press < presses; press++) {
+      await page.keyboard.press(key)
+      await page.evaluate(() => new Promise(requestAnimationFrame))
+    }
+  }
+
+  for (const { opener, close } of [
+    { opener: 'Open the dialog', close: 'Escape' },
+    { opener: 'Open takeover dialog', close: 'button' },
+  ] as const) {
+    test(`Tab stays inside "${opener}", and the markers come back after it closes`, async ({ page }) => {
+      await page.goto('/showcase.html')
+      test.skip(!(await page.evaluate(() => CSS.supports('selector(::scroll-marker)'))), 'no scroll markers')
+
+      const stops = await page.evaluateHandle(() => {
+        const seen = { outside: [] as string[], markers: new Set<string>() }
+        addEventListener(
+          'focusin',
+          ({ target }) => {
+            if (!(target instanceof HTMLElement)) return
+            if (target.dataset.markerLabel) seen.markers.add(target.dataset.markerLabel)
+            if (document.querySelector('dialog:modal') && !target.closest('dialog')) seen.outside.push(target.className)
+          },
+          true,
+        )
+        return seen
+      })
+
+      const carousel = page.locator('.css-carousel')
+      await carousel.scrollIntoViewIfNeeded()
+      await page.evaluate(() => new Promise(requestAnimationFrame))
+
+      const button = page.getByRole('button', { name: opener, exact: true })
+      await button.scrollIntoViewIfNeeded()
+      await button.focus()
+      await page.keyboard.press('Enter')
+      const dialog = page.locator('dialog:modal')
+      await expect(dialog).toBeVisible()
+
+      await walk(page, 8, 'Tab')
+      expect(await stops.evaluate(({ outside }) => outside)).toEqual([])
+
+      if (close === 'Escape') await page.keyboard.press('Escape')
+      else await dialog.getByRole('button').last().click()
+      await expect(dialog).toBeHidden()
+
+      await carousel.focus()
+      await walk(page, 8, 'Shift+Tab')
+      expect(await stops.evaluate(({ markers }) => markers.size)).toBe(5)
+    })
+  }
+})

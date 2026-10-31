@@ -86,16 +86,18 @@ scripts/
 ├── gen-icons.mjs           — favicon, PWA icons, apple-touch icon, OG image, social preview (npm run icons:gen)
 ├── gen-baseline-icons.mjs  — fetches the official Baseline icon sprite; manual, needs the network
 ├── baseline-watch.js       — the fallback MANIFEST; report via npm run baseline:check, gate via vitest
+├── check-recently-done.mjs — fails a pull request whose new Recently done line has another number (CI)
 └── prerender.mjs           — SSR build of every view into dist/*.html, the second half of npm run build
 
 tests/
 ├── unit/                   — vitest, node environment: themePickerMath, showcaseSnippets,
 │                             baseline, revisions, bootGround, htaccess, viewTransition,
-│                             roadmap
+│                             roadmap, recentlyDone, layerOrder
 └── e2e/                    — Playwright in Chromium, Firefox and WebKit: a11y, keyboard,
                               inversion, audit-room, listening-room, prerender, feed,
                               standards-map, anchor-tooltip, responsive, contrast,
-                              focus-ring, orientation, motion, llms
+                              focus-ring, orientation, motion, llms, coarse-pointer,
+                              layers
 
 .github/workflows/
 ├── ci.yml                  — the gates, on push and pull_request to main
@@ -136,7 +138,7 @@ head can link a component file first (`craft.html` links `mount-*.css`,
 which holds only `components`, before the global stylesheet). So the first
 `<style>` in the head of every page that loads the stylesheet repeats the
 statement before any other CSS. Keep it first in each head, and keep it
-the same as `layers.css`.
+the same as `layers.css`: `layerOrder.test.ts` fails when a head differs.
 
 Layers settle most of the cascade, not all of it: inside one layer, source
 order still decides between rules of equal specificity. `theming/presets.css`
@@ -162,7 +164,8 @@ the `preferences` layer. Every rule you write must be inside a layer:
 That includes the `<style>` blocks in the heads of the pages that load the
 stylesheet, and at-rules. `@view-transition` and `@property` work inside a
 layer and cascade by it: an unlayered `@view-transition { navigation: none }`
-would beat the layered opt-in on every page.
+would beat the layered opt-in on every page. Stylelint does not catch an
+unlayered rule. `layers.spec.ts` does, by walking what each built page loads.
 
 ### In Vue single-file components
 
@@ -263,8 +266,10 @@ exactly like inline blocks did.
   that serve the agent files as UTF-8 and send `/llms` to `llms.txt`
   (`htaccess.test.ts`), the page-change opt-in in each page head and the
   `base.css` rule that answers it (`viewTransition.test.ts`, see
-  "Cross-document view transitions"), and the ROADMAP's word budget and
-  the shape the monthly routine reads (`roadmap.test.ts`). `npm run test:e2e`
+  "Cross-document view transitions"), the ROADMAP's word budget and the
+  shape the monthly routine reads (`roadmap.test.ts`), the Recently done
+  check (`recentlyDone.test.ts`), and the layer statement in each page head
+  (`layerOrder.test.ts`). `npm run test:e2e`
   builds, serves and runs the Playwright suite in three engines;
   `npm run baseline:check` prints the Baseline report the gate is built on.
   CI runs all of it.
@@ -841,7 +846,8 @@ the spec.
   `scroll-marker-group: none` under `:root:has(dialog:modal)`, so no marker
   exists while a modal is open and each comes back fresh. The dot row's
   20px goes with it; scroll anchoring holds the view when the carousel is
-  above it. Re-check: remove the rule, open a showcase dialog under reduced
+  above it. `keyboard.spec.ts` fails if a marker takes focus behind a
+  dialog. Re-check: remove the rule, open a showcase dialog under reduced
   motion and press Tab; drop the rule once no marker takes focus.
 - **iOS WebKit 26: a `tabindex="-1"` element focused by script matches
   `:focus-visible`** (July 2026), so the whole content column drew the ring
@@ -1361,7 +1367,7 @@ scroll-driven showcase's progress bar still runs. Four rules follow.
    strata, the "You are here" label and the rows in the scroll-driven
    showcase carry no guard: they hold no link, control or id, so nothing
    in them can be a target or take focus. `motion.spec.ts` covers the jump
-   and the Tab on chapter reveals.
+   on chapter, card and era reveals, and the Tab on chapter reveals.
 
 ### Cross-document view transitions
 
@@ -1622,11 +1628,15 @@ at the exact check: `typecheck`, `lint:css`, `lint:js`, `baseline:check`
 (informational, never fails), `test:unit`, `build`, then "Generated files
 are committed", which runs `skill:gen` and `git diff --exit-code` over
 `skills/`, `public/llms/`, `public/feed.xml` and
-`src/showcases/baseline-data.json`. The `e2e` job installs the Playwright
-browsers and runs the suite in Chromium, Firefox and WebKit, uploading the
-report on failure. There is no cron: `npm ci` installs the locked
-`web-features`, so a scheduled run could never see new Baseline data. The
-bot below is the mechanism for that.
+`src/showcases/baseline-data.json`. On a pull request a last step runs
+`scripts/check-recently-done.mjs`: each line the pull request adds to
+ROADMAP's Recently done must end with that pull request's number, and a line
+it only corrects or rewords passes. It compares with the base the pull
+request merges into, so a pull request's checkout is two commits deep. The
+`e2e` job installs the Playwright browsers and runs the suite in Chromium,
+Firefox and WebKit, uploading the report on failure. There is no cron:
+`npm ci` installs the locked `web-features`, so a scheduled run could never
+see new Baseline data. The bot below is the mechanism for that.
 
 The `e2e` job runs on `ubuntu-24.04`, not `ubuntu-latest`, and its browser
 cache key names the runner's Ubuntu release, read from `/etc/os-release`. In

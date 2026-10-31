@@ -65,17 +65,23 @@ test.describe('a reveal never stands between the reader and where they were sent
     await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' })
   }
 
-  const peek = (page: Page, heading: string, pixels: number) =>
+  const peek = (page: Page, target: string, pixels: number, reveal = '.demo') =>
     page.evaluate(
-      async ([selector, pixels]) => {
-        let el = document.querySelector(selector)?.closest<HTMLElement>('.demo') ?? null
+      async ([selector, pixels, reveal]) => {
+        let el = document.querySelector(selector)?.closest<HTMLElement>(reveal) ?? null
         let top = 0
         for (; el; el = el.offsetParent as HTMLElement | null) top += el.offsetTop
         scrollTo({ top: top - innerHeight + pixels, behavior: 'instant' })
         await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
       },
-      [heading, pixels] as const,
+      [target, pixels, reveal] as const,
     )
+
+  const landing = (page: Page, id: string) =>
+    page.locator(`#${id}`).evaluate(async (target) => {
+      await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
+      return target.getBoundingClientRect().top - parseFloat(getComputedStyle(target).scrollMarginBlockStart)
+    })
 
   test('a rail jump into a section that is still revealing lands under the scroll margin', async ({ page }) => {
     await open(page, '/craft.html')
@@ -87,10 +93,37 @@ test.describe('a reveal never stands between the reader and where they were sent
     for (const id of ids) {
       await peek(page, `#${id}`, 30)
       await page.locator(`.chapter-section-link[href="#${id}"]`).click()
-      const miss = await page.locator(`#${id}`).evaluate(async (heading) => {
-        await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)))
-        return heading.getBoundingClientRect().top - parseFloat(getComputedStyle(heading).scrollMarginBlockStart)
-      })
+      const miss = await landing(page, id)
+      expect(Math.abs(miss), `#${id} lands ${miss}px from its scroll margin`).toBeLessThan(2)
+    }
+  })
+
+  test('a jump to a showcase card that is still revealing lands under the scroll margin', async ({ page }) => {
+    await open(page, '/showcase.html')
+    const ids = await page
+      .locator('.showcase-group')
+      .evaluateAll((groups) => groups.map((group) => group.querySelector(".showcase:not(:has([data-reveal='off']))")?.id ?? ''))
+    expect(ids.length).toBeGreaterThan(0)
+
+    for (const id of ids) {
+      await peek(page, `#${id}`, 30, '.showcase')
+      await page.evaluate((hash) => (location.hash = hash), id)
+      const miss = await landing(page, id)
+      expect(Math.abs(miss), `#${id} lands ${miss}px from its scroll margin`).toBeLessThan(2)
+    }
+  })
+
+  test('a jump into a timeline era that is still revealing lands under the scroll margin', async ({ page }) => {
+    await open(page, '/standard.html')
+    const ids = await page
+      .locator('.timeline-era:has(.criterion-title)')
+      .evaluateAll((eras) => eras.map((era) => era.querySelector('.criterion-title')?.id ?? ''))
+    expect(ids.length).toBeGreaterThan(0)
+
+    for (const id of ids) {
+      await peek(page, `#${id}`, 30, '.timeline-era')
+      await page.evaluate((hash) => (location.hash = hash), id)
+      const miss = await landing(page, id)
       expect(Math.abs(miss), `#${id} lands ${miss}px from its scroll margin`).toBeLessThan(2)
     }
   })
@@ -115,5 +148,54 @@ test.describe('a reveal never stands between the reader and where they were sent
       return product
     })
     expect(opacity).toBeGreaterThan(0.99)
+  })
+})
+
+test.describe('a page change keeps every link live', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } })
+
+  test('a link clicked while the page change runs takes the reader on', async ({ page }) => {
+    await page.addInitScript(() => {
+      addEventListener('pagereveal', (event) => {
+        const arrived = performance.now()
+        const transition = (event as PageRevealEvent).viewTransition
+        let running = !!transition
+        transition?.ready.then(
+          () => document.documentElement.animate([], { duration: 10_000, pseudoElement: '::view-transition' }),
+          () => {},
+        )
+        transition?.finished.finally(() => (running = false))
+        sessionStorage.setItem(`reveal:${location.pathname}`, String(!!transition))
+        addEventListener(
+          'click',
+          (click) => {
+            const href = click.target instanceof Element ? click.target.closest('a')?.getAttribute('href') : null
+            sessionStorage.setItem(
+              `click:${location.pathname}`,
+              JSON.stringify({ after: performance.now() - arrived, running, href }),
+            )
+          },
+          { capture: true, once: true },
+        )
+      })
+    })
+
+    await page.goto('/craft.html')
+    test.skip(!(await page.evaluate(() => 'CSSViewTransitionRule' in window)), 'no cross-document view transitions')
+
+    await page.locator('.chapter-switch a[href="/proof.html"]').click()
+    await page.waitForURL('**/proof.html', { waitUntil: 'commit' })
+    const box = await page.waitForFunction(
+      () =>
+        sessionStorage.getItem('reveal:/proof.html') &&
+        document.querySelector('.chapter-switch a[href="/standard.html"]')?.getBoundingClientRect().toJSON(),
+    )
+    const { x, y, width, height } = await box.jsonValue()
+    await page.mouse.click(x + width / 2, y + height / 2)
+
+    await expect(page).toHaveURL(/\/standard\.html$/)
+    expect(await page.evaluate(() => sessionStorage.getItem('reveal:/proof.html'))).toBe('true')
+    const click = await page.evaluate(() => JSON.parse(sessionStorage.getItem('click:/proof.html') ?? 'null'))
+    expect(click).toMatchObject({ running: true, href: '/standard.html' })
   })
 })
