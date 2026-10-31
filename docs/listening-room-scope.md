@@ -151,22 +151,21 @@ order and one new line per answer:
 2. **The broken page.**
 3. **Answers**, one `<details>` per barrier, hint first ("Barrier 4:
    something in the biography sounds wrong"), nested `<details>` for
-   the reveal. Each reveal carries, in this order: **heard** (what the
-   screen reader actually announced at that spot, as a short
-   transcript), **should say** (the announcement the fix produces), the
+   the reveal. Each reveal carries, in this order: **heard** (the
+   announcement at that spot, as a short transcript, shipped as a
+   prediction: see the status under Testing), **should say** (the
+   announcement the fix produces), the
    criterion linked to the timeline, the layer that catches it linked
    to proof, and the fix, linked to craft or the agent skill. The heard
    line is what lets a visitor without a screen reader on hand still
-   learn the room, and it is why the transcripts must be measured, not
-   imagined.
+   learn the room.
 
 ⚑ Which engines to transcribe. VoiceOver with Safari on macOS is
 available here and is the baseline. NVDA with Firefox on Windows is the
 other pair A·03 teaches; if it cannot be measured before shipping, the
-answers say "VoiceOver" rather than "screen readers" and the NVDA
-column is added when it can be. Where engines differ (#11 in
-particular), the answer states each engine's behaviour rather than
-averaging them.
+answers say "VoiceOver" rather than "screen readers". Where screen
+readers may differ (#10 in particular), the answer says what the
+difference depends on rather than averaging them.
 
 Considered and rejected, as in P·01: any found-counter or self-check.
 The hunt is the mechanism; the answers are the only apparatus.
@@ -202,14 +201,13 @@ with three parts:
 - **Keyboard spec** for the skip route and the details tiers, shared
   with P·01, across the usual three engines.
 
-The heard transcripts themselves are not pinned; they are measured by
-hand and dated in the answers, like the map's sources-read stamp.
+The transcripts themselves are not pinned.
 
-**Status 2026-09-16:** the transcripts shipped as predictions read from
-the accessibility tree in VoiceOver's phrasing, and the answers intro
-says exactly that. The recorded VoiceOver pass (NVDA when a Windows
-machine is at hand) is still owed; when it lands, the intro drops the
-caveat and the answers gain a dated stamp.
+**Status 2026-09-16:** the transcripts shipped as predictions worked out
+from the accessibility tree and language attributes in VoiceOver's
+phrasing, and the answers intro says exactly that. As of 2026-10-31 they
+have not been recorded from a screen reader, so the intro keeps its
+caveat and each line is labelled "Predicted".
 
 ## Wiring
 
@@ -244,13 +242,14 @@ caveat and the answers gain a dated stamp.
    built page and fix the list until the numbers are exactly as
    documented. Cut to eleven.
 4. **The transcripts**: the VoiceOver pass, one heard line per barrier,
-   dated; NVDA if available. Owed as of 2026-09-16.
+   dated; NVDA if available. Shipped as predictions instead: see
+   the status under Testing.
 5. **Answers**: hints, reveals with heard and should-say lines,
    cross-links.
 6. **Test rig**: the two-rule-set spec, the tree assertions, the
    keyboard spec, exclusion wiring.
-7. **Ship**: wiring above, manual screen reader, keyboard and
-   forced-colours pass, the what-changed line, deploy by merge.
+7. **Ship**: wiring above, a keyboard and forced-colours pass, the
+   what-changed line, deploy by merge.
 
 Each phase is one reviewable change; nothing merges until its spec is
 green.

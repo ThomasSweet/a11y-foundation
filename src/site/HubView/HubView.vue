@@ -117,10 +117,9 @@
               automated checks in the engines behind Chrome, Firefox and
               Safari: keyboard paths, axe, and emulated forced colours and
               reduced motion, plus reduced transparency in Chromium, the only
-              engine that reads it. Real browsers, phones and screen readers
-              need checks by hand, and the ones still owed are
-              <a href="https://github.com/ThomasSweet/a11y-foundation/blob/main/ROADMAP.md#owed-checks">listed
-              in the roadmap</a>.
+              engine that reads it. VoiceOver on the Mac, an iPhone and Safari
+              itself are checked by hand from time to time, not before every
+              change.
             </p>
             <p>
               <strong>Found a barrier?</strong> Accessibility work is never

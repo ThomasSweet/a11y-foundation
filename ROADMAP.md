@@ -1,9 +1,9 @@
 # Roadmap
 
-What comes next for accessible-by-default.dev, what is owed, what is being
-watched, and what has been decided. The site argues, in four chapters with
-practice rooms, an agent skill and a feed, how much of accessibility the web
-platform handles natively. Every item here keeps three constraints:
+What comes next for accessible-by-default.dev, what is still to fix, what is
+being watched, and what has been decided. The site argues, in four chapters
+with practice rooms, an agent skill and a feed, how much of accessibility the
+web platform handles natively. Every item here keeps three constraints:
 
 - **Platform first.** A native element or a CSS feature before JavaScript; a
   little Vue before a library.
@@ -28,11 +28,11 @@ How to edit this file:
   reason. Credit the finder only if they are named in README's Thanks.
 - Point with a heading name or a PR number, never "above" or "below".
 - The monthly cloud routine "Standards and browser freshness sweep" reads,
-  under Open, the sections "Standards re-checks (dated)", "Owed checks" and
-  "Watchlist", and under Standing decisions the entry "What earns a
-  what-changed line". Keep those names and that nesting, or change the
-  routine's prompt in the same change. GUIDE's "What changed" states the same
-  rule: change both together.
+  under Open, the sections "Standards re-checks (dated)" and "Watchlist",
+  and under Standing decisions the entry "What earns a what-changed line".
+  Keep those names and that nesting, or change the routine's prompt in the
+  same change. GUIDE's "What changed" states the same rule: change both
+  together.
 - Budget: about 3,000 words, never more than 3,500.
 
 ---
@@ -52,12 +52,12 @@ How to edit this file:
 
 ### Next
 
-- **An accessibility statement with evidence.** The hub's statement now says
-  what is automated and links the owed checks. After those checks, date it
-  with the combinations tried by hand and the known gaps,
-  and add `ACCESSIBILITY.md`, which GitHub has shown on the repository
-  overview since 2026-10-01; README's section then points to it. Later, a
-  WCAG-EM self-evaluation with W3C's report tool.
+- **An accessibility statement with evidence.** The hub's statement says
+  what runs on every change and that hand testing happens from time to time,
+  not before every change. Date it, name the known gaps, and add
+  `ACCESSIBILITY.md`, which GitHub has shown on the repository overview since
+  2026-10-01; README's section then points to it. Later, a WCAG-EM
+  self-evaluation with W3C's report tool.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -193,28 +193,6 @@ source before touching the wording or the sources-read stamp in
   link and preview card in `InterestInvokerDemo.vue`, and see whether a
   watched feature made the cut.
 
-### Owed checks
-
-- **VoiceOver pass for the listening room**, owed since 2026-09-16. Record
-  what VoiceOver says for each of the eleven barriers (NVDA too, given a
-  Windows machine), then drop the "predictions" caveat and date the answers.
-  When: the next screen reader session. See
-  [docs/listening-room-scope.md](docs/listening-room-scope.md).
-- **Safari 27 and style queries**, owed since 2026-09-14. Does real Safari 27
-  apply pseudo-element rules inside a style query? If so, qualify
-  `StyleQueryCuesDemo.snippet.css` with the last affected version, and recheck
-  the `::after` moon glyph in `LightDarkDemo.vue`. When: with the iPhone
-  check.
-- **Real iPhone after the responsiveness sweep**, owed since 2026-10-11: the
-  hero strike, the "Content source", "Theme" and "Filter by topic" rows, and
-  proof's "A layered job". Playwright's WebKit is not iOS Safari. When: the
-  next look on the phone.
-- **Increase Contrast and 1.3.4 in real Safari**, owed since 2026-10-13:
-  Increase Contrast on an iPhone and a Mac with craft open (its mapping to
-  `prefers-contrast: more` was read in WebKit's source, never tried), and
-  whether the arrow keys scroll the 1.3.4 device screen. When: with the
-  iPhone check.
-
 ### Known debt
 
 - **High-contrast blocks.** Of 130 `@include high-contrast` blocks, 117 only
@@ -330,6 +308,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
 - 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
 - 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
 - 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
@@ -344,7 +323,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-28: Page changes no longer swallow clicks: the live content fades in. Survey 11 figures; craft's last two rail links light up. #96
 - 2026-10-26: Agent files: /llms/ no longer answers 403, the markdown is served as UTF-8, and pages link their markdown twins. #95
 - 2026-10-18: axe 4.14: it now checks Label in Name, so a scanner finds three of the audit room's twelve barriers. #92
-- 2026-10-18: Playwright 1.64: engines re-checked, a WebKit 27.2 clip in the customizable select fixed, GUIDE's workaround notes corrected. #91
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

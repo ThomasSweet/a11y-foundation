@@ -12,7 +12,7 @@
             <div class="practice-answers-reveal-body">
               <p>{{ a.what }}</p>
               <p v-if="a.heard" class="practice-answers-heard">
-                <strong>Heard:</strong> {{ a.heard }}
+                <strong>Predicted:</strong> {{ a.heard }}
               </p>
               <p v-if="a.shouldSay" class="practice-answers-should">
                 <strong>Should say:</strong> {{ a.shouldSay }}

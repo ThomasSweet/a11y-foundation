@@ -83,7 +83,7 @@ const layers: Layer[] = [
       'What automation can’t reason about: focus order, whether a custom control actually operates, whether meaning survives without colour, whether a change is announced.',
     misses: 'Slower, and ultimately needs a person — which is why the layers below clear the easy ground first.',
     tool: 'Playwright keyboard specs · a human with a screen reader',
-    here: ['tests/e2e/keyboard.spec.ts', 'tests/e2e/inversion.spec.ts', 'manual passes'],
+    here: ['tests/e2e/keyboard.spec.ts', 'tests/e2e/inversion.spec.ts'],
   },
 ]
 

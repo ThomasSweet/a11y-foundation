@@ -146,7 +146,7 @@ scheme for every page.</sub>
 The site's **proof** chapter argues that accessibility testing is layered —
 static checks, unit logic, an automated `axe` sweep, then keyboard and
 screen-reader passes — and that a scanner alone is never the whole story.
-The repo's suite is that model, runnable:
+The repo's suite runs the automated layers of that model:
 
 ```sh
 npm run test:unit   # contrast-clamp guarantee, snippet guard, Baseline fallback watch, revisions registry (Vitest)
@@ -193,7 +193,7 @@ npm run skill:gen   # regenerates the agent skill and the llms mirror from the r
 
 Conventions live in [GUIDE.md](./GUIDE.md) — the layer rules, mixin ordering,
 theming, and how component styles are written. The public backlog, with what
-is owed, watched and decided, is [ROADMAP.md](./ROADMAP.md); what was built
+is planned, watched and decided, is [ROADMAP.md](./ROADMAP.md); what was built
 before 16 October 2026, and why, is in
 [docs/history/2026.md](./docs/history/2026.md).
 
@@ -203,6 +203,9 @@ This project targets **WCAG 2.2 AA**, works with a keyboard and a screen
 reader, and never relies on color alone. It is a **demo and playground**, not
 a production dependency — built to be explored and learned from. The full
 [statement lives on the hub](https://accessible-by-default.dev/#a11y-statement).
+Every change runs the axe sweep and the keyboard specs in the engines behind
+Chrome, Firefox and Safari. VoiceOver on the Mac, an iPhone and Safari itself
+are checked by hand from time to time, not before every change.
 Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues) — that
 feedback is welcome and acted on.
@@ -214,9 +217,10 @@ working in Claude Code. The division of labour: the taste, the decisions,
 and the standard are mine; a large share of the execution — code, copy
 drafts, research sweeps, whole demo components — came from the agent,
 working under review. Nothing ships unread, and nothing ships untested:
-every page passes the axe sweep in three engines and the keyboard specs,
-and I put my own hands on a keyboard and a screen reader before anything
-goes live. Where the site states a number, the number was measured; the
+every change passes the axe sweep in three engines and the keyboard specs.
+Hand testing is occasional: the
+[accessibility statement](#accessibility-statement) says what it covers.
+Where the site states a number, the number was measured; the
 claims that matter are pinned in CI precisely so they cannot drift,
 however they were written. [ROADMAP.md](./ROADMAP.md) keeps the decisions,
 including ideas the agent proposed that I rejected, and

@@ -53,7 +53,7 @@ same registries that render the pages, so it cannot drift from the live demos.
   included
 - [The listening room](https://accessible-by-default.dev/listening-room.html):
   a page a scanner passes clean, with eleven barriers you hear before you see
-  them, each answer carrying the announcement it produces and the fix
+  them, each answer carrying the predicted announcement and the fix
 
 ## Optional
 

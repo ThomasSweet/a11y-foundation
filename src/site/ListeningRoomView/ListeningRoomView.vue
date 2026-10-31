@@ -44,12 +44,13 @@
     <PracticeAnswers id="listening-room-answers" :answers="barriers">
       <p>
         Each barrier below opens to a hint first; the answer hides one level
-        deeper. Every reveal carries what a screen reader announces at that
-        spot and what the fix makes it say instead, so the room is learnable
-        without a screen reader on hand. The announcements are read from the
-        accessibility tree this page builds, in VoiceOver’s phrasing; your own
-        engine will differ in wording, and where engines differ in substance
-        the answer says so rather than averaging them.
+        deeper. Every reveal carries what VoiceOver is likely to announce at
+        that spot and what the fix should make it say instead, so the room is
+        learnable without a screen reader on hand. The announcements are
+        predictions, worked out from the press kit’s accessibility tree and
+        language attributes and written in VoiceOver’s phrasing, not recordings
+        of a running screen reader. Your own screen reader will differ in
+        wording, and sometimes in substance.
       </p>
     </PracticeAnswers>
 
@@ -86,7 +87,7 @@ const barriers: Answer[] = [
     n: 1,
     hint: 'pull the heading list and read the first row',
     what: 'The h1 is an inline SVG wordmark with no title element and no role, so the level-one heading has no accessible name: the outline opens with a blank row. The heading after the sidebar’s h2 is an h4, because h4 happened to be the right size in the design, so the outline also jumps from level 2 to level 4 at its second step.',
-    heard: '"heading level 1", then either nothing or a bare "image", which the VoiceOver pass will settle. The rotor’s heading list opens with an empty row; under it come "Facts, heading level 2" and then "Biography, heading level 4".',
+    heard: '"heading level 1", then either nothing or a bare "image"; the tree alone cannot say which. The rotor’s heading list opens with an empty row; under it come "Facts, heading level 2" and then "Biography, heading level 4".',
     shouldSay: '"Fitis, heading level 1", then "Facts, heading level 2", then "Biography, heading level 2".',
     criterion: '1.3.1 Info and Relationships',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html',

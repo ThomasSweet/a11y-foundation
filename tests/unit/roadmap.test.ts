@@ -22,7 +22,7 @@ describe('ROADMAP.md', () => {
     const decisions = at('## Standing decisions')
     expect(open).toBeGreaterThan(-1)
     expect(decisions).toBeGreaterThan(open)
-    for (const heading of ['### Standards re-checks (dated)', '### Owed checks', '### Watchlist']) {
+    for (const heading of ['### Standards re-checks (dated)', '### Watchlist']) {
       const position = at(heading)
       expect(position, heading).toBeGreaterThan(open)
       expect(position, heading).toBeLessThan(decisions)
