@@ -494,7 +494,11 @@ the project `.npmrc`. There are two:
   ago, the window in which a compromised release is usually noticed and
   pulled. `npm ci` from the lockfile is unaffected, and `@latest` resolves to
   the newest version that is old enough. For an urgent fix, lift it for one
-  command: `npm update <pkg> --min-release-age=0`.
+  command: `npm update <pkg> --min-release-age=0`. `min-release-age-exclude`
+  exempts `@accessible-by-default/checks`: the wait counts on other people
+  noticing a bad release, Thomas approves every publish of this one, and the
+  site pins it to an exact version. It needs npm 11.17; an older npm keeps
+  the wait.
 - `strict-allow-scripts=true` fails an install when a dependency brings an
   install script nobody has reviewed. `allowScripts` in `package.json`
   records the decisions. It denies the only two today, `@parcel/watcher`
