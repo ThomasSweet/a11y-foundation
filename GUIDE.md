@@ -1710,7 +1710,10 @@ entries to the job summary, and comments the same summary on the pull
 request associated with that sha. It starts a fresh `deploy` branch only
 when `git ls-remote` finds none in the repository; any other failure to
 read the repository stops the deploy, and the log names the commit the new
-build is added to.
+build is added to. It fetches only the tip of that branch (`--depth=1`): a
+full fetch makes the server's git pack the whole history, and that ran out of
+memory twice on 2026-11-01. The server keeps the full history, and the new
+commit is pushed on top of the tip.
 
 **`baseline-moves.yml`** is the Monday bot: 09:30 UTC and on dispatch, bash
 with pipefail, one concurrency group. It bumps `web-features` to the latest

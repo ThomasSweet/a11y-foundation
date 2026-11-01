@@ -68,7 +68,7 @@ jobs:
           found=0
           git ls-remote --exit-code production refs/heads/deploy > /dev/null || found=$?
           if [ "$found" -eq 0 ]; then
-            git fetch -q production deploy
+            git fetch -q --depth=1 production deploy
             git checkout -q -b deploy production/deploy
             echo "Building on the deploy branch at $(git rev-parse --short HEAD)."
           elif [ "$found" -eq 2 ]; then
