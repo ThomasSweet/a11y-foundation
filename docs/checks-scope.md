@@ -84,11 +84,12 @@ What it says, in this order:
 1. What the three checks do, in one sentence each, worded from the README.
 2. Why: the survey item above, and that axe reads markup and cannot press a
    button to see what happened.
-3. Install, and one example, copied from the README's "Use" block.
+3. What the examples assume with a link to the README's Quick start, then the
+   install line and the examples, copied from the README.
 4. The site's own results: what the matchers find when this site runs them
    (section 4).
 5. What a pass does not prove, in one paragraph.
-6. Links: the README for everything else, npm, GitHub, issues.
+6. Links: the README for everything else, the changelog, npm, GitHub, issues.
 
 It copies none of the README's tables or engine notes: the README ships with
 each version, and a second copy would drift. A static page in `SiteFrame`,
