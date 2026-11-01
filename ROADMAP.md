@@ -41,8 +41,7 @@ How to edit this file:
 
 ### Now
 
-- **Point the package at `/checks/`**: the npm homepage and the repository's
-  website field, both by hand.
+Nothing in flight.
 
 ### Next
 
@@ -335,6 +334,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-11-01: The checks package moves to 0.3.0, our own package skips the install wait, and npm and GitHub now point at /checks/. #113
 - 2026-10-31: The checks package has a page at /checks/, the hub gains a Tools group, and proof gains three rows axe misses. #112
 - 2026-10-31: The site runs its own checks package: 0.2.0 pinned, every page swept in three engines, and the dialog test presses Tab now. #111
 - 2026-10-31: Test gaps closed: card and era jumps, coarse-pointer targets, live links mid-transition, shipped layers, carousel dialogs, and Recently done numbers in CI. #110
@@ -349,7 +349,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
 - 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
 - 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
-- 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

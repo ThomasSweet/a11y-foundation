@@ -239,7 +239,8 @@ All within the word budget: about 120 words net.
 2. In one change, so the proof sentence's link resolves: the proof rows with
    the axe measurements behind them, the `/checks/` page, the Tools group,
    the sitemap, `llms.txt` and the what-changed line. Then Thomas updates
-   the npm homepage and the repository's website field.
+   the npm homepage and the repository's website field. Done on 1 November
+   2026.
 3. The rooms, inside P·03's and P·04's own scopes.
 
 ---

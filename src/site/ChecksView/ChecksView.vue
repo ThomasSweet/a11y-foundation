@@ -45,7 +45,7 @@
       <p class="checks-p">
         This site runs all three on every change, in all three engines: every
         page, the craft and showcase dialogs, and the craft form after an empty
-        submit. Read on 31 October 2026, with version 0.2.0:
+        submit. Read on 1 November 2026, with version 0.3.0:
       </p>
       <ul class="checks-findings">
         <li>
