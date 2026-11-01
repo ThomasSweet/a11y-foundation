@@ -341,6 +341,7 @@ change both together, and re-date it.
 
 ## Recently done
 
+- 2026-11-01: Deploys fetch only the tip of the deploy branch, after the server's git twice ran out of memory packing its whole history. #117
 - 2026-11-01: The site has a dated accessibility statement at /accessibility.html that names its gaps, and ACCESSIBILITY.md joins the repository. #116
 - 2026-11-01: The standards map's sources are re-read, and Canada's row separates the public sector date from the business one. #115
 - 2026-11-01: /checks/ links the README's Quick start and the changelog, says npm package up front, and the site moves to 0.4.0. #114
@@ -355,7 +356,6 @@ change both together, and re-date it.
 - 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
 - 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
 - 2026-10-29: The site's stylesheets lost their comments, directives aside: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
-- 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).
