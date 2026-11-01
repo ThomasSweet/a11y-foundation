@@ -199,13 +199,14 @@ before 16 October 2026, and why, is in
 
 ## Accessibility statement
 
-This project targets **WCAG 2.2 AA**, works with a keyboard and a screen
-reader, and never relies on color alone. It is a **demo and playground**, not
-a production dependency — built to be explored and learned from. The full
-[statement lives on the hub](https://accessible-by-default.dev/#a11y-statement).
-Every change runs the axe sweep and the keyboard specs in the engines behind
-Chrome, Firefox and Safari. VoiceOver on the Mac, an iPhone and Safari itself
-are checked by hand from time to time, not before every change.
+This project targets **WCAG 2.2 AA**, works with a keyboard and VoiceOver on
+the Mac, and never relies on color alone. That is a target, not a conformance
+claim. It is a **demo and playground**, not a production dependency — built to
+be explored and learned from. [ACCESSIBILITY.md](./ACCESSIBILITY.md) says what
+runs on every change, and the
+[full statement](https://accessible-by-default.dev/accessibility.html) names
+the known gaps. VoiceOver on the Mac, an iPhone and Safari itself are checked
+by hand from time to time, not before every change.
 Found a barrier?
 [Open an issue](https://github.com/ThomasSweet/a11y-foundation/issues) — that
 feedback is welcome and acted on.

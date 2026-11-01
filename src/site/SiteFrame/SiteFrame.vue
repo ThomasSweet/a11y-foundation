@@ -87,6 +87,7 @@
             <a href="/devtools.html">DevTools</a>
             <a href="/audit-room.html">Audit room</a>
             <a href="/listening-room.html">Listening room</a>
+            <a href="/accessibility.html">Accessibility</a>
             <a href="/impressum.html">Impressum</a>
             <a href="/privacy.html">Privacy</a>
           </nav>

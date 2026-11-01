@@ -377,58 +377,6 @@
     color: var(--bp-ink-2);
   }
 
-  .hub-statement-details {
-    @supports (interpolate-size: allow-keywords) {
-      interpolate-size: allow-keywords;
-    }
-  }
-
-  .hub-statement-summary {
-    inline-size: fit-content;
-    font-family: var(--bp-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bp-accent);
-    cursor: pointer;
-  }
-
-  .hub-statement-details::details-content {
-    opacity: 0;
-    block-size: 0;
-    overflow-y: clip;
-    transition:
-      content-visibility var(--duration-normal) allow-discrete,
-      opacity var(--duration-normal),
-      block-size var(--duration-normal);
-
-    @include reduced-motion {
-      transition: none;
-    }
-  }
-
-  .hub-statement-details[open]::details-content {
-    opacity: 1;
-    block-size: auto;
-  }
-
-  .hub-statement-body {
-    display: grid;
-    gap: var(--space-3);
-    padding-block-start: var(--space-3);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
-    color: var(--bp-ink-2);
-  }
-
-  .hub-statement-body p {
-    margin: 0;
-  }
-
-  .hub-statement-body strong {
-    color: var(--bp-ink);
-  }
-
   .hub-author {
     display: flex;
     flex-wrap: wrap;

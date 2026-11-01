@@ -45,12 +45,8 @@ Nothing in flight.
 
 ### Next
 
-- **An accessibility statement with evidence.** The hub's statement says
-  what runs on every change and that hand testing happens from time to time,
-  not before every change. Date it, name the known gaps, and add
-  `ACCESSIBILITY.md`, which GitHub has shown on the repository overview since
-  2026-10-01; README's section then points to it. Later, a WCAG-EM
-  self-evaluation with W3C's report tool.
+- **A WCAG-EM self-evaluation** with W3C's report tool, so the accessibility
+  statement can say more than a target.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -198,6 +194,16 @@ source before touching the wording or the sources-read stamp in
 
 ### Known debt
 
+Anything here a reader can meet also sits in the accessibility statement:
+change both together, and re-date it.
+
+- **Demo control edges.** Eight demo controls sit under 3:1 (1.4.11, an AA
+  failure), most on `--color-border` at about 1.3:1. `contrast.spec.ts` guards
+  only the TextField.
+- **Chapter structure on phones and in the heading list.** Chapters skip from
+  h1 to h3 (`ChapterSection.vue`), and the rail precedes the title, so the h1
+  sits 345 to 667px down at 402px. The chapter bar's links are 9px uppercase
+  mono.
 - **High-contrast blocks.** Of 130 `@include high-contrast` blocks, 117 only
   set `border-color: currentcolor`; 86 of those sit on `--color-border`,
   which the preferences layer already turns to `CanvasText`. Check each before
@@ -335,6 +341,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-11-01: The site has a dated accessibility statement at /accessibility.html that names its gaps, and ACCESSIBILITY.md joins the repository. #116
 - 2026-11-01: The standards map's sources are re-read, and Canada's row separates the public sector date from the business one. #115
 - 2026-11-01: /checks/ links the README's Quick start and the changelog, says npm package up front, and the site moves to 0.4.0. #114
 - 2026-11-01: The checks package moves to 0.3.0, our own package skips the install wait, and npm and GitHub now point at /checks/. #113
@@ -349,7 +356,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
 - 2026-10-29: The site's stylesheets lost their comments, directives aside: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
 - 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
-- 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

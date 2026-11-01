@@ -95,7 +95,7 @@
         <p class="hub-statement-lede">
           This site practises what it shows. It targets
           <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2 AA</a>, works with a
-          keyboard and a screen reader, and honours your motion, contrast, and
+          keyboard and VoiceOver on the Mac, and honours your motion, contrast, and
           colour-scheme preferences — and it never leans on colour alone to carry
           meaning.
         </p>
@@ -107,44 +107,11 @@
           the richer version; where it doesn't you get an accessible fallback, not a
           broken page. New features extend the baseline here — they never replace it.
         </p>
-        <details class="hub-statement-details">
-          <summary class="hub-statement-summary">What that means in practice</summary>
-          <div class="hub-statement-body">
-            <p>
-              <strong>View source: the argument is in the HTML.</strong> Every
-              page is rendered to markup at build time, so its content is
-              there before any JavaScript runs; the script only wakes up what
-              is already on the page.
-            </p>
-            <p>
-              <strong>It's a demo, not a dependency.</strong> This is a
-              playground for showing how the modern web platform answers
-              accessibility natively, with little to no JavaScript — made to be
-              explored and learned from, not installed into a production app.
-            </p>
-            <p>
-              <strong>Some showcases want a recent browser.</strong> The demos
-              under “Limited availability” use features still landing across
-              engines. On an older browser they quietly fall back to a simpler,
-              still-usable form — that degradation is the design, not a defect.
-            </p>
-            <p>
-              <strong>Tested where it counts.</strong> Every change runs
-              automated checks in the engines behind Chrome, Firefox and
-              Safari: keyboard paths, axe, and emulated forced colours and
-              reduced motion, plus reduced transparency in Chromium, the only
-              engine that reads it. VoiceOver on the Mac, an iPhone and Safari
-              itself are checked by hand from time to time, not before every
-              change.
-            </p>
-            <p>
-              <strong>Found a barrier?</strong> Accessibility work is never
-              finished. If something gets in your way,
-              <a href="https://github.com/ThomasSweet/a11y-foundation/issues">open an
-              issue</a> — that feedback is welcome and acted on.
-            </p>
-          </div>
-        </details>
+        <p class="hub-statement-lede">
+          The <a href="/accessibility.html">accessibility statement</a> says
+          what is tested, what is checked by hand, and what is known to fall
+          short.
+        </p>
       </section>
 
       <div class="hub-author">
@@ -214,6 +181,7 @@ const sheets = [
   { no: 'A·02', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
   { no: 'A·03', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
   { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },
+  { no: 'S·02', href: '/accessibility.html', name: 'Accessibility statement', desc: 'What this site aims for, how it is tested, and what is known to fall short.' },
 ]
 </script>
 
