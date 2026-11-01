@@ -9,6 +9,7 @@ const pages = [
   '/glossary.html',
   '/styleguide.html',
   '/agent-skill.html',
+  '/checks/',
   '/audit-room.html',
   '/listening-room.html',
   '/screen-reader.html',

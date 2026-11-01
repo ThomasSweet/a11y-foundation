@@ -8,6 +8,7 @@ import ShowcasePage from '../pages/ShowcasePage.vue'
 import ProofPage from '../pages/ProofPage.vue'
 import GlossaryView from '../site/GlossaryView/GlossaryView.vue'
 import AgentSkillView from '../site/AgentSkillView/AgentSkillView.vue'
+import ChecksView from '../site/ChecksView/ChecksView.vue'
 import ScreenReaderView from '../site/ScreenReaderView/ScreenReaderView.vue'
 import DevToolsView from '../site/DevToolsView/DevToolsView.vue'
 import AuditRoomView from '../site/AuditRoomView/AuditRoomView.vue'
@@ -21,6 +22,7 @@ export const views: Record<string, Component> = {
   proof: ProofPage,
   glossary: GlossaryView,
   'agent-skill': AgentSkillView,
+  'checks/index': ChecksView,
   'screen-reader': ScreenReaderView,
   devtools: DevToolsView,
   'audit-room': AuditRoomView,

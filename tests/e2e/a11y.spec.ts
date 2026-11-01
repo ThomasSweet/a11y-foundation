@@ -14,6 +14,7 @@ const pages = [
   { path: '/proof.html', name: 'proof' },
   { path: '/glossary.html', name: 'glossary' },
   { path: '/agent-skill.html', name: 'agent skill' },
+  { path: '/checks/', name: 'checks' },
   { path: '/screen-reader.html', name: 'screen reader' },
   { path: '/devtools.html', name: 'devtools' },
   { path: '/impressum.html', name: 'impressum' },

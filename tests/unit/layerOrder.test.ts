@@ -8,11 +8,12 @@ const order = readFileSync(`${root}src/styles/layers.css`, 'utf8').trim()
 
 const heads = readdirSync(root)
   .filter((name) => name.endsWith('.html'))
+  .concat('checks/index.html')
   .map((name) => [name, readFileSync(`${root}${name}`, 'utf8')] as const)
 
 describe('the layer order in each page head', () => {
   it('is checked on every page', () => {
-    expect(heads.length).toBeGreaterThanOrEqual(14)
+    expect(heads.length).toBeGreaterThanOrEqual(15)
   })
 
   it.each(heads)('%s states it before any other CSS, the same as layers.css', (_, html) => {

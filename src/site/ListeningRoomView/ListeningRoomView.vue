@@ -14,7 +14,7 @@
       venue or a journalist gets sent, and planted in it are
       <strong>eleven accessibility barriers you hear before you see</strong>.
       The instrument changes here: the hunt is a screen reader, running
-      <a href="/screen-reader.html">A·03’s fifteen-minute plan</a> first and
+      <a href="/screen-reader.html">A·02’s fifteen-minute plan</a> first and
       DevTools second, to confirm in the tree what your ears already caught.
       Under the WCAG rule set a scanner reports nothing on the press kit at all.
       This site’s own suite measured that.
@@ -65,7 +65,7 @@
       </p>
       <p>
         The plan this room is built around is
-        <a href="/screen-reader.html">sheet A·03</a>, fifteen minutes with a
+        <a href="/screen-reader.html">sheet A·02</a>, fifteen minutes with a
         screen reader, and the matrix this page sits in the far corner of is
         the proof chapter’s
         <a href="/proof.html#testing-coverage">what automation can and can’t

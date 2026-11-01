@@ -43,8 +43,10 @@ src/
 │   │                         prev/next; chapterSections.ts holds the section
 │   │                         registry
 │   ├── ChapterSection/     — one chapter section; registers itself with the rail
-│   ├── AgentSkillView/, DevToolsView/, GlossaryView/,
-│   │   ScreenReaderView/   — the four reference sheets, each a SiteFrame page
+│   ├── AgentSkillView/, ChecksView/
+│   │                       — the tools T·01 and T·02, each a SiteFrame page
+│   ├── DevToolsView/, GlossaryView/, ScreenReaderView/
+│   │                       — the three reference sheets, each a SiteFrame page
 │   ├── AuditRoomView/, ListeningRoomView/
 │   │                       — the practice rooms P·01 and P·02, each a
 │   │                         SiteFrame page built on PracticeRoom
@@ -139,6 +141,9 @@ which holds only `components`, before the global stylesheet). So the first
 `<style>` in the head of every page that loads the stylesheet repeats the
 statement before any other CSS. Keep it first in each head, and keep it
 the same as `layers.css`: `layerOrder.test.ts` fails when a head differs.
+`checks/index.html` is the one page in a folder, because `/checks/` is the
+address the package publishes. The specs and unit tests that read the root
+for pages name it, so a second folder page has to be added to them by hand.
 
 Layers settle most of the cascade, not all of it: inside one layer, source
 order still decides between rules of equal specificity. `theming/presets.css`

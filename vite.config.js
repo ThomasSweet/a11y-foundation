@@ -1,4 +1,4 @@
-import { basename } from 'node:path'
+import { relative } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -27,7 +27,7 @@ const prerenderDev = () => {
     transformIndexHtml: {
       order: 'pre',
       handler: async (html, ctx) => {
-        const name = basename(ctx.filename, '.html')
+        const name = relative(server.config.root, ctx.filename).replace(/\.html$/, '')
         const { views, render } = await server.ssrLoadModule('/src/entries/prerender.ts')
         if (!views[name]) return html
         return html.replace('<div id="app"></div>', `<div id="app">${await render(name)}</div>`)
@@ -59,6 +59,7 @@ export default defineConfig({
         proof: fileURLToPath(new URL('./proof.html', import.meta.url)),
         glossary: fileURLToPath(new URL('./glossary.html', import.meta.url)),
         agentSkill: fileURLToPath(new URL('./agent-skill.html', import.meta.url)),
+        checks: fileURLToPath(new URL('./checks/index.html', import.meta.url)),
         screenReader: fileURLToPath(new URL('./screen-reader.html', import.meta.url)),
         devtools: fileURLToPath(new URL('./devtools.html', import.meta.url)),
         auditRoom: fileURLToPath(new URL('./audit-room.html', import.meta.url)),
