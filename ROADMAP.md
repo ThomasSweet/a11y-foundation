@@ -181,13 +181,14 @@ source before touching the wording or the sources-read stamp in
 - **EN 301 549 V4.1.1** (WCAG 2.2 AA): published by ETSI, not yet cited in
   the Official Journal; Ireland's NDA expects the citation on 16 December
   2026. Re-check then. When cited, the EAA chain
-  moves to the 2.2 row and the "arriving" note goes. Canada's ACA cites the
-  2024 Canadian adoption of V3.2.1, so it stays at 2.1 AA regardless.
+  moves to the 2.2 row and the "arriving" note goes. Canada's ACA follows
+  CAN/ASC-EN 301 549 "as amended from time to time", today the 2024 adoption
+  of V3.2.1, so it stays at 2.1 AA until Canada adopts a newer version.
 - **WCAG 3.0**: next working draft expected Q4 2026; none since September as
-  of 2026-10-16. The 3.0 row note says "late 2026" and must follow it.
+  of 2026-11-01. The 3.0 row note says "late 2026" and must follow it.
   Candidate Recommendation snapshot targeted Q4 2027.
 - **ADA Title II**: the April 2026 interim final rule (26 Apr 2027 and 26 Apr
-  2028) is challenged in court, with no ruling as of 2026-10-16. The phase-in
+  2028) is challenged in court, with no ruling as of 2026-11-01. The phase-in
   wording holds until one lands.
 - **Interop 2027**: the scope is published 2027-02-04. Then re-check the
   eight "Interop 2026" labels in `src/showcases/registry.ts` and its
@@ -334,6 +335,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-11-01: The standards map's sources are re-read, and Canada's row separates the public sector date from the business one. #115
 - 2026-11-01: /checks/ links the README's Quick start and the changelog, says npm package up front, and the site moves to 0.4.0. #114
 - 2026-11-01: The checks package moves to 0.3.0, our own package skips the install wait, and npm and GitHub now point at /checks/. #113
 - 2026-10-31: The checks package has a page at /checks/, the hub gains a Tools group, and proof gains three rows axe misses. #112
@@ -348,7 +350,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: The site's stylesheets lost their comments, directives aside: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
 - 2026-10-29: Local Firefox runs work again on macOS 27: Playwright's Firefox gets a stand-in home folder until Playwright ships the upstream fix. #103
 - 2026-10-29: Firefox 159 checked: reveals step aside for jump targets and keyboard focus, so jumps land and focus rings keep full contrast in every engine. #102
-- 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

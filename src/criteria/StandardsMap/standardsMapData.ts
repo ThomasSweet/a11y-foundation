@@ -15,7 +15,7 @@ export interface MapLaw {
   layers: MapLayer[]
 }
 
-export const sourcesRead = '13 September 2026'
+export const sourcesRead = '1 November 2026'
 
 export const rowNotes: Record<string, string> = {
   wcag20: 'Also ISO/IEC 40500:2012, the same text as an ISO standard.',
@@ -154,7 +154,9 @@ export const laws: MapLaw[] = [
       {
         kind: 'Law and regulation',
         name: 'Accessible Canada Regulations, amended December 2025',
-        note: 'Web content from December 2027, apps and documents from 2028.',
+        note:
+          'Public sector web pages from December 2027; business web pages, ' +
+          'apps and documents from December 2028.',
       },
       {
         kind: 'Standard',
