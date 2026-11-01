@@ -14,6 +14,7 @@ const pages = [
   '/listening-room.html',
   '/screen-reader.html',
   '/devtools.html',
+  '/accessibility.html',
   '/privacy.html',
   '/impressum.html',
 ]

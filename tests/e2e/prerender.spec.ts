@@ -11,6 +11,7 @@ const pages = [
   { path: '/checks/', texts: ['What a pass does not prove', 'toOpenADialogThatHoldsFocus'] },
   { path: '/screen-reader.html', texts: ['The phone in your pocket'] },
   { path: '/devtools.html', texts: ['Emulate a focused page'] },
+  { path: '/accessibility.html', texts: ['Known gaps', 'What is checked by hand'] },
   { path: '/audit-room.html', texts: ['Broken on purpose'] },
   { path: '/listening-room.html', texts: ['The listening room', 'Answers'] },
 ]

@@ -47,6 +47,7 @@ src/
 │   │                       — the tools T·01 and T·02, each a SiteFrame page
 │   ├── DevToolsView/, GlossaryView/, ScreenReaderView/
 │   │                       — the three reference sheets, each a SiteFrame page
+│   ├── StatementView/      — the accessibility statement, a SiteFrame page
 │   ├── AuditRoomView/, ListeningRoomView/
 │   │                       — the practice rooms P·01 and P·02, each a
 │   │                         SiteFrame page built on PracticeRoom
@@ -1611,6 +1612,25 @@ showcase anchor that resolves to a registry id. `tests/e2e/feed.spec.ts`
 checks the served feed carries one entry per revision, and
 `prerender.spec.ts` checks the hub's block and the standard page's map are
 in the prerendered HTML.
+
+---
+
+## The accessibility statement
+
+`/accessibility.html` (`src/site/StatementView/`) is the full statement, and
+`ACCESSIBILITY.md` is the short version GitHub shows on the repository. Their
+"Last reviewed on" dates must match: `tests/unit/statement.test.ts` fails when
+they differ.
+
+- **A gap goes in only as measured.** Give the engine and the date, or say
+  "Not measured". Conformance wording stays a target until a full evaluation
+  exists.
+- **It moves with the work.** A change that closes or finds something a reader
+  can meet edits the gap list in the same pull request and re-dates both
+  files. Debt only a developer meets stays in ROADMAP's Known debt, out of the
+  statement.
+- **Hand testing stays modest.** Name VoiceOver on the Mac, an iPhone and
+  Safari, say "from time to time", and promise no schedule.
 
 ---
 
