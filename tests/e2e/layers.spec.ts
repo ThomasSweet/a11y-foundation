@@ -7,9 +7,10 @@ const root = fileURLToPath(new URL('../../', import.meta.url))
 const pages = readdirSync(root)
   .filter((name) => name.endsWith('.html'))
   .map((name) => `/${name}`)
+  .concat('/checks/')
 
 test('the page list covers every page', () => {
-  expect(pages.length).toBeGreaterThanOrEqual(14)
+  expect(pages.length).toBeGreaterThanOrEqual(15)
 })
 
 for (const path of pages) {

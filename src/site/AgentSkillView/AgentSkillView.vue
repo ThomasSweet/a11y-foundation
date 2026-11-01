@@ -1,5 +1,5 @@
 <template>
-  <SiteFrame sheet="A·02" sheet-title="Agent skill">
+  <SiteFrame sheet="T·01" sheet-title="Agent skill">
     <h1 class="agent-skill-title">Agent skill</h1>
     <p class="agent-skill-lede">
       Everything this site argues, packaged so a coding agent can load it. Most

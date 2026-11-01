@@ -41,12 +41,8 @@ How to edit this file:
 
 ### Now
 
-- **The checks package on the site**, as decided on 2026-10-29 in
-  [docs/checks-scope.md](docs/checks-scope.md). In one change: the three proof
-  rows with axe's misses measured, the `/checks/` page, and a Tools group on
-  the hub (T·01 agent skill, T·02 checks, the reference sheets closing up to
-  A·03), plus one what-changed line. Then the npm homepage and the
-  repository's website field point at `/checks/`.
+- **Point the package at `/checks/`**: the npm homepage and the repository's
+  website field, both by hand.
 
 ### Next
 
@@ -61,7 +57,7 @@ How to edit this file:
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
   awesome-claude-skills lists (the agent side is a near-empty niche), and CSS
   newsletters for the showcase. A11y Weekly's issue 522 ran it on 19 October.
-  Once `/checks/` ships, add the checks package, its npm page and repository.
+  Add the checks package too, with its npm page and repository.
 - **Positioning, Tier 2**, each its own change: items 3 to 10 in
   [docs/positioning-review.md](docs/positioning-review.md), plus a "last
   changed" stamp per chapter, derived from `revisions.ts`. Optional, from
@@ -72,6 +68,11 @@ How to edit this file:
   scroll timeline, never a custom property on it (GUIDE, "Scroll-driven
   animations", rule 2). No static shadow as a fallback: one that stays claims
   more than there is.
+- **A width handle on the width demos.** `TextWrapDemo`, `CqUnitsDemo` and
+  `ContainerCardDemo` keep their native `<input type="range">`, restyled so its
+  thumb sits on the stage's edge: one control for keyboard, pointer, touch and
+  screen reader. Not CSS `resize`: its handle takes no keyboard focus (2.1.1),
+  and the inline size it writes would fight the slider.
 - **Carousel buttons by container query**: outside the strip when there is
   room, inside when not, with a pressed scale and a flat disabled state.
 - **Practice rooms**, in build order, each a candidate until its scope is
@@ -334,6 +335,7 @@ source before touching the wording or the sources-read stamp in
 
 ## Recently done
 
+- 2026-10-31: The checks package has a page at /checks/, the hub gains a Tools group, and proof gains three rows axe misses. #112
 - 2026-10-31: The site runs its own checks package: 0.2.0 pinned, every page swept in three engines, and the dialog test presses Tab now. #111
 - 2026-10-31: Test gaps closed: card and era jumps, coarse-pointer targets, live links mid-transition, shipped layers, carousel dialogs, and Recently done numbers in CI. #110
 - 2026-10-31: Back to the brief: head and page-change rules sit in layers, head comments and dead lint directives go, and GUIDE gets one comment rule. #109
@@ -348,7 +350,6 @@ source before touching the wording or the sources-read stamp in
 - 2026-10-29: The deploy stops with a clear message when it cannot read the production repository, instead of starting a fresh branch the server refuses. #101
 - 2026-10-29: The page shell's minimum height uses the small viewport, like the body's; the chapter bar loses a safe-area term that always resolved to zero. #100
 - 2026-10-29: The forced-colours focus ring finally applies, in ButtonText at full width; 36 dead component outline rules removed, nothing else changes. #99
-- 2026-10-28: Node 26 in CI, Actions upgraded, dependencies updated with no audit findings and unchanged CSS; live transitions and saved themes checked in Chrome. #97
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

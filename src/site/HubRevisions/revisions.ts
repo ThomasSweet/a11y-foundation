@@ -15,6 +15,16 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'checks-page',
+    date: '2026-10-31',
+    area: 'Site',
+    title: 'Checks that press the button',
+    lead: 'Three Playwright matchers now have ',
+    linkText: 'a page here',
+    href: '/checks/',
+    tail: ': axe reads markup, so these operate a page’s widgets by keyboard and report when they lie, and this site runs them on every change.',
+  },
+  {
     id: 'glass-contrast',
     date: '2026-10-12',
     area: 'Craft',

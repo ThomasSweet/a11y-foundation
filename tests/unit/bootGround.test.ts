@@ -9,6 +9,7 @@ const desk = tokens.match(/--color-bg-subtle:\s*(light-dark\([^)]*\));/)?.[1]
 
 const entries = readdirSync(root)
   .filter((name) => name.endsWith('.html'))
+  .concat('checks/index.html')
   .map((name) => ({ name, html: readFileSync(`${root}${name}`, 'utf8') }))
   .filter(({ html }) => html.includes('src="/src/entries/'))
 

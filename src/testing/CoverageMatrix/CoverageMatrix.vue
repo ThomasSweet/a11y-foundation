@@ -78,7 +78,10 @@ const issues: Issue[] = [
   { issue: 'Custom control not keyboard-operable', sc: '2.1.1', axe: 'partial', kb: 'caught', human: 'caught' },
   { issue: 'Focus order fights reading order', sc: '2.4.3', axe: 'missed', kb: 'caught', human: 'caught' },
   { issue: 'Focus indicator too faint to see', sc: '1.4.11', axe: 'missed', kb: 'caught', human: 'caught' },
+  { issue: 'Focus escapes an open modal', sc: '2.4.3', axe: 'missed', kb: 'caught', human: 'caught' },
   { issue: 'Icon / border contrast (non-text)', sc: '1.4.11', axe: 'missed', kb: 'missed', human: 'caught' },
+  { issue: 'A disclosure reports the wrong state', sc: '4.1.2', axe: 'missed', kb: 'missed', human: 'caught' },
+  { issue: 'Error text tied to no field', sc: '1.3.1', axe: 'missed', kb: 'missed', human: 'caught' },
   { issue: 'Status change not announced', sc: '4.1.3', axe: 'missed', kb: 'missed', human: 'caught' },
   { issue: 'Loading state never announced', sc: '4.1.3', axe: 'missed', kb: 'missed', human: 'caught' },
 ]

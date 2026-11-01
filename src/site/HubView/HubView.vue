@@ -54,6 +54,22 @@
       </ul>
     </nav>
 
+    <nav id="tools" class="hub-sheets" aria-labelledby="hub-tools-title">
+      <h2 id="hub-tools-title" class="hub-sheets-title">Tools</h2>
+      <p class="hub-sheets-lede">
+        Things to install and run on your own work.
+      </p>
+      <ul class="hub-sheets-list" role="list">
+        <li v-for="s in tools" :key="s.href">
+          <a class="hub-sheet" :href="s.href">
+            <span class="hub-sheet-no">{{ s.no }}</span>
+            <span class="hub-sheet-name">{{ s.name }}</span>
+            <span class="hub-sheet-desc">{{ s.desc }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <nav id="reference-sheets" class="hub-sheets" aria-labelledby="hub-sheets-title">
       <h2 id="hub-sheets-title" class="hub-sheets-title">Reference sheets</h2>
       <p class="hub-sheets-lede">
@@ -188,11 +204,15 @@ const plates: Plate[] = [
   { no: '04', href: '/proof.html', icon: 'proof', title: 'The proof', sub: 'Testing the claim', desc: 'The layered testing that checks this site\'s claim — what scanners catch, what only a person can, and how to file what you find.', cta: 'Open the proof' },
 ]
 
+const tools = [
+  { no: 'T·01', href: '/agent-skill.html', name: 'Agent skill', desc: 'The argument as an installable skill: what to reach for, what never to break, and how to guard features that aren\'t Baseline yet.' },
+  { no: 'T·02', href: '/checks/', name: 'Checks', desc: 'Playwright matchers that operate your widgets by keyboard in three engines and report when they lie.' },
+]
+
 const sheets = [
   { no: 'A·01', href: '/glossary.html', name: 'Glossary', desc: 'Short, honest definitions of the vocabulary the site leans on — every term linkable.' },
-  { no: 'A·02', href: '/agent-skill.html', name: 'Agent skill', desc: 'The argument as an installable skill: what to reach for, what never to break, and how to guard features that aren\'t Baseline yet.' },
-  { no: 'A·03', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
-  { no: 'A·04', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
+  { no: 'A·02', href: '/screen-reader.html', name: 'Screen reader', desc: 'The first fifteen minutes: the keystrokes that matter and a plan for hearing your own page.' },
+  { no: 'A·03', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
   { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },
 ]
 </script>

@@ -5,8 +5,16 @@
   <id>https://accessible-by-default.dev/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://accessible-by-default.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://accessible-by-default.dev/#what-changed"/>
-  <updated>2026-10-12T00:00:00Z</updated>
+  <updated>2026-10-31T00:00:00Z</updated>
   <author><name>Thomas Sweet</name></author>
+  <entry>
+    <id>tag:accessible-by-default.dev,2026-10-31:checks-page</id>
+    <title>Site: Checks that press the button</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/checks/"/>
+    <published>2026-10-31T00:00:00Z</published>
+    <updated>2026-10-31T00:00:00Z</updated>
+    <summary>Three Playwright matchers now have a page here: axe reads markup, so these operate a page’s widgets by keyboard and report when they lie, and this site runs them on every change.</summary>
+  </entry>
   <entry>
     <id>tag:accessible-by-default.dev,2026-10-12:glass-contrast</id>
     <title>Craft: Glass that keeps its contrast</title>

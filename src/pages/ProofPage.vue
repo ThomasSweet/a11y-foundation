@@ -37,7 +37,7 @@
         The slow human layer starts with a screen reader you already own.
         If you have never heard a page read aloud,
         <a href="/screen-reader.html">a screen reader's first fifteen
-        minutes</a> (sheet A·03) has the keystrokes that matter and a plan
+        minutes</a> (sheet A·02) has the keystrokes that matter and a plan
         for hearing your own page.
       </p>
       <p>
@@ -97,6 +97,12 @@
         it run out.
       </p>
       <CoverageMatrix />
+      <p>
+        Three of those rows can be scripted: focus escaping a modal, a
+        disclosure reporting the wrong state, and error text tied to no field.
+        <a href="/checks/">The checks package</a> presses the widget in three
+        engines and reports when it lies.
+      </p>
       <p>
         The <a href="/listening-room.html">listening room</a> is that column as
         a whole page: eleven planted barriers, and a scanner that reports the

@@ -116,7 +116,7 @@ const barriers: Answer[] = [
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html',
     caught: 'a scanner, or the color picker’s contrast readout',
     fix: 'Pick a passing gray in DevTools — the picker draws the AA line for you —',
-    fixLink: { label: 'sheet A·04 shows where.', href: '/devtools.html' },
+    fixLink: { label: 'sheet A·03 shows where.', href: '/devtools.html' },
   },
   {
     n: 6,
@@ -133,7 +133,7 @@ const barriers: Answer[] = [
     what: 'Sold-out dates differ from open ones by red text alone. With deuteranopia — or a monochrome display, or forced colors — the distinction evaporates.',
     criterion: '1.4.1 Use of Color',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html',
-    caught: 'the vision-deficiency emulation (A·04), or any careful eye',
+    caught: 'the vision-deficiency emulation (A·03), or any careful eye',
     fix: 'Say it in text — the word "ausverkauft" is actually already doing the work here; the barrier is that only its color distinguishes it from the ticket link next to it. Add an explicit "Tickets" link text and the color becomes reinforcement, not the message.',
   },
   {
@@ -169,7 +169,7 @@ const barriers: Answer[] = [
     what: 'The "OUT NOW" badge bounces forever, and its CSS never asks permission — no reduced-motion guard anywhere. Because the broken page is a document of its own, no site-wide kill rescues it either: set your OS preference or flip the Rendering-panel emulation and it keeps bouncing. That indifference is the barrier.',
     criterion: '2.3.3 Animation from Interactions',
     criterionHref: 'https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html',
-    caught: 'the reduced-motion emulation (A·04) — compliant motion stops, this doesn’t',
+    caught: 'the reduced-motion emulation (A·03) — compliant motion stops, this doesn’t',
     fix: 'Wrap it in @media (prefers-reduced-motion: no-preference) — motion is the enhancement, stillness the default.',
   },
   {

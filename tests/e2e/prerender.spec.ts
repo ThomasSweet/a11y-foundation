@@ -8,6 +8,7 @@ const pages = [
   { path: '/proof.html', texts: ['A layered job, not a button'] },
   { path: '/glossary.html', texts: ['Accessibility tree'] },
   { path: '/agent-skill.html', texts: ['skills/accessible-by-default'] },
+  { path: '/checks/', texts: ['What a pass does not prove', 'toOpenADialogThatHoldsFocus'] },
   { path: '/screen-reader.html', texts: ['The phone in your pocket'] },
   { path: '/devtools.html', texts: ['Emulate a focused page'] },
   { path: '/audit-room.html', texts: ['Broken on purpose'] },

@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 const root = fileURLToPath(new URL('../../', import.meta.url))
 const heads = readdirSync(root)
   .filter((file) => file.endsWith('.html'))
+  .concat('checks/index.html')
   .map((file) => [file, readFileSync(root + file, 'utf8')] as const)
   .filter(([, html]) => html.includes('@view-transition'))
 const baseCss = readFileSync(root + 'src/styles/base.css', 'utf8')

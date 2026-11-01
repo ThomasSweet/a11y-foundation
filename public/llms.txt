@@ -43,6 +43,10 @@ same registries that render the pages, so it cannot drift from the live demos.
 - [Agent skill](https://accessible-by-default.dev/agent-skill.html): the
   argument as an installable skill, with the install commands, the eight
   swaps it asks for, what is in each file, and a note on shelf life
+- [Checks](https://accessible-by-default.dev/checks/): three Playwright
+  matchers that operate a page's widgets by keyboard and report when expanded
+  state, modal focus or error ties do not behave as claimed, with what they
+  found on this site
 - [Screen reader basics](https://accessible-by-default.dev/screen-reader.html):
   the keystrokes that matter and a fifteen-minute plan for hearing a page
 - [DevTools for accessibility](https://accessible-by-default.dev/devtools.html):
