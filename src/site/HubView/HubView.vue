@@ -206,7 +206,7 @@ const plates: Plate[] = [
 
 const tools = [
   { no: 'T·01', href: '/agent-skill.html', name: 'Agent skill', desc: 'The argument as an installable skill: what to reach for, what never to break, and how to guard features that aren\'t Baseline yet.' },
-  { no: 'T·02', href: '/checks/', name: 'Checks', desc: 'Playwright matchers that operate your widgets by keyboard in three engines and report when they lie.' },
+  { no: 'T·02', href: '/checks/', name: 'Checks package', desc: 'An npm package of Playwright matchers that operate your widgets by keyboard in three engines and report when they lie.' },
 ]
 
 const sheets = [

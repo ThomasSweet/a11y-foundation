@@ -1,9 +1,10 @@
 <template>
-  <SiteFrame sheet="T·02" sheet-title="Checks">
-    <h1 class="checks-title">Checks</h1>
+  <SiteFrame sheet="T·02" sheet-title="Checks package">
+    <h1 class="checks-title">Checks package</h1>
     <p class="checks-lede">
-      Playwright matchers that operate a page’s widgets by keyboard, in
-      Chromium, Firefox and WebKit, and check that they behave as they claim.
+      An npm package of Playwright matchers that operate a page’s widgets by
+      keyboard, in Chromium, Firefox and WebKit, and check that they behave as
+      they claim.
       axe reads the markup. These press the button and look at what happened.
     </p>
 
@@ -36,6 +37,12 @@
 
     <section class="checks-section">
       <h2 class="checks-h2">Use them</h2>
+      <p class="checks-p">
+        The examples assume a project that already runs Playwright, with a
+        <code>baseURL</code> and all three browsers set up. From an empty
+        folder, the README’s <a :href="quickStart">Quick start</a> gets you to a
+        first result.
+      </p>
       <CodeBlock :code="install" label="sh" />
       <CodeBlock :code="example" label="TS" />
     </section>
@@ -45,7 +52,7 @@
       <p class="checks-p">
         This site runs all three on every change, in all three engines: every
         page, the craft and showcase dialogs, and the craft form after an empty
-        submit. Read on 1 November 2026, with version 0.3.0:
+        submit. Read on 1 November 2026, with version 0.4.0:
       </p>
       <ul class="checks-findings">
         <li>
@@ -87,7 +94,9 @@
       <p class="checks-p">
         <a :href="readme">The README</a> ships with each version, and has every
         finding code, the engine notes and what each check leaves out. The
-        package is on <a :href="npm">npm</a> and
+        <a :href="changelog">changelog</a> lists what each version changed,
+        since a 0.x minor can change what a check reports. The package is on
+        <a :href="npm">npm</a> and
         <a :href="repository">GitHub</a>, MIT licensed. A check that got a page
         wrong is the most useful report: <a :href="issues">open an issue</a>
         with the smallest page that shows it.
@@ -102,11 +111,13 @@ import CodeBlock from '../../showcases/CodeBlock/CodeBlock.vue'
 
 const repository = 'https://github.com/ThomasSweet/behaviour-checks'
 const readme = `${repository}#readme`
+const quickStart = `${repository}#quick-start`
+const changelog = `${repository}/blob/main/CHANGELOG.md`
 const issues = `${repository}/issues`
 const npm = 'https://www.npmjs.com/package/@accessible-by-default/checks'
 const survey = 'https://webaim.org/projects/screenreadersurvey10/'
 
-const install = 'npm install --save-dev @accessible-by-default/checks'
+const install = 'npm install --save-dev @accessible-by-default/checks @playwright/test'
 
 const example = `import { test } from '@playwright/test'
 import { expect } from '@accessible-by-default/checks'

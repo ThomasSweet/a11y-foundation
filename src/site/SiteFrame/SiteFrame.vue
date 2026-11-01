@@ -82,7 +82,7 @@
             <a href="/glossary.html">Glossary</a>
             <a href="/styleguide.html">Style guide</a>
             <a href="/agent-skill.html">Agent skill</a>
-            <a href="/checks/">Checks</a>
+            <a href="/checks/">Checks package</a>
             <a href="/screen-reader.html">Screen reader</a>
             <a href="/devtools.html">DevTools</a>
             <a href="/audit-room.html">Audit room</a>
