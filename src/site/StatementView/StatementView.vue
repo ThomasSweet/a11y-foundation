@@ -3,7 +3,7 @@
     <h1 class="statement-title">Accessibility statement</h1>
     <p class="statement-lede">
       What this site aims for, how it is tested, and what is known to fall
-      short. Last reviewed on 1 November 2026.
+      short. Last reviewed on 2 November 2026.
     </p>
 
     <section class="statement-section">
@@ -11,8 +11,7 @@
       <p class="statement-p">
         accessible-by-default.dev targets <a :href="wcag">WCAG 2.2 AA</a>. That
         is a target, not a conformance claim: the whole site has not been
-        evaluated against it, the first known gap below fails it, and two
-        practice pages fail on purpose.
+        evaluated against it, and two practice pages fail on purpose.
       </p>
       <p class="statement-p">
         There is no accessibility overlay, no analytics, no third-party embed,
@@ -40,8 +39,8 @@
           Layout at 320 CSS pixels, with WCAG text spacing, and at 200% text.
         </li>
         <li>
-          Contrast of the glass surfaces and the text field in every theme, and
-          focus rings that no box clips.
+          Contrast of the glass surfaces, and of every text control and select
+          on the chapters, in every theme, and focus rings that no box clips.
         </li>
         <li>
           Emulated forced colours and reduced motion, plus reduced transparency
@@ -52,8 +51,9 @@
         The <a :href="workflow">CI workflow</a> and the
         <a :href="tests">tests</a> are public, and
         <a href="/proof.html">the proof chapter</a> says what each layer can and
-        cannot catch. A green run does not prove conformance: the first known
-        gap below got past all of it.
+        cannot catch. A green run does not prove conformance: demo controls
+        failed WCAG 1.4.11 on every run until a separate measurement found them
+        in November 2026.
       </p>
     </section>
 
@@ -154,13 +154,6 @@ const history = `${repository}/commits/main/src/site/StatementView/StatementView
 const email = 'hello@accessible-by-default.dev'
 
 const gaps = [
-  {
-    name: 'Demo control edges fail WCAG 1.4.11.',
-    detail:
-      'Eight form controls in demos on the standard, showcase and proof ' +
-      'chapters have edges far under the 3:1 this AA criterion asks for, ' +
-      'most of them about 1.3:1. Measured in Chromium on 1 November 2026.',
-  },
   {
     name: 'Forced colours flatten control states.',
     detail:

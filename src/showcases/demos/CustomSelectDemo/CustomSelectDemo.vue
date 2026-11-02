@@ -110,7 +110,7 @@
 
   .custom-select {
     padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-text-subtle);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
     color: var(--color-text);
@@ -149,7 +149,7 @@
       min-inline-size: 0;
       min-block-size: 44px;
       padding: var(--space-2) var(--space-3);
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--color-text-subtle);
       border-radius: var(--radius-md);
       background-color: var(--color-surface);
       color: var(--color-text);
@@ -271,15 +271,15 @@
     }
 
     .custom-select:has(option[value='in-progress']:checked) .custom-select-trigger {
-      border-color: color-mix(in oklab, var(--color-info) 55%, var(--color-border));
+      border-color: color-mix(in oklab, var(--color-info) 55%, var(--color-text-subtle));
     }
 
     .custom-select:has(option[value='in-review']:checked) .custom-select-trigger {
-      border-color: color-mix(in oklab, var(--color-warning) 55%, var(--color-border));
+      border-color: color-mix(in oklab, var(--color-warning) 55%, var(--color-text-subtle));
     }
 
     .custom-select:has(option[value='done']:checked) .custom-select-trigger {
-      border-color: color-mix(in oklab, var(--color-success) 55%, var(--color-border));
+      border-color: color-mix(in oklab, var(--color-success) 55%, var(--color-text-subtle));
     }
 
     @include high-contrast {

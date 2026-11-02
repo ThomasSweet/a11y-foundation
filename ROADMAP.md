@@ -197,9 +197,6 @@ source before touching the wording or the sources-read stamp in
 Anything here a reader can meet also sits in the accessibility statement:
 change both together, and re-date it.
 
-- **Demo control edges.** Eight demo controls sit under 3:1 (1.4.11, an AA
-  failure), most on `--color-border` at about 1.3:1. `contrast.spec.ts` guards
-  only the TextField.
 - **Chapter structure on phones and in the heading list.** Chapters skip from
   h1 to h3 (`ChapterSection.vue`), and the rail precedes the title, so the h1
   sits 345 to 667px down at 402px. The chapter bar's links are 9px uppercase
@@ -341,6 +338,7 @@ change both together, and re-date it.
 
 ## Recently done
 
+- 2026-11-02: Demo controls reach 3:1 on their edges in every theme, and a contrast test now sweeps every text control and select. #118
 - 2026-11-01: Deploys fetch only the tip of the deploy branch, after the server's git twice ran out of memory packing its whole history. #117
 - 2026-11-01: The site has a dated accessibility statement at /accessibility.html that names its gaps, and ACCESSIBILITY.md joins the repository. #116
 - 2026-11-01: The standards map's sources are re-read, and Canada's row separates the public sector date from the business one. #115
@@ -355,7 +353,6 @@ change both together, and re-date it.
 - 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
 - 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
 - 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
-- 2026-10-29: The site's stylesheets lost their comments, directives aside: their reasons moved to GUIDE, the built CSS is unchanged, and a test guards the boot ground. #103
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

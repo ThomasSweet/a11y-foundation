@@ -112,7 +112,7 @@ watch(query, update)
     inline-size: 100%;
     max-inline-size: 22rem;
     padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-text-subtle);
     border-radius: var(--radius-md);
     background-color: var(--color-surface);
     color: var(--color-text);

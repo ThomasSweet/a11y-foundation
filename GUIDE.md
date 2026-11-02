@@ -1222,6 +1222,11 @@ color: #111111;
 transition: color 250ms ease;
 ```
 
+`--color-border` is decoration: at about 1.3:1 it cannot carry a control. A
+text control or select that shows itself by its edge uses
+`--color-text-subtle`, because WCAG 1.4.11 asks 3:1 in every theme.
+`contrast.spec.ts` sweeps them on the four chapters, in every scheme.
+
 ### Fluid type
 
 Body text stays on the fixed `--text-*` steps. A font size that tracks the

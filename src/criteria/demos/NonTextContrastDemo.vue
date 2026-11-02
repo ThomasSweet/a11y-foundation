@@ -32,7 +32,7 @@ const chips = ['Unread', 'Starred']
 <style scoped lang="scss">
 @layer components {
   .non-text-contrast-demo {
-    --demo-border: light-dark(#8a8a8a, #8f8f8f);
+    --demo-border: var(--color-text-subtle);
 
     display: grid;
     grid-template-columns: minmax(0, 1fr);
