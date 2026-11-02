@@ -188,7 +188,7 @@ const ariaLabelMarkup = '<button aria-label="Add to cart, size medium">Add to ca
     max-inline-size: 16rem;
     min-block-size: 2.75rem;
     padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-text-subtle);
     border-radius: var(--radius-md);
     background-color: var(--color-bg-subtle);
     font: inherit;

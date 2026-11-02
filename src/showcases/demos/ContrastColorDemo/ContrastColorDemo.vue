@@ -36,7 +36,7 @@ const bg = ref('#2563eb')
       inline-size: var(--space-12);
       block-size: var(--space-8);
       padding: 0;
-      border: 1px solid var(--color-border);
+      border: 1px solid var(--color-text-subtle);
       border-radius: var(--radius-sm);
       cursor: pointer;
     }

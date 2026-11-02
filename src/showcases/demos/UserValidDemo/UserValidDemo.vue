@@ -76,7 +76,7 @@ const patientId = useId()
 
   .user-valid-input {
     padding: var(--space-2) var(--space-3);
-    border: 2px solid var(--color-border);
+    border: 2px solid var(--color-text-subtle);
     border-radius: var(--radius-md);
     background-color: var(--color-bg);
     color: var(--color-text);
@@ -92,7 +92,7 @@ const patientId = useId()
   }
 
   .user-valid-input-patient:user-valid {
-    border-color: var(--color-success);
+    border-color: color-mix(in oklab, var(--color-success), var(--color-text) 16%);
   }
 
   .user-valid-hint {

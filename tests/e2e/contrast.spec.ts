@@ -433,3 +433,123 @@ test.describe('text field', () => {
     }
   })
 })
+
+test.describe('form controls', () => {
+  function failingControls(page: Page, scheme: { theme: string; preset: string }) {
+    return page.evaluate(({ theme, preset }) => {
+      const root = document.documentElement
+      if (theme) root.dataset.theme = theme
+      else delete root.dataset.theme
+      if (preset) root.dataset.preset = preset
+      else delete root.dataset.preset
+
+      const canvas = document.createElement('canvas')
+      canvas.width = 1
+      canvas.height = 1
+      const context = canvas.getContext('2d', { willReadFrequently: true })
+      if (!context) throw new Error('no 2d context')
+      const paint = (...layers: string[]) => {
+        context.clearRect(0, 0, 1, 1)
+        for (const layer of layers) {
+          context.fillStyle = layer
+          context.fillRect(0, 0, 1, 1)
+        }
+        return [...context.getImageData(0, 0, 1, 1).data]
+      }
+      const luminance = (pixel: number[]) => {
+        const [r, g, b] = pixel.slice(0, 3).map((value) => {
+          const channel = value / 255
+          return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+        })
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b
+      }
+      const ratio = (a: number[], b: number[]) => {
+        const [lighter, darker] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+        return (lighter + 0.05) / (darker + 0.05)
+      }
+      const backdropLayers = (element: Element) => {
+        const layers: string[] = []
+        for (let node = element.parentElement; node; node = node.parentElement) {
+          const colour = getComputedStyle(node).backgroundColor
+          layers.unshift(colour)
+          if (paint(colour)[3] === 255) return layers
+        }
+        throw new Error('no opaque backdrop')
+      }
+
+      const selector = 'input:not([type=checkbox], [type=radio], [type=range], [type=hidden]), textarea, select'
+      const controls = [...document.querySelectorAll<HTMLInputElement>(selector)].filter(
+        (control) =>
+          control.type !== 'submit' &&
+          control.type !== 'button' &&
+          !control.disabled &&
+          !control.closest('[inert]') &&
+          control.checkVisibility({ visibilityProperty: true }),
+      )
+
+      const failures = controls.flatMap((control) => {
+        const drawn =
+          control.matches('select') && getComputedStyle(control).appearance === 'base-select'
+            ? (control.querySelector('button') ?? control)
+            : control
+        const style = getComputedStyle(drawn)
+        const layers = backdropLayers(drawn)
+        const backdrop = paint(...layers)
+        const fill = control.type === 'color' ? backdrop : paint(...layers, style.backgroundColor)
+        const edge = paint(...layers, style.borderTopColor)
+        const fillShowsIt = ratio(fill, backdrop) >= 3
+        const edgeShowsIt = parseFloat(style.borderTopWidth) > 0 && Math.min(ratio(edge, fill), ratio(edge, backdrop)) >= 3
+        if (fillShowsIt || edgeShowsIt) return []
+        const name = control.labels?.[0]?.childNodes[0]?.textContent?.trim() || control.className
+        return [`${name}: ${ratio(edge, backdrop).toFixed(2)}:1`]
+      })
+      return { checked: controls.length, failures }
+    }, scheme)
+  }
+
+  async function openPage(page: Page, path: string) {
+    await page.goto(path)
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; }' })
+    await page.evaluate(() => {
+      for (const details of document.querySelectorAll('details')) details.open = true
+    })
+  }
+
+  for (const path of ['/standard.html', '/craft.html', '/showcase.html', '/proof.html']) {
+    test(`every text control and select on ${path} shows its edge at 3:1 in every scheme`, async ({ page }) => {
+      await openPage(page, path)
+      for (const scheme of schemes) {
+        const { checked, failures } = await failingControls(page, scheme)
+        expect(checked, `${scheme.name}: controls found`).toBeGreaterThan(0)
+        expect(failures, scheme.name).toEqual([])
+      }
+    })
+  }
+
+  test('the patient field keeps 3:1 once it settles on valid or invalid, in every scheme', async ({ page }) => {
+    await openPage(page, '/showcase.html')
+    const patient = page.locator('.user-valid-input-patient')
+    for (const value of ['ada@example.com', 'not an address']) {
+      await patient.fill(value)
+      await patient.blur()
+      for (const scheme of schemes) {
+        expect((await failingControls(page, scheme)).failures, `${value}, ${scheme.name}`).toEqual([])
+      }
+    }
+  })
+
+  test('the custom select keeps 3:1 on every status, in every scheme', async ({ page }) => {
+    await openPage(page, '/showcase.html')
+    const select = page.locator('select.custom-select')
+    const values = await select.locator('option').evaluateAll((options) =>
+      options.map((option) => (option as HTMLOptionElement).value),
+    )
+    expect(values.length).toBeGreaterThan(1)
+    for (const value of values) {
+      await select.selectOption(value)
+      for (const scheme of schemes) {
+        expect((await failingControls(page, scheme)).failures, `${value}, ${scheme.name}`).toEqual([])
+      }
+    }
+  })
+})
