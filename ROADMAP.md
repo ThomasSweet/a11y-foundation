@@ -45,12 +45,10 @@ Nothing in flight.
 
 ### Next
 
-- **Fix what the evaluation found**, worst first, one change each: text
-  contrast, with an axe sweep that removes the sheet's grid so CI can see it
-  (1.4.3); the theme picker's labels and the two dialog names (1.3.1, 2.5.3,
-  4.1.2); then the rest of
-  [/evaluation.html](https://accessible-by-default.dev/evaluation.html). The
-  fixes change the statement's gap list, not the dated report.
+- **Fix what the evaluation found**, worst first, one change each: the theme
+  picker's labels and the two dialog names (1.3.1, 2.5.3, 4.1.2); then the
+  rest of [/evaluation.html](https://accessible-by-default.dev/evaluation.html).
+  The fixes change the statement's gap list, not the dated report.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -342,6 +340,7 @@ change both together, and re-date it.
 
 ## Recently done
 
+- 2026-11-03: Text reaches 4.5:1 in every scheme, and CI takes the sheet's grid away so axe can measure it, plus hover, placeholders and gradients. #122
 - 2026-11-03: The theme panel scrolls inside short and narrow windows, which fixes the only 1.4.4 and 1.4.10 failure the evaluation found. #121
 - 2026-11-03: The site moves to checks 0.5.0, which waits for slow widgets, and /checks/ says axe-core where it means the free engine. #120
 - 2026-11-02: A WCAG-EM 2.0 self-evaluation of all 19 pages is published at /evaluation.html: 17 of 55 criteria fail on ordinary pages. #119
@@ -356,7 +355,6 @@ change both together, and re-date it.
 - 2026-10-31: Test gaps closed: card and era jumps, coarse-pointer targets, live links mid-transition, shipped layers, carousel dialogs, and Recently done numbers in CI. #110
 - 2026-10-31: Back to the brief: head and page-change rules sit in layers, head comments and dead lint directives go, and GUIDE gets one comment rule. #109
 - 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
-- 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

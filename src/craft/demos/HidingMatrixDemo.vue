@@ -113,7 +113,7 @@
     }
   }
 
-  .hiding-example-inert {
+  .hiding-example-inert .hiding-control {
     opacity: 0.55;
   }
 

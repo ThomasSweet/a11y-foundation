@@ -130,7 +130,7 @@ const width = ref(100)
     min-block-size: 6rem;
     padding: var(--space-3);
     background: var(--gradient-accent);
-    color: #fff;
+    color: var(--color-primary-text);
 
     @include forced-colors {
       background: Highlight;
@@ -141,7 +141,7 @@ const width = ref(100)
   .shape-banner-tag {
     padding: 2px var(--space-2);
     border-radius: var(--radius-full);
-    background-color: rgb(0 0 0 / 25%);
+    background-color: color-mix(in oklab, var(--color-primary) 70%, transparent);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
   }

@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
+import AxeBuilder from '@axe-core/playwright'
 import { test, expect, type Locator, type Page } from '@playwright/test'
 
 const presetSource = readFileSync(
@@ -550,6 +551,267 @@ test.describe('form controls', () => {
       for (const scheme of schemes) {
         expect((await failingControls(page, scheme)).failures, `${value}, ${scheme.name}`).toEqual([])
       }
+    }
+  })
+})
+
+declare global {
+  interface Window {
+    contrast: {
+      resolve(value: string): string
+      paint(...layers: string[]): number[]
+      ratio(a: number[], b: number[]): number
+      layersUnder(element: Element): string[]
+    }
+  }
+}
+
+function installContrast() {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1
+  canvas.height = 1
+  const context = canvas.getContext('2d', { willReadFrequently: true })
+  if (!context) throw new Error('no 2d context')
+  const paint = (...layers: string[]) => {
+    context.clearRect(0, 0, 1, 1)
+    for (const layer of layers) {
+      context.fillStyle = layer
+      context.fillRect(0, 0, 1, 1)
+    }
+    return [...context.getImageData(0, 0, 1, 1).data]
+  }
+  const luminance = (pixel: number[]) => {
+    const [r, g, b] = pixel.slice(0, 3).map((value) => {
+      const channel = value / 255
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+    })
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+  }
+  const ratio = (a: number[], b: number[]) => {
+    const [lighter, darker] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+    return (lighter + 0.05) / (darker + 0.05)
+  }
+  const resolve = (value: string) => {
+    const probe = document.createElement('div')
+    document.body.append(probe)
+    probe.style.backgroundColor = value
+    const resolved = getComputedStyle(probe).backgroundColor
+    probe.remove()
+    return resolved
+  }
+  const layersUnder = (element: Element) => {
+    const layers: string[] = []
+    for (let node: Element | null = element; node; node = node.parentElement) {
+      const colour = getComputedStyle(node).backgroundColor
+      layers.unshift(colour)
+      if (paint(colour)[3] === 255) return layers
+    }
+    throw new Error('no opaque backdrop')
+  }
+  window.contrast = { resolve, paint, ratio, layersUnder }
+}
+
+test.describe('text', () => {
+  const pages = [
+    '/',
+    '/standard.html',
+    '/craft.html',
+    '/showcase.html',
+    '/proof.html',
+    '/glossary.html',
+    '/styleguide.html',
+    '/agent-skill.html',
+    '/checks/',
+    '/audit-room.html',
+    '/listening-room.html',
+    '/screen-reader.html',
+    '/devtools.html',
+    '/accessibility.html',
+    '/evaluation.html',
+    '/privacy.html',
+    '/impressum.html',
+    '/404.html',
+  ]
+
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(installContrast)
+  })
+
+  async function openWithoutGrid(page: Page, path: string) {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(path, { waitUntil: 'networkidle' })
+    await page.evaluate(() => document.fonts.ready)
+    await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; }' })
+    await page.evaluate(() => {
+      for (const details of document.querySelectorAll('details')) details.open = true
+      for (const element of document.querySelectorAll<HTMLElement>('*')) {
+        if (getComputedStyle(element).backgroundSize.startsWith('28px')) element.style.backgroundImage = 'none'
+      }
+    })
+  }
+
+  async function useScheme(page: Page, scheme: { theme: string; preset: string }) {
+    await page.evaluate(({ theme, preset }) => {
+      const root = document.documentElement
+      if (theme) root.dataset.theme = theme
+      else delete root.dataset.theme
+      if (preset) root.dataset.preset = preset
+      else delete root.dataset.preset
+      return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+    }, scheme)
+  }
+
+  async function axeFailures(page: Page, scheme: { name: string }, selector?: string) {
+    const builder = new AxeBuilder({ page }).withRules(['color-contrast']).exclude('iframe')
+    if (selector) builder.include(selector)
+    const { violations } = await builder.analyze()
+    return violations.flatMap((violation) =>
+      violation.nodes.map((node) => `${scheme.name}: ${node.target.join(' ')} at ${node.any[0]?.data?.contrastRatio}:1`),
+    )
+  }
+
+  function placeholderFailures(page: Page, scheme: { name: string }) {
+    return page.evaluate((name) => {
+      const { paint, ratio, layersUnder } = window.contrast
+      const fields = [...document.querySelectorAll<HTMLInputElement>('input[placeholder], textarea[placeholder]')].filter(
+        (field) => field.placeholder.trim() && field.checkVisibility({ visibilityProperty: true }),
+      )
+      return fields.flatMap((field) => {
+        const placeholder = getComputedStyle(field, '::placeholder')
+        const under = layersUnder(field)
+        const text = `rgb(from ${placeholder.color} r g b / calc(alpha * ${placeholder.opacity}))`
+        const measured = ratio(paint(...under, text), paint(...under))
+        return measured >= 4.5
+          ? []
+          : [`${name}: ${field.className || field.name || field.placeholder} placeholder at ${measured.toFixed(2)}:1`]
+      })
+    }, scheme.name)
+  }
+
+  for (const path of pages) {
+    test(`text on ${path} reaches its ratio in every scheme, with the grid removed so axe can decide`, async ({
+      page,
+    }) => {
+      await openWithoutGrid(page, path)
+      const failures: string[] = []
+      for (const scheme of schemes) {
+        await useScheme(page, scheme)
+        failures.push(...(await axeFailures(page, scheme)), ...(await placeholderFailures(page, scheme)))
+      }
+      expect(failures).toEqual([])
+    })
+  }
+
+  for (const [path, selector] of [
+    ['/', '.hub-plate'],
+    ['/', '.hub-sheet'],
+    ['/standard.html', '.chapter-nav'],
+    ['/audit-room.html', '.practice-room-nav'],
+  ] as const) {
+    test(`${selector} on ${path} keeps its text at 4.5:1 on hover, in every scheme`, async ({ page }) => {
+      await openWithoutGrid(page, path)
+      const target = page.locator(selector).first()
+      await target.scrollIntoViewIfNeeded()
+      await target.hover()
+      const failures: string[] = []
+      for (const scheme of schemes) {
+        await useScheme(page, scheme)
+        failures.push(...(await axeFailures(page, scheme, selector)))
+      }
+      expect(failures).toEqual([])
+    })
+  }
+
+  test('accent and redline ink keep 4.5:1 on the sheet, the soft tint and a grid line, in every scheme', async ({
+    page,
+  }) => {
+    await page.goto('/craft.html')
+    for (const scheme of schemes) {
+      await useScheme(page, scheme)
+      const worst = await page.evaluate(() => {
+        const { resolve, paint, ratio } = window.contrast
+        const sheet = resolve('var(--bp-sheet)')
+        const line = resolve('var(--bp-line)')
+        const tint = resolve('var(--bp-accent-soft)')
+        const grounds = [paint(sheet), paint(sheet, line), paint(sheet, tint), paint(sheet, line, tint)]
+        const worstOn = (ink: string) => Math.min(...grounds.map((ground) => ratio(paint(sheet, resolve(ink)), ground)))
+        return { accent: worstOn('var(--bp-accent-ink)'), redline: worstOn('var(--bp-redline-ink)') }
+      })
+      expect(worst.accent, `${scheme.name}: accent ink`).toBeGreaterThanOrEqual(4.5)
+      expect(worst.redline, `${scheme.name}: redline ink`).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
+  test('the snap cards and the shape banner tag keep 4.5:1 along the accent gradient, in every scheme', async ({
+    page,
+  }) => {
+    await page.goto('/showcase.html')
+    for (const scheme of schemes) {
+      await useScheme(page, scheme)
+      const worst = await page.evaluate(() => {
+        const { resolve, paint, ratio } = window.contrast
+        const style = (selector: string) => getComputedStyle(document.querySelector(selector)!)
+        const faded = (colour: string, opacity: string) => `rgb(from ${colour} r g b / calc(alpha * ${opacity}))`
+        const cardText = style('.snap-card-label').color
+        const cardNumber = faded(style('.snap-card-n').color, style('.snap-card-n').opacity)
+        const tag = style('.shape-banner-tag')
+        let card = Infinity
+        let banner = Infinity
+        for (const space of ['srgb', 'oklab']) {
+          for (let share = 0; share <= 100; share += 10) {
+            const stop = resolve(`color-mix(in ${space}, var(--color-primary) ${share}%, var(--color-accent))`)
+            card = Math.min(card, ratio(paint(stop, cardText), paint(stop)), ratio(paint(stop, cardNumber), paint(stop)))
+            banner = Math.min(banner, ratio(paint(stop, tag.backgroundColor, tag.color), paint(stop, tag.backgroundColor)))
+          }
+        }
+        return { card, banner }
+      })
+      expect(worst.card, `${scheme.name}: snap card text`).toBeGreaterThanOrEqual(4.5)
+      expect(worst.banner, `${scheme.name}: shape banner tag`).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
+  test('text in the first What changed row keeps 4.5:1 where its tint is strongest, in every scheme', async ({
+    page,
+  }) => {
+    await page.goto('/')
+    for (const scheme of schemes) {
+      await useScheme(page, scheme)
+      const failures = await page.evaluate((name) => {
+        const { resolve, paint, ratio, layersUnder } = window.contrast
+        const row = document.querySelector('.hub-revision:first-child')!
+        const under = [...layersUnder(row), resolve('var(--bp-accent-soft)')]
+        const texts = [...row.querySelectorAll('*')].filter((element) =>
+          [...element.childNodes].some((node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim()),
+        )
+        return texts.flatMap((element) => {
+          const colour = getComputedStyle(element).color
+          const measured = ratio(paint(...under, colour), paint(...under))
+          return measured >= 4.5 ? [] : [`${name}: ${element.className} at ${measured.toFixed(2)}:1`]
+        })
+      }, scheme.name)
+      expect(failures).toEqual([])
+    }
+  })
+
+  test('the sentence in the inert example keeps 4.5:1, with only its button dimmed, in every scheme', async ({
+    page,
+  }) => {
+    await page.goto('/craft.html')
+    for (const scheme of schemes) {
+      await useScheme(page, scheme)
+      const measured = await page.evaluate(() => {
+        const { paint, ratio, layersUnder } = window.contrast
+        const sentence = document.querySelector('.hiding-example-inert p')!
+        let opacity = 1
+        for (let node: Element | null = sentence; node; node = node.parentElement) {
+          opacity *= Number(getComputedStyle(node).opacity)
+        }
+        const under = layersUnder(sentence)
+        const text = `rgb(from ${getComputedStyle(sentence).color} r g b / calc(alpha * ${opacity}))`
+        return ratio(paint(...under, text), paint(...under))
+      })
+      expect(measured, scheme.name).toBeGreaterThanOrEqual(4.5)
     }
   })
 })

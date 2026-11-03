@@ -14,7 +14,8 @@ through all 55 Level A and AA criteria.
 A change goes live only after these pass in the engines behind Chrome, Firefox
 and Safari: axe on every content page, the keyboard specs, the
 [checks package](https://accessible-by-default.dev/checks/), layout at 320 CSS
-pixels with text spacing and 200% text, contrast and focus-ring contracts, and
+pixels with text spacing and 200% text, text contrast in all ten colour schemes
+with the sheet's grid taken away, contrast and focus-ring contracts, and
 emulated forced colours and reduced motion. The
 [workflow](.github/workflows/ci.yml) and the [tests](tests/) are here to read.
 

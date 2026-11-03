@@ -75,6 +75,11 @@
     max-inline-size: 100%;
   }
 
+  ::placeholder {
+    color: color-mix(in oklab, currentcolor 70%, transparent);
+    opacity: 1;
+  }
+
   :where(p, li, dd, figcaption) > :where(code, kbd, samp) {
     overflow-wrap: anywhere;
   }

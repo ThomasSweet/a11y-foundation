@@ -1288,6 +1288,12 @@ color token once with `light-dark(lightValue, darkValue)`:
   laid over the sheet at 26%. A plain 22% of a saturated blue over
   near-black comes out navy, which reads as a dark stripe although it
   measures lighter than the sheet.
+- Text in the accent or the redline colour that can sit on `--bp-accent-soft`
+  uses `--bp-accent-ink` or `--bp-redline-ink`, mixed 20% toward the text
+  colour, links inside a tinted box included. The plain accent measures 4.53:1
+  on the dark sheet, so any tint takes it below 4.5:1; the ink keeps 4.6:1 or
+  more even over a grid line, in every scheme. Text on the accent itself, solid
+  or the accent gradient, uses `--color-primary-text`, never a fixed white.
 - The theming core never uses a style query: colour reaches every element
   through custom-property inheritance and `light-dark()`. A style query is
   for a cue colour cannot carry, such as a glyph or a border style per state
@@ -1662,8 +1668,11 @@ evaluation of one commit. `evaluation.ts` holds the results, and
   date in step with it.
 - **`incomplete` is not a pass.** axe returns `incomplete` for text on a
   gradient, and the sheet's blueprint grid is a gradient, so `violations` stays
-  empty over most of the site. Remove the grid first to measure contrast, or
-  sample pixels for text on a real gradient.
+  empty over most of the site. The text tests in `contrast.spec.ts` take the
+  grid away and run axe's contrast rule in every scheme. What axe still cannot
+  decide gets its own check there: hover states, placeholders, text on the
+  accent gradient and text inside `inert`, which axe skips. A new kind of text
+  background gets a check of its own in the same block.
 - **Run what automation cannot.** Check a panel at 320 by 256 pixels with its
   full content, and read what each label binds to: a `label` that wraps an
   `output` binds to the `output`, not to the input after it.
