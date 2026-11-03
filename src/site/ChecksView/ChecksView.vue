@@ -5,7 +5,8 @@
       An npm package of Playwright matchers that operate a page’s widgets by
       keyboard, in Chromium, Firefox and WebKit, and check that they behave as
       they claim.
-      axe reads the markup. These press the button and look at what happened.
+      axe-core reads the markup. These press the button and look at what
+      happened.
     </p>
 
     <section class="checks-section">
@@ -29,9 +30,9 @@
         checks cover part of that item: disclosures and dialogs.
       </p>
       <p class="checks-p">
-        axe reads markup, so it cannot press a button and look at what
-        happened. These checks do that, and nothing else. Run them next to axe,
-        not instead of it.
+        axe-core reads markup, so it cannot press a button and look at what
+        happened. These checks do that, and nothing else. Run them next to
+        axe-core, not instead of it.
       </p>
     </section>
 
@@ -52,7 +53,7 @@
       <p class="checks-p">
         This site runs all three on every change, in all three engines: every
         page, the craft and showcase dialogs, and the craft form after an empty
-        submit. Read on 1 November 2026, with version 0.4.0:
+        submit. Read on 3 November 2026, with version 0.5.0:
       </p>
       <ul class="checks-findings">
         <li>
