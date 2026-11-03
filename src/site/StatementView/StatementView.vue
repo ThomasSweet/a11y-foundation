@@ -3,7 +3,7 @@
     <h1 class="statement-title">Accessibility statement</h1>
     <p class="statement-lede">
       What this site aims for, how it is tested, and what is known to fall
-      short. Last reviewed on 2 November 2026.
+      short. Last reviewed on 3 November 2026.
     </p>
 
     <section class="statement-section">
@@ -14,7 +14,9 @@
         yet. A self-evaluation on 2 November 2026, following WCAG-EM 2.0, found
         that 17 of the 55 criteria failed on ordinary pages. Two practice pages
         fail on purpose. <a href="/evaluation.html">The evaluation report</a>
-        goes through every criterion.
+        goes through every criterion. The theme panel was the only failure it
+        found under 1.4.4 and 1.4.10, and it now scrolls in a window too short
+        for it.
       </p>
       <p class="statement-p">
         There is no accessibility overlay, no analytics, no third-party embed,
@@ -158,13 +160,6 @@ const history = `${repository}/commits/main/src/site/StatementView/StatementView
 const email = 'hello@accessible-by-default.dev'
 
 const gaps = [
-  {
-    name: 'The theme panel cannot scroll.',
-    detail:
-      'At 200% zoom in a 1280 by 900 window, 3 of its 11 options sit below the ' +
-      'screen, and at 320 by 256 pixels, 8 do. Measured in all three engines ' +
-      'on 2 November 2026.',
-  },
   {
     name: 'Some text falls below 4.5:1.',
     detail:

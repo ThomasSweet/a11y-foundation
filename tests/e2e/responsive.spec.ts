@@ -159,6 +159,39 @@ test.describe('a legend sits inline with its options', () => {
   }
 })
 
+test.describe('the theme panel fits the window', () => {
+  for (const [width, height] of [
+    [320, 256],
+    [640, 450],
+    [1280, 560],
+    [1600, 480],
+  ] as const) {
+    test(`every option scrolls into view inside it at ${width} by ${height}`, async ({ page }) => {
+      await page.setViewportSize({ width, height })
+      await page.emulateMedia({ reducedMotion: 'reduce' })
+      await page.goto('/')
+      await page.getByRole('button', { name: /theme settings/i }).click()
+
+      const panel = page.locator('#theme-panel')
+      await expect(panel).toBeVisible()
+      const { outside, pageMoved } = await panel.evaluate((element) => {
+        const outside = [...element.querySelectorAll('label')]
+          .filter((label) => {
+            label.scrollIntoView({ block: 'nearest' })
+            const box = label.getBoundingClientRect()
+            const frame = element.getBoundingClientRect()
+            return box.top < Math.max(0, frame.top) - 0.5 || box.bottom > Math.min(innerHeight, frame.bottom) + 0.5
+          })
+          .map((label) => label.textContent?.trim())
+        return { outside, pageMoved: scrollY }
+      })
+
+      expect(outside, 'options left outside the panel or the window').toEqual([])
+      expect(pageMoved, 'the page scrolled to reach an option').toBe(0)
+    })
+  }
+})
+
 test.describe('nothing overflows or is cut off', () => {
   for (const path of pages) {
     for (const setting of settings) {
