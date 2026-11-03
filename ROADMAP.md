@@ -342,6 +342,7 @@ change both together, and re-date it.
 
 ## Recently done
 
+- 2026-11-03: The site moves to checks 0.5.0, which waits for slow widgets, and /checks/ says axe-core where it means the free engine. #120
 - 2026-11-02: A WCAG-EM 2.0 self-evaluation of all 19 pages is published at /evaluation.html: 17 of 55 criteria fail on ordinary pages. #119
 - 2026-11-02: Demo controls reach 3:1 on their edges in every theme, and a contrast test now sweeps every text control and select. #118
 - 2026-11-01: Deploys fetch only the tip of the deploy branch, after the server's git twice ran out of memory packing its whole history. #117
@@ -356,7 +357,6 @@ change both together, and re-date it.
 - 2026-10-31: The owed-checks list left the repo: the hub and README say hand testing is occasional, and the listening room labels its transcripts as predictions. #108
 - 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
 - 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
-- 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).
