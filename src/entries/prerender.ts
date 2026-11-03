@@ -14,6 +14,7 @@ import DevToolsView from '../site/DevToolsView/DevToolsView.vue'
 import AuditRoomView from '../site/AuditRoomView/AuditRoomView.vue'
 import ListeningRoomView from '../site/ListeningRoomView/ListeningRoomView.vue'
 import StatementView from '../site/StatementView/StatementView.vue'
+import EvaluationView from '../site/EvaluationView/EvaluationView.vue'
 
 export const views: Record<string, Component> = {
   index: HubView,
@@ -29,6 +30,7 @@ export const views: Record<string, Component> = {
   'audit-room': AuditRoomView,
   'listening-room': ListeningRoomView,
   accessibility: StatementView,
+  evaluation: EvaluationView,
 }
 
 export function render(name: string) {

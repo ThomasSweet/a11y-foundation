@@ -18,6 +18,7 @@ const pages = [
   { path: '/screen-reader.html', name: 'screen reader' },
   { path: '/devtools.html', name: 'devtools' },
   { path: '/accessibility.html', name: 'accessibility statement' },
+  { path: '/evaluation.html', name: 'evaluation report' },
   { path: '/impressum.html', name: 'impressum' },
   { path: '/privacy.html', name: 'privacy' },
   { path: '/404.html', name: 'not found' },

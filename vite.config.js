@@ -65,6 +65,7 @@ export default defineConfig({
         auditRoom: fileURLToPath(new URL('./audit-room.html', import.meta.url)),
         listeningRoom: fileURLToPath(new URL('./listening-room.html', import.meta.url)),
         accessibility: fileURLToPath(new URL('./accessibility.html', import.meta.url)),
+        evaluation: fileURLToPath(new URL('./evaluation.html', import.meta.url)),
         impressum: fileURLToPath(new URL('./impressum.html', import.meta.url)),
         privacy: fileURLToPath(new URL('./privacy.html', import.meta.url)),
         styleguide: fileURLToPath(new URL('./styleguide.html', import.meta.url)),

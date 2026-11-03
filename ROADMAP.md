@@ -45,8 +45,12 @@ Nothing in flight.
 
 ### Next
 
-- **A WCAG-EM self-evaluation** with W3C's report tool, so the accessibility
-  statement can say more than a target.
+- **Fix what the evaluation found**, worst first, one change each:
+  the theme panel's height (1.4.4, 1.4.10); text contrast, with an axe sweep
+  that removes the sheet's grid so CI can see it (1.4.3); the theme picker's
+  labels and the two dialog names (1.3.1, 2.5.3, 4.1.2); then the rest of
+  [/evaluation.html](https://accessible-by-default.dev/evaluation.html). The
+  fixes change the statement's gap list, not the dated report.
 - **Distribution.** Draft the blurbs once, then submit by hand:
   [brunopulis/awesome-a11y](https://github.com/brunopulis/awesome-a11y), The
   A11y Project's resources page, VoltAgent/awesome-agent-skills and the
@@ -338,6 +342,7 @@ change both together, and re-date it.
 
 ## Recently done
 
+- 2026-11-02: A WCAG-EM 2.0 self-evaluation of all 19 pages is published at /evaluation.html: 17 of 55 criteria fail on ordinary pages. #119
 - 2026-11-02: Demo controls reach 3:1 on their edges in every theme, and a contrast test now sweeps every text control and select. #118
 - 2026-11-01: Deploys fetch only the tip of the deploy branch, after the server's git twice ran out of memory packing its whole history. #117
 - 2026-11-01: The site has a dated accessibility statement at /accessibility.html that names its gaps, and ACCESSIBILITY.md joins the repository. #116
@@ -352,7 +357,6 @@ change both together, and re-date it.
 - 2026-10-29: The text field's resting and valid edges now reach 3:1 in every theme, and a contrast test holds all three field states there. #106
 - 2026-10-29: The style guide catches up with the shipped design: all ten blueprint tokens, the system mono stack, display small, mono labels and `--space-20`. #105
 - 2026-10-29: WebKit starts on CI again: e2e stays on Ubuntu 24.04 and its browser cache is keyed per runner image while GitHub moves to 26.04. #107
-- 2026-10-29: Three small CSS fixes: showcase code buttons sit level on touch screens, code-compare names its column, the standards map hides old WebKit's triangle. #104
 
 Older work is in the merged pull requests and, up to 2026-10-16, in
 [docs/history/2026.md](docs/history/2026.md).

@@ -17,7 +17,7 @@
   "description": "How much of accessibility the modern web platform handles natively: an interactive argument in four chapters, with a Baseline-tiered CSS showcase, an installable agent skill and an Atom feed of platform and standards moves. Vue 3, prerendered MPA.",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/gen-baseline.mjs && node scripts/gen-feed.mjs",
+    "prebuild": "node scripts/gen-baseline.mjs && node scripts/gen-feed.mjs && node scripts/gen-evaluation.mjs",
     "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
@@ -25,6 +25,7 @@
     "lint:js": "eslint . --max-warnings 0",
     "baseline:check": "node scripts/baseline-watch.js",
     "feed:gen": "node scripts/gen-feed.mjs",
+    "evaluation:gen": "node scripts/gen-evaluation.mjs",
     "moves:gen": "node scripts/gen-moves.mjs",
     "icons:gen": "node scripts/gen-icons.mjs",
     "skill:gen": "node scripts/gen-skill.mjs",

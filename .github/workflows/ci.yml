@@ -52,7 +52,7 @@ jobs:
       - name: Generated files are committed
         run: |
           npm run skill:gen
-          git diff --exit-code -- skills public/llms public/feed.xml src/showcases/baseline-data.json
+          git diff --exit-code -- skills public/llms public/feed.xml public/evaluation-2026-11.json src/showcases/baseline-data.json
 
       - name: Recently done lines carry this pull request's number
         if: github.event_name == 'pull_request'

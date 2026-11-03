@@ -61,6 +61,9 @@ same registries that render the pages, so it cannot drift from the live demos.
 - [Accessibility statement](https://accessible-by-default.dev/accessibility.html):
   what the site targets, what runs on every change, what is checked by hand,
   and the known gaps
+- [Evaluation report](https://accessible-by-default.dev/evaluation.html): a
+  WCAG-EM self-evaluation of every page against WCAG 2.2 AA, criterion by
+  criterion
 
 ## Optional
 

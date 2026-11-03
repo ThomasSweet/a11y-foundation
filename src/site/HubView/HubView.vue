@@ -96,8 +96,7 @@
           This site practises what it shows. It targets
           <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2 AA</a>, works with a
           keyboard and VoiceOver on the Mac, and honours your motion, contrast, and
-          colour-scheme preferences — and it never leans on colour alone to carry
-          meaning.
+          colour-scheme preferences.
         </p>
         <p class="hub-statement-lede">
           It also leans on genuinely new platform features — anchor positioning,
@@ -110,7 +109,8 @@
         <p class="hub-statement-lede">
           The <a href="/accessibility.html">accessibility statement</a> says
           what is tested, what is checked by hand, and what is known to fall
-          short.
+          short, and the <a href="/evaluation.html">evaluation report</a> goes
+          through every criterion.
         </p>
       </section>
 
@@ -182,6 +182,7 @@ const sheets = [
   { no: 'A·03', href: '/devtools.html', name: 'DevTools', desc: 'The audit tooling already in the browser — and the three add-ons that earn their place.' },
   { no: 'S·01', href: '/styleguide.html', name: 'Style guide', desc: 'The tokens, type, and components this site is drawn with.' },
   { no: 'S·02', href: '/accessibility.html', name: 'Accessibility statement', desc: 'What this site aims for, how it is tested, and what is known to fall short.' },
+  { no: 'S·03', href: '/evaluation.html', name: 'Evaluation report', desc: 'Every page measured against WCAG 2.2 AA: what passed, what failed, and how.' },
 ]
 </script>
 
