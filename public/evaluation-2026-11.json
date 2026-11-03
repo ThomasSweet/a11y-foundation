@@ -1,0 +1,2155 @@
+{
+  "@context": {
+    "reporter": "http://github.com/w3c/wai-wcag-em-report-tool/",
+    "wcagem": "http://www.w3.org/TR/WCAG-EM/#",
+    "Evaluation": "wcagem:procedure",
+    "defineScope": "wcagem:step1",
+    "scope": "wcagem:step1a",
+    "step1b": {
+      "@id": "wcagem:step1b",
+      "@type": "@id"
+    },
+    "conformanceTarget": "step1b",
+    "accessibilitySupportBaseline": "wcagem:step1c",
+    "additionalEvaluationRequirements": "wcagem:step1d",
+    "exploreTarget": "wcagem:step2",
+    "essentialFunctionality": "wcagem:step2b",
+    "pageTypeVariety": "wcagem:step2c",
+    "technologiesReliedUpon": "wcagem:step2d",
+    "selectSample": "wcagem:step3",
+    "structuredSample": "wcagem:step3a",
+    "randomSample": "wcagem:step3b",
+    "Website": "wcagem:website",
+    "Webpage": "wcagem:webpage",
+    "auditSample": "wcagem:step4",
+    "reportFindings": "wcagem:step5",
+    "documentSteps": "wcagem:step5a",
+    "commissioner": "wcagem:commissioner",
+    "evaluator": "wcagem:evaluator",
+    "evaluationSpecifics": "wcagem:step5b",
+    "WCAG": "http://www.w3.org/TR/WCAG/#",
+    "WCAG20": "http://www.w3.org/TR/WCAG20/#",
+    "WCAG21": "http://www.w3.org/TR/WCAG21/#",
+    "WAI": "http://www.w3.org/WAI/",
+    "A": "WAI:WCAG2A-Conformance",
+    "AA": "WAI:WCAG2AA-Conformance",
+    "AAA": "WAI:WCAG2AAA-Conformance",
+    "wcagVersion": "WAI:standards-guidelines/wcag/#versions",
+    "reportToolVersion": "wcagem:reportToolVersion",
+    "earl": "http://www.w3.org/ns/earl#",
+    "Assertion": "earl:Assertion",
+    "TestMode": "earl:TestMode",
+    "TestCriterion": "earl:TestCriterion",
+    "TestCase": "earl:TestCase",
+    "TestRequirement": "earl:TestRequirement",
+    "TestSubject": "earl:TestSubject",
+    "TestResult": "earl:TestResult",
+    "OutcomeValue": "earl:OutcomeValue",
+    "Pass": "earl:Pass",
+    "Fail": "earl:Fail",
+    "CannotTell": "earl:CannotTell",
+    "NotApplicable": "earl:NotApplicable",
+    "NotTested": "earl:NotTested",
+    "assertedBy": "earl:assertedBy",
+    "mode": "earl:mode",
+    "result": "earl:result",
+    "subject": "earl:subject",
+    "test": "earl:test",
+    "outcome": "earl:outcome",
+    "dcterms": "http://purl.org/dc/terms/",
+    "title": "dcterms:title",
+    "description": "dcterms:description",
+    "summary": "dcterms:summary",
+    "date": "dcterms:date",
+    "hasPart": "dcterms:hasPart",
+    "isPartOf": "dcterms:isPartOf",
+    "id": "@id",
+    "type": "@type",
+    "language": "@language"
+  },
+  "type": "Evaluation",
+  "language": "en",
+  "reportToolVersion": "4.1.0",
+  "defineScope": {
+    "id": "_:defineScope",
+    "scope": {
+      "id": "_:subject_1",
+      "type": [
+        "TestSubject",
+        "Website"
+      ],
+      "date": "2026-11-02T00:00:00.000Z",
+      "title": "Accessible by default",
+      "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+    },
+    "wcagVersion": "2.2",
+    "conformanceTarget": "AA",
+    "accessibilitySupportBaseline": "Current Chrome, Firefox and Safari on macOS, Safari on iOS, and VoiceOver on the Mac.",
+    "additionalEvaluationRequirements": "Every page rather than a sample, in all ten colour schemes of the theme picker. Failures on the planted pages are reported and marked as planted."
+  },
+  "exploreTarget": {
+    "id": "_:exploreTarget",
+    "technologiesReliedUpon": [
+      {
+        "title": "HTML",
+        "id": "https://html.spec.whatwg.org/"
+      },
+      {
+        "title": "CSS",
+        "id": "https://www.w3.org/Style/CSS/specs.en.html"
+      },
+      {
+        "title": "JavaScript",
+        "id": "https://tc39.es/ecma262/"
+      },
+      {
+        "title": "WAI-ARIA",
+        "id": "https://www.w3.org/TR/wai-aria/"
+      },
+      {
+        "title": "SVG",
+        "id": "https://www.w3.org/TR/SVG/"
+      }
+    ],
+    "essentialFunctionality": "Reading the chapters, choosing a colour scheme that persists, trying the demos and their “Break this rule” toggles, working through the practice rooms, copying code, and reporting a barrier.",
+    "pageTypeVariety": "The home page, chapters with live demos, reference sheets, practice rooms that frame a planted page, tool pages, the style guide and legal pages on their own frame, a static 404, and the two planted pages."
+  },
+  "selectSample": {
+    "id": "_:selectSample",
+    "randomSample": [],
+    "structuredSample": [
+      {
+        "id": "https://accessible-by-default.dev/",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Home",
+        "description": "https://accessible-by-default.dev/"
+      },
+      {
+        "id": "https://accessible-by-default.dev/standard.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "The standard",
+        "description": "https://accessible-by-default.dev/standard.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/craft.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "The craft",
+        "description": "https://accessible-by-default.dev/craft.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/showcase.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "CSS showcase",
+        "description": "https://accessible-by-default.dev/showcase.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/proof.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "The proof",
+        "description": "https://accessible-by-default.dev/proof.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/glossary.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Glossary",
+        "description": "https://accessible-by-default.dev/glossary.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/agent-skill.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Agent skill",
+        "description": "https://accessible-by-default.dev/agent-skill.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/checks/",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Checks package",
+        "description": "https://accessible-by-default.dev/checks/"
+      },
+      {
+        "id": "https://accessible-by-default.dev/accessibility.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessibility statement",
+        "description": "https://accessible-by-default.dev/accessibility.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/screen-reader.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Screen reader",
+        "description": "https://accessible-by-default.dev/screen-reader.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/devtools.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "DevTools",
+        "description": "https://accessible-by-default.dev/devtools.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/audit-room.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Audit room",
+        "description": "https://accessible-by-default.dev/audit-room.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/listening-room.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Listening room",
+        "description": "https://accessible-by-default.dev/listening-room.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/styleguide.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Style guide",
+        "description": "https://accessible-by-default.dev/styleguide.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/impressum.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Impressum",
+        "description": "https://accessible-by-default.dev/impressum.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/privacy.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Privacy",
+        "description": "https://accessible-by-default.dev/privacy.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/404.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Page not found",
+        "description": "https://accessible-by-default.dev/404.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/broken-page.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Broken page (planted)",
+        "description": "https://accessible-by-default.dev/broken-page.html"
+      },
+      {
+        "id": "https://accessible-by-default.dev/broken-press-kit.html",
+        "type": [
+          "TestSubject",
+          "Webpage"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Broken press kit (planted)",
+        "description": "https://accessible-by-default.dev/broken-press-kit.html"
+      }
+    ]
+  },
+  "auditSample": [
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:non-text-content",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed, on the planted pages only. A photo with no alt text, another named by its filename, and a logo heading with no name. On the other 17 pages, about 550 graphics are named, or hidden beside text that says the same thing."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:audio-only-and-video-only-prerecorded",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No audio or video on any page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:captions-prerecorded",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No audio or video on any page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:audio-description-or-media-alternative-prerecorded",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No audio or video on any page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:captions-live",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No audio or video on any page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:audio-description-prerecorded",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No audio or video on any page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:info-and-relationships",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Each slider’s label on the showcase’s theme picker wraps an output element and binds to that, so neither slider is tied to its label, in all three engines (failure F111). Headings, tables, lists and groups elsewhere are marked up properly. Whether Safari keeps list semantics on lists without markers was not measured."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:meaningful-sequence",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Reading order keeps its meaning on every page at 390, 768 and 1280 pixels wide."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:sensory-characteristics",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Instructions were searched on every page with all details open. Any that mention position, colour or shape also name the thing itself."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:orientation",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Every page works in portrait and landscape in Chromium and WebKit, and nothing locks orientation in the CSS or the web app manifest."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:identify-input-purpose",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The craft form asks for a display name and an email address with no autocomplete tokens, although the site’s own 1.3.5 demo has them. The form sends nothing, but the criterion has no exception for that."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:use-of-color",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Two showcase demos: the service status dots differ only by colour until a checkbox adds cues, and the email fields show valid and invalid only by border colour (red against green is 1.08:1). Links in running text are all underlined."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:audio-control",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. Nothing on the site plays sound."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:contrast-minimum",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Measured across about 33,000 text nodes in ten colour schemes. In the default schemes: the current chapter’s number in the contents and the hover tint on chapter and home page links (4.36:1 light, 3.93:1 dark), white text on the scroll-snap cards in dark (3.3:1), the top row of What changed in dark (4.19:1), one dimmed sentence in the hiding matrix (4.17:1 light), and placeholders on styled fields (3.62:1 in Chromium dark, 4.06:1 in Firefox light, 2.35:1 in WebKit light). In presets: the code language tag (down to 4.01:1) and the tag above the room previews (down to 3.72:1). The CI axe sweep missed all of this: the sheet’s grid is a gradient, so axe could not decide most text."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:resize-text",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The theme panel cannot scroll. At 200% zoom in a 1280 by 900 window, 3 of its 11 options sit below the screen and the page moves behind the panel instead, on 13 pages in all three engines. Page text itself reaches 200% with nothing lost."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:images-of-text",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. The one image of text compares an exported label with real text. Being an image is the point of that comparison, so the essential exception applies."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:reflow",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The same panel: at 320 by 256 pixels, 8 of 11 options are out of reach, and at 320 by 568, one is. Everything else reflows on every page. Code blocks and the coverage table scroll in their own regions, which the criterion allows."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:non-text-contrast",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The service status dots (Degraded is 2.92:1 in default light, with no other cue) and the coverage table’s glyphs in six presets (down to 2.29:1). Text fields, selects and focus rings pass in all ten schemes."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:text-spacing",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. With WCAG’s four spacing overrides, no text was lost at 320 pixels wide in three engines, or at 1280 in Chromium."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:content-on-hover-or-focus",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The showcase’s tooltip demo opens on hover and focus, covers neighbouring content and ignores Esc in all three engines, as its own note admits. Glossary cards and the interestfor demo can be dismissed."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:keyboard",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Every control works by keyboard, but the style guide’s three motion swatches respond only to hover. The spelling demo’s resize handle takes no keyboard either, but keyboard zoom reaches the same result and the demo says so."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:no-keyboard-trap",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Tab walks left every page, forward and backward: about 11,000 stops across three engines at two widths."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:character-key-shortcuts",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. The site has no keyboard shortcuts."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:timing-adjustable",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. The only timer resets a Copied message after two seconds, which limits nothing: pressing Copy again gives the same information."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:pause-stop-hide",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed, on the planted pages only. A badge bounces for ever on the broken page and in its preview on the audit room, even under reduced motion, with no way to stop it. The room warns about it and links past it. The loops on the craft page have working stop controls."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:three-flashes-or-below-threshold",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Every looping animation runs at 900 milliseconds or slower, on small boxes."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:bypass-blocks",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. The 13 pages on the main frame start with a working skip link. The legal pages, style guide and 404 have two links or fewer before main, and rely on landmarks and headings."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:page-titled",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. All 19 titles are unique and describe their page."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:focus-order",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. No positive tabindex anywhere. Dialogs and popovers take focus and give it back, and focus follows the reading order."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:link-purpose-in-context",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Repeated names such as View source on GitHub are told apart by the heading above them. The only “click here” links are planted."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:multiple-ways",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. The home page links to every page, and each has a further route through the footer or the chapter navigation. A judgement call: the two planted pages have one inbound link each, and count here as specimens outside the site’s set of pages."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:headings-and-labels",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. All 186 unique headings and 169 unique control labels were read, and each describes its topic or purpose. Skipped heading levels are a separate gap, not a failure of this criterion."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:focus-visible",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed, on the planted pages only. One button removes its outline. On every other page, pixels changed at each of about 5,400 focus stops in three engines."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:focus-not-obscured-minimum",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. No focused element was entirely hidden, over about 11,000 stops at two widths."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:pointer-gestures",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No multipoint or path gestures: the only swiping is native scrolling."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:pointer-cancellation",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Actions run on click, so they finish on release, and no code listens for pointer down."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:label-in-name",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The theme picker’s two sliders show labels and have no name at all. Two narrower cases: chapter bar links show 01 Standard but are named Standard, and a code block’s button shows Copied while still named Copy."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:motion-actuation",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. Nothing responds to device motion."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:dragging-movements",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Sliders also respond to a click on the track. The one CSS resize handle is the browser’s own, which the criterion exempts."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:target-size-minimum",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. About 2,000 targets were measured at two widths. Small ones sit in sentences or have room around them, and the carousel’s dots pass because its next arrow does the same job."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:language-of-page",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. All 19 pages set lang to en, and English is their main language."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:language-of-parts",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. German phrases in the answers on both rooms have no lang attribute: “sind vier Musiker”, “roh und direkt” and “ausverkauft”."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:on-focus",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Walking every page by keyboard changed no context. Glossary cards open on focus in Chromium, but move nothing."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:on-input",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. About 90 inputs were operated in each engine, with no change of context."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:consistent-navigation",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The legal pages and style guide differ from the rest: the back link and the brand link swap places, and Home comes first in the style guide’s footer but last on the legal pages. The 13 pages on the main frame are consistent."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:consistent-identification",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. One destination has several names: Index on the main frame, then Back to the site and Home on the legal pages and style guide."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:consistent-help",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. A judgement call, from the same cause as 3.2.3: the footer links to the pages with contact details move relative to Home. They count as help through the criterion’s note on direct links."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:error-identification",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. The craft form is fine: the browser moves focus to the field and says what is wrong. The showcase’s two validation fields sit outside any form, so a wrong entry only turns a border red, with no text."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:labels-or-instructions",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. Every input has a visible label or instructions, and radio groups have legends."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:error-suggestion",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. The craft form’s messages and its permanent hint say what to enter, and the showcase’s caption says the field needs an email address."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:error-prevention-legal-financial-data",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. No legal or financial data is taken, and the one form sends nothing."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:redundant-entry",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:passed",
+          "type": [
+            "OutcomeValue",
+            "Pass"
+          ]
+        },
+        "description": "Passed. There is no real multi-step process, and the one mock keeps its reuse option available."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:accessible-authentication-minimum",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:inapplicable",
+          "type": [
+            "OutcomeValue",
+            "NotApplicable"
+          ]
+        },
+        "description": "Not present. There is no sign-in anywhere."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:name-role-value",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Judged from code and accessibility trees. The theme picker’s two sliders have no name. Two showcase dialogs have none either, a weaker case: ARIA requires one, but WCAG’s wording is less clear."
+      }
+    },
+    {
+      "type": "Assertion",
+      "mode": "earl:semiAuto",
+      "subject": {
+        "id": "_:subject_1",
+        "type": [
+          "TestSubject",
+          "Website"
+        ],
+        "date": "2026-11-02T00:00:00.000Z",
+        "title": "Accessible by default",
+        "description": "All content on accessible-by-default.dev: 19 pages with their dialogs, popovers, open details and demo states. There is no third-party content. Machine-readable files such as the feed and the llms text files were not evaluated."
+      },
+      "test": {
+        "id": "WCAG22:status-messages",
+        "type": [
+          "TestCriterion",
+          "TestRequirement"
+        ]
+      },
+      "result": {
+        "type": "TestResult",
+        "date": "2026-11-02T00:00:00.000Z",
+        "outcome": {
+          "id": "earl:failed",
+          "type": [
+            "OutcomeValue",
+            "Fail"
+          ]
+        },
+        "description": "Failed. Judged from code and accessibility trees, and a judgement call on one case: ticking the more contrast simulation rewrites a line reporting the result, outside any live region. Copy, Save and the other readouts use role status."
+      }
+    }
+  ],
+  "reportFindings": {
+    "documentSteps": [
+      {
+        "id": "_:about"
+      },
+      {
+        "id": "_:defineScope"
+      },
+      {
+        "id": "_:exploreTarget"
+      },
+      {
+        "id": "_:selectSample"
+      }
+    ],
+    "commissioner": "Thomas Sweet",
+    "date": {
+      "@type": "http://www.w3.org/TR/NOTE-datetime",
+      "@value": "2026-11-02"
+    },
+    "evaluator": "Claude, an AI model made by Anthropic",
+    "evaluationSpecifics": "Commit 1724f83, identical to production on the day.\n\nConformance level: Not reached: see the results by criterion.\n\nFull pages: Failed. Every part of every page was evaluated. The audit room and the listening room show a planted page in a preview, and a page cannot leave part of itself out, so those two cannot conform while the previews stay.\n\nComplete processes: Not present. No series of pages forms a process.\n\nAccessibility-supported ways of using technologies: Cannot tell. The features relied on are long-established native HTML, and newer ones have working fallbacks, but no assistive technology was run, so this rests on code and accessibility trees.\n\nNon-interference: Failed through planted content only: the audit room’s preview runs the bouncing badge with no way to stop it, and 2.2.2 applies to all of a page.\n\nNo series of pages forms a process that has to be completed, so that step of the method added nothing. The form, the demos and the rooms were still operated, under the criteria below.\n\nMethod: WCAG-EM 2.0, W3C Group Note of 23 July 2026. The whole site was the sample, so there is no random sample.",
+    "summary": "Does not meet WCAG 2.2 Level AA. 24 passed, 17 failed on ordinary pages, 3 failed only on the two planted pages, 11 not present.",
+    "title": "Accessible by default: evaluation report"
+  }
+}

@@ -1,11 +1,13 @@
 # Accessibility
 
 accessible-by-default.dev targets [WCAG 2.2 AA](https://www.w3.org/TR/WCAG22/).
-That is a target, not a conformance claim: the whole site has not been
-evaluated against it, and known gaps remain. Last reviewed on 2 November 2026.
+That is a target, not a conformance claim, and the site does not meet it yet.
+Last reviewed on 2 November 2026.
 
 The [full statement](https://accessible-by-default.dev/accessibility.html)
-names each known gap, with the date it was measured.
+names each known gap, with the date it was measured, and the
+[evaluation report](https://accessible-by-default.dev/evaluation.html) goes
+through all 55 Level A and AA criteria.
 
 ## What runs on every change
 

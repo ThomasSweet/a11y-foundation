@@ -199,11 +199,12 @@ before 16 October 2026, and why, is in
 
 ## Accessibility statement
 
-This project targets **WCAG 2.2 AA**, works with a keyboard and VoiceOver on
-the Mac, and never relies on color alone. That is a target, not a conformance
-claim. It is a **demo and playground**, not a production dependency — built to
-be explored and learned from. [ACCESSIBILITY.md](./ACCESSIBILITY.md) says what
-runs on every change, and the
+This project targets **WCAG 2.2 AA** and works with a keyboard and VoiceOver on
+the Mac. That is a target, not a conformance claim, and it does not meet it
+yet: the [evaluation report](https://accessible-by-default.dev/evaluation.html)
+goes through every criterion. It is a **demo and playground**, not a production
+dependency — built to be explored and learned from.
+[ACCESSIBILITY.md](./ACCESSIBILITY.md) says what runs on every change, and the
 [full statement](https://accessible-by-default.dev/accessibility.html) names
 the known gaps. VoiceOver on the Mac, an iPhone and Safari itself are checked
 by hand from time to time, not before every change.

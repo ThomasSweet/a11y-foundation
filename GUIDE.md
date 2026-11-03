@@ -84,6 +84,7 @@ src/
 scripts/
 ├── gen-baseline.mjs        — writes src/showcases/baseline-data.json from web-features (prebuild)
 ├── gen-feed.mjs            — writes public/feed.xml from revisions.ts (prebuild; npm run feed:gen)
+├── gen-evaluation.mjs      — writes the evaluation report's JSON from evaluation.ts (prebuild; npm run evaluation:gen)
 ├── gen-moves.mjs           — proposes what-changed lines after a web-features bump (npm run moves:gen)
 ├── gen-skill.mjs           — emits the agent skill's references and the public/llms/ mirror (npm run skill:gen)
 ├── gen-icons.mjs           — favicon, PWA icons, apple-touch icon, OG image, social preview (npm run icons:gen)
@@ -113,6 +114,7 @@ skills/accessible-by-default/
 
 public/                     — copied verbatim into dist/; the parts that are generated:
 ├── feed.xml                — the Atom feed, from gen-feed.mjs
+├── evaluation-2026-11.json — the evaluation report for W3C's report tool, from gen-evaluation.mjs
 ├── llms/                   — SKILL.md and the three references, mirrored by gen-skill.mjs
 ├── favicon.svg, icon-192.png, icon-512.png, apple-touch-icon.png, og-image.png
 │                           — from gen-icons.mjs
@@ -1628,14 +1630,34 @@ in the prerendered HTML.
 they differ.
 
 - **A gap goes in only as measured.** Give the engine and the date, or say
-  "Not measured". Conformance wording stays a target until a full evaluation
-  exists.
+  "Not measured". Conformance wording stays a target: WCAG-EM 2.0 allows an
+  evaluation statement only when every page meets the target, and the planted
+  pages never will.
 - **It moves with the work.** A change that closes or finds something a reader
   can meet edits the gap list in the same pull request and re-dates both
   files. Debt only a developer meets stays in ROADMAP's Known debt, out of the
   statement.
 - **Hand testing stays modest.** Name VoiceOver on the Mac, an iPhone and
   Safari, say "from time to time", and promise no schedule.
+
+### The evaluation report
+
+`/evaluation.html` (`src/site/EvaluationView/`) records one WCAG-EM 2.0
+evaluation of one commit. `evaluation.ts` holds the results, and
+`scripts/gen-evaluation.mjs` writes the same data to
+`public/evaluation-2026-11.json`, which opens in W3C's WCAG-EM Report Tool.
+
+- **It is a dated record.** A later fix changes the statement's gap list, not
+  the report. A new evaluation gets a new date, a new JSON file and new
+  results, and `tests/unit/evaluation.test.ts` keeps the statement's count and
+  date in step with it.
+- **`incomplete` is not a pass.** axe returns `incomplete` for text on a
+  gradient, and the sheet's blueprint grid is a gradient, so `violations` stays
+  empty over most of the site. Remove the grid first to measure contrast, or
+  sample pixels for text on a real gradient.
+- **Run what automation cannot.** Check a panel at 320 by 256 pixels with its
+  full content, and read what each label binds to: a `label` that wraps an
+  `output` binds to the `output`, not to the input after it.
 
 ---
 

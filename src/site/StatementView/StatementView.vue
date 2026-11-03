@@ -10,8 +10,11 @@
       <h2 class="statement-h2">Where it stands</h2>
       <p class="statement-p">
         accessible-by-default.dev targets <a :href="wcag">WCAG 2.2 AA</a>. That
-        is a target, not a conformance claim: the whole site has not been
-        evaluated against it, and two practice pages fail on purpose.
+        is a target, not a conformance claim, and the site does not meet it
+        yet. A self-evaluation on 2 November 2026, following WCAG-EM 2.0, found
+        that 17 of the 55 criteria failed on ordinary pages. Two practice pages
+        fail on purpose. <a href="/evaluation.html">The evaluation report</a>
+        goes through every criterion.
       </p>
       <p class="statement-p">
         There is no accessibility overlay, no analytics, no third-party embed,
@@ -53,7 +56,8 @@
         <a href="/proof.html">the proof chapter</a> says what each layer can and
         cannot catch. A green run does not prove conformance: demo controls
         failed WCAG 1.4.11 on every run until a separate measurement found them
-        in November 2026.
+        in November 2026, and the grid behind these pages stops axe deciding
+        the contrast of most text.
       </p>
     </section>
 
@@ -154,6 +158,56 @@ const history = `${repository}/commits/main/src/site/StatementView/StatementView
 const email = 'hello@accessible-by-default.dev'
 
 const gaps = [
+  {
+    name: 'The theme panel cannot scroll.',
+    detail:
+      'At 200% zoom in a 1280 by 900 window, 3 of its 11 options sit below the ' +
+      'screen, and at 320 by 256 pixels, 8 do. Measured in all three engines ' +
+      'on 2 November 2026.',
+  },
+  {
+    name: 'Some text falls below 4.5:1.',
+    detail:
+      'The current chapter’s number, the hover tint on chapter links, the ' +
+      'scroll-snap cards in dark and placeholders on styled fields, among ' +
+      'others. The evaluation report has the figures. Measured on 2 November ' +
+      '2026.',
+  },
+  {
+    name: 'Two sliders and two dialogs have no accessible name.',
+    detail:
+      'The theme picker’s labels bind to an output element instead of their ' +
+      'sliders, and two showcase dialogs are not named. Measured in all three ' +
+      'engines on 2 November 2026.',
+  },
+  {
+    name: 'Two demos rely on colour alone.',
+    detail:
+      'The service status dots differ only by colour, and the validation ' +
+      'demo’s email fields show an error as a red border with no text. ' +
+      'Measured in all three engines on 2 November 2026.',
+  },
+  {
+    name: 'One tooltip demo cannot be dismissed.',
+    detail:
+      'It ignores Esc and covers the content beside it. Measured in all three ' +
+      'engines on 2 November 2026.',
+  },
+  {
+    name: 'The legal pages and style guide break the pattern.',
+    detail:
+      'Their header and footer links differ in order and in name from the ' +
+      'rest of the site. Measured in all three engines on 2 November 2026.',
+  },
+  {
+    name: 'Smaller failures.',
+    detail:
+      'The craft form has no autocomplete tokens, the style guide’s motion ' +
+      'swatches respond only to hover, German phrases in the rooms’ answers ' +
+      'have no lang attribute, one status line sits outside a live region, ' +
+      'and chapter bar numbers are missing from link names. Measured on 2 ' +
+      'November 2026.',
+  },
   {
     name: 'Forced colours flatten control states.',
     detail:
