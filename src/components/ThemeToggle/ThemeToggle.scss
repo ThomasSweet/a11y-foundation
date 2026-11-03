@@ -40,11 +40,15 @@
   }
 
   .theme-panel {
+    --theme-panel-top: calc(var(--space-16) + var(--space-3));
+
     position: fixed;
     inset: auto;
-    inset-block-start: calc(var(--space-16) + var(--space-3));
+    inset-block-start: var(--theme-panel-top);
     inset-inline-end: var(--space-4);
     inline-size: min(19rem, calc(100vw - 2 * var(--space-4)));
+    max-block-size: calc(100svh - var(--theme-panel-top) - var(--space-4));
+    overscroll-behavior: contain;
     margin: 0;
     padding: var(--space-4);
     gap: var(--space-4);
@@ -70,11 +74,10 @@
     @include from('xl') {
       .theme-panel {
         position-anchor: --theme-toggle;
+        position-area: block-end span-inline-start;
         inset: auto;
-        inset-block-start: anchor(bottom);
-        inset-inline-end: anchor(right);
+        max-block-size: calc(100% - var(--space-2) - var(--space-4));
         margin-block-start: var(--space-2);
-        position-try-fallbacks: flip-block;
       }
     }
   }

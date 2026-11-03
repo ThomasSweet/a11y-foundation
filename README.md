@@ -49,7 +49,7 @@ gets an accessible fallback, never a broken page:
 | OKLCH + `color-mix()` | the seed-driven theming engine — 8 presets derived from two seeds each |
 | Container queries | the standards map and the what-changed block reflow by their own width, not the viewport's |
 | Scroll-driven animations | reading-position nav highlight, the timeline's era strata pouring in |
-| Anchor positioning | the theme panel tethers to its trigger, flips when space runs out |
+| Anchor positioning | the theme panel tethers to its trigger and scrolls inside the room below it |
 | Scroll-state queries | the mobile chapter bar hides while you scroll down and comes back when you scroll up, or the moment it takes focus |
 | `:has()` | the showcase topic filter — pure CSS, no state management |
 | `@starting-style` + `allow-discrete` | the theme panel popover's entry and exit |

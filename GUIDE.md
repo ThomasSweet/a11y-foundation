@@ -821,6 +821,15 @@ the spec.
   element is placed against the viewport, so it would jump on the way in and
   on the way out. Keep `data-reveal="off"` on such a demo in every engine
   ("Adding a showcase"). Nothing to re-check.
+- **All engines, by spec: fit a box to the room left beside its anchor with
+  `position-area`.** With insets such as `top: anchor(bottom)` a percentage
+  still means the viewport, and `anchor()` is valid in insets only. With
+  `position-area` the area is the containing block, so `max-block-size:
+  calc(100% - margins)` keeps the box on screen and lets it scroll, and a flip
+  fallback can no longer apply. Firefox 157 keeps such a box inside its area
+  even without the cap; Chromium 156 and WebKit 27.2 do not. The theme panel
+  does this; measured on 2026-11-03, `responsive.spec.ts` holds it at four
+  window sizes.
 
 ### Focus and scrolling
 
