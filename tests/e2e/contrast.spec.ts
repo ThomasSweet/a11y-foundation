@@ -591,13 +591,16 @@ function installContrast() {
     const [lighter, darker] = [luminance(a), luminance(b)].sort((x, y) => y - x)
     return (lighter + 0.05) / (darker + 0.05)
   }
+  let probe: HTMLElement | undefined
   const resolve = (value: string) => {
-    const probe = document.createElement('div')
-    document.body.append(probe)
+    if (!probe) {
+      probe = document.createElement('div')
+      probe.hidden = true
+      document.body.append(probe)
+    }
+    probe.style.backgroundColor = ''
     probe.style.backgroundColor = value
-    const resolved = getComputedStyle(probe).backgroundColor
-    probe.remove()
-    return resolved
+    return getComputedStyle(probe).backgroundColor
   }
   const layersUnder = (element: Element) => {
     const layers: string[] = []
@@ -647,6 +650,11 @@ test.describe('text', () => {
       for (const element of document.querySelectorAll<HTMLElement>('*')) {
         if (getComputedStyle(element).backgroundSize.startsWith('28px')) element.style.backgroundImage = 'none'
       }
+      const buttonFace = window.contrast.resolve('ButtonFace')
+      for (const button of document.querySelectorAll<HTMLElement>('button, input[type=button], input[type=submit], input[type=reset]')) {
+        const style = getComputedStyle(button)
+        if (style.appearance !== 'none' && style.backgroundColor === buttonFace) button.dataset.paintedByBrowser = ''
+      }
     })
   }
 
@@ -662,7 +670,10 @@ test.describe('text', () => {
   }
 
   async function axeFailures(page: Page, scheme: { name: string }, selector?: string) {
-    const builder = new AxeBuilder({ page }).withRules(['color-contrast']).exclude('iframe')
+    const builder = new AxeBuilder({ page })
+      .withRules(['color-contrast'])
+      .exclude('iframe')
+      .exclude('[data-painted-by-browser]')
     if (selector) builder.include(selector)
     const { violations } = await builder.analyze()
     return violations.flatMap((violation) =>
@@ -692,6 +703,7 @@ test.describe('text', () => {
     test(`text on ${path} reaches its ratio in every scheme, with the grid removed so axe can decide`, async ({
       page,
     }) => {
+      test.slow()
       await openWithoutGrid(page, path)
       const failures: string[] = []
       for (const scheme of schemes) {

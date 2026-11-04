@@ -969,6 +969,17 @@ the spec.
   fails there: turn it off for Firefox. CI runs Linux and never sets it.
   Firefox 158 fixes this upstream; drop the setting once Playwright bundles
   158 or later, expected in 1.65.
+- **WebKit on Linux paints a bare button over a colour it does not use.** In
+  dark mode it fills the button `#343434` with white text, about 12.6:1, while
+  the computed `background-color` is the generic light grey `ButtonFace`, so
+  axe reads 1.81:1. The text tests in `contrast.spec.ts` leave a button that
+  keeps its native appearance and `ButtonFace` to the browser; today that is
+  only the style guide's bare button. Found on CI on 2026-11-03, from
+  `ButtonControlAdwaita.cpp`.
+- **Adding and removing an element per colour lookup is slow on a big page.**
+  On `/showcase.html` it took a test in Firefox to 18.5s locally and past 30s
+  on CI. Keep one hidden probe and change its style, as `installContrast()`
+  does: 1.0s.
 
 ---
 
