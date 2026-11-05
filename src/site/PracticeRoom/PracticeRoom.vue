@@ -131,7 +131,7 @@ withDefaults(
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--bp-redline);
+    color: var(--bp-redline-ink);
   }
 
   .practice-room-preview {
@@ -273,7 +273,7 @@ withDefaults(
 
   .practice-room-nav:hover .practice-room-nav-title,
   .practice-room-nav:focus-visible .practice-room-nav-title {
-    color: var(--bp-accent);
+    color: var(--bp-accent-ink);
   }
 }
 </style>

@@ -197,7 +197,7 @@
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--color-primary);
+    color: var(--bp-accent-ink);
   }
 
   @supports (clip-path: polygon(round 1px, 0 0, 1% 0, 0 1%)) {

@@ -84,7 +84,7 @@ const cards = [
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--gradient-accent);
-    color: #fff;
+    color: var(--color-primary-text);
     scroll-snap-align: center;
 
     @include high-contrast {
@@ -101,7 +101,6 @@ const cards = [
   .snap-card-n {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    opacity: 0.85;
   }
 
   .snap-card-label {

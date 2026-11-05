@@ -969,6 +969,17 @@ the spec.
   fails there: turn it off for Firefox. CI runs Linux and never sets it.
   Firefox 158 fixes this upstream; drop the setting once Playwright bundles
   158 or later, expected in 1.65.
+- **WebKit on Linux paints a bare button over a colour it does not use.** In
+  dark mode it fills the button `#343434` with white text, about 12.6:1, while
+  the computed `background-color` is the generic light grey `ButtonFace`, so
+  axe reads 1.81:1. The text tests in `contrast.spec.ts` leave a button that
+  keeps its native appearance and `ButtonFace` to the browser; today that is
+  only the style guide's bare button. Found on CI on 2026-11-03, from
+  `ButtonControlAdwaita.cpp`.
+- **Adding and removing an element per colour lookup is slow on a big page.**
+  On `/showcase.html` it took a test in Firefox to 18.5s locally and past 30s
+  on CI. Keep one hidden probe and change its style, as `installContrast()`
+  does: 1.0s.
 
 ---
 
@@ -1288,6 +1299,12 @@ color token once with `light-dark(lightValue, darkValue)`:
   laid over the sheet at 26%. A plain 22% of a saturated blue over
   near-black comes out navy, which reads as a dark stripe although it
   measures lighter than the sheet.
+- Text in the accent or the redline colour that can sit on `--bp-accent-soft`
+  uses `--bp-accent-ink` or `--bp-redline-ink`, mixed 20% toward the text
+  colour, links inside a tinted box included. The plain accent measures 4.53:1
+  on the dark sheet, so any tint takes it below 4.5:1; the ink keeps 4.6:1 or
+  more even over a grid line, in every scheme. Text on the accent itself, solid
+  or the accent gradient, uses `--color-primary-text`, never a fixed white.
 - The theming core never uses a style query: colour reaches every element
   through custom-property inheritance and `light-dark()`. A style query is
   for a cue colour cannot carry, such as a glyph or a border style per state
@@ -1662,8 +1679,11 @@ evaluation of one commit. `evaluation.ts` holds the results, and
   date in step with it.
 - **`incomplete` is not a pass.** axe returns `incomplete` for text on a
   gradient, and the sheet's blueprint grid is a gradient, so `violations` stays
-  empty over most of the site. Remove the grid first to measure contrast, or
-  sample pixels for text on a real gradient.
+  empty over most of the site. The text tests in `contrast.spec.ts` take the
+  grid away and run axe's contrast rule in every scheme. What axe still cannot
+  decide gets its own check there: hover states, placeholders, text on the
+  accent gradient and text inside `inert`, which axe skips. A new kind of text
+  background gets a check of its own in the same block.
 - **Run what automation cannot.** Check a panel at 320 by 256 pixels with its
   full content, and read what each label binds to: a `label` that wraps an
   `output` binds to the `output`, not to the input after it.

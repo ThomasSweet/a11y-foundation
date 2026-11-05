@@ -14,9 +14,9 @@
         yet. A self-evaluation on 2 November 2026, following WCAG-EM 2.0, found
         that 17 of the 55 criteria failed on ordinary pages. Two practice pages
         fail on purpose. <a href="/evaluation.html">The evaluation report</a>
-        goes through every criterion. The theme panel was the only failure it
-        found under 1.4.4 and 1.4.10, and it now scrolls in a window too short
-        for it.
+        goes through every criterion. Fixed since: the theme panel, its only
+        failure under 1.4.4 and 1.4.10, now scrolls in a window too short for
+        it, and the text it found below 4.5:1 under 1.4.3 now reaches it.
       </p>
       <p class="statement-p">
         There is no accessibility overlay, no analytics, no third-party embed,
@@ -32,6 +32,11 @@
       </p>
       <ul class="statement-list">
         <li>axe, set to the WCAG A and AA rules, on every content page.</li>
+        <li>
+          Text contrast in all ten colour schemes, with the sheet’s grid taken
+          away so axe can measure it, plus hover states, placeholders and text
+          on gradients.
+        </li>
         <li>
           Keyboard paths: the skip link, dialog focus, popovers and theme
           persistence.
@@ -58,8 +63,8 @@
         <a href="/proof.html">the proof chapter</a> says what each layer can and
         cannot catch. A green run does not prove conformance: demo controls
         failed WCAG 1.4.11 on every run until a separate measurement found them
-        in November 2026, and the grid behind these pages stops axe deciding
-        the contrast of most text.
+        in November 2026, and so did text below 4.5:1, because the grid behind
+        these pages kept axe from measuring most of it.
       </p>
     </section>
 
@@ -160,14 +165,6 @@ const history = `${repository}/commits/main/src/site/StatementView/StatementView
 const email = 'hello@accessible-by-default.dev'
 
 const gaps = [
-  {
-    name: 'Some text falls below 4.5:1.',
-    detail:
-      'The current chapter’s number, the hover tint on chapter links, the ' +
-      'scroll-snap cards in dark and placeholders on styled fields, among ' +
-      'others. The evaluation report has the figures. Measured on 2 November ' +
-      '2026.',
-  },
   {
     name: 'Two sliders and two dialogs have no accessible name.',
     detail:

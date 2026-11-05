@@ -6,7 +6,9 @@
     --bp-ink-2: var(--color-text-subtle);
     --bp-accent: var(--color-primary);
     --bp-accent-soft: color-mix(in oklab, var(--color-primary) 12%, transparent);
+    --bp-accent-ink: color-mix(in oklab, var(--color-primary), var(--color-text) 20%);
     --bp-redline: var(--color-error);
+    --bp-redline-ink: color-mix(in oklab, var(--color-error), var(--color-text) 20%);
 
     --bp-line: light-dark(
       color-mix(in oklab, var(--color-primary) 5%, transparent),
