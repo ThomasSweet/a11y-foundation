@@ -16,6 +16,14 @@
     <summary>Three Playwright matchers now have a page here: axe reads markup, so these operate a page’s widgets by keyboard and report when they lie, and this site runs them on every change.</summary>
   </entry>
   <entry>
+    <id>tag:accessible-by-default.dev,2026-10-27:scroll-driven-animations-firefox-159</id>
+    <title>Showcase: Firefox 159 ships Scroll-driven animations</title>
+    <link rel="alternate" href="https://accessible-by-default.dev/showcase.html#showcase-scroll-driven-animations"/>
+    <published>2026-10-27T00:00:00Z</published>
+    <updated>2026-10-27T00:00:00Z</updated>
+    <summary>Firefox 159 ships Scroll-driven animations, the third engine, so it is Baseline newly available.</summary>
+  </entry>
+  <entry>
     <id>tag:accessible-by-default.dev,2026-10-12:glass-contrast</id>
     <title>Craft: Glass that keeps its contrast</title>
     <link rel="alternate" href="https://accessible-by-default.dev/craft.html#craft-glass"/>

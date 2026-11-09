@@ -197,13 +197,13 @@
   "scroll-driven-animations": {
     "feature": "scroll-driven-animations",
     "name": "Scroll-driven animations",
-    "baseline": false,
-    "lowDate": null,
+    "baseline": "low",
+    "lowDate": "2026-10-27",
     "highDate": null,
     "support": {
       "chrome": "115",
       "edge": "115",
-      "firefox": null,
+      "firefox": "159",
       "safari": "26"
     }
   },
@@ -305,8 +305,8 @@
     "lowDate": null,
     "highDate": null,
     "support": {
-      "chrome": "133",
-      "edge": "133",
+      "chrome": "144",
+      "edge": "144",
       "firefox": null,
       "safari": null
     }
@@ -370,8 +370,8 @@
     "lowDate": null,
     "highDate": null,
     "support": {
-      "chrome": "142",
-      "edge": "142",
+      "chrome": "149",
+      "edge": "149",
       "firefox": null,
       "safari": null
     }

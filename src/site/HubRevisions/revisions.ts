@@ -15,6 +15,16 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'scroll-driven-animations-firefox-159',
+    date: '2026-10-27',
+    area: 'Showcase',
+    title: 'Firefox 159 ships Scroll-driven animations',
+    lead: 'Firefox 159 ships ',
+    linkText: 'Scroll-driven animations',
+    href: '/showcase.html#showcase-scroll-driven-animations',
+    tail: ', the third engine, so it is Baseline newly available.',
+  },
+  {
     id: 'checks-page',
     date: '2026-10-31',
     area: 'Site',
