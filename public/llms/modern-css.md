@@ -185,6 +185,19 @@ The same engine, made interactive: pick an accent and drag its lightness, and a 
 - [MDN: relative colors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors)
 - [WCAG: Contrast (Minimum) 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
 
+### Scroll-driven animations
+
+Animations driven by scroll position instead of time, with no scroll listeners.
+
+**Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
+
+**Guard:** `@supports (animation-timeline: scroll())`
+
+**Topics:** scroll, motion
+
+- [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+- [WCAG 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
+
 ### Container style queries · non-color cues
 
 Query a container’s custom-property value (not just its size) to restyle descendants with no prop drilling.
@@ -337,19 +350,6 @@ A hover/focus hint tethered to its trigger with anchor positioning, flipped belo
 
 - [MDN: anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
 - [WCAG: Understanding 1.4.13](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
-
-### Scroll-driven animations
-
-Animations driven by scroll position instead of time, with no scroll listeners.
-
-**Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
-
-**Guard:** `@supports (animation-timeline: scroll())`
-
-**Topics:** scroll, motion
-
-- [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
-- [WCAG 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
 
 ### Rounded polygon()
 
