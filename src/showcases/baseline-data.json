@@ -136,8 +136,8 @@
     "lowDate": null,
     "highDate": null,
     "support": {
-      "chrome": null,
-      "edge": null,
+      "chrome": "157",
+      "edge": "157",
       "firefox": null,
       "safari": "27"
     }
@@ -149,8 +149,8 @@
     "lowDate": null,
     "highDate": null,
     "support": {
-      "chrome": null,
-      "edge": null,
+      "chrome": "157",
+      "edge": "157",
       "firefox": null,
       "safari": "27"
     }
