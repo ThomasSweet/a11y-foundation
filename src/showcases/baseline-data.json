@@ -80,9 +80,9 @@
   "text-wrap": {
     "feature": "text-wrap-balance",
     "name": "text-wrap: balance",
-    "baseline": "low",
+    "baseline": "high",
     "lowDate": "2024-05-13",
-    "highDate": null,
+    "highDate": "2026-11-13",
     "support": {
       "chrome": "114",
       "edge": "114",
@@ -275,9 +275,9 @@
   "css-zoom": {
     "feature": "zoom",
     "name": "zoom",
-    "baseline": "low",
+    "baseline": "high",
     "lowDate": "2024-05-14",
-    "highDate": null,
+    "highDate": "2026-11-14",
     "support": {
       "chrome": "1",
       "edge": "12",
