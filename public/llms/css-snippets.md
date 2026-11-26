@@ -212,7 +212,7 @@ safe without one; check its tier in `modern-css.md`.
 
 ## text-wrap: balance / pretty
 
-**Guard:** `@supports (text-wrap: balance)`
+**Feature test (not needed to ship):** `@supports (text-wrap: balance)`
 
 ```css
 /* Evens out line lengths across a short block — ideal for headings. */
@@ -934,7 +934,7 @@ safe without one; check its tier in `modern-css.md`.
 
 ## CSS zoom
 
-**Guard:** `@supports (zoom: 2)`
+**Feature test (not needed to ship):** `@supports (zoom: 2)`
 
 ```css
 /* Magnify a component AND reflow the layout around it — the accessible

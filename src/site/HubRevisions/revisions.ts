@@ -15,6 +15,26 @@ export const revisionsShown = 6
 
 export const revisions: Revision[] = [
   {
+    id: 'css-zoom-baseline-widely',
+    date: '2026-11-14',
+    area: 'Showcase',
+    title: 'zoom is Baseline widely available',
+    lead: '',
+    linkText: 'zoom',
+    href: '/showcase.html#showcase-css-zoom',
+    tail: ' is Baseline widely available: safe to use without a fallback.',
+  },
+  {
+    id: 'text-wrap-baseline-widely',
+    date: '2026-11-13',
+    area: 'Showcase',
+    title: 'text-wrap: balance is Baseline widely available',
+    lead: '',
+    linkText: 'text-wrap: balance',
+    href: '/showcase.html#showcase-text-wrap',
+    tail: ' is Baseline widely available: safe to use without a fallback.',
+  },
+  {
     id: 'scroll-driven-animations-firefox-159',
     date: '2026-10-27',
     area: 'Showcase',
