@@ -43,6 +43,10 @@ same registries that render the pages, so it cannot drift from the live demos.
 - [Agent skill](https://accessible-by-default.dev/agent-skill.html): the
   argument as an installable skill, with the install commands, the eight
   swaps it asks for, what is in each file, and a note on shelf life
+- [Checks package](https://accessible-by-default.dev/checks/): three Playwright
+  matchers that operate a page's widgets by keyboard and report when expanded
+  state, modal focus or error ties do not behave as claimed, with what they
+  found on this site
 - [Screen reader basics](https://accessible-by-default.dev/screen-reader.html):
   the keystrokes that matter and a fifteen-minute plan for hearing a page
 - [DevTools for accessibility](https://accessible-by-default.dev/devtools.html):
@@ -53,7 +57,13 @@ same registries that render the pages, so it cannot drift from the live demos.
   included
 - [The listening room](https://accessible-by-default.dev/listening-room.html):
   a page a scanner passes clean, with eleven barriers you hear before you see
-  them, each answer carrying the announcement it produces and the fix
+  them, each answer carrying the predicted announcement and the fix
+- [Accessibility statement](https://accessible-by-default.dev/accessibility.html):
+  what the site targets, what runs on every change, what is checked by hand,
+  and the known gaps
+- [Evaluation report](https://accessible-by-default.dev/evaluation.html): a
+  WCAG-EM self-evaluation of every page against WCAG 2.2 AA, criterion by
+  criterion
 
 ## Optional
 

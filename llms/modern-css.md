@@ -83,6 +83,18 @@ A modern way to visualize selection: one pill that travels between options inste
 
 - [MDN: :has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has)
 
+### text-wrap: balance / pretty
+
+Let the browser decide line breaks.
+
+**Accessibility payoff:** Better line breaks with zero extra markup — nothing for assistive tech to trip on, and headings stay balanced at every zoom level.
+
+**Feature test (not needed to ship):** `@supports (text-wrap: balance)`
+
+**Topics:** typography
+
+- [MDN: text-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap)
+
 ### Scroll snap
 
 A horizontal strip where each card locks to centre as you scroll — scroll-snap-type on the track, scroll-snap-align on the cards.
@@ -107,21 +119,21 @@ Validation styling with manners — these pseudo-classes match only after the us
 
 - [MDN: :user-invalid](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid)
 
+### CSS zoom
+
+The newly-interoperable zoom property magnifies an element AND reflows the layout around it — like the browser’s own zoom — where transform: scale() only repaints bigger and overlaps its neighbours.
+
+**Accessibility payoff:** zoom scales a component the way real users magnify — a one-line testing lens for reflow and text-resize criteria.
+
+**Feature test (not needed to ship):** `@supports (zoom: 2)`
+
+**Topics:** layout
+
+- [MDN: zoom](https://developer.mozilla.org/en-US/docs/Web/CSS/zoom)
+
 ## Baseline: newly available
 
 Interoperable across current engines, but older installs are still out there. Guard it, and give the fallback a real path.
-
-### text-wrap: balance / pretty
-
-Let the browser decide line breaks.
-
-**Accessibility payoff:** Better line breaks with zero extra markup — nothing for assistive tech to trip on, and headings stay balanced at every zoom level.
-
-**Guard:** `@supports (text-wrap: balance)`
-
-**Topics:** typography
-
-- [MDN: text-wrap](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap)
 
 ### Popover attribute
 
@@ -185,6 +197,19 @@ The same engine, made interactive: pick an accent and drag its lightness, and a 
 - [MDN: relative colors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors)
 - [WCAG: Contrast (Minimum) 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)
 
+### Scroll-driven animations
+
+Animations driven by scroll position instead of time, with no scroll listeners.
+
+**Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
+
+**Guard:** `@supports (animation-timeline: scroll())`
+
+**Topics:** scroll, motion
+
+- [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+- [WCAG 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
+
 ### Container style queries · non-color cues
 
 Query a container’s custom-property value (not just its size) to restyle descendants with no prop drilling.
@@ -246,18 +271,6 @@ A textarea that grows and shrinks with its content — no scrollHeight measuring
 **Topics:** forms
 
 - [MDN: field-sizing](https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing)
-
-### CSS zoom
-
-The newly-interoperable zoom property magnifies an element AND reflows the layout around it — like the browser’s own zoom — where transform: scale() only repaints bigger and overlaps its neighbours.
-
-**Accessibility payoff:** zoom scales a component the way real users magnify — a one-line testing lens for reflow and text-resize criteria.
-
-**Guard:** `@supports (zoom: 2)`
-
-**Topics:** layout
-
-- [MDN: zoom](https://developer.mozilla.org/en-US/docs/Web/CSS/zoom)
 
 ### Custom Highlight API
 
@@ -337,19 +350,6 @@ A hover/focus hint tethered to its trigger with anchor positioning, flipped belo
 
 - [MDN: anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
 - [WCAG: Understanding 1.4.13](https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html)
-
-### Scroll-driven animations
-
-Animations driven by scroll position instead of time, with no scroll listeners.
-
-**Accessibility payoff:** A global duration reset cannot stop a scroll timeline, so each reveal is gated on prefers-reduced-motion: no-preference, and people with vestibular disorders get stillness that actually holds (2.3.3, AAA).
-
-**Guard:** `@supports (animation-timeline: scroll())`
-
-**Topics:** scroll, motion
-
-- [MDN: scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
-- [WCAG 2.3.3 Animation from Interactions](https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html)
 
 ### Rounded polygon()
 
